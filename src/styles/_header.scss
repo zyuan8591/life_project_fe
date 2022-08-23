@@ -1,0 +1,49 @@
+.header {
+  height: $header-height;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-bottom: 2px solid $hover-clr;
+  backdrop-filter: blur(30px);
+  transition: 0.3s;
+  //flex
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+  h1 {
+    max-width: 300px;
+    flex-grow: 1;
+  }
+  //navbar
+  nav {
+    flex-grow: 1;
+  }
+  .nav {
+    li {
+      margin-right: 1.75rem;
+      font-size: 20px;
+      cursor: pointer;
+      a {
+        opacity: 0.8;
+      }
+      .active {
+        border-bottom: 2px solid $content-clr;
+        opacity: 1;
+      }
+      &:hover a {
+        color: $sub-clr;
+      }
+    }
+  }
+  //user
+  .user {
+    max-width: 300px;
+    flex-grow: 1;
+    font-size: 1.25rem;
+    overflow: hidden;
+    justify-content: flex-end;
+    //SHOP
+    .header-shop {
+      border-left: 2px solid $content-clr;
+    }
+  }
+}

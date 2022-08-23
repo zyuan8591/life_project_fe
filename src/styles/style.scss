@@ -1,5 +1,44 @@
+//sass variable
+
+//bg/content color
+$sub-clr: #817161;
+$content-clr: #444;
+$hover-clr: #eee;
+//weight/height
+$header-height: 65px;
+
+//Html Element Style
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Noto Sans TC', sans-serif;
+  color: $content-clr;
 }
+h1 {
+  font-family: 'Bungee', cursive !important;
+}
+a,
+a:visited,
+a:hover,
+a:active {
+  color: $content-clr;
+  text-decoration: none;
+}
+
+//icon-sm
+.back-to-top-icon,
+.arrow-to-left-icon {
+  transform: rotate(180deg);
+}
+
+//module
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@import './header';
