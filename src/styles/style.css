@@ -40,7 +40,7 @@ a:active {
   align-items: center;
 }
 .header h1 {
-  max-width: 300px;
+  max-width: 350px;
   flex-grow: 1;
 }
 .header nav {
@@ -63,7 +63,7 @@ a:active {
   opacity: 1;
 }
 .header .user {
-  max-width: 300px;
+  max-width: 350px;
   flex-grow: 1;
   font-size: 1.25rem;
   overflow: hidden;
