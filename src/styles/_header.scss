@@ -17,18 +17,36 @@
     flex-grow: 1;
   }
   .nav {
+    display: flex;
+    gap: 1.5rem;
     li {
-      margin-right: 1.75rem;
       font-size: 20px;
       cursor: pointer;
       a {
-        opacity: 0.8;
-        border-bottom: 0px solid $content-clr;
+        opacity: 0.6;
+        transition: 0.5s;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 3px;
+          left: 50%;
+          bottom: -5px;
+          transition: 0.5s;
+        }
+        &:hover::after,
+        &.active::after {
+          width: 100%;
+          left: 0;
+          background: $content-clr;
+        }
+        &.active {
+          color: $content-clr;
+          opacity: 1;
+        }
       }
-      .active {
-        border-bottom: 3px solid $content-clr;
-        opacity: 1;
-      }
+
       &:hover a {
         opacity: 1;
       }
@@ -42,7 +60,7 @@
     overflow: hidden;
     justify-content: flex-end;
     //SHOP
-    .header-shop {
+    .headerShop {
       border-left: 2px solid $content-clr;
     }
   }

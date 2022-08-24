@@ -1,3 +1,7 @@
+#root {
+  height: 300vh;
+}
+
 //sass variable
 //bg/content color
 $sub-clr: #817161;
@@ -26,15 +30,9 @@ a:active {
   text-decoration: none;
 }
 
-//icon-sm
-.back-to-top-icon,
-.arrow-to-left-icon {
-  transform: rotate(180deg);
-}
-
 //module
 
-.flex-center {
+.flexCenter {
   display: flex;
   align-items: center;
   justify-content: center;

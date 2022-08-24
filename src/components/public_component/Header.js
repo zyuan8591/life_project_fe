@@ -27,8 +27,8 @@ const Header = ({ scrollDown }) => {
         className={`header w-100 position-fixed ${scrollDown ? 'hidden' : ''}`}
       >
         <h1 className="mb-0 header-item">LIFE</h1>
-        <nav className="flex-center header-item">
-          <ul className="nav list-unstyled flex-center">
+        <nav className="flexCenter header-item">
+          <ul className="nav list-unstyled flexCenter">
             {pages.map((p) => {
               return (
                 <li key={uuidv4()}>
@@ -46,35 +46,35 @@ const Header = ({ scrollDown }) => {
             })}
           </ul>
         </nav>
-        <div className="user flex-center header-item">
-          <ul className="list-unstyled flex-center mb-0">
+        <div className="user flexCenter header-item">
+          <ul className="list-unstyled flexCenter mb-0">
             {/* search */}
             <li className="me-3">
-              <Link to="/" className="flex-center">
+              <Link to="/" className="flexCenter">
                 <AiOutlineSearch />
               </Link>
             </li>
             {/* Like */}
             <li className="me-3">
-              <Link to="/" className="flex-center">
+              <Link to="/" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
             </li>
             {/* Cart */}
             <li className="me-3">
-              <Link to="/" className="flex-center">
+              <Link to="/" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
             <li className="me-3">
-              <Link to="/" className="flex-center">
+              <Link to="/" className="flexCenter">
                 <AiOutlineUser />
               </Link>
             </li>
             {/* Shop */}
-            <li className="header-shop ps-3">
-              <Link to="/" className="flex-center">
+            <li className="headerShop ps-3">
+              <Link to="/" className="flexCenter">
                 <AiOutlineShopping />
                 <span className="ms-3">SHOP</span>
               </Link>
