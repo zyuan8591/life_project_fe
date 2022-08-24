@@ -2,17 +2,36 @@ import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-const Header = () => {
-  const pages = ['首頁', '商品', '食譜', '活動專區', '最新消息', '聯絡我們'];
+const pages = [
+  { title: '首頁', route: '/' },
+  { title: '商品', route: '/products' },
+  { title: '食譜', route: '/recipes' },
+  { title: '活動專區', route: '/activity' },
+  { title: '最新消息', route: '/news' },
+  { title: '聯絡我們', route: '/contact' },
+];
+
+const Header = ({ scrollDown }) => {
+  const [page, setPage] = useState('首頁');
   return (
-    <header className="header w-100 position-fixed">
+    <header
+      className={`header w-100 position-fixed ${scrollDown ? 'hidden' : ''}`}
+    >
       <h1 className="mb-0 header-item">LIFE</h1>
       <nav className="flex-center header-item">
         <ul className="nav list-unstyled flex-center">
-          {pages.map((page) => {
+          {pages.map((p) => {
             return (
               <li key={uuidv4()}>
-                <Link to="/">{page}</Link>
+                <Link
+                  to={p.route}
+                  className={`${page === p.title ? 'active' : ''}`}
+                  onClick={() => {
+                    setPage(p.title);
+                  }}
+                >
+                  {p.title}
+                </Link>
               </li>
             );
           })}

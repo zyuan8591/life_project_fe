@@ -3,7 +3,6 @@
   padding-left: 2rem;
   padding-right: 2rem;
   border-bottom: 2px solid $hover-clr;
-  backdrop-filter: blur(30px);
   transition: 0.3s;
   //flex
   display: flex;
@@ -24,13 +23,14 @@
       cursor: pointer;
       a {
         opacity: 0.8;
+        border-bottom: 0px solid $content-clr;
       }
       .active {
-        border-bottom: 2px solid $content-clr;
+        border-bottom: 3px solid $content-clr;
         opacity: 1;
       }
       &:hover a {
-        color: $sub-clr;
+        opacity: 1;
       }
     }
   }
@@ -45,5 +45,8 @@
     .header-shop {
       border-left: 2px solid $content-clr;
     }
+  }
+  &.hidden {
+    transform: translateY(-$header-height);
   }
 }
