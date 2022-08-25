@@ -1,6 +1,7 @@
 @import './variable';
 
 footer {
+  color: $content-clr;
   border-top: 1px solid $content-clr;
   padding: 3rem 0rem 1rem;
   .footer {

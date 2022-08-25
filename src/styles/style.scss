@@ -1,17 +1,19 @@
 @import './variable';
 
 .temp {
-  height: 200vh;
+  height: 300vh;
 }
 
 //Html Element Style
+html {
+  scroll-behavior: smooth;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-family: 'Noto Sans TC', sans-serif;
-  color: $content-clr;
 }
 
 h1,
@@ -24,6 +26,15 @@ a:hover,
 a:active {
   color: $content-clr;
   text-decoration: none;
+}
+
+// public icon
+
+.backToTopBtn {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  cursor: pointer;
 }
 
 //module

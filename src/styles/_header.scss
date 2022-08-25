@@ -1,6 +1,7 @@
 @import './variable';
 
 .header {
+  color: $content-clr;
   height: $header-height;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -13,6 +14,7 @@
   h1 {
     max-width: 350px;
     flex-grow: 1;
+    margin: 0;
   }
   //navbar
   nav {
