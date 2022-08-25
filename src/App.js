@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Header from './components/public_component/Header';
-import './styles/style.css';
+import './styles/style.scss';
 
 function App() {
   const [scrollDown, setScrollDown] = useState(false);

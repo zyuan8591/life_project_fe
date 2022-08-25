@@ -1,14 +1,8 @@
+@import './variable';
+
 #root {
   height: 300vh;
 }
-
-//sass variable
-//bg/content color
-$sub-clr: #817161;
-$content-clr: #444;
-$hover-clr: #eee;
-//weight/height
-$header-height: 65px;
 
 //Html Element Style
 * {
@@ -37,5 +31,3 @@ a:active {
   align-items: center;
   justify-content: center;
 }
-
-@import './header';

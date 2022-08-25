@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { IconContext } from 'react-icons';
+import '../../styles/_header.scss';
 import {
   AiOutlineSearch,
   AiOutlineHeart,
