@@ -1,7 +1,7 @@
 @import './variable';
 
-#root {
-  height: 300vh;
+.temp {
+  height: 200vh;
 }
 
 //Html Element Style
@@ -13,7 +13,9 @@
   font-family: 'Noto Sans TC', sans-serif;
   color: $content-clr;
 }
-h1 {
+
+h1,
+.life {
   font-family: 'Bungee', cursive !important;
 }
 a,

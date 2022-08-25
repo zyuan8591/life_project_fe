@@ -1,0 +1,46 @@
+@import './variable';
+
+footer {
+  border-top: 1px solid $content-clr;
+  padding: 3rem 0rem 1rem;
+  .footer {
+    display: flex;
+    flex-direction: column;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    // footer top section
+    .footerLinks {
+      flex-wrap: wrap;
+      .footerLink {
+        border-right: 2px solid $content-clr;
+        padding: 0 1rem;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-shrink: 1;
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+
+    // footer bottom section
+    .footerBot {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      .footerCommunity {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        .life {
+          font-size: 30px;
+        }
+      }
+    }
+  }
+}
