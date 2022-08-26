@@ -5,6 +5,7 @@ import Header from './components/public_component/Header';
 import Footer from './components/public_component/Footer';
 import BackToTop from './components/public_component/BackToTop';
 import './styles/style.scss';
+import ProductList from './components/product/product-list/ProductList';
 
 function App() {
   const [scrollDown, setScrollDown] = useState(false);
@@ -20,6 +21,9 @@ function App() {
     <>
       <Header scrollDown={scrollDown} />
       <Routes>{/* <Route path="/" element={<Homepage />} /> */}</Routes>
+      <Routes>
+        <Route path="/products" element={<ProductList />} />
+      </Routes>
       <div className="temp"></div>
       <Footer />
       <BackToTop />
