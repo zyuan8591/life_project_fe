@@ -1,8 +1,8 @@
 @import './variable';
 
 footer {
-  color: $content-clr;
-  border-top: 1px solid $content-clr;
+  color: $contentClr;
+  border-top: 1px solid $contentClr;
   padding: 3rem 0rem 1rem;
   .footer {
     display: flex;
@@ -15,7 +15,7 @@ footer {
     .footerLinks {
       flex-wrap: wrap;
       .footerLink {
-        border-right: 2px solid $content-clr;
+        border-right: 2px solid $contentClr;
         padding: 0 1rem;
         cursor: pointer;
         white-space: nowrap;

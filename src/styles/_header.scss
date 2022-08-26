@@ -1,11 +1,11 @@
 @import './variable';
 
 .header {
-  color: $content-clr;
-  height: $header-height;
+  color: $contentClr;
+  height: $headerHeight;
   padding-left: 2rem;
   padding-right: 2rem;
-  border-bottom: 2px solid $hover-clr;
+  border-bottom: 2px solid $hoverClr;
   transition: 0.3s;
   //flex
   display: flex;
@@ -43,10 +43,10 @@
         &.active::after {
           width: 100%;
           left: 0;
-          background: $content-clr;
+          background: $contentClr;
         }
         &.active {
-          color: $content-clr;
+          color: $contentClr;
           opacity: 1;
         }
       }
@@ -65,10 +65,10 @@
     justify-content: flex-end;
     //SHOP
     .headerShop {
-      border-left: 2px solid $content-clr;
+      border-left: 2px solid $contentClr;
     }
   }
   &.hidden {
-    transform: translateY(-$header-height);
+    transform: translateY(-$headerHeight);
   }
 }
