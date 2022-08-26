@@ -27,9 +27,7 @@ const Header = ({ scrollDown }) => {
       value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
     >
       <header
-        className={`header w-100 position-sticky         ${
-          scrollDown ? 'hidden' : ''
-        }`}
+        className={`header w-100 position-fixed ${scrollDown ? 'hidden' : ''}`}
       >
         <h1 className="mb-0 header-item">LIFE</h1>
         <nav className="flexCenter header-item">
