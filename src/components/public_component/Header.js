@@ -23,9 +23,13 @@ const pages = [
 const Header = ({ scrollDown }) => {
   const [page, setPage] = useState('首頁');
   return (
-    <IconContext.Provider value={{ color: '#444', size: '2rem' }}>
+    <IconContext.Provider
+      value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
+    >
       <header
-        className={`header w-100 position-fixed ${scrollDown ? 'hidden' : ''}`}
+        className={`header w-100 position-sticky         ${
+          scrollDown ? 'hidden' : ''
+        }`}
       >
         <h1 className="mb-0 header-item">LIFE</h1>
         <nav className="flexCenter header-item">
@@ -50,6 +54,7 @@ const Header = ({ scrollDown }) => {
         <div className="user flexCenter header-item">
           <ul className="list-unstyled flexCenter mb-0">
             {/* search */}
+
             <li className="me-3">
               <Link to="/" className="flexCenter">
                 <AiOutlineSearch />
@@ -75,7 +80,7 @@ const Header = ({ scrollDown }) => {
             </li>
             {/* Shop */}
             <li className="headerShop ps-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/" className="flexCenter headerIcon">
                 <AiOutlineShopping />
                 <span className="ms-3">SHOP</span>
               </Link>

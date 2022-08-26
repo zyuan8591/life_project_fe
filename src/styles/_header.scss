@@ -15,6 +15,7 @@
     max-width: 350px;
     flex-grow: 1;
     margin: 0;
+    color: $subClr;
   }
   //navbar
   nav {
@@ -43,16 +44,18 @@
         &.active::after {
           width: 100%;
           left: 0;
-          background: $contentClr;
+          background: $subClr;
+          color: $subClr;
         }
         &.active {
-          color: $contentClr;
+          color: $subClr;
           opacity: 1;
         }
       }
 
       &:hover a {
         opacity: 1;
+        color: $subClr;
       }
     }
   }
@@ -66,6 +69,18 @@
     //SHOP
     .headerShop {
       border-left: 2px solid $contentClr;
+    }
+    // each icon
+    .headerIcon {
+      transition: 0.3s;
+      &:hover,
+      &:hover svg,
+      &:hover span {
+        color: $subClr !important;
+      }
+      .span {
+        transition: 0.5s;
+      }
     }
   }
   &.hidden {
