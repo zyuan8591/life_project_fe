@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Header from './components/public_component/Header';
 import Footer from './components/public_component/Footer';
+import Homepage from './components/index/Homepage';
 import BackToTop from './components/public_component/BackToTop';
 import './styles/style.scss';
 import ProductList from './components/product/product-list/ProductList';
@@ -20,9 +21,9 @@ function App() {
   return (
     <>
       <Header scrollDown={scrollDown} />
-      <Routes>{/* <Route path="/" element={<Homepage />} /> */}</Routes>
       <Routes>
         <Route path="/products" element={<ProductList />} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
       <div className="temp"></div>
       <Footer />
