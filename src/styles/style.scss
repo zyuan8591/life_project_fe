@@ -1,5 +1,9 @@
 @import './variable';
 
+  
+  
+
+
 .temp {
   height: 300vh;
 }
@@ -27,6 +31,9 @@ a:active {
   color: $contentClr;
   text-decoration: none;
 }
+ul{     //清除ul樣式
+  list-style-type: none;     
+}  
 
 // public icon
 
