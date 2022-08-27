@@ -12,6 +12,8 @@
   //flex
   display: flex;
   align-items: center;
+  z-index: 50;
+  background: #fff;
   // justify-content: space-between;
   h1 {
     max-width: 350px;
