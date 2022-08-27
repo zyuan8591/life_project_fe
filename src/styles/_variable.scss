@@ -1,9 +1,27 @@
 //sass variable
 
 //bg/content color
-$subClr: #817161;
+$mainClrW: #fff;
+$subClrBrown: #817161;
+$subClrGY: #B9BDC5;
 $contentClr: #444;
 $hoverClr: #eee;
+$focusClrY: #F2AC33;
+$focusClrG: #1F9998;
+$focusClrB: #221E73;
+
 
 //weight/height
 $headerHeight: 65px;
+
+// textStyles
+$titleText: 40px;
+$contentText: 16px;
+$text32: 32px;
+$text24: 24px;
+$text14: 14px;
+$text12: 12px;
+$text10: 10px;
+$text8: 8px;
+
+$maxWidth: 1440px;
