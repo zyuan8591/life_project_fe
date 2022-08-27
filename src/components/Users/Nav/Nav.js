@@ -33,37 +33,37 @@ const Nav = () => {
               <Link to="/Users/account">個人檔案</Link>
               <ul>
                 <li>
-                  <a href="/Users/password">更改密碼</a>{' '}
+                  <a href="/Users/password">更改密碼</a>
                 </li>
               </ul>
             </li>
             <li>
               <MdArticle />
-              <a href="#/">訂單查詢</a>{' '}
+              <Link to="/Users/order">訂單查詢</Link>
             </li>
             <li>
               <BsCreditCard2FrontFill />
-              <a href="#/">LIFE點數</a>{' '}
+              <Link to="/Users/points">LIFE點數</Link>
             </li>
             <li>
               <BsFillTreeFill />
-              <a href="#/">活動一覽</a>
+              <Link to="/Users/points">活動一覽</Link>
               <ul>
                 <li>
-                  <a href="#/">露營活動</a>{' '}
+                  <Link to="/Users/points">露營活動</Link>
                 </li>
                 <li>
-                  <a href="#/">野餐活動</a>{' '}
+                  <Link to="/Users/points">野餐活動</Link>
                 </li>
               </ul>
             </li>
             <li>
               <GiBowlOfRice />
-              <a href="#/">食譜一覽</a>{' '}
+              <Link to="/Users/points">食譜一覽</Link>
             </li>
             <li>
               <FiLogOut />
-              <a href="#/">登出</a>{' '}
+              <Link to="/Users/points">登出</Link>
             </li>
           </ul>
         </nav>
