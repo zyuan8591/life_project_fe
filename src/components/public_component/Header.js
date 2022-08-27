@@ -72,13 +72,13 @@ const Header = ({ scrollDown }) => {
             </li>
             {/* User */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/Users" className="flexCenter">
                 <AiOutlineUser />
               </Link>
             </li>
             {/* Shop */}
             <li className="headerShop ps-3">
-              <Link to="/" className="flexCenter headerIcon">
+              <Link to="/products" className="flexCenter headerIcon">
                 <AiOutlineShopping />
                 <span className="ms-3">SHOP</span>
               </Link>

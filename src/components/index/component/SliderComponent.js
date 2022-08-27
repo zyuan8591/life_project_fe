@@ -3,10 +3,6 @@ import classes from '../../../styles/moduleCss/slider.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import slideImg1 from '../../../img/index/slide/slide1.jpg';
-import slideImg1Text from '../../../img/index/slide/slide1-1.png';
-import slideImg2 from '../../../img/index/slide/slide2.jpg';
-import slideImg3 from '../../../img/index/slide/slide3.jpg';
 
 const SliderComponent = () => {
   const settings = {
@@ -24,19 +20,32 @@ const SliderComponent = () => {
     <Slider {...settings}>
       <div>
         <figure className={classes.textSliderContainer}>
-          <img src={slideImg1} alt="slide1" className="objectContain" />
+          {/* <img src={slideImg1} alt="slide1" className="objectContain" /> */}
           <img
-            src={slideImg1Text}
+            src="/img/index/slide/slide1.jpg"
+            alt="slide1"
+            className="objectContain"
+          />
+          <img
+            src="/img/index/slide/slide1-1.png"
             alt="slide1Text"
             className={` ${classes.slideText}`}
           />
         </figure>
       </div>
       <div>
-        <img src={slideImg2} alt="slide1" className="objectContain" />
+        <img
+          src="/img/index/slide/slide2.jpg"
+          alt="slide1"
+          className="objectContain"
+        />
       </div>
       <div>
-        <img src={slideImg3} alt="slide1" className="objectContain" />
+        <img
+          src="/img/index/slide/slide3.jpg"
+          alt="slide1"
+          className="objectContain"
+        />
       </div>
     </Slider>
   );

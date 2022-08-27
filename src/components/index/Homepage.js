@@ -3,6 +3,7 @@ import SliderComponent from './component/SliderComponent';
 import '../../styles/_homepage.scss';
 import IndexTitle from './component/IndexTitle';
 import IndexNews from './component/IndexNews';
+import IndexProducts from './component/IndexProducts';
 
 const Homepage = () => {
   return (
@@ -19,6 +20,7 @@ const Homepage = () => {
             subtitle="New Products"
             route="/products"
           />
+          <IndexProducts />
           {/* NEW RECIPES */}
           <IndexTitle
             title="熱門食譜"
