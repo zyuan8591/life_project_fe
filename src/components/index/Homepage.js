@@ -5,9 +5,8 @@ import '../../styles/_homepage.scss';
 const Homepage = () => {
   return (
     <>
-      <div className="homepage">
-        <SliderComponent />
-      </div>
+      <SliderComponent />
+      <div className="homepage"></div>
     </>
   );
 };

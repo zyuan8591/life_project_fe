@@ -1,5 +1,8 @@
 @import './variable';
 
 .homepage {
-  margin-top: $headerHeight;
+  position: relative;
+  z-index: 1;
+  margin: 0 auto 0;
+  background: #fff;
 }
