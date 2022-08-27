@@ -19,7 +19,7 @@
     max-width: 350px;
     flex-grow: 1;
     margin: 0;
-    color: $subClr;
+    color: $subClrBrown;
   }
   //navbar
   nav {
@@ -48,18 +48,18 @@
         &.active::after {
           width: 100%;
           left: 0;
-          background: $subClr;
-          color: $subClr;
+          background: $subClrBrown;
+          color: $subClrBrown;
         }
         &.active {
-          color: $subClr;
+          color: $subClrBrown;
           opacity: 1;
         }
       }
 
       &:hover a {
         opacity: 1;
-        color: $subClr;
+        color: $subClrBrown;
       }
     }
   }
@@ -80,7 +80,7 @@
       &:hover,
       &:hover svg,
       &:hover span {
-        color: $subClr !important;
+        color: $subClrBrown !important;
       }
       .span {
         transition: 0.5s;

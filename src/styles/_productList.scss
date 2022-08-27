@@ -1,0 +1,61 @@
+@import './variable';
+
+$one: #d7be92;
+$two: #d0cdc7;
+$three: #c47222;
+$other: #aaaaaa;
+$numberSize: 36px;
+
+.product {
+  margin: $headerHeight + 10px auto 0;
+  max-width: $maxWidth;
+  color: $contentClr;
+  .reset {
+    padding: 0;
+    margin: 0;
+    .title {
+      border-bottom: 2px solid $subClrGY;
+
+      h4,
+      p {
+        margin: 0;
+        padding-bottom: 5px;
+      }
+    }
+    .rankTitle {
+      margin-top: 5px;
+    }
+    .rank {
+      position: relative;
+      height: 300px;
+      width: 250px;
+      .number {
+        width: $numberSize;
+        height: $numberSize;
+        background: $other;
+        text-align: center;
+        line-height: 2.25rem;
+        p {
+          margin: 0;
+          font-size: $text24;
+          color: $mainClrW;
+        }
+      }
+      figure {
+        position: absolute;
+        top: $numberSize/2;
+        left: $numberSize;
+        z-index: -1;
+        margin: 0;
+        max-width: 220px;
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      p {
+        margin: 214px 0 0;
+      }
+    }
+  }
+}

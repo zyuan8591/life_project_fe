@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import slideImg1 from '../../../img/index/slide/slide1.jpg';
 import slideImg1Text from '../../../img/index/slide/slide1-1.png';
-import slideImg2 from '../../../img/index/slide/slide2.jpg';
+import slideImg2 from '../../../img/index/slide/slide2.png';
 import slideImg3 from '../../../img/index/slide/slide3.jpg';
 
 const SliderComponent = () => {

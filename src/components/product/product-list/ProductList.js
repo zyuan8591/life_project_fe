@@ -1,10 +1,11 @@
 import React from 'react';
 import ProductRank from './ProductRank';
-import productClass from '../../../styles/productList.module.scss';
+// import productClass from '../../../styles/productList.module.scss';
+import '../../../styles/_productList.scss';
 
 const ProductList = () => {
   return (
-    <div className={productClass.product}>
+    <div className="product">
       <ProductRank />
     </div>
   );
