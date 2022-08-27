@@ -6,7 +6,6 @@ import { Routes, Route, Link } from 'react-router-dom';
 const ConTent = () => {
   return (
     <div className="content">
-     
       {/* <Account/> */}
       {/* <Password /> */}
     </div>
