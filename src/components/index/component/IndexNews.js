@@ -25,10 +25,22 @@ const data = [
   },
 ];
 
-const IndexNews = () => {
+const IndexNews = ({ className }) => {
   return (
     <>
-      <div className="">indexNews.module.scss</div>
+      <ul className="ps-0">
+        {data.map((d) => {
+          return (
+            <li key={d.id} className={classes.newsContainer}>
+              <span>{d.date}</span>
+              <div className={`text-nowrap ${classes.category}`}>
+                {d.category}
+              </div>
+              <span>{d.content}</span>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 };
