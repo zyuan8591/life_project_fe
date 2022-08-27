@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import classes from '../../styles/moduleCss/cardSm.module.scss';
 
-const CardSm = ({ title, type, name, img, link }) => {
+const CardSm = ({ title, type, name, img, link, bg = '' }) => {
   return (
-    <div>
-      {title && <div>{title}</div>}
-      <img src={img} alt={name} />
-      <Link to={link}>
-        <div>{type}</div>
+    <div className={classes.cardSm}>
+      {title && <div className={classes.cardTitle}>{title}</div>}
+
+      <figure className={classes.imgContainer} style={{ background: bg }}>
+        <img src={img} alt={name} className="objectContain cardImg" />
+      </figure>
+
+      <Link to={link} className={classes.cardLink}>
+        <div className={classes.type}>{type}</div>
         <div>{name}</div>
       </Link>
     </div>

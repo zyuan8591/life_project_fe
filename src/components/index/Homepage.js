@@ -12,27 +12,35 @@ const Homepage = () => {
       <div className="homepageContainer">
         <div className="homepage">
           {/* NEWS */}
-          <IndexTitle title="最新資訊" subtitle="News" route="/news" />
-          <IndexNews />
+          <div className="newsContainer">
+            <IndexTitle title="最新資訊" subtitle="News" route="/news" />
+            <IndexNews />
+          </div>
           {/* NEW PRODUCTS */}
-          <IndexTitle
-            title="最新商品"
-            subtitle="New Products"
-            route="/products"
-          />
+          <div className="productContainer">
+            <IndexTitle
+              title="最新商品"
+              subtitle="New Products"
+              route="/products"
+            />
+          </div>
           <IndexProducts />
           {/* NEW RECIPES */}
-          <IndexTitle
-            title="熱門食譜"
-            subtitle="Popular Recipes"
-            route="/recipes"
-          />
+          <div className="recipeContainer">
+            <IndexTitle
+              title="熱門食譜"
+              subtitle="Popular Recipes"
+              route="/recipes"
+            />
+          </div>
           {/* ACTIVITIES */}
-          <IndexTitle
-            title="活動專區"
-            subtitle="Activities"
-            route="/activity"
-          />
+          <div className="activityContainer">
+            <IndexTitle
+              title="活動專區"
+              subtitle="Activities"
+              route="/activity"
+            />
+          </div>
         </div>
       </div>
     </>
