@@ -47,23 +47,23 @@ const Nav = () => {
             </li>
             <li>
               <BsFillTreeFill />
-              <Link to="/Users/points">活動一覽</Link>
+              <Link to="/Users/camping">活動一覽</Link>
               <ul>
                 <li>
-                  <Link to="/Users/points">露營活動</Link>
+                  <Link to="/Users/camping">露營活動</Link>
                 </li>
                 <li>
-                  <Link to="/Users/points">野餐活動</Link>
+                  <Link to="/Users/picnic">野餐活動</Link>
                 </li>
               </ul>
             </li>
             <li>
               <GiBowlOfRice />
-              <Link to="/Users/points">食譜一覽</Link>
+              <Link to="/Users/recipe">食譜一覽</Link>
             </li>
             <li>
               <FiLogOut />
-              <Link to="/Users/points">登出</Link>
+              <Link to="">登出</Link>
             </li>
           </ul>
         </nav>
