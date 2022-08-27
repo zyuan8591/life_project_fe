@@ -9,6 +9,7 @@ import { MdArticle } from 'react-icons/md';
 import { GiBowlOfRice } from 'react-icons/gi';
 import CAT from '../cat.jpg';
 import { IconContext } from 'react-icons';
+import { Routes, Route, Link } from 'react-router-dom';
 
 const Nav = () => {
   return (
@@ -29,10 +30,10 @@ const Nav = () => {
           <ul className="list">
             <li>
               <BsFillPersonFill />
-              <a href="#/">個人檔案</a>
+              <Link to="/Users/account">個人檔案</Link>
               <ul>
                 <li>
-                  <a href="#/">更改密碼</a>{' '}
+                  <a href="/Users/password">更改密碼</a>{' '}
                 </li>
               </ul>
             </li>

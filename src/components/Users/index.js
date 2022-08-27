@@ -14,7 +14,7 @@ const index = () => {
         {/* <Account /> */}
         <Routes>
           <Route path="/account" element={<Account />} />
-          <Route path="/Users/password" element={<Password />} />
+          <Route path="/password" element={<Password />} />
         </Routes>
       </div>
 

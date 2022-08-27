@@ -22,7 +22,7 @@ function App() {
       <Header scrollDown={scrollDown} />
       <Routes>
         {/* <Route path="/" element={<Homepage />} /> */}
-        <Route path="/Users" element={<Users />} />
+        <Route path="/Users/*" element={<Users />} />
       </Routes>
       {/* <div className="temp"></div> */}
 
