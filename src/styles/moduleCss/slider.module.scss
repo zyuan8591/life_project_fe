@@ -1,0 +1,27 @@
+@import '../variable';
+
+.textSliderContainer {
+  position: relative;
+}
+
+.sliderContainer {
+  max-width: 1920px;
+  max-height: min(1080px, 100vh);
+  overflow: hidden;
+  position: sticky !important ;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+.slideText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 70%;
+}
+
+.slickDotsAdjust {
+  transform: translateY(-200%);
+}
