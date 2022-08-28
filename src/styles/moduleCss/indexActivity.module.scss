@@ -1,0 +1,58 @@
+@import '../variable';
+
+.container {
+  margin: 1rem 0;
+  color: $contentClr;
+}
+
+.cards {
+  display: flex;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // border-top: 4px solid $subClrGY;
+  border-right: 1px dashed $subClrGY;
+  margin: 1.75rem 0;
+  flex: 1 1 auto;
+  max-width: 300px;
+  gap: 1.25rem;
+  transition: 0.3s;
+  position: relative;
+  &::after {
+    content: '';
+    height: 4px;
+    width: 100%;
+    background: $subClrGY;
+    position: absolute;
+    top: -1.75rem;
+    left: 0;
+    transition: 0.3s;
+  }
+  &:hover:after {
+    background: $subClrBrown;
+  }
+
+  &:hover .textContent {
+    opacity: 0.8;
+  }
+  &:hover .imgContainer {
+    opacity: 0.5;
+  }
+}
+
+.imgContainer {
+  max-width: 50px;
+  max-height: 50px;
+  margin: 0;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+}

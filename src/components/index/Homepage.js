@@ -4,6 +4,7 @@ import '../../styles/_homepage.scss';
 import IndexTitle from './component/IndexTitle';
 import IndexNews from './component/IndexNews';
 import IndexProducts from './component/IndexProducts';
+import IndexActivity from './component/IndexActivity';
 
 const Homepage = () => {
   return (
@@ -40,6 +41,7 @@ const Homepage = () => {
               subtitle="Activities"
               route="/activity"
             />
+            <IndexActivity />
           </div>
         </div>
       </div>
