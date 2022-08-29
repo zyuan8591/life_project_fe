@@ -20,8 +20,17 @@ const pages = [
   { title: '聯絡我們', route: '/contact' },
 ];
 
-const Header = ({ scrollDown }) => {
+const Header = () => {
   const [page, setPage] = useState('首頁');
+  const [scrollDown, setScrollDown] = useState(false);
+
+  let scrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    let scrollNow = window.scrollY;
+    setScrollDown(scrollNow > scrollY);
+    scrollY = scrollNow;
+  });
+
   return (
     <IconContext.Provider
       value={{ color: '#444', size: '2rem', className: 'headerIcon' }}

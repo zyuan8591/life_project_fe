@@ -23,6 +23,7 @@
     overflow-x: hidden;
     .slick-slide {
       opacity: 0.5;
+      transition: 0.3s;
       &:hover {
         opacity: 1;
       }

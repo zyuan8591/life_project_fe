@@ -12,59 +12,58 @@ const IndexRecipe = () => {
     autoplay: true,
     autoplaySpeed: 1500,
     centerMode: true,
-    slide: 'a',
   };
   return (
     <div className="recipeCard">
       <Slider {...settings}>
-        <Link to="/">
+        <div>
           <CardSm
             img="/img/recipe/recipe/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
           />
-        </Link>
-        <Link to="/">
+        </div>
+        <div>
           <CardSm
             img="/img/recipe/recipe/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
           />
-        </Link>
-        <Link to="/">
+        </div>
+        <div>
           <CardSm
             img="/img/recipe/recipe/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
           />
-        </Link>
-        <Link to="/">
+        </div>
+        <div>
           <CardSm
             img="/img/recipe/recipe/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
           />
-        </Link>
-        <Link to="/">
+        </div>
+        <div>
           <CardSm
             img="/img/recipe/recipe/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
           />
-        </Link>
-        <Link to="/">
+        </div>
+        <div>
           <CardSm
             img="/img/recipe/recipe/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
           />
-        </Link>
+        </div>
       </Slider>
     </div>
   );
