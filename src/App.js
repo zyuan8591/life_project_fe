@@ -23,7 +23,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
       </Routes>
-      <div className="temp"></div>
       <Footer />
       <BackToTop />
     </>

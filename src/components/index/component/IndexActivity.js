@@ -4,28 +4,72 @@ import { FaArrowAltCircleRight } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
 
+const imgRoute = '/img/index/';
+
 const IndexActivity = () => {
+  const activity = [
+    {
+      titleEn: 'Activities',
+      titleCh: '活動專區',
+      img: 'indexActivity.png',
+      link: '/',
+    },
+    {
+      titleEn: 'Camping',
+      titleCh: '立即前往露營',
+      img: 'indexCamping.png',
+      link: '/',
+    },
+    {
+      titleEn: 'Picnic',
+      titleCh: '立即前往野餐',
+      img: 'indexPicnic.png',
+      link: '/',
+    },
+  ];
+
   return (
     <div className={classes.container}>
       <div className={classes.cards}>
-        <Link to="/" className={classes.card}>
-          <figure className={classes.imgContainer}>
-            <img
-              className="objectContain"
-              src="/img/index/indexCamping.png"
-              alt="campImage"
-            />
-          </figure>
-          <div className={classes.textContent}>
-            <span>Camping</span>
-            <span>立即前往露營</span>
-          </div>
+        {activity.map((a, i) => {
+          return (
+            <Link to="/" key={a.titleEn} className={classes.card}>
+              <div className={classes.cardCotainer}>
+                <figure className={classes.imgContainer}>
+                  <img
+                    className="objectContain"
+                    src={`/img/index/${a.img}`}
+                    alt="campImage"
+                  />
+                </figure>
+                <div className={classes.textContent}>
+                  <span>{a.titleEn}</span>
+                  <span>{a.titleCh}</span>
+                </div>
+                <IconContext.Provider
+                  value={{ color: '#817161', size: '0.75rem' }}
+                >
+                  <FaArrowAltCircleRight />
+                </IconContext.Provider>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <div className={classes.btns}>
+        <Link to="/" className={classes.btn}>
           <IconContext.Provider value={{ color: '#817161', size: '0.75rem' }}>
             <FaArrowAltCircleRight />
           </IconContext.Provider>
+          <span>官方活動一覽</span>
+        </Link>
+        <Link to="/" className={classes.btn}>
+          <IconContext.Provider value={{ color: '#817161', size: '0.75rem' }}>
+            <FaArrowAltCircleRight />
+          </IconContext.Provider>
+          <span>私人活動一覽</span>
         </Link>
       </div>
-      <div className={classes.btns}></div>
     </div>
   );
 };
