@@ -1,8 +1,14 @@
 @import './variable';
 
-.homepage {
+.homepageContainer {
   position: relative;
   z-index: 1;
-  margin: 0 auto 0;
+  margin: 0 auto;
   background: #fff;
+}
+
+.homepage {
+  padding: 4.5rem 0;
+  max-width: 1440px;
+  margin: 0 auto;
 }

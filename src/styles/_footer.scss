@@ -4,6 +4,8 @@ footer {
   color: $contentClr;
   border-top: 1px solid $contentClr;
   padding: 3rem 0rem 1rem;
+  position: relative;
+  z-index: 1;
   background: #fff;
   .footer {
     display: flex;
@@ -34,6 +36,7 @@ footer {
       padding: 1rem;
       justify-content: space-between;
       align-items: center;
+
       .footerCommunity {
         display: flex;
         justify-content: center;

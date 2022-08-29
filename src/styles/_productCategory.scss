@@ -1,0 +1,26 @@
+@import './variable';
+@mixin d-flex() {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.categoryContainer {
+  margin-top: 30px;
+  width: 290px;
+  .title {
+    max-width: 290;
+    height: 70px;
+    @include d-flex();
+    border-bottom: 1px solid $contentClr;
+    color: $subClrBrown;
+    font-weight: 600;
+    p {
+      margin: 0;
+    }
+  }
+  .category {
+    @include d-flex();
+    max-width: 290;
+    height: 70px;
+  }
+}
