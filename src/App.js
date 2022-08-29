@@ -6,6 +6,7 @@ import Footer from './components/public_component/Footer';
 import BackToTop from './components/public_component/BackToTop';
 import './styles/style.scss';
 import Users from './components/Users';
+import Login from './components/Login/loginPage';
 
 function App() {
   const [scrollDown, setScrollDown] = useState(false);
@@ -19,15 +20,16 @@ function App() {
 
   return (
     <>
-      <Header scrollDown={scrollDown} />
+      {/* <Header scrollDown={scrollDown} /> */}
       <Routes>
         {/* <Route path="/" element={<Homepage />} /> */}
         <Route path="/Users/*" element={<Users />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       {/* <div className="temp"></div> */}
 
-      <Footer />
-      <BackToTop />
+      {/* <Footer /> */}
+      {/* <BackToTop /> */}
     </>
   );
 }
