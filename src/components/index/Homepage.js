@@ -5,6 +5,10 @@ import IndexTitle from './component/IndexTitle';
 import IndexNews from './component/IndexNews';
 import IndexProducts from './component/IndexProducts';
 import IndexActivity from './component/IndexActivity';
+import IndexJoinUs from './component/IndexJoinUs';
+import { API_URL } from '../../utils/config';
+
+console.log(API_URL);
 
 const Homepage = () => {
   return (
@@ -43,6 +47,10 @@ const Homepage = () => {
             />
             <IndexActivity />
           </div>
+          {/* JOIN US */}
+        </div>
+        <div className="joinUsContainer">
+          <IndexJoinUs />
         </div>
       </div>
     </>
