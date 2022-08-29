@@ -40,6 +40,9 @@
     padding: 10px 20px;
     font-size: 1rem;
     width: 100%;
+    &:focus{
+      outline:none;
+    }
   }
   color: #000;
   .lgcontainer{
