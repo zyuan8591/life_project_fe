@@ -6,9 +6,7 @@ import IndexNews from './component/IndexNews';
 import IndexProducts from './component/IndexProducts';
 import IndexActivity from './component/IndexActivity';
 import IndexJoinUs from './component/IndexJoinUs';
-import { API_URL } from '../../utils/config';
-
-console.log(API_URL);
+import IndexRecipe from './component/IndexRecipe';
 
 const Homepage = () => {
   return (
@@ -38,6 +36,8 @@ const Homepage = () => {
               route="/recipes"
             />
           </div>
+          <IndexRecipe />
+
           {/* ACTIVITIES */}
           <div className="activityContainer">
             <IndexTitle

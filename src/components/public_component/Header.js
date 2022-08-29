@@ -60,19 +60,19 @@ const Header = ({ scrollDown }) => {
             </li>
             {/* Like */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/:user/recipe" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
             </li>
             {/* Cart */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/cart" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
             <li className="me-3">
-              <Link to="/Users" className="flexCenter">
+              <Link to="/:user/account" className="flexCenter">
                 <AiOutlineUser />
               </Link>
             </li>
