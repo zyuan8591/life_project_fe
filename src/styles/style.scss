@@ -1,12 +1,5 @@
 @import './variable';
 
-.temp {
-  height: 300vh;
-  background: #fff;
-  position: relative;
-  z-index: 1;
-}
-
 //Html Element Style
 html {
   scroll-behavior: smooth;
@@ -17,6 +10,7 @@ html {
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-family: 'Noto Sans TC', sans-serif;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -58,4 +52,9 @@ ul {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.objectCover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

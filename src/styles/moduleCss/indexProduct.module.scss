@@ -1,0 +1,44 @@
+@import '../variable';
+
+.productList {
+  margin: 2.5rem 0;
+  padding-left: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: 0.3s;
+}
+
+.dragLine {
+  max-width: 350px;
+  width: 350px;
+  height: 3px;
+  background: $hoverClr;
+  margin: 0 auto;
+  position: relative;
+  flex-grow: 0;
+}
+
+.dragProgress {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: $subClrBrown;
+  z-index: 2;
+  transition: 0.3s;
+}
+
+.controller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 400px;
+  .controllRight,
+  .controllLeft {
+    cursor: pointer;
+  }
+}
