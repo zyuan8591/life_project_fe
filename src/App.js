@@ -6,6 +6,7 @@ import Footer from './components/public_component/Footer';
 import Homepage from './components/index/Homepage';
 import BackToTop from './components/public_component/BackToTop';
 import './styles/style.scss';
+import Cart from './components/Orders/Cart';
 
 function App() {
   const [scrollDown, setScrollDown] = useState(false);
@@ -22,6 +23,7 @@ function App() {
       <Header scrollDown={scrollDown} />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <div className="temp"></div>
       <Footer />

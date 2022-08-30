@@ -66,7 +66,7 @@ const Header = ({ scrollDown }) => {
             </li>
             {/* Cart */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/Cart" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
