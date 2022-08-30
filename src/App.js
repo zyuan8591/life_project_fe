@@ -1,4 +1,6 @@
 import 'normalize.css';
+// import ActivityMain from './components/activity/ActivityMain';
+import CampingMain from './components/camping/CampingMain';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
@@ -13,6 +15,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/Users/*" element={<Users />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/activity/camping" element={<CampingMain />} />
       </Routes>
     </>
   );
