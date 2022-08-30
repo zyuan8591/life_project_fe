@@ -4,6 +4,8 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Header from './components/public_component/Header';
 import Footer from './components/public_component/Footer';
 import BackToTop from './components/public_component/BackToTop';
+// import ActivityMain from './components/activity/ActivityMain';
+import CampingMain from './components/camping/CampingMain';
 import './styles/style.scss';
 
 function App() {
@@ -20,7 +22,8 @@ function App() {
     <>
       <Header scrollDown={scrollDown} />
       <Routes>{/* <Route path="/" element={<Homepage />} /> */}</Routes>
-      <div className="temp"></div>
+      {/* <div className="temp"></div> */}
+      <CampingMain />
       <Footer />
       <BackToTop />
     </>

@@ -1,0 +1,131 @@
+@import '../variable';
+
+main{
+    max-width: $maxWidth;
+    margin: auto;
+    position: relative;
+    top: $headerHeight;
+    .main{
+        height: calc(100vh - $headerHeight) ;
+        position: relative;
+        // background-color: antiquewhite;
+        .mainBackgroundLeft{
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            bottom: 0;
+            img{
+                opacity: 0.8;
+            }
+        }
+        .mainBackgroundRight{
+            position: absolute;
+            z-index: -1;
+            width: 650px;
+            height: 500px;
+            right: 0;
+            top: 130px;
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                opacity: 0.8;
+            }
+        }
+        .picnic{
+            padding:  3.5rem 0;
+            .bannerPicnic{
+            width: 800px;
+            height: 540px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .wrap{
+                margin: auto;
+                text-align: center;
+                .picnicGirl{
+                    width: 280px;
+                    height: 310px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        position: relative;
+                        top: 30px;
+                        right: -150px;
+                    }
+            }
+                .content{
+                    margin-top: 2.5rem;
+                    align-items: center;
+                    font-size: $text32;
+                    color: $focusClrG;
+                    position: relative;
+                    left: -120px;
+                    top: -380px;
+                    p{
+                        padding-right: 10px;
+                    }
+                }
+            }
+        
+        }
+
+        .camping{
+            padding: 3.5rem 0;
+            .bannerPicnic{
+            width: 800px;
+            height: 540px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .wrap{
+                margin: auto;
+                text-align: center;
+                .picnicBoy{
+                    width: 200px;
+                    height: 365px;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        position: relative;
+                        left: 150px;
+                        top: -50%;
+                    }
+            }
+                .content{
+                    align-items: center;
+                    font-size: $text24;
+                    position: relative;
+                    font-size: $text32;
+                    color: $focusClrG;
+                    left: -180px;
+                    top: -20px;
+                    margin-bottom: 2.5rem;
+                    p{
+                        padding-right: 10px;
+                    }
+                }
+            }
+        
+        }
+        
+    }
+
+    
+
+
+    .section{
+        // position: relative;
+        top: $headerHeight;
+        height: 100vh ;
+        background-color: rgb(246, 250, 215);
+    }
+}
