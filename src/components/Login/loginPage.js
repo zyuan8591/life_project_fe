@@ -1,13 +1,16 @@
 import React from 'react';
-import Login from './login/login';
+import Login from './login/Login';
 import '../../styles/Users/login.scss';
+import { Routes, Route, Link } from 'react-router-dom';
 
-const loginPage = () => {
+const LoginPage = () => {
   return (
     <div className="loginPage">
       <div className="loginContaner">
         <div className="logo">
-          <h1>LIFE</h1>
+          <Link to="/">
+            <h1>LIFE</h1>
+          </Link>
         </div>
         <Login />
       </div>
@@ -15,4 +18,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;

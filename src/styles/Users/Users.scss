@@ -147,6 +147,16 @@
    }//end personalFile
   
 .password{
+   .password-group{
+      position: relative;
+      .eye{
+         position: absolute; 
+         left: 25%;
+         top: 7%; 
+         width: 20px;   
+         height: 20px;  
+       }
+   }
    position: relative;
    label{
       vertical-align: top;

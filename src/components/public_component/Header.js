@@ -21,8 +21,10 @@ const pages = [
 ];
 
 const Header = () => {
+  const [eye, setEye] = useState();
   const [page, setPage] = useState('首頁');
   const [scrollDown, setScrollDown] = useState(false);
+  
 
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
