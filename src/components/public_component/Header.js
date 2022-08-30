@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { IconContext } from 'react-icons';
 import '../../styles/_header.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPage } from '../../utils/paginationSlice';
+import { IconContext } from 'react-icons';
 import {
   AiOutlineSearch,
   AiOutlineHeart,
@@ -21,8 +23,9 @@ const pages = [
 ];
 
 const Header = () => {
-  const [page, setPage] = useState('首頁');
   const [scrollDown, setScrollDown] = useState(false);
+  const pageNow = useSelector((state) => state.pagination.pagination);
+  const dispatch = useDispatch();
 
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
@@ -46,9 +49,9 @@ const Header = () => {
                 <li key={uuidv4()}>
                   <Link
                     to={p.route}
-                    className={`${page === p.title ? 'active' : ''}`}
+                    className={`${pageNow === p.title ? 'active' : ''}`}
                     onClick={() => {
-                      setPage(p.title);
+                      dispatch(setPage(p.title));
                     }}
                   >
                     {p.title}
