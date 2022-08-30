@@ -16,7 +16,6 @@ $fW700: 700;
 }
 @mixin imgObj {
     width: 100%;
-    height: 100%;
     object-fit:contain;
 }
 @mixin contentWrap {
@@ -27,6 +26,7 @@ $fW700: 700;
         margin-left: 3rem;
         img {
             @include imgObj;
+            height: 100%;
         }
     }
     .content-text{
@@ -74,33 +74,30 @@ $fW700: 700;
             width: 60%;
             display: flex;
             align-items: center;
-            // height: 100vh;
-            // padding-top: 2rem;
             img {
                 @include imgObj;
             }
             .balloon1{
                 width: 7%;
                 position: absolute;
-                top: 6%;
-                left: 18%;
+                top: 1.2rem;
+                left: 20rem;
             }
             .balloon2{
                 width: 7%;
                 position: absolute;
-                top: 10%;
-                left: 28%;
+                top: 2.5rem;
+                left: 29rem;
             }
         }
         .title-slogan {
+            position: relative;
             span {
             color: $mainClrW;
-           font-size: $text9Rem;
+            font-size: $text9Rem;
            font-weight: $fW900;
            -webkit-text-stroke: 4px $subClrGY;
-            // text-align: end;
-            // position: absolute;
-            top: 10%;
+            top: 13%;
             
            &:nth-child(n) {
             color: $focusClrG;
@@ -118,20 +115,20 @@ $fW700: 700;
 
             .first-child {
             position: absolute;
-            top: 10%;
-            right: 10%;
+            top: 15rem;
+            right: 10rem;
             }
             .last-child {
                 position: absolute;
-                top: 15%;
-                right: 2%;
+                top: 20rem;
+                right: 4rem;
                 }
         }
-        .icon-ArrowDropdown {
-            position: absolute;
-            top: 80%;
-            right: 20%;
-        }
+        // .icon-ArrowDropdown {
+        //     position: absolute;
+        //     top: 0;
+        //     right: 0;
+        // }
 
     }
 // ----- content ------

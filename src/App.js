@@ -7,6 +7,7 @@ import Homepage from './components/index/Homepage';
 import BackToTop from './components/public_component/BackToTop';
 import './styles/style.scss';
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
+import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
 
 function App() {
   const [scrollDown, setScrollDown] = useState(false);
@@ -22,8 +23,9 @@ function App() {
     <>
       <Header scrollDown={scrollDown} />
       <Routes>
-        <Route path="/picnic" element={<PicnicIndex />} />
         <Route path="/" element={<Homepage />} />
+        <Route path="/activity/picnic" element={<PicnicIndex />} />
+        <Route path="/activity/picnic/official" element={<PicnicOffical />} />
       </Routes>
       <Footer />
       <BackToTop />
