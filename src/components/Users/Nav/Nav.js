@@ -7,7 +7,6 @@ import {
 import { FiLogOut } from 'react-icons/fi';
 import { MdArticle } from 'react-icons/md';
 import { GiBowlOfRice } from 'react-icons/gi';
-import CAT from '../cat.jpg';
 import { IconContext } from 'react-icons';
 import { Routes, Route, Link } from 'react-router-dom';
 
@@ -19,7 +18,7 @@ const Nav = () => {
       <div className="sidemenu">
         <div className="user_information">
           <div className="avatar">
-            <img src={CAT} alt="" />
+            <img src="/img/joinUs.jpg" alt="" />
           </div>
           <div className="information">
             <p>asd1235</p>
