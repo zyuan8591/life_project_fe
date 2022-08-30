@@ -7,14 +7,19 @@
   padding-right: 2rem;
   border-bottom: 2px solid $hoverClr;
   transition: 0.3s;
+  top: 0;
+  left: 0;
   //flex
   display: flex;
   align-items: center;
+  z-index: 50;
+  background: #fff;
   // justify-content: space-between;
   h1 {
     max-width: 350px;
     flex-grow: 1;
     margin: 0;
+    color: $subClrBrown;
   }
   //navbar
   nav {
@@ -43,16 +48,18 @@
         &.active::after {
           width: 100%;
           left: 0;
-          background: $contentClr;
+          background: $subClrBrown;
+          color: $subClrBrown;
         }
         &.active {
-          color: $contentClr;
+          color: $subClrBrown;
           opacity: 1;
         }
       }
 
       &:hover a {
         opacity: 1;
+        color: $subClrBrown;
       }
     }
   }
@@ -66,6 +73,18 @@
     //SHOP
     .headerShop {
       border-left: 2px solid $contentClr;
+    }
+    // each icon
+    .headerIcon {
+      transition: 0.3s;
+      &:hover,
+      &:hover svg,
+      &:hover span {
+        color: $subClrBrown !important;
+      }
+      .span {
+        transition: 0.5s;
+      }
     }
   }
   &.hidden {

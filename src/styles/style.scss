@@ -1,9 +1,5 @@
 @import './variable';
 
-.temp {
-  height: 300vh;
-}
-
 //Html Element Style
 html {
   scroll-behavior: smooth;
@@ -14,6 +10,7 @@ html {
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-family: 'Noto Sans TC', sans-serif;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -28,6 +25,11 @@ a:active {
   text-decoration: none;
 }
 
+//清除ul樣式
+ul {
+  list-style-type: none;
+}
+
 // public icon
 
 .backToTopBtn {
@@ -35,6 +37,7 @@ a:active {
   bottom: 1rem;
   right: 1rem;
   cursor: pointer;
+  z-index: 5;
 }
 
 //module
@@ -43,4 +46,15 @@ a:active {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.objectContain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.objectCover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

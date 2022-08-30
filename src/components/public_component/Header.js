@@ -20,10 +20,21 @@ const pages = [
   { title: '聯絡我們', route: '/contact' },
 ];
 
-const Header = ({ scrollDown }) => {
+const Header = () => {
   const [page, setPage] = useState('首頁');
+  const [scrollDown, setScrollDown] = useState(false);
+
+  let scrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    let scrollNow = window.scrollY;
+    setScrollDown(scrollNow > scrollY);
+    scrollY = scrollNow;
+  });
+
   return (
-    <IconContext.Provider value={{ color: '#444', size: '2rem' }}>
+    <IconContext.Provider
+      value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
+    >
       <header
         className={`header w-100 position-fixed ${scrollDown ? 'hidden' : ''}`}
       >
@@ -50,6 +61,7 @@ const Header = ({ scrollDown }) => {
         <div className="user flexCenter header-item">
           <ul className="list-unstyled flexCenter mb-0">
             {/* search */}
+
             <li className="me-3">
               <Link to="/" className="flexCenter">
                 <AiOutlineSearch />
@@ -57,25 +69,25 @@ const Header = ({ scrollDown }) => {
             </li>
             {/* Like */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/:user/recipe" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
             </li>
             {/* Cart */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/cart" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
             <li className="me-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/:user/account" className="flexCenter">
                 <AiOutlineUser />
               </Link>
             </li>
             {/* Shop */}
             <li className="headerShop ps-3">
-              <Link to="/" className="flexCenter">
+              <Link to="/products" className="flexCenter headerIcon">
                 <AiOutlineShopping />
                 <span className="ms-3">SHOP</span>
               </Link>
