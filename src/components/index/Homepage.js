@@ -5,10 +5,16 @@ import IndexTitle from './component/IndexTitle';
 import IndexNews from './component/IndexNews';
 import IndexProducts from './component/IndexProducts';
 import IndexActivity from './component/IndexActivity';
+import IndexJoinUs from './component/IndexJoinUs';
+import IndexRecipe from './component/IndexRecipe';
+import Footer from '../public_component/Footer';
+import Header from '../public_component/Header';
+import BackToTop from '../public_component/BackToTop';
 
 const Homepage = () => {
   return (
     <>
+      <Header />
       <SliderComponent />
       <div className="homepageContainer">
         <div className="homepage">
@@ -34,6 +40,8 @@ const Homepage = () => {
               route="/recipes"
             />
           </div>
+          <IndexRecipe />
+
           {/* ACTIVITIES */}
           <div className="activityContainer">
             <IndexTitle
@@ -43,8 +51,14 @@ const Homepage = () => {
             />
             <IndexActivity />
           </div>
+          {/* JOIN US */}
+        </div>
+        <div className="joinUsContainer">
+          <IndexJoinUs />
         </div>
       </div>
+      <Footer />
+      <BackToTop />
     </>
   );
 };

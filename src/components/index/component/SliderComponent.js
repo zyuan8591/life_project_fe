@@ -34,18 +34,22 @@ const SliderComponent = () => {
         </figure>
       </div>
       <div>
-        <img
-          src="/img/index/slide/slide2.jpg"
-          alt="slide1"
-          className="objectContain"
-        />
+        <figure className={classes.imgContainer}>
+          <img
+            src="/img/index/slide/slide2.jpg"
+            alt="slide1"
+            className="objectContain"
+          />
+        </figure>
       </div>
       <div>
-        <img
-          src="/img/index/slide/slide3.jpg"
-          alt="slide1"
-          className="objectContain"
-        />
+        <figure className={classes.imgContainer}>
+          <img
+            src="/img/index/slide/slide3.jpg"
+            alt="slide1"
+            className="objectContain"
+          />
+        </figure>
       </div>
     </Slider>
   );
