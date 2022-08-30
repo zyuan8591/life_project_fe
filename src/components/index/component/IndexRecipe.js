@@ -18,7 +18,7 @@ const IndexRecipe = () => {
       <Slider {...settings}>
         <div>
           <CardSm
-            img="/img/recipe/recipe/ApplePie.jpeg"
+            img="/img/recipe/recipe_img/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
@@ -26,7 +26,7 @@ const IndexRecipe = () => {
         </div>
         <div>
           <CardSm
-            img="/img/recipe/recipe/ApplePie.jpeg"
+            img="/img/recipe/recipe_img/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
@@ -34,7 +34,7 @@ const IndexRecipe = () => {
         </div>
         <div>
           <CardSm
-            img="/img/recipe/recipe/ApplePie.jpeg"
+            img="/img/recipe/recipe_img/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
@@ -42,7 +42,7 @@ const IndexRecipe = () => {
         </div>
         <div>
           <CardSm
-            img="/img/recipe/recipe/ApplePie.jpeg"
+            img="/img/recipe/recipe_img/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
@@ -50,7 +50,7 @@ const IndexRecipe = () => {
         </div>
         <div>
           <CardSm
-            img="/img/recipe/recipe/ApplePie.jpeg"
+            img="/img/recipe/recipe_img/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
@@ -58,7 +58,7 @@ const IndexRecipe = () => {
         </div>
         <div>
           <CardSm
-            img="/img/recipe/recipe/ApplePie.jpeg"
+            img="/img/recipe/recipe_img/ApplePie.jpeg"
             type="烘焙點心"
             name="曲奇餅乾"
             link="/"
