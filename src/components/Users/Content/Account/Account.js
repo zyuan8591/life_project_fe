@@ -1,5 +1,4 @@
 import React from 'react';
-import CAT from '../../cat.jpg';
 
 const Account = () => {
   return (
@@ -40,7 +39,7 @@ const Account = () => {
           </div>
           <div className="basic_information">
             <div className="avatar">
-              <img src={CAT} alt="" />
+              <img src="/img/joinUs.jpg" alt="" />
             </div>
             <label className="introduction" htmlFor="">
               自我介紹：
