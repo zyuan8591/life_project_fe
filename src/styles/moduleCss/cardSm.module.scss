@@ -16,15 +16,10 @@ $imgWidth: 270px;
     margin: 0;
     max-width: $imgWidth;
     max-height: $imgWidth;
-    // background: #f7f3ed;
-    // background: #f6f2f7;
-    // background: #fcf3f0;
-    // background: #f7faf2;
   }
 
   .cardLink {
     font-size: $text14;
-
     .type {
       color: $subClrBrown;
       font-weight: bold;

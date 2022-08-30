@@ -6,7 +6,6 @@
 
 .sliderContainer {
   max-width: 1920px;
-  max-height: min(1080px, 100vh);
   overflow: hidden;
   position: sticky !important ;
   z-index: 0;
@@ -24,4 +23,11 @@
 
 .slickDotsAdjust {
   transform: translateY(-200%);
+}
+
+.imgContainer {
+  // max-width: 1920px;
+  // max-height: min(1080px, 100vh);
+  width: 100%;
+  height: 100%;
 }

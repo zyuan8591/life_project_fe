@@ -12,19 +12,19 @@ const IndexActivity = () => {
       titleEn: 'Activities',
       titleCh: '活動專區',
       img: 'indexActivity.png',
-      link: '/',
+      link: '/activity',
     },
     {
       titleEn: 'Camping',
       titleCh: '立即前往露營',
       img: 'indexCamping.png',
-      link: '/',
+      link: '/activity/camping',
     },
     {
       titleEn: 'Picnic',
       titleCh: '立即前往野餐',
       img: 'indexPicnic.png',
-      link: '/',
+      link: '/activity/picnic',
     },
   ];
 
@@ -33,7 +33,7 @@ const IndexActivity = () => {
       <div className={classes.cards}>
         {activity.map((a, i) => {
           return (
-            <Link to="/" key={a.titleEn} className={classes.card}>
+            <Link to={a.link} key={a.titleEn} className={classes.card}>
               <div className={classes.cardCotainer}>
                 <figure className={classes.imgContainer}>
                   <img
@@ -57,13 +57,13 @@ const IndexActivity = () => {
         })}
       </div>
       <div className={classes.btns}>
-        <Link to="/" className={classes.btn}>
+        <Link to="/activity/picnic/official" className={classes.btn}>
           <IconContext.Provider value={{ color: '#817161', size: '0.75rem' }}>
             <FaArrowAltCircleRight />
           </IconContext.Provider>
           <span>官方活動一覽</span>
         </Link>
-        <Link to="/" className={classes.btn}>
+        <Link to="/activity/picnic/group" className={classes.btn}>
           <IconContext.Provider value={{ color: '#817161', size: '0.75rem' }}>
             <FaArrowAltCircleRight />
           </IconContext.Provider>
