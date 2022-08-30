@@ -1,0 +1,77 @@
+@import '../../../styles/variable';
+
+// Layout
+
+.cartpagecontainer {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.cartpage {
+  padding: 4.5rem 0;
+  max-width: $maxWidth;
+  margin: 0 auto;
+}
+
+// table
+
+.box{
+  max-width: 1440px;
+}
+
+.table tbody .tr td{
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.table tbody .tr td img{
+  max-width: 100%;
+}
+
+// Step
+
+.wizard {
+  display: flex;
+}
+
+.wizard__step {
+  /* Make all steps have the same width */
+  flex: 1;
+}
+
+.wizard__dot {
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.wizard__connector {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.wizard__step:first-child .wizard__connector,
+.wizard__step:last-child .wizard__connector {
+  background-color: transparent;
+}
+
+.wizard__number {
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  /* Rounded border */
+  background-color: $subClrBrown;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+
+  /* OPTIONAL: Spacing between it and connectors */
+  margin: 4.5rem;
+  // margin: 4px;
+}
