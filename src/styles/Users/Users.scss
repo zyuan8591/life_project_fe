@@ -25,7 +25,7 @@
    }
    padding-top: 65px;
    display: flex;
-   height: 930px;
+   height: 100vh;
    .sidemenu{
       width: 20%;
       height: 100%;
@@ -147,6 +147,16 @@
    }//end personalFile
   
 .password{
+   .password-group{
+      position: relative;
+      .eye{
+         position: absolute; 
+         left: 25%;
+         top: 7%; 
+         width: 20px;   
+         height: 20px;  
+       }
+   }
    position: relative;
    label{
       vertical-align: top;

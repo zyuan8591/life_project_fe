@@ -18,7 +18,7 @@ const Nav = () => {
       <div className="sidemenu">
         <div className="user_information">
           <div className="avatar">
-            <img src="/img/joinUs.jpg" alt="" />
+            <img src="/img/index/joinUs.jpg" alt="" />
           </div>
           <div className="information">
             <p>asd1235</p>
@@ -29,30 +29,30 @@ const Nav = () => {
           <ul className="list">
             <li>
               <BsFillPersonFill />
-              <Link to="/Users/account">個人檔案</Link>
+              <Link to="/users/account">個人檔案</Link>
               <ul>
                 <li>
-                  <a href="/Users/password">更改密碼</a>
+                  <a href="/users/password">更改密碼</a>
                 </li>
               </ul>
             </li>
             <li>
               <MdArticle />
-              <Link to="/Users/order">訂單查詢</Link>
+              <Link to="/users/order">訂單查詢</Link>
             </li>
             <li>
               <BsCreditCard2FrontFill />
-              <Link to="/Users/points">LIFE點數</Link>
+              <Link to="/users/points">LIFE點數</Link>
             </li>
             <li>
               <BsFillTreeFill />
-              <Link to="/Users/camping">活動一覽</Link>
+              <Link to="/users/camping">活動一覽</Link>
               <ul>
                 <li>
-                  <Link to="/Users/camping">露營活動</Link>
+                  <Link to="/users/camping">露營活動</Link>
                 </li>
                 <li>
-                  <Link to="/Users/picnic">野餐活動</Link>
+                  <Link to="/users/picnic">野餐活動</Link>
                 </li>
               </ul>
             </li>
