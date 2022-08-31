@@ -34,9 +34,9 @@ const ProductRank = () => {
         <h5>商品排名</h5>
       </div>
       <Slider {...settings}>
-        {arr2.map(() => {
+        {arr2.map((i) => {
           return (
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between" key={i}>
               {arr.map((v, i) => {
                 return (
                   <div className="rank" key={i}>

@@ -5,7 +5,6 @@
   align-items: center;
 }
 .categoryContainer {
-  margin-top: 30px;
   width: 290px;
   .title {
     max-width: 290;
@@ -22,5 +21,10 @@
     @include d-flex();
     max-width: 290;
     height: 70px;
+    &:hover {
+    background: $hoverClr;
+    // border-radius: 5px;
+    }
   }
+
 }
