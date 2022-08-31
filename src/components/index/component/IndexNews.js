@@ -59,7 +59,6 @@ const IndexNews = ({ className }) => {
       <ul className="ps-0">
         {data.map((d) => {
           return (
-            // <li key={d.id} className={classes.newsContainer}>
             <li
               key={d.id}
               css={css`
@@ -67,7 +66,6 @@ const IndexNews = ({ className }) => {
               `}
             >
               <span>{d.date}</span>
-              {/* <div className={`text-nowrap ${classes.category}`}> */}
               <div className="text-nowrap" css={category}>
                 {d.category}
               </div>
