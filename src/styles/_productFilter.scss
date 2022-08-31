@@ -45,8 +45,8 @@
           text-align: center;
           border: 0;
           border-bottom: 2px solid $hoverClr;
-          background: url(../img/product/product_icon/icons8-search-48.png)
-            no-repeat 22%;
+          // background: url(../img/product/product_icon/icons8-search-48.png)
+          //   no-repeat 22%;
           background-size: 20px;
         }
       }
@@ -66,7 +66,8 @@
     .priceSection {
       display: flex;
       align-items: center;
-      button, a {
+      button,
+      a {
         background: $mainClrW;
         padding: 6px 12px;
         margin: 0 5px;

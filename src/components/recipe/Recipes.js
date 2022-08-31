@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../public_component/Footer';
 import Header from '../public_component/Header';
 import BackToTop from '../public_component/BackToTop';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
+import Select from 'react-select';
 import { IconContext } from 'react-icons';
 import {
   AiOutlineSearch,
@@ -12,16 +13,58 @@ import {
   AiOutlineBook,
   AiOutlineHeart,
   AiOutlineQuestionCircle,
+  AiOutlineBars,
+  AiOutlineAppstore,
 } from 'react-icons/ai';
+import ProductCategory from '../product/product-list/ProductCategory';
+import RecipeListBlockMode from './component/RecipeListBlockMode';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
+const sortOption = [
+  { value: 1, label: '最新食譜' },
+  { value: 2, label: '熱門食譜' },
+];
+const sortOptionStyle = {};
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    color: state.isSelected ? '#fff' : '#444',
+    background: state.isSelected ? '#817161' : '#fff',
+    ':active': {
+      ...provided[':active'],
+      backgroundColor: !state.isDisabled
+        ? state.isSelected
+          ? '#817161'
+          : '#81716180'
+        : undefined,
+    },
+  }),
+  control: (base, state) => ({
+    ...base,
+    // border: 0,
+    // This line disable the blue border
+    borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
+    boxShadow: 'none',
+  }),
+
+  singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+
+    return { ...provided, opacity, transition };
+  },
+};
 
 const Recipes = () => {
+  const [selectSortOption, setSelectSortOption] = useState(null);
+
   const recipeCateClickHandler = () => {};
+
   return (
     <>
       <Header />
       <div className="pageRecipes">
+        {/* recipeCategory */}
         <div className="recipesCateBtnGroup mb-3">
           {recipeCate.map((d, i) => {
             return (
@@ -34,6 +77,7 @@ const Recipes = () => {
           })}
         </div>
         <div className="recipeToolBar">
+          {/* search Button... */}
           <div className="recipeSearchBar">
             <span className="searchFor flexCenter">找食譜</span>
             <input
@@ -54,7 +98,7 @@ const Recipes = () => {
               </IconContext.Provider>
             </div>
           </div>
-
+          {/* add recipe, my recipe ... btn */}
           <div className="recipeFeatureBtn">
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
@@ -76,6 +120,37 @@ const Recipes = () => {
                 <span>客服中心</span>
               </Link>
             </IconContext.Provider>
+          </div>
+        </div>
+        <div className="recipeListMain">
+          <ProductCategory />
+          <div className="recipeList">
+            <div className="recipeMainToolBar flexCenter mb-3">
+              <IconContext.Provider
+                value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
+              >
+                <div className="recipeListMode">
+                  <AiOutlineBars />
+                </div>
+                <div className="recipeBlockMode">
+                  <AiOutlineAppstore />
+                </div>
+              </IconContext.Provider>
+              <Select
+                defaultValue={sortOption[0]}
+                onChange={setSelectSortOption}
+                options={sortOption}
+                styles={customStyles}
+              />
+            </div>
+            <div className="recipeBlockModeList">
+              <RecipeListBlockMode />
+              <RecipeListBlockMode />
+              <RecipeListBlockMode />
+              <RecipeListBlockMode />
+              <RecipeListBlockMode />
+              <RecipeListBlockMode />
+            </div>
           </div>
         </div>
       </div>
