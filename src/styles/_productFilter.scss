@@ -1,0 +1,105 @@
+@import './variable';
+
+.filter {
+  width: 1200px;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .filterBrand {
+    width: 370px;
+    height: 30px;
+    border: 2px solid #3f688c;
+    padding-left: 5px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+  .filterBoard {
+    max-width: 1160px;
+    min-height: 300px;
+    overflow: hidden;
+    position: absolute;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25);
+    padding: 15px 30px;
+    .brandSection {
+      display: flex;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $hoverClr;
+      margin-bottom: 10px;
+      .brandSearch {
+        position: relative;
+        min-width: 240px;
+        // background: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 30px;
+        p {
+          position: absolute;
+          top: 0;
+        }
+        input {
+          height: 35px;
+          text-align: center;
+          border: 0;
+          border-bottom: 2px solid $hoverClr;
+          background: url(../../public/img/product/product_icon/icons8-search-48.png)
+            no-repeat 22%;
+          background-size: 20px;
+        }
+      }
+      .brand {
+        // height: 150px;
+        display: flex;
+        align-items: start;
+        line-height: 1rem;
+        margin: 10px 10px;
+        input {
+          accent-color: $subClrBrown;
+          zoom: 150%;
+          margin-right: 5px;
+        }
+      }
+    }
+    .priceSection {
+      display: flex;
+      align-items: center;
+      button,
+      a {
+        background: $mainClrW;
+        padding: 6px 12px;
+        margin: 0 5px;
+        border: 1px solid $subClrGY;
+        border-radius: 20px;
+        &:hover {
+          background: $hoverClr;
+        }
+        &:active {
+          background: $subClrBrown;
+          color: $mainClrW;
+        }
+      }
+    }
+  }
+  .filterPopular {
+    border: 2px solid #3f688c;
+  }
+  .search {
+    border: 2px solid #3f688c;
+    width: 370px;
+    height: 30px;
+    padding-left: 5px;
+  }
+  .searchButton {
+    border-top: 2px solid #3f688c;
+    border-right: 2px solid #3f688c;
+    border-bottom: 2px solid #3f688c;
+    border-left: 0;
+    width: 45px;
+  }
+  p {
+    margin: 0;
+  }
+}

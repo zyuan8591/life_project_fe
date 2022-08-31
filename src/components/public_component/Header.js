@@ -64,37 +64,54 @@ const Header = () => {
         <div className="user flexCenter header-item">
           <ul className="list-unstyled flexCenter mb-0">
             {/* search */}
-
-            <li className="me-3">
+            <li className="me-3 userItem active">
               <Link to="/" className="flexCenter">
                 <AiOutlineSearch />
               </Link>
             </li>
             {/* Like */}
-            <li className="me-3">
-              <Link to="/:user/recipe" className="flexCenter">
+            <li className="me-3 userItem">
+              <Link
+                to="/:user/recipe"
+                className="flexCenter"
+                onClick={() => {
+                  dispatch(setPage(''));
+                }}
+              >
                 <AiOutlineHeart />
               </Link>
             </li>
             {/* Cart */}
-            <li className="me-3">
-              <Link to="/cart" className="flexCenter">
+            <li className="me-3 userItem">
+              <Link
+                to="/cart"
+                className="flexCenter"
+                onClick={() => {
+                  dispatch(setPage(''));
+                }}
+              >
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
-            <li className="me-3">
-              <Link to="/:user/account" className="flexCenter">
+            <li className="me-3 userItem">
+              <Link
+                to="/:user/account"
+                className="flexCenter"
+                onClick={() => {
+                  dispatch(setPage(''));
+                }}
+              >
                 <AiOutlineUser />
               </Link>
             </li>
             {/* Shop */}
-            <li className="headerShop ps-3">
+            {/* <li className="headerShop ps-3">
               <Link to="/products" className="flexCenter headerIcon">
                 <AiOutlineShopping />
                 <span className="ms-3">SHOP</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </header>

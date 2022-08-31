@@ -39,7 +39,7 @@ const Account = () => {
           </div>
           <div className="basic_information">
             <div className="avatar">
-              <img src="/img/joinUs.jpg" alt="" />
+              <img src="/img/index/joinUs.jpg" alt="" />
             </div>
             <label className="introduction" htmlFor="">
               自我介紹：

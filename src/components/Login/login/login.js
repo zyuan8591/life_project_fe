@@ -1,7 +1,14 @@
-import React from 'react';
+import { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
 
-const login = () => {
+const Login = () => {
+  const [eye, setEye] = useState(false);
+  function clickEye() {
+    setEye(eye ? false : true);
+  }
+
   return (
     <div className="login">
       <div className="lgcontainer">
@@ -12,9 +19,17 @@ const login = () => {
             </label>
             <input className="mt-3 inputStyle" type="text" />
           </div>
-          <div className="mt-5">
+          <div className="mt-5 password-group">
             <label htmlFor="">密碼：</label>
-            <input className="mt-3 inputStyle" type="password" />
+            <input
+              className="mt-3 inputStyle"
+              type={eye ? 'text' : 'password'}
+            />
+            <div className="eye " onClick={clickEye}>
+              <IconContext.Provider value={{ className: 'eye' }}>
+                {eye ? <FaRegEye /> : <FaRegEyeSlash />}
+              </IconContext.Provider>
+            </div>
           </div>
           <div className="d-flex mt-2">
             <input type="radio" />
@@ -40,4 +55,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

@@ -8,16 +8,20 @@ import News from './components/news/News';
 import './styles/style.scss';
 import Users from './components/Users';
 import Login from './components/Login/loginPage';
+import Recipes from './components/recipe/Recipes';
+import ProductList from './components/product/product-list/ProductList';
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/products" element={<ProductList />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/news" element={<News />} />
-        <Route path="/Users/*" element={<Users />} />
+        <Route path="/users/*" element={<Users />} />
         <Route path="/login" element={<Login />} />
         <Route path="/activity/camping" element={<CampingMain />} />
+        <Route path="/recipes" element={<Recipes />} />
       </Routes>
     </>
   );

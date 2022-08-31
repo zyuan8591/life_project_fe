@@ -1,18 +1,47 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classes from '../../styles/moduleCss/cardSm.module.scss';
+
+const imgWidth = '270px';
+
+const container = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #444;
+  flex: 0 0 270px;
+`;
+const cardTitle = css`
+  font-weight: bold;
+  font-size: 1.25rem;
+`;
+const imgContainer = css`
+  margin: 0;
+  max-width: ${imgWidth};
+  max-height: ${imgWidth};
+`;
+const cartType = css`
+  color: $subClrBrown;
+  font-weight: bold;
+`;
 
 const CardSm = ({ title, type, name, img, link, bg = '' }) => {
   return (
-    <div className={classes.cardSm}>
-      {title && <div className={classes.cardTitle}>{title}</div>}
+    <div css={container}>
+      {title && <div css={cardTitle}>{title}</div>}
 
-      <figure className={classes.imgContainer} style={{ background: bg }}>
+      <figure css={imgContainer} style={{ background: bg }}>
         <img src={img} alt={name} className="objectContain cardImg" />
       </figure>
 
-      <Link to={link} className={classes.cardLink}>
-        <div className={classes.type}>{type}</div>
+      <Link
+        to={link}
+        css={css`
+          font-size: 14px;
+        `}
+      >
+        <div css={cartType}>{type}</div>
         <div>{name}</div>
       </Link>
     </div>
