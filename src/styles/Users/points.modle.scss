@@ -1,4 +1,9 @@
 @import '../variable';
+.center{
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+}
 .points-group{
   .user-point{
     text-align: center;
@@ -21,5 +26,15 @@
 .list{  
   .list-title{
     text-align: center;
+    table{
+      margin-top: 50px;
+      thead{
+        border-bottom: 2px solid #ccc;
+        line-height: 4rem
+      }
+      tbody{
+        line-height: 2.5rem;
+      }
+    };
   }
 }

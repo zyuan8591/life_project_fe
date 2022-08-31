@@ -2,8 +2,9 @@ import React from 'react';
 
 const PointGroup = () => {
   return (
+    
     <div className="points-group">
-      <h3>我的點數</h3>
+      
       <div className="user-point row">
         <div className="col mx-5 box ">
           <p className="">獲得的點數</p>
