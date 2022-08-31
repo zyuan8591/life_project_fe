@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
 import './styles/style.scss';
 import Users from './components/Users';
-import Login from './components/Login/LoginPage';
+import Login from './components/Login/loginPage';
 
 function App() {
   return (
