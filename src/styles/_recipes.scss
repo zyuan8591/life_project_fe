@@ -1,0 +1,65 @@
+@import './variable';
+
+.pageRecipes {
+  margin: $headerHeight auto 8rem;
+  max-width: $maxWidth;
+  padding: 3rem 2rem;
+  color: $contentClr;
+  .recipesCateBtnGroup {
+    display: flex;
+    gap: 1rem;
+  }
+  .recipeToolBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .recipeSearchBar {
+      display: flex;
+      * {
+        border: 2px solid $subClrBrown;
+      }
+      .searchFor,
+      .searchForName,
+      .searchForMaterial {
+        border-right: none;
+      }
+      .searchFor {
+        padding: 0.2rem 0.75rem;
+      }
+      .searchForName,
+      .searchForMaterial {
+        padding-left: 0.5rem;
+        color: $contentClr;
+        &:focus {
+          outline: transparent;
+          &::placeholder {
+            opacity: 0;
+          }
+        }
+        &::placeholder {
+          opacity: 0.5;
+        }
+      }
+      .recipesSearchBtn {
+        padding: 0 0.75rem;
+        cursor: pointer;
+        .RecipeSearchBtnSvg {
+          border: none;
+        }
+      }
+    }
+    .recipeFeatureBtn {
+      display: flex;
+      opacity: 0.5;
+      font-size: $text12;
+      gap: 1rem;
+      .featureBtn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+  }
+}
