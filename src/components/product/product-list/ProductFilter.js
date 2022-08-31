@@ -6,7 +6,6 @@ import { IoIosSearch } from 'react-icons/io';
 import { RiArrowDownSFill } from 'react-icons/ri';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
-// import { Checkbox } from '@fluentui/react-components';
 // const brandArr = [];
 const ProductFilter = () => {
   const [brandArr, setBrandArr] = useState(26);
