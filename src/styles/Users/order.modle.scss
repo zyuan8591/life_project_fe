@@ -1,0 +1,49 @@
+@import '../variable';
+.order{
+  .order-filter{
+    transition:10s;
+    li{
+      margin-left:5rem;
+      padding: 5px 20px;
+      border-radius: 10px;
+      background: transparent;
+      color: black;
+      cursor: pointer;
+      // background: $subClrBrown;
+      // color:#fff;
+    }
+    .active{
+      background: $subClrBrown;
+      color:#fff;      
+    }
+  }  
+  .order-table{
+    table{
+      text-align: center;
+      width: 100%;
+    }
+    th,td{line-height:3rem;}
+    .icons{
+      margin-top: 150px;     
+      p{font-size: 2rem;}
+      position: relative;
+      text-align: center;
+      .order-icon{
+        // position: absolute;
+        width: 25%;
+        height: 100%;
+        margin-top:-20px;
+      }     
+    } 
+    button{
+      padding: 10px;
+      background:$subClrBrown;
+      color: #fff;
+      border: 0;   
+      border-radius: 5px;  
+      &:hover{
+        background:$subClrGY; 
+      }
+    }   
+  }
+}

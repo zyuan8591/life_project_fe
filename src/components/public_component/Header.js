@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { IconContext } from 'react-icons';
 import '../../styles/_header.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPage } from '../../utils/paginationSlice';
+import { IconContext } from 'react-icons';
 import {
   AiOutlineSearch,
   AiOutlineHeart,
@@ -21,8 +23,9 @@ const pages = [
 ];
 
 const Header = () => {
-  const [page, setPage] = useState('首頁');
   const [scrollDown, setScrollDown] = useState(false);
+  const pageNow = useSelector((state) => state.pagination.pagination);
+  const dispatch = useDispatch();
 
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
@@ -46,9 +49,9 @@ const Header = () => {
                 <li key={uuidv4()}>
                   <Link
                     to={p.route}
-                    className={`${page === p.title ? 'active' : ''}`}
+                    className={`${pageNow === p.title ? 'active' : ''}`}
                     onClick={() => {
-                      setPage(p.title);
+                      dispatch(setPage(p.title));
                     }}
                   >
                     {p.title}
@@ -61,37 +64,54 @@ const Header = () => {
         <div className="user flexCenter header-item">
           <ul className="list-unstyled flexCenter mb-0">
             {/* search */}
-
-            <li className="me-3">
+            <li className="me-3 userItem active">
               <Link to="/" className="flexCenter">
                 <AiOutlineSearch />
               </Link>
             </li>
             {/* Like */}
-            <li className="me-3">
-              <Link to="/:user/recipe" className="flexCenter">
+            <li className="me-3 userItem">
+              <Link
+                to="/:user/recipe"
+                className="flexCenter"
+                onClick={() => {
+                  dispatch(setPage(''));
+                }}
+              >
                 <AiOutlineHeart />
               </Link>
             </li>
             {/* Cart */}
-            <li className="me-3">
-              <Link to="/cart" className="flexCenter">
+            <li className="me-3 userItem">
+              <Link
+                to="/cart"
+                className="flexCenter"
+                onClick={() => {
+                  dispatch(setPage(''));
+                }}
+              >
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
-            <li className="me-3">
-              <Link to="/:user/account" className="flexCenter">
+            <li className="me-3 userItem">
+              <Link
+                to="/users/account"
+                className="flexCenter"
+                onClick={() => {
+                  dispatch(setPage(''));
+                }}
+              >
                 <AiOutlineUser />
               </Link>
             </li>
             {/* Shop */}
-            <li className="headerShop ps-3">
+            {/* <li className="headerShop ps-3">
               <Link to="/products" className="flexCenter headerIcon">
                 <AiOutlineShopping />
                 <span className="ms-3">SHOP</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </header>

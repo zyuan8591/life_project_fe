@@ -70,20 +70,22 @@
     font-size: 1.25rem;
     overflow: hidden;
     justify-content: flex-end;
-    //SHOP
-    .headerShop {
-      border-left: 2px solid $contentClr;
-    }
-    // each icon
-    .headerIcon {
-      transition: 0.3s;
-      &:hover,
-      &:hover svg,
-      &:hover span {
-        color: $subClrBrown !important;
+    .userItem {
+      //SHOP
+      .headerShop {
+        border-left: 2px solid $contentClr;
       }
-      .span {
-        transition: 0.5s;
+      // each icon
+      .headerIcon {
+        transition: 0.3s;
+        &:hover,
+        &:hover svg,
+        &:hover span {
+          color: $subClrBrown !important;
+        }
+        .span {
+          transition: 0.5s;
+        }
       }
     }
   }
