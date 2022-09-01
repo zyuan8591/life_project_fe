@@ -8,6 +8,7 @@ import Users from './components/Users';
 import Login from './components/Login/loginPage';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product-list/ProductList';
+import RecipeDetail from './components/recipe/RecipeDetail';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="/users/*" element={<Users />} />
         <Route path="/login" element={<Login />} />
         <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   );

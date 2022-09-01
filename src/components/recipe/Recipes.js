@@ -20,6 +20,7 @@ import ProductCategory from '../product/product-list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
 import PaginationBar from '../public_component/PaginationBar';
 import RecipeListMode from './component/RecipeListMode';
+import RecipeCreateForm from './component/RecipeCreateForm/RecipeCreateForm';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -43,10 +44,12 @@ const customStyles = {
   }),
   control: (base, state) => ({
     ...base,
-    // border: 0,
-    // This line disable the blue border
+    border: '1px solid #817161',
     borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
-    boxShadow: 'none',
+    boxShadow: 0,
+    '&:hover': {
+      border: state.isFocused ? '1px solid #817161' : '1px solid #817161',
+    },
   }),
 
   singleValue: (provided, state) => {
@@ -61,6 +64,7 @@ const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
   const [pageNow, setPageNow] = useState(1);
   const [displayMode, setDisplayMode] = useState(1);
+  const [createRecipe, setCreateRecipe] = useState(true);
 
   const recipeCateClickHandler = () => {};
 
@@ -108,7 +112,12 @@ const Recipes = () => {
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
             >
-              <div className="featureBtn">
+              <div
+                className="featureBtn"
+                onClick={() => {
+                  setCreateRecipe(true);
+                }}
+              >
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
@@ -157,6 +166,7 @@ const Recipes = () => {
                 onChange={setSelectSortOption}
                 options={sortOption}
                 styles={customStyles}
+                isSearchable={false}
               />
             </div>
             {displayMode === 1 ? (
@@ -181,6 +191,16 @@ const Recipes = () => {
             />
           </div>
         </div>
+        {createRecipe && (
+          <section
+            className="creatingRecipe flexCenter"
+            onClick={() => {
+              setCreateRecipe(false);
+            }}
+          >
+            <RecipeCreateForm setCreateRecipe={setCreateRecipe} />
+          </section>
+        )}
       </div>
       <Footer />
       <BackToTop />
