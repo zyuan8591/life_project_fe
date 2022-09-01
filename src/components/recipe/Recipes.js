@@ -18,6 +18,8 @@ import {
 } from 'react-icons/ai';
 import ProductCategory from '../product/product-list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
+import PaginationBar from '../public_component/PaginationBar';
+import RecipeListMode from './component/RecipeListMode';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -57,6 +59,7 @@ const customStyles = {
 
 const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
+  const [pageNow, setPageNow] = useState(1);
 
   const recipeCateClickHandler = () => {};
 
@@ -69,6 +72,7 @@ const Recipes = () => {
           {recipeCate.map((d, i) => {
             return (
               <RecipeCateBtn
+                key={i}
                 onclick={recipeCateClickHandler}
                 content={d}
                 active={i === 0 ? true : false}
@@ -125,6 +129,7 @@ const Recipes = () => {
         <div className="recipeListMain">
           <ProductCategory />
           <div className="recipeList">
+            {/* Choose mode and filter */}
             <div className="recipeMainToolBar flexCenter mb-3">
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
@@ -148,9 +153,18 @@ const Recipes = () => {
               <RecipeListBlockMode />
               <RecipeListBlockMode />
               <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
             </div>
+            <div className="recipeListModeList">
+              <RecipeListMode />
+              <RecipeListMode />
+              <RecipeListMode />
+              <RecipeListMode />
+            </div>
+            <PaginationBar
+              lastPage={12}
+              pageNow={pageNow}
+              setPageNow={setPageNow}
+            />
           </div>
         </div>
       </div>

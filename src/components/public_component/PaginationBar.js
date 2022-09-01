@@ -8,7 +8,6 @@ import { useState } from 'react';
 
 // emotion css setting
 const subClrBrown = '#817161';
-const subClrGY = '#B9BDC5';
 
 const pageList = css`
   display: flex;
@@ -34,6 +33,7 @@ const pageItem = css`
   }
 `;
 
+// page on click change display pages
 const displayPageHandler = (i, pageNow, lastPage, displayPage) => {
   let result = 0;
   if (i + 1 < pageNow) {
