@@ -1,72 +1,19 @@
 @import '../variable';
 
 // @import './login.scss';
-
-
-@mixin avatar(){
-   overflow:hidden; 
-   border-radius:50%;
-}
-@mixin avatar_img(){
-   width: 100%;
-   height: 100%;  
-   
-}
 @mixin btn {
    padding: 10px;
    background:$subClrBrown;
    color: #fff;
    border: 0;   
-   border-radius: 5px;
-  
+   border-radius: 5px;  
 }
 
-.users {
-   .global-class-name{
-      margin: 10px;
-   }
+.users {  
+   
    padding-top: 65px;
    display: flex;
-   height: 100vh;
-   .sidemenu{
-      width: 20%;
-      height: 100%;
-      border-right: 2px solid #ccc;
-      display: inline-block;
-      padding: 15px;
-      
-      .user_information{                 
-         display: flex;
-         padding: 0 0 10px 20%;
-         border-bottom: 1px solid #efefef;                  
-         .avatar{
-            @include avatar()  ;         
-            width:80px; 
-                      
-            img{
-               @include avatar_img()  ;     
-            }        
-         }
-         .information{
-            margin-left: 15px;
-         }
-      }
-      nav{
-         padding: 15px 0 0 20%;
-         line-height: 3.3rem;
-         
-         .list{
-            
-            li:hover ul{
-               display: block;
-            }
-            ul{
-               display: none;
-               padding-left: 3.5rem;
-            }
-         }         
-      }
-   }
+   height: 100vh;  
    
     //Content----------------------------------------------
     .content{
@@ -78,8 +25,5 @@
         margin:-40px 0 60px -10px ;       
       }
    } 
-
-  
-
 
 }//end user
