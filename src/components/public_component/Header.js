@@ -96,7 +96,7 @@ const Header = () => {
             {/* User */}
             <li className="me-3 userItem">
               <Link
-                to="/:user/account"
+                to="/users/account"
                 className="flexCenter"
                 onClick={() => {
                   dispatch(setPage(''));
