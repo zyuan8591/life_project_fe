@@ -6,14 +6,16 @@ $three: #c47222;
 $other: #aaaaaa;
 $numberSize: 36px;
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 .product {
-  margin: $headerHeight + 10px auto 0;
+  margin: $headerHeight + 10px auto 200px;
   max-width: $maxWidth;
   color: $contentClr;
   .reset {

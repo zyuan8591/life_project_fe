@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import ProductRank from './ProductRank';
 import ProductCategory from './ProductCategory';
 import ProductFilter from './ProductFilter';
@@ -6,8 +7,10 @@ import ProductFilter from './ProductFilter';
 import '../../../styles/product/_productList.scss';
 import Header from '../../public_component/Header';
 import Footer from '../../public_component/Footer';
-
+import Product from './Product';
+import PaginationBar from '../../public_component/PaginationBar';
 const ProductList = () => {
+  const [pageNow, setPageNow] = useState(1);
   return (
     <>
       <Header />
@@ -15,8 +18,12 @@ const ProductList = () => {
         <ProductRank />
         <div className="d-flex mt-5 ">
           <ProductCategory />
-          <ProductFilter />
+          <div>
+            <ProductFilter />
+            <Product />
+          </div>
         </div>
+        <PaginationBar lastPage={8} pageNow={pageNow} setPageNow={setPageNow} />
       </div>
       <Footer />
     </>

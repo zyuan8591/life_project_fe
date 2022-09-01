@@ -7,7 +7,7 @@ import './styles/style.scss';
 import Users from './components/Users';
 import Login from './components/Login/loginPage';
 import Recipes from './components/recipe/Recipes';
-import ProductList from './components/product/product-list/ProductList';
+import ProductList from './components/product/product_list/ProductList';
 
 function App() {
   return (
