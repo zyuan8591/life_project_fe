@@ -44,7 +44,7 @@ const ProductRank = () => {
                       <p>{i + 1}</p>
                     </div>
                     <figure>
-                      <img src={v} alt="" />
+                      <img src={v} alt="" className='test'/>
                     </figure>
                     <p>BOE021 多功能電烤盤-經典款（紅色）</p>
                   </div>

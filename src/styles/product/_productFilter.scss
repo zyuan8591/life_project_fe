@@ -16,14 +16,14 @@
     position: relative;
   }
   .filterBoard {
-    // display: none;
-    max-width: 1160px;
+    max-width: 1200px;
     min-height: 300px;
     overflow: hidden;
     position: absolute;
     border-radius: 0 0 10px 10px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25);
     padding: 15px 30px;
+    background: $mainClrW;
     .brandSection {
       display: flex;
       padding-bottom: 15px;
@@ -49,6 +49,12 @@
           background: url(../../../public/img/product/product_icon/icons8-search-48.png)
             no-repeat 22%;
           background-size: 20px;
+          &:focus {
+            outline: transparent;
+            &::placeholder {
+              opacity: 0;
+            }
+          }
         }
       }
       .brand {
@@ -97,7 +103,6 @@
           margin: 0 5px;
           border: 1px solid $subClrGY;
           border-radius: 20px;
-
         }
       }
       button:hover {
@@ -114,18 +119,31 @@
           height: 28px;
           text-align: center;
           border: 2px solid $subClrGY;
+          &:focus{
+            outline: transparent;
+          }
         }
       }
     }
   }
   .filterPopular {
     border: 2px solid #3f688c;
+    &:focus {
+      outline: transparent;
+    }
+
   }
   .search {
     border: 2px solid #3f688c;
     width: 370px;
     height: 30px;
     padding-left: 5px;
+    &:focus {
+      outline: transparent;
+      &::placeholder {
+        opacity: 0;
+      }
+    }
   }
   .searchButton {
     border-top: 2px solid #3f688c;
