@@ -1,7 +1,5 @@
-import React from 'react';
-
 const Pinic = () => {
-  return <div>Pinic</div>;
+  return <div></div>;
 };
 
 export default Pinic;
