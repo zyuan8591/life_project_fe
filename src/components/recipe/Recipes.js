@@ -60,6 +60,7 @@ const customStyles = {
 const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
   const [pageNow, setPageNow] = useState(1);
+  const [displayMode, setDisplayMode] = useState(1);
 
   const recipeCateClickHandler = () => {};
 
@@ -134,10 +135,20 @@ const Recipes = () => {
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
               >
-                <div className="recipeListMode">
+                <div
+                  className={`recipeListMode ${
+                    displayMode === 0 ? 'active' : ''
+                  }`}
+                  onClick={() => setDisplayMode(parseInt(0))}
+                >
                   <AiOutlineBars />
                 </div>
-                <div className="recipeBlockMode">
+                <div
+                  className={`recipeBlockMode ${
+                    displayMode === 1 ? 'active' : ''
+                  }`}
+                  onClick={() => setDisplayMode(parseInt(1))}
+                >
                   <AiOutlineAppstore />
                 </div>
               </IconContext.Provider>
@@ -148,18 +159,21 @@ const Recipes = () => {
                 styles={customStyles}
               />
             </div>
-            <div className="recipeBlockModeList">
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-            </div>
-            <div className="recipeListModeList">
-              <RecipeListMode />
-              <RecipeListMode />
-              <RecipeListMode />
-              <RecipeListMode />
-            </div>
+            {displayMode === 1 ? (
+              <div className="recipeBlockModeList">
+                <RecipeListBlockMode />
+                <RecipeListBlockMode />
+                <RecipeListBlockMode />
+                <RecipeListBlockMode />
+              </div>
+            ) : (
+              <div className="recipeListModeList">
+                <RecipeListMode />
+                <RecipeListMode />
+                <RecipeListMode />
+                <RecipeListMode />
+              </div>
+            )}
             <PaginationBar
               lastPage={12}
               pageNow={pageNow}

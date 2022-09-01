@@ -86,6 +86,9 @@
         .recipeListMode,
         .recipeBlockMode {
           cursor: pointer;
+          &.active {
+            color: $subClrBrown;
+          }
         }
         .css-spersy-control:hover {
           border-color: none;
