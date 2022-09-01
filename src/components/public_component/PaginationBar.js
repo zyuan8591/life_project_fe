@@ -57,7 +57,6 @@ const PaginationBar = ({ lastPage = 5, pageNow = 1, setPageNow }) => {
             setDisplayPage(displayPage - 1 < 10 ? 10 : displayPage - 1);
             setPageNow(pageNow - 1 < 1 ? 1 : pageNow - 1);
           }}
-          key={uuidv4()}
         >
           <AiOutlineLeft />
         </li>
@@ -68,6 +67,7 @@ const PaginationBar = ({ lastPage = 5, pageNow = 1, setPageNow }) => {
             if (i < displayPage - 10) return;
             return (
               <li
+                key={uuidv4()}
                 css={css`
                   ${pageItem};
                   background: ${pageNow === i + 1 ? subClrBrown : '#fff'};
