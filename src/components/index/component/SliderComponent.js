@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import classes from '../../../styles/moduleCss/slider.module.scss';
+import classes from '../../../styles/moduleCss/index/slider.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
