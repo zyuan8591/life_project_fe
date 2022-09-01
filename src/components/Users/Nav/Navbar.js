@@ -49,7 +49,7 @@ const Navbar = () => {
           </li>
           <li>
             <GiBowlOfRice />
-            <Link to="/Users/recipe">食譜一覽</Link>
+            <Link to="/users/recipe">食譜一覽</Link>
           </li>
           <li>
             <FiLogOut />
@@ -66,16 +66,16 @@ export default Navbar;
 const nav = css`
   padding: 15px 0 0 20%;
   line-height: 3.3rem;
+  transition: all 0.3s;
   .icon {
     margin: 10px;
   }
 
   .list {
+    transition: all 0.3s;
     li:hover ul {
-      display: block;
     }
     ul {
-      display: none;
       padding-left: 3.5rem;
     }
   }

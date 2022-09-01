@@ -5,14 +5,11 @@ import styled from '@emotion/styled';
 import Avata from './Avata';
 import Navbar from './Navbar';
 
-
 const Nav = () => {
   return (
     <div css={sidemenu}>
-      
-        <Avata />
-        <Navbar />
-      
+      <Avata />
+      <Navbar />
     </div>
   );
 };
@@ -24,7 +21,7 @@ const sidemenu = css`
   height: 100%;
   border-right: 2px solid #ccc;
   display: inline-block;
-  padding: 15px; 
+  padding: 15px;
 
   .user_information {
     display: flex;
