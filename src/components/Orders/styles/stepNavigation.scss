@@ -1,0 +1,72 @@
+@import '../../../styles/variable';
+
+.stepWrapper{
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.stepBlock{
+  text-align: center;
+}
+
+.stepBlock .circleWrapper{
+  padding: 0px 3rem; //調整step 間距
+  position: relative;
+}
+
+.circle{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border:2px solid $subClrBrown;
+  background-color: $subClrBrown;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.selected .circle{
+  background-color: #fff;
+}
+
+
+.stepBlock:not(:last-child) > .circleWrapper::after{
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  top:0px;
+  bottom:0px;
+  background-color: $subClrBrown;
+  margin: auto;
+  z-index:-1;
+}
+
+.stepBlock:not(:last-child) > .circleWrapper::after{
+  height: 3px;
+  opacity: .5;
+}
+
+.stepBlock:not(:last-child).selected > .circleWrapper::after, .stepBlock:not(:last-child).selected ~ .stepBlock:not(:last-child) > .circleWrapper::after{
+  height: 2px;
+}
+
+.nextButton{
+  padding: 10px 25px;
+  background-color: $subClrBrown;
+  border: 2px solid transparent;
+  margin: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.prevButton{
+  padding: 10px 25px;
+  background-color: white;
+  border: 2px solid $subClrBrown;
+  margin: 10px;
+  color: $subClrBrown;
+  cursor: pointer;
+}
