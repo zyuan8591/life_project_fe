@@ -18,6 +18,9 @@ import {
 } from 'react-icons/ai';
 import ProductCategory from '../product/product-list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
+import PaginationBar from '../public_component/PaginationBar';
+import RecipeListMode from './component/RecipeListMode';
+import RecipeCreateForm from './component/RecipeCreateForm/RecipeCreateForm';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -41,10 +44,12 @@ const customStyles = {
   }),
   control: (base, state) => ({
     ...base,
-    // border: 0,
-    // This line disable the blue border
+    border: '1px solid #817161',
     borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
-    boxShadow: 'none',
+    boxShadow: 0,
+    '&:hover': {
+      border: state.isFocused ? '1px solid #817161' : '1px solid #817161',
+    },
   }),
 
   singleValue: (provided, state) => {
@@ -57,6 +62,9 @@ const customStyles = {
 
 const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
+  const [pageNow, setPageNow] = useState(1);
+  const [displayMode, setDisplayMode] = useState(1);
+  const [createRecipe, setCreateRecipe] = useState(true);
 
   const recipeCateClickHandler = () => {};
 
@@ -69,6 +77,7 @@ const Recipes = () => {
           {recipeCate.map((d, i) => {
             return (
               <RecipeCateBtn
+                key={i}
                 onclick={recipeCateClickHandler}
                 content={d}
                 active={i === 0 ? true : false}
@@ -103,7 +112,12 @@ const Recipes = () => {
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
             >
-              <div className="featureBtn">
+              <div
+                className="featureBtn"
+                onClick={() => {
+                  setCreateRecipe(true);
+                }}
+              >
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
@@ -125,14 +139,25 @@ const Recipes = () => {
         <div className="recipeListMain">
           <ProductCategory />
           <div className="recipeList">
+            {/* Choose mode and filter */}
             <div className="recipeMainToolBar flexCenter mb-3">
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
               >
-                <div className="recipeListMode">
+                <div
+                  className={`recipeListMode ${
+                    displayMode === 0 ? 'active' : ''
+                  }`}
+                  onClick={() => setDisplayMode(parseInt(0))}
+                >
                   <AiOutlineBars />
                 </div>
-                <div className="recipeBlockMode">
+                <div
+                  className={`recipeBlockMode ${
+                    displayMode === 1 ? 'active' : ''
+                  }`}
+                  onClick={() => setDisplayMode(parseInt(1))}
+                >
                   <AiOutlineAppstore />
                 </div>
               </IconContext.Provider>
@@ -141,18 +166,41 @@ const Recipes = () => {
                 onChange={setSelectSortOption}
                 options={sortOption}
                 styles={customStyles}
+                isSearchable={false}
               />
             </div>
-            <div className="recipeBlockModeList">
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-              <RecipeListBlockMode />
-            </div>
+            {displayMode === 1 ? (
+              <div className="recipeBlockModeList">
+                <RecipeListBlockMode />
+                <RecipeListBlockMode />
+                <RecipeListBlockMode />
+                <RecipeListBlockMode />
+              </div>
+            ) : (
+              <div className="recipeListModeList">
+                <RecipeListMode />
+                <RecipeListMode />
+                <RecipeListMode />
+                <RecipeListMode />
+              </div>
+            )}
+            <PaginationBar
+              lastPage={12}
+              pageNow={pageNow}
+              setPageNow={setPageNow}
+            />
           </div>
         </div>
+        {createRecipe && (
+          <section
+            className="creatingRecipe flexCenter"
+            onClick={() => {
+              setCreateRecipe(false);
+            }}
+          >
+            <RecipeCreateForm setCreateRecipe={setCreateRecipe} />
+          </section>
+        )}
       </div>
       <Footer />
       <BackToTop />

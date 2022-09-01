@@ -86,9 +86,9 @@
         .recipeListMode,
         .recipeBlockMode {
           cursor: pointer;
-        }
-        .css-spersy-control:hover {
-          border-color: none;
+          &.active {
+            color: $subClrBrown;
+          }
         }
       }
 
@@ -99,6 +99,19 @@
         gap: 1.5rem 1rem;
         place-items: center;
       }
+      .recipeBlockModeList,
+      .recipeListModeList {
+        max-width: 1054px;
+      }
     }
+  }
+  .creatingRecipe {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 500;
   }
 }

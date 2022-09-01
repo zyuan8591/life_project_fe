@@ -1,5 +1,6 @@
 import React from 'react';
 import ShowPassword from './ShowPassword/ShowPassword';
+import '../../../../styles/Users/password.scss';
 
 const Password = () => {
   return (
