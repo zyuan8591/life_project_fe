@@ -1,32 +1,59 @@
 import React, { Component, useState, useEffect } from 'react';
-import './test.scss';
-const data = [
-  {
-    title: '春天',
-    content: '竹外桃花三兩枝，春江水暖鴨先知。',
-    author: '蘇軾',
-    name: '《惠崇春江晚景 》',
-  },
-  {
-    title: '夏天',
-    content: '小荷才露尖尖角，早有蜻蜓立上頭。',
-    author: '楊萬里',
-    name: '《小池》',
-  },
-  {
-    title: '秋天',
-    content: '人生若只如初見，何事秋風悲畫扇。',
-    author: '納蘭性德',
-    name: '《木蘭詞·擬古決絕詞柬友》',
-  },
-  {
-    title: '冬天',
-    content: '朔風如解意，容易莫摧殘。',
-    author: '崔道融',
-    name: '《梅花》',
-  },
+import { Routes, Route, Link } from 'react-router-dom';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import {
+  BsFillPersonFill,
+  BsFillTreeFill,
+  BsCreditCard2FrontFill,
+} from 'react-icons/bs';
+import { FiLogOut } from 'react-icons/fi';
+import { MdArticle } from 'react-icons/md';
+import { GiBowlOfRice } from 'react-icons/gi';
+import { IconContext } from 'react-icons';
+const icon = [
+  <BsFillPersonFill />,
+  <MdArticle />,
+  <BsCreditCard2FrontFill />,
+  <BsFillTreeFill />,
+  <GiBowlOfRice />,
+  <FiLogOut />,
 ];
-
+const userNav = [
+  {
+    title: '個人檔案',
+    url: '/users/account',
+    item: [{ title: '更改密碼', url: '/users/password' }],
+  },
+  {
+    title: '訂單查詢',
+    url: 'users/order',
+    item: [],
+  },
+  {
+    title: 'LIFE點數',
+    url: 'users/points',
+    item: [],
+  },
+  {
+    title: '活動一覽',
+    url: 'users/camping',
+    item: [
+      { title: '露營活動', url: 'users/camping' },
+      { title: '野餐活動', url: 'users/camping' },
+    ],
+  },
+  {
+    title: '食譜一覽',
+    url: '/users/recipe',
+    item: [
+      { title: '我的食譜', url: '/users/recipe' },
+      { title: '食譜收藏', url: '/users/recipe' },
+    ],
+  },
+  { title: '登出', url: '', item: [], active: false },
+];
 
 const AccordionItem = (props) => {
   const [heightItem, setHeightItem] = useState(0);
@@ -39,41 +66,72 @@ const AccordionItem = (props) => {
   });
   const { item, index, setVisable } = props;
   return (
-    <div className="accordion-item" onClick={() => setVisable(index)}>
-      <div className="title">{item.title}</div>
-      <div
-        className="content-box"
-        style={{ height: heightItem }}
-        id={`item_${index}`}
-      >
-        <p>{item.content}</p>
-        <p>
-          --{item.author}
-          {item.name}
-        </p>
-      </div>
-    </div>
+    <li onClick={() => setVisable(index)}>
+      {icon[index]}
+      <Link to="/users/recipe">{item.title}</Link>
+      {item.item.map((v2, i2) => {
+        return (
+          <ul>
+            <li
+              className="expand"
+              style={{ height: heightItem }}
+              id={`item_${index}`}
+            >
+              <Link to={v2.url}>{v2.title}</Link>
+            </li>
+          </ul>
+        );
+      })}
+    </li>
   );
 };
 const Pinic = () => {
-  const [visable, setVisable] = useState([true, false, false, false]);
+  const [visable, setVisable] = useState([
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   const setVisableChild = (key) => {
     setVisable(visable.map((one, index) => (key == index ? true : false)));
   };
   return (
-    <div className="accordion">
-      {data.map((item, index) => {
-        return (
-          <AccordionItem
-            item={item}
-            key={index}
-            index={index}
-            visable={visable[index]}
-            setVisable={setVisableChild}
-          />
-        );
-      })}
+    <div css={nav}>
+      <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
+        <ul className="list">
+          {userNav.map((item, index) => {
+            return (
+              <AccordionItem
+                item={item}
+                key={index}
+                index={index}
+                visable={visable[index]}
+                setVisable={setVisableChild}
+              />
+            );
+          })}
+        </ul>
+      </IconContext.Provider>
     </div>
   );
 };
 export default Pinic;
+const nav = css`
+  padding: 15px 0 0 20%;
+  line-height: 3.3rem;
+
+  .icon {
+    margin: 10px;
+  }
+  .expand {
+    overflow: hidden;
+    transition: 0.5s;
+    height: 0px;
+  }
+
+  ul {
+    padding-left: 3.5rem;
+  }
+`;
