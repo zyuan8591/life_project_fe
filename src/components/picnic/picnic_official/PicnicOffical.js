@@ -12,11 +12,11 @@ function PicnicOffical() {
           alt="picnic"
         />
       </div>
-      <main className="main">
+      <main className="">
         <div className="aside">
           <div className="activityState">
             <h3>活動狀態</h3>
-            <ul className="activityStateBtn">
+            {/* <ul className="activityStateBtn">
               <li>
                 <Link to="/">即將開團</Link>
               </li>
@@ -29,7 +29,7 @@ function PicnicOffical() {
               <li>
                 <Link to="/">開團已截止</Link>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </main>
