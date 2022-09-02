@@ -8,7 +8,7 @@ import Users from './components/Users';
 import Login from './components/Login/loginPage';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product-list/ProductList';
-import RecipeDetail from './components/recipe/RecipeDetail';
+import RecipeDetail from './components/recipe_detail/RecipeDetail';
 
 function App() {
   return (

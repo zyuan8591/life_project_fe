@@ -20,7 +20,7 @@ import ProductCategory from '../product/product-list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
 import PaginationBar from '../public_component/PaginationBar';
 import RecipeListMode from './component/RecipeListMode';
-import RecipeCreateForm from './component/RecipeCreateForm/RecipeCreateForm';
+import RecipeCreateForm from './component/RecipeCreateForm';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
