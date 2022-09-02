@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Recipe = () => {
-  return <div>Recipe</div>;
-};
-
+function Recipe() {
+  return <div className="App"></div>;
+}
 export default Recipe;

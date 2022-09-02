@@ -22,7 +22,7 @@ const pages = [
   { title: '聯絡我們', route: '/contact' },
 ];
 
-const Header = () => {
+const Header = ({ fixed = true }) => {
   const [scrollDown, setScrollDown] = useState(false);
   const pageNow = useSelector((state) => state.pagination.pagination);
   const dispatch = useDispatch();
@@ -39,7 +39,9 @@ const Header = () => {
       value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
     >
       <header
-        className={`header w-100 position-fixed ${scrollDown ? 'hidden' : ''}`}
+        className={`header w-100 ${fixed ? 'position-fixed' : ''} ${
+          scrollDown ? 'hidden' : ''
+        }`}
       >
         <h1 className="mb-0 header-item">LIFE</h1>
         <nav className="flexCenter header-item">

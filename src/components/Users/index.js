@@ -8,6 +8,7 @@ import Password from './Content/Password/Password';
 import Order from './Content/Order/Order';
 import Points from './Content/Points/Points';
 import Pinic from './Content/Picnic/Pinic';
+import Recipe from './Content/Recipe/Recipe';
 import { Routes, Route, Link } from 'react-router-dom';
 
 const index = () => {
@@ -24,6 +25,7 @@ const index = () => {
             <Route path="/order" element={<Order />} />
             <Route path="/points" element={<Points />} />
             <Route path="/pinic" element={<Pinic />} />
+            <Route path="/recipe" element={<Recipe />} />
           </Routes>
         </div>
 

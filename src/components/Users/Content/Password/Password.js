@@ -1,5 +1,5 @@
-import React from 'react';
-import ShowPassword from './ShowPassword/ShowPassword';
+import React, { useState } from 'react';
+import ShowPassword from './component/ShowPassword';
 import '../../../../styles/Users/password.scss';
 
 const Password = () => {
@@ -7,7 +7,7 @@ const Password = () => {
     <div className="password">
       <h3>修改密碼</h3>
       <form action="">
-        <div className="password-group">
+        <div className="password-group ">
           <label htmlFor="">　　　舊密碼：</label>
           <ShowPassword />
         </div>
