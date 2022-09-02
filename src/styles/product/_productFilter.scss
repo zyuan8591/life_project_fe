@@ -1,4 +1,4 @@
-@import './variable';
+@import '../variable';
 
 .filter {
   width: 1200px;
@@ -16,13 +16,14 @@
     position: relative;
   }
   .filterBoard {
-    max-width: 1160px;
+    max-width: 1200px;
     min-height: 300px;
     overflow: hidden;
     position: absolute;
     border-radius: 0 0 10px 10px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25);
     padding: 15px 30px;
+    background: $mainClrW;
     .brandSection {
       display: flex;
       padding-bottom: 15px;
@@ -45,9 +46,15 @@
           text-align: center;
           border: 0;
           border-bottom: 2px solid $hoverClr;
-          background: url(../../public/img/product/product_icon/icons8-search-48.png)
+          background: url(../../../public/img/product/product_icon/icons8-search-48.png)
             no-repeat 22%;
           background-size: 20px;
+          &:focus {
+            outline: transparent;
+            &::placeholder {
+              opacity: 0;
+            }
+          }
         }
       }
       .brand {
@@ -66,31 +73,77 @@
     .priceSection {
       display: flex;
       align-items: center;
-      button,
-      a {
-        background: $mainClrW;
-        padding: 6px 12px;
-        margin: 0 5px;
-        border: 1px solid $subClrGY;
-        border-radius: 20px;
-        &:hover {
-          background: $hoverClr;
-        }
-        &:active {
+      .priceTitle {
+        .active {
           background: $subClrBrown;
           color: $mainClrW;
+        }
+        width: 240px;
+        margin-right: 30px;
+        display: flex;
+        align-items: center;
+        button {
+          color: $contentClr;
+          background: $mainClrW;
+          padding: 6px 20px;
+          margin: 0 5px;
+          border: 1px solid $subClrGY;
+          border-radius: 20px;
+        }
+      }
+      .priceBtn {
+        .active {
+          background: $subClrBrown;
+          color: $mainClrW;
+        }
+        button {
+          color: $contentClr;
+          background: $mainClrW;
+          padding: 6px 12px;
+          margin: 0 5px;
+          border: 1px solid $subClrGY;
+          border-radius: 20px;
+        }
+      }
+      button:hover {
+        background: $hoverClr;
+      }
+      .priceSearch {
+        max-width: 250px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        // margin-left: 10px;
+        input {
+          width: 50px;
+          height: 28px;
+          text-align: center;
+          border: 2px solid $subClrGY;
+          &:focus{
+            outline: transparent;
+          }
         }
       }
     }
   }
   .filterPopular {
     border: 2px solid #3f688c;
+    &:focus {
+      outline: transparent;
+    }
+
   }
   .search {
     border: 2px solid #3f688c;
     width: 370px;
     height: 30px;
     padding-left: 5px;
+    &:focus {
+      outline: transparent;
+      &::placeholder {
+        opacity: 0;
+      }
+    }
   }
   .searchButton {
     border-top: 2px solid #3f688c;

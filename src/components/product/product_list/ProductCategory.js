@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/_productCategory.scss';
+import '../../../styles/product/_productCategory.scss';
 
 const ProductCategory = () => {
   const arr = [

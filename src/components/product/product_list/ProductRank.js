@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/_productList.scss';
+import '../../../styles/product/_productList.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

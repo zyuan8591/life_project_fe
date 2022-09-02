@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import InputGender from './component/InputGender';
 import InputAddress from './component/inputAddress';
+import WarnWindow from './component/WarnWindow';
 
 const Account = () => {
+  const [warn, setWarn] = useState(false);
+  function pop(e) {
+    e.preventDefault();
+    setWarn(true);
+  }
   return (
     <>
       <h3>個人檔案</h3>
@@ -71,8 +77,9 @@ const Account = () => {
               </div>
             </div>
             <div className="reviseBtn">
-              <button>修改資料</button>
+              <button onClick={pop}>修改資料</button>
             </div>
+            <WarnWindow warn={warn} setWarn={setWarn} />
           </div>
         </form>
       </div>
