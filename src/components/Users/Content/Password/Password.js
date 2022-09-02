@@ -1,5 +1,5 @@
-import React from 'react';
-import ShowPassword from './ShowPassword/ShowPassword';
+import React, { useState } from 'react';
+import ShowPassword from './component/ShowPassword';
 import '../../../../styles/Users/password.scss';
 
 const Password = () => {

@@ -11,6 +11,7 @@
   left: 0;
   //flex
   display: flex;
+ 
   align-items: center;
   z-index: 50;
   background: #fff;
@@ -91,5 +92,6 @@
   }
   &.hidden {
     transform: translateY(-$headerHeight);
+    color: rgba(0, 0, 0, 0.363);
   }
 }
