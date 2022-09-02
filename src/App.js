@@ -6,6 +6,7 @@ import News from './components/news/News';
 import './styles/style.scss';
 import Users from './components/Users';
 import Login from './components/Login/loginPage';
+import Signup from './components/Login/Signup';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product-list/ProductList';
 import RecipeDetail from './components/recipe/RecipeDetail';
@@ -18,7 +19,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/news" element={<News />} />
         <Route path="/users/*" element={<Users />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login/*" element={<Login />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
         {/* <Route path="*" element={<NotFound />} /> */}
