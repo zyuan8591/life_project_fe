@@ -8,12 +8,13 @@ import Users from './components/Users';
 import Login from './components/Login/loginPage';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
-
+import ProductDetail from './components/product/product_detail/ProductDetail';
 function App() {
   return (
     <>
       <Routes>
         <Route path="/products" element={<ProductList />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/news" element={<News />} />
         <Route path="/users/*" element={<Users />} />

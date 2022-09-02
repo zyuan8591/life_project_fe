@@ -16,7 +16,7 @@ const Product = () => {
           return (
             <div className="products" key={i}>
               <Link
-                to="/"
+                to="/products/:id"
                 className="hoverArea "
                 onMouseOver={(e) => {
                   e.target.src =

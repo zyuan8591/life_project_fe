@@ -16,7 +16,7 @@ import {
   AiOutlineBars,
   AiOutlineAppstore,
 } from 'react-icons/ai';
-import ProductCategory from '../product/product-list/ProductCategory';
+import ProductCategory from '../product/product_list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
 import PaginationBar from '../public_component/PaginationBar';
 import RecipeListMode from './component/RecipeListMode';
