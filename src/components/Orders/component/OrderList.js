@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/orderList.scss';
+import '../../../styles/Order/orderList.scss';
 import { IconContext } from 'react-icons';
 import { TbTrash } from 'react-icons/tb';
 const OrderList = (props) => {

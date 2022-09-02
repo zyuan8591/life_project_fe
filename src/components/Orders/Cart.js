@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import OrderList from './component/OrderList';
 import Summary from './component/Summary';
-import './styles/cart.scss';
+import '../../styles/Order/Cart.scss';
 import Headers from '../public_component/Header';
 import Footer from '../public_component/Footer';
 import BackToTop from '../public_component/BackToTop';
@@ -20,34 +20,29 @@ const Cart = (props) => {
     <>
       <Headers />
 
-      <div className="cartpageContainer">
-        <div className="cartpage">
-          <IconContext.Provider value={{ color: '#444', size: '2rem' }}>
-            {/* <FiShoppingBag /> */}
-            <StepNavigation
-              currentStep={currentStep}
-              labelArray={labelArray}
-              updateStep={updateStep}
-            />
+      <div className="cartPage">
+        <StepNavigation
+          currentStep={currentStep}
+          labelArray={labelArray}
+          updateStep={updateStep}
+        />
 
-            <OrderList />
-            <Summary />
+        <OrderList />
+        <Summary />
 
-            <div className="text-center stepbtn">
-              <button
-                className="prevButton me-5"
-                onClick={() => updateCurrentStep(currentStep - 1)}
-              >
-                上一步
-              </button>
-              <button
-                className="nextButton"
-                onClick={() => updateCurrentStep(currentStep + 1)}
-              >
-                下一步
-              </button>
-            </div>
-          </IconContext.Provider>
+        <div className="text-center stepbtn">
+          <button
+            className="prevButton me-5"
+            onClick={() => updateCurrentStep(currentStep - 1)}
+          >
+            上一步
+          </button>
+          <button
+            className="nextButton"
+            onClick={() => updateCurrentStep(currentStep + 1)}
+          >
+            下一步
+          </button>
         </div>
       </div>
 
