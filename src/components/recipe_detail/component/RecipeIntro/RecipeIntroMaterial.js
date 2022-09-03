@@ -13,7 +13,10 @@ const item = css`
   }
 `;
 
-const RecipeIntroMaterial = ({ name = '高麗菜', quantity = '87公克' }) => {
+const RecipeIntroMaterial = ({
+  name = '高麗菜高麗菜高',
+  quantity = '87公克',
+}) => {
   return (
     <div className="d-flex justify-content-between w-100" css={item}>
       <span>{name}</span>

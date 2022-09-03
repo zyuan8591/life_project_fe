@@ -37,15 +37,14 @@ const avatarContainer = css`
   overflow: hidden;
 `;
 const btn = css`
-  background: ${focusClrY};
-  color: #fff;
-  border: 1px solid transparent;
+  color: ${focusClrY};
+  border: 2px solid ${focusClrY};
   border-radius: 3px;
-  transition: 0.2s;
+  transition: 0.15s;
+  background: #fff;
   &:hover {
-    color: ${focusClrY};
-    background: #fff;
-    border-color: ${focusClrY};
+    color: #fff;
+    background: ${focusClrY};
   }
 `;
 
@@ -56,6 +55,7 @@ const recipeCollectBtn = css`
 
 // Right Section
 const materialContainer = css`
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,6 +63,7 @@ const materialContainer = css`
   overflow: hidden;
   border: 1px solid ${subClrBrown};
   padding-bottom: 1rem;
+  margin: 0 auto;
 `;
 const materialTitle = css`
   background: ${subClrBrown};
@@ -80,7 +81,7 @@ const materialTitle = css`
 `;
 const materialMain = css`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
 `;
 
