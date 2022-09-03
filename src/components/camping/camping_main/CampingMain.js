@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
-import { AiOutlineBars } from 'react-icons/ai';
-import { BsGridFill, BsHeart } from 'react-icons/bs';
+import { BsGridFill } from 'react-icons/bs';
 import { HiChevronDoubleRight } from 'react-icons/hi';
-import { FaHeart } from 'react-icons/fa';
+import { FaHeart, FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../styles/camping/_campingMain.scss';
 import Footer from '../../public_component/Footer';
@@ -42,9 +42,8 @@ function CampingMain() {
 
   const horizontalCard = (
     <ActivityHorizontalCard
-      BsHeart={BsHeart}
+      FaHeart={FaHeart}
       Link={Link}
-      stateSearch={stateSearch}
       IconContext={IconContext}
     />
   );
@@ -52,7 +51,7 @@ function CampingMain() {
   return (
     <>
       <Header />
-      <IconContext.Provider value={{ color: '#817161', size: '1.5em' }}>
+      <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {/* banner */}
           <ActivityBanner />
@@ -85,17 +84,13 @@ function CampingMain() {
                   <div className="d-flex justify-content-between">
                     <div className="mb-3">
                       {/* card 切換 */}
-                      <IconContext.Provider
-                        value={{ color: '#817161', size: '1.9em' }}
-                      >
-                        <AiOutlineBars
-                          className="me-3 changeBtn"
-                          onClick={() => {
-                            setCardChange(false);
-                            setHorizontalCardChange(true);
-                          }}
-                        />
-                      </IconContext.Provider>
+                      <FaListUl
+                        className="me-3 changeBtn"
+                        onClick={() => {
+                          setCardChange(false);
+                          setHorizontalCardChange(true);
+                        }}
+                      />
 
                       <BsGridFill
                         className="changeBtn"
@@ -105,7 +100,21 @@ function CampingMain() {
                         }}
                       />
                     </div>
-                    <div className="me-2">search</div>
+                    <IconContext.Provider
+                      value={{ color: '#817161', size: '1.7em' }}
+                    >
+                      <div className="me-2">
+                        <input
+                          className="searchInput"
+                          placeholder="Search.."
+                          type="text"
+                        />
+                        <FaSearch
+                          className="ms-2 mb-1"
+                          style={{ cursor: 'pointer' }}
+                        />
+                      </div>
+                    </IconContext.Provider>
                   </div>
 
                   <IconContext.Provider value={{ color: '#000', size: '1rem' }}>
