@@ -40,13 +40,25 @@ const RecipeCreateForm = ({ setCreateRecipe }) => {
 
         <div className={classes.formItem}>
           <label>簡介</label>
-          <input type="text" placeholder="請輸入食譜描述 ( 最多200字 )" />
+          <textarea
+            type="text"
+            placeholder="請輸入食譜描述 ( 最多200字 )"
+            rows="5"
+          />
         </div>
 
         <div className={classes.formItem}>
           <label>食材</label>
           <RecipeMaterial />
-          <button className={classes.addMaterialBtn}>加入食材</button>
+          <button
+            className={classes.addMaterialBtn}
+            onClick={(e) => {
+              e.preventDefault();
+              console.log('click');
+            }}
+          >
+            加入食材
+          </button>
         </div>
 
         <div className={classes.formItem}>

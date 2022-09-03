@@ -10,7 +10,7 @@ import Signup from './components/Login/Signup';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
-import RecipeDetail from './components/recipe/RecipeDetail';
+import RecipeDetail from './components/recipe_detail/RecipeDetail';
 
 function App() {
   return (
