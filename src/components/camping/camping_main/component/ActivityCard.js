@@ -17,7 +17,7 @@ function ActivityCard({
         </div>
         <div className="activityInformation">
           <div className="activityTitle my-2">
-            <div className="title">浪花野餐計畫</div>
+            <div className="title">浪花露營計畫</div>
             <IconContext.Provider value={{ className: 'collectBtn' }}>
               <FaHeart className="collect" />
             </IconContext.Provider>
@@ -48,7 +48,7 @@ function ActivityCard({
             </div>
           </div>
           <div className="intMore my-1">
-            <IconContext.Provider value={{ color: '#1F9998', size: '1.2em' }}>
+            <IconContext.Provider value={{ className: 'moreIcon' }}>
               <Link to="/activity/camping/1" className="more">
                 more
                 <IoIosArrowDroprightCircle />
