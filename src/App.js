@@ -1,6 +1,7 @@
 import 'normalize.css';
-// import ActivityMain from './components/activity/ActivityMain';
-import CampingMain from './components/camping/CampingMain';
+import ActivityMain from './components/activity/ActivityMain';
+import CampingMain from './components/camping/camping_main/CampingMain';
+import CampingDetailPage from './components/camping/camping_detail/CampingDetailPage';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
@@ -11,7 +12,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/activity" element={<ActivityMain />} />
         <Route path="/activity/camping" element={<CampingMain />} />
+        <Route path="/activity/camping/1" element={<CampingDetailPage />} />
       </Routes>
     </>
   );
