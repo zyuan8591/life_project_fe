@@ -5,7 +5,7 @@ function ActivityBanner() {
     <>
       <div className="banner">
         <img
-          src="/img/camping/activity_camping_img/main_img_8.jpg"
+          src="/img/camping/activity_camping_img/main_img_1.jpg"
           alt="camping"
         />
       </div>
