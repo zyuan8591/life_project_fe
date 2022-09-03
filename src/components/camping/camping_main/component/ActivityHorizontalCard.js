@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ActivityHorizontalCard({ BsHeart, Link }) {
+function ActivityHorizontalCard({ Link, IconContext, FaHeart }) {
   return (
     <>
       <div className="activityHorizontalStyle">
@@ -13,7 +13,9 @@ function ActivityHorizontalCard({ BsHeart, Link }) {
         <div className="activityInformation">
           <div className="activityTitle mb-2">
             <div className="title">浪花野餐計畫</div>
-            <BsHeart className="collect" />
+            <IconContext.Provider value={{ className: 'collectBtn' }}>
+              <FaHeart className="collect" />
+            </IconContext.Provider>
           </div>
           <div className="d-flex">
             <div className="label">新北市</div>
