@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { IconContext } from 'react-icons';
 
@@ -9,7 +8,7 @@ import { BsPersonFill } from 'react-icons/bs';
 import { IoWarning } from 'react-icons/io5';
 import { HiLightBulb } from 'react-icons/hi';
 import { GiCampingTent } from 'react-icons/gi';
-import { IoIosCafe, IoIosArrowDroprightCircle } from 'react-icons/io';
+import { IoIosCafe } from 'react-icons/io';
 import {
   FaWifi,
   FaPlug,
@@ -21,10 +20,13 @@ import {
 } from 'react-icons/fa';
 import { MdOutlineLocalParking, MdLocationOn } from 'react-icons/md';
 
-import '../../../styles/camping/_campingDetailPage.scss';
+import '../../../styles/camping/camping_detail/_campingDetailPage.scss';
 import Footer from '../../public_component/Footer';
 import Header from '../../public_component/Header';
 import BackToTop from '../../public_component/BackToTop';
+import Slide from './component/Slide';
+import ProductSlide from './component/ProductSlide';
+import PlaceSlide from './component/PlaceSlide';
 
 const aboutIcons = [
   {
@@ -70,12 +72,30 @@ const aboutDetailContent = [
   },
 ];
 
+const products = [
+  { name: 'Moomin多功能電烤盤', img: 'BRUNO_BOE059_BGR_CE_02.jpeg' },
+  { name: '隨行果汁機', img: 'CHANCOO_CC5800_GRE_03.webp' },
+  { name: '單片熱壓三明治機', img: 'Tofft_khs3_p_03.jpg' },
+  { name: 'Hot Plate 電烤盤', img: 'recolte_RHP_1_03.jpeg' },
+  { name: 'Ball Mason Jar隨鮮瓶果汁機', img: 'OSTER_ BLSTMM_BA4_02.jpeg' },
+  { name: '多功能電烤盤-經典款', img: 'BRUNO_ BOE026_CGR_02.webp' },
+  { name: 'SOU‧SOU 多功能電烤盤', img: 'BRUNO_BOE021_SOUSOU_02.webp' },
+  { name: '多功能計時鬆餅機', img: 'Giaretti_gtswt26_03.jpg' },
+  { name: 'Moomin多功能電烤盤', img: 'BRUNO_BOE059_BGR_CE_02.jpeg' },
+  { name: '隨行果汁機', img: 'CHANCOO_CC5800_GRE_03.webp' },
+];
+
 function CampingDetailPage() {
   const [aboutIcon, setAboutIcon] = useState(aboutIcons);
   const [aboutDetail, setAboutDetail] = useState(aboutDetailContent);
-
   const [scrollDown, setScrollDown] = useState(false);
+  const [product, setProduct] = useState(products);
+  const productLength = product.length;
+  // console.log(productLength);
 
+  const [productSlider, setProductSlider] = useState(0);
+  const [placeSlider, setPlaceSlider] = useState(0);
+  // sticky
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
@@ -325,12 +345,12 @@ function CampingDetailPage() {
                     </div>
                     <div className="userName">Joe</div>
                   </div>
-                  <div className="joinUser">
+                  {/* <div className="joinUser">
                     <div className="userImg">
                       <img src="/img/user/company_icon/aarke.jpg" alt="/" />
                     </div>
                     <div className="userName">Joe</div>
-                  </div>
+                  </div> */}
                   <div className="sliderLeft">
                     <FaChevronLeft />
                   </div>
@@ -380,235 +400,29 @@ function CampingDetailPage() {
           {/* 商品推薦 */}
           <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
             <div className="productTitle">輕鬆享受露營，猜你會需要...</div>
-            <div className="productSlider">
-              {/* 照片更換 */}
-              <div className="productImg">
-                <img
-                  src="/img/product/product_img/BRUNO_ BOE021_02.jpeg"
-                  alt="/"
-                />
-                <div className="productLink">
-                  <div className="linkText">嚕嚕咪烤盤嚕嚕咪烤盤嚕嚕咪烤盤</div>
-                  <IconContext.Provider
-                    value={{ color: '#F2AC33', size: '1.5rem' }}
-                  >
-                    <Link to="/">
-                      <IoIosArrowDroprightCircle />
-                    </Link>
-                  </IconContext.Provider>
-                </div>
-              </div>
-              <div className="productImg">
-                <img
-                  src="/img/product/product_img/BRUNO_ BOE021_02.jpeg"
-                  alt="/"
-                />
-                <div className="productLink">
-                  <div className="linkText">嚕嚕咪烤盤嚕嚕咪烤盤嚕嚕咪烤盤</div>
-                  <IconContext.Provider
-                    value={{ color: '#F2AC33', size: '1.5rem' }}
-                  >
-                    <Link to="/">
-                      <IoIosArrowDroprightCircle />
-                    </Link>
-                  </IconContext.Provider>
-                </div>
-              </div>
-              <div className="productImg">
-                <img
-                  src="/img/product/product_img/BRUNO_ BOE021_02.jpeg"
-                  alt="/"
-                />
-                <div className="productLink">
-                  <div className="linkText">嚕嚕咪烤盤嚕嚕咪烤盤嚕嚕咪烤盤</div>
-                  <IconContext.Provider
-                    value={{ color: '#F2AC33', size: '1.5rem' }}
-                  >
-                    <Link to="/">
-                      <IoIosArrowDroprightCircle />
-                    </Link>
-                  </IconContext.Provider>
-                </div>
-              </div>
-              <div className="productImg">
-                <img
-                  src="/img/product/product_img/BRUNO_ BOE021_02.jpeg"
-                  alt="/"
-                />
-                <div className="productLink">
-                  <div className="linkText">嚕嚕咪烤盤嚕嚕咪烤盤嚕嚕咪烤盤</div>
-                  <IconContext.Provider
-                    value={{ color: '#F2AC33', size: '1.5rem' }}
-                  >
-                    <Link to="/">
-                      <IoIosArrowDroprightCircle />
-                    </Link>
-                  </IconContext.Provider>
-                </div>
-              </div>
-              <div className="productImg">
-                <img
-                  src="/img/product/product_img/BRUNO_ BOE021_02.jpeg"
-                  alt="/"
-                />
-                <div className="productLink">
-                  <div className="linkText">嚕嚕咪烤盤嚕嚕咪烤盤嚕嚕咪烤盤</div>
-                  <IconContext.Provider
-                    value={{ color: '#F2AC33', size: '1.5rem' }}
-                  >
-                    <Link to="/">
-                      <IoIosArrowDroprightCircle />
-                    </Link>
-                  </IconContext.Provider>
-                </div>
-              </div>
-              <div className="productImg">
-                <img
-                  src="/img/product/product_img/BRUNO_ BOE021_02.jpeg"
-                  alt="/"
-                />
-                <div className="productLink">
-                  <div className="linkText">嚕嚕咪烤盤嚕嚕咪烤盤嚕嚕咪烤盤</div>
-                  <IconContext.Provider
-                    value={{ color: '#F2AC33', size: '1.5rem' }}
-                  >
-                    <Link to="/">
-                      <IoIosArrowDroprightCircle />
-                    </Link>
-                  </IconContext.Provider>
-                </div>
-              </div>
-              <div className="sliderLeft">
-                <FaChevronLeft />
-              </div>
-              <div className="sliderRight">
-                <FaChevronRight />
-              </div>
-            </div>
+            <Slide
+              contentLength={productLength}
+              maxWidth={1260}
+              Slider={productSlider}
+              setSlider={setProductSlider}
+              cardWidth={210}
+              displayContainer={6}
+            >
+              <ProductSlide product={product} productSlider={productSlider} />
+            </Slide>
 
             {/* 地點推薦 */}
             <div className="placeTitle">喜歡露營的你，附近的活動還有...</div>
-            <div className="placeSlider">
-              <IconContext.Provider value={{ color: '#444', size: '1.5rem' }}>
-                {/* card 更換 */}
-                <div className="placeSliderContainer">
-                  <div className="contentDate">2022/08/20 ~ 2022/09/20</div>
-                  <div className="contentName">今夏CAMPING了嗎？</div>
-                  <div className="d-flex align-items-center">
-                    <MdLocationOn />
-                    <div className="contentCounty">台北市</div>
-                  </div>
-                  <div className="contentDistance">距離當前活動：345 公尺</div>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="d-flex align-items-center">
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                    </div>
-                    <Link to="/activity/camping/1" className="contentBtn">
-                      更多詳情
-                    </Link>
-                  </div>
-                </div>
-                <div className="placeSliderContainer">
-                  <div className="contentDate">2022/08/20 ~ 2022/09/20</div>
-                  <div className="contentName">今夏CAMPING了嗎？</div>
-                  <div className="d-flex align-items-center">
-                    <MdLocationOn />
-                    <div className="contentCounty">台北市</div>
-                  </div>
-                  <div className="contentDistance">距離目前活動 345 K</div>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="d-flex align-items-center">
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                    </div>
-                    <Link to="/activity/camping/1" className="contentBtn">
-                      更多詳情
-                    </Link>
-                  </div>
-                </div>
-                <div className="placeSliderContainer">
-                  <div className="contentDate">2022/08/20 ~ 2022/09/20</div>
-                  <div className="contentName">今夏CAMPING了嗎？</div>
-                  <div className="d-flex align-items-center">
-                    <MdLocationOn />
-                    <div className="contentCounty">台北市</div>
-                  </div>
-                  <div className="contentDistance">距離目前活動 345 K</div>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="d-flex align-items-center">
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                    </div>
-                    <Link to="/activity/camping/1" className="contentBtn">
-                      更多詳情
-                    </Link>
-                  </div>
-                </div>
-                <div className="placeSliderContainer">
-                  <div className="contentDate">2022/08/20 ~ 2022/09/20</div>
-                  <div className="contentName">今夏CAMPING了嗎？</div>
-                  <div className="d-flex align-items-center">
-                    <MdLocationOn />
-                    <div className="contentCounty">台北市</div>
-                  </div>
-                  <div className="contentDistance">距離目前活動 345 K</div>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="d-flex align-items-center">
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                    </div>
-                    <Link to="/activity/camping/1" className="contentBtn">
-                      更多詳情
-                    </Link>
-                  </div>
-                </div>
-                <div className="placeSliderContainer">
-                  <div className="contentDate">2022/08/20 ~ 2022/09/20</div>
-                  <div className="contentName">今夏CAMPING了嗎？</div>
-                  <div className="d-flex align-items-center">
-                    <MdLocationOn />
-                    <div className="contentCounty">台北市</div>
-                  </div>
-                  <div className="contentDistance">距離目前活動 345 K</div>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="d-flex align-items-center">
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                      <div className="contentImg">
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                    </div>
-                    <Link to="/activity/camping/1" className="contentBtn">
-                      更多詳情
-                    </Link>
-                  </div>
-                </div>
-              </IconContext.Provider>
-              <div className="sliderLeft">
-                <FaChevronLeft />
-              </div>
-              <div className="sliderRight">
-                <FaChevronRight />
-              </div>
-            </div>
+            <Slide
+              contentLength={productLength}
+              maxWidth={1375}
+              Slider={placeSlider}
+              setSlider={setPlaceSlider}
+              cardWidth={275}
+              displayContainer={5}
+            >
+              <PlaceSlide product={product} placeSlider={placeSlider} />
+            </Slide>
           </IconContext.Provider>
         </div>
       </main>
