@@ -19,12 +19,12 @@ const Homepage = () => {
       <div className="homepageContainer">
         <div className="homepage">
           {/* NEWS */}
-          <div className="newsContainer">
+          <div className="hPnewsContainer">
             <IndexTitle title="最新資訊" subtitle="News" route="/news" />
             <IndexNews />
           </div>
           {/* NEW PRODUCTS */}
-          <div className="productContainer">
+          <div className="hPproductContainer">
             <IndexTitle
               title="最新商品"
               subtitle="New Products"
@@ -33,7 +33,7 @@ const Homepage = () => {
           </div>
           <IndexProducts />
           {/* NEW RECIPES */}
-          <div className="recipeContainer">
+          <div className="hPrecipeContainer">
             <IndexTitle
               title="熱門食譜"
               subtitle="Popular Recipes"
@@ -43,7 +43,7 @@ const Homepage = () => {
           <IndexRecipe />
 
           {/* ACTIVITIES */}
-          <div className="activityContainer">
+          <div className="hPactivityContainer">
             <IndexTitle
               title="活動專區"
               subtitle="Activities"
