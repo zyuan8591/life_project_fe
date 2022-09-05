@@ -58,7 +58,7 @@ const icon = css`
 
 const RecipeListMode = () => {
   return (
-    <Link to="/" css={container}>
+    <Link to="/recipes/5" css={container}>
       <figure css={imgContainer}>
         <img
           src="/img/recipe/recipe_img/Bagel.jpg"

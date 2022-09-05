@@ -38,7 +38,7 @@ const avatarContainer = css`
 `;
 const btn = css`
   color: ${focusClrY};
-  border: 2px solid ${focusClrY};
+  border: 1px solid ${focusClrY};
   border-radius: 3px;
   transition: 0.15s;
   background: #fff;
@@ -80,9 +80,11 @@ const materialTitle = css`
   }
 `;
 const materialMain = css`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem; */
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const RecipeIntro = () => {
@@ -131,7 +133,7 @@ const RecipeIntro = () => {
           </div>
         </div>
         {/* right side */}
-        <div>
+        <div className="px-4">
           {/* recipe content */}
           <p>
             日式炸豆腐是出自日式揚出豆腐，揚出的“揚”字在日本語是油炸的意思，而“出”即湯汁之意，揚出豆腐是日本料理的代表菜色之一，也是造訪日式料理店時餐桌上常見的一道菜；豆腐本身沒什麼味道，但裹上麵包粉油炸後，麵衣吸取了佐上蘿蔔泥的柴魚醬汁，美味瞬間爆表，更增添了豐富的層次感；雖是炸物，吃起來非但一點都不油膩，還很清爽呢。只是一般在家很少做這道料理，原因是油炸食物需要用到大量的油，容易造成浪費。運用氣炸烤箱的氣旋威力，只需少量的油，就能做出相同酥脆口感的日式炸豆腐，只需氣炸10分鐘就能讓你美美上菜。
@@ -142,23 +144,24 @@ const RecipeIntro = () => {
               食材
             </div>
             <div className="w-100 px-3" css={materialMain}>
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
-              <RecipeIntroMaterial />
+              <RecipeIntroMaterial name="無鹽奶油" quantity="10公克" />
+              <RecipeIntroMaterial name="全蛋" quantity="38公克" />
+              <RecipeIntroMaterial name="糖粉" quantity="38公克" />
+              <RecipeIntroMaterial name="全蛋" quantity="30公克" />
+              <RecipeIntroMaterial name="低筋麵粉" quantity="48公克" />
+              <RecipeIntroMaterial name="開水" quantity="67ml" />
+              <RecipeIntroMaterial name="鹽" quantity="0.5公克" />
+              <RecipeIntroMaterial name="無鹽奶油" quantity="40公克 " />
+              <RecipeIntroMaterial name="低筋麵粉" quantity="50公克 " />
+              <RecipeIntroMaterial name="全蛋" quantity="100公克" />
+              <RecipeIntroMaterial name="愛文芒果" quantity="200公克" />
+              <RecipeIntroMaterial name="糖" quantity="40公克" />
+              <RecipeIntroMaterial name="吉利丁片" quantity="10公克" />
+              <RecipeIntroMaterial name="冰開水" quantity="50ml" />
+              <RecipeIntroMaterial name="鮮奶油" quantity="300公克" />
+              <RecipeIntroMaterial name="鮮奶油" quantity="200公克" />
+              <RecipeIntroMaterial name="糖" quantity="16公克" />
+              <RecipeIntroMaterial name="香草籽" quantity="1公克" />
             </div>
           </div>
         </div>
