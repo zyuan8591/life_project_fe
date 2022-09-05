@@ -1,0 +1,29 @@
+@import '../variable';
+
+// @import './login.scss';
+@mixin btn {
+   padding: 10px;
+   background:$subClrBrown;
+   color: #fff;
+   border: 0;   
+   border-radius: 5px;  
+}
+
+.users {  
+   
+   padding-top: 65px;
+   display: flex;
+   height: 100vh;  
+   
+    //Content----------------------------------------------
+    .content{
+      margin:100px 0 auto;
+      padding: 0 5%;
+      width: 80%;
+      max-width: 1400px; 
+      h3{
+        margin:-40px 0 60px -10px ;       
+      }
+   } 
+
+}//end user

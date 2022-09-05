@@ -1,10 +1,102 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import React from 'react';
-import classes from '../../../styles/moduleCss/indexActivity.module.scss';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
-
 const imgRoute = '/img/index/';
+
+// emotion css
+const subClrBrown = '#817161';
+const subClrGY = '#B9BDC5';
+const contentClr = '#444';
+const container = css`
+  margin: 2rem 0;
+  color: ${contentClr};
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+`;
+const cards = css`
+  display: flex;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+`;
+const card = css`
+  flex: 1 1 auto;
+  padding: 1.75rem 0;
+  position: relative;
+  &::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: '';
+    height: 4px;
+    width: 100%;
+    background: ${subClrGY};
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+  }
+  &:hover:before {
+    background: ${subClrBrown};
+  }
+  &:hover .cardCotainer .textContent {
+    opacity: 0.8;
+  }
+  &:hover .cardCotainer .imgContainer {
+    opacity: 0.5;
+  }
+
+  &:last-child .cardCotainer {
+    border: none;
+  }
+`;
+const cardCotainer = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  transition: 0.3s;
+  position: relative;
+  border-right: 1px dashed ${subClrGY};
+  margin: 0 -0.25rem;
+`;
+const imgContainer = css`
+  max-width: 50px;
+  max-height: 50px;
+  margin: 0;
+  opacity: 0.8;
+  transition: 0.3s;
+`;
+const textContent = css`
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+`;
+const btns = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  max-width: 180px;
+`;
+const btn = css`
+  flex: 1 1 auto;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid ${subClrGY};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: 0.3s;
+  white-space: nowrap;
+  &:hover {
+    border-color: ${subClrBrown};
+  }
+`;
 
 const IndexActivity = () => {
   const activity = [
@@ -29,20 +121,20 @@ const IndexActivity = () => {
   ];
 
   return (
-    <div className={classes.container}>
-      <div className={classes.cards}>
+    <div css={container}>
+      <div css={cards}>
         {activity.map((a, i) => {
           return (
-            <Link to={a.link} key={a.titleEn} className={classes.card}>
-              <div className={classes.cardCotainer}>
-                <figure className={classes.imgContainer}>
+            <Link to={a.link} key={a.titleEn} css={card}>
+              <div css={cardCotainer}>
+                <figure css={imgContainer}>
                   <img
                     className="objectContain"
                     src={`/img/index/${a.img}`}
                     alt="campImage"
                   />
                 </figure>
-                <div className={classes.textContent}>
+                <div css={textContent}>
                   <span>{a.titleEn}</span>
                   <span>{a.titleCh}</span>
                 </div>
@@ -56,14 +148,14 @@ const IndexActivity = () => {
           );
         })}
       </div>
-      <div className={classes.btns}>
-        <Link to="/activity/picnic/official" className={classes.btn}>
+      <div css={btns}>
+        <Link to="/activity/picnic/official" css={btn}>
           <IconContext.Provider value={{ color: '#817161', size: '0.75rem' }}>
             <FaArrowAltCircleRight />
           </IconContext.Provider>
           <span>官方活動一覽</span>
         </Link>
-        <Link to="/activity/picnic/group" className={classes.btn}>
+        <Link to="/activity/picnic/group" css={btn}>
           <IconContext.Provider value={{ color: '#817161', size: '0.75rem' }}>
             <FaArrowAltCircleRight />
           </IconContext.Provider>

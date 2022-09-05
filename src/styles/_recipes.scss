@@ -1,0 +1,117 @@
+@import './variable';
+
+.pageRecipes {
+  margin: $headerHeight auto 8rem;
+  max-width: $maxWidth;
+  padding: 3rem 2rem;
+  color: $contentClr;
+  .recipesCateBtnGroup {
+    display: flex;
+    gap: 1rem;
+  }
+  .recipeToolBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    // Search Bar
+    .recipeSearchBar {
+      display: flex;
+      * {
+        border: 2px solid $subClrBrown;
+      }
+      .searchFor,
+      .searchForName,
+      .searchForMaterial {
+        border-right: none;
+      }
+      .searchFor {
+        padding: 0.2rem 0.75rem;
+      }
+      .searchForName,
+      .searchForMaterial {
+        padding-left: 0.5rem;
+        color: $contentClr;
+        &:focus {
+          outline: transparent;
+          &::placeholder {
+            opacity: 0;
+          }
+        }
+        &::placeholder {
+          opacity: 0.5;
+        }
+      }
+      .recipesSearchBtn {
+        padding: 0 0.75rem;
+        cursor: pointer;
+        .RecipeSearchBtnSvg {
+          border: none;
+        }
+      }
+    }
+
+    // add recipe ... Btn
+    .recipeFeatureBtn {
+      display: flex;
+      opacity: 0.5;
+      font-size: $text12;
+      gap: 1rem;
+      .featureBtn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // MAIN CONTAINER
+  .recipeListMain {
+    display: flex;
+    .recipeList {
+      padding: 2rem 0 0 2rem;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      .recipeMainToolBar {
+        display: flex;
+        align-self: flex-end;
+        .recipeModeBtn {
+          &:hover {
+            color: $subClrBrown;
+          }
+        }
+        .recipeListMode,
+        .recipeBlockMode {
+          cursor: pointer;
+          &.active {
+            color: $subClrBrown;
+          }
+        }
+      }
+
+      // BlockMode
+      .recipeBlockModeList {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem 1rem;
+        place-items: center;
+      }
+      .recipeBlockModeList,
+      .recipeListModeList {
+        max-width: 1054px;
+      }
+    }
+  }
+  .creatingRecipe {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 500;
+  }
+}

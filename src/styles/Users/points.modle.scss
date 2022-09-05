@@ -1,0 +1,40 @@
+@import '../variable';
+.center{
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+}
+.points-group{
+  .user-point{
+    text-align: center;
+    .box{
+      line-height: 3rem;
+      border-radius: 30px;
+    }
+    .box:nth-of-type(1){
+      border: 3px solid $focusClrG;
+    }
+    .box:nth-of-type(2){
+      border: 3px solid $focusClrY;
+    }
+    .box:nth-of-type(3){
+      border: 3px solid $focusClrB;
+    }
+  }
+}
+
+.list{  
+  .list-title{
+    text-align: center;
+    table{
+      margin-top: 50px;
+      thead{
+        border-bottom: 2px solid #ccc;
+        line-height: 4rem
+      }
+      tbody{
+        line-height: 2.5rem;
+      }
+    };
+  }
+}
