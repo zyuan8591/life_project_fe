@@ -1,0 +1,59 @@
+@import '../variable';
+@import '../picnic/picnicVariable';
+
+.createPincnicMain {
+    margin: $headerHeight auto;
+    .form {
+        line-height: 2rem;
+        width: 50%;
+        margin: auto;
+        select {
+            width: 8rem;
+            height: 100%;
+            border-radius: 5px;
+            border: 1px solid $subClrGY;
+            &:focus{
+                outline: none;
+                outline: 3px solid #817161b8;
+              }
+        }
+        .picUpload, .contentDetail{
+            height: 13rem;
+        }
+        label{
+            font-size: $text20;
+            margin: 0 0 5px;
+            border: $subClrGY;
+            color: $contentClr;
+        }
+        input {
+            padding: .3rem;
+            border-radius: 5px;
+            border: 1px solid $subClrGY;
+            &:focus{
+                outline: none;
+                outline: 3px solid #817161b8;
+              }
+        }
+        .inputCity {
+            width: 8rem;
+            height: 100%;
+            padding:0;
+        }
+        .location{
+            width: 100%;
+            height: 2rem;
+        }
+    }
+    .button {
+        .btn {
+            width: 20%;
+            border-radius: 5px;
+            color: $mainClrW;
+            background: $subClrBrown;
+        }
+    
+    }
+}
+
+

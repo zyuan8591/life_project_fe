@@ -1,0 +1,372 @@
+@import '../variable';
+@import '../picnic/picnicVariable';
+
+@mixin iconSize {
+    font-size: 1.2rem;
+    margin: -3px 5px 0;
+}
+@mixin imgWH {
+    width: 100%;
+    height: 100%;
+}
+@mixin contentTitle {
+    font-size: $text24;
+    padding: 0 5px;
+    margin: .7rem 0;
+    border-left: 5px solid $subClrBrown;   
+}
+@mixin arrowIcon {
+    font-size: $text32;
+    margin: auto 0;
+    color: $contentClr;
+}   
+@mixin lineHeight {
+    line-height: 1.9rem;
+}
+
+.PicnicOfficalDetailContainer {
+    margin: $headerHeight auto;
+    .contentTitle {
+        @include contentTitle;  
+    }
+    .mainWrap {
+        ul {
+            padding: 0;
+        }
+        // --------- 上方活動資訊和圖片 ---------
+        .detailTitle {
+            h2 {
+                border-bottom: 1px solid $subClrGY;
+                padding: 0 0 1rem;
+            }
+            .titleContent {
+                li {
+                    font-size: $text20;
+                    line-height: 2.5rem;
+                    .faPawIcon {
+                        @include iconSize;
+                        color: $subClrBrown;                
+                    }
+                }
+            }
+            .image {
+                width: 100%;
+                height: 22rem;
+                img {
+                    @include imgWH;
+                    object-fit: cover;
+                }
+            }
+        }
+        // --------- 活動內容 ---------
+        .offcialDetailContent {
+            .contentWrap1 {
+                padding: 2rem 3rem;
+                margin: auto 0;
+                border-radius: 10px;
+                box-shadow: 0px 0px 3px $subClrGY;
+                .quoteLeftIcon {
+                    font-size: 1.2rem;
+                    margin: -1rem 5px 0;
+                }
+                .quoteRightIcon {
+                    font-size: 1.2rem;
+                    margin: 0 5px -1rem;
+                }
+                p {
+                    font-size: $text18;
+                    text-align:justify;
+                    margin: 0;
+                    @include lineHeight;
+                }    
+            }
+            .noticeItem {
+                background-color: $hoverClr;
+                padding: 1rem;
+                li {
+                    text-indent: -1em;
+                    @include lineHeight;
+                }
+            }        
+            li {
+                @include lineHeight;
+                margin-left: 38px;
+                text-indent: -1.9rem;
+                .warnIcon {
+                    @include iconSize;
+                    color: $focusClrY;
+                    // margin-left: 10px;
+                }
+                .checkIcon {
+                    @include iconSize;
+                    color: $focusClrG;
+                }
+                .crossIcon {
+                    @include iconSize;
+                    color: $subClrGY;
+
+                }
+            }
+        }
+        // --------- 參加者 ---------
+        .paicipant {
+            margin: 6rem 0;
+            h4 {
+                margin: 1.5rem 0;
+                font-size: $text24;
+            }
+            .arrowIcon {
+                @include arrowIcon;
+            }
+            .paicipantCard {
+                width: 7rem;
+                margin: auto .5rem;
+                padding: .6rem;
+                background: $hoverClr;
+                text-align: center;
+                .avatar {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    margin: auto ;
+                    overflow: hidden;
+                    background: lightsalmon;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+        // --------- 推薦商品 ---------
+        .recommendProducts {
+            margin: 6rem 0;
+            h4 {
+                margin: 1.5rem 0;
+                font-size: $text24;
+            }
+            .arrowIcon {
+                @include arrowIcon;
+            }
+            .productCard {
+                // width: 100%;
+                margin: auto;
+                position: relative;
+                margin: 0 .3rem;
+                .productImg{
+                    width: 11.25rem;
+                    height: 10rem;
+                    img {
+                        @include imgWH;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .hoverText{
+                    width: 100%;
+                    height: 160px;
+                    background:rgba(68, 68, 68, 0.619) 80%;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    color: $mainClrW;
+                    position: absolute;
+                    top: 0;
+                    opacity: 0;
+                }
+                span {
+                    text-shadow: .5px .5px .5px $contentClr;
+                }
+                &:hover {
+                    .hoverText {
+                        cursor: pointer;
+                        transition: .5s;
+                        // background: linear-gradient(to bottom, transparent 0%,rgba(100, 100, 100, 0.588), rgba(68, 68, 68, 0.718) 80%);
+                        background:rgba(68, 68, 68, 0.515) 80%;
+                        opacity: 1;
+                    }
+                    
+                }
+            }
+        }
+    }
+    // --------- 推薦活動 ---------
+    .recommendActivity {
+        // margin: 5rem 0;
+        h4 {
+            margin: 1.5rem 0;
+            font-size: $text24;
+        }
+        .cardItem {
+            width: 250PX;
+            margin: 0 .4rem;
+            padding: 20px;
+            box-shadow: .2px .2px 3px $subClrBrown;
+            // display: -webkit-box;
+            // -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            .time {
+                font-size: $text12;
+            }
+            .cardTitle {
+                color:  $subClrBrown;
+            }
+            .location {
+                font-size: $text14;
+                .mapMarkerIcon{
+                    @include iconSize;
+                    margin: 0 2px 0 0;
+                }
+            }
+            .infoText {
+                font-size: $text14;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+            }
+            .userPicItems {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                .userPic {
+                    background: lightcoral;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    margin: auto 3px;
+                    overflow: hidden;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .joinBtn {
+                color: $mainClrW;
+                font-size: $text10;
+                padding: 4px 7px;
+                margin: auto 0;
+                flex-shrink: 0;
+                background: $subClrGY;
+                // border: 1px solid $subClrBrown;
+                border-radius: 20px;
+            }   
+            &:hover {
+                background: #efae3d;
+                .cardTitle {color: $mainClrW;}
+                .joinBtn { 
+                    // border: none;
+                    color: $contentClr;
+                    background: $mainClrW;
+                    
+                }
+            }
+            &:focus {
+                border: none;
+
+            }
+        }
+    }
+    // --------- 側邊資訊欄 ---------
+    .asideMessageFix {
+        min-width: 250px;
+        width: 20rem;
+        position: fixed;
+        top: 9rem;
+        right: 26.5rem;
+        border: 1px solid $subClrBrown;
+        box-shadow: 0 0 3px $subClrGY;
+        padding: 1.5rem;
+        p {
+            font-size: $text20;
+            margin: 0;
+        }
+        .stateBtn {
+            font-size: $text14;
+            background: $focusClrY;
+            border-radius: 2rem;
+            color: $mainClrW;
+            padding: 0 7px;
+
+        }
+        .calendarIcon, .mapMarkerIcon, .personIcon {
+            font-size: 1rem;
+            margin: -3px 5px 0 0;
+        }
+        .map {
+            width: 100%;
+            height: 150px;
+            border: 1px solid; 
+        }
+        .price {
+            color: $contentClr;
+            font-weight: $fW600;
+        }
+        .joinInBtn {
+            color: $mainClrW;
+            background: $subClrBrown;
+            border-radius: 2px;
+            padding: 1px 8px;
+        }
+
+    }
+
+}
+// --- 參加者個人簡介 ---
+.paicipantInfo {
+    // width: 100%;
+    // height: 100vh;
+    // background-color: rgb(65, 65, 65);
+    // position: absolute;
+    // top: 0;
+    .InfoItems {
+        background: lightgoldenrodyellow;
+        width: 50%;
+        height: 33rem;
+        // margin: 1rem 0;
+        // padding: 50px 0;
+        overflow: auto;
+        // position: absolute;
+        // top: 50%;
+        // left: 50%;
+        // transform: translate(-50%, -50%);
+        .infoCard {
+            width: 80%;
+            margin: .5rem auto;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: .5rem;
+            .avatar {
+                text-align: center;
+                margin: 1rem 1.2rem;
+                .userImg {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    background: $subClrGY;
+                    box-shadow: 0 0 2px ;
+                    overflow: hidden;
+                    margin: auto ;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .infoContent {
+                width: 100%;
+                height: 150px;
+                border-radius: 1rem;
+                background: $hoverClr;
+                display: flex;
+                align-items: center;
+                p {
+                    padding: 1.5rem;
+                }
+            }
+        }
+    }
+}
