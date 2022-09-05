@@ -32,4 +32,11 @@
       opacity: 1;
     }
   }
+
+  .separateLine {
+    width: 100vw;
+    height: 1px;
+    background: $hoverClr;
+    margin: 5rem 0;
+  }
 }

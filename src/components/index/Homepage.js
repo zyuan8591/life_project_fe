@@ -23,6 +23,7 @@ const Homepage = () => {
             <IndexTitle title="最新資訊" subtitle="News" route="/news" />
             <IndexNews />
           </div>
+          <div className="separateLine"></div>
           {/* NEW PRODUCTS */}
           <div className="hPproductContainer">
             <IndexTitle
@@ -32,6 +33,7 @@ const Homepage = () => {
             />
           </div>
           <IndexProducts />
+          <div className="separateLine"></div>
           {/* NEW RECIPES */}
           <div className="hPrecipeContainer">
             <IndexTitle
@@ -41,7 +43,7 @@ const Homepage = () => {
             />
           </div>
           <IndexRecipe />
-
+          <div className="separateLine"></div>
           {/* ACTIVITIES */}
           <div className="hPactivityContainer">
             <IndexTitle
@@ -51,6 +53,7 @@ const Homepage = () => {
             />
             <IndexActivity />
           </div>
+          <div className="separateLine"></div>
           {/* JOIN US */}
         </div>
         <div className="joinUsContainer">
