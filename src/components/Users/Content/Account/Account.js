@@ -152,7 +152,11 @@ const account = css`
       border-radius: 10px;
       border: 0;
       &:hover {
-        background: #b9bdc5;
+        transform: scale(1.05);
+      }
+      &:active {
+        transform: scale(1);
+        box-shadow: inset 0 0 10px 1px rgba(90, 90, 90, 2);
       }
     }
   }
