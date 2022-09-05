@@ -65,17 +65,17 @@ const IndexProducts = () => {
 
   // set list width
   useLayoutEffect(() => {
+    window.addEventListener('resize', () => {
+      setProductListWidth(productListRef.current.scrollWidth);
+      setProgressWidth(progressRef.current.offsetWidth);
+      setProgressBarWidth(progressBarRef.current.offsetWidth);
+      setVwState(window.innerWidth);
+    });
     setProductListWidth(productListRef.current.scrollWidth);
     setProgressWidth(progressRef.current.offsetWidth);
     setProgressBarWidth(progressBarRef.current.offsetWidth);
     setVwState(window.innerWidth);
   }, []);
-  window.addEventListener('resize', () => {
-    setProductListWidth(productListRef.current.scrollWidth);
-    setProgressWidth(progressRef.current.offsetWidth);
-    setProgressBarWidth(progressBarRef.current.offsetWidth);
-    setVwState(window.innerWidth);
-  });
 
   useEffect(() => {
     setStyleState(`${progressState}%`);
@@ -111,13 +111,7 @@ const IndexProducts = () => {
 
   return (
     <>
-      <div
-        ref={productListRef}
-        css={productList}
-        onWheel={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <div ref={productListRef} css={productList}>
         {Array(9)
           .fill(1)
           .map((d, i) => {
