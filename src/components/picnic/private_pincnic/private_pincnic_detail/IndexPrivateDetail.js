@@ -7,6 +7,7 @@ import DetailTitle from '../../picnic_cpmpoent/DetailTitle';
 import PrivateDetailContent from '../../private_pincnic/private_pincnic_detail/PrivateDetailContent';
 import RecommendProducts from '../../picnic_cpmpoent/RecommendProducts';
 import Paicipant from '../../picnic_cpmpoent/Paicipant';
+import Organiser from './Organiser';
 import AsideMessageFix from '../../picnic_cpmpoent/AsideMessageFix';
 import RecommendActivity from '../../picnic_cpmpoent/RecommendActivity';
 import {
@@ -31,6 +32,8 @@ function IndexPrivateDetail() {
           <DetailTitle />
           {/* 活動詳細內容 */}
           <PrivateDetailContent />
+          {/* 主辦人 */}
+          <Organiser />
           {/* 參加者 */}
           <Paicipant />
           <RecommendProducts />
