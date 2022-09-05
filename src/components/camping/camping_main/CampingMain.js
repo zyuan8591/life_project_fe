@@ -1,17 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
-import { HiChevronDoubleRight } from 'react-icons/hi';
-import { FaHeart, FaListUl, FaSearch } from 'react-icons/fa';
+import { FaListUl, FaSearch } from 'react-icons/fa';
 
-import '../../../styles/camping/_campingMain.scss';
+import '../../../styles/camping/camping_main/_campingMain.scss';
 import Footer from '../../public_component/Footer';
 import Header from '../../public_component/Header';
 import BackToTop from '../../public_component/BackToTop';
-import ActivityBanner from './component/ActivityBanner';
 import ActivityStateFilter from './component/ActivityStateFilter';
 import ActivitySliderPrice from './component/ActivitySliderPrice';
 import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
@@ -31,22 +28,9 @@ function CampingMain() {
   const [cardChange, setCardChange] = useState(true);
   const [horizontalCardChange, setHorizontalCardChange] = useState(false);
 
-  const card = (
-    <ActivityCard
-      FaHeart={FaHeart}
-      IoIosArrowDroprightCircle={HiChevronDoubleRight}
-      Link={Link}
-      IconContext={IconContext}
-    />
-  );
-
-  const horizontalCard = (
-    <ActivityHorizontalCard
-      FaHeart={FaHeart}
-      Link={Link}
-      IconContext={IconContext}
-    />
-  );
+  // 引入card
+  const card = <ActivityCard />;
+  const horizontalCard = <ActivityHorizontalCard />;
 
   return (
     <>
@@ -54,7 +38,12 @@ function CampingMain() {
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {/* banner */}
-          <ActivityBanner />
+          <div className="banner">
+            <img
+              src="/img/camping/activity_camping_img/main_img_1.jpg"
+              alt="camping"
+            />
+          </div>
           <div className="main">
             {/* breadCrumb */}
             <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
