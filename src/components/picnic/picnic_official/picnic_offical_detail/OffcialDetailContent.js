@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaExclamationTriangle, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaExclamationTriangle, FaCheck, FaTimes, FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 
 function OffcialDetailContent() {
   return (
@@ -7,11 +7,10 @@ function OffcialDetailContent() {
       {/* --- 活動內容 --- */}
       <div className="offcialDetailContent">
         <div className="contentWrap1 mb-5">
-          <h4 className="contentTitle">活動內容</h4>
-          <p className="">
-            身為島國人，「海」是一個浪漫的體驗。 「 野餐
-            」是人與人間，透過土地產生情感上的凝聚與連結。
-            「LIFE廚聚」生活計畫藉由野餐，推廣台灣每一個角落，感受在地人文風景，享受台灣之美。
+          {/* <h4 className="contentTitle">活動內容</h4> */}
+          <p >
+          <FaQuoteLeft className="quoteLeftIcon"/>適合踏青的季節終於來了，能夠在晴空萬里的假日，和好友一起在綠地佈置夢幻場景拍美照、躺在大草坪慵懶的聊聊天、親近綠草如茵的大自然，真的很幸福。不僅如此，依照季節還能春天能欣賞粉嫩的櫻花、秋冬看落羽松，還有機會一睹飛機掠過頭頂的震撼感。這週就準備好你的食物，跟著「LIFE廚聚」一起去台北野餐市集吧！
+            <FaQuoteRight className="quoteRightIcon" />
           </p>
         </div>
         {/* --- 購買須知 --- */}
