@@ -1,7 +1,50 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import CardSm from '../../public_component/CardSm';
-import classes from '../../../styles/moduleCss/indexProduct.module.scss';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+// emotion css
+const hoverClr = '#eee';
+const subClrBrown = '#817161';
+const productList = css`
+  margin: 2.5rem 0;
+  padding-left: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: 0.3s;
+`;
+const dragLine = css`
+  max-width: 350px;
+  width: 350px;
+  height: 3px;
+  background: ${hoverClr};
+  margin: 0 auto;
+  position: relative;
+  flex-grow: 0;
+`;
+const dragProgress = css`
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: ${subClrBrown};
+  z-index: 2;
+  transition: 0.3s;
+`;
+const controller = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 400px;
+`;
+const controlDir = css`
+  cursor: pointer;
+`;
 
 const IndexProducts = () => {
   const cardClr = ['#f7f3ed', '#f6f2f7', '#fcf3f0', '#f7faf2'];
@@ -70,7 +113,7 @@ const IndexProducts = () => {
     <>
       <div
         ref={productListRef}
-        className={classes.productList}
+        css={productList}
         onWheel={(e) => {
           e.preventDefault();
         }}
@@ -91,24 +134,26 @@ const IndexProducts = () => {
             );
           })}
       </div>
-      <div className={classes.controller}>
+      <div css={controller}>
         <div
-          className={`flexCenter ${classes.controllLeft}`}
+          className="flexCenter"
+          css={controlDir}
           onClick={() => {
             controlHandler('left');
           }}
         >
           <FaAngleLeft />
         </div>
-        <div ref={progressBarRef} className={classes.dragLine}>
+        <div ref={progressBarRef} css={dragLine}>
           <div
             ref={progressRef}
-            className={classes.dragProgress}
+            css={dragProgress}
             style={{ left: styleState }}
           ></div>
         </div>
         <div
-          className={`flexCenter ${classes.controllRight}`}
+          className="flexCenter"
+          css={controlDir}
           onClick={() => {
             controlHandler('right');
           }}
