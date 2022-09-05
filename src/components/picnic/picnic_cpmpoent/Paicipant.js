@@ -15,7 +15,7 @@ function Paicipant() {
           <div className="paicipantCard">
             <div className="avatar">
               <img
-                src="/img/picnic/activity_picnic_img/picnic_index_banner1-2.png"
+                src=""
                 alt=""
               />
             </div>

@@ -1,5 +1,8 @@
 import React from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Divider, Tooltip } from 'antd';
+import 'antd/dist/antd.css';
 
 function RecommendActivity() {
   return (
@@ -110,12 +113,28 @@ function RecommendActivity() {
             </p>
             <div className="d-flex justify-content-between">
               <div className="userPicItems d-flex">
-                <div className="userPic">
+                <Avatar.Group className="my-auto"
+                  maxCount={3}
+                  maxStyle={{
+                    color: '#fff',
+                    backgroundColor: '#817161',
+                  }}
+                >
+                  <Avatar src="https://joeschmoe.io/api/v1/random" />
+                  <Avatar style={{ backgroundColor: '#1890ff', }} src="https://joeschmoe.io/api/v1/random">name</Avatar>
+                  {/*  頭像3 */}
+                  <Tooltip title="userName" placement="top">
+                    <Avatar style={{ backgroundColor: '#1890ff', }} src="https://joeschmoe.io/api/v1/random" />
+                  </Tooltip>
+                  <Avatar style={{ backgroundColor: '#1890ff', }} src="https://joeschmoe.io/api/v1/random" />
+                </Avatar.Group>
+                <Divider />
+                {/* <div className="userPic">
                   <img
                     src="/img/picnic/activity_picnic_img/picnic_index_banner1-2.png"
                     alt=""
                   />
-                </div>
+                </div> */}
               </div>
               <div className="joinBtn btn">加入活動</div>
             </div>

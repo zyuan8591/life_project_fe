@@ -4,7 +4,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 function RecommendProducts() {
   return (
     <>
-      <div className="recommendProducts ">
+      <div className="recommendProducts">
         <h4>推薦商品</h4>
         <div className="d-flex justify-content-between">
           <IoIosArrowBack className="arrowIcon " />
