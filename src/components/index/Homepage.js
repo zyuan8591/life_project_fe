@@ -10,6 +10,7 @@ import IndexRecipe from './component/IndexRecipe';
 import Footer from '../public_component/Footer';
 import Header from '../public_component/Header';
 import BackToTop from '../public_component/BackToTop';
+import IndexRecipeActivity from './component/IndexRecipeActivity';
 
 const Homepage = () => {
   return (
@@ -43,6 +44,7 @@ const Homepage = () => {
             />
           </div>
           <IndexRecipe />
+          <IndexRecipeActivity />
           <div className="separateLine"></div>
           {/* ACTIVITIES */}
           <div className="hPactivityContainer">
