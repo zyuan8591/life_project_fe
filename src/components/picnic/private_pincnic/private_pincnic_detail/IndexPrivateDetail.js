@@ -3,13 +3,13 @@ import '../../../../styles/picnic/_picnicPrivateDetail.scss';
 import Header from '../../../public_component/Header';
 import Footer from '../../../public_component/Footer';
 import BackToTop from '../../../public_component/BackToTop';
-import DetailTitle from '../../picnic_cpmpoent/DetailTitle';
+import DetailTitle from '../../picnic_compoent/DetailTitle';
 import PrivateDetailContent from '../../private_pincnic/private_pincnic_detail/PrivateDetailContent';
-import RecommendProducts from '../../picnic_cpmpoent/RecommendProducts';
-import Paicipant from '../../picnic_cpmpoent/Paicipant';
+import RecommendProducts from '../../picnic_compoent/RecommendProducts';
+import Paicipant from '../../picnic_compoent/Paicipant';
 import Organiser from './Organiser';
-import AsideMessageFix from '../../picnic_cpmpoent/AsideMessageFix';
-import RecommendActivity from '../../picnic_cpmpoent/RecommendActivity';
+import AsideMessageFix from '../../picnic_compoent/AsideMessageFix';
+import RecommendActivity from '../../picnic_compoent/RecommendActivity';
 import {
   FaPaw,
   FaExclamationTriangle,
