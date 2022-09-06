@@ -32,6 +32,9 @@
     .mainWrap {
         ul {
             padding: 0;
+            li {
+                font-size: $contentText;
+            }
         }
         // --------- 上方活動資訊和圖片 ---------
         .detailTitle {
@@ -135,10 +138,11 @@
                 border-radius: 3px;
                 padding: 1rem;
                 margin-left: .5rem;
-                box-shadow: .5px .5px $subClrGY;
+                box-shadow: .8px .8px 3px $subClrGY;
                 border: 1px solid $hoverClr;
                 p {
                     text-align: justify;
+                    font-size: $contentText;
                 }
                 
             }
