@@ -8,53 +8,45 @@
   padding:3rem 2rem;
   color:$contentClr;
 
-  .row{    
-    --bs-gutter-x:0;
-
-    .col img{
-      max-width: 100%;
-    }
-  }
-
   .summary{
     margin-bottom: 2rem;
     line-height: 2rem;
-  }
-}
-
-
-.orderStepBtns{
-  display: flex;
-  flex-direction:row;
-  justify-content: center;
-  padding: 2rem 0;
-
-  .stepBtn{
-    max-width: 300px;
-    width: 50%;
-    margin: 0 .5rem;
-    border: 2px solid $subClrBrown;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .nextButton{
-    background-color: $subClrBrown;
-    color: white;
-    &:hover{
-      background-color: white;
-      color: $subClrBrown;
+    .row{
+      --bs-gutter-x:0;
     }
   }
+
+  // stepButton
+  .orderStepBtns{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    padding: 2rem 0;
   
-  .prevButton{
-    background-color: white;
-    &:hover{
-      color: $subClrBrown;
+    .stepBtn{
+      max-width: 300px;
+      width: 50%;
+      margin: 0 .5rem;
+      border: 2px solid $subClrBrown;
+      border-radius: 4px;
+      cursor: pointer;
     }
+  
+    .nextButton{
+      background-color: $subClrBrown;
+      color: white;
+      &:hover{
+        background-color: white;
+        color: $subClrBrown;
+      }
+    }
+    
+    .prevButton{
+      background-color: white;
+      &:hover{
+        color: $subClrBrown;
+      }
+    }
+  
   }
-
 }
-
-
-

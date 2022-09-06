@@ -1,36 +1,40 @@
 @import '../variable';
 
+// StepNavigation 步驟條
 .stepWrapper{
   display: flex;
   margin-bottom: 2rem;
   justify-content: center;
-}
 
-.stepBlock{
-  text-align: center;
-}
+  .stepBlock{
+    text-align: center;
 
-.stepBlock .circleWrapper{
-  padding: 0px 3rem; //調整step 間距
-  position: relative;
-}
+    
+    .circleWrapper{
+      padding: 0px 3rem; //調整step 間距
+      position: relative;
+      margin-bottom: .5rem;
 
-.circle{
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 70px;
-  height: 70px;
-  border:2px solid $subClrBrown;
-  background-color: $subClrBrown;
-  border-radius: 50%;
-  cursor: pointer;
-}
 
-.selected .circle{
-  background-color: #fff;
-}
+      .circle{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        border:2px solid $subClrBrown;
+        background-color: $subClrBrown;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
 
+    &.selected .circle{
+      background-color: #fff;
+    }
+  }
+
+}
 
 .stepBlock:not(:last-child) > .circleWrapper::after{
   content: '';
@@ -45,28 +49,13 @@
 }
 
 .stepBlock:not(:last-child) > .circleWrapper::after{
+  // 選取的Step 前面的線高
   height: 3px;
   opacity: .5;
 }
 
 .stepBlock:not(:last-child).selected > .circleWrapper::after, .stepBlock:not(:last-child).selected ~ .stepBlock:not(:last-child) > .circleWrapper::after{
+  // 選取的Step 後面的線高
   height: 2px;
 }
 
-.nextButton{
-  padding: 10px 25px;
-  background-color: $subClrBrown;
-  border: 2px solid transparent;
-  margin: 10px;
-  color: white;
-  cursor: pointer;
-}
-
-.prevButton{
-  padding: 10px 25px;
-  background-color: white;
-  border: 2px solid $subClrBrown;
-  margin: 10px;
-  color: $subClrBrown;
-  cursor: pointer;
-}
