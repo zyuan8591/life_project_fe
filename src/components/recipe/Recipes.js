@@ -62,7 +62,7 @@ const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
   const [pageNow, setPageNow] = useState(1);
   const [displayMode, setDisplayMode] = useState(1);
-  const [createRecipe, setCreateRecipe] = useState(true);
+  const [createRecipe, setCreateRecipe] = useState(false);
 
   const recipeCateClickHandler = () => {};
 
