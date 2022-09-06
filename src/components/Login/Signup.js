@@ -59,7 +59,11 @@ const Signup = () => {
   function clickEye() {
     setEye(eye ? false : true);
   }
+
   const [reading, setreading] = useState(false);
+
+  //TODO:document.querySelector('is-error');
+
   return (
     <div className="signup ">
       <form onSubmit={formik.handleSubmit}>
