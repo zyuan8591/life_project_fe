@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
@@ -12,71 +12,126 @@ import { FiLogOut } from 'react-icons/fi';
 import { MdArticle } from 'react-icons/md';
 import { GiBowlOfRice } from 'react-icons/gi';
 import { IconContext } from 'react-icons';
+const icon = [
+  <BsFillPersonFill />,
+  <MdArticle />,
+  <BsCreditCard2FrontFill />,
+  <BsFillTreeFill />,
+  <GiBowlOfRice />,
+  <FiLogOut />,
+];
+const userNav = [
+  {
+    title: '個人檔案',
+    url: '/users/account',
+    item: [{ title: '更改密碼', url: 'password' }],
+  },
+  {
+    title: '訂單查詢',
+    url: '/users/order',
+    item: [{ title: '', url: '' }],
+  },
+  {
+    title: 'LIFE點數',
+    url: '/users/points',
+    item: [{ title: '', url: '' }],
+  },
+  {
+    title: '活動一覽',
+    url: '/users/camping',
+    item: [
+      { title: '露營活動', url: 'camping' },
+      { title: '野餐活動', url: 'camping' },
+    ],
+  },
+  {
+    title: '食譜一覽',
+    url: '/users/recipe',
+    item: [
+      { title: '我的食譜', url: 'recipe' },
+      { title: '食譜收藏', url: 'recipe' },
+    ],
+  },
+  { title: '登出', url: '', item: [{ title: '', url: '' }], active: false },
+];
 
-const Navbar = () => {
+const AccordionItem = (props) => {
+  const [heightItem, setHeightItem] = useState(0);
+  useEffect(() => {
+    setHeightItem(
+      props.visable
+        ? document.getElementById(`item_${props.index}`).scrollHeight
+        : 0
+    );
+  });
+  const { item, index, setVisable } = props;
   return (
-    <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
-      <nav css={nav}>
-        <ul className="list">
-          <li>
-            <BsFillPersonFill />
-            <Link to="/users/account">個人檔案</Link>
-            <ul>
-              <li>
-                <a href="/users/password">更改密碼</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <MdArticle />
-            <Link to="/users/order">訂單查詢</Link>
-          </li>
-          <li>
-            <BsCreditCard2FrontFill />
-            <Link to="/users/points">LIFE點數</Link>
-          </li>
-          <li>
-            <BsFillTreeFill />
-            <Link to="/users/camping">活動一覽</Link>
-            <ul>
-              <li>
-                <Link to="/users/camping">露營活動</Link>
-              </li>
-              <li>
-                <Link to="/users/picnic">野餐活動</Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <GiBowlOfRice />
-            <Link to="/Users/recipe">食譜一覽</Link>
-          </li>
-          <li>
-            <FiLogOut />
-            <Link to="">登出</Link>
-          </li>
-        </ul>
-      </nav>
-    </IconContext.Provider>
+    <li onClick={() => setVisable(index)}>
+      {icon[index]}
+      <Link to={item.url}>{item.title}</Link>
+      {item.item.map((v2, i2) => {
+        return (
+          <ul>
+            <li
+              className="expand"
+              style={{ height: heightItem }}
+              id={`item_${index}`}
+            >
+              <Link to={v2.url}>{v2.title}</Link>
+            </li>
+          </ul>
+        );
+      })}
+    </li>
   );
 };
-
-export default Navbar;
-
+const Nav = () => {
+  const [visable, setVisable] = useState([
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const setVisableChild = (key) => {
+    setVisable(visable.map((one, index) => (key == index ? true : false)));
+  };
+  return (
+    <div css={nav}>
+      <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
+        <ul className="list">
+          {userNav.map((item, index) => {
+            return (
+              <AccordionItem
+                item={item}
+                key={index}
+                index={index}
+                visable={visable[index]}
+                setVisable={setVisableChild}
+              />
+            );
+          })}
+        </ul>
+      </IconContext.Provider>
+    </div>
+  );
+};
+export default Nav;
 const nav = css`
   padding: 15px 0 0 20%;
   line-height: 3.3rem;
+
   .icon {
     margin: 10px;
   }
+  .expand {
+    overflow: hidden;
+    transition: 0.5s;
+    height: 0px;
+  }
 
-  .list {
-    li:hover ul {
-      display: block;
-    }
-    ul {
-      display: none;
-      padding-left: 3.5rem;
-    }
+  ul {
+    padding-left: 3.5rem;
   }
 `;

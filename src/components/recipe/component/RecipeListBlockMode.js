@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const RecipeListBlockMode = () => {
   return (
     <>
-      <Link to="/" className={classes.container}>
+      <Link to="/recipes/5" className={classes.container}>
         <figure className={classes.imgContainer}>
           <img
             src="/img/recipe/recipe_img/Bagel.jpg"

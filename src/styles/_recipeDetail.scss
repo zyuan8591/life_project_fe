@@ -1,0 +1,43 @@
+@import './variable';
+
+.recipeDetail {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: auto;
+  color: $contentClr;
+
+  .recipeDetailIntro {
+    max-width: $maxWidth;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+  }
+  .recipeDetailStep {
+    display: flex;
+    flex-wrap: nowrap;
+    // overflow: hidden;
+    height: 100vh;
+    scroll-behavior: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .recipeStepNum {
+      z-index: 60;
+    }
+  }
+  .recipeDetailRecommend {
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+    padding: 0 2rem;
+  }
+
+  // modulecss for recipe
+  .vh100 {
+    min-width: 100vw;
+    width: 100%;
+    height: 100%;
+  }
+}

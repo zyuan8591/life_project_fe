@@ -1,0 +1,30 @@
+@import '../variable';
+
+.signup{      
+  input{
+    border{   
+      border:#fff 1px solid;      
+    }
+  }
+  .signup-group{
+    position:relative;
+    margin: auto;
+    top: 10%;
+    width: 80%;
+    height: 800px;
+    background: rgba(248, 248, 248, 0.205);
+    backdrop-filter: blur(3px);
+    border-radius: 50px;
+    text-align: center;
+    padding: 50px;
+  } 
+  .error-text{
+    color: red;
+    font-size: .8rem;
+    font-weight: bold;
+  }
+  .is-error{   
+    border-color: #d90b1b;
+    background-color: #ffe4e4;
+  }
+}

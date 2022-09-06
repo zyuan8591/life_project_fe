@@ -10,10 +10,10 @@
 
 .homepage {
   padding: 4.5rem 0;
-  .newsContainer,
-  .productContainer,
-  .recipeContainer,
-  .activityContainer {
+  .hPnewsContainer,
+  .hPproductContainer,
+  .hPrecipeContainer,
+  .hPactivityContainer {
     max-width: 1200px;
     padding: 0 2rem;
     margin: 0 auto;
@@ -31,5 +31,12 @@
     .slick-current {
       opacity: 1;
     }
+  }
+
+  .separateLine {
+    width: 100%;
+    height: 1px;
+    background: $hoverClr;
+    margin: 5rem 0;
   }
 }

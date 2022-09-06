@@ -1,0 +1,100 @@
+@import '../variable';
+
+.infoContainer {
+  max-width: $maxWidth;
+  margin: $headerHeight auto;
+  color: $contentClr;
+  .productInfo {
+    margin: 200px auto;
+    display: flex;
+    justify-content: center;
+    .picArea {
+      // max-width: 50%;
+      margin: 0 50px;
+      .mainPic {
+        width: 400px;
+        height: 400px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        img {
+          width: 100%;
+          object-fit: contain;
+          object-position: center center;
+        }
+      }
+      .subPic {
+        width: 70px;
+        margin: 0px 5px;
+        overflow: hidden;
+        &:hover img {
+          opacity: 0.5;
+        }
+
+        img {
+          width: 100%;
+          object-fit: cover;
+          margin: 0;
+        }
+      }
+    }
+    .infoArea {
+      min-width: 475px;
+      margin: 0 50px;
+      .brand {
+        font-size: $text32;
+        font-weight: 600;
+        margin-bottom: 10px;
+        line-height: 2rem;
+      }
+      .name {
+        font-size: $text32;
+        font-weight: 600;
+        margin-bottom: 15px;
+        line-height: 2rem;
+      }
+      .promotion {
+        font-size: 18px;
+        color: $hoverClr;
+        background: $subClrBrown;
+        padding: 5px;
+        display: inline-block;
+      }
+      .price {
+        font-size: $text24;
+        // font-weight: 600;
+        border-bottom: 1px solid $subClrGY;
+        text-align: end;
+        margin: 20px 0;
+      }
+      .introContainer {
+        min-height: 120px;
+      }
+      .quantity {
+        display: flex;
+        font-size: $text24;
+        margin-bottom: 20px;
+        button {
+          border: 0;
+          margin: 0 25px;
+          background: none;
+        }
+        .number {
+          min-width: 30px;
+          text-align: center;
+        }
+      }
+      .cartFav {
+        display: flex;
+        justify-content: space-around;
+        button {
+          padding: 5px 100px;
+          background: $mainClrW;
+          border: 1px solid $subClrGY;
+        }
+      }
+    }
+  }
+}
