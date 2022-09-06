@@ -64,7 +64,7 @@ const IndexProducts = () => {
   const [vwState, setVwState] = useState(0);
 
   // set list width
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', () => {
       setProductListWidth(productListRef.current.scrollWidth);
       setProgressWidth(progressRef.current.offsetWidth);
