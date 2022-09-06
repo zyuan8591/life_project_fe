@@ -70,7 +70,6 @@ const Recipes = () => {
 
   return (
     <>
-      <Header />
       <div className="pageRecipes">
         {/* recipeCategory */}
         <div className="recipesCateBtnGroup mb-3">
@@ -202,8 +201,6 @@ const Recipes = () => {
           </section>
         )}
       </div>
-      <Footer />
-      <BackToTop />
     </>
   );
 };
