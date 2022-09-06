@@ -12,7 +12,7 @@ const OrderStep = () => {
   const stepLabel = ['確認購物車', '填寫資料', '訂單完成'];
   const [currentStep, updateCurrentStep] = useState(1);
 
-  const stepComponent = (s) => {
+  const stepPages = (s) => {
     switch (s) {
       case 1:
         return (
@@ -48,7 +48,7 @@ const OrderStep = () => {
       <div className="cartPage">
         <StepNavigation currentStep={currentStep} stepLabel={stepLabel} />
 
-        {stepComponent(currentStep)}
+        {stepPages(currentStep)}
       </div>
 
       <Footer />

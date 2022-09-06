@@ -8,7 +8,7 @@ const Cart = (props) => {
     <>
       <OrderList />
       <Summary />
-      <div className="text-end orderStepBtns">
+      <div className="orderStepBtns gap-3">
         <Link to="/products" className="btn stepBtn prevButton">
           繼續購買
         </Link>
