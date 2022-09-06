@@ -5,7 +5,7 @@ import BackToTop from '../public_component/BackToTop';
 import '../../styles/Order/orderstep.scss';
 import StepNavigation from './component/StepNavigation';
 import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
+import CheckOut from './pages/CheckOut';
 import OrderCheck from './pages/OrderCheck';
 
 const OrderStep = () => {
@@ -23,7 +23,7 @@ const OrderStep = () => {
         );
       case 2:
         return (
-          <Checkout
+          <CheckOut
             updateCurrentStep={updateCurrentStep}
             currentStep={currentStep}
           />
