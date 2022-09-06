@@ -18,6 +18,7 @@ import RecipeListBlockMode from './component/RecipeListBlockMode';
 import PaginationBar from '../public_component/PaginationBar';
 import RecipeListMode from './component/RecipeListMode';
 import RecipeCreateForm from './component/RecipeCreateForm';
+import BreadCrumb from '../public_component/BreadCrumb';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -68,6 +69,7 @@ const Recipes = () => {
   return (
     <>
       <div className="pageRecipes">
+        <BreadCrumb />
         {/* recipeCategory */}
         <div className="recipesCateBtnGroup mb-3">
           {recipeCate.map((d, i) => {
