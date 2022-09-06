@@ -15,6 +15,8 @@ import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
 import ActivityDateFilter from './component/ActivityDateFilter';
 import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
+import PaginationBar from '../../public_component/PaginationBar';
+import ActivitySelect from './component/ActivitySelect';
 
 const activityState = [
   { state: '即將開團', style: '#817161' },
@@ -27,6 +29,7 @@ function CampingMain() {
   const [stateSearch, setStateSearch] = useState(activityState);
   const [cardChange, setCardChange] = useState(true);
   const [horizontalCardChange, setHorizontalCardChange] = useState(false);
+  const [pageNow, setPageNow] = useState(1);
 
   // 引入card
   const card = <ActivityCard />;
@@ -71,8 +74,11 @@ function CampingMain() {
                 {/* 右側活動列表 */}
                 <div className="col-9">
                   <div className="d-flex justify-content-between">
-                    <div className="mb-3">
+                    <div className="mb-3 ">
                       {/* card 切換 */}
+                      <ActivitySelect />
+                    </div>
+                    <div className="d-flex align-items-center">
                       <FaListUl
                         className="me-3 changeBtn"
                         onClick={() => {
@@ -82,28 +88,28 @@ function CampingMain() {
                       />
 
                       <BsGridFill
-                        className="changeBtn"
+                        className="me-3 changeBtn"
                         onClick={() => {
                           setCardChange(true);
                           setHorizontalCardChange(false);
                         }}
                       />
+                      <IconContext.Provider
+                        value={{ color: '#817161', size: '1.7em' }}
+                      >
+                        <div className="me-2">
+                          <input
+                            className="searchInput"
+                            placeholder="Search.."
+                            type="text"
+                          />
+                          <FaSearch
+                            className="ms-2 mb-1"
+                            style={{ cursor: 'pointer' }}
+                          />
+                        </div>
+                      </IconContext.Provider>
                     </div>
-                    <IconContext.Provider
-                      value={{ color: '#817161', size: '1.7em' }}
-                    >
-                      <div className="me-2">
-                        <input
-                          className="searchInput"
-                          placeholder="Search.."
-                          type="text"
-                        />
-                        <FaSearch
-                          className="ms-2 mb-1"
-                          style={{ cursor: 'pointer' }}
-                        />
-                      </div>
-                    </IconContext.Provider>
                   </div>
 
                   <IconContext.Provider value={{ color: '#000', size: '1rem' }}>
@@ -115,6 +121,11 @@ function CampingMain() {
                         : horizontalCard}
                     </div>
                   </IconContext.Provider>
+                  <PaginationBar
+                    lastPage={12}
+                    pageNow={pageNow}
+                    setPageNow={setPageNow}
+                  />
                 </div>
               </div>
             </div>
