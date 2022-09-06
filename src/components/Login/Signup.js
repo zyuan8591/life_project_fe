@@ -10,7 +10,7 @@ import { API_URL } from '../../utils/config';
 
 const Signup = () => {
   const formik = useFormik({
-    //表單值(state,useSuate)
+    //表單value(state,useSuate)
     initialValues: {
       name: '',
       email: '',
