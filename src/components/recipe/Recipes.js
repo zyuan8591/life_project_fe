@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../public_component/Footer';
-import Header from '../public_component/Header';
-import BackToTop from '../public_component/BackToTop';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
 import Select from 'react-select';
