@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { setPage } from '../../utils/paginationSlice';
 import { IconContext } from 'react-icons';
 import {
   AiOutlineSearch,
@@ -24,8 +22,6 @@ const pages = [
 const Header = ({ fixed = true }) => {
   const [search, setSearch] = useState(false);
   const [scrollDown, setScrollDown] = useState(false);
-  const pageNow = useSelector((state) => state.pagination.pagination);
-  const dispatch = useDispatch();
 
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
@@ -50,15 +46,9 @@ const Header = ({ fixed = true }) => {
             {pages.map((p) => {
               return (
                 <li key={uuidv4()}>
-                  <Link
-                    to={p.route}
-                    className={`${pageNow === p.title ? 'active' : ''}`}
-                    onClick={() => {
-                      dispatch(setPage(p.title));
-                    }}
-                  >
+                  <NavLink to={p.route} activeClassName="active">
                     {p.title}
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
@@ -79,37 +69,19 @@ const Header = ({ fixed = true }) => {
             </li>
             {/* Like */}
             <li className="me-3 userItem">
-              <Link
-                to="/:user/recipe"
-                className="flexCenter"
-                onClick={() => {
-                  dispatch(setPage(''));
-                }}
-              >
+              <Link to="/:user/recipe" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
             </li>
             {/* Cart */}
             <li className="me-3 userItem">
-              <Link
-                to="/cart"
-                className="flexCenter"
-                onClick={() => {
-                  dispatch(setPage(''));
-                }}
-              >
+              <Link to="/cart" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
             <li className="me-3 userItem">
-              <Link
-                to="/users/account"
-                className="flexCenter"
-                onClick={() => {
-                  dispatch(setPage(''));
-                }}
-              >
+              <Link to="/users/account" className="flexCenter">
                 <AiOutlineUser />
               </Link>
             </li>
