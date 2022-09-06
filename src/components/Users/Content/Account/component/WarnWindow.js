@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 function WarnWindow({ warn, setWarn }) {
   function exit(e) {
     e.preventDefault();
@@ -60,7 +59,6 @@ const warnWindow = css`
     padding: 10px 30px;
     border: rgba(129, 113, 97, 0.9) 3px solid;
     border-radius: 5px;
-    transition: 0.1s;
     font-weight: 500;
   }
   .storeBtn {
@@ -68,16 +66,22 @@ const warnWindow = css`
     border: 0;
     color: #fff;
     &:hover {
-      padding: 10px 28px;
-      background: rgba(129, 113, 97, 1);
+      transform: scale(1.05);
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: inset 0 0 10px 1px rgba(50, 50, 50, 2);
     }
   }
   .exitBtn {
     background: #fff;
     color: #000;
     &:hover {
-      padding: 10px 28px;
-      border: rgba(129, 113, 97, 1) 3px solid;
+      transform: scale(1.05);
+    }
+    &:active {
+      transform: scale(1);
+      box-shadow: inset 0 0 10px 1px rgba(150, 150, 150, 2);
     }
   }
 `;
