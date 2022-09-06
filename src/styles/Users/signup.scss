@@ -1,6 +1,11 @@
 @import '../variable';
 
-.signup{
+.signup{      
+  input{
+    border{   
+      border:#fff 1px solid;      
+    }
+  }
   .signup-group{
     position:relative;
     margin: auto;
@@ -12,20 +17,14 @@
     border-radius: 50px;
     text-align: center;
     padding: 50px;
+  } 
+  .error-text{
+    color: red;
+    font-size: .8rem;
+    font-weight: bold;
   }
-  .gendergroup{width: 100%;
-    input {
-      margin: 5px;
-    }
-  }
-  .addressGroup{
-    line-height: 3rem;
-    select {
-      border-radius: 10px;
-      margin: 0 5px;
-    }
-    input {
-      margin-left: 4.8rem;
-    }
+  .is-error{   
+    border-color: #d90b1b;
+    background-color: #ffe4e4;
   }
 }
