@@ -21,6 +21,7 @@ import Pinic from './components/Users/Content/Picnic/Pinic';
 import Recipe from './components/Users/Content/Recipe/Recipe';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/login';
+import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
 
 function HeaderFooter() {
@@ -29,6 +30,7 @@ function HeaderFooter() {
       <Header />
       <Outlet />
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );
