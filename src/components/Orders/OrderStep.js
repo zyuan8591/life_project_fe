@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Headers from '../public_component/Header';
-import Footer from '../public_component/Footer';
 import BackToTop from '../public_component/BackToTop';
 import '../../styles/Order/orderstep.scss';
 import StepNavigation from './component/StepNavigation';
@@ -43,15 +41,12 @@ const OrderStep = () => {
 
   return (
     <>
-      <Headers />
-
       <div className="cartPage">
         <StepNavigation currentStep={currentStep} stepLabel={stepLabel} />
 
         {stepPages(currentStep)}
       </div>
 
-      <Footer />
       <BackToTop />
     </>
   );

@@ -26,7 +26,7 @@ function OrderCheck(props) {
             繼續購買
           </Link>
           <Link
-            to="user/order"
+            to="/users/order"
             onClick={() => props.updateCurrentStep(props.currentStep + 1)}
             className="btn stepBtn nextButton"
           >

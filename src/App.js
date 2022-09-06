@@ -23,6 +23,7 @@ import Signup from './components/Login/Signup';
 import Login from './components/Login/login';
 import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
+import OrderStep from './components/Orders/OrderStep';
 
 function HeaderFooter() {
   return (
@@ -35,7 +36,6 @@ function HeaderFooter() {
     </>
   );
 }
-import OrderStep from './components/Orders/OrderStep';
 
 function App() {
   return (
@@ -45,11 +45,11 @@ function App() {
           <Route path="/" element={<HeaderFooter />}>
             <Route path="/" element={<Homepage />} />
             <Route path="/recipes" element={<Recipes />} />
+            <Route path="/orderstep" element={<OrderStep />} />
           </Route>
           <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/orderstep" element={<OrderStep />} />
           <Route path="/news" element={<News />} />
           <Route path="/users/" element={<Users />}>
             <Route path="/users/account" element={<Account />} />
