@@ -11,12 +11,13 @@ import {
 } from 'react-icons/ai';
 
 const pages = [
-  { title: '首頁', route: '/' },
-  { title: '商品', route: '/products' },
-  { title: '食譜', route: '/recipes' },
+  // { title: '首頁', route: '/' },
+  { title: '商品一覽', route: '/products' },
+  { title: '料理食譜', route: '/recipes' },
   { title: '活動專區', route: '/activity' },
+  { title: '會員中心', route: '/users/account' },
   { title: '最新消息', route: '/news' },
-  { title: '聯絡我們', route: '/contact' },
+  // { title: '聯絡我們', route: '/contact' },
 ];
 
 const Header = ({ fixed = true }) => {
@@ -39,7 +40,9 @@ const Header = ({ fixed = true }) => {
       <IconContext.Provider
         value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
       >
-        <h1 className="mb-0 header-item">LIFE</h1>
+        <Link to="/" className="headerTitle">
+          <h1 className="m-0 header-item">LIFE</h1>
+        </Link>
         {/* NAV BAR */}
         <nav className="flexCenter header-item">
           <ul className="nav list-unstyled flexCenter">
@@ -71,11 +74,11 @@ const Header = ({ fixed = true }) => {
               </button>
             </li>
             {/* Like */}
-            <li className="me-3 userItem">
+            {/* <li className="me-3 userItem">
               <Link to="/:user/recipe" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
-            </li>
+            </li> */}
             {/* Cart */}
             <li className="me-3 userItem">
               <Link to="/cart" className="flexCenter">
@@ -83,11 +86,11 @@ const Header = ({ fixed = true }) => {
               </Link>
             </li>
             {/* User */}
-            <li className="me-3 userItem">
+            {/* <li className="me-3 userItem">
               <Link to="/users/account" className="flexCenter">
                 <AiOutlineUser />
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </IconContext.Provider>
