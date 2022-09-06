@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/Users/login.scss';
-import { Routes, Route, Outlet, Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 
 const LoginPage = () => {
   return (

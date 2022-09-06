@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/Users/Users.scss';
 import Header from '../public_component/Header';
 import Nav from './Nav/Nav';
 // import Content from './Content/Content';
 
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const index = () => {
   return (
@@ -12,11 +12,9 @@ const index = () => {
       <Header />
       <div className="users">
         <Nav />
-        <div className="content">S
-          {/* <Account /> */}
+        <div className="content">
           <Outlet />
         </div>
-
         <div className="box"></div>
       </div>
     </>

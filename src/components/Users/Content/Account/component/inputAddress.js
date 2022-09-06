@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import jsondata from '../CityCountyData.json';
 
 const InputAddress = () => {
   const [cityName, setCityName] = useState('');
-  const [areaList, setAreaList] = useState();
+
   const [areaName, setAreaName] = useState('');
 
   const city = jsondata.filter((v, i) => {
-    return v.CityName == cityName;
+    return v.CityName === cityName;
   });
 
   return (
