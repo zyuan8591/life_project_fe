@@ -8,8 +8,7 @@ import Users from './components/Users';
 import './styles/style.scss';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product-list/ProductList';
-
-import Cart from './components/Orders/Cart';
+import OrderStep from './components/Orders/OrderStep';
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/products" element={<ProductList />} />
         <Route path="/" element={<Homepage />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/orderstep" element={<OrderStep />} />
         <Route path="/news" element={<News />} />
         <Route path="/users/*" element={<Users />} />
         <Route path="/login" element={<Login />} />

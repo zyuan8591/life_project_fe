@@ -81,10 +81,10 @@ const Header = () => {
                 <AiOutlineHeart />
               </Link>
             </li>
-            {/* Cart */}
+            {/* OrderStep */}
             <li className="me-3 userItem">
               <Link
-                to="/cart"
+                to="/orderstep"
                 className="flexCenter"
                 onClick={() => {
                   dispatch(setPage(''));
