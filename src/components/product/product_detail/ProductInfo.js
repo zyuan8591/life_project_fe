@@ -6,11 +6,12 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 
-import { GlassMagnifier } from 'react-image-magnifiers';
+// import { GlassMagnifier } from 'react-image-magnifiers';
 const pic = '/img/product/product_img/BRUNO_BOE059_BGR_CE_01.png';
 const pic1 = '/img/product/product_img/BRUNO_BOE059_BGR_CE_01.webp';
 const pic2 = '/img/product/product_img/BRUNO_BOE059_BGR_CE_02.jpeg';
 const pic3 = '/img/product/product_img/BRUNO_BOE059_BGR_CE_03.jpeg';
+// const pic4 = '/img/product/product_img/ELECTRICC KETTLE_ SK_B5_01.jpg';
 const string =
   '耐高溫不沾塗層烤盤 導熱快、清洗方便 兩用木匙，取出烤盤不燙手 分離式電源，方便使用好收納 牛排或章魚燒皆適合';
 let split = string.split(' ');
@@ -23,12 +24,12 @@ const ProductInfo = () => {
       <div className="productInfo">
         <div className="picArea">
           <figure className="mainPic">
-            <GlassMagnifier
+            {/* <GlassMagnifier
               imageSrc={mainPhoto}
               imageAlt=""
               magnifierSize="35%"
               magnifierBorderSize="5"
-            />
+            /> */}
           </figure>
           <div className="d-flex mt-3">
             {Arr.map((v, i) => {
