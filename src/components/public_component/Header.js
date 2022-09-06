@@ -46,7 +46,10 @@ const Header = ({ fixed = true }) => {
             {pages.map((p) => {
               return (
                 <li key={uuidv4()}>
-                  <NavLink to={p.route} activeClassName="active">
+                  <NavLink
+                    to={p.route}
+                    className={(nav) => (nav.isActive ? 'active' : '')}
+                  >
                     {p.title}
                   </NavLink>
                 </li>
