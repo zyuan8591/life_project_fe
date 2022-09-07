@@ -1,6 +1,7 @@
 import 'normalize.css';
-// import ActivityMain from './components/activity/ActivityMain';
-import CampingMain from './components/camping/CampingMain';
+import ActivityMain from './components/activity/ActivityMain';
+import CampingMain from './components/camping/camping_main/CampingMain';
+import CampingDetailPage from './components/camping/camping_detail/CampingDetailPage';
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
@@ -77,6 +78,9 @@ function App() {
             <Route path="/login/" element=<Login /> />
             <Route path="/login/signup" element={<Signup />} />
           </Route>
+          <Route path="/activity" element={<ActivityMain />} />
+          <Route path="/activity/camping" element={<CampingMain />} />
+          <Route path="/activity/camping/:id" element={<CampingDetailPage />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </ScrollToTop>
