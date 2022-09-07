@@ -1,0 +1,145 @@
+@import '../variable';
+@import '../picnic/picnicVariable';
+
+// //font-size
+// $text9Rem: 9rem;
+// $text18: 18px;
+// // $text18: 
+
+// //font-weight
+// $fW900: 900;
+// $fW700: 700;
+
+
+@mixin w-h($width, $height) {
+    width: $width;
+    height: $height;
+}
+@mixin imgObj {
+    width: 100%;
+    object-fit:contain;
+}
+@mixin contentWrap {
+    .wrap {
+        height: 600px;
+    .image{
+        width: 650px;
+        margin-left: 3rem;
+        img {
+            @include imgObj;
+            height: 100%;
+        }
+    }
+    .content-text{
+        width: 500px;
+        margin: auto;
+        .title{
+            font-size: $titleText;
+        }
+        .text-p{
+            border-top: 1px solid $contentClr;
+            padding-top: 40px;
+            p {
+                font-size: $text18;
+                line-height: 30px;
+               }
+        }
+        .btn {
+            width: 400px;
+            padding: 10px 0;
+            font-size: $text18;
+            border: 1px solid $subClrGY;
+            border-radius: 0%;
+            box-shadow:.5px .5px 2px;
+            &:hover, &:active {
+                background: $focusClrY;
+                color: $mainClrW;
+            }
+        }
+        
+    }
+    
+    }
+}
+
+.main {
+    width: $maxWidth;
+    margin: auto;
+    position: relative;
+    top: $headerHeight;
+// ----- main banner -----
+    .section-main{
+        display: flex;
+        height: calc(100vh - $headerHeight);
+        .title-bn {
+            width: 60%;
+            display: flex;
+            align-items: center;
+            img {
+                @include imgObj;
+            }
+            .balloon1{
+                width: 7%;
+                position: absolute;
+                top: 1.2rem;
+                left: 20rem;
+            }
+            .balloon2{
+                width: 7%;
+                position: absolute;
+                top: 2.5rem;
+                left: 29rem;
+            }
+        }
+        .title-text {
+            width: 40%;
+            position: relative;
+            .title-slogan {
+                position: absolute;
+                top: 5rem;
+                span {
+                color: $mainClrW;
+                font-size: $text9Rem;
+               font-weight: $fW900;
+               -webkit-text-stroke: 4px $subClrGY;
+                
+               &:nth-child(n) {
+                color: $focusClrG;
+               }
+               &:nth-child(2n) {
+                color: $focusClrY;
+               }
+            }
+            }
+            .title-slogan2 {
+                color: $contentClr;
+                font-size: $titleText;
+                font-weight: $fW700;
+                
+                .first-child {
+                position: absolute;
+                top: 25rem;
+                right: 10rem;
+                }
+                .last-child {
+                    position: absolute;
+                    top: 30rem;
+                    right: 4rem;
+                    }
+        }
+        
+        }
+        // .icon-ArrowDropdown {
+        //     position: absolute;
+        //     top: 0;
+        //     right: 0;
+        // }
+
+    }
+// ----- content ------
+    .section-content{
+            @include contentWrap;
+    }
+    
+}
+

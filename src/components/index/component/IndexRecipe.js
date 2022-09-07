@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const IndexRecipe = () => {
   const settings = {
-    className: 'center',
     infinite: true,
     slidesToShow: 5,
     swipeToSlide: true,

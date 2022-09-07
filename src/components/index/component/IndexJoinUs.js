@@ -72,7 +72,7 @@ const IndexJoinUs = () => {
           <br />
           LIFE提供無論是單身或是家庭的您,享受更高品質的生活。
         </p>
-        <Link to="/" css={joinUsLink}>
+        <Link to="/login/signup" css={joinUsLink}>
           JOIN NOW
         </Link>
       </div>

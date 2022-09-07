@@ -8,19 +8,32 @@ const Login = () => {
   function clickEye() {
     setEye(eye ? false : true);
   }
+  //TODO:製作記住帳號密碼
 
   return (
     <>
       <form action="">
         <div className="">
-          <label className="" htmlFor="">
+          <label className="email" htmlFor="email">
             註冊信箱：
           </label>
-          <input className="inputStyle mt-2" type="text" />
+          <input
+            className="inputStyle mt-2"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="電子郵件信箱"
+          />
         </div>
         <div className="mt-5 password-group ">
-          <label htmlFor="">密碼：</label>
-          <input className="inputStyle mt-2" type={eye ? 'text' : 'password'} />
+          <label htmlFor="password">密碼：</label>
+          <input
+            className="inputStyle mt-2"
+            type={eye ? 'text' : 'password'}
+            id="password"
+            name="password"
+            placeholder="密碼"
+          />
           <div className="eye " onClick={clickEye}>
             <IconContext.Provider value={{ className: 'eye' }}>
               {eye ? <FaRegEye /> : <FaRegEyeSlash />}
@@ -28,8 +41,10 @@ const Login = () => {
           </div>
         </div>
         <div className="">
-          <input type="radio" id="remember"/>
-          <label for="remember" className="fs-5 ">記住帳號密碼</label>
+          <input type="radio" id="remember" />
+          <label htmlFor="remember" className="fs-5 ">
+            記住帳號密碼
+          </label>
         </div>
         <button className="loginBtn mt-5">登入</button>
 
