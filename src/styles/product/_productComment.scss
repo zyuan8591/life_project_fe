@@ -1,27 +1,41 @@
 @import '../variable';
 
+@mixin avatar($margin) {
+  margin: $margin;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@mixin figure($width) {
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+  overflow: hidden;
+}
+@mixin img {
+  width: 100%;
+  object-fit: cover;
+}
+@mixin star($size, $color) {
+  font-size: $size;
+  margin: 0 2px;
+  color: $color;
+}
+
 .typeArea {
+  margin-bottom: 40px;
   .avatarArea {
-    margin: 0 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include avatar(0 40px);
     figure {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
+      @include figure(80px);
       img {
-        width: 100%;
-        object-fit: cover;
+        @include img();
         background: #afafaf;
       }
     }
     .star {
-      font-size: 1.4rem;
-      margin: 0 2px;
-      color: #C5C5C5;
+      @include star(1.4rem, #c5c5c5)
     }
   }
   textarea {
@@ -47,5 +61,45 @@
     &:hover {
       background: #909090;
     }
+  }
+}
+.commentArea {
+  background: $mainClrW;
+  padding: 25px;
+  border-radius: 20px;
+  margin: 15px auto;
+  min-width: 600px;
+  .avatar {
+    @include avatar(0);
+    display: flex;
+    flex-direction: row;
+    figure {
+      @include figure(60px);
+      margin: 0 10px;
+      img {
+        @include img();
+      }
+    }
+    p {
+      padding: 0;
+      margin: 0;
+      color: $contentClr;
+    }
+  }
+  .date {
+    color: #c5c5c5;
+  }
+  .comment {
+    margin: 0 10px;
+    max-width: 400px;
+    p {
+      margin: 0;
+    }
+  }
+  .solid{
+    @include star(1.2rem, $focusClrY)
+  }
+  .hollow {
+    @include star(1.2rem, #c5c5c5)
   }
 }

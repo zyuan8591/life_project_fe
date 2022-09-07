@@ -7,7 +7,6 @@ import ProductTab from './ProductTab';
 import ProductTabContent from './ProductTabContent';
 const ProductDetail = () => {
   const [tabNow, setTabNow] = useState(2);
-  console.log(tabNow);
   return (
     <>
       <Header />
