@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { setPage } from '../../utils/paginationSlice';
 import { IconContext } from 'react-icons';
 import {
   AiOutlineSearch,
@@ -13,19 +11,18 @@ import {
 } from 'react-icons/ai';
 
 const pages = [
-  { title: '首頁', route: '/' },
-  { title: '商品', route: '/products' },
-  { title: '食譜', route: '/recipes' },
+  // { title: '首頁', route: '/' },
+  { title: '商品一覽', route: '/products' },
+  { title: '料理食譜', route: '/recipes' },
   { title: '活動專區', route: '/activity' },
+  { title: '會員中心', route: '/users/account' },
   { title: '最新消息', route: '/news' },
-  { title: '聯絡我們', route: '/contact' },
+  // { title: '聯絡我們', route: '/contact' },
 ];
 
 const Header = ({ fixed = true }) => {
   const [search, setSearch] = useState(false);
   const [scrollDown, setScrollDown] = useState(false);
-  const pageNow = useSelector((state) => state.pagination.pagination);
-  const dispatch = useDispatch();
 
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
@@ -43,22 +40,21 @@ const Header = ({ fixed = true }) => {
       <IconContext.Provider
         value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
       >
-        <h1 className="mb-0 header-item">LIFE</h1>
+        <Link to="/" className="headerTitle">
+          <h1 className="m-0 header-item">LIFE</h1>
+        </Link>
         {/* NAV BAR */}
         <nav className="flexCenter header-item">
           <ul className="nav list-unstyled flexCenter">
             {pages.map((p) => {
               return (
                 <li key={uuidv4()}>
-                  <Link
+                  <NavLink
                     to={p.route}
-                    className={`${pageNow === p.title ? 'active' : ''}`}
-                    onClick={() => {
-                      dispatch(setPage(p.title));
-                    }}
+                    className={(nav) => (nav.isActive ? 'active' : '')}
                   >
                     {p.title}
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
@@ -78,41 +74,23 @@ const Header = ({ fixed = true }) => {
               </button>
             </li>
             {/* Like */}
-            <li className="me-3 userItem">
-              <Link
-                to="/:user/recipe"
-                className="flexCenter"
-                onClick={() => {
-                  dispatch(setPage(''));
-                }}
-              >
+            {/* <li className="me-3 userItem">
+              <Link to="/:user/recipe" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
-            </li>
+            </li> */}
             {/* Cart */}
             <li className="me-3 userItem">
-              <Link
-                to="/cart"
-                className="flexCenter"
-                onClick={() => {
-                  dispatch(setPage(''));
-                }}
-              >
+              <Link to="/cart" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
             {/* User */}
-            <li className="me-3 userItem">
-              <Link
-                to="/users/account"
-                className="flexCenter"
-                onClick={() => {
-                  dispatch(setPage(''));
-                }}
-              >
+            {/* <li className="me-3 userItem">
+              <Link to="/users/account" className="flexCenter">
                 <AiOutlineUser />
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </IconContext.Provider>

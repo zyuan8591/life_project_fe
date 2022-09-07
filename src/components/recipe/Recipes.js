@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../public_component/Footer';
-import Header from '../public_component/Header';
-import BackToTop from '../public_component/BackToTop';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
 import Select from 'react-select';
@@ -21,6 +18,7 @@ import RecipeListBlockMode from './component/RecipeListBlockMode';
 import PaginationBar from '../public_component/PaginationBar';
 import RecipeListMode from './component/RecipeListMode';
 import RecipeCreateForm from './component/RecipeCreateForm';
+import BreadCrumb from '../public_component/BreadCrumb';
 
 const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -64,13 +62,14 @@ const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
   const [pageNow, setPageNow] = useState(1);
   const [displayMode, setDisplayMode] = useState(1);
-  const [createRecipe, setCreateRecipe] = useState(true);
+  const [createRecipe, setCreateRecipe] = useState(false);
 
   const recipeCateClickHandler = () => {};
 
   return (
     <>
       <div className="pageRecipes">
+        <BreadCrumb />
         {/* recipeCategory */}
         <div className="recipesCateBtnGroup mb-3">
           {recipeCate.map((d, i) => {

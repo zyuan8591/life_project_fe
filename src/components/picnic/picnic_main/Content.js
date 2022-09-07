@@ -71,7 +71,9 @@ function Content() {
                 在這裡，野可以，浪漫一夏！
               </p>
             </div>
-            <Link to="/activity/picnic/group" className="btn mt-5">私人活動</Link>
+            <Link to="/activity/picnic/group" className="btn mt-5">
+              私人活動
+            </Link>
           </div>
           <div className="image d-flex">
             <img
@@ -104,7 +106,9 @@ function Content() {
                 快來創造屬於你的任何主題，培養新興趣、認識新朋友，創造一個你有興趣的聚會吧！
               </p>
             </div>
-            <Link to="/activity/picnic/create" className="btn mt-5">我要揪團</Link>
+            <Link to="/activity/picnic/create" className="btn mt-5">
+              我要揪團
+            </Link>
           </div>
         </div>
       </section>

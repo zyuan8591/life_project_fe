@@ -16,11 +16,10 @@ function RecommendProducts() {
   const productLength = product.length;
   const [productSlider, setProductSlider] = useState(0);
 
-  const next = () => {
-    const slideIndex = 0;
-    const move = 1600 - 170;
-
-  };
+  // const next = () => {
+  //   const slideIndex = 0;
+  //   const move = 1600 - 170;
+  // };
 
   return (
     <>

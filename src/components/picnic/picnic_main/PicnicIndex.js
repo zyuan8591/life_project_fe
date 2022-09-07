@@ -12,14 +12,14 @@ import Content from './Content';
 function PicnicIndex() {
   return (
     <>
-    <Header />
+      <Header />
       <main className="main ">
         {/* section main banner */}
         <TitleBanner />
         <Content />
       </main>
-    <Footer />
-    <BackToTop />
+      <Footer />
+      <BackToTop />
     </>
   );
 }
