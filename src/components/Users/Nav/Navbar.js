@@ -12,13 +12,16 @@ import { FiLogOut } from 'react-icons/fi';
 import { MdArticle } from 'react-icons/md';
 import { GiBowlOfRice } from 'react-icons/gi';
 import { IconContext } from 'react-icons';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
+import { UserRights } from '../../../usecontext/UserRights';
+
 const icon = [
   <BsFillPersonFill />,
   <MdArticle />,
   <BsCreditCard2FrontFill />,
   <BsFillTreeFill />,
   <GiBowlOfRice />,
-  <FiLogOut />,
 ];
 const userNav = [
   {
@@ -38,10 +41,10 @@ const userNav = [
   },
   {
     title: '活動一覽',
-    url: '/users/camping',
+    url: '/users/caping',
     item: [
-      { title: '露營活動', url: 'camping' },
-      { title: '野餐活動', url: 'camping' },
+      { title: '露營活動', url: 'caping' },
+      { title: '野餐活動', url: 'caping' },
     ],
   },
   {
@@ -52,7 +55,6 @@ const userNav = [
       { title: '食譜收藏', url: 'recipe' },
     ],
   },
-  { title: '登出', url: '', item: [{ title: '', url: '' }], active: false },
 ];
 
 const AccordionItem = (props) => {
@@ -71,7 +73,7 @@ const AccordionItem = (props) => {
       <Link to={item.url}>{item.title}</Link>
       {item.item.map((v2, i2) => {
         return (
-          <ul>
+          <ul key={i2}>
             <li
               className="expand"
               style={{ height: heightItem }}
@@ -86,6 +88,13 @@ const AccordionItem = (props) => {
   );
 };
 const Nav = () => {
+  // const { user, setUser } = UserRights();
+  //登出
+  async function handelLogout() {
+    await axios.get(`${API_URL}/logout`, { withCredentials: true });
+    // setUser(null);
+  }
+
   const [visable, setVisable] = useState([
     true,
     false,
@@ -112,6 +121,10 @@ const Nav = () => {
               />
             );
           })}
+          <li onClick={handelLogout} className="logout">
+            <FiLogOut />
+            登出
+          </li>
         </ul>
       </IconContext.Provider>
     </div>
@@ -133,5 +146,8 @@ const nav = css`
 
   ul {
     padding-left: 3.5rem;
+  }
+  .logout {
+    cursor: pointer;
   }
 `;

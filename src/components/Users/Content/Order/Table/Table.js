@@ -32,14 +32,17 @@ const Table = () => {
   return (
     <div className="order-table">
       <table className="table table-bordered mt-5">
-        <thead>
-          {title.map((v) => {
-            return <th>{v}</th>;
-          })}
-        </thead>
+        {title.map((v, i) => {
+          return (
+            <thead key={i}>
+              <th>{v}</th>
+            </thead>
+          );
+        })}
+
         {data.map((v, i) => {
           return (
-            <tbody>
+            <tbody key={i}>
               <td>{v.orderNumber}</td>
               <td>${v.total}</td>
               <td>{v.orderState}</td>

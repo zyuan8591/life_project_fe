@@ -2,12 +2,37 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
+import { Navigate } from 'react-router-dom';
+// import { UserRights } from '../../usecontext/UserRights';
+//Navigate自動跳轉
 
 const Login = () => {
+  // const { user, setUser } = UserRights();
+  const [loginUser, setLoginUser] = useState({
+    email: 'Ace@test.com',
+    password: 'a12345678',
+  });
+
+  //顯示密碼
   const [eye, setEye] = useState(false);
   function clickEye() {
     setEye(eye ? false : true);
   }
+
+  function handleChange(e) {
+    setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await axios.post(`${API_URL}/login`, loginUser, {
+      withCredentials: true,
+    });
+    setLoginUser(true);
+  }
+
   //TODO:製作記住帳號密碼
 
   return (
@@ -15,14 +40,16 @@ const Login = () => {
       <form action="">
         <div className="">
           <label className="email" htmlFor="email">
-            註冊信箱：
+            信箱：
           </label>
           <input
             className="inputStyle mt-2"
             type="email"
             id="email"
             name="email"
-            placeholder="電子郵件信箱"
+            placeholder="請輸入您的註冊信箱"
+            value={loginUser.email}
+            onChange={handleChange}
           />
         </div>
         <div className="mt-5 password-group ">
@@ -32,7 +59,9 @@ const Login = () => {
             type={eye ? 'text' : 'password'}
             id="password"
             name="password"
-            placeholder="密碼"
+            placeholder="請輸入您的密碼"
+            value={loginUser.password}
+            onChange={handleChange}
           />
           <div className="eye " onClick={clickEye}>
             <IconContext.Provider value={{ className: 'eye' }}>
@@ -40,13 +69,15 @@ const Login = () => {
             </IconContext.Provider>
           </div>
         </div>
-        <div className="">
+        {/* <div className="">
           <input type="radio" id="remember" />
           <label htmlFor="remember" className="fs-5 ">
             記住帳號密碼
           </label>
-        </div>
-        <button className="loginBtn mt-5">登入</button>
+        </div> */}
+        <button className="loginBtn mt-5" onClick={handleSubmit}>
+          登入
+        </button>
 
         {/* TODO:
    1.從cookie取得使用者帳密 */}
