@@ -3,10 +3,20 @@
 
 .createPincnicMain {
     margin: $headerHeight auto;
+
     .form {
-        line-height: 2rem;
+        line-height: 1.5rem;
         width: 50%;
         margin: auto;
+        // gap: 0.3rem;
+        .imgLabel {
+            border: 1px solid $subClrGY;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+          }
         select {
             width: 8rem;
             height: 100%;
@@ -17,24 +27,27 @@
                 outline: 3px solid #817161b8;
               }
         }
-        .picUpload, .contentDetail{
-            height: 13rem;
-        }
-        label{
-            font-size: $text20;
-            margin: 0 0 5px;
+        label {
+            font-size: $text18;
+            margin: 0 0 .3rem;
             border: $subClrGY;
             color: $contentClr;
         }
-        input {
+        input, textarea {
             padding: .3rem;
             border-radius: 5px;
             border: 1px solid $subClrGY;
             &:focus{
                 outline: none;
                 outline: 3px solid #817161b8;
+                &::placeholder {
+                    color: transparent;
+                  }
               }
         }
+        textarea {
+            resize: none;
+          }
         .inputCity {
             width: 8rem;
             height: 100%;

@@ -23,15 +23,6 @@ import { BsPersonFill } from 'react-icons/bs';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 function PicnicOfficalDetail() {
-  const [scrollDown, setScrollDown] = useState(false);
-
-  let scrollY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    let scrollNow = window.scrollY;
-    setScrollDown(scrollNow > scrollY);
-    scrollY = scrollNow;
-  });
-
   return (
     <>
       <Header />
@@ -50,10 +41,7 @@ function PicnicOfficalDetail() {
           </div>
           <div className="col-sm-3">
             {/* 側邊資訊欄 */}
-            <AsideMessageFix
-              scrollDown={scrollDown}
-              setScrollDown={setScrollDown}
-            />
+            <AsideMessageFix />
           </div>
           {/* 熱門活動 */}
           <RecommendActivity />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const products = [
@@ -15,35 +16,46 @@ function RecommendProducts() {
   const productLength = product.length;
   const [productSlider, setProductSlider] = useState(0);
 
+  const next = () => {
+    const slideIndex = 0;
+    const move = 1600 - 170;
 
+  };
 
   return (
     <>
       {/* 推薦商品 */}
       <div className="recommendProducts">
         <h4>推薦商品</h4>
-        <div className="slide d-flex">
-            <IoIosArrowBack
-              className="arrowIcon mt-auto flex-shrink-0"
-            />
-          <div className="slideImg d-flex">
-            {products.map((v) => {
-              return (
-                <div className="productCard" key={uuidv4()}>
-                  <div className="productImg">
-                    <img src={`/img/product/product_img/${v.img}`} alt="" />
+        <div className="slider d-flex">
+          <div className="slidewrap ">
+            <div className="d-flex">
+              {products.map((v) => {
+                return (
+                  <div className="productCard" key={uuidv4()}>
+                    <div className="productImg">
+                      <img src={`/img/product/product_img/${v.img}`} alt="" />
+                    </div>
+                    {/* <div className="hoverText">
+                      <span>{v.name}</span>
+                    </div> */}
                   </div>
-                  <div className="hoverText">
-                    <span>{v.name}</span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-            <IoIosArrowForward
-              className="arrowIcon ms-auto flex-shrink-0"
-              // onClick={() => {}}
-            />
+          <IoIosArrowBack
+            className="arrowIconLeft"
+            onClick={() => {
+              // prev()
+            }}
+          />
+          <IoIosArrowForward
+            className="arrowIconRight"
+            onClick={() => {
+              // next();
+            }}
+          />
         </div>
       </div>
     </>
@@ -51,6 +63,41 @@ function RecommendProducts() {
 }
 
 export default RecommendProducts;
+
+// {/* 推薦商品 */}
+// <div className="recommendProducts">
+// <h4>推薦商品</h4>
+// <div className="slider d-flex">
+//   <div className="slidewrap ">
+//     <div className="d-flex">
+//       {products.map((v) => {
+//         return (
+//           <div className="productCard" key={uuidv4()}>
+//             <div className="productImg">
+//               <img src={`/img/product/product_img/${v.img}`} alt="" />
+//             </div>
+//             {/* <div className="hoverText">
+//               <span>{v.name}</span>
+//             </div> */}
+//           </div>
+//         );
+//       })}
+//     </div>
+//   </div>
+//   <IoIosArrowBack
+//   className="arrowIconLeft"
+//     onClick={() => {
+//       prev()
+//     }}
+//   />
+//   <IoIosArrowForward
+//     className="arrowIconRight"
+//     onClick={() => {
+//       next();
+//     }}
+//   />
+// </div>
+// </div>
 
 {
   /* <div className="productCard">

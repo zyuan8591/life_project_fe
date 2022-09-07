@@ -23,29 +23,35 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 function IndexPrivateDetail() {
   return (
-  <>
-    <Header />
+    <>
+      <Header />
       <div>LIFE / 活動專區 / 野餐專區 / 官方活動 / 夏季野餐趣</div>
-      <main className="PicnicOfficalDetailContainer container row">
-        <div className="mainWrap col-sm-8">
-          {/* 上方活動資訊和圖片 */}
-          <DetailTitle />
-          {/* 活動詳細內容 */}
-          <PrivateDetailContent />
-          {/* 主辦人 */}
-          <Organiser />
-          {/* 參加者 */}
-          <Paicipant />
-          <RecommendProducts />
+      <main className="privateDetailContent container">
+        <div className="main row">
+          <div className="mainWrap col-sm-8">
+            {/* 上方活動資訊和圖片 */}
+            <DetailTitle />
+            {/* 活動詳細內容 */}
+            <PrivateDetailContent />
+            {/* 主辦人 */}
+            <Organiser />
+            {/* 參加者 */}
+            <Paicipant />
+            {/* 推薦商品 */}
+            <RecommendProducts />
+          </div>
+          <div className="col-sm-3">
+            {/* 側邊資訊欄 */}
+            <AsideMessageFix />
+          </div>
+          {/* 熱門活動 */}
+          <RecommendActivity />
         </div>
-        <RecommendActivity />
-        {/* 側邊資訊欄 */}
-        <AsideMessageFix />
       </main>
       <Footer />
       <BackToTop />
-  </>
-  ) 
+    </>
+  );
 }
 
 export default IndexPrivateDetail;

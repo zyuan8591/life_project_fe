@@ -10,7 +10,6 @@ import {
   AiOutlineHeart,
   AiOutlineUser,
   AiOutlineShoppingCart,
-  AiOutlineShopping,
 } from 'react-icons/ai';
 
 const pages = [
@@ -23,6 +22,7 @@ const pages = [
 ];
 
 const Header = ({ fixed = true }) => {
+  const [search, setSearch] = useState(false);
   const [scrollDown, setScrollDown] = useState(false);
   const pageNow = useSelector((state) => state.pagination.pagination);
   const dispatch = useDispatch();
@@ -35,15 +35,16 @@ const Header = ({ fixed = true }) => {
   });
 
   return (
-    <IconContext.Provider
-      value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
+    <header
+      className={`header position-relative w-100 ${
+        fixed ? 'position-fixed' : ''
+      } ${scrollDown ? 'hidden' : ''}`}
     >
-      <header
-        className={`header w-100 ${fixed ? 'position-fixed' : ''} ${
-          scrollDown ? 'hidden' : ''
-        }`}
+      <IconContext.Provider
+        value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
       >
         <h1 className="mb-0 header-item">LIFE</h1>
+        {/* NAV BAR */}
         <nav className="flexCenter header-item">
           <ul className="nav list-unstyled flexCenter">
             {pages.map((p) => {
@@ -66,10 +67,15 @@ const Header = ({ fixed = true }) => {
         <div className="user flexCenter header-item">
           <ul className="list-unstyled flexCenter mb-0">
             {/* search */}
-            <li className="me-3 userItem active">
-              <Link to="/" className="flexCenter">
+            <li
+              className="me-3 userItem active"
+              onClick={() => {
+                setSearch(true);
+              }}
+            >
+              <button className="flexCenter border-0 bg-white">
                 <AiOutlineSearch />
-              </Link>
+              </button>
             </li>
             {/* Like */}
             <li className="me-3 userItem">
@@ -107,17 +113,57 @@ const Header = ({ fixed = true }) => {
                 <AiOutlineUser />
               </Link>
             </li>
-            {/* Shop */}
-            {/* <li className="headerShop ps-3">
-              <Link to="/products" className="flexCenter headerIcon">
-                <AiOutlineShopping />
-                <span className="ms-3">SHOP</span>
-              </Link>
-            </li> */}
           </ul>
         </div>
-      </header>
-    </IconContext.Provider>
+      </IconContext.Provider>
+      {/* Search Section */}
+      {search && (
+        <div
+          className={`headerSearchSection position-absolute top-0 start-0`}
+          onClick={() => {
+            setSearch(false);
+          }}
+        >
+          <div
+            className="headerSearch bg-white rounded-2 p-3 mx-auto"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <div className="headerSearchInput position-relative">
+              <input
+                type="text"
+                placeholder="搜尋"
+                className="w-100 rounded-2"
+              />
+              <IconContext.Provider
+                value={{
+                  color: '#817161',
+                  size: '1.75rem',
+                  className:
+                    'position-absolute top-50 start-0 translate-middle-y ms-3',
+                }}
+              >
+                <AiOutlineSearch />
+              </IconContext.Provider>
+            </div>
+            <div className="py-2 headerSearchTitle">搜尋結果</div>
+            <div className="flexCenter mb-3">目前無搜尋結果</div>
+            <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
+              <li>
+                <span>1213213132132</span>
+              </li>
+              <li>
+                <span>1213213132132</span>
+              </li>
+              <li>
+                <span>1213213132132</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
+    </header>
   );
 };
 

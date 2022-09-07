@@ -19,25 +19,27 @@
     font-size: $text32;
     margin: auto 0;
     color: $contentClr;
+    cursor: pointer;
 }   
 @mixin lineHeight {
     line-height: 2rem;
 }
 
-.PicnicOfficalDetailContainer {
+.privateDetailContent {
     margin: $headerHeight auto;
     .contentTitle {
         @include contentTitle;  
     }
-    .mainWrap {
-        ul {
-            padding: 0;
-            li {
-                font-size: $contentText;
+    .main {
+        .mainWrap {
+            ul {
+                padding: 0;
+                li {
+                    font-size: $contentText;
+                }
             }
-        }
-        // --------- 上方活動資訊和圖片 ---------
-        .detailTitle {
+            // --------- 上方活動資訊和圖片 ---------
+            .detailTitle {
             h2 {
                 border-bottom: 1px solid $subClrGY;
                 padding: 0 0 1rem;
@@ -60,9 +62,9 @@
                     object-fit: cover;
                 }
             }
-        }
-        // --------- 活動內容 ---------
-        .privateDetailContent {
+            }
+            // --------- 活動內容 ---------
+            .privateDetailContent {
             // margin: 4rem 0;
             // 主題內容
             .contentWrap1 {
@@ -106,9 +108,9 @@
                 }  
                 
             }
-        }
-        // --------- 主辦人 ---------
-        .organiser {
+            }
+            // --------- 主辦人 ---------
+            .organiser {
             margin: 6rem 0 0;
             display: flex;
             align-items: center;
@@ -131,8 +133,9 @@
                 }
             }
             .info {
-                width: 350px;
+                width: 400px;
                 height: 10rem;
+                line-height: 1.6rem;
                 display: flex;
                 align-items: center;
                 border-radius: 3px;
@@ -146,9 +149,9 @@
                 }
                 
             }
-        }
-        // --------- 參加者 ---------
-        .paicipant {
+            }
+            // --------- 參加者 ---------
+            .paicipant {
             margin: 3rem 0 6rem;
             h4 {
                 @include contentTitle;
@@ -179,9 +182,9 @@
                     }
                 }
             }
-        }
+            }
             // --------- 推薦商品 ---------
-    .recommendProducts {
+            .recommendProducts {
         margin: 6rem 0;
         h4 {
             @include contentTitle;
@@ -233,36 +236,86 @@
                 
             }
         }
+            }
+        }    
+        // --------- 側邊資訊欄 ---------
+        .asideMessageFix {
+            min-width: 250px;
+            width: 20rem;
+            position: sticky;
+            top: 0;
+            right: 0;
+            border: 1px solid $subClrBrown;
+            box-shadow: 0 0 3px $subClrGY;
+            padding: 1.5rem;
+            p {
+                font-size: $text20;
+                margin: 0;
+            }
+            .stateBtn {
+                font-size: $text14;
+                background: $focusClrY;
+                border-radius: 2rem;
+                color: $mainClrW;
+                padding: 0 7px;
+    
+            }
+            .calendarIcon, .mapMarkerIcon, .personIcon {
+                font-size: 1rem;
+                margin: -3px 5px 0 0;
+            }
+            .map {
+                width: 100%;
+                height: 150px;
+                border: 1px solid; 
+            }
+            .price {
+                color: $contentClr;
+                font-weight: $fW600;
+            }
+            .joinInBtn {
+                color: $mainClrW;
+                background: $subClrBrown;
+                border-radius: 2px;
+                padding: 1px 8px;
+            }
+    
+            }
+
     }
-    }
-    // --------- 推薦活動 ---------
-    .recommendActivity {
+     // --------- 推薦活動 ---------
+     .recommendActivity {
         // margin: 5rem 0;
+        width: 1440px;
+        overflow: hidden;
         h4 {
             margin: 1.5rem 0;
             font-size: $text24;
         }
         .cardItem {
-            width: 250PX;
-            margin: 0 .4rem;
-            padding: 20px;
-            box-shadow: .2px .2px 3px $subClrBrown;
-            .time {
-                font-size: $text12;
+            max-height: 250px;
+            max-width: 250px;
+            display: flex;
+            flex-direction: column;
+            margin:5px 0px;
+            padding: 20px ;
+            box-shadow: .5px .5px 2px $subClrGY;
+            .date {
+                font-size: $text14;
             }
             .cardTitle {
                 color:  $subClrBrown;
-                font-size: $text18;
+                font-size: $contentText;
             }
             .location {
-                font-size: $text14;
+                // font-size: $contentText;
                 .mapMarkerIcon{
                     @include iconSize;
                     margin: 0 2px 0 0;
                 }
             }
             .infoText {
-                font-size: $text14;
+                // font-size: $text14;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2;
@@ -289,18 +342,18 @@
             .joinBtn {
                 color: $mainClrW;
                 font-size: $text10;
+                background: $focusClrY;
+                border-radius: 20px;
                 padding: 4px 7px;
                 margin: auto 0;
                 flex-shrink: 0;
-                background: $focusClrY;
-                // border: 1px solid $subClrBrown;
-                border-radius: 15px;
+                transition: .5s;
             }   
             &:hover {
-                background: #efae3d;
+                transition: .5s;
+                background: $focusClrY;
                 .cardTitle {color: $mainClrW;}
                 .joinBtn { 
-                    // border: none;
                     color: $contentClr;
                     background: $mainClrW;
                     
@@ -311,48 +364,8 @@
 
             }
         }
-    }
-    // --------- 側邊資訊欄 ---------
-    .asideMessageFix {
-        min-width: 250px;
-        width: 20rem;
-        position: fixed;
-        top: 9rem;
-        right: 26.5rem;
-        border: 1px solid $subClrBrown;
-        box-shadow: 0 0 3px $subClrGY;
-        padding: 1.5rem;
-        p {
-            font-size: $text20;
-            margin: 0;
-        }
-        .stateBtn {
-            font-size: $text14;
-            background: $focusClrY;
-            border-radius: 2rem;
-            color: $mainClrW;
-            padding: 0 7px;
+    
 
-        }
-        .calendarIcon, .mapMarkerIcon, .personIcon {
-            font-size: 1rem;
-            margin: -3px 5px 0 0;
-        }
-        .map {
-            width: 100%;
-            height: 150px;
-            border: 1px solid; 
-        }
-        .price {
-            color: $contentClr;
-            font-weight: $fW600;
-        }
-        .joinInBtn {
-            color: $mainClrW;
-            background: $subClrBrown;
-            border-radius: 2px;
-            padding: 1px 8px;
-        }
     }
 
 }

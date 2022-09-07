@@ -3,11 +3,19 @@ import { useState } from 'react';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 
-function AsideMessageFix(scrollDown, setScrollDown) {
+function AsideMessageFix() {
+  const [scrollDown, setScrollDown] = useState(false);
+
+  let scrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    let scrollNow = window.scrollY;
+    setScrollDown(scrollNow > scrollY);
+    scrollY = scrollNow;
+  });
   return (
     <>
       <div className="asideMessageFix">
-        <aside className={scrollDown ? 'sticky-top' : 'sticky'}>
+        <aside className={scrollDown ? 'sticky-top top-0' : 'sticky'}>
           <div className="d-flex justify-content-between align-items-center mb-3">
             <p>夏季野餐趣</p>
             <div className="stateBtn">開團中</div>

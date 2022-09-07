@@ -10,30 +10,21 @@
   color: $contentClr;
 
   .recipeDetailIntro {
-    // min-width: 100vw;
-    // width: 100%;
     max-width: $maxWidth;
     margin: 0 auto;
-    // height: calc(100% - $headerHeight);
     padding: 1rem 2rem;
   }
   .recipeDetailStep {
     display: flex;
     flex-wrap: nowrap;
-    overflow: auto;
+    // overflow: hidden;
     height: 100vh;
     scroll-behavior: auto;
     &::-webkit-scrollbar {
       display: none;
     }
-    .recipeDetailStepLeft {
-      background: url(../../public/img/recipe/other/step-bg1.png) no-repeat;
-      background-size: cover;
-    }
-    .recipeDetailStepRight {
-      background: url(../../public/img/recipe/other/step-bg2.png) no-repeat;
-      background-size: auto 100%;
-      background-position: top right;
+    .recipeStepNum {
+      z-index: 60;
     }
   }
   .recipeDetailRecommend {
