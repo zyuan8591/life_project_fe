@@ -66,7 +66,7 @@ function App() {
           </Route>
           <Route path="/activity" element={<ActivityMain />} />
           <Route path="/activity/camping" element={<CampingMain />} />
-          <Route path="/activity/camping/1" element={<CampingDetailPage />} />
+          <Route path="/activity/camping/:id" element={<CampingDetailPage />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </ScrollToTop>
