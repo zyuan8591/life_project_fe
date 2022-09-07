@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 
@@ -22,6 +22,7 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="電子郵件信箱"
           />
         </div>
         <div className="mt-5 password-group ">
@@ -31,6 +32,7 @@ const Login = () => {
             type={eye ? 'text' : 'password'}
             id="password"
             name="password"
+            placeholder="密碼"
           />
           <div className="eye " onClick={clickEye}>
             <IconContext.Provider value={{ className: 'eye' }}>

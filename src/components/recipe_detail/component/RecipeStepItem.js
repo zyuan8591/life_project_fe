@@ -36,7 +36,10 @@ const textContent = css`
 
 const RecipeStepItem = ({ i = 1, img, content }) => {
   return (
-    <div className="d-flex flex-column px-3 position-relative" css={container}>
+    <div
+      className="d-flex flex-column px-3 position-relative flex-shrink-0"
+      css={container}
+    >
       <figure className="m-0 position-relative" css={iconContainer}>
         <img
           src="/img/recipe/other/recipe_egg.svg"

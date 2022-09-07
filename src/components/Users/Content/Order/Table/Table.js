@@ -1,7 +1,4 @@
 import React from 'react';
-import { BiPencil } from 'react-icons/bi';
-import { TiClipboard } from 'react-icons/ti';
-import { IconContext } from 'react-icons';
 
 const Table = () => {
   const title = [

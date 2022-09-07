@@ -1,0 +1,33 @@
+@import '../../variable';
+
+.container {
+  max-width: 1200px;
+  box-shadow: 0px 0px 15px 0px rgba(150, 150, 150, 0.75);
+  background: url('../../../../public/img/recipe/other/stepContentBg.jpg');
+  margin-top: 10rem;
+  &:hover {
+    box-shadow: 0px 0px 15px 0px darken($subClrBrown, 10%);
+  }
+  figure {
+    max-width: 40%;
+    z-index: 0;
+  }
+}
+
+.px2 {
+  padding: 0 2rem;
+}
+
+@media (max-width: 900px) {
+  .container {
+    figure {
+      opacity: 0.5;
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .container {
+    margin: 2rem 0;
+  }
+}

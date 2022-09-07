@@ -1,8 +1,6 @@
 import React from 'react';
-import Login from './login';
-import Signup from './Signup';
 import '../../styles/Users/login.scss';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 
 const LoginPage = () => {
   return (
@@ -14,10 +12,7 @@ const LoginPage = () => {
       </div>
       <div className="col group">
         <div className="frame">
-          <Routes>
-            <Route path="/" element=<Login /> />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
+          <Outlet />
         </div>
       </div>
     </div>
