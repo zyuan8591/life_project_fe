@@ -6,9 +6,9 @@ import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
 import News from './components/news/News';
-import './styles/style.scss';
-import Users from './components/Users';
 import LoginPage from './components/Login/loginPage';
+import Users from './components/Users';
+import './styles/style.scss';
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
 import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
@@ -31,6 +31,7 @@ import Signup from './components/Login/Signup';
 import Login from './components/Login/login';
 import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
+import OrderStep from './components/Orders/OrderStep';
 
 function HeaderFooter() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="/" element={<HeaderFooter />}>
             <Route path="/" element={<Homepage />} />
             <Route path="/recipes" element={<Recipes />} />
+            <Route path="/orderstep" element={<OrderStep />} />
           </Route>
           <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
           <Route path="/products" element={<ProductList />} />
