@@ -40,7 +40,9 @@ const Homepage = () => {
             />
           </div>
           <IndexRecipe />
-          <IndexRecipeActivity />
+          <div className="hPrecipeActivity">
+            <IndexRecipeActivity />
+          </div>
           <div className="separateLine"></div>
           {/* ACTIVITIES */}
           <div className="hPactivityContainer">
