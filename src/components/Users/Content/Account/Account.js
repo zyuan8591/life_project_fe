@@ -33,7 +33,7 @@ const Account = () => {
             <form action="" className="">
               <div className="account-group row ">
                 <div className="col  left">
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="name"> 　　姓名：</label>
                     <input
                       value={user.name}
@@ -43,7 +43,7 @@ const Account = () => {
                       css={input}
                     />
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="email">註冊信箱：</label>
                     <input
                       value={user.email}
@@ -54,7 +54,7 @@ const Account = () => {
                       css={input}
                     />
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="phone">手機號碼：</label>
                     <input
                       value={user.phone}
@@ -64,7 +64,7 @@ const Account = () => {
                       css={input}
                     />
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <label htmlFor="birth">　　生日：</label>
                     <input
                       value={user.birth}
@@ -109,7 +109,6 @@ const Account = () => {
 export default Account;
 
 const account = css`
-  line-height: 4rem;
   form {
     padding: 0 50px;
   }

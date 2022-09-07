@@ -66,7 +66,7 @@ const Signup = () => {
       <form onSubmit={formik.handleSubmit}>
         <IconContext.Provider value={{ className: 'eye' }}>
           <h2 className="sign_titile">快速註冊</h2>
-          <div className="mt-3">
+          <div className="mt-4">
             <label htmlFor="name">姓名：</label>
             <input
               className={
@@ -87,7 +87,7 @@ const Signup = () => {
               ? formik.errors.name
               : null}
           </p>
-          <div className="mt-3">
+          <div className="mt-4">
             <label htmlFor="email">註冊信箱：</label>
             <input
               className={
@@ -108,7 +108,7 @@ const Signup = () => {
               : null}
           </p>
 
-          <div className="mt-3 password-group">
+          <div className="mt-4 password-group">
             <label htmlFor="password">密碼：</label>
             <input
               className={
@@ -125,7 +125,7 @@ const Signup = () => {
               placeholder="8-16個半形英文及數字，請注意大小寫"
               maxLength="16"
             />
-            <div className="eye " onClick={clickEye}>
+            <div className="eyegroup " onClick={clickEye}>
               {eye ? <FaRegEye /> : <FaRegEyeSlash />}
             </div>
           </div>
@@ -134,7 +134,7 @@ const Signup = () => {
               ? formik.errors.password
               : null}
           </p>
-          <div className="mt-3 password-group">
+          <div className="mt-4 password-group">
             <label htmlFor="confirmPassword">再次確認密碼：</label>
             <input
               className={
@@ -151,7 +151,7 @@ const Signup = () => {
               placeholder="8-16個半形英文及數字，請注意大小寫"
               maxLength="16"
             />
-            <div className="eye " onClick={clickEye}>
+            <div className="eyegroup " onClick={clickEye}>
               {eye ? <FaRegEye /> : <FaRegEyeSlash />}
             </div>
           </div>
@@ -160,7 +160,7 @@ const Signup = () => {
               ? formik.errors.confirmPassword
               : null}
           </p>
-          <div className="mt-3">
+          <div className="mt-4">
             <label htmlFor="phone">手機號碼：</label>
             <input
               className={
@@ -181,15 +181,16 @@ const Signup = () => {
               ? formik.errors.phone
               : null}
           </p>
-          <div className="ms-2">
+          <div className="ms-2 mt-3">
             <input
+              className="termsRadio"
               type="radio"
               checked={reading}
               onClick={() => {
                 return reading ? setreading(false) : setreading(true);
               }}
             />
-            <label className="fs-5 ms-1">閱讀服務條款</label>
+            <label className="ms-2 terms">閱讀服務條款</label>
           </div>
           <div className="mt-5 signBtn">
             <button

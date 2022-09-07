@@ -10,7 +10,7 @@ const ShowPassword = () => {
   return (
     <>
       <input type={eye ? 'text' : 'password'} />
-      <div className="eye " onClick={clickEye}>
+      <div className="eye-group" onClick={clickEye}>
         <IconContext.Provider value={{ className: 'eye' }}>
           {eye ? <FaRegEye /> : <FaRegEyeSlash />}
         </IconContext.Provider>
