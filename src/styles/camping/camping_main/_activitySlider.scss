@@ -1,0 +1,20 @@
+// slider style
+.ant-slider-track {
+    background-color: #B9BDC5;
+}
+.ant-slider:hover .ant-slider-track {
+    background-color: #221E73;
+}
+.ant-slider-handle {
+    border: solid 2px #B9BDC5;
+}
+.ant-slider-handle-dragging.ant-slider-handle-dragging.ant-slider-handle-dragging {
+    border-color: #221E73;
+}
+.ant-slider-handle.ant-tooltip-open {
+    border-color: #817161
+}
+.ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: #817161
+}
+// ------------

@@ -6,7 +6,7 @@ import Footer from '../../public_component/Footer';
 import ProductTab from './ProductTab';
 import ProductTabContent from './ProductTabContent';
 const ProductDetail = () => {
-  const [tabNow, setTabNow] = useState(2);
+  const [tabNow, setTabNow] = useState(4);
   return (
     <>
       <Header />

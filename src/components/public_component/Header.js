@@ -78,10 +78,10 @@ const Header = ({ fixed = true }) => {
               <Link to="/:user/recipe" className="flexCenter">
                 <AiOutlineHeart />
               </Link>
-            </li> */}
-            {/* Cart */}
+            </li>
+            {/* OrderStep */}
             <li className="me-3 userItem">
-              <Link to="/cart" className="flexCenter">
+              <Link to="/orderstep" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>

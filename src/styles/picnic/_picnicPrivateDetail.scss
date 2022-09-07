@@ -1,0 +1,371 @@
+@import '../variable';
+@import '../picnic/picnicVariable';
+
+@mixin iconSize {
+    font-size: 1.2rem;
+    margin: -3px 5px 0;
+}
+@mixin imgWH {
+    width: 100%;
+    height: 100%;
+}
+@mixin contentTitle {
+    font-size: $text24;
+    padding: 0 5px;
+    margin: .7rem 0;
+    border-left: 5px solid $subClrBrown;   
+}
+@mixin arrowIcon {
+    font-size: $text32;
+    margin: auto 0;
+    color: $contentClr;
+    cursor: pointer;
+}   
+@mixin lineHeight {
+    line-height: 2rem;
+}
+
+.privateDetailContent {
+    margin: $headerHeight auto;
+    .contentTitle {
+        @include contentTitle;  
+    }
+    .main {
+        .mainWrap {
+            ul {
+                padding: 0;
+                li {
+                    font-size: $contentText;
+                }
+            }
+            // --------- 上方活動資訊和圖片 ---------
+            .detailTitle {
+            h2 {
+                border-bottom: 1px solid $subClrGY;
+                padding: 0 0 1rem;
+            }
+            .titleContent {
+                li {
+                    font-size: $text20;
+                    line-height: 2.5rem;
+                    .faPawIcon {
+                        @include iconSize;
+                        color: $subClrBrown;                
+                    }
+                }
+            }
+            .image {
+                width: 100%;
+                height: 22rem;
+                img {
+                    @include imgWH;
+                    object-fit: cover;
+                }
+            }
+            }
+            // --------- 活動內容 ---------
+            .privateDetailContent {
+            // margin: 4rem 0;
+            // 主題內容
+            .contentWrap1 {
+                padding: 2rem 3rem;
+                margin: auto 0;
+                border-radius: 10px;
+                box-shadow: 0px 0px 3px $subClrGY;
+                .quoteLeftIcon {
+                    font-size: 1.2rem;
+                    margin: -1rem 5px 0;
+                }
+                .quoteRightIcon {
+                    font-size: 1.2rem;
+                    margin: 0 5px -1rem;
+                }
+                p {
+                    font-size: $text18;
+                    text-align:justify;
+                    margin: 0;
+                    @include lineHeight;
+                }    
+            }
+            // 活動須知
+            .contentWrap2 {   
+                p {
+                    font-size: $text18;
+                    color: $subClrBrown;
+                    .warnIcon {
+                        @include iconSize;
+                        color: $focusClrY;
+                        margin: -3px 5px 0 0;
+                    }
+                }
+                ul {
+
+                    li {
+                        @include lineHeight;
+                        margin-left: 38px;
+                        text-indent: -1rem;
+                    }
+                }  
+                
+            }
+            }
+            // --------- 主辦人 ---------
+            .organiser {
+            margin: 6rem 0 0;
+            display: flex;
+            align-items: center;
+            .avatar {
+                width: 8rem;
+                padding: .5rem;
+                text-align: center;
+                // background-color: $hoverClr;
+                .avatarImg {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    margin: auto auto .5rem;
+                    overflow: hidden;
+                    background: #2651ad;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .info {
+                width: 400px;
+                height: 10rem;
+                line-height: 1.6rem;
+                display: flex;
+                align-items: center;
+                border-radius: 3px;
+                padding: 1rem;
+                margin-left: .5rem;
+                box-shadow: .8px .8px 3px $subClrGY;
+                border: 1px solid $hoverClr;
+                p {
+                    text-align: justify;
+                    font-size: $contentText;
+                }
+                
+            }
+            }
+            // --------- 參加者 ---------
+            .paicipant {
+            margin: 3rem 0 6rem;
+            h4 {
+                @include contentTitle;
+                border: 0;
+                margin: 1.5rem 0;
+                font-size: $text20;
+                color: $subClrBrown;
+            }
+            .arrowIcon {
+                @include arrowIcon;
+            }
+            .paicipantCard {
+                width: 7rem;
+                margin: auto .5rem;
+                padding: .6rem;
+                background: $hoverClr;
+                text-align: center;
+                .avatar {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    margin: auto ;
+                    overflow: hidden;
+                    background: lightsalmon;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+            }
+            // --------- 推薦商品 ---------
+            .recommendProducts {
+        margin: 6rem 0;
+        h4 {
+            @include contentTitle;
+            border: 0;
+            margin: 1.5rem 0;
+            font-size: $text20;
+            color: $subClrBrown;
+        }
+        .arrowIcon {
+            @include arrowIcon;
+        }
+        .productCard {
+            // width: 100%;
+            margin: auto;
+            position: relative;
+            margin: 0 .3rem;
+            .productImg{
+                width: 11.25rem;
+                height: 10rem;
+                img {
+                    @include imgWH;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .hoverText{
+                width: 100%;
+                height: 160px;
+                background:rgba(68, 68, 68, 0.619) 80%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                color: $mainClrW;
+                position: absolute;
+                top: 0;
+                opacity: 0;
+            }
+            span {
+                text-shadow: .5px .5px .5px $contentClr;
+            }
+            &:hover {
+                .hoverText {
+                    cursor: pointer;
+                    transition: .5s;
+                    // background: linear-gradient(to bottom, transparent 0%,rgba(100, 100, 100, 0.588), rgba(68, 68, 68, 0.718) 80%);
+                    background:rgba(68, 68, 68, 0.515) 80%;
+                    opacity: 1;
+                }
+                
+            }
+        }
+            }
+        }    
+        // --------- 側邊資訊欄 ---------
+        .asideMessageFix {
+            min-width: 250px;
+            width: 20rem;
+            position: sticky;
+            top: 0;
+            right: 0;
+            border: 1px solid $subClrBrown;
+            box-shadow: 0 0 3px $subClrGY;
+            padding: 1.5rem;
+            p {
+                font-size: $text20;
+                margin: 0;
+            }
+            .stateBtn {
+                font-size: $text14;
+                background: $focusClrY;
+                border-radius: 2rem;
+                color: $mainClrW;
+                padding: 0 7px;
+    
+            }
+            .calendarIcon, .mapMarkerIcon, .personIcon {
+                font-size: 1rem;
+                margin: -3px 5px 0 0;
+            }
+            .map {
+                width: 100%;
+                height: 150px;
+                border: 1px solid; 
+            }
+            .price {
+                color: $contentClr;
+                font-weight: $fW600;
+            }
+            .joinInBtn {
+                color: $mainClrW;
+                background: $subClrBrown;
+                border-radius: 2px;
+                padding: 1px 8px;
+            }
+    
+            }
+
+    }
+     // --------- 推薦活動 ---------
+     .recommendActivity {
+        // margin: 5rem 0;
+        width: 1440px;
+        overflow: hidden;
+        h4 {
+            margin: 1.5rem 0;
+            font-size: $text24;
+        }
+        .cardItem {
+            max-height: 250px;
+            max-width: 250px;
+            display: flex;
+            flex-direction: column;
+            margin:5px 0px;
+            padding: 20px ;
+            box-shadow: .5px .5px 2px $subClrGY;
+            .date {
+                font-size: $text14;
+            }
+            .cardTitle {
+                color:  $subClrBrown;
+                font-size: $contentText;
+            }
+            .location {
+                // font-size: $contentText;
+                .mapMarkerIcon{
+                    @include iconSize;
+                    margin: 0 2px 0 0;
+                }
+            }
+            .infoText {
+                // font-size: $text14;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+            }
+            .userPicItems {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                .userPic {
+                    background: lightcoral;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    margin: auto 3px;
+                    overflow: hidden;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .joinBtn {
+                color: $mainClrW;
+                font-size: $text10;
+                background: $focusClrY;
+                border-radius: 20px;
+                padding: 4px 7px;
+                margin: auto 0;
+                flex-shrink: 0;
+                transition: .5s;
+            }   
+            &:hover {
+                transition: .5s;
+                background: $focusClrY;
+                .cardTitle {color: $mainClrW;}
+                .joinBtn { 
+                    color: $contentClr;
+                    background: $mainClrW;
+                    
+                }
+            }
+            &:focus {
+                border: none;
+
+            }
+        }
+    
+
+    }
+
+}
