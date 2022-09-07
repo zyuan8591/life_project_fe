@@ -2,8 +2,10 @@ import React from 'react';
 import '../../../../styles/Order/orderList.scss';
 import { IconContext } from 'react-icons';
 import { TbTrash } from 'react-icons/tb';
+import { useState } from 'react';
 
 const OrderList = (props) => {
+  const [count, setCount] = useState(1);
   return (
     <>
       <h2 className="h1 ps-3 pb-2">商品</h2>
@@ -38,10 +40,17 @@ const OrderList = (props) => {
               <div className="counter">
                 <button className="counterButton">-</button>
                 <div className="counterContent">
-                  <input type="text" className="counterInput" value={1} />
+                  <input type="text" className="counterInput" value={count} />
                 </div>
 
-                <button className="counterButton">+</button>
+                <button
+                  className="counterButton"
+                  onClick={() => {
+                    setCount(count + 1);
+                  }}
+                >
+                  +
+                </button>
               </div>
             </div>
             <div className="col">$ 666</div>
