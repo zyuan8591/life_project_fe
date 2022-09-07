@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 function WarnWindow({ warn, setWarn }) {
   function exit(e) {
     e.preventDefault();

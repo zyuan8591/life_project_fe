@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../styles/Users/signup.scss';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
@@ -53,13 +53,17 @@ const Signup = () => {
       }
     },
   });
-
+  // if (formik.touched) {
+  //   document.querySelector('.is-error').focus();
+  // }
+  console.log(formik.touched);
   //顯示密碼
   const [eye, setEye] = useState(false);
   function clickEye() {
     setEye(eye ? false : true);
   }
   const [reading, setreading] = useState(false);
+
   return (
     <div className="signup ">
       <form onSubmit={formik.handleSubmit}>

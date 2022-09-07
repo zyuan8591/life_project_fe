@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import InputGender from './component/InputGender';
 import InputAddress from './component/inputAddress';
 import WarnWindow from './component/WarnWindow';
@@ -20,7 +19,7 @@ const Account = () => {
           <div className="account-group row ">
             <div className="col  left">
               <div>
-                <label for="name"> 　　姓名：</label>
+                <label htmlFor="name"> 　　姓名：</label>
                 <input
                   value="梓園園"
                   type="text"
@@ -30,7 +29,7 @@ const Account = () => {
                 />
               </div>
               <div>
-                <label for="email">註冊信箱：</label>
+                <label htmlFor="email">註冊信箱：</label>
                 <input
                   value="test@gmial.com"
                   type="email"
@@ -40,7 +39,7 @@ const Account = () => {
                 />
               </div>
               <div>
-                <label for="phone">手機號碼：</label>
+                <label htmlFor="phone">手機號碼：</label>
                 <input
                   value="0912345646"
                   type="text"
@@ -50,7 +49,7 @@ const Account = () => {
                 />
               </div>
               <div>
-                <label for="birth">　　生日：</label>
+                <label htmlFor="birth">　　生日：</label>
                 <input
                   value="1995/08/31"
                   type="text"
@@ -68,7 +67,7 @@ const Account = () => {
                 <p>點擊更換圖片</p>
               </div>
               <div className="selfIntroduction-group">
-                <label for="selfIntroduction">自我介紹：</label>
+                <label htmlFor="selfIntroduction">自我介紹：</label>
                 <textarea
                   name="selfIntroduction"
                   id="selfIntroduction"
