@@ -53,10 +53,7 @@ const Signup = () => {
       }
     },
   });
-  // if (formik.touched) {
-  //   document.querySelector('.is-error').focus();
-  // }
-  console.log(formik.touched);
+
   //顯示密碼
   const [eye, setEye] = useState(false);
   function clickEye() {
