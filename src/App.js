@@ -1,4 +1,7 @@
 import 'normalize.css';
+import ActivityMain from './components/activity/ActivityMain';
+import CampingMain from './components/camping/camping_main/CampingMain';
+import CampingDetailPage from './components/camping/camping_detail/CampingDetailPage';
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
@@ -6,15 +9,25 @@ import News from './components/news/News';
 import './styles/style.scss';
 import Users from './components/Users';
 import LoginPage from './components/Login/loginPage';
+<<<<<<< HEAD
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
+=======
+>>>>>>> develop-test
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
 import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
 import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
 import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
+<<<<<<< HEAD
+=======
+import Recipes from './components/recipe/Recipes';
+import ProductList from './components/product/product_list/ProductList';
+import ProductDetail from './components/product/product_detail/ProductDetail';
+import RecipeDetail from './components/recipe_detail/RecipeDetail';
+>>>>>>> develop-test
 import Footer from './components/public_component/Footer';
 import Header from './components/public_component/Header';
 import BackToTop from './components/public_component/BackToTop';
@@ -56,8 +69,15 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/activity/picnic" element={<PicnicIndex />} />
           <Route path="/activity/picnic/official" element={<PicnicOffical />} />
+<<<<<<< HEAD
           <Route path="/activity/picnic/official/:id" element={<PicnicOfficalDetail />} />
           <Route path="/activity/picnic/group/:id" element={<IndexPrivateDetail />} />
+=======
+          <Route path="/activity/picnic/official/:id" element={<PicnicOfficalDetail />}
+          />
+          <Route path="/activity/picnic/group/:id" element={<IndexPrivateDetail />}
+          />
+>>>>>>> develop-test
           <Route path="/activity/picnic/create" element={<CreatePincnic />} />
           <Route path="/Users/*" element={<Users />} />
           <Route path="/login" element={<Login />} />
@@ -73,6 +93,9 @@ function App() {
             <Route path="/login/" element=<Login /> />
             <Route path="/login/signup" element={<Signup />} />
           </Route>
+          <Route path="/activity" element={<ActivityMain />} />
+          <Route path="/activity/camping" element={<CampingMain />} />
+          <Route path="/activity/camping/:id" element={<CampingDetailPage />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </ScrollToTop>
