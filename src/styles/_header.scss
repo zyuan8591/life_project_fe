@@ -142,7 +142,7 @@
     overflow: hidden;
     .headerSearch {
       max-height: 60%;
-      width: 35%;
+      max-width: 500px;
       margin-top: 10%;
       // Search input
       input {

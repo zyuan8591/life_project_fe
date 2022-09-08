@@ -13,13 +13,10 @@ import { API_URL } from '../../utils/config';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const pages = [
-  // { title: '首頁', route: '/' },
   { title: '商品一覽', route: '/products' },
   { title: '料理食譜', route: '/recipes' },
   { title: '活動專區', route: '/activity' },
-  { title: '會員中心', route: '/users/account' },
   { title: '最新消息', route: '/news' },
-  // { title: '聯絡我們', route: '/contact' },
 ];
 
 const Header = ({ fixed = true }) => {
@@ -44,7 +41,7 @@ const Header = ({ fixed = true }) => {
     await axios.get(`${API_URL}/logout`, { withCredentials: true });
     setUser(null);
   }
-  console.log(user);
+  // console.log(user);
   return (
     <header
       className={`header position-relative w-100 ${
@@ -140,9 +137,6 @@ const Header = ({ fixed = true }) => {
                   </ul>
                 )}
               </li>
-              // <Link to="/login">
-              //   <button>登入</button>
-              // </Link>
             )}
           </ul>
         </div>
