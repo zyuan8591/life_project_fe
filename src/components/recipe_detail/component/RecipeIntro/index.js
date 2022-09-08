@@ -16,7 +16,7 @@ const recipeName = css`
 `;
 // Left Section
 const introContainer = css`
-  flex: 1 0 700px;
+  flex: 1 0 600px;
   /* max-width: 600px; */
 `;
 
@@ -25,7 +25,7 @@ const recipeContainer = css`
   overflow: hidden;
   border-radius: 5px;
 `;
-// Left Section >> author
+// Right Section >> author
 const authorDetail = css`
   border: 1px solid ${focusClrY};
   border-radius: 3px;
@@ -102,8 +102,15 @@ const RecipeIntro = () => {
               className="objectContain"
             />
           </figure>
+          {/* recipe content */}
+          <p className="fs-6">
+            日式炸豆腐是出自日式揚出豆腐，揚出的“揚”字在日本語是油炸的意思，而“出”即湯汁之意，揚出豆腐是日本料理的代表菜色之一，也是造訪日式料理店時餐桌上常見的一道菜；豆腐本身沒什麼味道，但裹上麵包粉油炸後，麵衣吸取了佐上蘿蔔泥的柴魚醬汁，美味瞬間爆表，更增添了豐富的層次感；雖是炸物，吃起來非但一點都不油膩，還很清爽呢。只是一般在家很少做這道料理，原因是油炸食物需要用到大量的油，容易造成浪費。運用氣炸烤箱的氣旋威力，只需少量的油，就能做出相同酥脆口感的日式炸豆腐，只需氣炸10分鐘就能讓你美美上菜。
+          </p>
+        </div>
+        {/* right side */}
+        <div className="px-4">
           {/* author detail */}
-          <div css={authorDetail} className="p-3">
+          <div css={authorDetail} className="p-3 mb-3">
             <div
               className="d-flex justify-content-between mb-3 pb-3 align-items-center"
               css={css`
@@ -131,13 +138,6 @@ const RecipeIntro = () => {
             </div>
             <button css={[recipeCollectBtn, btn]}>收藏食譜</button>
           </div>
-        </div>
-        {/* right side */}
-        <div className="px-4">
-          {/* recipe content */}
-          <p>
-            日式炸豆腐是出自日式揚出豆腐，揚出的“揚”字在日本語是油炸的意思，而“出”即湯汁之意，揚出豆腐是日本料理的代表菜色之一，也是造訪日式料理店時餐桌上常見的一道菜；豆腐本身沒什麼味道，但裹上麵包粉油炸後，麵衣吸取了佐上蘿蔔泥的柴魚醬汁，美味瞬間爆表，更增添了豐富的層次感；雖是炸物，吃起來非但一點都不油膩，還很清爽呢。只是一般在家很少做這道料理，原因是油炸食物需要用到大量的油，容易造成浪費。運用氣炸烤箱的氣旋威力，只需少量的油，就能做出相同酥脆口感的日式炸豆腐，只需氣炸10分鐘就能讓你美美上菜。
-          </p>
           {/* material section */}
           <div css={materialContainer}>
             <div className="flexCenter" css={materialTitle}>

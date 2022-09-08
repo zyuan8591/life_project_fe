@@ -7,9 +7,10 @@ import Header from '../public_component/Header';
 import BackToTop from '../public_component/BackToTop';
 import '../../styles/_recipeDetail.scss';
 import RecipeIntro from './component/RecipeIntro';
-import RecipeRecommend from './component/RecipeRecommend';
+import RecipeComments from './component/RecipeComments';
 import RecipeStepItem from './component/RecipeStepItem';
 import RecipeStepNumb from './component/RecipeStepNumb';
+import RecipeSlide from './component/RecipeSlide';
 
 const RecipeDetail = () => {
   const { recipeId } = useParams();
@@ -152,11 +153,15 @@ const RecipeDetail = () => {
           </div>
         </section>
 
-        {/* Recommend section */}
+        {/* comment section */}
         <section className="vh100"></section>
         <section className="vh100"></section>
-        <section className="recipeDetailRecommend mx-auto py-5 mb-5">
-          <RecipeRecommend />
+        <section className="recipeDetailComment mx-auto py-5">
+          <RecipeComments />
+        </section>
+        {/* recipe slide */}
+        <section className="recipeDetailSlide my-5">
+          <RecipeSlide />
         </section>
         <Footer />
       </div>

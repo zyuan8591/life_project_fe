@@ -20,7 +20,9 @@
     max-width: 350px;
     flex-grow: 1;
     margin: 0;
-    color: $subClrBrown;
+    h1 {
+      color: $subClrBrown;
+    }
   }
   //navbar
   nav {
@@ -69,7 +71,7 @@
     max-width: 350px;
     flex-grow: 1;
     font-size: 1.25rem;
-    overflow: hidden;
+    // overflow: hidden;
     justify-content: flex-end;
     .userItem {
       //SHOP
@@ -88,6 +90,57 @@
           transition: 0.5s;
         }
       }
+      // login, signup btn
+      .headerSignUpBtn {
+        background: $subClrBrown;
+        border: 2px solid transparent;
+        color: #fff;
+        &:hover {
+          color: $subClrBrown;
+          background: #fff;
+          border-color: $subClrBrown;
+        }
+      }
+      .headerLoginBtn {
+        color: $subClrBrown;
+        background: #fff;
+        border: 2px solid $subClrBrown;
+        &:hover {
+          color: #fff;
+          background: $subClrBrown;
+        }
+      }
+      // Login State
+      &.headerLoginState {
+        .headerAvator {
+          width: 40px;
+          max-width: 40px;
+          height: 40px;
+          max-height: 40px;
+          border-radius: 50%;
+          border: 2px solid $subClrBrown;
+          background: $hoverClr;
+          padding: 0.1rem;
+        }
+        .headerUserControl {
+          width: 100px;
+          background: #fff;
+          box-shadow: 0px 0px 1.7px rgb(0 0 0 / 50%);
+          transition: 0.5;
+          li {
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 1px solid $subClrGY;
+            &:last-child {
+              border-bottom: none;
+            }
+            &:hover {
+              background: $hoverClr;
+            }
+          }
+        }
+      }
     }
   }
   &.hidden {
@@ -95,6 +148,7 @@
     color: rgba(0, 0, 0, 0.363);
   }
 
+  // Search section
   .headerSearchSection {
     z-index: 100;
     background: rgba(0, 0, 0, 0.5);

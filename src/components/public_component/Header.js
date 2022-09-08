@@ -3,12 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
 import { IconContext } from 'react-icons';
-import {
-  AiOutlineSearch,
-  AiOutlineHeart,
-  AiOutlineUser,
-  AiOutlineShoppingCart,
-} from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
 
 const pages = [
   // { title: '首頁', route: '/' },
@@ -23,6 +18,13 @@ const pages = [
 const Header = ({ fixed = true }) => {
   const [search, setSearch] = useState(false);
   const [scrollDown, setScrollDown] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [userSelectActive, setUserSelectActive] = useState(false);
+
+  const userAvatorClickHandler = () => {
+    if (userSelectActive) return setUserSelectActive(false);
+    setUserSelectActive(true);
+  };
 
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
@@ -73,24 +75,52 @@ const Header = ({ fixed = true }) => {
                 <AiOutlineSearch />
               </button>
             </li>
-            {/* Like */}
-            {/* <li className="me-3 userItem">
-              <Link to="/:user/recipe" className="flexCenter">
-                <AiOutlineHeart />
-              </Link>
-            </li>
             {/* OrderStep */}
             <li className="me-3 userItem">
               <Link to="/orderstep" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>
-            {/* User */}
-            {/* <li className="me-3 userItem">
-              <Link to="/users/account" className="flexCenter">
-                <AiOutlineUser />
+            {/* Login and SignUp */}
+            <li className="me-3 userItem flexCenter gap-2">
+              <Link to="/login" className="flexCenter">
+                {/* <AiOutlineUser /> */}
+                <button className="headerLoginBtn px-2 fs-6 transition">
+                  登入
+                </button>
               </Link>
-            </li> */}
+              <Link to="/login/signup" className="flexCenter">
+                <button className="headerSignUpBtn px-2 fs-6 transition">
+                  註冊
+                </button>
+              </Link>
+            </li>
+            {/* Login state display User avator */}
+
+            {isLogin && (
+              <li className="userItem position-relative headerLoginState">
+                <figure
+                  className="headerAvator m-0 flexCenter cursorPointer"
+                  onClick={() => userAvatorClickHandler()}
+                >
+                  <img
+                    src="/img/user/user_img/fish.png"
+                    alt="userAvatar"
+                    className="objectContain"
+                  />
+                </figure>
+                {userSelectActive && (
+                  <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
+                    <li className="py-1">
+                      <Link to="/users/account">個人檔案</Link>
+                    </li>
+                    <li className="py-1" onClick={() => setIsLogin(false)}>
+                      登出
+                    </li>
+                  </ul>
+                )}
+              </li>
+            )}
           </ul>
         </div>
       </IconContext.Provider>

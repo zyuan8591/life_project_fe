@@ -6,7 +6,7 @@ const subClrBrown = '#817161';
 const title = css`
   border-left: 5px solid ${subClrBrown};
 `;
-const recommentContainer = css`
+const commentContainer = css`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-column-gap: 1rem;
@@ -20,7 +20,7 @@ const avatorContainer = css`
 const borderBottom = css`
   border-bottom: 1px solid ${subClrBrown};
 `;
-const recommentArea = css`
+const commentArea = css`
   resize: none;
   border: 2px solid ${subClrBrown};
   color: #444;
@@ -31,17 +31,17 @@ const recommentArea = css`
     }
   }
 `;
-const recommentSubmitBtn = css`
+const commentSubmitBtn = css`
   background: ${subClrBrown};
 `;
 
-const RecipeRecommend = () => {
+const RecipeComments = () => {
   return (
     <>
       <div className="fs-2 ps-2 lh-sm mb-3" css={title}>
         食譜評論
       </div>
-      <div css={recommentContainer}>
+      <div css={commentContainer}>
         {Array(5)
           .fill('')
           .map((a, i) => {
@@ -72,12 +72,12 @@ const RecipeRecommend = () => {
           id=""
           rows="10"
           className="w-100 p-3 rounded-1"
-          css={recommentArea}
+          css={commentArea}
           placeholder="寫下您的評論 ..."
         ></textarea>
         <button
           className="position-absolute text-nowrap bottom-0 end-0 mb-3 me-3 border-0 text-white py-2 px-3 rounded-1"
-          css={recommentSubmitBtn}
+          css={commentSubmitBtn}
         >
           送出
         </button>
@@ -86,4 +86,4 @@ const RecipeRecommend = () => {
   );
 };
 
-export default RecipeRecommend;
+export default RecipeComments;
