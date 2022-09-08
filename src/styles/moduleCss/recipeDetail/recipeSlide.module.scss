@@ -1,0 +1,12 @@
+@import '../../variable';
+
+.slide {
+  max-width: 1200px;
+  .imgContainer {
+    max-width: 200px;
+  }
+  .slideLeft,
+  .slideRight {
+    cursor: pointer;
+  }
+}
