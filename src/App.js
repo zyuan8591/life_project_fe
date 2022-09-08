@@ -9,25 +9,16 @@ import News from './components/news/News';
 import './styles/style.scss';
 import Users from './components/Users';
 import LoginPage from './components/Login/loginPage';
-<<<<<<< HEAD
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
-=======
->>>>>>> develop-test
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
-import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
+import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicPicnicList';
 import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
+import PicnicPrivateList from './components/picnic/private_pincnic/private_list/PicnicPrivateList';
 import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
 import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
-<<<<<<< HEAD
-=======
-import Recipes from './components/recipe/Recipes';
-import ProductList from './components/product/product_list/ProductList';
-import ProductDetail from './components/product/product_detail/ProductDetail';
-import RecipeDetail from './components/recipe_detail/RecipeDetail';
->>>>>>> develop-test
 import Footer from './components/public_component/Footer';
 import Header from './components/public_component/Header';
 import BackToTop from './components/public_component/BackToTop';
@@ -68,16 +59,22 @@ function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/news" element={<News />} />
           <Route path="/activity/picnic" element={<PicnicIndex />} />
-          <Route path="/activity/picnic/official" element={<PicnicOffical />} />
-<<<<<<< HEAD
-          <Route path="/activity/picnic/official/:id" element={<PicnicOfficalDetail />} />
-          <Route path="/activity/picnic/group/:id" element={<IndexPrivateDetail />} />
-=======
-          <Route path="/activity/picnic/official/:id" element={<PicnicOfficalDetail />}
+          <Route
+            path="/activity/picnic/official"
+            element={<PicnicOfficalList />}
           />
-          <Route path="/activity/picnic/group/:id" element={<IndexPrivateDetail />}
+          <Route
+            path="/activity/picnic/official/:id"
+            element={<PicnicOfficalDetail />}
           />
->>>>>>> develop-test
+          <Route
+            path="/activity/picnic/group"
+            element={<PicnicPrivateList />}
+          />
+          <Route
+            path="/activity/picnic/group/:id"
+            element={<IndexPrivateDetail />}
+          />
           <Route path="/activity/picnic/create" element={<CreatePincnic />} />
           <Route path="/Users/*" element={<Users />} />
           <Route path="/login" element={<Login />} />

@@ -11,16 +11,6 @@ import Paicipant from '../../picnic_compoent/Paicipant';
 import PaicipantInfo from './PaicipantInfo';
 import AsideMessageFix from '../../picnic_compoent/AsideMessageFix';
 import RecommendActivity from '../../picnic_compoent/RecommendActivity';
-import {
-  FaPaw,
-  FaExclamationTriangle,
-  FaCheck,
-  FaTimes,
-  FaCalendarAlt,
-  FaMapMarkerAlt,
-} from 'react-icons/fa';
-import { BsPersonFill } from 'react-icons/bs';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 function PicnicOfficalDetail() {
   return (
@@ -35,14 +25,14 @@ function PicnicOfficalDetail() {
             {/* 活動詳細內容 */}
             <OffcialDetailContent />
             {/* 參加者 */}
-            <Paicipant />
-            {/* 推薦商品 */}
-            <RecommendProducts />
+            <Paicipant cardWidth={140} displayTotal={6} />
           </div>
           <div className="col-sm-3">
             {/* 側邊資訊欄 */}
             <AsideMessageFix />
           </div>
+          {/* 推薦商品 */}
+          <RecommendProducts cardWidth={210} displayTotal={6} />
           {/* 熱門活動 */}
           <RecommendActivity />
         </div>

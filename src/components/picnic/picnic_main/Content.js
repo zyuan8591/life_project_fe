@@ -27,7 +27,7 @@ function Content() {
     <>
       <section className="section-content">
         {/* ----Official Pincnic---- */}
-        <div className="wrap wrap1 d-flex">
+        <div className="wrap wrap1">
           <div className="image d-flex ">
             <img
               src="/img/picnic/activity_picnic_img/picnic_main_content1.jpg"
@@ -51,7 +51,7 @@ function Content() {
                 親愛的你/妳，只要搭上捷運，或者騎騎UBIKE到全台北市最美麗的綠地。
               </p>
             </div>
-            <Link to="//activity/picnic/official" className="btn mt-5">
+            <Link to="/activity/picnic/official" className="btn mt-5">
               官方活動
             </Link>
           </div>

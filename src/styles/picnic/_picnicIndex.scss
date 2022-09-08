@@ -17,17 +17,28 @@
 }
 @mixin imgObj {
     width: 100%;
-    object-fit:contain;
+    object-fit:cover;
 }
 @mixin contentWrap {
     .wrap {
         height: 600px;
+        display: flex;
+        align-items: center;
     .image{
         width: 650px;
+        height: 450px;
         margin-left: 3rem;
+        overflow: hidden;
+        box-shadow: .3px .3px 7px;
+        border-radius: 5px;
         img {
             @include imgObj;
+
             height: 100%;
+            transition: transform 2.5s ease;
+        }
+        &:hover img{
+            transform: scale(1.2);
         }
     }
     .content-text{
@@ -70,24 +81,26 @@
 // ----- main banner -----
     .section-main{
         display: flex;
-        height: calc(100vh - $headerHeight);
+        // height: calc(80vh - $headerHeight);
+        margin: 100px 0;
         .title-bn {
             width: 60%;
             display: flex;
             align-items: center;
+            margin: auto 0;
             img {
                 @include imgObj;
             }
             .balloon1{
                 width: 7%;
                 position: absolute;
-                top: 1.2rem;
+                top: 2rem;
                 left: 20rem;
             }
             .balloon2{
                 width: 7%;
                 position: absolute;
-                top: 2.5rem;
+                top: 3rem;
                 left: 29rem;
             }
         }
