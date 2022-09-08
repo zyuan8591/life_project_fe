@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
 import { IconContext } from 'react-icons';
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
+import { useUserRights } from '../../usecontext/UserRights';
 
 const pages = [
   // { title: '首頁', route: '/' },
@@ -32,7 +35,13 @@ const Header = ({ fixed = true }) => {
     setScrollDown(scrollNow > scrollY);
     scrollY = scrollNow;
   });
-
+  const { user, setUser } = useUserRights();
+  //登出
+  async function handelLogout() {
+    await axios.get(`${API_URL}/logout`, { withCredentials: true });
+    setUser(null);
+  }
+  console.log(user); //TODO:確認登入狀態
   return (
     <header
       className={`header position-relative w-100 ${
@@ -89,29 +98,37 @@ const Header = ({ fixed = true }) => {
             </li>
             {/* Login state display User avator */}
 
-            {isLogin && (
-              <li className="userItem position-relative headerLoginState">
-                <figure
-                  className="headerAvator m-0 flexCenter cursorPointer"
-                  onClick={() => userAvatorClickHandler()}
-                >
-                  <img
-                    src="/img/user/user_img/fish.png"
-                    alt="userAvatar"
-                    className="objectContain"
-                  />
-                </figure>
-                {userSelectActive && (
-                  <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
-                    <li className="py-1">
-                      <Link to="/users/account">個人檔案</Link>
-                    </li>
-                    <li className="py-1" onClick={() => setIsLogin(false)}>
-                      登出
-                    </li>
-                  </ul>
-                )}
-              </li>
+            {user ? (
+              <>
+                <li className="userItem position-relative headerLoginState">
+                  <figure
+                    className="headerAvator m-0 flexCenter cursorPointer"
+                    onClick={() => userAvatorClickHandler()}
+                  >
+                    <img
+                      src="/img/user/user_img/fish.png"
+                      alt="userAvatar"
+                      className="objectContain"
+                    />
+                  </figure>
+                  {userSelectActive && (
+                    <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
+                      <li className="py-1">
+                        <Link to="/users/account">個人檔案</Link>
+                      </li>
+                      <li className="py-1" onClick={handelLogout}>
+                        登出
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <button>登入</button>
+                </Link>
+              </>
             )}
           </ul>
         </div>
