@@ -89,7 +89,6 @@ const newsData = [
 const newsDataS = newsData.map((d) => {
   return { ...d, yearMonth: d.date.slice(0, 7) };
 });
-console.log(newsDataS);
 
 const News = () => {
   return (
