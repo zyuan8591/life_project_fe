@@ -1,7 +1,4 @@
 import React from 'react';
-import Footer from '../public_component/Footer';
-import Header from '../public_component/Header';
-import BackToTop from '../public_component/BackToTop';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_news.scss';
 
@@ -93,7 +90,6 @@ const newsDataS = newsData.map((d) => {
 const News = () => {
   return (
     <>
-      <Header />
       <div className="newsPage">
         <div className="title">
           <span className="en">最新消息</span>
@@ -116,11 +112,11 @@ const News = () => {
                 <div
                   className={`yearMonth text-nowrap py-3 pe-3 ${
                     nextYearMonth && 'border-top-0'
-                  }`}
+                  } ${!nextYearMonth && 'bg-white'}`}
                 >
                   {yearSection}
                 </div>
-                <div className="newMainContainer py-3 ps-3 d-flex">
+                <div className="newMainContainer py-3 ps-3 d-flex bg-white">
                   <div className="day me-3">{d.date.slice(-2)}</div>
                   <div className="content">
                     <div className="type mb-1">{d.categoryName}</div>
@@ -132,8 +128,6 @@ const News = () => {
           })}
         </div>
       </div>
-      <Footer />
-      <BackToTop />
     </>
   );
 };

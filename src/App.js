@@ -72,11 +72,11 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/orderstep" element={<OrderStep />} />
+              <Route path="/news" element={<News />} />
             </Route>
             <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/news" element={<News />} />
             <Route path="/activity/picnic" element={<PicnicIndex />} />
             <Route
               path="/activity/picnic/official"
