@@ -5,11 +5,9 @@ import { IconContext } from 'react-icons';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { Navigate } from 'react-router-dom';
-// import { UserRights } from '../../usecontext/UserRights';
-//Navigate自動跳轉
-
+import { useUserRights } from '../../usecontext/UserRights';
 const Login = () => {
-  // const { user, setUser } = UserRights();
+  const { user, setUser } = useUserRights();
   const [loginUser, setLoginUser] = useState({
     email: 'Ace@test.com',
     password: 'a12345678',
@@ -20,6 +18,7 @@ const Login = () => {
   function clickEye() {
     setEye(eye ? false : true);
   }
+  // const [isLogin, setIsLogin] = useState(false);
 
   function handleChange(e) {
     setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
@@ -27,14 +26,17 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await axios.post(`${API_URL}/login`, loginUser, {
+    let response = await axios.post(`${API_URL}/login`, loginUser, {
       withCredentials: true,
     });
-    setLoginUser(true);
+    setUser(response.data);
+    // setIsLogin(true);
   }
-
+  console.log(user);
   //TODO:製作記住帳號密碼
-
+ if(user){
+  return <Navigate to="/" />;
+ }
   return (
     <>
       <form action="">
@@ -78,9 +80,6 @@ const Login = () => {
         <button className="loginBtn mt-5" onClick={handleSubmit}>
           登入
         </button>
-
-        {/* TODO:
-   1.從cookie取得使用者帳密 */}
       </form>
       <div className="row mt-2 linkgroup">
         <div className="col ">

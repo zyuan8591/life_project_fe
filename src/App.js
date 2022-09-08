@@ -59,51 +59,62 @@ function App() {
         withCredentials: true,
       });
       setUser(response.data);
-      console.log('user', response.data);
     };
     getUser();
   }, []);
 
   return (
     <>
-      <ScrollToTop>
-        <Routes>
-          <Route path="/" element={<HeaderFooter />}>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/recipes" element={<Recipes />} />
-            <Route path="/orderstep" element={<OrderStep />} />
-          </Route>
-          <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/activity/picnic" element={<PicnicIndex />} />
-          <Route path="/activity/picnic/official" element={<PicnicOffical />} />
-          <Route path="/activity/picnic/official/:id" element={<PicnicOfficalDetail />}
-          />
-          <Route path="/activity/picnic/group/:id" element={<IndexPrivateDetail />}
-          />
-          <Route path="/activity/picnic/create" element={<CreatePincnic />} />
-          <Route path="/Users/*" element={<Users />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/users/" element={<Users />}>
-            <Route path="/users/account" element={<Account />} />
-            <Route path="/users/password" element={<Password />} />
-            <Route path="/users/order" element={<Order />} />
-            <Route path="/users/points" element={<Points />} />
-            <Route path="/users/pinic" element={<Pinic />} />
-            <Route path="/users/recipe" element={<Recipe />} />
-          </Route>
-          <Route path="/login/" element={<LoginPage />}>
-            <Route path="/login/" element=<Login /> />
-            <Route path="/login/signup" element={<Signup />} />
-          </Route>
-          <Route path="/activity" element={<ActivityMain />} />
-          <Route path="/activity/camping" element={<CampingMain />} />
-          <Route path="/activity/camping/:id" element={<CampingDetailPage />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
-        </Routes>
-      </ScrollToTop>
+      <UserRights.Provider value={{ user, setUser }}>
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<HeaderFooter />}>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/recipes" element={<Recipes />} />
+              <Route path="/orderstep" element={<OrderStep />} />
+            </Route>
+            <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/activity/picnic" element={<PicnicIndex />} />
+            <Route
+              path="/activity/picnic/official"
+              element={<PicnicOffical />}
+            />
+            <Route
+              path="/activity/picnic/official/:id"
+              element={<PicnicOfficalDetail />}
+            />
+            <Route
+              path="/activity/picnic/group/:id"
+              element={<IndexPrivateDetail />}
+            />
+            <Route path="/activity/picnic/create" element={<CreatePincnic />} />
+            <Route path="/Users/*" element={<Users />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/users/" element={<Users />}>
+              <Route path="/users/account" element={<Account />} />
+              <Route path="/users/password" element={<Password />} />
+              <Route path="/users/order" element={<Order />} />
+              <Route path="/users/points" element={<Points />} />
+              <Route path="/users/pinic" element={<Pinic />} />
+              <Route path="/users/recipe" element={<Recipe />} />
+            </Route>
+            <Route path="/login/" element={<LoginPage />}>
+              <Route path="/login/" element={<Login />} />
+              <Route path="/login/signup" element={<Signup />} />
+            </Route>
+            <Route path="/activity" element={<ActivityMain />} />
+            <Route path="/activity/camping" element={<CampingMain />} />
+            <Route
+              path="/activity/camping/:id"
+              element={<CampingDetailPage />}
+            />
+            {/* <Route path="*" element={<NotFound />} /> */}
+          </Routes>
+        </ScrollToTop>
+      </UserRights.Provider>
     </>
   );
 }

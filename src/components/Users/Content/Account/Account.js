@@ -6,24 +6,22 @@ import InputAddress from './component/inputAddress';
 import WarnWindow from './component/WarnWindow';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
+import { useUserRights } from '../../../../usecontext/UserRights';
+import { Navigate } from 'react-router-dom';
 
 const Account = () => {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    let getUser = async () => {
-      let response = await axios.get(`${API_URL}/user`, {
-        withCredentials: true,
-      });
-      setUser(response.data);
-    };
-    getUser();
-  }, []);
+  //TODO:改成撈Context資料
+  const { user, setUser } = useUserRights();
+
   //彈跳視窗
   const [warn, setWarn] = useState(false);
   function pop(e) {
     e.preventDefault();
     setWarn(true);
   }
+  // if (!user) {
+  //   return <Navigate to="/login" />;
+  // }
   return (
     <>
       {user ? (

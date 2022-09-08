@@ -14,7 +14,7 @@ import { GiBowlOfRice } from 'react-icons/gi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
-import { UserRights } from '../../../usecontext/UserRights';
+import { useUserRights } from '../../../usecontext//UserRights';
 
 const icon = [
   <BsFillPersonFill />,
@@ -88,11 +88,11 @@ const AccordionItem = (props) => {
   );
 };
 const Nav = () => {
-  // const { user, setUser } = UserRights();
+  const { user, setUser } = useUserRights();
   //登出
   async function handelLogout() {
     await axios.get(`${API_URL}/logout`, { withCredentials: true });
-    // setUser(null);
+    setUser(null);
   }
 
   const [visable, setVisable] = useState([

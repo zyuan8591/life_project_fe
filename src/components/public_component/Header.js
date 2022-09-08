@@ -86,11 +86,11 @@ const Header = ({ fixed = true }) => {
               </Link>
             </li>
             {/* User */}
-            {/* <li className="me-3 userItem">
+            <li className="me-3 userItem">
               <Link to="/users/account" className="flexCenter">
                 <AiOutlineUser />
               </Link>
-            </li> */}
+            </li>
           </ul>
         </div>
       </IconContext.Provider>
@@ -129,7 +129,7 @@ const Header = ({ fixed = true }) => {
             <div className="flexCenter mb-3">目前無搜尋結果</div>
             <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
               <li>
-                <span>1213213132132</span>
+                <span>543</span>
               </li>
               <li>
                 <span>1213213132132</span>
