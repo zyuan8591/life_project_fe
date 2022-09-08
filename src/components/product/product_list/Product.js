@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
@@ -7,10 +7,9 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 
 const Product = () => {
-  const [count, setCount] = useState(12);
   return (
     <div className="productContainer">
-      {Array(count)
+      {Array(12)
         .fill(1)
         .map((v, i) => {
           return (
@@ -21,12 +20,10 @@ const Product = () => {
                 onMouseOver={(e) => {
                   e.target.src =
                     '/img/product/product_img/BRUNO_ BOE021_WH_01.webp';
-                  console.log(e.target.src);
                 }}
                 onMouseOut={(e) => {
                   e.target.src =
                     '/img/product/product_img/BRUNO_ BOE021_RD_01.jpeg';
-                  console.log(e.target.src);
                 }}
               >
                 <div className="productImg">
@@ -38,8 +35,16 @@ const Product = () => {
                         margin: '5px',
                       }}
                     >
-                      <HiOutlineHeart />
-                      <IoCartOutline />
+                      <HiOutlineHeart
+                        onClick={() => {
+                          console.log('h');
+                        }}
+                      />
+                      <IoCartOutline
+                        onClick={() => {
+                          console.log('c');
+                        }}
+                      />
                     </IconContext.Provider>
                   </div>
                   <img

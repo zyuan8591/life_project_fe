@@ -10,7 +10,9 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 const ProductFilter = () => {
   const [brandArr, setBrandArr] = useState(26);
   const [price, setPrice] = useState('所有');
-  const [showBoard, setShowBoard] = useState(false);
+  const [showBoard, setShowBoard] = useState(true);
+  const [brand, setBrand] = useState('');
+  const [search, setSearch] = useState('');
   return (
     <IconContext.Provider
       value={{ color: '#444', size: '1.6rem', className: '' }}
@@ -29,9 +31,14 @@ const ProductFilter = () => {
             <p>篩選廠商、價格...</p>
             <RiArrowDownSFill />
           </div>
-          {showBoard && (
+          {/* {showBoard && ( */}
+          <div
+            className="filterDisplay"
+            style={{ height: showBoard ? '305px' : '0' }}
+          >
             <div
               className="filterBoard"
+              style={{ transform: showBoard ? 'translateY(0px)' : '' }}
               onMouseOver={() => {
                 setShowBoard(true);
               }}
@@ -42,7 +49,23 @@ const ProductFilter = () => {
               <div className="brandSection">
                 <div className="brandSearch">
                   <p>品牌</p>
-                  <input type="text" placeholder="品牌搜尋" />
+                  <input
+                    type="text"
+                    placeholder="品牌搜尋"
+                    value={brand}
+                    onChange={(e) => {
+                      setBrand(e.target.value);
+                      console.log(brand.length);
+                    }}
+                    // onKeyDown={(e) => {
+                    //   if (e.keyCode === 13) {
+                    //     setBrand('');
+                    //   }
+                    // }}
+                    style={{
+                      background: brand.length > 10 ? 'none' : '',
+                    }}
+                  />
                 </div>
                 <div className="d-flex flex-wrap">
                   {Array(brandArr)
@@ -51,7 +74,7 @@ const ProductFilter = () => {
                       return (
                         <div className="brand" key={i}>
                           <input type="checkbox" className="checkbox" id={i} />
-                          <label for={i}>aaaaaa</label>
+                          <label htmlFor={i}>aaaaaa</label>
                         </div>
                       );
                     })}
@@ -105,18 +128,28 @@ const ProductFilter = () => {
                 </div>
                 <div className="priceSearch">
                   <p className="mx-2">NT$</p>
-                  <input className="mx-2" type="number" />
+                  <input className="mx-2" type="number" min={0} />
                   <p className="mx-2">-</p>
-                  <input className="mx-2" type="number" />
+                  <input className="mx-2" type="number" min={0} />
                   <IconContext.Provider
-                    value={{ color: '#817161', size: '1.8rem' }}
+                    value={{
+                      color: '#817161',
+                      size: '1.8rem',
+                      cursor: 'pointer',
+                    }}
                   >
-                    <BsFillArrowRightSquareFill className="mx-2" />
+                    <BsFillArrowRightSquareFill
+                      className="mx-2 pointer"
+                      onClick={() => {
+                        console.log('');
+                      }}
+                    />
                   </IconContext.Provider>
                 </div>
               </div>
             </div>
-          )}
+          </div>
+          {/* )} */}
         </div>
         <select className="filterPopular">
           <option value="">熱門程度優先</option>
@@ -127,9 +160,12 @@ const ProductFilter = () => {
         <div className="d-flex">
           <input
             type="text"
-            className="search"
-            value=""
+            className="searchbar"
+            value={search}
             placeholder="搜尋商品名稱"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
           />
           <button className="searchButton">
             <IoIosSearch />

@@ -14,15 +14,20 @@ const ProductTab = ({ tabNow, setTabNow }) => {
     <div className="tabContainer">
       {tab.map((v) => {
         return (
-          <button
-            className={`${tabNow === v.id ? 'active' : ''}`}
-            onClick={() => {
-              setTabNow(v.id);
-            }}
-            key={v.id}
+          <div
+            className="frame"
+            style={{ background: tabNow === v.id ? '#817161' : '' }}
           >
-            {v.name}
-          </button>
+            <button
+              className={`${tabNow === v.id ? 'active' : ''}`}
+              onClick={() => {
+                setTabNow(v.id);
+              }}
+              key={v.id}
+            >
+              {v.name}
+            </button>
+          </div>
         );
       })}
     </div>
