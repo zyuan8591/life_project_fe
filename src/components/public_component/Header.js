@@ -81,18 +81,10 @@ const Header = ({ fixed = true }) => {
                 <AiOutlineShoppingCart />
               </Link>
             </li>
-            {/* Login and SignUp */}
-            <li className="me-3 userItem flexCenter gap-2">
-              <Link to="/login" className="flexCenter">
-                {/* <AiOutlineUser /> */}
-                <button className="headerLoginBtn px-2 fs-6 transition">
-                  登入
-                </button>
-              </Link>
-              <Link to="/login/signup" className="flexCenter">
-                <button className="headerSignUpBtn px-2 fs-6 transition">
-                  註冊
-                </button>
+            {/* User */}
+            {/* <li className="me-3 userItem">
+              <Link to="/users/account" className="flexCenter">
+                <AiOutlineUser />
               </Link>
             </li>
             {/* Login state display User avator */}
@@ -159,7 +151,7 @@ const Header = ({ fixed = true }) => {
             <div className="flexCenter mb-3">目前無搜尋結果</div>
             <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
               <li>
-                <span>1213213132132</span>
+                <span>543</span>
               </li>
               <li>
                 <span>1213213132132</span>
