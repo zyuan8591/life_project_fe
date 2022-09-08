@@ -160,7 +160,7 @@ const RecipeDetail = () => {
           <RecipeComments />
         </section>
         {/* recipe slide */}
-        <section className="recipeDetailSlide my-5">
+        <section className="recipeDetailSlide mb-5">
           <RecipeSlide />
         </section>
         <Footer />
