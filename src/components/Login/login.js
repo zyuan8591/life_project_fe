@@ -7,32 +7,83 @@ import { API_URL } from '../../utils/config';
 import { Navigate } from 'react-router-dom';
 import { useUserRights } from '../../usecontext/UserRights';
 
-const login = () => {
+const Login = () => {
+  const { user, setUser } = useUserRights();
+  const [loginUser, setLoginUser] = useState({
+    email: 'Ace@test.com',
+    password: 'a12345678',
+  });
+
+  //顯示密碼
+  const [eye, setEye] = useState(false);
+  function clickEye() {
+    setEye(eye ? false : true);
+  }
+  // const [isLogin, setIsLogin] = useState(false);
+
+  function handleChange(e) {
+    setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let response = await axios.post(`${API_URL}/login`, loginUser, {
+      withCredentials: true,
+    });
+    setUser(response.data);
+    // setIsLogin(true);
+  }
+  console.log(user);
+  //TODO:製作記住帳號密碼
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
   return (
-    <div className="login">
-      <div className="login-input login-group login-email">
-        <i class="fa-regular fa-envelope"></i>
-        <input className="input" type="email" name="" id="" />
-      </div>
-      <div className="login-input login-group login-psaaword">
-        <i class="fa-solid fa-lock"></i>
-        <input className="input" type="password" />
-      </div>
-      <div className="remember">
-        <input type="checkbox" id="remember"/>
-        <label htmlFor="remember">記住帳號密碼</label>
-      </div>
-      <div className="loginBtn login-group">
-        <button>登入</button>
-      </div>
-      <div className="forget">
-        <Link to="">忘記密碼 ? </Link>
-      </div>
-      {/* <div className="google">
+    <form action="">
+      <div className="login">
+        <div className="login-input login-group login-email">
+          <i className="fa-regular fa-envelope"></i>
+          <input
+            className="input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={loginUser.email}
+            onChange={handleChange}
+          />
+        </div>
+        
+        <div className="login-input login-group login-psaaword">
+          <i className="fa-solid fa-lock"></i>
+          <input
+            className="input"
+            type={eye ? 'text' : 'password'}
+            id="password"
+            name="password"
+            placeholder="Password"
+            value={loginUser.password}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="remember">
+          <input type="checkbox" id="remember" />
+          <label htmlFor="remember">記住帳號密碼</label>
+        </div>
+        <div className="loginBtn login-group">
+          <button onClick={handleSubmit}>登入</button>
+        </div>
+
+        <div className="forget">
+          <Link to="">忘記密碼 ? </Link>
+        </div>
+        {/* <div className="google">
         <p>G</p>
       </div> */}
-    </div>
+      </div>
+    </form>
   );
 };
 
-export default login;
+export default Login;
