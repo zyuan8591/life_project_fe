@@ -6,7 +6,7 @@ import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
 import News from './components/news/News';
-import LoginPage from './components/Login/loginPage';
+import Signin from './components/Login/Signin';
 import Users from './components/Users';
 import './styles/style.scss';
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
@@ -92,7 +92,6 @@ function App() {
             />
             <Route path="/activity/picnic/create" element={<CreatePincnic />} />
             <Route path="/Users/*" element={<Users />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/users/" element={<Users />}>
               <Route path="/users/account" element={<Account />} />
               <Route path="/users/password" element={<Password />} />
@@ -101,9 +100,9 @@ function App() {
               <Route path="/users/pinic" element={<Pinic />} />
               <Route path="/users/recipe" element={<Recipe />} />
             </Route>
-            <Route path="/login/" element={<LoginPage />}>
-              <Route path="/login/" element={<Login />} />
-              <Route path="/login/signup" element={<Signup />} />
+            <Route path="/signin/" element={<Signin />}>
+              <Route path="/signin/login" element={<Login />} />
+              <Route path="/signin/signup" element={<Signup />} />
             </Route>
             <Route path="/activity" element={<ActivityMain />} />
             <Route path="/activity/camping" element={<CampingMain />} />

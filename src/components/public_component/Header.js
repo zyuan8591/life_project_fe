@@ -41,7 +41,7 @@ const Header = ({ fixed = true }) => {
     await axios.get(`${API_URL}/logout`, { withCredentials: true });
     setUser(null);
   }
-  console.log(user); //TODO:確認登入狀態
+
   return (
     <header
       className={`header position-relative w-100 ${
@@ -125,7 +125,7 @@ const Header = ({ fixed = true }) => {
               </>
             ) : (
               <>
-                <Link to="/login">
+                <Link to="/signin/login">
                   <button>登入</button>
                 </Link>
               </>
