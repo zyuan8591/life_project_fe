@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { IconContext } from 'react-icons';
+import ShowPassword from '../Users/user_Component/ShowPassword';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { Navigate } from 'react-router-dom';
@@ -16,10 +15,6 @@ const Login = () => {
 
   //顯示密碼
   const [eye, setEye] = useState(false);
-  function clickEye() {
-    setEye(eye ? false : true);
-  }
-  // const [isLogin, setIsLogin] = useState(false);
 
   function handleChange(e) {
     setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
@@ -54,7 +49,6 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        
         <div className="login-input login-group login-psaaword">
           <i className="fa-solid fa-lock"></i>
           <input
@@ -66,6 +60,7 @@ const Login = () => {
             value={loginUser.password}
             onChange={handleChange}
           />
+          <ShowPassword eye={eye} setEye={setEye} />
         </div>
         <div className="remember">
           <input type="checkbox" id="remember" />

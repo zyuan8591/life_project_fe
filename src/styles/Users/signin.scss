@@ -93,6 +93,7 @@
     margin: 40px 0;
     font-size: 24px;
     display: flex;
+    align-items:flex-end;
   }
   .login-input{
     border-bottom: 2px solid #fff;
@@ -132,7 +133,7 @@
     position: relative;
   }
   .login-password{
-    position: relative;
+    position: relative; 
   }
   .remember{    
     position: relative;

@@ -14,6 +14,7 @@
       padding: 5px;
       margin-bottom: 40px;     
       display: flex;
+      position: relative;
     }
     .signup-input{
       border-bottom: 2px solid #fff;
@@ -45,6 +46,29 @@
           transform: scale(1);
           box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 2);
         }
-      }
+      }      
      }
+     
+     .fa-circle-xmark{
+      color: rgb(247, 82, 82);
+      font-size: 16px;      
+      position: absolute;
+      right:-20px;
+      top: 10px;
+     }
+     .error-text{
+      font-size: 14px;
+      position: absolute;      
+      display: flex;
+      align-items: center;
+      color: rgb(247, 82, 82);
+      left: 45px;
+      top: 40px;
+    }
+    .eyegroup{
+      position: absolute;
+      right: 5px;
+      top: -5px;       
+    }    
+     
 }
