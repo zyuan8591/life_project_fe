@@ -73,7 +73,8 @@ function App() {
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/orderstep" element={<OrderStep />} />
             </Route>
-            <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
+            {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
+            <Route path="/recipeDetail" element={<RecipeDetail />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/news" element={<News />} />
