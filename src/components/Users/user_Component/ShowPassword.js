@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { FaRegEye } from 'react-icons/fa';
+import { RiEyeCloseLine,RiEyeLine } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 
-const ShowPassword = () => {
-  const [eye, setEye] = useState(false);
+const ShowPassword = ({ eye, setEye }) => {
   function clickEye() {
     setEye(eye ? false : true);
   }
   return (
     <>
-      <input type={eye ? 'text' : 'password'} />
-      <div className="eye " onClick={clickEye}>
+      <div className="eyegroup" onClick={clickEye}>
         <IconContext.Provider value={{ className: 'eye' }}>
-          {eye ? <FaRegEye /> : <FaRegEyeSlash />}
+          {eye ? <FaRegEye /> : <RiEyeCloseLine />}
         </IconContext.Provider>
       </div>
     </>

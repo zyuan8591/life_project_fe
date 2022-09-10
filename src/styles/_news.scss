@@ -9,6 +9,7 @@ $newsBgClr: #f2f2f2;
   max-width: 1200px;
   padding: 4rem 2rem 8rem;
   color: $contentClr;
+  // news title
   .title {
     display: flex;
     flex-direction: column;
@@ -31,17 +32,19 @@ $newsBgClr: #f2f2f2;
       font-weight: bold;
     }
   }
+  // main content
   .news {
     margin-top: 2rem;
+    // each news item
     .newsItem {
       display: grid;
       grid-template-columns: minmax(142px, 1fr) 7fr;
+      position: sticky;
+      top: 0;
       .yearMonth {
         border-right: 1px solid $subClrGY;
         border-top: 1px solid $subClrGY;
         font-size: 2rem;
-        position: sticky;
-        top: 0;
       }
       .newMainContainer {
         flex: 1 1 auto;
