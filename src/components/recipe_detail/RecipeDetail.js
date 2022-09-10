@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React, { useRef, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Footer from '../public_component/Footer';
 import Header from '../public_component/Header';
 import BackToTop from '../public_component/BackToTop';
@@ -13,7 +13,8 @@ import RecipeStepNumb from './component/RecipeStepNumb';
 import RecipeSlide from './component/RecipeSlide';
 
 const RecipeDetail = () => {
-  const { recipeId } = useParams();
+  let [searchParams, setSearchParams] = useSearchParams();
+  // console.log(searchParams.get('id'));
 
   // for step section animation
   const introRef = useRef(null);
