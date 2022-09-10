@@ -1,9 +1,12 @@
 import React from 'react';
 import classes from '../../../styles/moduleCss/recipes/RecipeCateBtn.module.scss';
 
-const RecipeCateBtn = ({ onclick, content, active }) => {
+const RecipeCateBtn = ({ cateNum, onclick, content, active }) => {
   return (
-    <button className={`${classes.btn} ${active ? classes.active : ''}`}>
+    <button
+      className={`${classes.btn} ${active ? classes.active : ''}`}
+      onClick={() => onclick(cateNum)}
+    >
       {content}
     </button>
   );
