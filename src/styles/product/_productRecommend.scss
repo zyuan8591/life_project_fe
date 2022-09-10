@@ -1,0 +1,16 @@
+@import '../variable';
+
+.recommendContainer {
+  max-width: $maxWidth;
+//   padding: 50px;
+//   margin: 20px;
+  .productContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex !important;
+    justify-content: center;
+    img {
+        width: 300px;
+    }
+  }
+}
