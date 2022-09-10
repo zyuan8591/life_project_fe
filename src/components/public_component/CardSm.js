@@ -20,18 +20,23 @@ const imgContainer = css`
   margin: 0;
   max-width: ${imgWidth};
   max-height: ${imgWidth};
+  overflow: hidden;
 `;
 const cartType = css`
   color: $subClrBrown;
   font-weight: bold;
 `;
 
-const CardSm = ({ title, type, name, img, link, bg = '' }) => {
+const CardSm = ({ title, type, name, img, link, bg = '', className = '' }) => {
   return (
     <div css={container}>
       {title && <div css={cardTitle}>{title}</div>}
 
-      <figure css={imgContainer} style={{ background: bg }}>
+      <figure
+        css={imgContainer}
+        style={{ background: bg }}
+        className={className}
+      >
         <img src={img} alt={name} className="objectContain cardImg" />
       </figure>
 
