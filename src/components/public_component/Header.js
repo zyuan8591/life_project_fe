@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
 import { IconContext } from 'react-icons';
+import { API_URL } from '../../utils/config';
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineUser,
 } from 'react-icons/ai';
 import axios from 'axios';
-import { API_URL } from '../../utils/config';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const pages = [
@@ -21,27 +21,36 @@ const pages = [
 
 const Header = ({ fixed = true }) => {
   const [search, setSearch] = useState(false);
+  const { user, setUser } = useUserRights();
   const [scrollDown, setScrollDown] = useState(false);
   const [userSelectActive, setUserSelectActive] = useState(false);
+  const [searchKey, setSearchKey] = useState('');
+  // const [searchData, setSearchData] = useState([]);
 
+  // enter search bar
   const userAvatorClickHandler = () => {
     if (userSelectActive) return setUserSelectActive(false);
     setUserSelectActive(true);
   };
+  // search bar key handler
+  const inputHandler = (e) => {
+    setSearchKey(e.target.value);
+  };
 
+  // SHOW header
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
     setScrollDown(scrollNow > scrollY);
     scrollY = scrollNow;
   });
-  const { user, setUser } = useUserRights();
-  //登出
+
+  // LOG OUT
   async function handelLogout() {
     await axios.get(`${API_URL}/logout`, { withCredentials: true });
     setUser(null);
   }
-  // console.log(user);
+
   return (
     <header
       className={`header position-relative w-100 ${
@@ -160,6 +169,9 @@ const Header = ({ fixed = true }) => {
                 type="text"
                 placeholder="搜尋"
                 className="w-100 rounded-2"
+                onChange={(e) => {
+                  inputHandler(e);
+                }}
               />
               <IconContext.Provider
                 value={{
