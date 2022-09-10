@@ -56,35 +56,33 @@ const icon = css`
   align-items: center;
 `;
 
-const RecipeListMode = () => {
+const RecipeListMode = ({ data }) => {
   return (
     <Link to="/recipes/5" css={container}>
       <figure css={imgContainer}>
         <img
-          src="/img/recipe/recipe_img/Bagel.jpg"
+          src={`/img/recipe/recipe_img/${data.image}`}
           alt="Bagel"
           className="objectContain"
         />
       </figure>
       <div css={recipeContainer}>
         <div css={title}>
-          <span css={tag}>台式料理</span>
-          <span css={tag}>氣炸鍋</span>
-          <span>高麗菜水餃</span>
+          <span css={tag}>{data.recipe_category_name}</span>
+          <span css={tag}>{data.product_category_name}</span>
+          <span>{data.name}</span>
         </div>
-        <div>Author: LIFE</div>
-        <div css={recipeContent}>
-          　　我以為我了解水餃，但我真的了解水餃嗎？仔細想想，我對水餃的理解只是皮毛而已。這必定是個前衛大膽的想法。對水餃進行深入研究，在現今時代已經無法避免了。亞伯拉罕·林肯講過，你活了多少歲不算什麼，重要的是你是如何度過這些歲月的。他會這麼說是有理由的。
-        </div>
+        <div>Author: {data.user_id}</div>
+        <div css={recipeContent}>{data.content}</div>
         <div css={recipeMaterial}>食材：高麗菜、水、水餃皮</div>
         <div css={about}>
           <div css={icon}>
             <AiOutlineHeart />
-            <span>666</span>
+            <span>{data.likes}</span>
           </div>
           <div css={icon}>
             <AiOutlineComment />
-            <span>666</span>
+            <span>{data.comments}</span>
           </div>
         </div>
       </div>
