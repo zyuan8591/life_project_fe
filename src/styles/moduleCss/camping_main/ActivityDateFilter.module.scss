@@ -1,19 +1,12 @@
 @import '../../variable';
-@mixin filterTitle {
-    font-size: 20px;
-    border-bottom: 3px solid $subClrBrown;
-    padding-bottom: 7px;
-    width: 80%;
-}
-@mixin buttonHover {
-    box-shadow: .2px .2px 6px rgba(0, 0, 0, 0.5);
-}
 
 .activityDate{
     margin-bottom: 40px;
-    text-align: end;
     .dateText{
-        @include filterTitle;
+        font-size: 20px;
+        border-bottom: 3px solid $subClrBrown;
+        padding-bottom: 7px;
+        width: 80%;
     }
     input::-webkit-calendar-picker-indicator {
         width: 25px;
@@ -23,18 +16,23 @@
         border-radius: 2px; 
         cursor: pointer;
     }
+    .dateRemind{
+        margin: 8px 20px 0;
+        height: 18.8px;
+        font-size: $text12;
+        color: $focusClrG;
+    }
     button{        
         border: 1px solid $subClrGY;
         color: $subClrBrown;
         border-radius: 30px;
         background-color: $mainClrW;
         padding: 3px 14px;
-        margin-top: 20px;
-        margin-right: 23%;
-        transition: .5s;
-        font-size: 14px;
+        margin-left: 60%;
+        transition: .3s;
+        font-size: $text14;
         &:hover{
-            @include buttonHover;
+            box-shadow: .2px .2px 6px rgba(0, 0, 0, 0.5);
         }
     }
 }
