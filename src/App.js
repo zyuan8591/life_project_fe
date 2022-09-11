@@ -26,7 +26,7 @@ import Signup from './components/Login/Signup';
 import Login from './components/Login/login';
 import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
-
+import Map from './components/map/Map';
 function HeaderFooter() {
   return (
     <>
@@ -66,7 +66,11 @@ function App() {
           </Route>
           <Route path="/activity" element={<ActivityMain />} />
           <Route path="/activity/camping" element={<CampingMain />} />
-          <Route path="/activity/camping/:id" element={<CampingDetailPage />} />
+          <Route
+            path="/activity/camping/:campingId"
+            element={<CampingDetailPage />}
+          />
+          <Route path="/map" element={<Map />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </ScrollToTop>
