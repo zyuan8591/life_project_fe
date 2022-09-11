@@ -1,6 +1,14 @@
 @import '../../variable';
+@mixin stateLabelBtn {
+    color: #fff;
+    font-size: $text12;
+    border-radius: 15px;
+    padding: 2px 8px;
+    margin-right: 5px;
+}
 
 .activityHorizontalStyle{
+    cursor: default;
     margin: 20px auto;
     max-width: 80%;
     display: flex;
@@ -12,9 +20,11 @@
         transform: translateY(-5px);
     }
     .activityImg{
-        max-width: 350px;
+        // width: 350px;
+        height: 233px;
         img{
-            width: 100%;
+            width: 350px;
+            height: 100%;
             object-fit: cover;
         }
     }
@@ -38,11 +48,10 @@
         }
         .label{
             background-color: $focusClrB;
-            color: #fff;
-            font-size: $text12;
-            border-radius: 15px;
-            padding: 3px 10px;
-            margin-right: 5px;
+            @include stateLabelBtn;
+        }
+        .stateLabel{
+            @include stateLabelBtn;
         }
         .content{
             display: flex;
@@ -76,7 +85,7 @@
                 height: 15px;
                 .bar{
                    background-color: $focusClrY;
-                   width: (12/15)*350px-4px;
+                //    width: (12/15)*350px-4px;
                    height: 100%;
                 }
             }
