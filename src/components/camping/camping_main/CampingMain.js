@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
@@ -17,23 +19,106 @@ import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
+import NotFound from './NotFound';
 
 const activityState = [
-  { state: '即將開團', style: '#817161' },
-  { state: '開團中', style: '#F2AC33' },
-  { state: '已成團', style: '#1F9998' },
-  { state: '開團已截止', style: '#B9BDC5' },
+  { id: 1, state: '即將開團', style: '#817161' },
+  { id: 2, state: '開團中', style: '#F2AC33' },
+  { id: 3, state: '已成團', style: '#1F9998' },
+  { id: 4, state: '開團已截止', style: '#B9BDC5' },
+  { id: '', state: '查看全部', style: '#221E73' },
 ];
 
 function CampingMain() {
   const [stateSearch, setStateSearch] = useState(activityState);
   const [cardChange, setCardChange] = useState(true);
   const [horizontalCardChange, setHorizontalCardChange] = useState(false);
-  const [pageNow, setPageNow] = useState(1);
+  const [campingData, setCampingData] = useState([]);
+  const [dateRemind, setDateRemind] = useState('');
+  const [state, setState] = useState('');
+  const [maxPrice, setMaxPrice] = useState(9900);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxJoinTtl, setMaxJoinTtl] = useState(22);
+  const [minJoinTtl, setMinJoinTtl] = useState(0);
+  const [maxDateValue, setMaxDateValue] = useState('');
+  const [minDateValue, setMinDateValue] = useState('');
+  const [maxDate, setMaxDate] = useState('');
+  const [minDate, setMinDate] = useState('');
+  const [order, setOrder] = useState('');
+  const [titleSearch, setTitleSearch] = useState('');
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [numberTtl, setnumberTtl] = useState(0);
+
+  useEffect(() => {
+    let getCampingData = async () => {
+      let response = await axios.get(
+        `${API_URL}/camping?state=${state}&maxPrice=${maxPrice}&minPrice=${minPrice}&minDate=${minDate}&maxDate=${maxDate}&search=${search}&order=${order}&page=${page}&maxJoinTtl=${maxJoinTtl}&minJoinTtl=${minJoinTtl}`
+      );
+      console.log(response.data.pagination.total);
+      setnumberTtl(response.data.pagination.total);
+      setLastPage(response.data.pagination.lastPage);
+      setCampingData(response.data.result);
+    };
+    getCampingData();
+  }, [
+    state,
+    minPrice,
+    maxPrice,
+    minDate,
+    maxDate,
+    order,
+    search,
+    page,
+    maxJoinTtl,
+    minJoinTtl,
+  ]);
+  // console.log(state);
+
+  // stateLabelBtnStyle
+  const stateClassName = (state) => {
+    switch (state) {
+      case '開團中':
+        return '#F2AC33';
+      case '已成團':
+        return '#1F9998';
+      case '開團已截止':
+        return '#B9BDC5';
+      default:
+        return '#817161';
+    }
+  };
+
+  // price slider
+  // const priceAll = campingData.map((v) => {
+  //   return v.price;
+  // });
+  // const maxP = Math.max(...priceAll);
+  // console.log(maxP);
 
   // 引入card
-  const card = <ActivityCard />;
-  const horizontalCard = <ActivityHorizontalCard />;
+  const card = () => {
+    if (numberTtl !== 0) {
+      return campingData.map((v) => {
+        return (
+          <ActivityCard key={v.id} v={v} stateClassName={stateClassName} />
+        );
+      });
+    } else {
+      return <NotFound />;
+    }
+  };
+  // TODO:noData view
+  const horizontalCard = campingData.map((v) => {
+    return (
+      <ActivityHorizontalCard
+        key={v.id}
+        v={v}
+        stateClassName={stateClassName}
+      />
+    );
+  });
 
   return (
     <>
@@ -57,28 +142,59 @@ function CampingMain() {
                   {/* state filter */}
                   <div className="activityState">
                     <p className="stateText">活動狀態</p>
-                    {stateSearch.map((v, i) => {
-                      return <ActivityStateFilter key={uuidv4()} v={v} />;
+                    {stateSearch.map((v) => {
+                      return (
+                        <ActivityStateFilter
+                          key={uuidv4()}
+                          v={v}
+                          setState={setState}
+                          setPage={setPage}
+                        />
+                      );
                     })}
                   </div>
 
                   {/* price slider */}
-                  <ActivitySliderPrice />
+                  <ActivitySliderPrice
+                    campingData={campingData}
+                    setMaxPrice={setMaxPrice}
+                    setMinPrice={setMinPrice}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                    setPage={setPage}
+                  />
 
                   {/* headcount slider */}
-                  <ActivitySliderHeadcount />
+                  <ActivitySliderHeadcount
+                    maxJoinTtl={maxJoinTtl}
+                    minJoinTtl={minJoinTtl}
+                    setMinJoinTtl={setMinJoinTtl}
+                    setMaxJoinTtl={setMaxJoinTtl}
+                    setPage={setPage}
+                  />
 
                   {/* date filter */}
-                  <ActivityDateFilter />
+                  <ActivityDateFilter
+                    setMaxDate={setMaxDate}
+                    setMinDate={setMinDate}
+                    maxDateValue={maxDateValue}
+                    setMaxDateValue={setMaxDateValue}
+                    minDateValue={minDateValue}
+                    setMinDateValue={setMinDateValue}
+                    setPage={setPage}
+                    setDateRemind={setDateRemind}
+                    dateRemind={dateRemind}
+                  />
                 </div>
                 {/* 右側活動列表 */}
                 <div className="col-9">
-                  <div className="d-flex justify-content-between">
-                    <div className="mb-3 ">
-                      {/* card 切換 */}
-                      <ActivitySelect />
+                  {/* 篩選 */}
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <div className="">
+                      <ActivitySelect setOrder={setOrder} />
                     </div>
                     <div className="d-flex align-items-center">
+                      {/* card 切換 */}
                       <FaListUl
                         className="me-3 changeBtn"
                         onClick={() => {
@@ -102,14 +218,33 @@ function CampingMain() {
                             className="searchInput"
                             placeholder="Search.."
                             type="text"
+                            maxLength={15}
+                            value={titleSearch}
+                            onChange={(e) => {
+                              let textValue = e.target.value.replace(
+                                /[, ]/g,
+                                ''
+                              );
+                              setTitleSearch(textValue);
+                            }}
                           />
                           <FaSearch
                             className="ms-2 mb-1"
                             style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              if (titleSearch === '') return setSearch('');
+                              setSearch(titleSearch);
+                              setPage(1);
+                            }}
                           />
                         </div>
                       </IconContext.Provider>
                     </div>
+                  </div>
+                  <div className="pageTtl text-end me-2">
+                    {numberTtl !== 0
+                      ? `第 ${page} 頁，共 ${lastPage} 頁，共 ${numberTtl} 筆`
+                      : ''}
                   </div>
 
                   <IconContext.Provider value={{ color: '#000', size: '1rem' }}>
@@ -117,14 +252,14 @@ function CampingMain() {
                       {/* 列表 card */}
                       {/* 列表 HorizontalStyle */}
                       {cardChange === true && horizontalCardChange === false
-                        ? card
+                        ? card()
                         : horizontalCard}
                     </div>
                   </IconContext.Provider>
                   <PaginationBar
-                    lastPage={12}
-                    pageNow={pageNow}
-                    setPageNow={setPageNow}
+                    lastPage={lastPage}
+                    pageNow={page}
+                    setPageNow={setPage}
                   />
                 </div>
               </div>
