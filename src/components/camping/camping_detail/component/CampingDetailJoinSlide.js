@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from '../../../../styles/moduleCss/camping_detail_page/_campingDetailJoinSlide.module.scss';
+import classes from '../../../../styles/moduleCss/camping_detail_page/CampingDetailJoinSlide.module.scss';
 
-function CampingDetailJoinSlide({ joinSlider }) {
+function CampingDetailJoinSlide({ joinSlider, v }) {
   return (
     <>
       <div
@@ -12,9 +12,9 @@ function CampingDetailJoinSlide({ joinSlider }) {
       >
         <div className={classes.joinUser}>
           <div className={classes.userImg}>
-            <img src="/img/user/company_icon/aarke.jpg" alt="/" />
+            <img src={`/img/user/user_img/${v.img}`} alt="/" />
           </div>
-          <div className={classes.userName}>Joe</div>
+          <div className={classes.userName}>{v.name}</div>
           <div className={classes.back}>
             <div className={classes.backbcg}>
               <div className={classes.backInt}>
