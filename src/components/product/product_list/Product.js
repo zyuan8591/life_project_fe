@@ -19,11 +19,11 @@ const Product = () => {
                 className="hoverArea "
                 onMouseOver={(e) => {
                   e.target.src =
-                    '/img/product/product_img/BRUNO_ BOE021_WH_01.webp';
+                    '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
                 }}
                 onMouseOut={(e) => {
                   e.target.src =
-                    '/img/product/product_img/BRUNO_ BOE021_RD_01.jpeg';
+                    '/img/product/product_img/BRUNO_BOE021_RD_01.jpeg';
                 }}
               >
                 <div className="productImg">
@@ -48,7 +48,7 @@ const Product = () => {
                     </IconContext.Provider>
                   </div>
                   <img
-                    src="/img/product/product_img/BRUNO_ BOE021_RD_01.jpeg"
+                    src="/img/product/product_img/BRUNO_BOE021_RD_01.jpeg"
                     alt=""
                   />
                 </div>

@@ -10,7 +10,7 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 const ProductFilter = () => {
   const [brandArr, setBrandArr] = useState(26);
   const [price, setPrice] = useState('所有');
-  const [showBoard, setShowBoard] = useState(true);
+  const [showBoard, setShowBoard] = useState(false);
   const [brand, setBrand] = useState('');
   const [search, setSearch] = useState('');
   return (

@@ -1,33 +1,22 @@
 import React from 'react';
-import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import Slider from './Slider';
 import '../../../styles/product/_productRecommend.scss';
+import ProductListSlider from './ProductListSlider';
+import { useState } from 'react';
 const ProductRecommend = () => {
-  var settings = {
-    dots: true,
-    // infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  const [now, setNow] = useState(0);
   return (
     <div>
       <div className="recommendContainer">
-        <h2>推薦商品</h2>
-        <Slider {...settings}>
-          {[...Array(5)].map((v, i) => {
-            return (
-              <>
-                <div className="productContainer" key={i}>
-                  <h3>{i + 1}</h3>
-                  <img src="http://placekitten.com/g/400/200" alt="" />
-                  <img src="http://placekitten.com/g/400/200" alt="" />
-                  <img src="http://placekitten.com/g/400/200" alt="" />
-                </div>
-              </>
-            );
-          })}
+        <Slider
+          now={now}
+          setNow={setNow}
+          maxWidth={900}
+          moveCount={3}
+          total={18}
+          pattern={'recommend'}
+        >
+          <ProductListSlider now={now} total={9} />
         </Slider>
       </div>
     </div>
