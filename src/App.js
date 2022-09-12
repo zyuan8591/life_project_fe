@@ -29,7 +29,7 @@ import Pinic from './components/Users/Content/Picnic/Pinic';
 import Recipe from './components/Users/Content/Recipe/Recipe';
 import Caping from './components/Users/Content/Caping/Caping';
 import Signup from './components/Login/Signup';
-import Login from './components/Login/login';
+import Login from './components/Login/Login';
 import { UserRights } from './usecontext/UserRights';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
