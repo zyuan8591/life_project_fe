@@ -339,16 +339,14 @@ function CampingDetailPage() {
                       }
 
                       return (
-                        <>
-                          <CampingDetailAside
-                            key={v.id}
-                            scrollDown={scrollDown}
-                            v={v}
-                            stateClassName={stateClassName}
-                            dataReplace={dataReplace}
-                            joinPep={joinPep}
-                          />
-                        </>
+                        <CampingDetailAside
+                          key={v.id}
+                          scrollDown={scrollDown}
+                          v={v}
+                          stateClassName={stateClassName}
+                          dataReplace={dataReplace}
+                          joinPep={joinPep}
+                        />
                       );
                     })}
                   </div>
