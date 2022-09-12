@@ -17,13 +17,13 @@ const ProductTab = ({ tabNow, setTabNow }) => {
           <div
             className="frame"
             style={{ background: tabNow === v.id ? '#817161' : '' }}
+            key={v.id}
           >
             <button
               className={`${tabNow === v.id ? 'active' : ''}`}
               onClick={() => {
                 setTabNow(v.id);
               }}
-              key={v.id}
             >
               {v.name}
             </button>

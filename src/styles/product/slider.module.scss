@@ -1,6 +1,9 @@
 @import '../variable';
 
 $margin: 12.5px;
+.cursor {
+  cursor: pointer;
+}
 .sliderContainer {
   max-width: $maxWidth;
   margin: 0 auto;
@@ -8,11 +11,8 @@ $margin: 12.5px;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  .cursor {
-    cursor: pointer;
-  }
   .item {
-    width: 900px ;
+    width: 900px;
     // margin: 50px;
     display: flex;
     overflow: hidden;
@@ -25,7 +25,7 @@ $margin: 12.5px;
       // transform: translateX(12.5px);
       transition: 0.4s;
       &:hover img {
-        opacity: .7;
+        opacity: 0.7;
       }
       img {
         width: 100%;
@@ -40,10 +40,24 @@ $margin: 12.5px;
   width: 300px;
   min-height: 3px;
   background: #eee;
-  .progress{
+  .progress {
     min-height: 3px;
     background: $subClrBrown;
     transform: translateX(-200px);
-    transition: .4s;
+    transition: 0.4s;
   }
+}
+.progressRound {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #eeeeee;
+  margin: 0 4px;
+}
+.progressRoundActive {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: $contentClr;
+  margin: 0 4px;
 }

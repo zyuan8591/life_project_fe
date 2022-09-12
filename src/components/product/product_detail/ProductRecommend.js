@@ -13,8 +13,9 @@ const ProductRecommend = () => {
           setNow={setNow}
           maxWidth={900}
           moveCount={3}
-          total={18}
+          total={15}
           pattern={'recommend'}
+          itemWidth={300}
         >
           <ProductListSlider now={now} total={9} />
         </Slider>

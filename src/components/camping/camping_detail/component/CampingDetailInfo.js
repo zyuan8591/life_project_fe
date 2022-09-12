@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import { IoWarning } from 'react-icons/io5';
 import { HiLightBulb } from 'react-icons/hi';
 import { FaHandPointRight } from 'react-icons/fa';
-import classes from '../../../../styles/moduleCss/camping_detail_page/_campingDetailInfo.module.scss';
+import classes from '../../../../styles/moduleCss/camping_detail_page/CampingDetailInfo.module.scss';
 function CampingDetailInfo({ aboutDetail, aboutIcon }) {
   return (
     <>

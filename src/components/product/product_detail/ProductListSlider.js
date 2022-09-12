@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const img = '/img/product/product_img/BRUNO_BOE059_BGR_CE_01.png';
 
 const ProductListSlider = ({ now, total }) => {
-  console.log(now);
+  // console.log(now);
   return (
     <>
       {[...Array(total)].map((v) => {
