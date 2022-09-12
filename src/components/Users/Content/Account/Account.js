@@ -7,10 +7,8 @@ import WarnWindow from './component/WarnWindow';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
-import { Navigate } from 'react-router-dom';
 
 const Account = () => {
-  //TODO:改成撈Context資料
   const { user, setUser } = useUserRights();
 
   //彈跳視窗
@@ -19,87 +17,44 @@ const Account = () => {
     e.preventDefault();
     setWarn(true);
   }
-  // if (!user) {
-  //   return <Navigate to="/login" />;
-  // }
   return (
     <>
-      {user ? (
-        <>
-          <h3>個人檔案</h3>
-          <div className="account" css={account}>
-            <form action="" className="">
-              <div className="account-group row ">
-                <div className="col  left">
-                  <div className="mb-4">
-                    <label htmlFor="name"> 　　姓名：</label>
-                    <input
-                      value={user.name}
-                      type="text"
-                      name="name"
-                      id="name"
-                      css={input}
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="email">註冊信箱：</label>
-                    <input
-                      value={user.email}
-                      type="email"
-                      name="email"
-                      id="email"
-                      readonly="readonly"
-                      css={input}
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="phone">手機號碼：</label>
-                    <input
-                      value={user.phone}
-                      type="text"
-                      name="phone"
-                      id="phone"
-                      css={input}
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="birth">　　生日：</label>
-                    <input
-                      value={user.birth}
-                      type="text"
-                      name="birth"
-                      id="birth"
-                      css={input}
-                    />
-                  </div>
-                  <InputGender />
-                  <InputAddress />
-                </div>
-                <div className="col avata-group">
-                  <div className="avata">
-                    <img src="/img/index/joinUs.jpg" alt="" />
-                    <p>點擊更換圖片</p>
-                  </div>
-                  <div className="selfIntroduction-group">
-                    <label htmlFor="selfIntroduction">自我介紹：</label>
-                    <textarea
-                      name="selfIntroduction"
-                      id="selfIntroduction"
-                      value={user.intro}
-                    />
-                  </div>
-                </div>
-                <div className="reviseBtn">
-                  <button onClick={pop}>修改資料</button>
-                </div>
-                <WarnWindow warn={warn} setWarn={setWarn} />
-              </div>
-            </form>
+      <h3>個人檔案</h3>
+      <div className="account" css={account}>
+        <p className="edit">編輯</p>
+        <div className="avata-group">
+          <figure className="avata ">
+            <img src="/img/user/user_img/fish.png" alt="" />
+          </figure>
+          <p className="">貓喵</p>
+        </div>
+        <div className="information">
+          <div className="userData ">
+            <p>性別：</p>
+            <p>男</p>
           </div>
-        </>
-      ) : (
-        <h3>請先登入{/* TODO:後面做自動跳轉 */}</h3>
-      )}
+          <div className="userData ">
+            <p>生日：</p>
+            <p>1994-05-28</p>
+          </div>
+          <div className="userData ">
+            <p>信箱：</p>
+            <p>cat@test.com</p>
+          </div>
+          <div className="userData ">
+            <p>電話：</p>
+            <p>0911112344</p>
+          </div>
+          <div className="userData ">
+            <p>地址：</p>
+            <p>桃園市中壢區</p>
+          </div>
+          <div className="userData row">
+            <p className="col">簡介:</p>
+            <textarea className="info" name="" id="" cols="30" rows="10" />
+          </div>
+        </div>
+      </div>
     </>
   );
 };
@@ -107,79 +62,62 @@ const Account = () => {
 export default Account;
 
 const account = css`
-  form {
-    padding: 0 50px;
-  }
+  width: 70%;
+  height: 50%;
+  border: 1px solid #000;
+  margin: 60px auto;
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+  font-size: 16px;
+  justify-content: center;
+  padding-top: 50px;
 
-  .account-group {
-    padding: 0 0 0 5%;
-  }
-  .left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+  .information {
+    .userData {
+      display: flex;
+    }
+    .info {
+      padding: 0;
+      width: 180px;
+      height: 50px;
+      resize: none;
+      border: 0;
 
-  //right
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .edit {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    color: #221e73;
+  }
+  .avata-group {
+    text-align: center;
+    ${'' /* background: red; */}
+    margin:10px 60px 0 -10px;
+    ${'' /* padding-top: 35px; */}
+  }
   .avata {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 20px auto 30px auto;
     position: relative;
-    transition: 0.3s;
-    cursor: pointer;
-    &:hover {
-      p {
-        color: #fff;
-      }
-    }
-    p {
-      position: absolute;
-      z-index: 99;
-      left: 28%;
-      top: 35%;
-      color: transparent;
-      transition: 0.3s;
+    border: 2px solid #817161;
+    padding: 0.1rem;
+    background: #fff;
+    margin-bottom: 20px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      vertical-align: middle;
+      border-style: none;
     }
   }
-  img {
-    width: 100%;
-    height: 100%;
-  }
-  .selfIntroduction-group {
-    padding-left: 30px;
-  }
-  textarea {
-    border-radius: 10px;
-    resize: none;
-    width: 450px;
-    height: 130px;
-    padding: 5px;
-  }
-  .reviseBtn {
-    text-align: center;
-    padding: 0 10% 0 0;
-    button {
-      padding: 10px;
-      background: #817161;
-      color: #fff;
-      border-radius: 10px;
-      border: 0;
-      &:hover {
-        transform: scale(1.05);
-      }
-      &:active {
-        transform: scale(1);
-        box-shadow: inset 0 0 10px 1px rgba(90, 90, 90, 2);
-      }
-    }
-  }
-`;
-const input = css`
-  border-radius: 10px;
-  height: 20px;
-  padding: 15px 0px 15px 5px;
-  width: 300px;
 `;
