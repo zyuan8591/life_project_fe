@@ -18,21 +18,23 @@
     input::-webkit-calendar-picker-indicator {
         width: 25px;
         height: 25px;
-        background-color: $subClrBrown; 
-        background-image: -webkit-linear-gradient(top, $subClrBrown, $subClrBrown);
+        color: $mainClrW;
+        // background-color: $subClrBrown; 
+        // background-image: -webkit-linear-gradient(top, $subClrBrown, $subClrBrown);
         border-radius: 2px; 
         cursor: pointer;
     }
     button{        
         border: 1px solid $subClrGY;
-        color: $subClrBrown;
+        color: $mainClrW;
         border-radius: 30px;
-        background-color: $mainClrW;
+        background-color: $subClrBrown;
         padding: 3px 14px;
         margin-top: 20px;
         margin-right: 23%;
         transition: .5s;
         font-size: 14px;
+        font-weight: 300;
         &:hover{
             @include buttonHover;
         }

@@ -2,7 +2,7 @@
 
 .activityHorizontalStyle{
     margin: 20px auto;
-    max-width: 80%;
+    max-width: 90%;
     display: flex;
     align-items: center;
     box-shadow: 0.5px 0.5px 6px rgba(0, 0, 0, 0.3);
@@ -14,7 +14,8 @@
     .activityImg{
         max-width: 350px;
         img{
-            width: 100%;
+            width: 350px;
+            height: 233.375px;
             object-fit: cover;
         }
     }
@@ -43,6 +44,15 @@
             border-radius: 15px;
             padding: 3px 10px;
             margin-right: 5px;
+            &.coming{
+                background-color: $subClrBrown;
+            }&.ing{
+                background-color: $focusClrY;
+            }&.found{
+                background-color: $focusClrG;
+            }&.end{
+                background-color: $subClrGY;
+            }
         }
         .content{
             display: flex;

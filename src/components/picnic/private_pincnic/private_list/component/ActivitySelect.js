@@ -1,10 +1,11 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: 1, label: '最新活動' },
-  { value: 2, label: '活動費用' },
+  { value: 0, label: '活動時間  新->舊' },
+  { value: 1, label: '活動時間  舊->新' },
 ];
 
 const customStyles = {
@@ -38,8 +39,16 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
 };
-function ActivitySelect() {
-  const [selectSortOption, setSelectSortOption] = useState(null);
+function ActivitySelect({ sort, setSort }) {
+  const [selectSortOption, setSelectSortOption] = useState(0);
+  useEffect(() => {
+    // console.log('v', selectSortOption.value);
+    if (selectSortOption.value) {
+      setSort(selectSortOption.value);
+    } else {
+      setSort(0);
+    }
+  }, [selectSortOption]);
 
   return (
     <>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Slider } from 'antd';
 import 'antd/dist/antd.css';
-import classes from '../../../../../styles/moduleCss/camping_main/ActivitySlider.module.scss';
-import '../../../../../styles/camping/camping_main/_activitySlider.scss';
+import classes from '../../../../../styles/moduleCss/picnic_main/ActivitySlider.module.scss';
+import '../../../../../styles/picnic/camping_main/_activitySlider.scss';
 
 const onAfterChange = (value) => {
   // console.log('onAfterChange: ', value);

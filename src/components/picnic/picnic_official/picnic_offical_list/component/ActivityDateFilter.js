@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../../../../styles/moduleCss/camping_main/ActivityDateFilter.module.scss';
+import classes from '../../../../../styles/moduleCss/picnic_main/ActivityDateFilter.module.scss';
 
 function ActivityDateFilter() {
   return (

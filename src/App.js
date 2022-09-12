@@ -1,7 +1,5 @@
 import 'normalize.css';
 import ActivityMain from './components/activity/ActivityMain';
-import CampingMain from './components/camping/camping_main/CampingMain';
-import CampingDetailPage from './components/camping/camping_detail/CampingDetailPage';
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Homepage from './components/index/Homepage';
@@ -14,7 +12,7 @@ import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
-import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicPicnicList';
+import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';
 import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
 import PicnicPrivateList from './components/picnic/private_pincnic/private_list/PicnicPrivateList';
 import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
@@ -64,7 +62,7 @@ function App() {
             element={<PicnicOfficalList />}
           />
           <Route
-            path="/activity/picnic/official/:id"
+            path="/activity/picnic/official/:officialId"
             element={<PicnicOfficalDetail />}
           />
           <Route
@@ -72,7 +70,7 @@ function App() {
             element={<PicnicPrivateList />}
           />
           <Route
-            path="/activity/picnic/group/:id"
+            path="/activity/picnic/group/:groupId"
             element={<IndexPrivateDetail />}
           />
           <Route path="/activity/picnic/create" element={<CreatePincnic />} />
@@ -91,8 +89,6 @@ function App() {
             <Route path="/login/signup" element={<Signup />} />
           </Route>
           <Route path="/activity" element={<ActivityMain />} />
-          <Route path="/activity/camping" element={<CampingMain />} />
-          <Route path="/activity/camping/:id" element={<CampingDetailPage />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </ScrollToTop>

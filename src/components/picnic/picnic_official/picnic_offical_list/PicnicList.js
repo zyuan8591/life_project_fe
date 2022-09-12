@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
-import '../../../../styles/picnic/_picnicPrivateList.scss';
+import '../../../../styles/camping/camping_main/_campingMain.scss';
 import Footer from '../../../public_component/Footer';
 import Header from '../../../public_component/Header';
 import BackToTop from '../../../public_component/BackToTop';
 import ActivityStateFilter from './component/ActivityStateFilter';
+import ActivitySliderPrice from './component/ActivitySliderPrice';
 import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
 import ActivityDateFilter from './component/ActivityDateFilter';
 import ActivityCard from './component/ActivityCard';
@@ -25,10 +27,10 @@ const activityState = [
   { value: 2, state: '開團中', style: '#F2AC33' },
   { value: 3, state: '已成團', style: '#1F9998' },
   { value: 4, state: '開團已截止', style: '#B9BDC5' },
-  { value: 5, state: '查詢全部', style: '#221E73' },
+  { value: '', state: '查詢全部', style: '#221E73' },
 ];
 
-function PicnicPrivateList() {
+function PicnicList() {
   const [stateSearch, setStateSearch] = useState(activityState);
   const [cardChange, setCardChange] = useState(true);
   const [horizontalCardChange, setHorizontalCardChange] = useState(false);
@@ -38,24 +40,48 @@ function PicnicPrivateList() {
   const [sort, setSort] = useState(0);
   const [pageNow, setPageNow] = useState(1);
   const [filterState, setFilterState] = useState('');
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(2500);
+  const [minJoinPeople, setMinJoinPeople] = useState(0);
+  const [maxJoinPeople, setMaxJoinPeople] = useState(0);
+  const [minDate, setMinDate] = useState('');
+  const [maxDate, setMaxDate] = useState('');
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
 
-  const getPrivatelList = async () => {
+  // 列表首頁 搜尋、排序、頁碼
+  const getOfficalList = async () => {
     let response = await axios.get(
-      `${API_URL}/picnic/group?searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}&$filterState=${filterState}`
+      `${API_URL}/picnic/official?searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}&filterState=${filterState}&minPrice=${minPrice}&maxPrice=${maxPrice}&minJoinPeople=${minJoinPeople}&maxJoinPeople=${maxJoinPeople}&minDate=${minDate}&maxDate=${maxDate}`
     );
-    // console.log(response.data.data);
+    // console.log(response);
     setData(response.data.data);
   };
   useEffect(() => {
-    getPrivatelList();
-  }, [searchWords, sort, pageNow, filterState]);
+    getOfficalList();
+  }, [
+    searchWords,
+    sort,
+    pageNow,
+    filterState,
+    maxPrice,
+    minPrice,
+    maxJoinPeople,
+    minJoinPeople,
+    minDate,
+    maxDate,
+  ]);
+
+  //TODO: 如何依照時間變更活動狀態？
+  // 費用篩選 不能用按鈕點選篩選
+  //TODO: 活動人數 篩選 第一次無資料
+  //TODO: 活動日期 篩選
+  //TODO: 人數進度條
 
   // 引入card
   const card = <ActivityCard data={data} />;
-  const horizontalCard = <ActivityHorizontalCard data={data}/>;
+  const horizontalCard = <ActivityHorizontalCard data={data} />;
 
   return (
     <>
@@ -65,7 +91,7 @@ function PicnicPrivateList() {
           {/* banner */}
           <div className="banner">
             <img
-              src="/img/picnic/activity_picnic_img/picnic_detail_banner2.jpeg"
+              src="/img/picnic/activity_picnic_img/picnic_detail_banner.webp"
               alt="camping"
             />
           </div>
@@ -80,12 +106,35 @@ function PicnicPrivateList() {
                   <div className="activityState">
                     <p className="stateText">活動狀態</p>
                     {stateSearch.map((v, i) => {
-                      return <ActivityStateFilter key={uuidv4()} v={v} />;
+                      return (
+                        <ActivityStateFilter
+                          key={uuidv4()}
+                          v={v}
+                          filterState={filterState}
+                          setFilterState={setFilterState}
+                        />
+                      );
                     })}
                   </div>
 
+                  {/* price slider */}
+                  <ActivitySliderPrice
+                    maxPrice={maxPrice}
+                    setMaxPrice={setMaxPrice}
+                    minPrice={minPrice}
+                    setMinPrice={setMinPrice}
+                    setPageNow={setPageNow}
+                    data={data}
+                  />
+
                   {/* headcount slider */}
-                  <ActivitySliderHeadcount data={data} />
+                  <ActivitySliderHeadcount
+                    minJoinPeople={minJoinPeople}
+                    setMinJoinPeople={setMinJoinPeople}
+                    maxJoinPeople={maxJoinPeople}
+                    setMaxJoinPeople={setMaxJoinPeople}
+                    setPageNow={setPageNow}
+                  />
 
                   {/* date filter */}
                   <ActivityDateFilter />
@@ -94,8 +143,8 @@ function PicnicPrivateList() {
                 <div className="col-9">
                   <div className="d-flex justify-content-between">
                     <div className="mb-3 ">
-                      {/* card 切換 */}
-                      <ActivitySelect sort={sort} setSort={setSort}/>
+                      {/* card 切換 篩選ICON */}
+                      <ActivitySelect sort={sort} setSort={setSort} />
                     </div>
                     <div className="d-flex align-items-center">
                       <FaListUl
@@ -123,6 +172,7 @@ function PicnicPrivateList() {
                             type="text"
                             value={searchWord}
                             onChange={(e) => {
+                              // console.log(e.target.value);
                               setSearchWord(e.target.value);
                             }}
                           />
@@ -146,7 +196,7 @@ function PicnicPrivateList() {
                     </div>
                   </IconContext.Provider>
                   <PaginationBar
-                    lastPage={2}
+                    lastPage={5}
                     pageNow={pageNow}
                     setPageNow={setPageNow}
                   />
@@ -162,4 +212,56 @@ function PicnicPrivateList() {
   );
 }
 
-export default PicnicPrivateList;
+export default PicnicList;
+
+// --- 列表首頁 ---
+// useEffect(() => {
+//   let getOfficalList = async () => {
+//     let response = await axios.get(
+//       `${API_URL}/picnic/official?searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}`
+//     );
+//     // console.log(response.data);
+//     setData(response.data.data);
+//     // setAllData(response.data);
+//   };
+//   getOfficalList();
+// }, []);
+
+// useEffect(() => {
+//   // console.log(data);
+// }, [data]);
+
+// 搜尋 前端
+// const handleSearch = (allData, searchWord) => {
+//   let newData = [...allData];
+//   if (searchWord.length) {
+//     newData = allData.filter((data) => {
+//       return data.picnic_title.includes(searchWord);
+//     });
+//   }
+//   console.log(newData);
+//   if (searchWord !== '') {
+//     setData(newData);
+//   } else {
+//     setData(allData);
+//   }
+// };
+
+// useEffect(() => {
+//   let newData = [];
+
+//   newData = handleSearch(allData, searchWord);
+// }, [searchWord]);
+
+// 排序
+// const getSort = async () => {
+//   console.log('sort', sort);
+//   let response = await axios.get(
+//     `${API_URL}/picnic/official?activitySort=${sort}`
+//   );
+//   setData(response.data);
+//   // console.log(response.data);
+// };
+// useEffect(() => {
+//   getSort();
+// }, [sort]);

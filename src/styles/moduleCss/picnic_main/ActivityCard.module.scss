@@ -47,6 +47,15 @@
                 border-radius: 15px;
                 padding: 2px 8px;
                 margin-right: 5px;
+                &.coming{
+                    background-color: $subClrBrown;
+                }&.ing{
+                    background-color: $focusClrY;
+                }&.found{
+                    background-color: $focusClrG;
+                }&.end{
+                    background-color: $subClrGY;
+                }
             }
             .price{
                 font-size: $text12;
@@ -63,7 +72,7 @@
             height: 10px;
             .bar{
                 background-color: $focusClrY;
-                width: (13/15)*220-2px;
+                // width: (15/25)*220-2px;
                 height: 100%;
             }
         } 

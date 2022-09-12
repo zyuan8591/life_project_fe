@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   FaExclamationTriangle,
   FaCheck,
@@ -7,19 +8,24 @@ import {
   FaQuoteRight,
 } from 'react-icons/fa';
 
-function OffcialDetailContent() {
+function OffcialDetailContent({ data }) {
+  // console.log(data);
   return (
     <>
-      {/* --- 活動內容 --- */}
       <div className="offcialDetailContent">
-        <div className="contentWrap1 mb-5">
-          {/* <h4 className="contentTitle">活動內容</h4> */}
-          <p>
-            <FaQuoteLeft className="quoteLeftIcon" />
-            適合踏青的季節終於來了，能夠在晴空萬里的假日，和好友一起在綠地佈置夢幻場景拍美照、躺在大草坪慵懶的聊聊天、親近綠草如茵的大自然，真的很幸福。不僅如此，依照季節還能春天能欣賞粉嫩的櫻花、秋冬看落羽松，還有機會一睹飛機掠過頭頂的震撼感。這週就準備好你的食物，跟著「LIFE廚聚」一起去台北野餐市集吧！
-            <FaQuoteRight className="quoteRightIcon" />
-          </p>
-        </div>
+        {/* --- 活動內容 --- */}
+        {data.map((item) => {
+          return (
+            <div className="contentWrap1 mb-5" key={uuidv4()}>
+              {/* <h4 className="contentTitle">活動內容</h4> */}
+              <p>
+                <FaQuoteLeft className="quoteLeftIcon" />
+                {item.intr}
+                <FaQuoteRight className="quoteRightIcon" />
+              </p>
+            </div>
+          );
+        })}
         {/* --- 購買須知 --- */}
         <div className="mb-5">
           <h4 className="contentTitle">購買須知</h4>

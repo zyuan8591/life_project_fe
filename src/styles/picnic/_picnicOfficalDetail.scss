@@ -47,7 +47,7 @@
             .titleContent {
                 li {
                     font-size: $text20;
-                    line-height: 2.5rem;
+                    line-height: 3rem;
                     .faPawIcon {
                         @include iconSize;
                         color: $subClrBrown;                
@@ -150,7 +150,7 @@
                     .slider {
                         max-width: 900px;
                         height: 190px;
-                        margin: auto 45px;
+                        margin: auto 46px;
                         position: relative;
                         overflow: hidden;
                         .slidewrap {
@@ -263,6 +263,7 @@
         h4 {
             margin: 1.5rem 0;
             font-size: $text20;
+            color: $subClrBrown;
         }
         .arrowIconSlider {
             width: 1350px;
@@ -355,7 +356,8 @@
         overflow: hidden;
         h4 {
             margin: 1.5rem 0;
-            font-size: $text24;
+            font-size: $text20;
+            color: $subClrBrown;
         }
         .cardItem {
             max-height: 250px;
