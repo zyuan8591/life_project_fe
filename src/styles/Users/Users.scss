@@ -23,5 +23,9 @@
       width: 100%;
       // background: #ccc;
       padding: 50px 50px 0 50px;
+      h3{
+         border-left: 8px solid $subClrBrown;
+         padding-left: 10px;
+      }
    }    
 }

@@ -10,8 +10,6 @@ const InputGender = () => {
       <label htmlFor="">男</label>
       <input type="radio" name="gender" id="gender" />
       <label htmlFor="">女</label>
-      <input type="radio" name="gender" id="gender" />
-      <label htmlFor="">其他</label>
     </div>
   );
 };

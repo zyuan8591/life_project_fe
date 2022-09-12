@@ -1,32 +1,56 @@
 @import '../variable';
+@mixin titleBtn {
+  padding:5px 10px;
+  border-radius: 10px; 
+  background: $subClrBrown;
+  color:#fff; 
+  width: 50%;  
+}
+
 .order{
   .order-filter{
-     
-    li{
-      padding: 5px;
-      text-align: center;
-      border-radius: 10px;     
+     margin-top: 80px;
+    li{      
+      text-align: center;          
       color: black;
       position: relative;
-      cursor: pointer;
-      // background: $subClrBrown;
-      // color:#fff;
-      &::after{
-        content: "";
-        position: absolute;
-      }
+      display: flex;
+      justify-content: center;
+      align-items: center;      
+      cursor: pointer;  
+      div{
+        &:hover {         
+          transform: scale(1.05);
+          @include titleBtn()
+        
+        }
+        &:active {
+          transform: scale(1);
+          box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 2);
+          @include titleBtn()
+        }  
+      }  
+ 
     }
-    .active{
-      background: $subClrBrown;
-      color:#fff;      
+    .active{    
+      div{
+        padding:5px 10px;
+        border-radius: 10px; 
+        background: $subClrBrown;
+        color:#fff; 
+        width: 50%;              
+      }
+      
     }
   }  
   .order-table{
     table{
       text-align: center;
-      width: 100%;
+      width: 100%;      
+      line-height: 3rem;
     }
-    th,td{vertical-align: middle;
+    th,td{
+      vertical-align: middle;
       text-align: center;}
     .icons{
       margin-top: 150px;     
@@ -46,6 +70,7 @@
       color: #fff;
       border: 0;   
       border-radius: 5px;  
+      line-height: 1.5rem;
       &:hover {
         transform: scale(1.05);
       }

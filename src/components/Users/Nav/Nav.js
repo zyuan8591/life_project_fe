@@ -7,6 +7,7 @@ import {
   BsFillPersonFill,
   BsFillTreeFill,
   BsCreditCard2FrontFill,
+  BsFillBookmarkHeartFill,
 } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
 import { MdArticle } from 'react-icons/md';
@@ -22,6 +23,7 @@ const icon = [
   <BsCreditCard2FrontFill />,
   <BsFillTreeFill />,
   <GiBowlOfRice />,
+  <BsFillBookmarkHeartFill />,
 ];
 const userNav = [
   {
@@ -54,6 +56,11 @@ const userNav = [
       { title: '我的食譜', url: 'recipe' },
       { title: '食譜收藏', url: 'recipe' },
     ],
+  },
+  {
+    title: '商品收藏',
+    url: '/users/product',
+    item: [{ title: '', url: '' }],
   },
 ];
 
@@ -107,7 +114,7 @@ const Nav = () => {
     setVisable(visable.map((one, index) => (key == index ? true : false)));
   };
   return (
-    <div className="nav border" css={nav}>
+    <div className="nav" css={nav}>
       <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
         <ul className="list">
           {userNav.map((item, index) => {
@@ -136,10 +143,11 @@ const nav = css`
   padding-top: 100px;
   width: 250px;
   line-height: 3.5rem;
+  border-right: 1px solid #ccc;
   .list {
     margin: 0 auto;
     padding: 0;
-    ul{
+    ul {
       padding-left: 40px;
     }
   }

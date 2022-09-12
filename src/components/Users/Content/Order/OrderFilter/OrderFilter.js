@@ -17,7 +17,7 @@ const OrderFilter = () => {
                 setList(v);
               }}
             >
-              {v}
+              <div>{v}</div>
             </li>
           );
         })}
