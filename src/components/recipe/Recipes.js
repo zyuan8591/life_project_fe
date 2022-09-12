@@ -67,7 +67,7 @@ const Recipes = () => {
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
   const [recipeList, setRecipeList] = useState([]);
-  const [pagination, setPagination] = useState([]);
+  const [lastPage, setLastPage] = useState(0);
 
   // sql query data
   const [pageNow, setPageNow] = useState(1);
@@ -86,13 +86,19 @@ const Recipes = () => {
   }, []);
 
   useEffect(() => {
+    setPageNow(1);
+  }, [recipeCateNow, searchMaterial, searchName]);
+
+  useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}`
+        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}`
       );
+      console.log(result.data.pagination);
       setRecipeList(result.data.data);
+      setLastPage(result.data.pagination.lastPage);
     })();
-  }, [recipeCateNow, selectSortOption, searchMaterial, searchName]);
+  }, [recipeCateNow, selectSortOption, searchMaterial, searchName, pageNow]);
 
   return (
     <>
@@ -162,9 +168,11 @@ const Recipes = () => {
         </div>
         {/* Main Section */}
         <div className="recipeListMain">
-          <ProductCategory />
+          <div className="">
+            <ProductCategory />
+          </div>
           <div className="recipeList">
-            {/* Choose mode and TODO:  filter */}
+            {/* Choose mode and filter */}
             <div className="recipeMainToolBar flexCenter mb-3">
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
@@ -213,7 +221,7 @@ const Recipes = () => {
               </div>
             )}
             <PaginationBar
-              lastPage={12}
+              lastPage={lastPage}
               pageNow={pageNow}
               setPageNow={setPageNow}
             />
