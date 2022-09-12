@@ -7,7 +7,7 @@ const img = '/img/product/product_avatar/avatar.png';
 
 const ProductComment = () => {
   const [comment, setComment] = useState('');
-  const [hollow, sethollow] = useState(5);
+  const [hollow, sethollow] = useState(0);
   const [solid, setsolid] = useState(0);
   const comments = [
     {
@@ -36,7 +36,8 @@ const ProductComment = () => {
     },
     {
       name: '阿倫倫',
-      comment: '有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用 ',
+      comment:
+        '有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用 ',
       star: 1,
       date: '2022/03/22',
     },
@@ -51,7 +52,7 @@ const ProductComment = () => {
               <img src={img} alt="" />
             </figure>
             <div>
-              {[...Array(solid)].map((star, i) => {
+              {/* {[...Array(solid)].map((star, i) => {
                 return (
                   <i
                     className="fa-solid fa-star star"
@@ -72,31 +73,16 @@ const ProductComment = () => {
                     }}
                   ></i>
                 );
-              })}
-              {[...Array(hollow)].map((star, i) => {
+              })} */}
+              {[...Array(5)].map((star, i) => {
                 return (
                   <>
                     <i
-                      className="fa-regular fa-star star"
+                      className={`${
+                        i > hollow ? 'fa-regular' : 'fa-solid'
+                      } fa-star star`}
                       key={i}
-                      onMouseOver={() => {
-                        setsolid(i + 1);
-                        if (i === 0) {
-                          sethollow(4);
-                        } else if (i === 1) {
-                          sethollow(3);
-                        } else if (i === 2) {
-                          sethollow(2);
-                        } else if (i === 3) {
-                          sethollow(1);
-                        } else if (i === 4) {
-                          sethollow(0);
-                        }
-                        // 1 -> 4
-                        // 2 -> 3
-                        // 3 -> 2
-                        // 4 -> 1
-                      }}
+                      onMouseOver={() => sethollow(i)}
                     ></i>
                   </>
                 );
