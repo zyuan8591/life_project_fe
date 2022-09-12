@@ -19,8 +19,12 @@ import PaginationBar from '../public_component/PaginationBar';
 import RecipeListMode from './component/RecipeListMode';
 import RecipeCreateForm from './component/RecipeCreateForm';
 import BreadCrumb from '../public_component/BreadCrumb';
+import IndexRecipeActivity from '../index/component/IndexRecipeActivity';
+import { API_URL } from '../../utils/config';
+import { useEffect } from 'react';
+import axios from 'axios';
 
-const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
+// const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
   { value: 1, label: '最新食譜' },
   { value: 2, label: '熱門食譜' },
@@ -60,26 +64,52 @@ const customStyles = {
 
 const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(null);
-  const [pageNow, setPageNow] = useState(1);
-  const [displayMode, setDisplayMode] = useState(1);
+  const [displayMode, setDisplayMode] = useState(0);
   const [createRecipe, setCreateRecipe] = useState(false);
 
-  const recipeCateClickHandler = () => {};
+  // init data
+  const [recipeCate, setRecipeCate] = useState([]);
+  const [recipeList, setRecipeList] = useState([]);
+
+  // sql query data
+  const [pageNow, setPageNow] = useState(1);
+  const [recipeCateNow, setRecipeCateNow] = useState(0);
+
+  // http://localhost:3001/api/1.0/recipes?page=1&perPage=12
+  const getRecipeData = async (url = '') => {
+    let result = await axios.get(`${API_URL}/recipes${url}?perPage=12`);
+    let data = result.data;
+    return data;
+  };
+
+  useEffect(() => {
+    (async () => {
+      let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
+      let recipeCateData = recipeCateResult.data;
+      setRecipeCate([{ id: 0, name: '所有分類' }, ...recipeCateData]);
+      let recipeListData = await getRecipeData();
+      console.log(recipeListData.data);
+      setRecipeList(recipeListData.data);
+    })();
+  }, []);
 
   return (
     <>
       <div className="pageRecipes">
         <BreadCrumb />
+        <IndexRecipeActivity />
         {/* recipeCategory */}
         <div className="recipesCateBtnGroup mb-3">
           {recipeCate.map((d, i) => {
             return (
-              <RecipeCateBtn
-                key={i}
-                onclick={recipeCateClickHandler}
-                content={d}
-                active={i === 0 ? true : false}
-              />
+              <div key={d.id}>
+                <RecipeCateBtn
+                  cateNum={d.id}
+                  onclick={setRecipeCateNow}
+                  content={d.name}
+                  active={i === recipeCateNow ? true : false}
+                />
+              </div>
             );
           })}
         </div>
@@ -110,12 +140,7 @@ const Recipes = () => {
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
             >
-              <div
-                className="featureBtn"
-                onClick={() => {
-                  setCreateRecipe(true);
-                }}
-              >
+              <div className="featureBtn" onClick={() => setCreateRecipe(true)}>
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
@@ -134,6 +159,7 @@ const Recipes = () => {
             </IconContext.Provider>
           </div>
         </div>
+        {/* Main Section */}
         <div className="recipeListMain">
           <ProductCategory />
           <div className="recipeList">
@@ -169,17 +195,19 @@ const Recipes = () => {
             </div>
             {displayMode === 1 ? (
               <div className="recipeBlockModeList">
-                <RecipeListBlockMode />
-                <RecipeListBlockMode />
-                <RecipeListBlockMode />
-                <RecipeListBlockMode />
+                {recipeList.map((d, i) => {
+                  return (
+                    <div key={d.id}>
+                      <RecipeListBlockMode data={d} />
+                    </div>
+                  );
+                })}
               </div>
             ) : (
               <div className="recipeListModeList">
-                <RecipeListMode />
-                <RecipeListMode />
-                <RecipeListMode />
-                <RecipeListMode />
+                {recipeList.map((d, i) => {
+                  return <RecipeListMode data={d} />;
+                })}
               </div>
             )}
             <PaginationBar

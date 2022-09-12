@@ -14,7 +14,7 @@ const InputAddress = () => {
 
   return (
     <div className="addressGroup " css={addressGroup}>
-      <label for="address">　　地址：</label>
+      <label htmlFor="address">　　地址：</label>
       <select
         value={cityName}
         onChange={(e) => {
@@ -36,8 +36,9 @@ const InputAddress = () => {
           setAreaName(e.target.value);
         }}
       >
-        <option value="">請選擇</option>
+        <option value="">請選擇</option>;
         {city.map((v, i) => {
+          <option key={i}></option>;
           return v.AreaList.map((v2, i2) => {
             return (
               <option key={i2} value={v2.AreaName}>

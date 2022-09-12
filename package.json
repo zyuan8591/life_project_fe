@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@reduxjs/toolkit": "^1.8.5",
@@ -13,6 +14,7 @@
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "leaflet": "^1.8.0",
+    "memoize-one": "^6.0.0",
     "moment": "^2.29.4",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",

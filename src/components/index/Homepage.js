@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SliderComponent from './component/SliderComponent';
 import '../../styles/_homepage.scss';
 import IndexTitle from './component/IndexTitle';
@@ -8,8 +8,26 @@ import IndexActivity from './component/IndexActivity';
 import IndexJoinUs from './component/IndexJoinUs';
 import IndexRecipe from './component/IndexRecipe';
 import IndexRecipeActivity from './component/IndexRecipeActivity';
+import { API_URL } from '../../utils/config';
+import axios from 'axios';
 
 const Homepage = () => {
+  const [recipeData, setRecipeData] = useState([]);
+  const [newsData, setNewsData] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/recipes?sort=2&page=1&perPage=12`
+      );
+      let data = result.data.data;
+      setRecipeData(data);
+
+      let newsResulte = await axios.get(`${API_URL}/news`);
+      let newsData = newsResulte.data;
+      setNewsData(newsData);
+    })();
+  }, []);
+
   return (
     <>
       <SliderComponent />
@@ -18,7 +36,7 @@ const Homepage = () => {
           {/* NEWS */}
           <div className="hPnewsContainer">
             <IndexTitle title="最新資訊" subtitle="News" route="/news" />
-            <IndexNews />
+            <IndexNews data={newsData} />
           </div>
           <div className="separateLine"></div>
           {/* NEW PRODUCTS */}
@@ -39,8 +57,10 @@ const Homepage = () => {
               route="/recipes"
             />
           </div>
-          <IndexRecipe />
-          <IndexRecipeActivity />
+          <IndexRecipe data={recipeData} />
+          <div className="hPrecipeActivity">
+            <IndexRecipeActivity />
+          </div>
           <div className="separateLine"></div>
           {/* ACTIVITIES */}
           <div className="hPactivityContainer">

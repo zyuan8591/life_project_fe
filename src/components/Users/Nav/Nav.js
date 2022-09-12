@@ -8,7 +8,6 @@ import Navbar from './Navbar';
 const Nav = () => {
   return (
     <div css={sidemenu}>
-      <Avata />
       <Navbar />
     </div>
   );

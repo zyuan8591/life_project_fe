@@ -22,7 +22,8 @@
       text-align: center;
       width: 100%;
     }
-    th,td{line-height:3rem;}
+    th,td{vertical-align: middle;
+      text-align: center;}
     .icons{
       margin-top: 150px;     
       p{font-size: 2rem;}
@@ -36,8 +37,8 @@
       }     
     } 
     button{
-      padding: 10px;
-      background:$subClrBrown;
+      padding:5px;
+      background:$focusClrG;
       color: #fff;
       border: 0;   
       border-radius: 5px;  
