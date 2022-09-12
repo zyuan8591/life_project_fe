@@ -9,7 +9,6 @@ import {
   AiOutlinePlusCircle,
   AiOutlineBook,
   AiOutlineHeart,
-  AiOutlineQuestionCircle,
   AiOutlineBars,
   AiOutlineAppstore,
 } from 'react-icons/ai';
@@ -26,10 +25,9 @@ import axios from 'axios';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
-  { value: 1, label: '最新食譜' },
-  { value: 2, label: '熱門食譜' },
+  { value: 2, label: '最新食譜' },
+  { value: 3, label: '熱門食譜' },
 ];
-const sortOptionStyle = {};
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
@@ -63,35 +61,38 @@ const customStyles = {
 };
 
 const Recipes = () => {
-  const [selectSortOption, setSelectSortOption] = useState(null);
   const [displayMode, setDisplayMode] = useState(0);
   const [createRecipe, setCreateRecipe] = useState(false);
 
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
   const [recipeList, setRecipeList] = useState([]);
+  const [pagination, setPagination] = useState([]);
 
   // sql query data
   const [pageNow, setPageNow] = useState(1);
   const [recipeCateNow, setRecipeCateNow] = useState(0);
-
-  // http://localhost:3001/api/1.0/recipes?page=1&perPage=12
-  const getRecipeData = async (url = '') => {
-    let result = await axios.get(`${API_URL}/recipes${url}?perPage=12`);
-    let data = result.data;
-    return data;
-  };
+  const [productCateNow, setProductCateNow] = useState(0);
+  const [searchName, setSearchName] = useState('');
+  const [searchMaterial, setSearchMaterial] = useState('');
+  const [selectSortOption, setSelectSortOption] = useState(1);
 
   useEffect(() => {
     (async () => {
       let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
       let recipeCateData = recipeCateResult.data;
       setRecipeCate([{ id: 0, name: '所有分類' }, ...recipeCateData]);
-      let recipeListData = await getRecipeData();
-      console.log(recipeListData.data);
-      setRecipeList(recipeListData.data);
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}`
+      );
+      setRecipeList(result.data.data);
+    })();
+  }, [recipeCateNow, selectSortOption, searchMaterial, searchName]);
 
   return (
     <>
@@ -114,18 +115,22 @@ const Recipes = () => {
           })}
         </div>
         <div className="recipeToolBar">
-          {/* search Button... */}
+          {/* TODO: search Button... */}
           <div className="recipeSearchBar">
             <span className="searchFor flexCenter">找食譜</span>
             <input
               type="text"
               className="searchForName"
               placeholder="請輸入食譜名稱"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
             />
             <input
               type="text"
               className="searchForMaterial"
               placeholder="請輸入食材名稱"
+              value={searchMaterial}
+              onChange={(e) => setSearchMaterial(e.target.value)}
             />
             <div className="recipesSearchBtn">
               <IconContext.Provider
@@ -135,7 +140,7 @@ const Recipes = () => {
               </IconContext.Provider>
             </div>
           </div>
-          {/* add recipe, my recipe ... btn */}
+          {/* TODO: add recipe, my recipe ... btn */}
           <div className="recipeFeatureBtn">
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
@@ -144,17 +149,13 @@ const Recipes = () => {
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
-              <Link to="/" className="featureBtn">
+              <Link to="/users/recipe" className="featureBtn">
                 <AiOutlineBook />
                 <span>我的食譜</span>
               </Link>
-              <Link to="/" className="featureBtn">
+              <Link to="/users/recipe" className="featureBtn">
                 <AiOutlineHeart />
                 <span>食譜收藏</span>
-              </Link>
-              <Link to="/" className="featureBtn">
-                <AiOutlineQuestionCircle />
-                <span>客服中心</span>
               </Link>
             </IconContext.Provider>
           </div>
@@ -163,7 +164,7 @@ const Recipes = () => {
         <div className="recipeListMain">
           <ProductCategory />
           <div className="recipeList">
-            {/* Choose mode and filter */}
+            {/* Choose mode and TODO:  filter */}
             <div className="recipeMainToolBar flexCenter mb-3">
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
@@ -187,12 +188,13 @@ const Recipes = () => {
               </IconContext.Provider>
               <Select
                 defaultValue={sortOption[0]}
-                onChange={setSelectSortOption}
+                onChange={(e) => setSelectSortOption(e.value)}
                 options={sortOption}
                 styles={customStyles}
                 isSearchable={false}
               />
             </div>
+            {/* Main Content */}
             {displayMode === 1 ? (
               <div className="recipeBlockModeList">
                 {recipeList.map((d, i) => {
@@ -217,6 +219,7 @@ const Recipes = () => {
             />
           </div>
         </div>
+        {/* TODO: Create Recipe Form */}
         {createRecipe && (
           <section
             className="creatingRecipe flexCenter"
