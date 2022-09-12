@@ -12,12 +12,12 @@ $margin: 12.5px;
   align-items: center;
   overflow: hidden;
   .item {
-    width: 900px;
+    // width: 500px;
     // margin: 50px;
     display: flex;
     overflow: hidden;
     figure {
-      min-width: 300px;
+      min-width: 250px;
       overflow: hidden;
       margin: 0 auto;
       padding: 0 $margin;

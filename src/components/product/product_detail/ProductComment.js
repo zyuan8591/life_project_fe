@@ -83,6 +83,12 @@ const ProductComment = () => {
                       } fa-star star`}
                       key={i}
                       onMouseOver={() => sethollow(i)}
+                      onClick={() => {
+                        setsolid(i);
+                      }}
+                      onMouseOut={() => {
+                        sethollow(solid);
+                      }}
                     ></i>
                   </>
                 );
