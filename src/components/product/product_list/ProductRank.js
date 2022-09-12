@@ -23,16 +23,26 @@ const ProductRank = () => {
         moveCount={5}
         total={15}
         pattern={'rank'}
-        itemWidth={220}
+        itemWidth={250 + 38}
       >
-        <div className="d-flex justify-content-between">
+        <div
+          className="d-flex justify-content-between"
+          style={{
+            transform: `translateX(${now}px)`,
+            transition: '0.4s',
+          }}
+        >
           {[...Array(15)].map((v, i) => {
             return (
               <div className="rank" key={i}>
-                <div className="number">
+                <div
+                  className={`${i === 0 ? 'one' : ''} ${i === 1 ? 'two' : ''} ${
+                    i === 2 ? 'three' : ''
+                  } number`}
+                >
                   <p>{i + 1}</p>
                 </div>
-                <figure style={{}}>
+                <figure>
                   <img src={slideImg} alt="" />
                 </figure>
                 <p>BOE021 多功能電烤盤-經典款（紅色）</p>

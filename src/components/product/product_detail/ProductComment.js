@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import '../../../styles/product/_productComment.scss';
 import { IconContext } from 'react-icons';
-import { FaStar } from 'react-icons/fa';
 const img = '/img/product/product_avatar/avatar.png';
 
 const ProductComment = () => {
@@ -42,7 +41,6 @@ const ProductComment = () => {
       date: '2022/03/22',
     },
   ];
-  function hollowStar(v) {}
   return (
     <>
       <div className="typeArea">
@@ -52,28 +50,7 @@ const ProductComment = () => {
               <img src={img} alt="" />
             </figure>
             <div>
-              {/* {[...Array(solid)].map((star, i) => {
-                return (
-                  <i
-                    className="fa-solid fa-star star"
-                    key={i}
-                    onMouseOver={() => {
-                      setsolid(i + 1);
-                      if (i === 0) {
-                        sethollow(4);
-                      } else if (i === 1) {
-                        sethollow(3);
-                      } else if (i === 2) {
-                        sethollow(2);
-                      } else if (i === 3) {
-                        sethollow(1);
-                      } else if (i === 4) {
-                        sethollow(0);
-                      }
-                    }}
-                  ></i>
-                );
-              })} */}
+
               {[...Array(5)].map((star, i) => {
                 return (
                   <>
@@ -116,7 +93,7 @@ const ProductComment = () => {
       {comments.map((v, i) => {
         return (
           <>
-            <div className="commentArea">
+            <div className="commentArea" key={i}>
               <div className="d-flex justify-content-between" key={i}>
                 <div className="avatar">
                   <figure>

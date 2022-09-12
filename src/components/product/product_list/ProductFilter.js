@@ -57,11 +57,11 @@ const ProductFilter = () => {
                       setBrand(e.target.value);
                       console.log(brand.length);
                     }}
-                    // onKeyDown={(e) => {
-                    //   if (e.keyCode === 13) {
-                    //     setBrand('');
-                    //   }
-                    // }}
+                    onKeyDown={(e) => {
+                      if (e.keyCode === 13) {
+                        setBrand('');
+                      }
+                    }}
                     style={{
                       background: brand.length > 10 ? 'none' : '',
                     }}

@@ -21,7 +21,7 @@ const Slider = ({
   // const [total, setTotal] = useState(9);
   const [progressNow, setProgressNow] = useState(0);
   const [progressRound, setProgressRound] = useState(0);
-  // console.log(progressRound);
+  // console.log(now);
   const slideLeft = () => {
     if (now === 0) return;
     setNow(now + itemWidth * moveCount);

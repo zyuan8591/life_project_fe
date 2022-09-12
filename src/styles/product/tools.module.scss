@@ -1,0 +1,44 @@
+@import '../variable';
+
+.tool {
+  position: fixed;
+  top: calc(50% - 125px);
+  right: 5px;
+  width: 50px;
+  height: 240px;
+  color: $mainClrW;
+  background: $subClrBrown;
+  opacity: 0.3;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+.cartContainer {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  transition: 4s;
+  display: none;
+}
+.cart {
+  width: 300px;
+  height: 100vh;
+  background: $contentClr;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  transition: .4s;
+}

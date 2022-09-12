@@ -13,7 +13,6 @@ const ProductListSlider = ({ now, total }) => {
             <figure
               style={{
                 transform: `translateX(${now}px)`,
-                transition: '0.4s',
               }}
               key={i}
             >
