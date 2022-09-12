@@ -26,7 +26,7 @@ import Signup from './components/Login/Signup';
 import Login from './components/Login/login';
 import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
-import Map from './components/map/Map';
+import SetMap from './components/map/SetMap';
 function HeaderFooter() {
   return (
     <>
@@ -70,7 +70,7 @@ function App() {
             path="/activity/camping/:campingId"
             element={<CampingDetailPage />}
           />
-          <Route path="/map" element={<Map />} />
+          <Route path="/map" element={<SetMap />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </ScrollToTop>
