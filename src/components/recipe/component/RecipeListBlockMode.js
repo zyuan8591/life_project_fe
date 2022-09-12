@@ -2,6 +2,7 @@ import React from 'react';
 import classes from '../../../styles/moduleCss/recipes/RecipeListBlockMode.module.scss';
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../../../utils/config';
 
 const RecipeListBlockMode = ({ data }) => {
   return (
