@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.22.8",
     "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
     "formik": "^2.2.9",
     "leaflet": "^1.8.0",
     "memoize-one": "^6.0.0",
