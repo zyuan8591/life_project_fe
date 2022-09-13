@@ -7,8 +7,8 @@ import Payment from './CheckPage/Payment';
 const CheckOut = (props) => {
   return (
     <>
-      <OrderDetail />
       <form>
+        <OrderDetail />
         <RecipientInfo />
         <Payment />
       </form>
