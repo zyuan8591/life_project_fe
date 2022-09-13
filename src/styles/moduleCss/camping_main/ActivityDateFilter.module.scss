@@ -11,8 +11,9 @@
     input::-webkit-calendar-picker-indicator {
         width: 25px;
         height: 25px;
-        background-color: $subClrBrown; 
-        background-image: -webkit-linear-gradient(top, $subClrBrown, $subClrBrown);
+        color: $subClrBrown;
+        // background-color: $subClrBrown; 
+        // background-image: -webkit-linear-gradient(top, $subClrBrown, $subClrBrown);
         border-radius: 2px; 
         cursor: pointer;
     }

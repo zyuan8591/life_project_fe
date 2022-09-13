@@ -20,6 +20,7 @@ import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
 import NotFound from './NotFound';
+import { useUserRights } from '../../../usecontext/UserRights';
 
 const activityState = [
   { id: 1, state: '即將開團', style: '#817161' },
@@ -50,6 +51,8 @@ function CampingMain() {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [numberTtl, setnumberTtl] = useState(0);
+  const { user, setUser } = useUserRights();
+  const [userCollected, setUserCollected] = useState([]);
 
   useEffect(() => {
     let getCampingData = async () => {
@@ -62,6 +65,18 @@ function CampingMain() {
       setCampingData(response.data.result);
     };
     getCampingData();
+
+    let getAllCollect = async () => {
+      let response = await axios.get(`${API_URL}/camping/campingCollected`, {
+        withCredentials: true,
+      });
+      // console.log('getAll', response.data);
+      let collected = response.data.map((v) => v.activity_id);
+      setUserCollected(collected);
+    };
+    if (user) {
+      getAllCollect();
+    }
   }, [
     state,
     minPrice,
@@ -73,6 +88,7 @@ function CampingMain() {
     page,
     maxJoinTtl,
     minJoinTtl,
+    user,
   ]);
   // console.log(state);
 
@@ -90,19 +106,20 @@ function CampingMain() {
     }
   };
 
-  // price slider
-  // const priceAll = campingData.map((v) => {
-  //   return v.price;
-  // });
-  // const maxP = Math.max(...priceAll);
-  // console.log(maxP);
-
   // 引入card
   const card = () => {
     if (numberTtl !== 0) {
       return campingData.map((v) => {
         return (
-          <ActivityCard key={v.id} v={v} stateClassName={stateClassName} />
+          <ActivityCard
+            key={v.id}
+            v={v}
+            stateClassName={stateClassName}
+            user={user}
+            setUser={setUser}
+            userCollected={userCollected}
+            setUserCollected={setUserCollected}
+          />
         );
       });
     } else {
@@ -110,15 +127,38 @@ function CampingMain() {
     }
   };
   // TODO:noData view
-  const horizontalCard = campingData.map((v) => {
-    return (
-      <ActivityHorizontalCard
-        key={v.id}
-        v={v}
-        stateClassName={stateClassName}
-      />
-    );
-  });
+  const horizontalCard = () => {
+    if (numberTtl !== 0) {
+      return campingData.map((v) => {
+        return (
+          <ActivityHorizontalCard
+            key={v.id}
+            v={v}
+            stateClassName={stateClassName}
+            user={user}
+            setUser={setUser}
+            userCollected={userCollected}
+            setUserCollected={setUserCollected}
+          />
+        );
+      });
+    } else {
+      return <NotFound />;
+    }
+  };
+  // campingData.map((v) => {
+  //   return (
+  //     <ActivityHorizontalCard
+  //       key={v.id}
+  //       v={v}
+  //       stateClassName={stateClassName}
+  //       user={user}
+  //       setUser={setUser}
+  //       userCollected={userCollected}
+  //       setUserCollected={setUserCollected}
+  //     />
+  //   );
+  // });
 
   return (
     <>
@@ -253,7 +293,7 @@ function CampingMain() {
                       {/* 列表 HorizontalStyle */}
                       {cardChange === true && horizontalCardChange === false
                         ? card()
-                        : horizontalCard}
+                        : horizontalCard()}
                     </div>
                   </IconContext.Provider>
                   <PaginationBar

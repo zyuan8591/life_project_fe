@@ -12,12 +12,31 @@ function CampingDetailAside({
   stateClassName,
   dataReplace,
   joinPep,
+  userJoin,
+  user,
+  handleDelJoin,
+  handleAddJoin,
 }) {
   const stateBtn = (state) => {
-    if (state === '已成團') return '已成團';
-    if (state === '開團中') return '加入活動';
-    return state;
+    if (user) {
+      if (state === '已成團') return '已成團';
+      if (state === '開團中') return '加入活動';
+      return state;
+    } else {
+      if (state === '已成團') return '已成團';
+      if (state === '開團中') return '請先登入會員';
+      return state;
+    }
   };
+  //   if (state === '已成團') return '已成團';
+  //   if (state === '開團中') return '加入活動';
+  //   return state;
+  // };
+  // const loginStateBtn = (state) => {
+  //   if (state === '已成團') return '已成團';
+  //   if (state === '開團中') return '請先登入會員';
+  //   return state;
+  // };
 
   return (
     <>
@@ -57,14 +76,48 @@ function CampingDetailAside({
         <div className="text-center">
           {/* TODO:已報名---取消報名 */}
           {/* TODO:更換成icon? */}
-          <button
-            className={
-              v.state !== '開團中' ? classes.disabledBtn : classes.joinBtn
-            }
-            disabled={v.state !== '開團中' ? true : false}
-          >
-            {stateBtn(v.state)}
-          </button>
+
+          {user ? (
+            userJoin.includes(v.id) ? (
+              <button
+                className={
+                  v.state !== '開團中'
+                    ? classes.disabledBtn
+                    : classes.hadJoinBtn
+                }
+                disabled={v.state !== '開團中' ? true : false}
+                onClick={() => {
+                  handleDelJoin(v.id);
+                }}
+              >
+                取消活動
+              </button>
+            ) : (
+              <button
+                className={
+                  v.state !== '開團中' ? classes.disabledBtn : classes.joinBtn
+                }
+                disabled={v.state !== '開團中' ? true : false}
+                onClick={() => {
+                  handleAddJoin(v.id);
+                }}
+              >
+                {stateBtn(v.state)}
+              </button>
+            )
+          ) : (
+            <button
+              className={
+                v.state !== '開團中' ? classes.disabledBtn : classes.loginBtn
+              }
+              disabled={v.state !== '開團中' ? true : false}
+              onClick={() => {
+                alert('請先登入會員');
+              }}
+            >
+              {stateBtn(v.state)}
+            </button>
+          )}
         </div>
       </aside>
     </>

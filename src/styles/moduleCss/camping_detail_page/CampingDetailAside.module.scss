@@ -2,6 +2,13 @@
 @mixin buttonHover {
     box-shadow: .2px .2px 6px rgba(0, 0, 0, 0.5);
 }
+@mixin joinBtn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 4px 8px;
+    border: 0;
+    color: $mainClrW;
+}
 
 .sticky{
     position: sticky;
@@ -46,25 +53,31 @@ aside{
         border: 1px solid lightblue;
     }
     .joinBtn{
-        display: inline-block;
-        margin-top: 20px;
-        padding: 4px 8px;
-        border: 0;
-        background-color: $subClrBrown;
-        color: $mainClrW;
-        transition: .3s;
+        background-color: $focusClrY;
         cursor: pointer;
+        transition: .3s;
+        @include joinBtn();
+        &:hover{
+            @include buttonHover;
+        }
+    }
+    .hadJoinBtn{
+        background-color: $subClrBrown;
+        cursor: pointer;
+        transition: .3s;
+        @include joinBtn();
         &:hover{
             @include buttonHover;
         }
     }
     .disabledBtn{
-        display: inline-block;
-        margin-top: 20px;
-        padding: 4px 8px;
-        border: 0;
         background-color: $contentClr;
-        color: $mainClrW;
         cursor: default;
+        @include joinBtn();
+    }
+    .loginBtn{
+        background-color: $focusClrB;
+        cursor: pointer;
+        @include joinBtn();
     }
 }

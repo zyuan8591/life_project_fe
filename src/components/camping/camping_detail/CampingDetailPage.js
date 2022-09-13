@@ -11,8 +11,12 @@ import {
   IoIosArrowDroprightCircle,
   IoIosArrowDropleftCircle,
 } from 'react-icons/io';
-import { FaWifi, FaPlug, FaUserFriends, FaPaw } from 'react-icons/fa';
-import { MdOutlineLocalParking } from 'react-icons/md';
+import { FaWifi, FaPlug, FaUserFriends, FaPaw, FaHeart } from 'react-icons/fa';
+import {
+  MdOutlineLocalParking,
+  MdAddCircle,
+  MdRemoveCircle,
+} from 'react-icons/md';
 
 import '../../../styles/camping/camping_detail/_campingDetailPage.scss';
 import Footer from '../../public_component/Footer';
@@ -24,6 +28,7 @@ import PlaceSlide from './component/slider/PlaceSlide';
 import CampingDetailInfo from './component/CampingDetailInfo';
 import CampingDetailJoinSlide from './component/CampingDetailJoinSlide';
 import CampingDetailAside from './component/CampingDetailAside';
+import { useUserRights } from '../../../usecontext/UserRights';
 const stateClassName = (state) => {
   switch (state) {
     case '開團中':
@@ -110,15 +115,49 @@ function CampingDetailPage() {
   const [joinSlider, setJoinSlider] = useState(0);
 
   const { campingId } = useParams();
+  const { user, setUser } = useUserRights();
+  const [userJoin, setUserJoin] = useState([]);
+  const [userCollected, setUserCollected] = useState([]);
+
+  // console.log(campingId);
+
   useEffect(() => {
     let getCampingDetailData = async () => {
       let response = await axios.get(`${API_URL}/camping/${campingId}`);
-      // console.log(response.data.joinResult);
+      // console.log(response.data.result);
       setDetailData(response.data.result);
       setJoinCount(response.data.joinResult);
     };
     getCampingDetailData();
   }, []);
+
+  useEffect(() => {
+    let getAllJoin = async () => {
+      let response = await axios.get(`${API_URL}/camping/campingHadJoin`, {
+        withCredentials: true,
+      });
+      // console.log('getAll', response.data);
+      let hadJoin = response.data.map((v) => v.activity_id);
+      // console.log(hadJoin)
+      setUserJoin(hadJoin);
+    };
+    if (user) {
+      getAllJoin();
+    }
+
+    let getAllCollect = async () => {
+      let response = await axios.get(`${API_URL}/camping/campingCollected`, {
+        withCredentials: true,
+      });
+      // console.log('getAll', response.data);
+      let collected = response.data.map((v) => v.activity_id);
+      setUserCollected(collected);
+    };
+    if (user) {
+      getAllCollect();
+    }
+  }, [user]);
+
   // sliderAll right
   const sliderAllRight = (cardWidth, cardLength, displayTotal) => {
     let nowSlide = 0;
@@ -167,6 +206,60 @@ function CampingDetailPage() {
           return date.replace(/-/g, '/');
         }
 
+        const handleAddJoin = async (campingId) => {
+          // console.log(campingId);
+          let response = await axios.post(
+            `${API_URL}/camping/campingJoin/${campingId}`,
+            {},
+            { withCredentials: true }
+          );
+          let hadJoin = response.data.getJoin.map((v) => v.activity_id);
+          setUserJoin(hadJoin);
+          console.log('add', response.data);
+          //TODO: 改掉alert
+          alert('已加入活動');
+        };
+
+        const handleDelJoin = async (campingId) => {
+          // console.log(campingId);
+          let response = await axios.delete(
+            `${API_URL}/camping/campingJoin/${campingId}`,
+            { withCredentials: true }
+          );
+          let hadJoin = response.data.getJoin.map((v) => v.activity_id);
+          setUserJoin(hadJoin);
+          console.log('del', response.data);
+          //TODO: 改掉alert
+          alert('已取消活動');
+        };
+
+        const handleAddCollect = async (campingId) => {
+          // console.log(campingId);
+          let response = await axios.post(
+            `${API_URL}/camping/campingCollect/${campingId}`,
+            {},
+            { withCredentials: true }
+          );
+          console.log('add', response.data);
+          let collected = response.data.getCamping.map((v) => v.activity_id);
+          setUserCollected(collected);
+          // TODO: 修改alert
+          alert('已加入收藏');
+        };
+
+        const handleDelCollect = async (campingId) => {
+          // console.log(campingId);
+          let response = await axios.delete(
+            `${API_URL}/camping/campingCollect/${campingId}`,
+            { withCredentials: true }
+          );
+          console.log('del', response.data);
+          let collected = response.data.getCamping.map((v) => v.activity_id);
+          setUserCollected(collected);
+          // TODO: 修改alert
+          alert('已取消收藏');
+        };
+
         return (
           <main className="CampingDetailPage" key={v.id}>
             <div className="main">
@@ -177,12 +270,104 @@ function CampingDetailPage() {
                 <div className="col-8" style={{ backgroundColor: 'white' }}>
                   <div className="mainTitle">
                     <div className="title">{v.title}</div>
-                    {/* TODO:已報名---取消報名 */}
-                    {v.state !== '開團中' ? (
-                      ''
-                    ) : (
-                      <button className="joinBtn">加入活動</button>
-                    )}
+
+                    {/* <button
+                            className="hadJoinBtn"
+                            onClick={() => {
+                              handleDelJoin(v.id);
+                            }}
+                          >
+                            取消活動
+                          </button> */}
+                    {/* <button
+                            className="joinBtn"
+                            onClick={() => {
+                              handleAddJoin(v.id);
+                            }}
+                          >
+                            加入活動
+                          </button> */}
+                    <div className="d-flex align-items-center justify-content-center">
+                      {/* collect */}
+                      {user ? (
+                        userCollected.includes(v.id) ? (
+                          <IconContext.Provider
+                            value={{
+                              className: 'collectedBtn',
+                            }}
+                          >
+                            <FaHeart
+                              onClick={() => {
+                                handleDelCollect(v.id);
+                              }}
+                            />
+                          </IconContext.Provider>
+                        ) : (
+                          <IconContext.Provider
+                            value={{
+                              className: 'collectBtn',
+                            }}
+                          >
+                            <FaHeart
+                              onClick={() => {
+                                handleAddCollect(v.id);
+                              }}
+                            />
+                          </IconContext.Provider>
+                        )
+                      ) : (
+                        <IconContext.Provider
+                          value={{
+                            className: 'collectBtn',
+                          }}
+                        >
+                          <FaHeart
+                            // className={classes.collect}
+                            onClick={() => {
+                              // TODO: 改掉alert
+                              alert('請先登入會員');
+                            }}
+                          />
+                        </IconContext.Provider>
+                      )}
+
+                      {/* join */}
+                      {v.state !== '開團中' ? (
+                        ''
+                      ) : user ? (
+                        userJoin.includes(v.id) ? (
+                          <IconContext.Provider
+                            value={{
+                              color: '#817161',
+                              size: '1.9rem',
+                              className: 'joinIcon',
+                            }}
+                          >
+                            <MdRemoveCircle
+                              onClick={() => {
+                                handleDelJoin(v.id);
+                              }}
+                            />
+                          </IconContext.Provider>
+                        ) : (
+                          <IconContext.Provider
+                            value={{
+                              color: '#F2AC33',
+                              size: '1.9rem',
+                              className: 'joinIcon',
+                            }}
+                          >
+                            <MdAddCircle
+                              onClick={() => {
+                                handleAddJoin(v.id);
+                              }}
+                            />
+                          </IconContext.Provider>
+                        )
+                      ) : (
+                        ''
+                      )}
+                    </div>
                   </div>
                   <div className="d-flex justify-content-between ">
                     {/* 簡介 */}
@@ -321,7 +506,7 @@ function CampingDetailPage() {
                               className="ms-4 mt-4"
                               style={{ fontSize: '16px', color: '#1F9998' }}
                             >
-                              暫無會員收藏
+                              暫無會員加入
                             </div>
                           )}
                         </div>
@@ -346,6 +531,10 @@ function CampingDetailPage() {
                           stateClassName={stateClassName}
                           dataReplace={dataReplace}
                           joinPep={joinPep}
+                          user={user}
+                          userJoin={userJoin}
+                          handleDelJoin={handleDelJoin}
+                          handleAddJoin={handleAddJoin}
                         />
                       );
                     })}

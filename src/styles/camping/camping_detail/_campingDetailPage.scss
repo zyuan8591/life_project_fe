@@ -9,6 +9,11 @@
     transform: translate($translateX,-20px);
     cursor: pointer;
 }
+@mixin collectBtn {
+    margin-right: 10px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
 
 .CampingDetailPage{
     margin: 0 auto $headerHeight;
@@ -33,20 +38,50 @@
                 font-size: $text32;
                 margin-right: 15px;
             }
-            .joinBtn{
-                display: inline-block;
-                margin-right: 20px;
-                padding: 4px 8px;
-                color: $mainClrW;
-                border: 0;
-                border-radius: 2px;
-                background-color: $focusClrY;
-                transition: .3s;
+            .joinIcon{
                 cursor: pointer;
-                &:hover{
-                    @include buttonHover;
-                }
             }
+            .collectBtn{
+                @include collectBtn;
+                // &:hover{
+                //     color: #dd2424;
+                // }
+            }
+            .collectedBtn{
+                @include collectBtn;
+                color: #dd2424;
+                // &:hover{
+                //     color: $contentClr;
+                // }
+            }
+            // .joinBtn{
+            //     display: inline-block;
+            //     margin-right: 20px;
+            //     padding: 4px 8px;
+            //     color: $mainClrW;
+            //     border: 0;
+            //     border-radius: 2px;
+            //     background-color: $focusClrY;
+            //     transition: .3s;
+            //     cursor: pointer;
+            //     &:hover{
+            //         @include buttonHover;
+            //     }
+            // }
+            // .hadJoinBtn{
+            //     display: inline-block;
+            //     margin-right: 20px;
+            //     padding: 4px 8px;
+            //     color: $mainClrW;
+            //     border: 0;
+            //     border-radius: 2px;
+            //     background-color: $subClrBrown;
+            //     transition: .3s;
+            //     cursor: pointer;
+            //     &:hover{
+            //         @include buttonHover;
+            //     }
+            // }
         }
         .titleContainer{
             .titleContent{
