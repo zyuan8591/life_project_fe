@@ -32,7 +32,7 @@ function RecipientInfo() {
           </div>
           <div className="col-12 mb-2">
             <label className="mb-2">備註</label>
-            <textarea className="recipientInput" />
+            <textarea className="recipientInput" placeholder='最多100字' />
           </div>
         </div>
       </div>
