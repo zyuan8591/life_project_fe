@@ -35,36 +35,41 @@ const commentSubmitBtn = css`
   background: ${subClrBrown};
 `;
 
-const RecipeComments = () => {
+const RecipeComments = ({ data }) => {
   return (
     <>
       <div className="fs-2 ps-2 lh-sm mb-3" css={title}>
         食譜評論
       </div>
       <div css={commentContainer}>
-        {Array(5)
-          .fill('')
-          .map((a, i) => {
-            return (
-              <div
-                className="d-flex align-items-center mb-3 rounded-1"
-                css={recommend}
-                key={i}
-              >
-                <figure css={avatorContainer} className="m-0">
-                  <img
-                    src="/img/user/user_img/alen.png"
-                    alt=""
-                    className="objectContain"
-                  />
-                </figure>
-                <div className="d-flex flex-column w-100 px-3">
-                  <span css={borderBottom}>Aaron</span>
-                  <span>超級好吃</span>
+        {data.map((d, i) => {
+          return (
+            <div
+              className="d-flex align-items-center mb-3 rounded-1"
+              css={recommend}
+              key={d.id}
+            >
+              <figure css={avatorContainer} className="m-0">
+                <img
+                  src="/img/user/user_img/alen.png"
+                  alt=""
+                  className="objectContain"
+                />
+              </figure>
+              <div className="d-flex flex-column w-100 px-3">
+                <div
+                  css={borderBottom}
+                  className="d-flex justify-content-between"
+                >
+                  <span>{d.user_id}</span>
+                  <span>{d.create_time.replace(/-/g, '.')}</span>
                 </div>
+
+                <span>{d.content}</span>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
       <div className="position-relative">
         <textarea

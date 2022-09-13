@@ -15,18 +15,26 @@ import { API_URL } from '../../utils/config';
 import axios from 'axios';
 
 const RecipeDetail = () => {
-  const pageRef = useRef(null);
-  const [step, setStep] = useState([]);
-  const [recipeData, setRecipeData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const pageRef = useRef(null);
+  const [recipeData, setRecipeData] = useState([]);
+  const [step, setStep] = useState([]);
+  const [comments, setComments] = useState([]);
+
   const id = searchParams.get('id');
 
   useEffect(() => {
     (async () => {
+      // recipe detail
       let result = await axios.get(`${API_URL}/recipes/${id}`);
+      setRecipeData(result.data[0]);
+      // step
       let stepResult = await axios.get(`${API_URL}/recipes/${id}/step`);
       setStep(stepResult.data);
-      setRecipeData(result.data[0]);
+      // comment
+      let commentsResult = await axios.get(`${API_URL}/recipes/${id}/comment`);
+      setComments(commentsResult.data);
+      console.log(commentsResult.data);
     })();
     pageRef.current.scrollTo({ top: 0, behavior: 'smooth' });
   }, [searchParams]);
@@ -134,7 +142,7 @@ const RecipeDetail = () => {
                   i={s.step}
                   img={s.img}
                   content={s.content}
-                  position={Math.floor(Math.random() * 3)}
+                  position={s.step % 2}
                 ></RecipeStepItem>
               );
             })}
@@ -178,7 +186,7 @@ const RecipeDetail = () => {
         <section className="vh100"></section>
         <section className="vh100"></section>
         <section className="recipeDetailComment mx-auto py-5">
-          <RecipeComments />
+          <RecipeComments data={comments} />
         </section>
         {/* recipe slide */}
         <section className="recipeDetailSlide mb-5">
