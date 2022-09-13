@@ -75,7 +75,7 @@ const RecipeComments = ({ data }) => {
         <textarea
           name=""
           id=""
-          rows="10"
+          rows="5"
           className="w-100 p-3 rounded-1"
           css={commentArea}
           placeholder="寫下您的評論 ..."
