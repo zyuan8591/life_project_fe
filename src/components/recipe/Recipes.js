@@ -167,7 +167,7 @@ const Recipes = () => {
         </div>
         {/* Main Section */}
         <div className="recipeListMain">
-          <div className="">
+          <div className="position-sticky top-0 align-self-start">
             <ProductCategory />
           </div>
           <div className="recipeList">
