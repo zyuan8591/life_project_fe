@@ -5,7 +5,7 @@ import List from './List/List';
 const Points = () => {
   return (
     <>
-    <h3>我的點數</h3>
+      <h3>我的點數</h3>
       <PointGroup />
       <List />
     </>

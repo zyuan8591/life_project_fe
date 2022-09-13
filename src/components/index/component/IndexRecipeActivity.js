@@ -7,7 +7,7 @@ const IndexRecipeActivity = () => {
     <div className={classes.px2}>
       <Link
         to="/recipes"
-        className={`mx-auto ${classes.container} p-3 d-flex flex-column position-relative`}
+        className={`mx-auto ${classes.container} p-3 my-5 d-flex flex-column position-relative`}
       >
         <figure className="m-0 position-absolute bottom-0 start-50 translate-middle-x">
           <img

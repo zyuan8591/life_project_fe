@@ -1,9 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
 import CardSm from '../../public_component/CardSm';
-import { Link } from 'react-router-dom';
 
-const IndexRecipe = () => {
+const IndexRecipe = ({ data = [] }) => {
   const settings = {
     infinite: true,
     slidesToShow: 5,
@@ -12,57 +11,23 @@ const IndexRecipe = () => {
     autoplaySpeed: 1500,
     centerMode: true,
   };
+
   return (
     <div className="recipeCard">
       <Slider {...settings}>
-        <div>
-          <CardSm
-            img="/img/recipe/recipe_img/ApplePie.jpeg"
-            type="烘焙點心"
-            name="曲奇餅乾"
-            link="/"
-          />
-        </div>
-        <div>
-          <CardSm
-            img="/img/recipe/recipe_img/ApplePie.jpeg"
-            type="烘焙點心"
-            name="曲奇餅乾"
-            link="/"
-          />
-        </div>
-        <div>
-          <CardSm
-            img="/img/recipe/recipe_img/ApplePie.jpeg"
-            type="烘焙點心"
-            name="曲奇餅乾"
-            link="/"
-          />
-        </div>
-        <div>
-          <CardSm
-            img="/img/recipe/recipe_img/ApplePie.jpeg"
-            type="烘焙點心"
-            name="曲奇餅乾"
-            link="/"
-          />
-        </div>
-        <div>
-          <CardSm
-            img="/img/recipe/recipe_img/ApplePie.jpeg"
-            type="烘焙點心"
-            name="曲奇餅乾"
-            link="/"
-          />
-        </div>
-        <div>
-          <CardSm
-            img="/img/recipe/recipe_img/ApplePie.jpeg"
-            type="烘焙點心"
-            name="曲奇餅乾"
-            link="/"
-          />
-        </div>
+        {data.map((d) => {
+          return (
+            <div key={d.id}>
+              <CardSm
+                img={`/img/recipe/recipe_img/${d.image}`}
+                type={d.recipe_category_name}
+                name={d.name}
+                link={`/recipeDetail?id=${d.id}`}
+                className="rounded-1"
+              />
+            </div>
+          );
+        })}
       </Slider>
     </div>
   );

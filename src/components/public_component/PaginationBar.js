@@ -17,7 +17,7 @@ const pageList = css`
   justify-content: center;
 `;
 const pageItem = css`
-  padding: 0.5rem 1.25rem;
+  padding: 0.3rem 1rem;
   border-radius: 5px;
   display: flex;
   align-items: center;

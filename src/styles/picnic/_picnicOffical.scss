@@ -1,0 +1,61 @@
+@import '../variable';
+
+%activityState {
+    color: $mainClrW;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.banner {
+    .bannerImg {
+        width: 100%;
+        height: 100%;
+    }
+    }
+main {
+    .aside{
+        // 活動狀態
+        .activityState {
+            h3 {
+                width: 15rem;
+                font-size: $text24;
+                border-bottom: 2px solid $subClrBrown;
+            }
+            .activityStateBtn {
+                padding-left: 0;
+                li {
+                    margin: 1.2rem 0;
+                    &:nth-child(1) {
+                        a { 
+                            @extend %activityState;
+                            background: $subClrBrown; 
+                        }
+                       }
+                    &:nth-child(2) {
+                        a { 
+                            @extend %activityState;
+                            background: $focusClrY; 
+                        }
+                       }
+                    &:nth-child(3) {
+                        a { 
+                            @extend %activityState;
+                            background: $focusClrG; 
+                        }
+                       }
+                    &:nth-child(4) {
+                        a { 
+                           @extend %activityState;
+                           background: $subClrGY; 
+                        }
+                       }
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+}
