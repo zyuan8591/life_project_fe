@@ -3,6 +3,10 @@ import { css } from '@emotion/react';
 import React from 'react';
 
 const container = css`
+  .eggIcon {
+    filter: invert(46%) sepia(26%) saturate(296%) hue-rotate(349deg)
+      brightness(93%) contrast(90%);
+  }
   &:hover {
     .eggIcon {
       filter: invert(77%) sepia(56%) saturate(864%) hue-rotate(333deg)
@@ -35,8 +39,7 @@ const textContent = css`
 `;
 
 const RecipeStepItem = ({ i, img, content, position }) => {
-  console.log(img);
-  let align = ['align-self-start', 'align-slef-center', 'align-self-end'];
+  let align = ['align-slef-center', 'align-self-start'];
   return (
     <div
       className={`d-flex flex-column px-3 position-relative flex-shrink-0 ${align[position]}`}
