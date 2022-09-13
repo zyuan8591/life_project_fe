@@ -8,9 +8,6 @@ import { BsGridFill } from 'react-icons/bs';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../styles/camping/camping_main/_campingMain.scss';
-import Footer from '../../public_component/Footer';
-import Header from '../../public_component/Header';
-import BackToTop from '../../public_component/BackToTop';
 import ActivityStateFilter from './component/ActivityStateFilter';
 import ActivitySliderPrice from './component/ActivitySliderPrice';
 import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
@@ -162,7 +159,6 @@ function CampingMain() {
 
   return (
     <>
-      <Header />
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {/* banner */}
@@ -307,8 +303,6 @@ function CampingMain() {
           </div>
         </main>
       </IconContext.Provider>
-      <Footer />
-      <BackToTop />
     </>
   );
 }

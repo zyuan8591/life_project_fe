@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/activity/_activityMain.scss';
-import Footer from '../public_component/Footer';
-import Header from '../public_component/Header';
-import BackToTop from '../public_component/BackToTop';
 
 import { IconContext } from 'react-icons';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
@@ -11,7 +8,6 @@ import { IoIosArrowDroprightCircle } from 'react-icons/io';
 function ActivityMain() {
   return (
     <>
-      <Header />
       <IconContext.Provider value={{ color: '#1F9998', size: '2rem' }}>
         <main className="activityMainPage">
           {/* camping */}
@@ -70,8 +66,6 @@ function ActivityMain() {
         </main>
         <div className="section">map</div>
       </IconContext.Provider>
-      <Footer />
-      <BackToTop />
     </>
   );
 }

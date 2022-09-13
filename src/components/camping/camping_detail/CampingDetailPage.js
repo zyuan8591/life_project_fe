@@ -19,9 +19,6 @@ import {
 } from 'react-icons/md';
 
 import '../../../styles/camping/camping_detail/_campingDetailPage.scss';
-import Footer from '../../public_component/Footer';
-import Header from '../../public_component/Header';
-import BackToTop from '../../public_component/BackToTop';
 import Slide from './component/slider/Slide';
 import ProductSlide from './component/slider/ProductSlide';
 import PlaceSlide from './component/slider/PlaceSlide';
@@ -200,7 +197,6 @@ function CampingDetailPage() {
 
   return (
     <>
-      <Header />
       {detailData.map((v) => {
         function dataReplace(date) {
           return date.replace(/-/g, '/');
@@ -578,9 +574,6 @@ function CampingDetailPage() {
           </main>
         );
       })}
-
-      <Footer />
-      <BackToTop />
     </>
   );
 }
