@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
@@ -20,7 +20,6 @@ import RecipeCreateForm from './component/RecipeCreateForm';
 import BreadCrumb from '../public_component/BreadCrumb';
 import IndexRecipeActivity from '../index/component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
-import { useEffect } from 'react';
 import axios from 'axios';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
@@ -207,16 +206,17 @@ const Recipes = () => {
               <div className="recipeBlockModeList">
                 {recipeList.map((d, i) => {
                   return (
-                    <div key={d.id}>
-                      <RecipeListBlockMode data={d} />
-                    </div>
+                    <RecipeListBlockMode
+                      data={d}
+                      key={d.id}
+                    ></RecipeListBlockMode>
                   );
                 })}
               </div>
             ) : (
               <div className="recipeListModeList">
-                {recipeList.map((d, i) => {
-                  return <RecipeListMode data={d} />;
+                {recipeList.map((d) => {
+                  return <RecipeListMode data={d} key={d.id}></RecipeListMode>;
                 })}
               </div>
             )}

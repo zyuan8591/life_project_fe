@@ -11,10 +11,25 @@ import RecipeComments from './component/RecipeComments';
 import RecipeStepItem from './component/RecipeStepItem';
 import RecipeStepNumb from './component/RecipeStepNumb';
 import RecipeSlide from './component/RecipeSlide';
+import { API_URL } from '../../utils/config';
+import axios from 'axios';
 
 const RecipeDetail = () => {
-  let [searchParams, setSearchParams] = useSearchParams();
-  // console.log(searchParams.get('id'));
+  const pageRef = useRef(null);
+  const [step, setStep] = useState([]);
+  const [recipeData, setRecipeData] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get('id');
+
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/recipes/${id}`);
+      let stepResult = await axios.get(`${API_URL}/recipes/${id}/step`);
+      setStep(stepResult.data);
+      setRecipeData(result.data[0]);
+    })();
+    pageRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [searchParams]);
 
   // for step section animation
   const introRef = useRef(null);
@@ -87,12 +102,16 @@ const RecipeDetail = () => {
 
   return (
     <>
-      <div className="recipeDetail" onScroll={(e) => scrollHandler(e)}>
+      <div
+        className="recipeDetail"
+        onScroll={(e) => scrollHandler(e)}
+        ref={pageRef}
+      >
         {/* Intro section */}
         <div ref={introRef}>
           <Header fixed={false} />
           <section className="recipeDetailIntro">
-            <RecipeIntro />
+            <RecipeIntro data={recipeData} id={id} />
           </section>
         </div>
 
@@ -108,16 +127,17 @@ const RecipeDetail = () => {
             ref={stepContentRef}
             css={stepContent}
           >
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
-            <RecipeStepItem />
+            {step.map((s) => {
+              return (
+                <RecipeStepItem
+                  key={s.id}
+                  i={s.step}
+                  img={s.img}
+                  content={s.content}
+                  position={Math.floor(Math.random() * 3)}
+                ></RecipeStepItem>
+              );
+            })}
           </div>
           {/* Step Number */}
           <div className="position-absolute bottom-0 start-50 translate-middle recipeStepNum mb-3">
