@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import RecipeIntroMaterial from './RecipeIntroMaterial';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
+import { Link } from 'react-router-dom';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
@@ -19,7 +20,7 @@ const recipeName = css`
 `;
 const tag = css`
   background: ${subClrBrown};
-  color: #fff;
+  color: #fff !important;
   padding: 0 0.5rem;
   font-size: 0.5rem;
   border-radius: 50px;
@@ -107,12 +108,19 @@ const RecipeIntro = ({ data, id }) => {
 
   return (
     <>
+      {/* Title */}
       <div css={recipeName}>
         {data.name}
-        <span css={tag} className="mx-1">
+        <Link
+          to={`/recipes?recipeCate=${data.category}`}
+          css={tag}
+          className="mx-1"
+        >
           {data.recipe_category_name}
-        </span>
-        <span css={tag}>{data.product_category_name}</span>
+        </Link>
+        <Link to={`/recipes?productCate=${data.product_category}`} css={tag}>
+          {data.product_category_name}
+        </Link>
       </div>
       <div css={container}>
         {/* left side */}

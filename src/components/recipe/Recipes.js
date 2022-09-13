@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
 import Select from 'react-select';
@@ -62,6 +62,7 @@ const customStyles = {
 const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
   const [createRecipe, setCreateRecipe] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
@@ -78,11 +79,26 @@ const Recipes = () => {
 
   useEffect(() => {
     (async () => {
+      // get all recipe cate name
       let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
       let recipeCateData = recipeCateResult.data;
       setRecipeCate([{ id: 0, name: '所有分類' }, ...recipeCateData]);
     })();
   }, []);
+
+  // Handle query
+  useEffect(() => {
+    // recipe category
+    let recipeCateQuery = searchParams.get('recipeCate');
+    if (!recipeCateQuery) recipeCateQuery = 0;
+    setRecipeCateNow(recipeCateQuery);
+    // product category
+    let productCateQuery = searchParams.get('productCate');
+    if (!productCateQuery) productCateQuery = 0;
+    setRecipeCateNow(recipeCateQuery);
+
+    console.log(Object.fromEntries([...searchParams]));
+  }, [searchParams]);
 
   useEffect(() => {
     setPageNow(1);
@@ -91,7 +107,7 @@ const Recipes = () => {
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}`
+        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}&productCate=${productCateNow}`
       );
       console.log(result.data.pagination);
       setRecipeList(result.data.data);
@@ -111,9 +127,8 @@ const Recipes = () => {
               <div key={d.id}>
                 <RecipeCateBtn
                   cateNum={d.id}
-                  onclick={setRecipeCateNow}
                   content={d.name}
-                  active={i === recipeCateNow ? true : false}
+                  active={i === parseInt(recipeCateNow) ? true : false}
                 />
               </div>
             );

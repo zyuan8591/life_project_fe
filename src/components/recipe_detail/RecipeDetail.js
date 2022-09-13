@@ -34,7 +34,6 @@ const RecipeDetail = () => {
       // comment
       let commentsResult = await axios.get(`${API_URL}/recipes/${id}/comment`);
       setComments(commentsResult.data);
-      console.log(commentsResult.data);
     })();
     pageRef.current.scrollTo({ top: 0, behavior: 'smooth' });
   }, [searchParams]);
@@ -149,7 +148,7 @@ const RecipeDetail = () => {
           </div>
           {/* Step Number */}
           <div className="position-absolute bottom-0 start-50 translate-middle recipeStepNum mb-3">
-            <RecipeStepNumb num={10} />
+            <RecipeStepNumb num={step.length} />
           </div>
           {/* border */}
           <div
@@ -192,6 +191,12 @@ const RecipeDetail = () => {
         <section className="recipeDetailSlide mb-5">
           <RecipeSlide />
         </section>
+        <BackToTop
+          onClick={() =>
+            pageRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+          }
+          classname="me-3"
+        />
         <Footer />
       </div>
     </>
