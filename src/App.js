@@ -109,7 +109,7 @@ function App() {
             <Route path="/activity" element={<ActivityMain />} />
             <Route path="/activity/camping" element={<CampingMain />} />
             <Route
-              path="/activity/camping/:id"
+              path="/activity/camping/:campingId"
               element={<CampingDetailPage />}
             />
             <Route path="/map" element={<SetMap />} />
