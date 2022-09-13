@@ -24,8 +24,8 @@ import axios from 'axios';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
-  { value: 2, label: '最新食譜' },
-  { value: 3, label: '熱門食譜' },
+  { value: 1, label: '最新食譜' },
+  { value: 2, label: '熱門食譜' },
 ];
 const customStyles = {
   option: (provided, state) => ({
@@ -84,6 +84,10 @@ const Recipes = () => {
       let recipeCateData = recipeCateResult.data;
       setRecipeCate([{ id: 0, name: '所有分類' }, ...recipeCateData]);
     })();
+    searchParams.get('searchName') &&
+      setSearchName(searchParams.get('searchName'));
+    searchParams.get('searchMaterial') &&
+      setSearchMaterial(searchParams.get('searchMaterial'));
   }, []);
 
   // Handle query
@@ -95,15 +99,17 @@ const Recipes = () => {
     // product category
     let productCateQuery = searchParams.get('productCate');
     if (!productCateQuery) productCateQuery = 0;
-    setRecipeCateNow(recipeCateQuery);
+    setProductCateNow(productCateQuery);
 
     console.log(Object.fromEntries([...searchParams]));
   }, [searchParams]);
 
+  // set page to 1
   useEffect(() => {
     setPageNow(1);
   }, [recipeCateNow, searchMaterial, searchName]);
 
+  // get recipe list data
   useEffect(() => {
     (async () => {
       let result = await axios.get(
@@ -113,7 +119,27 @@ const Recipes = () => {
       setRecipeList(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
-  }, [recipeCateNow, selectSortOption, searchMaterial, searchName, pageNow]);
+  }, [
+    recipeCateNow,
+    selectSortOption,
+    searchMaterial,
+    searchName,
+    pageNow,
+    productCateNow,
+  ]);
+
+  const searchNameHandler = (e) => {
+    setSearchName(e.target.value);
+    const params = Object.fromEntries([...searchParams]);
+    params['searchName'] = e.target.value;
+    setSearchParams(params);
+  };
+  const searchMaterialHandler = (e) => {
+    setSearchMaterial(e.target.value);
+    const params = Object.fromEntries([...searchParams]);
+    params['searchMaterial'] = e.target.value;
+    setSearchParams(params);
+  };
 
   return (
     <>
@@ -143,14 +169,14 @@ const Recipes = () => {
               className="searchForName"
               placeholder="請輸入食譜名稱"
               value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
+              onChange={(e) => searchNameHandler(e)}
             />
             <input
               type="text"
               className="searchForMaterial"
               placeholder="請輸入食材名稱"
               value={searchMaterial}
-              onChange={(e) => setSearchMaterial(e.target.value)}
+              onChange={(e) => searchMaterialHandler(e)}
             />
             <div className="recipesSearchBtn">
               <IconContext.Provider
