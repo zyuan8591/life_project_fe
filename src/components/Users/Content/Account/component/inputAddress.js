@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import jsondata from '../CityCountyData.json';
 
 const InputAddress = () => {
@@ -13,8 +11,10 @@ const InputAddress = () => {
   });
 
   return (
-    <div className="addressGroup ">
-      <label className='userData' htmlFor="address">　　地址：</label>
+    <div className="addressGroup d-flex">
+      <label className="userData" htmlFor="address">
+        地址：
+      </label>
       <select
         value={cityName}
         onChange={(e) => {

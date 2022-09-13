@@ -81,7 +81,7 @@ const Account = () => {
           </div>
         </div>
       ) : (
-        <AccountEdit />
+        <AccountEdit setEdit={setEdit} />
       )}
     </>
   );
