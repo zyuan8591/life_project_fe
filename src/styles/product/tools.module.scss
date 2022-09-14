@@ -1,0 +1,181 @@
+@import '../variable';
+
+p {
+  margin: 0;
+}
+.tool {
+  position: fixed;
+  top: calc(50% - 125px);
+  right: 5px;
+  width: 50px;
+  height: 240px;
+  color: $mainClrW;
+  background: $subClrBrown;
+  opacity: 0.3;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  transition: 0.3s;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+.cartContainer {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: none;
+}
+.cart {
+  width: 300px;
+  height: 100vh;
+  background: $contentClr;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  transition: 0.3s;
+  color: $mainClrW;
+  .cartTitle {
+    height: 50px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background: #333;
+  }
+  .cartItem {
+    padding: 15px 15px 0;
+    display: flex;
+    figure {
+      width: 60px;
+      overflow: hidden;
+      padding-right: 5px;
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .cartInfo {
+      width: 180px;
+      // line-height: 1.2rem;
+      p {
+        margin: 0 auto 5px;
+      }
+    }
+    .trash {
+      cursor: pointer;
+      height: 1.2rem;
+    }
+  }
+}
+.point {
+  width: 120px;
+  padding: 15px;
+  border-radius: 5px;
+  color: $mainClrW;
+  background: $contentClr;
+  position: fixed;
+  top: calc(50% - 2px);
+  right: 70px;
+  transition: 0.4s;
+  .triangle {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: calc(50% - 5px);
+    right: -5px;
+    transform: rotate(45deg);
+    background: $contentClr;
+  }
+}
+
+.favContainer {
+  position: fixed;
+  top: calc(50% - 87.5px);
+  right: 70px;
+  transition: 0.4s;
+  // opacity: 0;
+  .fav {
+    z-index: 105;
+    width: 280px;
+    min-height: 140px;
+    max-height: 400px;
+    padding: 15px;
+    border-radius: 5px;
+    color: $mainClrW;
+    background: $contentClr;
+    position: fixed;
+    top: calc(50% - 155px);
+    right: 70px;
+    transition: 0.4s;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      //滾動條的寬度
+      // display: none;
+      width: 7px;
+      height: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      //滾動條的設定
+      background-color: $subClrGY;
+      background-clip: padding-box;
+      border-radius: 3px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      transition: 0.5s;
+      cursor: pointer;
+      &:hover img {
+        opacity: 0.2;
+        transition: 0.5s;
+      }
+      .heart {
+        opacity: 0;
+        position: absolute;
+        top: calc(50% - 1.2rem);
+        left: calc(50% - 1.2rem);
+      }
+      &:hover .heart {
+        opacity: 1;
+        transition: 0.5s;
+      }
+      figure {
+        width: 100px;
+        overflow: hidden;
+        margin: 0;
+        position: relative;
+        img {
+          width: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+      p {
+        width: 120px;
+      }
+    }
+  }
+  .triangle {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: calc(50% - 5px);
+    right: -5px;
+    background: $contentClr;
+    z-index: 10;
+    transition: .4s;
+  }
+}

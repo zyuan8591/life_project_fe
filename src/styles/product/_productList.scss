@@ -13,7 +13,11 @@ $numberSize: 36px;
   margin: 0;
   padding: 0;
 }
-
+.p {
+  padding: 0;
+  margin: 0;
+  color: $contentClr;
+}
 .product {
   margin: $headerHeight + 10px auto 200px;
   max-width: $maxWidth;
@@ -37,6 +41,7 @@ $numberSize: 36px;
       position: relative;
       height: 300px;
       width: 250px;
+      margin-right: 38px;
       .number {
         width: $numberSize;
         height: $numberSize;
@@ -49,16 +54,28 @@ $numberSize: 36px;
           color: $mainClrW;
         }
       }
+      .one {
+        background: $one;
+      }
+      .two {
+        background: $two;
+      }
+      .three {
+        background: $three;
+      }
       figure {
+        min-width: 214px;
+        height: 220px;
         position: absolute;
         top: $numberSize/2;
         left: $numberSize;
         z-index: -1;
         margin: 0;
-        max-width: 220px;
+        padding: 0;
         img {
           width: 100%;
           object-fit: cover;
+          margin: 0 auto;
         }
       }
       p {

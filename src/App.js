@@ -38,7 +38,8 @@ import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
 import OrderStep from './components/Orders/OrderStep';
 import SetMap from './components/map/SetMap';
-
+import { ProductCartProvider } from './orderContetxt/useProductCart';
+import { ActivityCartProvider } from './orderContetxt/useActivityCart';
 function HeaderFooter() {
   return (
     <>
@@ -68,12 +69,14 @@ function App() {
     <>
       <UserRights.Provider value={{ user, setUser }}>
         <ScrollToTop>
-          <Routes>
-            <Route path="/" element={<HeaderFooter />}>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/recipes" element={<Recipes />} />
-              <Route path="/orderstep" element={<OrderStep />} />
-              <Route path="/news" element={<News />} />
+        <ProductCartProvider>
+          <ActivityCartProvider>
+              <Routes>
+                <Route path="/" element={<HeaderFooter />}>
+                  <Route path="/" element={<Homepage />} />
+                  <Route path="/recipes" element={<Recipes />} />
+                  <Route path="/orderstep" element={<OrderStep />} />
+                  <Route path="/news" element={<News />} />
               <Route path="/activity" element={<ActivityMain />} />
               <Route path="/activity/camping" element={<CampingMain />} />
               <Route
@@ -82,11 +85,11 @@ function App() {
               />
               <Route path="/map" element={<SetMap />} />
             </Route>
-            {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
+                {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
             <Route path="/recipeDetail" element={<RecipeDetail />} />
-            <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/activity/picnic" element={<PicnicIndex />} />
+                <Route path="/products" element={<ProductList />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/activity/picnic" element={<PicnicIndex />} />
             <Route
               path="/activity/picnic/official"
               element={<PicnicOffical />}
@@ -114,7 +117,9 @@ function App() {
               <Route path="/signin/signup" element={<Signup />} />
             </Route>
             {/* <Route path="*" element={<NotFound />} /> */}
-          </Routes>
+              </Routes>
+          </ActivityCartProvider>
+        </ProductCartProvider>
         </ScrollToTop>
       </UserRights.Provider>
     </>

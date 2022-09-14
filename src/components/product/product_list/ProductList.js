@@ -9,6 +9,7 @@ import Header from '../../public_component/Header';
 import Footer from '../../public_component/Footer';
 import Product from './Product';
 import PaginationBar from '../../public_component/PaginationBar';
+import Tools from '../Tools';
 const ProductList = () => {
   const [pageNow, setPageNow] = useState(1);
   return (
@@ -24,6 +25,7 @@ const ProductList = () => {
           </div>
         </div>
         <PaginationBar lastPage={8} pageNow={pageNow} setPageNow={setPageNow} />
+        <Tools />
       </div>
       <Footer />
     </>

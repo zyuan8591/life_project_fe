@@ -23,14 +23,15 @@
         width: 70px;
         height: 70px;
         border:2px solid $subClrBrown;
-        background-color: $subClrBrown;
+        background-color: #fff;
         border-radius: 50%;
       }
     }
-
+    
     &.selected .circle{
-      background-color: #fff;
+      background-color: $subClrBrown;
     }
+
   }
 
 }
