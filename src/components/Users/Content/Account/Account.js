@@ -1,35 +1,15 @@
-import React, { useState, useEffect } from 'react';
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-
-import WarnWindow from './component/WarnWindow';
-import axios from 'axios';
-import { API_URL, API_URL_IMG } from '../../../../utils/config';
+import React, { useState } from 'react';
+import { API_URL_IMG } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import AccountEdit from './Account_Edit';
 import '../../../../styles/Users/Account.scss';
 
 const Account = () => {
-  const { user, setUser } = useUserRights();
+  const { user } = useUserRights();
   const [edit, setEdit] = useState(false);
-  useEffect(() => {
-    let getUser = async () => {
-      let response = await axios.get(`${API_URL}/user`, {
-        withCredentials: true,
-      });
-      setUser(response.data);
-    };
-    getUser();
-  }, [setUser]);
-  // console.log('user', user);
+
   function clickEdit() {
     setEdit(true);
-  }
-  //彈跳視窗
-  const [warn, setWarn] = useState(false);
-  function pop(e) {
-    e.preventDefault();
-    setWarn(true);
   }
 
   return (
@@ -37,45 +17,48 @@ const Account = () => {
       <h3>個人檔案</h3>
       {!edit ? (
         <div className="account">
-          <div className="edit" onClick={clickEdit}>
-            編輯
+          <div className="edit " onClick={clickEdit}>
+            <p>
+              編輯 <i className="fa-solid fa-angle-right"></i>
+            </p>
           </div>
           <div className="avata-group">
             <figure className="avata ">
               <img src={`${API_URL_IMG}${user.photo}`} alt="" />
             </figure>
-            <p className="">{user.name}</p>
+            <p className="userTitle">{user.name}</p>
           </div>
           <div className="information">
             <div className="userData ">
-              <p>性別：</p>
+              <p className="userTitle">性別：</p>
               <p>{user.gender}</p>
             </div>
             <div className="userData ">
-              <p>生日：</p>
+              <p className="userTitle">生日：</p>
               <p>{user.birth}</p>
             </div>
             <div className="userData ">
-              <p>信箱：</p>
+              <p className="userTitle">信箱：</p>
               <p>{user.email}</p>
             </div>
             <div className="userData ">
-              <p>電話：</p>
+              <p className="userTitle">電話：</p>
               <p>{user.phone}</p>
             </div>
             <div className="userData ">
-              <p>地址：</p>
+              <p className="userTitle">地址：</p>
               <p>{`${user.city}${user.area}`}</p>
             </div>
             <div className="userData row">
-              <p className="col">簡介:</p>
+              <p className="col userTitle">簡介:</p>
               <textarea
-                className="info"
+                className="intro"
                 name=""
                 id=""
                 cols="30"
                 rows="10"
                 value={user.intro}
+                readOnly
               />
             </div>
           </div>

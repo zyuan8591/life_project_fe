@@ -1,3 +1,4 @@
+
 .account {
   width: 70%;
   border: 1px solid #000;
@@ -9,12 +10,14 @@
   justify-content: center;
   padding: 50px;
   box-shadow: 5px 5px 10px 5px #ccc;
-
+  .userTitle{
+    font-weight: bold;
+  }
   .information {
     .userData {
       display: flex;
     }
-    .info {
+    .intro {
       padding: 0;
       width: 180px;
       height: 50px;
@@ -35,19 +38,34 @@
         outline: none;
       }
     }
+    
   }
   .edit {
     position: absolute;
     right: 20px;
     top: 5px;
     color: #221e73;
+    display: flex;
+    padding: 0;
     cursor: pointer;
+    
+    i{
+      position: relative;
+      opacity: 0;
+      right: 10px;
+      transition: .3s;
+    }
+    &:hover{
+      i{
+        opacity: 1;
+        right: 0px;
+      }
+    }
+        
   }
   .avata-group {
-    text-align: center;
-    
-    margin:10px 60px 0 -10px;
-    
+    text-align: center;    
+    margin:10px 60px 0 -10px;    
   }
   .avata {
     width: 150px;
@@ -68,9 +86,34 @@
       border-style: none;
     }
   }}
+ 
 
-
-  .account_Edit{    
+  .account_Edit{ 
+    margin: 80px auto;
+    display: flex;    
+    justify-content:flex-end;
+    width: 70%;
+    border: 3px dashed #817161;
+    padding: 20px;
+    position: relative;
+    
+    p{
+      margin: 0;
+    }
+   input,textarea,select{ 
+    &:focus {
+    outline: none;
+      }
+    }   
+    input[type='text'],input[type='date'],select,textarea{
+      padding: 0 3px; 
+      border-radius: 5px;  
+      height: 24px;  
+      border: 1px solid ;
+    }
+    select{
+      margin-right: 5px;
+    }
     .avata {
       width: 150px;
       height: 150px;
@@ -105,4 +148,52 @@
      display: none;
      }
     
+     .userData{
+       margin:10px 0; }
+      //  display: flex;
+       justify-content: center;
+     .intro{
+      padding:0 5px;
+      width: 200px;
+      height: 120px;
+      resize: none;
+      vertical-align:text-top;
+      margin-left: 10px;          
+     }
+     .avatarGroup{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-left: 100px;
+     }
+   .btnGroup {
+    margin-top: 80px;
+    .editbtn{
+      padding: 5px 10px;
+      &:hover {
+        transform: scale(1.05);
+      }
+      &:active {
+        transform: scale(1);
+        box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 5);
+      }
+    }
+    .saveBtn{
+      margin-right: 30px;
+      background:#817161;
+      color: #fff;
+      border: 0;   
+      border-radius: 5px;  
+    }
+    .exitBtn{
+      margin-right: 30px;
+      border:#817161 2px solid;
+      background: #fff; 
+      border-radius: 5px;  
+      &:active {
+        border: 1px solid #ccc;
+      }
+    }    
+   }
   }
