@@ -19,9 +19,10 @@ const ProductCategory = () => {
         <p>CATEGORY</p>
       </div>
       {productCate.map((v, i) => {
+        const { id, name } = v;
         return (
-          <div key={i} className="category">
-            {v}
+          <div key={id} className="category">
+            {name}
           </div>
         );
       })}

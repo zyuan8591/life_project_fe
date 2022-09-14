@@ -8,7 +8,7 @@ import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
-const Product = (props) => {
+const Product = () => {
   const [productList, setProductList] = useState([]);
 
   const getProductData = async (url = '') => {
@@ -19,7 +19,6 @@ const Product = (props) => {
   useEffect(() => {
     (async () => {
       let productListData = await getProductData();
-      console.log('ppppppppppp', props);
       setProductList(productListData);
     })();
   }, []);

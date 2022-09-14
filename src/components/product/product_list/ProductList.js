@@ -14,36 +14,36 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 const ProductList = () => {
   const [pageNow, setPageNow] = useState(1);
-  const [productList, setProductList] = useState([]);
-  const [productCate, setProductCate] = useState([]);
+  // const [productList, setProductList] = useState([]);
+  // const [productCate, setProductCate] = useState([]);
 
-  const getProductData = async (url = '') => {
-    let result = await axios.get(`${API_URL}/products${url}`);
-    let data = result.data;
-    return data;
-  };
-  useEffect(() => {
-    (async () => {
-      let productCateResult = await axios.get(`${API_URL}/products/category`);
-      let productCateData = productCateResult.data;
-      setProductCate(productCateData);
-      let productListData = await getProductData();
-      // let productListResult = await axios.get(`${API_URL}/products`);
-      // let productListData = productListResult.data;
-      console.log(productListData);
-      setProductList(productListData);
-    })();
-  }, []);
+  // const getProductData = async (url = '') => {
+  //   let result = await axios.get(`${API_URL}/products${url}`);
+  //   let data = result.data;
+  //   return data;
+  // };
+  // useEffect(() => {
+  //   (async () => {
+  //     let productCateResult = await axios.get(`${API_URL}/products/category`);
+  //     let productCateData = productCateResult.data;
+  //     setProductCate(productCateData);
+  //     let productListData = await getProductData();
+  //     // let productListResult = await axios.get(`${API_URL}/products`);
+  //     // let productListData = productListResult.data;
+  //     console.log(productListData);
+  //     setProductList(productListData);
+  //   })();
+  // }, []);
   return (
     <>
       <Header />
       <div className="product">
         <ProductRank />
         <div className="d-flex mt-5 ">
-          <ProductCategory productCate={productCate} />
+          <ProductCategory />
           <div>
             <ProductFilter />
-            <Product fuck="fff" productList={productList} />
+            <Product />
           </div>
         </div>
         <PaginationBar lastPage={8} pageNow={pageNow} setPageNow={setPageNow} />
