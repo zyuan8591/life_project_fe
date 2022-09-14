@@ -61,7 +61,7 @@ function App() {
       setUser(response.data);
     };
     getUser();
-  }, []);
+  }, [setUser]);
 
   return (
     <>

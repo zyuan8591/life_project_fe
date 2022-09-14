@@ -7,17 +7,17 @@ const OrderFilter = () => {
 
   return (
     <>
-      <ul className="d-flex order-filter">
+      <ul className="d-flex order-filter ">
         {item.map((v) => {
           return (
             <li
               key={uuidv4()}
-              className={`${list === v ? 'active' : ''}`}
+              className={`col ${list === v ? 'active' : ''}`}
               onClick={() => {
                 setList(v);
               }}
             >
-              {v}
+              <div>{v}</div>
             </li>
           );
         })}

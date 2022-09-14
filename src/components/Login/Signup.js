@@ -10,13 +10,19 @@ import { Navigate } from 'react-router-dom';
 const Signup = () => {
   const [eye, setEye] = useState(false);
   const [eye1, setEye1] = useState(false);
+  const [sign, setSign] = useState(false);
+
+  //TODO:新增轉場效果，直接跳轉太詭異
+  if (sign) {
+    return <Navigate to="/signin/login" />;
+  }
   return (
     <Formik
       initialValues={{
         name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        email: '@test.com',
+        password: 'a12345678',
+        confirmPassword: 'a12345678',
       }}
       validationSchema={yup.object({
         name: yup
@@ -44,6 +50,7 @@ const Signup = () => {
       onSubmit={async (values) => {
         try {
           await axios.post(`${API_URL}/signup`, values);
+          setSign(true);
         } catch (e) {
           console.error('register', e);
         }
