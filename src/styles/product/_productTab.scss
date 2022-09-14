@@ -6,22 +6,38 @@
   display: flex;
   justify-content: center;
   border-bottom: 1px solid $subClrGY;
-  button {
-    color: $contentClr;
+  .frame {
+    width: 122px;
+    padding: 10px 12px 0;
+    border-radius: 5px 5px 0 0;
     background: $mainClrW;
-    border: 0;
-    padding: 12px 15px;
-    font-size: 20px;
-    font-weight: 600;
     &:hover {
       background: $subClrBrown;
+    }
+    &:hover button {
+      background: $subClrBrown;
       color: $mainClrW;
+      border: 1px dashed $focusClrY;
+      border-bottom: 0;
       border-radius: 5px 5px 0 0;
     }
-  }
-  .active {
-    background: $subClrBrown;
-    color: $mainClrW;
-    border-radius: 5px 5px 0 0;
+    button {
+      color: $contentClr;
+      background: $mainClrW;
+      border: 0;
+      padding: 6px 8px;
+      font-size: 20px;
+      font-weight: 600;
+      border: 1px solid rgba(0, 0, 0, 0);
+      border-radius: 5px 5px 0 0;
+
+    }
+    .active {
+      background: $subClrBrown;
+      color: $mainClrW;
+      border: 1px dashed $focusClrY;
+      border-bottom: 0;
+      border-radius: 5px 5px 0 0;
+    }
   }
 }

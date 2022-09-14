@@ -1,7 +1,12 @@
 import React from 'react';
+import RecipeSlide from '../../recipe_detail/component/RecipeSlide.js';
 
 const ProductRecipe = () => {
-  return <div>ProductRecipe</div>;
+  return (
+    <>
+      <RecipeSlide />
+    </>
+  );
 };
 
 export default ProductRecipe;

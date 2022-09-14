@@ -1,4 +1,6 @@
 @import '../variable';
+
+$productImgWidth: 250px;
 .productContainer {
   width: 1200px;
   display: flex;
@@ -18,10 +20,10 @@
         position: absolute;
         z-index: 1000;
         bottom: 0px;
-        width: 200px;
+        width: $productImgWidth;
         height: 40px;
         background: #000;
-        opacity: 0.5;
+        opacity: 0.6;
         transform: translateY(40px);
         display: flex;
         justify-content: end;
@@ -35,8 +37,8 @@
       .productImg {
         position: relative;
         z-index: -1;
-        width: 200px;
-        height: 200px;
+        width: $productImgWidth;
+        // height: 300px;
         overflow: hidden;
         display: flex;
         justify-content: center;

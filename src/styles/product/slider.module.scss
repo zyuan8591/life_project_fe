@@ -1,0 +1,63 @@
+@import '../variable';
+
+$margin: 12.5px;
+.cursor {
+  cursor: pointer;
+}
+.sliderContainer {
+  max-width: $maxWidth;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  .item {
+    // width: 500px;
+    // margin: 50px;
+    display: flex;
+    overflow: hidden;
+    figure {
+      min-width: 250px;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 0 $margin;
+      // border: 1px dashed rgb(143, 55, 202);
+      // transform: translateX(12.5px);
+      transition: 0.4s;
+      &:hover img {
+        opacity: 0.7;
+      }
+      img {
+        width: 100%;
+        object-fit: cover;
+        margin: 60px 0;
+      }
+    }
+  }
+}
+.progressBar {
+  margin: 30px auto 0;
+  width: 300px;
+  min-height: 3px;
+  background: #eee;
+  .progress {
+    min-height: 3px;
+    background: $subClrBrown;
+    transform: translateX(-200px);
+    transition: 0.4s;
+  }
+}
+.progressRound {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #eeeeee;
+  margin: 0 4px;
+}
+.progressRoundActive {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: $contentClr;
+  margin: 0 4px;
+}
