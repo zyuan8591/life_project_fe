@@ -41,6 +41,7 @@ function PicnicList() {
   const [searchWord, setSearchWord] = useState('');
   const [sort, setSort] = useState(0);
   const [pageNow, setPageNow] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
   const [filterState, setFilterState] = useState('');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(2500);
@@ -61,6 +62,7 @@ function PicnicList() {
     );
     // console.log(response);
     setData(response.data.data);
+    setLastPage(response.data.pagination.lastPage);
   };
   useEffect(() => {
     getOfficalList();
@@ -209,7 +211,11 @@ function PicnicList() {
                           <FaSearch
                             className="ms-2 mb-1"
                             style={{ cursor: 'pointer' }}
-                            onClick={() => setSearchWords(searchWord)}
+                            onClick={() => {
+                              if (searchWord === '') return setSearchWords('');
+                              setSearchWords(searchWord);
+                              pageNow(1);
+                            }}
                           />
                         </div>
                       </IconContext.Provider>
@@ -226,7 +232,7 @@ function PicnicList() {
                     </div>
                   </IconContext.Provider>
                   <PaginationBar
-                    lastPage={5}
+                    lastPage={lastPage}
                     pageNow={pageNow}
                     setPageNow={setPageNow}
                   />

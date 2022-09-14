@@ -14,10 +14,11 @@ function ActivityCard({ data }) {
       return 0;
     } else {
       let width = (data.officialJoin / data.join_limit) * 220 - 2;
-      return width + 'px';
+      return `${width} + px`;
     }
   };
-
+  console.log(data);
+  console.log('progressBar', progressBar());
   return (
     <>
       {data.length === 0 ? (
@@ -72,7 +73,7 @@ function ActivityCard({ data }) {
                 <div className={classes.progressBar}>
                   <div
                     className={classes.bar}
-                    style={{ width: progressBar() }} //TODO: 進度條樣式沒反應
+                    style={{ width: 10 }} //TODO: 進度條樣式沒反應
                   ></div>
                 </div>
                 <div className={classes.content}>

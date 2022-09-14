@@ -25,7 +25,7 @@
     line-height: 2rem;
 }
 
-.privateDetailContent {
+.PicnicOfficalDetailContainer {
     margin: $headerHeight auto;
     .contentTitle {
         @include contentTitle;  
@@ -66,47 +66,47 @@
             // --------- 活動內容 ---------
             .privateDetailContent {
             // 主題內容
-            .contentWrap1 {
-                padding: 2rem 3rem;
-                margin: auto 0;
-                border-radius: 10px;
-                box-shadow: 0px 0px 3px $subClrGY;
-                .quoteLeftIcon {
-                    font-size: 1.2rem;
-                    margin: -1rem 5px 0;
-                }
-                .quoteRightIcon {
-                    font-size: 1.2rem;
-                    margin: 0 5px -1rem;
-                }
-                p {
-                    font-size: $text18;
-                    text-align:justify;
-                    margin: 0;
-                    @include lineHeight;
-                }    
-            }
-            // 活動須知
-            .contentWrap2 {   
-                p {
-                    font-size: $text18;
-                    color: $subClrBrown;
-                    .warnIcon {
-                        @include iconSize;
-                        color: $focusClrY;
-                        margin: -3px 5px 0 0;
+                .contentWrap1 {
+                    padding: 2rem 3rem;
+                    margin: auto 0;
+                    border-radius: 10px;
+                    box-shadow: 0px 0px 3px $subClrGY;
+                    .quoteLeftIcon {
+                        font-size: 1.2rem;
+                        margin: -1rem 5px 0;
                     }
-                }
-                ul {
-
-                    li {
+                    .quoteRightIcon {
+                        font-size: 1.2rem;
+                        margin: 0 5px -1rem;
+                    }
+                    p {
+                        font-size: $text18;
+                        text-align:justify;
+                        margin: 0;
                         @include lineHeight;
-                        margin-left: 38px;
-                        text-indent: -1rem;
+                    }    
+                }
+                // 活動須知
+                .contentWrap2 {   
+                    p {
+                        font-size: $text18;
+                        color: $subClrBrown;
+                        .warnIcon {
+                            @include iconSize;
+                            color: $focusClrY;
+                            margin: -3px 5px 0 0;
+                        }
                     }
-                }  
-                
-            }
+                    ul {
+
+                        li {
+                            @include lineHeight;
+                            margin-left: 38px;
+                            text-indent: -1rem;
+                        }
+                    }  
+
+                }
             }
             // --------- 參加者 ---------
             .paicipant {
@@ -202,8 +202,8 @@
                     } 
                 }
             }
-     // --------- 推薦商品 ---------
-     .recommendProducts {
+            // --------- 推薦商品 ---------
+            .recommendProducts {
         margin:0 0 5rem;
         h4 {
             margin: 1.5rem 0;
@@ -291,7 +291,7 @@
             }
         }
                     
-    }
+            }
         }    
         // --------- 側邊資訊欄 ---------
         .asideMessageFix {

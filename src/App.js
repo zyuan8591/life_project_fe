@@ -6,16 +6,8 @@ import Homepage from './components/index/Homepage';
 import News from './components/news/News';
 import Signin from './components/Login/Signin';
 import Users from './components/Users';
-<<<<<<< HEAD
-import LoginPage from './components/Login/loginPage';
-=======
+// import LoginPage from './components/Login/loginPage';
 import './styles/style.scss';
-import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
-import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
-import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
-import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
-import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
->>>>>>> develop-test
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
@@ -73,54 +65,6 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
-      <ScrollToTop>
-        <Routes>
-          <Route path="/" element={<HeaderFooter />}>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/recipes" element={<Recipes />} />
-          </Route>
-          <Route path="/recipes/:recipeId" element={<RecipeDetail />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/activity/picnic" element={<PicnicIndex />} />
-          <Route
-            path="/activity/picnic/official"
-            element={<PicnicOfficalList />}
-          />
-          <Route
-            path="/activity/picnic/official/:officialId"
-            element={<PicnicOfficalDetail />}
-          />
-          <Route
-            path="/activity/picnic/group"
-            element={<PicnicPrivateList />}
-          />
-          <Route
-            path="/activity/picnic/group/:groupId"
-            element={<IndexPrivateDetail />}
-          />
-          <Route path="/activity/picnic/create" element={<CreatePincnic />} />
-          <Route path="/Users/*" element={<Users />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/users/" element={<Users />}>
-            <Route path="/users/account" element={<Account />} />
-            <Route path="/users/password" element={<Password />} />
-            <Route path="/users/order" element={<Order />} />
-            <Route path="/users/points" element={<Points />} />
-            <Route path="/users/pinic" element={<Pinic />} />
-            <Route path="/users/recipe" element={<Recipe />} />
-          </Route>
-          <Route path="/login/" element={<LoginPage />}>
-            <Route path="/login/" element=<Login /> />
-            <Route path="/login/signup" element={<Signup />} />
-          </Route>
-          <Route path="/activity" element={<ActivityMain />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
-        </Routes>
-      </ScrollToTop>
-=======
       <UserRights.Provider value={{ user, setUser }}>
         <ScrollToTop>
           <Routes>
@@ -137,14 +81,18 @@ function App() {
             <Route path="/activity/picnic" element={<PicnicIndex />} />
             <Route
               path="/activity/picnic/official"
-              element={<PicnicOffical />}
+              element={<PicnicOfficalList />}
             />
             <Route
-              path="/activity/picnic/official/:id"
+              path="/activity/picnic/official/:officialId"
               element={<PicnicOfficalDetail />}
             />
             <Route
-              path="/activity/picnic/group/:id"
+              path="/activity/picnic/group"
+              element={<PicnicPrivateList />}
+            />
+            <Route
+              path="/activity/picnic/group/:groupId"
               element={<IndexPrivateDetail />}
             />
             <Route path="/activity/picnic/create" element={<CreatePincnic />} />
@@ -162,16 +110,12 @@ function App() {
               <Route path="/signin/signup" element={<Signup />} />
             </Route>
             <Route path="/activity" element={<ActivityMain />} />
-            <Route path="/activity/camping" element={<CampingMain />} />
-            <Route
-              path="/activity/camping/:id"
-              element={<CampingDetailPage />}
-            />
+            <Route path="/activity/camping" element={<Caping />} />
+            <Route path="/activity/camping/:id" element={<Caping />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </ScrollToTop>
       </UserRights.Provider>
->>>>>>> develop-test
     </>
   );
 }

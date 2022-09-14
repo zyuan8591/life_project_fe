@@ -46,7 +46,7 @@ function ActivityMain() {
           <div className="activityCamping">
             <figure className="activityCampingImg">
               <img
-                src="/img/picnic/activity_picnic_img/picnic_13_01.jpg"
+                src="/img/picnic/activity_picnic_img/picnic_60_02.jpg"
                 alt="#/"
               />
             </figure>

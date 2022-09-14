@@ -1,6 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as yup from 'yup';
 import { API_URL } from '../../../utils/config';
 import '../../../styles/picnic/_createPincnic.scss';
 import Header from '../../public_component/Header';
@@ -15,7 +17,6 @@ import {
   FaCommentAlt,
 } from 'react-icons/fa';
 import { AiOutlineCamera } from 'react-icons/ai';
-import { useEffect } from 'react';
 
 function CreatePincnic() {
   const [activityContent, setActivityContent] = useState({
@@ -62,15 +63,15 @@ function CreatePincnic() {
   }
 
   //TODO: 無法取得地區資料
-  // const [locationData, setlocationData] = useState([]);
-  // const getLocationData = async () => {
-  //   let response = await axios.get(`${API_URL}/picnic?`);
-  //   setlocationData(response.data.data);
-  //   console.log(response.data.data);
-  // };
-  // useEffect(() => {
-  //   getLocationData();
-  // });
+  const [locationData, setlocationData] = useState([]);
+  const getLocationData = async () => {
+    let response = await axios.get(`${API_URL}/picnic/create?`);
+    setlocationData(response.data.data);
+    // console.log(response.data.data);
+  };
+  useEffect(() => {
+    getLocationData();
+  });
 
   return (
     <>
@@ -91,6 +92,9 @@ function CreatePincnic() {
                 onChange={handleChange}
                 required
               />
+              {/* <div>{if(activityContent.title===''){
+                return( <div>'必填項目未輸入'</div>)
+              }}</div> */}
             </div>
 
             <div className="form d-flex flex-column mb-4">
@@ -231,7 +235,45 @@ function CreatePincnic() {
             </div>
           </form>
         </div>
-      </main>
+      </main>{' '}
+      {/* <Formik
+        initialValues={{
+          title: '',
+          activityDate: '',
+          location: '',
+          address: '',
+          joinLimit: '',
+          startDate: '',
+          endDate: '',
+          intr: '',
+          image: '',
+        }}
+        validationSchema={yup.object({
+          title: yup
+            .string()
+            .max(10, '請輸入活動名稱')
+            .required('必填項目未輸入。'),
+          activityDate: yup.string().required('必填項目未輸入。'),
+          location: yup.string().required('必填項目未輸入。'),
+          confirmPassword: yup
+            .string()
+            .required('必填項目未輸入。')
+            .max(16, '請輸入8-16個半形英文和數字')
+            .min(8, '請輸入8-16個半形英文和數字')
+            .when('password', (password, schema) => {
+              return password ? schema.oneOf([password], '密碼不一致') : schema;
+            }),
+        })}
+        onSubmit={async (values) => {
+          try {
+            await axios.post(`${API_URL}/signup`, values);
+          } catch (e) {
+            console.error('register', e);
+          }
+        }}
+      >
+
+      </Formik> */}
       <Footer />
       <BackToTop />
     </>
