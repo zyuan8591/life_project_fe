@@ -100,8 +100,6 @@ const Recipes = () => {
     let productCateQuery = searchParams.get('productCate');
     if (!productCateQuery) productCateQuery = 0;
     setProductCateNow(productCateQuery);
-
-    console.log(Object.fromEntries([...searchParams]));
   }, [searchParams]);
 
   // set page to 1
@@ -115,7 +113,6 @@ const Recipes = () => {
       let result = await axios.get(
         `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}&productCate=${productCateNow}`
       );
-      console.log(result.data.pagination);
       setRecipeList(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();

@@ -36,7 +36,7 @@ const RecipeDetail = () => {
       setComments(commentsResult.data);
     })();
     pageRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [searchParams]);
+  }, [searchParams, id]);
 
   // for step section animation
   const introRef = useRef(null);
@@ -185,7 +185,11 @@ const RecipeDetail = () => {
         <section className="vh100"></section>
         <section className="vh100"></section>
         <section className="recipeDetailComment mx-auto py-5">
-          <RecipeComments data={comments} />
+          <RecipeComments
+            data={comments}
+            setData={setComments}
+            setRecipeData={setRecipeData}
+          />
         </section>
         {/* recipe slide */}
         <section className="recipeDetailSlide mb-5">
