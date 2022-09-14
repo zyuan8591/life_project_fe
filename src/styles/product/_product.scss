@@ -38,14 +38,14 @@ $productImgWidth: 250px;
         position: relative;
         z-index: -1;
         width: $productImgWidth;
-        // height: 300px;
+        height: 250px;
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         img {
           width: 100%;
-          object-fit: cover;
+          object-fit: contain;
         }
       }
     }
