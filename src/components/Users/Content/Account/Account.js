@@ -26,7 +26,7 @@ const Account = () => {
             <figure className="avata ">
               <img src={`${API_URL_IMG}${user.photo}`} alt="" />
             </figure>
-            <p className="userTitle">{user.name}</p>
+            <p className="userTitle username">{user.name}</p>
           </div>
           <div className="information">
             <div className="userData ">
