@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
 import { IconContext } from 'react-icons';
-import { API_URL } from '../../utils/config';
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
