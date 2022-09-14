@@ -166,7 +166,7 @@ const Tools = () => {
           >
             {item.map((v, i) => {
               const { id, name, color, img } = v;
-              console.log(item);
+              {/* console.log(item); */}
               return (
                 <div
                   className={classess.item}
@@ -199,6 +199,9 @@ const Tools = () => {
                 </div>
               );
             })}
+            {item.length === 0 && (
+              <div className={classess.nothingInFav}>沒有商品在我的最愛</div>
+            )}
           </div>
           <div
             className={classess.triangle}

@@ -27,9 +27,10 @@ const ProductList = () => {
       let productCateResult = await axios.get(`${API_URL}/products/category`);
       let productCateData = productCateResult.data;
       setProductCate(productCateData);
-      // let productListData = await getProductData();
-      let productListResult = await axios.get(`${API_URL}/products`);
-      let productListData = productListResult.data;
+      let productListData = await getProductData();
+      // let productListResult = await axios.get(`${API_URL}/products`);
+      // let productListData = productListResult.data;
+      console.log(productListData);
       setProductList(productListData);
     })();
   }, []);
@@ -42,7 +43,7 @@ const ProductList = () => {
           <ProductCategory productCate={productCate} />
           <div>
             <ProductFilter />
-            {/* <Product fuck="fff" productList={productList} /> */}
+            <Product fuck="fff" productList={productList} />
           </div>
         </div>
         <PaginationBar lastPage={8} pageNow={pageNow} setPageNow={setPageNow} />
