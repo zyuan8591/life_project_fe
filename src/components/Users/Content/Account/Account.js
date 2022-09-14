@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import InputGender from './component/InputGender';
-import InputAddress from './component/inputAddress';
+
 import WarnWindow from './component/WarnWindow';
 import axios from 'axios';
-import { API_URL } from '../../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import AccountEdit from './Account_Edit';
 import '../../../../styles/Users/Account.scss';
@@ -13,15 +12,16 @@ import '../../../../styles/Users/Account.scss';
 const Account = () => {
   const { user, setUser } = useUserRights();
   const [edit, setEdit] = useState(false);
-  // useEffect(() => {
-  //   let getUser = async () => {
-  //     let response = await axios.get(`${API_URL}/user`, {
-  //       withCredentials: true,
-  //     });
-  //     setUser(response.data);
-  //   };
-  //   getUser();
-  // }, []);
+  useEffect(() => {
+    let getUser = async () => {
+      let response = await axios.get(`${API_URL}/user`, {
+        withCredentials: true,
+      });
+      setUser(response.data);
+    };
+    getUser();
+  }, [setUser]);
+  // console.log('user', user);
   function clickEdit() {
     setEdit(true);
   }
@@ -42,7 +42,7 @@ const Account = () => {
           </div>
           <div className="avata-group">
             <figure className="avata ">
-              <img src="/img/user/user_img/fish.png" alt="" />
+              <img src={`${API_URL_IMG}${user.photo}`} alt="" />
             </figure>
             <p className="">{user.name}</p>
           </div>

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 // import InputAddress from './component/inputAddress';
 import WarnWindow from './component/WarnWindow';
 import axios from 'axios';
-import { API_URL } from '../../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import jsondata from './CityCountyData.json';
 import PreviewImage from './PreviewImage';
@@ -30,18 +30,32 @@ const Account = ({ setEdit }) => {
           gender: `${user.gender}`,
           birth: `${user.birth}`,
           phone: `${user.phone}`,
-          cityName: `${user.cityName}`,
-          areaName: `${user.areaName}`,
+          cityName: `${user.city}`,
+          areaName: `${user.area}`,
           intro: `${user.intro}`,
         }}
         onSubmit={async (values) => {
-          // try {
-          //   await axios.post(`${API_URL}/signup`, values);
-          //   setSign(true);
-          // } catch (e) {
-          //   console.error('register', e);
-          // }
-          console.log(values);
+          try {
+            let formData = new FormData();
+            formData.append('photo', values.photo);
+            formData.append('name', values.name);
+            formData.append('birth', values.birth);
+            formData.append('gender', values.gender);
+            formData.append('phone', values.phone);
+            formData.append('cityName', values.cityName);
+            formData.append('areaName', values.areaName);
+            formData.append('intro', values.intro);
+            let response = await axios.put(`${API_URL}/userUpdata`, formData, {
+              withCredentials: true,
+            });
+            console.log(response.data);
+            console.log(formData);
+
+            // setEdit(false);
+          } catch (e) {
+            console.error('register', e);
+          }
+          // console.log(values);
         }}
       >
         {({ values, setFieldValue }) => (
@@ -50,7 +64,11 @@ const Account = ({ setEdit }) => {
               <label htmlFor="photo">
                 <figure className="avata ">
                   <span>點擊更換圖片</span>
-                  {values.photo && <PreviewImage file={values.photo} />}
+                  {values.photo ? (
+                    <PreviewImage file={values.photo} />
+                  ) : (
+                    <img src={`${API_URL_IMG}${user.photo}`} alt="" />
+                  )}
                 </figure>
               </label>
               <input
