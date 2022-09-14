@@ -79,28 +79,41 @@
     .recipientInfo{
       max-width: 600px;
       margin: 0 auto;
-    }
-
-
-    .recipientInput{
-      // display: block;
-      width: 100%;
-      padding: 4px;
-      // font-size: $text14;
-      line-height: 1.5rem;
-      // background-color: #fff;
-      border: 1px solid $subClrGY;
-      border-radius: 4px;
-      &:focus{
-        // outline: none;
-        outline: 1.5px solid $subClrBrown;
-        &::placeholder {
-          color: transparent;
-        }
-        // border:1px solid $focusClrB;
+      input, select, textarea{
+        // display: block;
+        width: 100%;
+        padding: 4px;
+        // font-size: $text14;
+        // line-height: 1.5rem;
+        // background-color: #fff;
+        border: 1px solid $subClrGY;
+        border-radius: 4px;
+        &:focus{
+          // outline: none;
+          outline: 1.5px solid $subClrBrown;
+          &::placeholder {
+            color: transparent;
+          }
+          // border:1px solid $focusClrB;
       }
+      }
+
+      p{
+        padding: 0 2px;
+        margin-bottom: 0;
+      }
+      
+      .address{
+        .row{
+          --bs-gutter-x:0;
+        }
+        
+      }
+      
     }
 
+
+    
     textarea {
       resize: none;
       height: 100px;

@@ -30,15 +30,15 @@ const OrderList = (props) => {
   //   const checkcount = productCart.state.items.filter((items) => {
   //     return items.ischecked === true;
   //   });
-  //   if (checkcount.length === productCart.state.items.length) {
-      
+  //   if (checkcount.length !== productCart.state.items.length) {
+  //     setSelectAll(false);
   //   }
   // }, [productCart]);
 
   return (
     <>
       {productCart.state.items.length < 1 ? (
-        '未選擇商品'
+        '滾'
       ) : (
         <>
           <h2 className="h1 ps-3 pb-2">商品</h2>
@@ -50,14 +50,18 @@ const OrderList = (props) => {
                 <input
                   type="checkbox"
                   onChange={() => {
-                    // const checkcount = productCart.state.items.filter(
-                    //   (items) => {
-                    //     return items.ischecked === true;
-                    //   }
-                    // );
-                    // if (checkcount.length === productCart.state.items.length) {
-                    //   setSelectAll(true);
-                    // }
+                    const checkcount = productCart.state.items.filter(
+                      (items) => {
+                        return items.ischecked === true;
+                      }
+                    );
+                    if (checkcount.length !== productCart.state.items.length) {
+                      console.log('888',
+                        checkcount,
+                        productCart.state.items.length
+                      );
+                      setSelectAll(false);
+                    }
                     productCart.state.items.map((v, i) => {
                       productCart.updateItem({
                         ...v,
@@ -261,7 +265,7 @@ const OrderList = (props) => {
       </div>
 
       {activityCart.state.items.length < 1 ? (
-        '未選擇活動'
+        '滾'
       ) : (
         <>
           <h2 className="h1 ps-3 pb-2">活動</h2>
