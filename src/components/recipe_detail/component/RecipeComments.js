@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { useSearchParams } from 'react-router-dom';
+import { type } from '@testing-library/user-event/dist/type';
 
 const subClrBrown = '#817161';
 const title = css`
@@ -39,6 +40,7 @@ const commentSubmitBtn = css`
 `;
 
 const RecipeComments = ({ data, setData, setRecipeData }) => {
+  console.log('comment', typeof data);
   const [comment, setComment] = useState('');
   const [searchParams] = useSearchParams();
 
@@ -48,10 +50,16 @@ const RecipeComments = ({ data, setData, setRecipeData }) => {
     setComment(e.target.value);
   };
   const commentSubmit = async (e) => {
-    await axios.post(`${API_URL}/recipes/${id}/comment`, {
-      user_id: 5,
-      comment,
-    });
+    await axios.post(
+      `${API_URL}/recipes/${id}/comment`,
+      {
+        user_id: 5,
+        comment,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     // recipe detail
     let result = await axios.get(`${API_URL}/recipes/${id}`);
     setRecipeData(result.data[0]);
