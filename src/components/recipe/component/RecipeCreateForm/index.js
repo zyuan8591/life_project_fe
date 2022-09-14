@@ -4,13 +4,36 @@ import RecipeMaterial from './RecipeMaterial';
 import RecipeStep from './RecipeStep';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
+import { useUserRights } from '../../../../usecontext/UserRights';
 
 const RecipeCreateForm = ({ setCreateRecipe }) => {
+  const { user } = useUserRights();
+  // console.log(user);
+
   const [formData, setFormData] = useState({
-    title: '招牌鍋貼',
+    name: '招牌鍋貼',
     content: '好吃又好玩',
-    material: [{ name: '高麗菜', quantity: '5顆' }, {}],
+    material: [
+      { name: '高麗菜', quantity: '5顆' },
+      { name: '水', quantity: '一杯' },
+      {},
+    ],
+    category: 2,
+    product_category: 9,
+    image: '/img/recipe/recipe_img/ApplePie.jpg',
+    user_id: user.id,
+    step: [
+      {
+        image: '/img/recipe/recipe_step_img/ApplePie_01.jpg',
+        content: '準備好食材',
+      },
+      {
+        image: '/img/recipe/recipe_step_img/ApplePie_01.jpg',
+        content: '吃掉食材',
+      },
+    ],
   });
+
   return (
     <div className={classes.container} onClick={(e) => e.stopPropagation()}>
       {/* add and cancel */}
