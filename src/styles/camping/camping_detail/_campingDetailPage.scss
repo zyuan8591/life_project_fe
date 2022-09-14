@@ -9,6 +9,11 @@
     transform: translate($translateX,-20px);
     cursor: pointer;
 }
+@mixin collectBtn {
+    margin-right: 10px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
 
 .CampingDetailPage{
     margin: 0 auto $headerHeight;
@@ -33,19 +38,50 @@
                 font-size: $text32;
                 margin-right: 15px;
             }
-            .joinBtn{
-                display: inline-block;
-                margin-right: 20px;
-                padding: 2px 6px;
-                color: $mainClrW;
-                border-radius: 2px;
-                background-color: $focusClrY;
-                transition: .3s;
+            .joinIcon{
                 cursor: pointer;
-                &:hover{
-                    @include buttonHover;
-                }
             }
+            .collectBtn{
+                @include collectBtn;
+                // &:hover{
+                //     color: #dd2424;
+                // }
+            }
+            .collectedBtn{
+                @include collectBtn;
+                color: #dd2424;
+                // &:hover{
+                //     color: $contentClr;
+                // }
+            }
+            // .joinBtn{
+            //     display: inline-block;
+            //     margin-right: 20px;
+            //     padding: 4px 8px;
+            //     color: $mainClrW;
+            //     border: 0;
+            //     border-radius: 2px;
+            //     background-color: $focusClrY;
+            //     transition: .3s;
+            //     cursor: pointer;
+            //     &:hover{
+            //         @include buttonHover;
+            //     }
+            // }
+            // .hadJoinBtn{
+            //     display: inline-block;
+            //     margin-right: 20px;
+            //     padding: 4px 8px;
+            //     color: $mainClrW;
+            //     border: 0;
+            //     border-radius: 2px;
+            //     background-color: $subClrBrown;
+            //     transition: .3s;
+            //     cursor: pointer;
+            //     &:hover{
+            //         @include buttonHover;
+            //     }
+            // }
         }
         .titleContainer{
             .titleContent{
@@ -181,62 +217,6 @@
         }
         }
         
-        // aside
-        .sticky{
-            position: sticky;
-            top: 65px;
-        }
-        aside{
-            padding: 20px;
-            margin: 20px 70px;
-            border: 2px solid $subClrBrown;
-            transition: .3s;
-            .asideTitle{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                .titleName{
-                font-size: 20px;
-                }
-                .state{
-                    font-size: $text12;
-                    color: $mainClrW;
-                    border-radius: 12px;
-                    padding: 2px 7px;
-                    background-color: $focusClrG;
-                }
-            }
-            .asidePrice{
-                font-size: $text14;
-                padding: 5px 0;
-                color: $subClrBrown;
-            }
-            .asideContent{
-                .contentItem{
-                    display: flex;
-                    align-items: center;
-                    margin: 15px 0;
-                    font-size: $text14;
-                }
-            }
-            .asideMap{
-                height: 150px;
-                width: 100%;
-                border: 1px solid lightblue;
-            }
-            .joinBtn{
-                display: inline-block;
-                margin-top: 20px;
-                padding: 2px 6px;
-                background-color: $subClrBrown;
-                color: $mainClrW;
-                transition: .3s;
-                cursor: pointer;
-                &:hover{
-                    @include buttonHover;
-                }
-            } 
-        }
         // product slider
         .productTitle{
             font-size: 18px;

@@ -37,6 +37,7 @@ import { API_URL } from './utils/config';
 import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
 import OrderStep from './components/Orders/OrderStep';
+import SetMap from './components/map/SetMap';
 
 function HeaderFooter() {
   return (
@@ -73,6 +74,13 @@ function App() {
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/orderstep" element={<OrderStep />} />
               <Route path="/news" element={<News />} />
+              <Route path="/activity" element={<ActivityMain />} />
+              <Route path="/activity/camping" element={<CampingMain />} />
+              <Route
+                path="/activity/camping/:campingId"
+                element={<CampingDetailPage />}
+              />
+              <Route path="/map" element={<SetMap />} />
             </Route>
             {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
             <Route path="/recipeDetail" element={<RecipeDetail />} />
@@ -105,12 +113,6 @@ function App() {
               <Route path="/signin/login" element={<Login />} />
               <Route path="/signin/signup" element={<Signup />} />
             </Route>
-            <Route path="/activity" element={<ActivityMain />} />
-            <Route path="/activity/camping" element={<CampingMain />} />
-            <Route
-              path="/activity/camping/:id"
-              element={<CampingDetailPage />}
-            />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </ScrollToTop>
