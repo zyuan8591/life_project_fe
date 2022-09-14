@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from '../../../../styles/moduleCss/recipes/RecipeCreatingForm.module.scss';
 import RecipeMaterial from './RecipeMaterial';
 import RecipeStep from './RecipeStep';
@@ -6,12 +6,18 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 
 const RecipeCreateForm = ({ setCreateRecipe }) => {
+  const [formData, setFormData] = useState({
+    title: '招牌鍋貼',
+    content: '好吃又好玩',
+    material: [{ name: '高麗菜', quantity: '5顆' }, {}],
+  });
   return (
     <div className={classes.container} onClick={(e) => e.stopPropagation()}>
-      <div className={`mb-3 ${classes.createController}`}>
-        <button className={`${classes.addBtn} ${classes.btn}`}>新增食譜</button>
+      {/* add and cancel */}
+      <div className={`ms-3 ${classes.createController}`}>
+        <button className={`mb-1 bg-success ${classes.btn}`}>新增</button>
         <button
-          className={`${classes.delBtn} ${classes.btn}`}
+          className={`bg-danger ${classes.btn}`}
           onClick={() => {
             setCreateRecipe(false);
           }}
@@ -19,6 +25,7 @@ const RecipeCreateForm = ({ setCreateRecipe }) => {
           取消
         </button>
       </div>
+      {/* create form */}
       <form action="" className={classes.addingForm}>
         <div className={classes.formItem}>
           <label>食譜名稱</label>

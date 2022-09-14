@@ -118,7 +118,11 @@ const RecipeDetail = () => {
         <div ref={introRef}>
           <Header fixed={false} />
           <section className="recipeDetailIntro">
-            <RecipeIntro data={recipeData} id={id} />
+            <RecipeIntro
+              data={recipeData}
+              id={id}
+              setRecipeData={setRecipeData}
+            />
           </section>
         </div>
 
