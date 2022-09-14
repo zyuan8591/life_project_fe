@@ -1,11 +1,20 @@
+import { IconContext } from 'react-icons';
+import { IoIosArrowDropdown } from 'react-icons/io';
+
 function TitleBanner() {
   return (
     <>
       <section className="section-main">
-        <div className="d-flex">
+        <div className="banner">
+          <img
+            src="../../../img/picnic/activity_picnic_img/picnic_detail_banner2.jpeg"
+            alt=""
+          />
+        </div>
+        {/* <div className="d-flex">
           <div className="title-bn">
             <img
-              src="../../../img/picnic/activity_picnic_img/picnic_index_banner1.png"
+              src="../../../img/picnic/activity_picnic_img/picnic_index_banner01.webp"
               alt=""
             />
             <img
@@ -32,13 +41,9 @@ function TitleBanner() {
               <div className="first-child">給生活中繁忙的自己，</div>
               <div className="last-child">一個草地上的微旅行。</div>
             </div>
-            <div>
-              {/* <IconContext.Provider value={{ color: '#444', size: '4rem' }}>
-                <IoIosArrowDropdown className="icon-ArrowDropdown" />
-              </IconContext.Provider> */}
-            </div>
+            <IoIosArrowDropdown className="iconArrowDropdown" />
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );

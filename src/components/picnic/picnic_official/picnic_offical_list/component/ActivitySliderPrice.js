@@ -38,7 +38,7 @@ function ActivitySliderPrice({
           <div>
             ${minPrice} - ${maxPrice}
           </div>
-          <button>篩選</button>
+          {/* <button>篩選</button> */}
         </div>
       </div>
     </>

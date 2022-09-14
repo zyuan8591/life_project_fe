@@ -18,7 +18,6 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import { useEffect } from 'react';
 
 function CreatePincnic() {
-  //TODO: 開團狀態怎麼處理？給預設值?
   const [activityContent, setActivityContent] = useState({
     title: '',
     activityDate: '',
@@ -32,7 +31,7 @@ function CreatePincnic() {
   });
 
   function handleChange(e) {
-    console.log('handleChange', e.target.name, e.target.value);
+    // console.log('handleChange', e.target.name, e.target.value);
     let newActivityContent = { ...activityContent };
     newActivityContent[e.target.name] = e.target.value;
     setActivityContent(newActivityContent);
@@ -49,15 +48,13 @@ function CreatePincnic() {
       formData.append('title', activityContent.title);
       formData.append('activityDate', activityContent.activityDate);
       formData.append('location', activityContent.location);
+      formData.append('address', activityContent.address);
       formData.append('joinLimit', activityContent.joinLimit);
       formData.append('startDate', activityContent.startDate);
       formData.append('endDate', activityContent.endDate);
       formData.append('intr', activityContent.intr);
       formData.append('image', activityContent.image);
-      let response = await axios.post(
-        `${API_URL}/picnic/create`,
-        activityContent
-      );
+      let response = await axios.post(`${API_URL}/picnic/create`, formData);
       console.log(response.data);
     } catch (e) {
       console.log('formData', e);
@@ -149,9 +146,9 @@ function CreatePincnic() {
                   >
                     {/* TODO:撈地區資料 */}
                     <option>地區</option>
-                    <option value="松山區">松山區</option>
-                    <option value="大安區">大安區</option>
-                    <option value="信義區">信義區</option>
+                    <option value="1">松山區</option>
+                    <option value="2">大安區</option>
+                    <option value="3">信義區</option>
                   </select>
                 </div>
                 <input

@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   FaExclamationTriangle,
-  FaCheck,
-  FaTimes,
   FaQuoteLeft,
   FaQuoteRight,
 } from 'react-icons/fa';

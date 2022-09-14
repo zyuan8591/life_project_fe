@@ -6,6 +6,7 @@ import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
+import '../../../../styles/picnic/_picnicOffical.scss';
 import '../../../../styles/camping/camping_main/_campingMain.scss';
 import Footer from '../../../public_component/Footer';
 import Header from '../../../public_component/Header';
@@ -31,6 +32,7 @@ const activityState = [
 ];
 
 function PicnicList() {
+  // const [isLoading, setIsLoading] = useState(false);
   const [stateSearch, setStateSearch] = useState(activityState);
   const [cardChange, setCardChange] = useState(true);
   const [horizontalCardChange, setHorizontalCardChange] = useState(false);
@@ -43,9 +45,11 @@ function PicnicList() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(2500);
   const [minJoinPeople, setMinJoinPeople] = useState(0);
-  const [maxJoinPeople, setMaxJoinPeople] = useState(0);
+  const [maxJoinPeople, setMaxJoinPeople] = useState(30);
   const [minDate, setMinDate] = useState('');
   const [maxDate, setMaxDate] = useState('');
+  const [maxDateValue, setMaxDateValue] = useState('');
+  const [minDateValue, setMinDateValue] = useState('');
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
@@ -72,6 +76,23 @@ function PicnicList() {
     minDate,
     maxDate,
   ]);
+
+  // const loader = (
+  //   <div className="sk-fading-circle">
+  //     <div className="sk-circle1 sk-circle"></div>
+  //     <div className="sk-circle2 sk-circle"></div>
+  //     <div className="sk-circle3 sk-circle"></div>
+  //     <div className="sk-circle4 sk-circle"></div>
+  //     <div className="sk-circle5 sk-circle"></div>
+  //     <div className="sk-circle6 sk-circle"></div>
+  //     <div className="sk-circle7 sk-circle"></div>
+  //     <div className="sk-circle8 sk-circle"></div>
+  //     <div className="sk-circle9 sk-circle"></div>
+  //     <div className="sk-circle10 sk-circle"></div>
+  //     <div className="sk-circle11 sk-circle"></div>
+  //     <div className="sk-circle12 sk-circle"></div>
+  //   </div>
+  // );
 
   //TODO: 如何依照時間變更活動狀態？
   // 費用篩選 不能用按鈕點選篩選
@@ -137,7 +158,16 @@ function PicnicList() {
                   />
 
                   {/* date filter */}
-                  <ActivityDateFilter />
+                  <ActivityDateFilter
+                    minDate={minDate}
+                    setMinDate={setMinDate}
+                    maxDate={maxDate}
+                    setMaxDate={setMaxDate}
+                    maxDateValue={maxDateValue}
+                    setMaxDateValue={setMaxDateValue}
+                    minDateValue={minDateValue}
+                    setMinDateValue={setMinDateValue}
+                  />
                 </div>
                 {/* 右側活動列表 */}
                 <div className="col-9">

@@ -3,10 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { FaPaw } from 'react-icons/fa';
 
 function DetailTitle({ data }) {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {data.map((item) => {
+        function dataReplace(date) {
+          return date.replace(/-/g, '/');
+        }
         return (
           <div className="detailTitle" key={uuidv4()}>
             <div>
@@ -14,7 +17,7 @@ function DetailTitle({ data }) {
               <ul className="titleContent my-4">
                 <li>
                   <FaPaw className="faPawIcon" />
-                  活動日期：{item.activity_date}
+                  活動日期：{dataReplace(item.activity_date)}
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
@@ -26,11 +29,11 @@ function DetailTitle({ data }) {
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
-                  報名開始：{item.start_date}
+                  報名開始：{dataReplace(item.start_date)}
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
-                  報名結束：{item.end_date}
+                  報名結束：{dataReplace(item.end_date)}
                 </li>
               </ul>
             </div>

@@ -13,9 +13,8 @@ function PicnicIndex() {
   return (
     <>
       <Header />
+      <TitleBanner />
       <main className="main ">
-        {/* section main banner */}
-        <TitleBanner />
         <Content />
       </main>
       <Footer />

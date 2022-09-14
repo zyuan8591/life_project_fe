@@ -17,10 +17,11 @@ function ActivityCard({ data }) {
       return width + 'px';
     }
   };
+
   return (
     <>
       {data.length === 0 ? (
-        <div>沒有相關資料</div>
+        <div style={{ fontSize: '16px', color: '#817161' }}>沒有相關資料</div>
       ) : (
         data.map((item) => {
           return (

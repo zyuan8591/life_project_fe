@@ -21,25 +21,27 @@
 }
 @mixin contentWrap {
     .wrap {
-        height: 600px;
+        // height: 500px;
         display: flex;
         align-items: center;
-    .image{
-        width: 650px;
-        height: 450px;
-        margin-left: 3rem;
-        overflow: hidden;
-        box-shadow: .3px .3px 7px;
-        border-radius: 5px;
-        img {
-            @include imgObj;
-
-            height: 100%;
-            transition: transform 2.5s ease;
-        }
-        &:hover img{
-            transform: scale(1.2);
-        }
+        border-radius: 10px;
+        box-shadow: .8px .8px 10px $subClrGY;
+        margin: 80px 0 ;
+        .image{
+            width: 700px;
+            height: 500px;
+            // margin-left: 3rem;
+            overflow: hidden;
+            // box-shadow: .3px .3px 7px;
+            border-radius: 3px;
+            img {
+                @include imgObj;
+                height: 100%;
+            }
+        
+    }&:hover{
+        transform: translateY(-20px);
+        transition: transform 1s ease-in-out;
     }
     .content-text{
         width: 500px;
@@ -73,84 +75,96 @@
     }
 }
 
+// ----- main banner -----
+.section-main{
+    display: flex;
+    margin: 65px 0 0;
+    // .iconArrowDropdown{
+    //     color: white;
+    //     font-size: 5rem;
+    //     position: absolute;
+    //     bottom: 15%;
+    //     right: 50%;
+    // }
+    .banner{
+        width: 100%;
+        height: 600px;
+        img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+    }
+    .title-bn {
+        width: 60%;
+        display: flex;
+        align-items: center;
+        margin: auto 0 auto 30px;
+        img {
+            @include imgObj;
+        }
+        .balloon1{
+            width: 7%;
+            position: absolute;
+            top: 9%;
+            left: 20%;
+        }
+        .balloon2{
+            width: 7%;
+            position: absolute;
+            top: 14%;
+            left: 28%;
+        }
+    }
+    .title-text {
+        width: 40%;
+        position: relative;
+        .title-slogan {
+            position: absolute;
+            top: 10rem;
+            right: 5%;
+            span {
+            color: $mainClrW;
+            font-size: 12rem;
+           font-weight: $fW900;
+           -webkit-text-stroke: 4px $subClrGY;
+            
+           &:nth-child(n) {
+            color: $focusClrG;
+            margin: 0 5px;
+           }
+           &:nth-child(2n) {
+            color: $focusClrY;
+           }
+        }
+        }
+        .title-slogan2 {
+            color: $contentClr;
+            font-size: 50px;
+            font-weight: $fW700;
+            
+            .first-child {
+            position: absolute;
+            top: 35rem;
+            right: 30%;
+            }
+            .last-child {
+                position: absolute;
+                top: 43rem;
+                right: 8%;
+                }
+    }
+    
+    }
+}
 .main {
     width: $maxWidth;
     margin: auto;
     position: relative;
     top: $headerHeight;
-// ----- main banner -----
-    .section-main{
-        display: flex;
-        // height: calc(80vh - $headerHeight);
-        margin: 100px 0;
-        .title-bn {
-            width: 60%;
-            display: flex;
-            align-items: center;
-            margin: auto 0;
-            img {
-                @include imgObj;
-            }
-            .balloon1{
-                width: 7%;
-                position: absolute;
-                top: 2rem;
-                left: 20rem;
-            }
-            .balloon2{
-                width: 7%;
-                position: absolute;
-                top: 3rem;
-                left: 29rem;
-            }
-        }
-        .title-text {
-            width: 40%;
-            position: relative;
-            .title-slogan {
-                position: absolute;
-                top: 5rem;
-                span {
-                color: $mainClrW;
-                font-size: $text9Rem;
-               font-weight: $fW900;
-               -webkit-text-stroke: 4px $subClrGY;
-                
-               &:nth-child(n) {
-                color: $focusClrG;
-               }
-               &:nth-child(2n) {
-                color: $focusClrY;
-               }
-            }
-            }
-            .title-slogan2 {
-                color: $contentClr;
-                font-size: $titleText;
-                font-weight: $fW700;
-                
-                .first-child {
-                position: absolute;
-                top: 25rem;
-                right: 10rem;
-                }
-                .last-child {
-                    position: absolute;
-                    top: 30rem;
-                    right: 4rem;
-                    }
-        }
-        
-        }
-        // .icon-ArrowDropdown {
-        //     position: absolute;
-        //     top: 0;
-        //     right: 0;
-        // }
-
-    }
 // ----- content ------
     .section-content{
+        margin: 0 auto 100px; 
             @include contentWrap;
     }
     

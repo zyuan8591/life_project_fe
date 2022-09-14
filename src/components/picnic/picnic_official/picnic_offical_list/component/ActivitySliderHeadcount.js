@@ -4,10 +4,6 @@ import 'antd/dist/antd.css';
 import classes from '../../../../../styles/moduleCss/picnic_main/ActivitySlider.module.scss';
 import '../../../../../styles/picnic/camping_main/_activitySlider.scss';
 
-const onAfterChange = (value) => {
-  console.log('onAfterChange: ', value);
-};
-
 function ActivitySliderHeadcount({
   minJoinPeople,
   setMinJoinPeople,
@@ -38,7 +34,7 @@ function ActivitySliderHeadcount({
           <div>
             {minJoinPeople}人 - {maxJoinPeople}人
           </div>
-          <button>篩選</button>
+          {/* <button>篩選</button> */}
         </div>
       </div>
     </>

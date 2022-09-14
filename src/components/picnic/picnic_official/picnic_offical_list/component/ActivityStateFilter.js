@@ -9,7 +9,7 @@ function ActivityStateFilter({ v, filterState, setFilterState }) {
         style={{ backgroundColor: v.style }}
         onClick={() => {
           setFilterState(v.value);
-          console.log(v.value);
+          // console.log(v.value);
         }}
       >
         {v.state}

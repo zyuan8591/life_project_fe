@@ -17,31 +17,32 @@ import { API_URL } from '../../../../utils/config';
 
 function PicnicOfficalDetail() {
   const [data, setData] = useState([]);
+  const [paicipantData, setPaicipantData] = useState([]);
+  const [productsData, setProductsData] = useState([]);
   const { officialId } = useParams();
   // console.log(officialId);
-
-  //TODO: 會一次撈出12筆資料
 
   // --- 詳細頁 全部資料 ---
   useEffect(() => {
     let getOfficalDetail = async () => {
       let response = await axios.get(
-        `${API_URL}/picnic/official?officialId=${officialId}`
+        `${API_URL}/picnic/official/${officialId}`
       );
       setData(response.data.data);
-      // console.log(response.data.data);
+      setPaicipantData(response.data.paicipantData);
+      setProductsData(response.data.productsData);
+      // console.log(productsData);
     };
     getOfficalDetail();
   }, []);
 
   useEffect(() => {
     // console.log(data);
-  }, [data]);
+  }, [data, paicipantData, productsData]);
 
-  //TODO: 撈出詳細頁 撈資料
-  //TODO: 參加者 撈資料
-  //TODO: 推薦商品 撈資料
-  //TODO: 熱門活動 撈資料
+  //TODO: 參加者 user資料庫未新增 增加user名單
+  //TODO: 推薦商品 連結
+  //TODO: 熱門活動 連結
 
   return (
     <>
@@ -55,14 +56,24 @@ function PicnicOfficalDetail() {
             {/* 活動詳細內容 */}
             <OffcialDetailContent data={data} />
             {/* 參加者 */}
-            <Paicipant cardWidth={140} displayTotal={6} />
+            <Paicipant
+              cardWidth={140}
+              displayTotal={6}
+              data={data}
+              paicipantData={paicipantData}
+            />
           </div>
           <div className="col-sm-2">
             {/* 側邊資訊欄 */}
-            <AsideMessageFix data={data}/>
+            <AsideMessageFix data={data} />
           </div>
           {/* 推薦商品 */}
-          <RecommendProducts cardWidth={210} displayTotal={6} />
+          <RecommendProducts
+            cardWidth={210}
+            displayTotal={6}
+            productsData={productsData}
+            setProductsData={setProductsData}
+          />
           {/* 熱門活動 */}
           <RecommendActivity />
         </div>

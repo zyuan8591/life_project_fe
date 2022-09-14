@@ -27,7 +27,7 @@ const customStyles = {
   control: (base, state) => ({
     ...base,
     border: '1px solid #817161',
-    borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
+    borderColor: state.isFocused ? '#0' : 'hsl(0, 0%, 80%)',
     boxShadow: 0,
     '&:hover': {
       border: state.isFocused ? '1px solid #817161' : '1px solid #817161',
