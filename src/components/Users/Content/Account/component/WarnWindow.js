@@ -13,7 +13,9 @@ function WarnWindow({ warn, setWarn }) {
           <p>是否儲存變更</p>
         </div>
         <div className="btn border">
-          <button className="store storeBtn">儲存</button>
+          <button className="store storeBtn" type="submit">
+            儲存
+          </button>
           <button onClick={exit} className="exit exitBtn">
             取消
           </button>

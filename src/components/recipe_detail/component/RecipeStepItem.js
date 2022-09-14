@@ -3,6 +3,10 @@ import { css } from '@emotion/react';
 import React from 'react';
 
 const container = css`
+  .eggIcon {
+    filter: invert(46%) sepia(26%) saturate(296%) hue-rotate(349deg)
+      brightness(93%) contrast(90%);
+  }
   &:hover {
     .eggIcon {
       filter: invert(77%) sepia(56%) saturate(864%) hue-rotate(333deg)
@@ -34,10 +38,11 @@ const textContent = css`
   border: 2px solid #444;
 `;
 
-const RecipeStepItem = ({ i = 1, img, content }) => {
+const RecipeStepItem = ({ i, img, content, position }) => {
+  let align = ['align-slef-center', 'align-self-start'];
   return (
     <div
-      className="d-flex flex-column px-3 position-relative flex-shrink-0"
+      className={`d-flex flex-column px-3 position-relative flex-shrink-0 ${align[position]}`}
       css={container}
     >
       <figure className="m-0 position-relative" css={iconContainer}>
@@ -45,7 +50,7 @@ const RecipeStepItem = ({ i = 1, img, content }) => {
           src="/img/recipe/other/recipe_egg.svg"
           alt=""
           css={eggIcon}
-          className="objectContain eggIcon transition"
+          className="objectContain eggIcon "
         />
         <span className="position-absolute top-50 start-50 translate-middle fs-3">
           {i}
@@ -56,7 +61,7 @@ const RecipeStepItem = ({ i = 1, img, content }) => {
         css={recipeImgContainer}
       >
         <img
-          src="/img/recipe/recipe_img/BandW.jpg"
+          src={`/img/recipe/recipe_step_img/${img}`}
           alt=""
           css={eggIcon}
           className="objectContain"
@@ -64,7 +69,7 @@ const RecipeStepItem = ({ i = 1, img, content }) => {
       </figure>
       <div css={textContainer} className="p-1">
         <p css={textContent} className="p-3 m-0">
-          準備所有食材，奶油乳酪室溫下融化。
+          {content}
         </p>
       </div>
     </div>

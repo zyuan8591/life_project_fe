@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 
 const hoverClr = '#eee';
 const subClrBrown = '#817161';
@@ -20,6 +22,7 @@ const container = css`
 `;
 const imgContainer = css`
   max-width: 250px;
+  min-width: 250px;
   border-radius: 3px;
   overflow: hidden;
 `;
@@ -57,8 +60,17 @@ const icon = css`
 `;
 
 const RecipeListMode = ({ data }) => {
+  const [material, setMaterial] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/recipes/${data.id}/material`);
+      let materialArr = result.data.map((d) => d.name);
+      setMaterial(materialArr.join('、'));
+    })();
+  }, []);
+
   return (
-    <Link to="/recipes/5" css={container}>
+    <Link to={`/recipeDetail?id=${data.id}`} css={container}>
       <figure css={imgContainer}>
         <img
           src={`/img/recipe/recipe_img/${data.image}`}
@@ -74,7 +86,7 @@ const RecipeListMode = ({ data }) => {
         </div>
         <div>Author: {data.user_id}</div>
         <div css={recipeContent}>{data.content}</div>
-        <div css={recipeMaterial}>食材：高麗菜、水、水餃皮</div>
+        <div css={recipeMaterial}>食材：{material}</div>
         <div css={about}>
           <div css={icon}>
             <AiOutlineHeart />
