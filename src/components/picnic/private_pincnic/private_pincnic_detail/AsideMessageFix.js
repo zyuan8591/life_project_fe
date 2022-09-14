@@ -14,10 +14,10 @@ function AsideMessageFix({ data }) {
     setScrollDown(scrollNow > scrollY);
     scrollY = scrollNow;
   });
-
   function dataReplace(date) {
     return date.replace(/-/g, '/');
   }
+
   return (
     <>
       <div className="asideMessageFix">

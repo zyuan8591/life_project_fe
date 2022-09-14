@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Slider from 'react-slick';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 function RecommendProducts({ cardWidth, displayTotal, productsData }) {
   const productLength = productsData.length; //總共幾張
   const [productSlider, setProductSlider] = useState(0); //移動值
+
   const slideRight = (cardWidth, displayTotal) => {
     // 卡片寬 cardWidth, 呈現幾張 displayTotal
     // console.log(displayTotal)

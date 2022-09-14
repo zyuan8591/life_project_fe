@@ -47,7 +47,7 @@
             .titleContent {
                 li {
                     font-size: $text20;
-                    line-height: 2.5rem;
+                    line-height: 3rem;
                     .faPawIcon {
                         @include iconSize;
                         color: $subClrBrown;                
@@ -56,7 +56,7 @@
             }
             .image {
                 width: 100%;
-                height: 22rem;
+                height: 500px;
                 img {
                     @include imgWH;
                     object-fit: cover;
@@ -65,6 +65,9 @@
             }
             // --------- 活動內容 ---------
             .offcialDetailContent {
+                li {
+                    font-size:  $contentText;
+                }
             .contentWrap1 {
                 padding: 2rem 3rem;
                 margin: auto 0;
@@ -73,16 +76,19 @@
                 .quoteLeftIcon {
                     font-size: 1.2rem;
                     margin: -1rem 5px 0;
+                    // color: $subClrBrown;
                 }
                 .quoteRightIcon {
                     font-size: 1.2rem;
                     margin: 0 5px -1rem;
+                    // color: $subClrBrown;
                 }
                 p {
                     font-size: $text18;
                     text-align:justify;
                     margin: 0;
                     @include lineHeight;
+                    // color: $subClrBrown;
                 }    
             }
             .noticeItem {
@@ -115,115 +121,97 @@
             }
             // --------- 參加者 ---------
             .paicipant {
-            margin: 6rem 0;
-            h4 {
-                margin: 1.5rem 0;
-                font-size: $text24;
-            }
-            .arrowIcon {
-                @include arrowIcon;
-            }
-            .paicipantCard {
-                width: 7rem;
-                margin: auto .5rem;
-                padding: .6rem;
-                background: $hoverClr;
-                text-align: center;
-                .avatar {
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 50%;
-                    margin: auto ;
-                    overflow: hidden;
-                    background: lightsalmon;
-                    img {
-                        @include imgWH;
-                        object-fit: cover;
-                    }
-                }
-            }
-            }
-             // --------- 推薦商品 ---------
-            .recommendProducts {
-                margin: 6rem 0;
+                margin: 5rem 0;
                 h4 {
                     margin: 1.5rem 0;
-                    font-size: $text24;
+                    font-size: $text20;
                 }
-                .slider{
-                    background:rgb(202, 0, 0);
-                    width: 100%;
-                    height: 200px;
+                .arrowIconSlider{
+                    width: 936px;
                     position: relative;
-                    overflow: hidden;
                     .arrowIconLeft {
-                        @include arrowIcon;
-                        font-size: 40px;
-                        color: aquamarine;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        // transform: translateY(-50%);
+                    @include arrowIcon;
+                    font-size: 40px;
+                    color: $contentClr;
+                    position: absolute;
+                    top: 50%;
+                    left: 0px;
+                    transform: translate(-8px,-50%);
                     }
                     .arrowIconRight {
-                        @include arrowIcon;
-                        font-size: 40px;
-                        color: aquamarine;
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        // transform: translateY(-50%);
+                    @include arrowIcon;
+                    font-size: 40px;
+                    color: $contentClr;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
                     }
-                    .slidewrap{
-                        background-color: #efae3d;
-                        width: 1600px;
-                        position: absolute;
-                        .productCard {
-                            background-color: #3d99ef;
-                            max-width: 160px;
-                            height: 160px;
-                            // margin: auto;
-                            // position: relative;
-                            margin: 5px;
-                            overflow: hidden;
-                            .productImg{
-                                max-width: 160px;
-                                height: 160px;
-                                img {
-                                    @include imgWH;
-                                    height: 100%;
-                                    object-fit: cover;
-                                }
-                            }
-                            .hoverText{
-                                width: 100%;
-                                height: 160px;
-                                color: $mainClrW;
-                                background:#444444aa 80%;
+                    .slider {
+                        max-width: 900px;
+                        height: 190px;
+                        margin: auto 46px;
+                        position: relative;
+                        overflow: hidden;
+                        .slidewrap {
+                            width: 3500px;
+                            position: absolute;
+                            transform: translateX(-200px);
+                            .paicipantCard {
+                                width: 130px;
+                                margin: 5px 5px;
+                                padding: 10px 0px;
+                                background: $hoverClr;
                                 text-align: center;
-                                display: flex;
-                                align-items: center;
-                                position: absolute;
-                                top: 0;
-                                opacity: 0;
-                            }
-                            span {
-                                display: inline-block;
-                                text-shadow: .5px .5px 1px $contentClr;
-                                font-size: $contentText;
-                                margin: auto;
-                            }
-                            &:hover {
-                                .hoverText {
-                                    cursor: pointer;
-                                    transition: .5s;
-                                    opacity: 1;
+                                .avatar {
+                                    width: 100px;
+                                    height: 100px;
+                                    border-radius: 50%;
+                                    margin: auto ;
+                                    overflow: hidden;
+                                    background: lightsalmon;
+                                    img {
+                                        @include imgWH;
+                                        object-fit: cover;
+                                    }
                                 }
+                                .userName {
+                                    font-size: $contentText;
+                                }
+                                
                             }
                         }
                     }
+                    
                 }
-                
+                .userIntro {
+                    display: none;
+                }
+                &:hover {
+                    .userIntro {
+                        background-color: white;
+                        width: 200px;
+                        padding: 15px;
+                        text-align: justify;
+                        border: 3px  dashed $subClrBrown;
+                        border-radius: 10px;
+                        box-shadow: .2px .2px 5px #e0e0e0;
+                        display: block;
+                        position: absolute;
+                        top: -150px;
+                        left: 10px;
+                        // z-index: 2;
+                        p {
+                            padding: 0; 
+                            margin: 0;
+                            .quoteIcon {
+                                color: $contentClr;
+                                font-size: 14px;
+                                margin: 0 5px;
+                            }
+                        }
+                    } 
+                }
             }
         }
          // --------- 側邊資訊欄 ---------
@@ -270,22 +258,113 @@
 
         }
     }   
+     // --------- 推薦商品 ---------
+     .recommendProducts {
+        margin:0 0 5rem;
+        h4 {
+            margin: 1.5rem 0;
+            font-size: $text20;
+            color: $subClrBrown;
+        }
+        .arrowIconSlider {
+            width: 1350px;
+            // background-color: aqua;
+            position: relative;
+            .arrowIconLeft {
+                @include arrowIcon;
+                font-size: 40px;
+                color: $contentClr;
+                position: absolute;
+                top: 50%;
+                left: 0px;
+                transform: translate(-10px,-50%);
+            }
+            .arrowIconRight {
+                @include arrowIcon;
+                font-size: 40px;
+                color: $contentClr;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
+            }
+            .slider{
+                // background:rgb(202, 0, 0);
+                max-width: 1260px;
+                height: 220px;
+                margin: auto 40px;
+                position: relative;
+                overflow: hidden;
+                .slidewrap{
+                    width: 3000px;
+                    position: absolute;
+                    // transform: translateX(-200px);
+                    .productCard {
+                        max-width: 200px;
+                        height: 200px;
+                        margin: 5px;
+                        overflow: hidden;
+                        position: relative;
+                        .productImg{
+                            width: 100%;
+                            height: 100%;
+                            img {
+                                @include imgWH;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                        .hoverText{
+                            width: 100%;
+                            height: 200px;
+                            color: $mainClrW;
+                            font-size: $contentText;
+                            background:#444444b7 80%;
+                            text-align: center;
+                            transition: .5s;
+                            display: flex;
+                            align-items: center;
+                            position: absolute;
+                            top: 0;
+                            opacity: 0;
+                        }
+                        span {
+                            display: inline-block;
+                            text-shadow: .5px .5px 1px $contentClr;
+                            font-size: $contentText;
+                            margin: auto;
+                        }
+                        &:hover {
+                            .hoverText {
+                                cursor: pointer;
+                                transition: .5s;
+                                opacity: 1;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+                    
+    }
            
     // --------- 推薦熱門活動 ---------
     .recommendActivity {
         // margin: 5rem 0;
-        max-width: 1310px;
+        max-width: 1380px;
         overflow: hidden;
         h4 {
             margin: 1.5rem 0;
-            font-size: $text24;
+            font-size: $text20;
+            color: $subClrBrown;
         }
         .cardItem {
             max-height: 250px;
             max-width: 250px;
             display: flex;
             flex-direction: column;
-            margin:5px 0;
+            margin:5px 1px;
             padding: 20px ;
             box-shadow: .5px .5px 2px $subClrGY;
             .date {
@@ -358,58 +437,4 @@
 
 
 }
-// // --- 參加者個人簡介 ---
-// .paicipantInfo {
-//     // width: 100%;
-//     // height: 100vh;
-//     // background-color: rgb(65, 65, 65);
-//     // position: absolute;
-//     // top: 0;
-//     .InfoItems {
-//         background: lightgoldenrodyellow;
-//         width: 50%;
-//         height: 33rem;
-//         // margin: 1rem 0;
-//         // padding: 50px 0;
-//         overflow: auto;
-//         // position: absolute;
-//         // top: 50%;
-//         // left: 50%;
-//         // transform: translate(-50%, -50%);
-//         .infoCard {
-//             width: 80%;
-//             margin: .5rem auto;
-//             padding: 1rem;
-//             border: 1px solid #ccc;
-//             border-radius: .5rem;
-//             .avatar {
-//                 text-align: center;
-//                 margin: 1rem 1.2rem;
-//                 .userImg {
-//                     width: 80px;
-//                     height: 80px;
-//                     border-radius: 50%;
-//                     background: $subClrGY;
-//                     box-shadow: 0 0 2px ;
-//                     overflow: hidden;
-//                     margin: auto ;
-//                     img {
-//                         @include imgWH;
-//                         object-fit: cover;
-//                     }
-//                 }
-//             }
-//             .infoContent {
-//                 width: 100%;
-//                 height: 150px;
-//                 border-radius: 1rem;
-//                 background: $hoverClr;
-//                 display: flex;
-//                 align-items: center;
-//                 p {
-//                     padding: 1.5rem;
-//                 }
-//             }
-//         }
-//     }
-// }
+
