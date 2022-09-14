@@ -21,6 +21,7 @@
     @include d-flex();
     max-width: 290;
     height: 70px;
+    padding-left: 10px;
     &:hover {
     background: $hoverClr;
     // border-radius: 5px;

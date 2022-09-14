@@ -34,7 +34,7 @@ const IndexTitle = ({ title = '', subtitle = '', route = '/' }) => {
   return (
     <div css={indexTitle}>
       <div css={textContent}>
-        <span css={title}>{title}</span>
+        <span css={title}>{title}&nbsp;</span>
         <span css={subtitle}>{subtitle}</span>
       </div>
       <Link to={route} css={moreBtn}>

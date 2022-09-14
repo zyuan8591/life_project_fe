@@ -71,7 +71,7 @@ const AccordionItem = (props) => {
       <Link to="/users/recipe">{item.title}</Link>
       {item.item.map((v2, i2) => {
         return (
-          <ul>
+          <ul key={i2}>
             <li
               className="expand"
               style={{ height: heightItem }}

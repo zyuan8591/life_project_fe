@@ -1,21 +1,21 @@
 @import '../../variable';
-@mixin slide($translateX){
-        z-index: 5;
-        position: absolute;
-        top: 50%;
-        transform: translate($translateX,-20px);
-        cursor: pointer;
+@mixin slide($translateX) {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  transform: translate($translateX, -20px);
+  cursor: pointer;
 }
-.productSlide{
-    margin: 50px auto;
-    // max-width: 1260px;
-    position: relative;
-    .sliderLeft{
-        @include slide(-60px);
-        left: 0;
-    }
-    .sliderRight{        
-        @include slide(60px);
-        right: 0;
-    }
+.productSlide {
+  margin: 50px auto;
+  // max-width: 1260px.;
+  position: relative;
+  .sliderLeft {
+    @include slide(-60px);
+    left: 0;
+  }
+  .sliderRight {
+    @include slide(60px);
+    right: 0;
+  }
 }

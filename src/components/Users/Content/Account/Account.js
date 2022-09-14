@@ -1,87 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import InputGender from './component/InputGender';
 import InputAddress from './component/inputAddress';
 import WarnWindow from './component/WarnWindow';
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
+import { useUserRights } from '../../../../usecontext/UserRights';
+import { Navigate } from 'react-router-dom';
 
 const Account = () => {
+  //TODO:改成撈Context資料
+  const { user, setUser } = useUserRights();
+
+  //彈跳視窗
   const [warn, setWarn] = useState(false);
   function pop(e) {
     e.preventDefault();
     setWarn(true);
   }
+  // if (!user) {
+  //   return <Navigate to="/login" />;
+  // }
   return (
     <>
-      <h3>個人檔案</h3>
-      <div className="account" css={account}>
-        <form action="" className="">
-          <div className="account-group row ">
-            <div className="col  left">
-              <div>
-                <label htmlFor="name"> 　　姓名：</label>
-                <input
-                  value="梓園園"
-                  type="text"
-                  name="name"
-                  id="name"
-                  css={input}
-                />
+      {user ? (
+        <>
+          <h3>個人檔案</h3>
+          <div className="account" css={account}>
+            <form action="" className="">
+              <div className="account-group row ">
+                <div className="col  left">
+                  <div className="mb-4">
+                    <label htmlFor="name"> 　　姓名：</label>
+                    <input
+                      value={user.name}
+                      type="text"
+                      name="name"
+                      id="name"
+                      css={input}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="email">註冊信箱：</label>
+                    <input
+                      value={user.email}
+                      type="email"
+                      name="email"
+                      id="email"
+                      readonly="readonly"
+                      css={input}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="phone">手機號碼：</label>
+                    <input
+                      value={user.phone}
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      css={input}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="birth">　　生日：</label>
+                    <input
+                      value={user.birth}
+                      type="text"
+                      name="birth"
+                      id="birth"
+                      css={input}
+                    />
+                  </div>
+                  <InputGender />
+                  <InputAddress />
+                </div>
+                <div className="col avata-group">
+                  <div className="avata">
+                    <img src="/img/index/joinUs.jpg" alt="" />
+                    <p>點擊更換圖片</p>
+                  </div>
+                  <div className="selfIntroduction-group">
+                    <label htmlFor="selfIntroduction">自我介紹：</label>
+                    <textarea
+                      name="selfIntroduction"
+                      id="selfIntroduction"
+                      value={user.intro}
+                    />
+                  </div>
+                </div>
+                <div className="reviseBtn">
+                  <button onClick={pop}>修改資料</button>
+                </div>
+                <WarnWindow warn={warn} setWarn={setWarn} />
               </div>
-              <div>
-                <label htmlFor="email">註冊信箱：</label>
-                <input
-                  value="test@gmial.com"
-                  type="email"
-                  name="email"
-                  id="email"
-                  css={input}
-                />
-              </div>
-              <div>
-                <label htmlFor="phone">手機號碼：</label>
-                <input
-                  value="0912345646"
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  css={input}
-                />
-              </div>
-              <div>
-                <label htmlFor="birth">　　生日：</label>
-                <input
-                  value="1995/08/31"
-                  type="text"
-                  name="birth"
-                  id="birth"
-                  css={input}
-                />
-              </div>
-              <InputGender />
-              <InputAddress />
-            </div>
-            <div className="col avata-group">
-              <div className="avata">
-                <img src="/img/index/joinUs.jpg" alt="" />
-                <p>點擊更換圖片</p>
-              </div>
-              <div className="selfIntroduction-group">
-                <label htmlFor="selfIntroduction">自我介紹：</label>
-                <textarea
-                  name="selfIntroduction"
-                  id="selfIntroduction"
-                  value="我叫紫園園，興趣是露營，希望有許多志同道合的朋友。"
-                />
-              </div>
-            </div>
-            <div className="reviseBtn">
-              <button onClick={pop}>修改資料</button>
-            </div>
-            <WarnWindow warn={warn} setWarn={setWarn} />
+            </form>
           </div>
-        </form>
-      </div>
+        </>
+      ) : (
+        <h3>請先登入{/* TODO:後面做自動跳轉 */}</h3>
+      )}
     </>
   );
 };
@@ -89,7 +107,6 @@ const Account = () => {
 export default Account;
 
 const account = css`
-  line-height: 4rem;
   form {
     padding: 0 50px;
   }
