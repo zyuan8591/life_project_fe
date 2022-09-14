@@ -1,6 +1,7 @@
 @import '../variable';
+// @import '/path__to__node_modules/@hawk-ui/magnifier/dist/index.min.css';
 
-.infoContainer {
+  .infoContainer {
   max-width: $maxWidth;
   margin: $headerHeight auto;
   color: $contentClr;
@@ -19,11 +20,6 @@
         margin: 0 auto;
         display: flex;
         align-items: center;
-        img {
-          width: 100%;
-          object-fit: contain;
-          object-position: center center;
-        }
       }
       .subPic {
         width: 70px;

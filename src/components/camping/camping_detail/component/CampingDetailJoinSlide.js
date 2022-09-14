@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../../../styles/moduleCss/camping_detail_page/_campingDetailJoinSlide.module.scss';
+import classes from '../../../../styles/moduleCss/camping_detail_page/CampingDetailJoinSlide.module.scss';
 
 function CampingDetailJoinSlide({ joinSlider }) {
   return (
