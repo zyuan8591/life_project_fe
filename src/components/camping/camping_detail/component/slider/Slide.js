@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from '../../../../../styles/moduleCss/camping_detail_page/_slide.module.scss';
+import classes from '../../../../../styles/moduleCss/camping_detail_page/Slide.module.scss';
 
 import { IconContext } from 'react-icons';
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';

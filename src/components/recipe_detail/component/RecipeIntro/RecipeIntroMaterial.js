@@ -12,10 +12,7 @@ const item = css`
   }
 `;
 
-const RecipeIntroMaterial = ({
-  name = '高麗菜高麗菜高',
-  quantity = '87公克',
-}) => {
+const RecipeIntroMaterial = ({ name, quantity }) => {
   return (
     <div
       className="d-flex justify-content-between rounded-pill transition py-1 px-3 text-nowrap me-2 mb-3"

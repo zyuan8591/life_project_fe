@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { MdLocationOn } from 'react-icons/md';
-import classes from '../../../../../styles/moduleCss/camping_detail_page/_placeSlide.module.scss';
+import classes from '../../../../../styles/moduleCss/camping_detail_page/PlaceSlide.module.scss';
 
 function PlaceSlide({ placeSlider, product }) {
   return (

@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RecipeIntroMaterial from './RecipeIntroMaterial';
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
+import { Link } from 'react-router-dom';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
@@ -11,8 +14,18 @@ const container = css`
   gap: 1rem;
   color: #444;
 `;
+// title
 const recipeName = css`
   font-size: 40px;
+`;
+const tag = css`
+  background: ${subClrBrown};
+  color: #fff !important;
+  padding: 0 0.5rem;
+  font-size: 0.5rem;
+  border-radius: 50px;
+  display: inline-flex;
+  user-select: none;
 `;
 // Left Section
 const introContainer = css`
@@ -80,32 +93,48 @@ const materialTitle = css`
   }
 `;
 const materialMain = css`
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 1rem; */
   display: flex;
   flex-wrap: wrap;
 `;
 
-const RecipeIntro = () => {
+const RecipeIntro = ({ data, id }) => {
+  const [material, setMaterial] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/recipes/${id}/material`);
+      setMaterial(result.data);
+    })();
+  }, [id]);
+
   return (
     <>
-      <div css={recipeName}>高麗菜水餃</div>
+      {/* Title */}
+      <div css={recipeName}>
+        {data.name}
+        <Link
+          to={`/recipes?recipeCate=${data.category}`}
+          css={tag}
+          className="mx-1"
+        >
+          {data.recipe_category_name}
+        </Link>
+        <Link to={`/recipes?productCate=${data.product_category}`} css={tag}>
+          {data.product_category_name}
+        </Link>
+      </div>
       <div css={container}>
         {/* left side */}
         <div className="d-flex flex-column" css={introContainer}>
           {/* recipe Image */}
           <figure css={recipeContainer}>
             <img
-              src="/img/recipe/recipe_img/Bagel.jpg"
+              src={`/img/recipe/recipe_img/${data.image}`}
               alt=""
               className="objectContain"
             />
           </figure>
           {/* recipe content */}
-          <p className="fs-6">
-            日式炸豆腐是出自日式揚出豆腐，揚出的“揚”字在日本語是油炸的意思，而“出”即湯汁之意，揚出豆腐是日本料理的代表菜色之一，也是造訪日式料理店時餐桌上常見的一道菜；豆腐本身沒什麼味道，但裹上麵包粉油炸後，麵衣吸取了佐上蘿蔔泥的柴魚醬汁，美味瞬間爆表，更增添了豐富的層次感；雖是炸物，吃起來非但一點都不油膩，還很清爽呢。只是一般在家很少做這道料理，原因是油炸食物需要用到大量的油，容易造成浪費。運用氣炸烤箱的氣旋威力，只需少量的油，就能做出相同酥脆口感的日式炸豆腐，只需氣炸10分鐘就能讓你美美上菜。
-          </p>
+          <p className="fs-6">{data.content}</p>
         </div>
         {/* right side */}
         <div className="px-4">
@@ -127,14 +156,16 @@ const RecipeIntro = () => {
                   />
                 </figure>
                 <div className="d-flex flex-column">
-                  <span>Aaron</span>
-                  <span>5 食譜 155 粉絲</span>
+                  <span>作者：{data.user_id}</span>
+                  <span>
+                    {data.likes} 收藏 {data.comments} 留言
+                  </span>
                 </div>
               </div>
               {/* author detail right */}
-              <button css={btn} className="py-2 px-3">
+              {/* <button css={btn} className="py-2 px-3">
                 追蹤
-              </button>
+              </button> */}
             </div>
             <button css={[recipeCollectBtn, btn]}>收藏食譜</button>
           </div>
@@ -144,24 +175,15 @@ const RecipeIntro = () => {
               食材
             </div>
             <div className="w-100 px-3" css={materialMain}>
-              <RecipeIntroMaterial name="無鹽奶油" quantity="10公克" />
-              <RecipeIntroMaterial name="全蛋" quantity="38公克" />
-              <RecipeIntroMaterial name="糖粉" quantity="38公克" />
-              <RecipeIntroMaterial name="全蛋" quantity="30公克" />
-              <RecipeIntroMaterial name="低筋麵粉" quantity="48公克" />
-              <RecipeIntroMaterial name="開水" quantity="67ml" />
-              <RecipeIntroMaterial name="鹽" quantity="0.5公克" />
-              <RecipeIntroMaterial name="無鹽奶油" quantity="40公克 " />
-              <RecipeIntroMaterial name="低筋麵粉" quantity="50公克 " />
-              <RecipeIntroMaterial name="全蛋" quantity="100公克" />
-              <RecipeIntroMaterial name="愛文芒果" quantity="200公克" />
-              <RecipeIntroMaterial name="糖" quantity="40公克" />
-              <RecipeIntroMaterial name="吉利丁片" quantity="10公克" />
-              <RecipeIntroMaterial name="冰開水" quantity="50ml" />
-              <RecipeIntroMaterial name="鮮奶油" quantity="300公克" />
-              <RecipeIntroMaterial name="鮮奶油" quantity="200公克" />
-              <RecipeIntroMaterial name="糖" quantity="16公克" />
-              <RecipeIntroMaterial name="香草籽" quantity="1公克" />
+              {material.map((m) => {
+                return (
+                  <RecipeIntroMaterial
+                    name={m.name}
+                    quantity={m.quantity}
+                    key={m.id}
+                  ></RecipeIntroMaterial>
+                );
+              })}
             </div>
           </div>
         </div>

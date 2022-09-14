@@ -28,7 +28,6 @@ const Login = () => {
     setUser(response.data);
     // setIsLogin(true);
   }
-  console.log(user);
   //TODO:製作記住帳號密碼
   if (user) {
     return <Navigate to="/" />;
