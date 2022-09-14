@@ -3,13 +3,16 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: 1, label: '最新活動' },
-  { value: 2, label: '活動費用' },
+  { value: 1, label: '日期升冪' },
+  { value: 2, label: '日期降冪' },
+  { value: 3, label: '價格升冪' },
+  { value: 4, label: '價格降冪' },
 ];
 
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
+    height: '32px',
     color: state.isSelected ? '#fff' : '#444',
     background: state.isSelected ? '#817161' : '#fff',
     ':active': {
@@ -21,9 +24,15 @@ const customStyles = {
         : undefined,
     },
   }),
+  indicatorsContainer: (provided, state) => ({
+    ...provided,
+    height: '32px',
+    width: '32px',
+  }),
   control: (base, state) => ({
     ...base,
     border: '1px solid #817161',
+    minHeight: '32px',
     borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
     boxShadow: 0,
     '&:hover': {
@@ -38,14 +47,17 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
 };
-function ActivitySelect() {
+function ActivitySelect({ setOrder }) {
   const [selectSortOption, setSelectSortOption] = useState(null);
 
   return (
     <>
       <Select
         defaultValue={sortOption[0]}
-        onChange={setSelectSortOption}
+        onChange={(e) => {
+          // console.log(e.value);
+          setOrder(e.value);
+        }}
         options={sortOption}
         styles={customStyles}
         isSearchable={false}

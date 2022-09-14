@@ -5,25 +5,31 @@
   justify-items: center;
 }
 .points-group{
+  margin-top: 80px;
   .user-point{
     text-align: center;
     .box{
-      border-radius: 30px;
-      padding:20px 50px;
+      border-radius: 20px;
+      padding:5px 30px;
+      color: #fff;
+      box-shadow: 3px 3px 5px 1px #ccc;
     }
     .box:nth-of-type(1){
-      border: 3px solid $focusClrG;
+      background:  $focusClrG;
     }
     .box:nth-of-type(2){
-      border: 3px solid $focusClrY;
+      background:  $focusClrY;
     }
     .box:nth-of-type(3){
-      border: 3px solid $focusClrB;
+      background: $focusClrB;
+    }
+    p
+    {
+      line-height: 3rem;
     }
     .box-title{
       font-size: 1rem;
-      font-weight: bold;
-      line-height: 3rem;
+      font-weight: bold;      
       border-bottom: 1px solid #ccc;
     }
   }

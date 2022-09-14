@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import { v4 as uuidv4 } from 'uuid';
@@ -48,6 +48,9 @@ const displayPageHandler = (i, pageNow, lastPage, displayPage) => {
 
 const PaginationBar = ({ lastPage = 5, pageNow = 1, setPageNow }) => {
   const [displayPage, setDisplayPage] = useState(10);
+  useEffect(() => {
+    setDisplayPage(10);
+  }, [lastPage]);
   return (
     <IconContext.Provider value={{ color: subClrBrown }}>
       <ul css={pageList}>

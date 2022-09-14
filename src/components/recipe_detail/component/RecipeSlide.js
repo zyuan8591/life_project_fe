@@ -3,22 +3,21 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import classes from '../../../styles/moduleCss/recipeDetail/recipeSlide.module.scss';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 
-const testData = [
-  { id: 1, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 2, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 3, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 4, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 5, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 6, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 7, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 8, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-  { id: 9, img: '/img/recipe/recipe_img/BandW.jpg', link: '/recipes/5' },
-];
-
-const RecipeSlide = ({ data = testData }) => {
+const RecipeSlide = () => {
   const slideRef = useRef(null);
   const [slideLeft, setSlideLeft] = useState(0);
+
+  // get slide data
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/recipes?random=12`);
+      setData(result.data.data);
+    })();
+  }, []);
 
   // slide event
   const SlideHandler = (dir) => {
@@ -26,17 +25,8 @@ const RecipeSlide = ({ data = testData }) => {
       slideRef.current.scrollWidth - slideRef.current.offsetWidth;
     const itemWidth = slideRef.current.scrollWidth / data.length;
     let left = slideLeft;
-    switch (dir) {
-      case 'left':
-        left -= itemWidth;
-        break;
-      case 'right':
-        left += itemWidth;
-        break;
-      default:
-        break;
-    }
-    console.log(left);
+    if (dir === 'left') left -= itemWidth;
+    if (dir === 'right') left += itemWidth;
     if (left < 0) left = 0;
     if (left > scrollWidth) left = scrollWidth;
     slideRef.current.scrollTo({ left: left });
@@ -62,11 +52,19 @@ const RecipeSlide = ({ data = testData }) => {
         >
           {data.map((d) => {
             return (
-              <Link to={d.link} key={d.id} className={classes.slideItem}>
+              <Link
+                to={`/recipeDetail?id=${d.id}`}
+                key={d.id}
+                className={classes.slideItem}
+              >
                 <figure
                   className={` ${classes.imgContainer} m-0 transition rounded-1 overflow-hidden`}
                 >
-                  <img src={d.img} alt="" className="objectContain" />
+                  <img
+                    src={`/img/recipe/recipe_img/${d.image}`}
+                    alt={d.name}
+                    className="objectContain"
+                  />
                 </figure>
               </Link>
             );

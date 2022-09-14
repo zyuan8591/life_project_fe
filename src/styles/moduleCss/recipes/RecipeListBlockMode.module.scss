@@ -32,6 +32,12 @@
   font-weight: bold;
 }
 
+.material {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .about {
   display: flex;
   gap: 1rem;
