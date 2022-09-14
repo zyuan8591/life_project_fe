@@ -3,11 +3,20 @@ import { Slider } from 'antd';
 import 'antd/dist/antd.css';
 import classes from '../../../../styles/moduleCss/camping_main/ActivitySlider.module.scss';
 import '../../../../styles/camping/camping_main/_activitySlider.scss';
-const onAfterChange = (value) => {
-  // console.log('onAfterChange: ', value);
-};
 
-function ActivitySliderPrice() {
+function ActivitySliderPrice({
+  setMaxPrice,
+  setMinPrice,
+  minPrice,
+  maxPrice,
+  setPage,
+}) {
+  function log(value) {
+    setMaxPrice(value[1]);
+    setMinPrice(value[0]);
+    setPage(1);
+    // console.log(value);
+  }
   return (
     <>
       <div className={classes.activitySlider}>
@@ -16,13 +25,16 @@ function ActivitySliderPrice() {
           className={classes.slider}
           range
           step={1}
-          defaultValue={[0, 100]}
-          // onChange={onChange}
-          onAfterChange={onAfterChange}
+          max={9900}
+          defaultValue={[0, 9900]}
+          // onChange={log}
+          onAfterChange={log}
         />
         <div className={classes.sliderSearch}>
-          <div>$100 - $3000</div>
-          <button>篩選</button>
+          <div className="my-2">
+            $ {minPrice} - $ {maxPrice}
+          </div>
+          {/* <button>篩選</button> */}
         </div>
       </div>
     </>

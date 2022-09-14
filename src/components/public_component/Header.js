@@ -3,13 +3,13 @@ import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_header.scss';
 import { IconContext } from 'react-icons';
-import { API_URL } from '../../utils/config';
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineUser,
 } from 'react-icons/ai';
 import axios from 'axios';
+import { API_URL, API_URL_IMG } from '../../utils/config';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const pages = [
@@ -110,7 +110,7 @@ const Header = ({ fixed = true }) => {
                   onClick={() => userAvatorClickHandler()}
                 >
                   <img
-                    src="/img/user/user_img/fish.png"
+                    src={`${API_URL_IMG}${user.photo}`}
                     alt="userAvatar"
                     className="objectContain"
                   />

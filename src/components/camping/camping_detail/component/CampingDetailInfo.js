@@ -4,22 +4,19 @@ import { IconContext } from 'react-icons';
 import { IoWarning } from 'react-icons/io5';
 import { HiLightBulb } from 'react-icons/hi';
 import { FaHandPointRight } from 'react-icons/fa';
-import classes from '../../../../styles/moduleCss/camping_detail_page/_campingDetailInfo.module.scss';
-function CampingDetailInfo({ aboutDetail, aboutIcon }) {
+import classes from '../../../../styles/moduleCss/camping_detail_page/CampingDetailInfo.module.scss';
+function CampingDetailInfo({ aboutDetail, aboutIcon, v }) {
   return (
     <>
       <div className={classes.aboutContainer}>
         <div className={classes.about}>
           <div className={classes.aboutTitle}>關於</div>
-          <div className={classes.aboutDetail}>
-            「勤美學」是一個在地美學實驗計畫。傳達自然永續、院長導師精神、生活哲學的企業核心精神，以台灣老式的香格里拉樂園為基地，融入在地文化，透過旅遊與生活體驗，一步步打造在地生活美學的實驗平台。
-          </div>
+          <div className={classes.aboutDetail}>{v.activity_about}</div>
         </div>
         <div className={classes.about}>
           <div className={classes.aboutTitle}>住宿</div>
           <div className={classes.aboutDetail}>
-            一泊二食。住宿形式為森林帳篷，廁所浴室位於公共空間。
-            <br />
+            {v.activity_lodging} <br />
             <IconContext.Provider value={{ color: '#F2AC33', size: '1.3rem' }}>
               <div className={classes.aboutText}>
                 <IoWarning />

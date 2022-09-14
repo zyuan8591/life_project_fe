@@ -34,12 +34,6 @@
         color: $contentClr;
         &:focus {
           outline: transparent;
-          &::placeholder {
-            opacity: 0;
-          }
-        }
-        &::placeholder {
-          opacity: 0.5;
         }
       }
       .recipesSearchBtn {

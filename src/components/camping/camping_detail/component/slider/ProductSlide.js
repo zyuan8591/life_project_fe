@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
-import classes from '../../../../../styles/moduleCss/camping_detail_page/_productSlide.module.scss';
+import classes from '../../../../../styles/moduleCss/camping_detail_page/ProductSlide.module.scss';
 function ProductSlide({ productSlider, product }) {
   return (
     <>
