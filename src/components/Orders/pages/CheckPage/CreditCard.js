@@ -8,7 +8,6 @@ function CreditCard() {
         <div className="row align-items-center gap-3">
           <div className="col-6 pe-3">
             <div className="row align-items-center mb-3">
-
               <label className="col text-end me-3">卡號</label>
               <div className="col-9">
                 <div className="row gap-2 align-items-center">
@@ -29,20 +28,18 @@ function CreditCard() {
                   </div>
                 </div>
               </div>
-
             </div>
             <div className="row align-items-center mb-3">
               <label className="col text-end me-3">到期日</label>
               <div className="col-9">
-                <div className="row gap-1 align-items-center">
+                <div className="row gap-3 align-items-center">
                   <div className="col">
                     <input maxLength={2} className="cCardInput" />
                   </div>
-                  月
+                  /
                   <div className="col">
                     <input maxLength={2} className="cCardInput" />
                   </div>
-                  日
                 </div>
               </div>
             </div>
