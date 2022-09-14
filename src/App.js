@@ -37,6 +37,7 @@ import { API_URL } from './utils/config';
 import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
 import OrderStep from './components/Orders/OrderStep';
+import SetMap from './components/map/SetMap';
 import { ProductCartProvider } from './orderContetxt/useProductCart';
 import { ActivityCartProvider } from './orderContetxt/useActivityCart';
 function HeaderFooter() {
@@ -68,34 +69,44 @@ function App() {
     <>
       <UserRights.Provider value={{ user, setUser }}>
         <ScrollToTop>
-        <ProductCartProvider>
-          <ActivityCartProvider>
+          <ProductCartProvider>
+            <ActivityCartProvider>
               <Routes>
                 <Route path="/" element={<HeaderFooter />}>
                   <Route path="/" element={<Homepage />} />
                   <Route path="/recipes" element={<Recipes />} />
                   <Route path="/orderstep" element={<OrderStep />} />
                   <Route path="/news" element={<News />} />
-            </Route>
+                  <Route path="/activity" element={<ActivityMain />} />
+                  <Route path="/activity/camping" element={<CampingMain />} />
+                  <Route
+                    path="/activity/camping/:campingId"
+                    element={<CampingDetailPage />}
+                  />
+                  <Route path="/map" element={<SetMap />} />
+                </Route>
                 {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
-            <Route path="/recipeDetail" element={<RecipeDetail />} />
+                <Route path="/recipeDetail" element={<RecipeDetail />} />
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/activity/picnic" element={<PicnicIndex />} />
-            <Route
-              path="/activity/picnic/official"
-              element={<PicnicOffical />}
-            />
-            <Route
-              path="/activity/picnic/official/:id"
-              element={<PicnicOfficalDetail />}
-            />
-            <Route
-              path="/activity/picnic/group/:id"
-              element={<IndexPrivateDetail />}
-            />
-            <Route path="/activity/picnic/create" element={<CreatePincnic />} />
-            <Route path="/Users/*" element={<Users />} />
+                <Route
+                  path="/activity/picnic/official"
+                  element={<PicnicOffical />}
+                />
+                <Route
+                  path="/activity/picnic/official/:id"
+                  element={<PicnicOfficalDetail />}
+                />
+                <Route
+                  path="/activity/picnic/group/:id"
+                  element={<IndexPrivateDetail />}
+                />
+                <Route
+                  path="/activity/picnic/create"
+                  element={<CreatePincnic />}
+                />
+                <Route path="/Users/*" element={<Users />} />
                 <Route path="/users/" element={<Users />}>
                   <Route path="/users/account" element={<Account />} />
                   <Route path="/users/password" element={<Password />} />
@@ -109,15 +120,15 @@ function App() {
                   <Route path="/signin/signup" element={<Signup />} />
                 </Route>
                 <Route path="/activity" element={<ActivityMain />} />
-            <Route path="/activity/camping" element={<CampingMain />} />
-            <Route
-              path="/activity/camping/:id"
-              element={<CampingDetailPage />}
-            />
-            {/* <Route path="*" element={<NotFound />} /> */}
+                <Route path="/activity/camping" element={<CampingMain />} />
+                <Route
+                  path="/activity/camping/:id"
+                  element={<CampingDetailPage />}
+                />
+                {/* <Route path="*" element={<NotFound />} /> */}
               </Routes>
-          </ActivityCartProvider>
-        </ProductCartProvider>
+            </ActivityCartProvider>
+          </ProductCartProvider>
         </ScrollToTop>
       </UserRights.Provider>
     </>
