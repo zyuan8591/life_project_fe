@@ -3,15 +3,16 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: 1, label: '全部活動' },
+  { value: '', label: '全部活動' },
+  { value: 1, label: '露營' },
   { value: 2, label: '野餐' },
-  { value: 3, label: '露營' },
 ];
 
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
     height: '32px',
+    // width: '110px',
     color: state.isSelected ? '#fff' : '#444',
     background: state.isSelected ? '#817161' : '#fff',
     ':active': {
@@ -30,7 +31,8 @@ const customStyles = {
   }),
   control: (base, state) => ({
     ...base,
-    marginRight: '20px',
+    width: '110px',
+    marginRight: '5px',
     border: '1px solid #817161',
     minHeight: '32px',
     borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
@@ -47,7 +49,7 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
 };
-function MapActivitySelect({ setOrder }) {
+function MapActivitySelect({ setTypeSelect, setCenterPosL, setCenterPosR }) {
   // const [selectSortOption, setSelectSortOption] = useState(null);
 
   return (
@@ -56,7 +58,16 @@ function MapActivitySelect({ setOrder }) {
         defaultValue={sortOption[0]}
         onChange={(e) => {
           // console.log(e.value);
-          // setOrder(e.value);
+          const value = e.value;
+          if (value === 2) {
+            setTypeSelect(e.value);
+            setCenterPosL(25.05414332);
+            setCenterPosR(121.5188148);
+          } else {
+            setTypeSelect(e.value);
+            setCenterPosL(23.8896861412312);
+            setCenterPosR(120.9216218);
+          }
         }}
         options={sortOption}
         styles={customStyles}
