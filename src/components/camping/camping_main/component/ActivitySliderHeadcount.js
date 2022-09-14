@@ -4,11 +4,18 @@ import 'antd/dist/antd.css';
 import classes from '../../../../styles/moduleCss/camping_main/ActivitySlider.module.scss';
 import '../../../../styles/camping/camping_main/_activitySlider.scss';
 
-const onAfterChange = (value) => {
-  // console.log('onAfterChange: ', value);
-};
-
-function ActivitySliderHeadcount() {
+function ActivitySliderHeadcount({
+  setMinJoinTtl,
+  setMaxJoinTtl,
+  setPage,
+  minJoinTtl,
+  maxJoinTtl,
+}) {
+  const onAfterChange = (value) => {
+    setMaxJoinTtl(value[1]);
+    setMinJoinTtl(value[0]);
+    setPage(1);
+  };
   return (
     <>
       <div className={classes.activitySlider}>
@@ -17,13 +24,16 @@ function ActivitySliderHeadcount() {
           className={classes.slider}
           range
           step={1}
-          defaultValue={[0, 100]}
+          max={22}
+          defaultValue={[0, 22]}
           // onChange={onChange}
           onAfterChange={onAfterChange}
         />
         <div className={classes.sliderSearch}>
-          <div>3人 - 12人</div>
-          <button>篩選</button>
+          <div className="my-2">
+            {minJoinTtl} 人 - {maxJoinTtl} 人
+          </div>
+          {/* <button>篩選</button> */}
         </div>
       </div>
     </>
