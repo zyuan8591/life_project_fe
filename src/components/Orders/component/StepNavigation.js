@@ -11,7 +11,7 @@ const StepNavigation = (props) => {
             key={index}
             index={index}
             label={item}
-            selected={props.currentStep === index + 1}
+            selected={props.currentStep >= index + 1}
           ></Step>
         ))}
       </div>
