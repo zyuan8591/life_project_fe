@@ -12,3 +12,7 @@ export const pathnameLocale = {
   group: '揪團活動列表',
   camping: '露營',
 };
+
+export const ItemTypes = {
+  RecipeMaterial: 'recipeMaterial',
+};

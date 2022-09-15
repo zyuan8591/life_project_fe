@@ -47,7 +47,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 200px;
+      min-height: 200px;
     }
     .addMaterialBtn {
       border: 2px solid $subClrBrown;
@@ -60,6 +60,19 @@
         background: $subClrBrown;
         color: #fff;
       }
+    }
+  }
+
+  .cateSelect {
+    flex: 1 1 auto;
+    padding: 0.25rem;
+    &:hover {
+      // outline: 1px solid $subClrBrown;
+      border-color: $subClrBrown;
+    }
+    &:focus-visible {
+      // border-color: 1px solid $subClrBrown;
+      outline: none;
     }
   }
   // html tag css

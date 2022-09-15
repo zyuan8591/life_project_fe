@@ -43,6 +43,7 @@ import PicnicPrivateList from './components/picnic/private_pincnic/private_list/
 import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
 import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
 import Pinic from './components/Users/Content/Picnic/Pinic';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 function HeaderFooter() {
   return (
@@ -79,66 +80,68 @@ function App() {
         <ScrollToTop>
           <ProductCartProvider>
             <ActivityCartProvider>
-              <Routes>
-                <Route path="/" element={<HeaderFooter />}>
-                  <Route path="/" element={<Homepage />} />
-                  <Route path="/recipes" element={<Recipes />} />
-                  <Route path="/orderstep" element={<OrderStep />} />
-                  <Route path="/news" element={<News />} />
+              <DragDropContext onDragEnd={(...props) => console.log(props)}>
+                <Routes>
+                  <Route path="/" element={<HeaderFooter />}>
+                    <Route path="/" element={<Homepage />} />
+                    <Route path="/recipes" element={<Recipes />} />
+                    <Route path="/orderstep" element={<OrderStep />} />
+                    <Route path="/news" element={<News />} />
+                    <Route path="/activity" element={<ActivityMain />} />
+                    <Route path="/activity/camping" element={<CampingMain />} />
+                    <Route
+                      path="/activity/camping/:campingId"
+                      element={<CampingDetailPage />}
+                    />
+                    <Route path="/map" element={<SetMap />} />
+                  </Route>
+                  {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
+                  <Route path="/recipeDetail" element={<RecipeDetail />} />
+                  <Route path="/products" element={<ProductList />} />
+                  <Route path="/products/:id" element={<ProductDetail />} />
+                  <Route path="/activity/picnic" element={<PicnicIndex />} />
+                  <Route
+                    path="/activity/picnic/official"
+                    element={<PicnicOfficalList />}
+                  />
+                  <Route
+                    path="/activity/picnic/official/:officialId"
+                    element={<PicnicOfficalDetail />}
+                  />
+                  <Route
+                    path="/activity/picnic/group"
+                    element={<PicnicPrivateList />}
+                  />
+                  <Route
+                    path="/activity/picnic/group/:groupId"
+                    element={<IndexPrivateDetail />}
+                  />
+                  <Route
+                    path="/activity/picnic/create"
+                    element={<CreatePincnic />}
+                  />
+                  <Route path="/Users/*" element={<Users />} />
+                  <Route path="/users/" element={<Users />}>
+                    <Route path="/users/account" element={<Account />} />
+                    <Route path="/users/password" element={<Password />} />
+                    <Route path="/users/order" element={<Order />} />
+                    <Route path="/users/points" element={<Points />} />
+                    <Route path="/users/pinic" element={<Pinic />} />
+                    <Route path="/users/recipe" element={<Recipe />} />
+                  </Route>
+                  <Route path="/signin/" element={<Signin />}>
+                    <Route path="/signin/login" element={<Login />} />
+                    <Route path="/signin/signup" element={<Signup />} />
+                  </Route>
                   <Route path="/activity" element={<ActivityMain />} />
                   <Route path="/activity/camping" element={<CampingMain />} />
                   <Route
-                    path="/activity/camping/:campingId"
+                    path="/activity/camping/:id"
                     element={<CampingDetailPage />}
                   />
-                  <Route path="/map" element={<SetMap />} />
-                </Route>
-                {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
-                <Route path="/recipeDetail" element={<RecipeDetail />} />
-                <Route path="/products" element={<ProductList />} />
-                <Route path="/products/:id" element={<ProductDetail />} />
-                <Route path="/activity/picnic" element={<PicnicIndex />} />
-                <Route
-                  path="/activity/picnic/official"
-                  element={<PicnicOfficalList />}
-                />
-                <Route
-                  path="/activity/picnic/official/:officialId"
-                  element={<PicnicOfficalDetail />}
-                />
-                <Route
-                  path="/activity/picnic/group"
-                  element={<PicnicPrivateList />}
-                />
-                <Route
-                  path="/activity/picnic/group/:groupId"
-                  element={<IndexPrivateDetail />}
-                />
-                <Route
-                  path="/activity/picnic/create"
-                  element={<CreatePincnic />}
-                />
-                <Route path="/Users/*" element={<Users />} />
-                <Route path="/users/" element={<Users />}>
-                  <Route path="/users/account" element={<Account />} />
-                  <Route path="/users/password" element={<Password />} />
-                  <Route path="/users/order" element={<Order />} />
-                  <Route path="/users/points" element={<Points />} />
-                  <Route path="/users/pinic" element={<Pinic />} />
-                  <Route path="/users/recipe" element={<Recipe />} />
-                </Route>
-                <Route path="/signin/" element={<Signin />}>
-                  <Route path="/signin/login" element={<Login />} />
-                  <Route path="/signin/signup" element={<Signup />} />
-                </Route>
-                <Route path="/activity" element={<ActivityMain />} />
-                <Route path="/activity/camping" element={<CampingMain />} />
-                <Route
-                  path="/activity/camping/:id"
-                  element={<CampingDetailPage />}
-                />
-                {/* <Route path="*" element={<NotFound />} /> */}
-              </Routes>
+                  {/* <Route path="*" element={<NotFound />} /> */}
+                </Routes>
+              </DragDropContext>
             </ActivityCartProvider>
           </ProductCartProvider>
         </ScrollToTop>

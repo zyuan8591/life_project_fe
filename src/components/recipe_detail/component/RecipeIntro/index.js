@@ -5,6 +5,7 @@ import RecipeIntroMaterial from './RecipeIntroMaterial';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { Link } from 'react-router-dom';
+import { API_URL_IMG } from '../../../../utils/config';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
@@ -39,6 +40,10 @@ const recipeContainer = css`
   border-radius: 5px;
 `;
 // Right Section >> author
+const infoContainer = css`
+  flex: 1 1 auto;
+  width: 500px;
+`;
 const authorDetail = css`
   border: 1px solid ${focusClrY};
   border-radius: 3px;
@@ -66,7 +71,7 @@ const recipeCollectBtn = css`
   padding: 0.5rem 0;
 `;
 
-// Right Section
+// Right Section >> material
 const materialContainer = css`
   max-width: 500px;
   display: flex;
@@ -111,12 +116,8 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
   const likeHandler = async () => {
     await axios.post(
       `${API_URL}/recipes/${id}/like`,
-      {
-        user_id: 5,
-      },
-      {
-        withCredentials: true,
-      }
+      {},
+      { withCredentials: true }
     );
     // recipe detail
     let result = await axios.get(`${API_URL}/recipes/${id}`);
@@ -145,7 +146,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
           {/* recipe Image */}
           <figure css={recipeContainer}>
             <img
-              src={`/img/recipe/recipe_img/${data.image}`}
+              src={`${API_URL_IMG}${data.image}`}
               alt=""
               className="objectContain"
             />
@@ -154,9 +155,9 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
           <p className="fs-6">{data.content}</p>
         </div>
         {/* right side */}
-        <div className="px-4">
+        <div className="pe-4" css={infoContainer}>
           {/* author detail */}
-          <div css={authorDetail} className="p-3 mb-3">
+          <div css={authorDetail} className="p-3 mb-3 mx-auto">
             <div
               className="d-flex justify-content-between mb-3 pb-3 align-items-center"
               css={css`
@@ -165,15 +166,15 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
             >
               {/* author detail left */}
               <div className="d-flex align-items-center gap-3">
-                <figure css={avatarContainer}>
+                <figure css={avatarContainer} className="m-0 p-2">
                   <img
-                    src="/img/user/user_img/aaron.png"
+                    src={API_URL_IMG + data.user_photo}
                     alt=""
                     className="objectContain"
                   />
                 </figure>
                 <div className="d-flex flex-column">
-                  <span>作者：{data.user_id}</span>
+                  <span>作者：{data.user_name}</span>
                   <span>
                     {data.likes} 收藏 {data.comments} 留言
                   </span>

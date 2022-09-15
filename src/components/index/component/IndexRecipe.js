@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import CardSm from '../../public_component/CardSm';
+import { API_URL_IMG } from '../../../utils/config';
 
 const IndexRecipe = ({ data = [] }) => {
   const settings = {
@@ -19,7 +20,7 @@ const IndexRecipe = ({ data = [] }) => {
           return (
             <div key={d.id}>
               <CardSm
-                img={`/img/recipe/recipe_img/${d.image}`}
+                img={`${API_URL_IMG}${d.image}`}
                 type={d.recipe_category_name}
                 name={d.name}
                 link={`/recipeDetail?id=${d.id}`}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { TbTrash, TbMenu2 } from 'react-icons/tb';
@@ -22,9 +22,11 @@ const imgContainer = css`
 `;
 const main = css``;
 
-const RecipeStep = () => {
+const RecipeStep = ({ i, delStep, addStep }) => {
+  const [content, setContent] = useState('');
   return (
     <div css={container}>
+      {/* img input */}
       <label
         htmlFor="recipeStepImg"
         css={imgContainer}
@@ -37,9 +39,10 @@ const RecipeStep = () => {
         <span>點擊新增圖片</span>
       </label>
       <input type="file" className="d-none" id="recipeStepImg" />
+      {/* right section */}
       <div className="d-flex flex-column gap-2">
         <div className="d-flex justify-content-between">
-          <span className="fw-bold">1</span>
+          <span className="fw-bold">{i + 1}</span>
           <div className="d-flex gap-1">
             <IconContext.Provider
               value={{
@@ -48,9 +51,15 @@ const RecipeStep = () => {
                 className: 'cursorPointer',
               }}
             >
-              <AiOutlinePlus />
-              <TbTrash />
-              <TbMenu2 />
+              <div onClick={() => addStep(i)}>
+                <AiOutlinePlus />
+              </div>
+              <div onClick={() => delStep(i)}>
+                <TbTrash />
+              </div>
+              <div>
+                <TbMenu2 />
+              </div>
             </IconContext.Provider>
           </div>
         </div>
@@ -58,6 +67,8 @@ const RecipeStep = () => {
           placeholder="請輸入步驟說明 (最多 150 字)"
           rows="4"
           cols="auto"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
         <span className="align-self-end">0/150</span>
       </div>
