@@ -83,7 +83,6 @@ function App() {
                     path="/activity/camping/:campingId"
                     element={<CampingDetailPage />}
                   />
-                  <Route path="/map" element={<SetMap />} />
                 </Route>
                 {/* <Route path="/recipes/:recipeId" element={<RecipeDetail />} /> */}
                 <Route path="/recipeDetail" element={<RecipeDetail />} />
@@ -119,12 +118,7 @@ function App() {
                   <Route path="/signin/login" element={<Login />} />
                   <Route path="/signin/signup" element={<Signup />} />
                 </Route>
-                <Route path="/activity" element={<ActivityMain />} />
-                <Route path="/activity/camping" element={<CampingMain />} />
-                <Route
-                  path="/activity/camping/:id"
-                  element={<CampingDetailPage />}
-                />
+                <Route path="/map" element={<SetMap />} />
                 {/* <Route path="*" element={<NotFound />} /> */}
               </Routes>
             </ActivityCartProvider>
