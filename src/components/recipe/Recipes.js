@@ -267,13 +267,11 @@ const Recipes = () => {
         </div>
         {/* TODO: Create Recipe Form */}
         {createRecipe && (
-          <section
-            className="creatingRecipe flexCenter"
-            onClick={() => {
-              setCreateRecipe(false);
-            }}
-          >
-            <RecipeCreateForm setCreateRecipe={setCreateRecipe} />
+          <section className="creatingRecipe flexCenter">
+            <RecipeCreateForm
+              setCreateRecipe={setCreateRecipe}
+              recipeCate={recipeCate}
+            />
           </section>
         )}
       </div>
