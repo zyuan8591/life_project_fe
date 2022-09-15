@@ -8,8 +8,10 @@ import ShowPassword from '../Users/user_Component/ShowPassword';
 import { Navigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [eye, setEye] = useState(false);
-  const [eye1, setEye1] = useState(false);
+  const [eye, setEye] = useState({
+    eye1: false,
+    eye2: false,
+  });
   const [sign, setSign] = useState(false);
   const [error, setError] = useState(null);
 
@@ -57,8 +59,8 @@ const Signup = () => {
         }
       }}
     >
-      {(formik) => (
-        <form onSubmit={formik.handleSubmit}>
+      {(props) => (
+        <Form >
           <div className="signup">
             <Field name="name">
               {({ field, meta }) => (
@@ -122,7 +124,7 @@ const Signup = () => {
                   <div className="signup-input signup-group signup-psaaword">
                     <i className="fa-solid fa-unlock-keyhole"></i>
                     <input
-                      type={eye ? 'text' : 'password'}
+                      type={eye.eye1 ? 'text' : 'password'}
                       placeholder="8-16個半形英文及數字，請注意大小寫"
                       maxLength="16"
                       {...field}
@@ -136,7 +138,7 @@ const Signup = () => {
                         </>
                       )}
                     </ErrorMessage>
-                    <ShowPassword eye={eye} setEye={setEye} />
+                    <ShowPassword eye={eye} setEye={setEye} name="eye1" />
                   </div>
                 </>
               )}
@@ -152,7 +154,7 @@ const Signup = () => {
                   >
                     <i className="fa-solid fa-lock"></i>
                     <input
-                      type={eye1 ? 'text' : 'password'}
+                      type={eye.eye2 ? 'text' : 'password'}
                       placeholder="再次確認密碼"
                       maxLength="16"
                       {...field}
@@ -166,7 +168,7 @@ const Signup = () => {
                         </>
                       )}
                     </ErrorMessage>
-                    <ShowPassword eye={eye1} setEye={setEye1} />
+                    <ShowPassword eye={eye} setEye={setEye} name="eye2" />
                   </div>
                 </>
               )}
@@ -176,7 +178,7 @@ const Signup = () => {
               <button type="submit">註冊</button>
             </div>
           </div>
-        </form>
+        </Form>
       )}
     </Formik>
   );

@@ -15,7 +15,9 @@ const Login = () => {
   const [err, setErr] = useState(null);
 
   //顯示密碼
-  const [eye, setEye] = useState(false);
+  const [eye, setEye] = useState({
+    eye1: false,
+  });
 
   function handleChange(e) {
     setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
@@ -58,14 +60,14 @@ const Login = () => {
           <i className="fa-solid fa-lock"></i>
           <input
             className="input"
-            type={eye ? 'text' : 'password'}
+            type={eye.eye1 ? 'text' : 'password'}
             id="password"
             name="password"
             placeholder="Password"
             value={loginUser.password}
             onChange={handleChange}
           />
-          <ShowPassword eye={eye} setEye={setEye} />
+          <ShowPassword eye={eye} setEye={setEye} name="eye1" />
         </div>
         <div className="remember">
           <input type="checkbox" id="remember" />
