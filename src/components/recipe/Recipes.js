@@ -61,7 +61,6 @@ const customStyles = {
 
 const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
-  const [createRecipe, setCreateRecipe] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // init data
@@ -123,6 +122,7 @@ const Recipes = () => {
     searchName,
     pageNow,
     productCateNow,
+    searchParams,
   ]);
 
   const searchNameHandler = (e) => {
@@ -135,6 +135,19 @@ const Recipes = () => {
     setSearchMaterial(e.target.value);
     const params = Object.fromEntries([...searchParams]);
     params['searchMaterial'] = e.target.value;
+    setSearchParams(params);
+  };
+
+  // handle add recipe
+  const addRecipeHandler = () => {
+    const params = Object.fromEntries([...searchParams]);
+    params['add'] = 'true';
+    setSearchParams(params);
+  };
+  const closeRecipeHandler = () => {
+    const params = Object.fromEntries([...searchParams]);
+    // params['add'] = 'true';
+    delete params.add;
     setSearchParams(params);
   };
 
@@ -188,7 +201,7 @@ const Recipes = () => {
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
             >
-              <div className="featureBtn" onClick={() => setCreateRecipe(true)}>
+              <div className="featureBtn" onClick={() => addRecipeHandler()}>
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
@@ -265,11 +278,11 @@ const Recipes = () => {
             />
           </div>
         </div>
-        {/* TODO: Create Recipe Form */}
-        {createRecipe && (
+        {/* Create Recipe Form */}
+        {searchParams.get('add') === 'true' && (
           <section className="creatingRecipe flexCenter">
             <RecipeCreateForm
-              setCreateRecipe={setCreateRecipe}
+              setCreateRecipe={closeRecipeHandler}
               recipeCate={recipeCate}
             />
           </section>
