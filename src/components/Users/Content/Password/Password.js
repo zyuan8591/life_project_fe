@@ -53,7 +53,7 @@ const Password = () => {
             }
           );
         } catch (e) {
-          console.error('register', e);
+          console.error(e.response.data.message);
         }
       }}
     >

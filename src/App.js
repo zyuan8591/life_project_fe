@@ -60,13 +60,17 @@ function App() {
   //如果user有資料代表登入，如果為null代表未登入
   const [user, setUser] = useState(null);
   useEffect(() => {
-    let getUser = async () => {
-      let response = await axios.get(`${API_URL}/user`, {
-        withCredentials: true,
-      });
-      setUser(response.data);
-    };
-    getUser();
+    try {
+      let getUser = async () => {
+        let response = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+        setUser(response.data);
+      };
+      getUser();
+    } catch (e) {
+      console.error(e.response.data.message);
+    }
   }, [setUser]);
 
   return (
