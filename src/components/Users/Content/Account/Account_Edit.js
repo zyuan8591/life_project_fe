@@ -33,6 +33,9 @@ const Account = ({ setEdit }) => {
           areaName: `${user.area}`,
           intro: `${user.intro}`,
         }}
+        validationSchema={yup.object({
+          name: yup.string().max(10, '請輸入10個以內的文字').required('必填。'),
+        })}
         onSubmit={async (values) => {
           try {
             let formData = new FormData();
@@ -69,7 +72,7 @@ const Account = ({ setEdit }) => {
                         <label>信箱：</label>
                         <p>{user.email}</p>
                       </div>
-                      <div className="userData">
+                      <div className="userData namegroup">
                         <label>姓名：</label>
                         <input
                           type="text"
@@ -81,7 +84,7 @@ const Account = ({ setEdit }) => {
                         <ErrorMessage name="name">
                           {(err) => (
                             <>
-                              <i class="fa-regular fa-circle-xmark"></i>
+                              <i className="fa-regular fa-circle-xmark"></i>
                               <p className="error-text">{err}</p>
                             </>
                           )}
@@ -105,19 +108,7 @@ const Account = ({ setEdit }) => {
                     <>
                       <div className="userData">
                         <label>生日：</label>
-                        <input
-                          type="date"
-                          {...field}
-                          className={`input ${meta.error ? 'is-error' : ''}`}
-                        />
-                        <ErrorMessage name="name">
-                          {(err) => (
-                            <>
-                              <i class="fa-regular fa-circle-xmark"></i>
-                              <p className="error-text">{err}</p>
-                            </>
-                          )}
-                        </ErrorMessage>
+                        <input type="date" {...field} />
                       </div>
                     </>
                   )}
@@ -133,16 +124,7 @@ const Account = ({ setEdit }) => {
                           placeholder="請輸入電話號碼"
                           maxLength="10"
                           {...field}
-                          className={`input ${meta.error ? 'is-error' : ''}`}
                         />
-                        <ErrorMessage name="phone">
-                          {(err) => (
-                            <>
-                              <i class="fa-regular fa-circle-xmark"></i>
-                              <p className="error-text">{err}</p>
-                            </>
-                          )}
-                        </ErrorMessage>
                       </div>
                     </>
                   )}

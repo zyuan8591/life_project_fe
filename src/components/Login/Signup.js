@@ -11,6 +11,7 @@ const Signup = () => {
   const [eye, setEye] = useState(false);
   const [eye1, setEye1] = useState(false);
   const [sign, setSign] = useState(false);
+  const [error, setError] = useState(null);
 
   //TODO:新增轉場效果，直接跳轉太詭異
   if (sign) {
@@ -52,16 +53,15 @@ const Signup = () => {
           await axios.post(`${API_URL}/signup`, values);
           setSign(true);
         } catch (e) {
-          console.error('register', e);
+          setError(e.response.data.message);
         }
       }}
     >
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
           <div className="signup">
-            <Field
-              name="name"
-              render={({ field, meta }) => (
+            <Field name="name">
+              {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-name">
                     <i className="fa-regular fa-user"></i>
@@ -75,7 +75,7 @@ const Signup = () => {
                     <ErrorMessage name="name">
                       {(err) => (
                         <>
-                          <i class="fa-regular fa-circle-xmark"></i>
+                          <i className="fa-regular fa-circle-xmark"></i>
                           <p className="error-text">{err}</p>
                         </>
                       )}
@@ -83,11 +83,10 @@ const Signup = () => {
                   </div>
                 </>
               )}
-            />
+            </Field>
 
-            <Field
-              name="email"
-              render={({ field, meta }) => (
+            <Field name="email">
+              {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-email">
                     <i className="fa-regular fa-envelope"></i>
@@ -98,6 +97,12 @@ const Signup = () => {
                       {...field}
                       className={`input ${meta.error ? 'is-error' : ''}`}
                     />
+                    {error && ( //後端驗證
+                      <>
+                        <i className="fa-regular fa-circle-xmark"></i>
+                        <p className="error-text">{error}</p>
+                      </>
+                    )}
                     <ErrorMessage name="email">
                       {(err) => (
                         <>
@@ -109,11 +114,10 @@ const Signup = () => {
                   </div>
                 </>
               )}
-            />
+            </Field>
 
-            <Field
-              name="password"
-              render={({ field, meta }) => (
+            <Field name="password">
+              {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-psaaword">
                     <i className="fa-solid fa-unlock-keyhole"></i>
@@ -136,11 +140,10 @@ const Signup = () => {
                   </div>
                 </>
               )}
-            />
+            </Field>
 
-            <Field
-              name="confirmPassword"
-              render={({ field, meta }) => (
+            <Field name="confirmPassword">
+              {({ field, meta }) => (
                 <>
                   <div
                     className={`signup-input signup-group signup-psaaword  ${
@@ -167,7 +170,7 @@ const Signup = () => {
                   </div>
                 </>
               )}
-            />
+            </Field>
 
             <div className="siginupBtn">
               <button type="submit">註冊</button>

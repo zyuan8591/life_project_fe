@@ -115,6 +115,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
     button{
       width: 40%;
       background:#817161e3;
@@ -148,12 +149,15 @@
   
   .forget{
     position: relative;
-    top:5px;
-    &:hover{
-      top:10px;
-    }
+    top:5px;    
     a{
       color:#fff;
     }
   }   
+  .errtext{
+    position: absolute;
+    bottom: 55px;
+    color: red;
+    font-size: 14px;
+  }
 }

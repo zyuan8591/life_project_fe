@@ -12,6 +12,7 @@ const Login = () => {
     email: 'Ace@test.com',
     password: 'a12345678',
   });
+  const [err, setErr] = useState(null);
 
   //顯示密碼
   const [eye, setEye] = useState(false);
@@ -21,12 +22,17 @@ const Login = () => {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    let response = await axios.post(`${API_URL}/login`, loginUser, {
-      withCredentials: true,
-    });
-    setUser(response.data);
-    // setIsLogin(true);
+    try {
+      e.preventDefault();
+      let response = await axios.post(`${API_URL}/login`, loginUser, {
+        withCredentials: true,
+      });
+
+      // setUser(response.data);
+      console.log(response.data);
+    } catch (e) {
+      setErr(e.response.data.message);
+    }
   }
   //TODO:製作記住帳號密碼
   if (user) {
@@ -65,7 +71,9 @@ const Login = () => {
           <input type="checkbox" id="remember" />
           <label htmlFor="remember">記住帳號密碼</label>
         </div>
+
         <div className="loginBtn login-group">
+          {err && <p className="errtext">{err}</p>}
           <button onClick={handleSubmit}>登入</button>
         </div>
 
