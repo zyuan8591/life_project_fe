@@ -3,10 +3,10 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: 1, label: '日期升冪' },
-  { value: 2, label: '日期降冪' },
-  { value: 3, label: '價格升冪' },
-  { value: 4, label: '價格降冪' },
+  { value: 1, label: '日期 低>高' },
+  { value: 2, label: '日期 高>低' },
+  { value: 3, label: '價格 低>高' },
+  { value: 4, label: '價格 高>低' },
 ];
 
 const customStyles = {
