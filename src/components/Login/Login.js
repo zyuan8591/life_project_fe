@@ -8,6 +8,7 @@ import { useUserRights } from '../../usecontext/UserRights';
 
 const Login = () => {
   const { user, setUser } = useUserRights();
+
   const [loginUser, setLoginUser] = useState({
     email: 'Ace@test.com',
     password: 'a12345678',
@@ -30,7 +31,7 @@ const Login = () => {
         withCredentials: true,
       });
 
-      // setUser(response.data);
+      setUser(response.data);
       console.log(response.data);
     } catch (e) {
       setErr(e.response.data.message);
@@ -40,7 +41,7 @@ const Login = () => {
   if (user) {
     return <Navigate to="/" />;
   }
-
+  console.log(user);
   return (
     <form action="">
       <div className="login">

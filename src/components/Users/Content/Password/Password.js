@@ -85,6 +85,7 @@ const Password = () => {
                   </div>
                 )}
               </Field>
+
               <Field name="newPassword">
                 {({ field, meta }) => (
                   <div className="password-group">
