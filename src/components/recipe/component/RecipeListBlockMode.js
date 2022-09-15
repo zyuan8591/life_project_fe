@@ -25,7 +25,7 @@ const RecipeListBlockMode = ({ data }) => {
           />
         </figure>
         <span className={classes.title}>{data.name}</span>
-        <span>作者：{data.user_id}</span>
+        <span>作者：{data.user_name}</span>
         <span className={classes.material}>食材：{material}</span>
         <div className={classes.about}>
           <div className={classes.like}>

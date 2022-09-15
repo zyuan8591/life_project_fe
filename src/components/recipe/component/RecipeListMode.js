@@ -84,7 +84,7 @@ const RecipeListMode = ({ data }) => {
           <span css={tag}>{data.product_category_name}</span>
           <span>{data.name}</span>
         </div>
-        <div>Author: {data.user_id}</div>
+        <div>作者: {data.user_name}</div>
         <div css={recipeContent}>{data.content}</div>
         <div css={recipeMaterial}>食材：{material}</div>
         <div css={about}>
