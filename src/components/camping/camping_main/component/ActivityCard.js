@@ -18,6 +18,11 @@ function ActivityCard({
     return date.replace(/-/g, '/');
   };
 
+  const priceReplace = (price) => {
+    const newPrice = price.toString();
+    return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   const progressBarWidth = () => {
     if (v.pepcount === 0) return 0;
     let width = (v.pepcount / v.join_limit) * 220 - 2;
@@ -105,7 +110,7 @@ function ActivityCard({
                 {v.state}
               </div>
             </div>
-            <div className={classes.price}>{`$ ${v.price}`}</div>
+            <div className={classes.price}>$ {priceReplace(v.price)}</div>
           </div>
 
           <div className={`${classes.activityDate} my-2`}>

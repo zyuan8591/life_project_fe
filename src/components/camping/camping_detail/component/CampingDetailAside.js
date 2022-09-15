@@ -17,6 +17,11 @@ function CampingDetailAside({
   handleDelJoin,
   handleAddJoin,
 }) {
+  const priceReplace = (price) => {
+    const newPrice = price.toString();
+    return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   const stateBtn = (state) => {
     if (user) {
       if (state === '已成團') return '已成團';
@@ -52,7 +57,7 @@ function CampingDetailAside({
             {v.state}
           </div>
         </div>
-        <div className={classes.asidePrice}>NT${v.price}</div>
+        <div className={classes.asidePrice}>NT${priceReplace(v.price)}</div>
         <div className={classes.asideContent}>
           <div className={classes.contentItem}>
             <FaCalendarAlt />
