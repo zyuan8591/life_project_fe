@@ -16,7 +16,7 @@ function ActivityDateFilter({
     <>
       <div className={classes.activityDate}>
         <p className={classes.dateText}>活動日期</p>
-        <div className="d-flex ms-3 align-items-center">
+        <div className="d-flex m-2 align-items-center mt-3">
           <input
             type="date"
             style={{ maxWidth: '115px' }}
