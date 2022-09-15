@@ -166,7 +166,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
             >
               {/* author detail left */}
               <div className="d-flex align-items-center gap-3">
-                <figure css={avatarContainer} className="m-0">
+                <figure css={avatarContainer} className="m-0 p-2">
                   <img
                     src={API_URL_IMG + data.user_photo}
                     alt=""

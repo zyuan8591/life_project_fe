@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { TbTrash, TbMenu2 } from 'react-icons/tb';
@@ -10,24 +10,45 @@ const container = css`
   gap: 1rem;
   align-items: center;
 `;
-const name = css``;
-const num = css``;
 const btns = css`
   display: flex;
   justify-content: space-around;
 `;
+const dragBtn = css`
+  cursor: move;
+`;
 
-const RecipeMaterial = ({ delHandler, dragHandler }) => {
+const RecipeMaterial = ({ i, delHandler, dragHandler, onchange }) => {
+  const [materialName, setMaterialName] = useState('');
+  const [materialQ, setMaterialQ] = useState('');
   return (
-    <IconContext.Provider
-      value={{ color: '#444', size: '1.5rem', className: 'cursorPointer' }}
-    >
-      <div css={container}>
-        <input type="text" placeholder="食材" css={name} />
-        <input type="text" placeholder="份量" css={num} />
+    <IconContext.Provider value={{ color: '#444', size: '1.5rem' }}>
+      <div css={container} className="mb-2">
+        <input
+          type="text"
+          placeholder="食材"
+          value={materialName}
+          onChange={(e) => {
+            onchange(e.target.value, i, 'name');
+            setMaterialName(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="份量"
+          value={materialQ}
+          onChange={(e) => {
+            onchange(e.target.value, i, 'q');
+            setMaterialQ(e.target.value);
+          }}
+        />
         <div css={btns}>
-          <TbTrash />
-          <TbMenu2 />
+          <div onClick={() => delHandler(i)} className="cursorPointer">
+            <TbTrash />
+          </div>
+          <div css={dragBtn}>
+            <TbMenu2 />
+          </div>
         </div>
       </div>
     </IconContext.Provider>
