@@ -25,18 +25,19 @@ const Product = () => {
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
+        const { id, name, price, brand, img, color, img2 } = v;
         return (
-          <div className="products" key={i}>
-            <Link
-              to="/products/:id"
-              className="hoverArea "
-              onMouseOver={(e) => {
-                e.target.src = `/img/product/product_img/${v.img2}`;
-              }}
-              onMouseOut={(e) => {
-                e.target.src = `/img/product/product_img/${v.img}`;
-              }}
-            >
+          <div
+            className="products"
+            key={i}
+            onMouseOver={(e) => {
+              e.target.src = `/img/product/product_img/${img2}`;
+            }}
+            onMouseOut={(e) => {
+              e.target.src = `/img/product/product_img/${img}`;
+            }}
+          >
+            <Link to={`/products/${id}`} className="hoverArea ">
               <div className="productImg">
                 <div className="productHover">
                   <IconContext.Provider
@@ -47,27 +48,35 @@ const Product = () => {
                     }}
                   >
                     <HiOutlineHeart
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        e.defaultPrevented();
                         console.log('h');
                       }}
                     />
                     <IoCartOutline
-                      onClick={() => {
+                      onClick={(e) => {
                         console.log('c');
                       }}
                     />
                   </IconContext.Provider>
                 </div>
-                <img src={`/img/product/product_img/${v.img}`} alt="" />
+                <img src={`/img/product/product_img/${img}`} alt="" />
               </div>
             </Link>
             <div className="nameArea">
-              <p className="name">{v.name}</p>
-              <p className="color">{v.color}</p>
+              <p className="name">{name}</p>
+              <p className="color">{color}</p>
             </div>
             <div className="brandArea">
-              <p className="brand">{v.brand}</p>
-              <p className="price">NT$ {v.price}</p>
+              <p className="brand">{brand}</p>
+              <p className="price">
+                NT${' '}
+                {price
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+              </p>
             </div>
           </div>
         );

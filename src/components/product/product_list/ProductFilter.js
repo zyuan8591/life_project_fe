@@ -1,18 +1,28 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../../../styles/product/_productFilter.scss';
 import { IconContext } from 'react-icons';
 import { IoIosSearch } from 'react-icons/io';
 import { RiArrowDownSFill } from 'react-icons/ri';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 
 // const brandArr = [];
 const ProductFilter = () => {
-  const [brandArr, setBrandArr] = useState(26);
+  const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
   const [showBoard, setShowBoard] = useState(false);
   const [brand, setBrand] = useState('');
   const [search, setSearch] = useState('');
+  // const [isChecked, setIs ]
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/brand`);
+      // console.log(result.data);
+      setBrandArr(result.data);
+    })();
+  });
   return (
     <IconContext.Provider
       value={{ color: '#444', size: '1.6rem', className: '' }}
@@ -55,7 +65,7 @@ const ProductFilter = () => {
                     value={brand}
                     onChange={(e) => {
                       setBrand(e.target.value);
-                      console.log(brand.length);
+                      // console.log(brand.length);
                     }}
                     onKeyDown={(e) => {
                       if (e.keyCode === 13) {
@@ -68,16 +78,21 @@ const ProductFilter = () => {
                   />
                 </div>
                 <div className="d-flex flex-wrap">
-                  {Array(brandArr)
-                    .fill(1)
-                    .map((v, i) => {
-                      return (
-                        <div className="brand" key={i}>
-                          <input type="checkbox" className="checkbox" id={i} />
-                          <label htmlFor={i}>aaaaaa</label>
-                        </div>
-                      );
-                    })}
+                  {brandArr.map((v, i) => {
+                    return (
+                      <div className="brand" key={i}>
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          id={i}
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                          }}
+                        />
+                        <label htmlFor={i}>{v.name}</label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <div className="priceSection">
