@@ -1,11 +1,17 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { MdLocationOn } from 'react-icons/md';
 import classes from '../../../../../styles/moduleCss/camping_detail_page/PlaceSlide.module.scss';
 
-function PlaceSlide({ placeSlider, product }) {
+function PlaceSlide({ placeSlider, mapDataId }) {
+  const newAddress = (address) => {
+    return address.substr(0, 6);
+  };
+  const newDistance = (distance) => {
+    return Math.floor(distance);
+  };
+
   return (
     <>
       <div className={classes.slide}>
@@ -15,19 +21,19 @@ function PlaceSlide({ placeSlider, product }) {
         >
           <IconContext.Provider value={{ color: '#444', size: '1.5rem' }}>
             {/* card 更換 */}
-            {product.map((v) => {
+            {mapDataId.map((v) => {
               return (
-                <div className={classes.placeSliderContainer} key={uuidv4()}>
-                  <div className={classes.contentDate}>
-                    2022/08/20 ~ 2022/09/20
-                  </div>
-                  <div className={classes.contentName}>今夏CAMPING了嗎？</div>
+                <div className={classes.placeSliderContainer} key={v.id}>
+                  <div className={classes.contentDate}>{v.activity_date}</div>
+                  <div className={classes.contentName}>{v.place}</div>
                   <div className="d-flex align-items-center">
                     <MdLocationOn />
-                    <div className={classes.contentCounty}>台北市</div>
+                    <div className={classes.contentCounty}>
+                      {newAddress(v.address)}
+                    </div>
                   </div>
                   <div className={classes.contentDistance}>
-                    距離當前活動：345 公尺
+                    距離當前活動： {newDistance(v.distance)} 公尺
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">

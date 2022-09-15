@@ -115,6 +115,8 @@ function CampingDetailPage() {
   const { user, setUser } = useUserRights();
   const [userJoin, setUserJoin] = useState([]);
   const [userCollected, setUserCollected] = useState([]);
+  const [mapDataId, setMapDataId] = useState([]);
+  const [mapDataIdLength, setMapDataIdLength] = useState('');
 
   // console.log(campingId);
 
@@ -126,6 +128,17 @@ function CampingDetailPage() {
       setJoinCount(response.data.joinResult);
     };
     getCampingDetailData();
+  }, []);
+
+  // mapDisId
+  useEffect(() => {
+    let getCampingMapDis = async () => {
+      let response = await axios.get(`${API_URL}/map/${campingId}`);
+      // console.log(response.data.campingResultL);
+      setMapDataId(response.data.campingResult);
+      setMapDataIdLength(response.data.campingResultL);
+    };
+    getCampingMapDis();
   }, []);
 
   useEffect(() => {
@@ -201,6 +214,11 @@ function CampingDetailPage() {
         function dataReplace(date) {
           return date.replace(/-/g, '/');
         }
+
+        const priceReplace = (price) => {
+          const newPrice = price.toString();
+          return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+        };
 
         const handleAddJoin = async (campingId) => {
           // console.log(campingId);
@@ -400,7 +418,9 @@ function CampingDetailPage() {
                         <div className="titleContent">
                           <FaPaw />
                           <div className="mx-2">報名費用：</div>
-                          <div className="titleText">NT${v.price}</div>
+                          <div className="titleText">
+                            NT${priceReplace(v.price)}
+                          </div>
                         </div>
                         <div className="titleContent">
                           <FaPaw />
@@ -560,14 +580,14 @@ function CampingDetailPage() {
                   喜歡露營的你，附近的活動還有...
                 </div>
                 <Slide
-                  contentLength={productLength}
+                  contentLength={mapDataIdLength}
                   maxWidth={1375}
                   Slider={placeSlider}
                   setSlider={setPlaceSlider}
                   cardWidth={275}
                   displayContainer={5}
                 >
-                  <PlaceSlide product={product} placeSlider={placeSlider} />
+                  <PlaceSlide placeSlider={placeSlider} mapDataId={mapDataId} />
                 </Slide>
               </IconContext.Provider>
             </div>
