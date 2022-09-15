@@ -146,7 +146,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
           {/* recipe Image */}
           <figure css={recipeContainer}>
             <img
-              src={`/img/recipe/recipe_img/${data.image}`}
+              src={`${API_URL_IMG}${data.image}`}
               alt=""
               className="objectContain"
             />

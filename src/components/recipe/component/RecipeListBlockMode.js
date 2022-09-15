@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import classes from '../../../styles/moduleCss/recipes/RecipeListBlockMode.module.scss';
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { API_URL } from '../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
 import axios from 'axios';
 
 const RecipeListBlockMode = ({ data }) => {
@@ -19,7 +19,7 @@ const RecipeListBlockMode = ({ data }) => {
       <Link to={`/recipeDetail?id=${data.id}`} className={classes.container}>
         <figure className={classes.imgContainer}>
           <img
-            src={`/img/recipe/recipe_img/${data.image}`}
+            src={`${API_URL_IMG}${data.image}`}
             alt={data.name}
             className="objectContain"
           />

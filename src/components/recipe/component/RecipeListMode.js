@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
 
 const hoverClr = '#eee';
 const subClrBrown = '#817161';
@@ -73,7 +73,7 @@ const RecipeListMode = ({ data }) => {
     <Link to={`/recipeDetail?id=${data.id}`} css={container}>
       <figure css={imgContainer}>
         <img
-          src={`/img/recipe/recipe_img/${data.image}`}
+          src={`${API_URL_IMG}${data.image}`}
           alt="Bagel"
           className="objectContain"
         />
