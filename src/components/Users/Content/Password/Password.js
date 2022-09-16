@@ -8,6 +8,7 @@ import { API_URL } from '../../../../utils/config';
 import emailjs from '@emailjs/browser';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import Countdown from './Countdown';
+import PopWindow from './PopWindow';
 
 const Password = () => {
   const { user } = useUserRights();
@@ -16,6 +17,8 @@ const Password = () => {
   //驗證碼
   const [verificationCode, setverificationCode] = useState(null);
   //如果驗證碼不是空才寄出信件
+  //彈跳視窗
+  const [popWindow, setPopWindow] = useState(false);
 
   //發送Email
   const sendEmail = () => {
@@ -108,6 +111,7 @@ const Password = () => {
           await axios.put(`${API_URL}/userUpdata/password`, values, {
             withCredentials: true,
           });
+          setPopWindow(true);
         } catch (e) {
           console.error(e.response.data.message);
         }
@@ -215,6 +219,7 @@ const Password = () => {
               <button type="sunmit">確認</button>
             </Form>
           </div>
+          <PopWindow popWindow={popWindow} setPopWindow={setPopWindow} />
         </>
       )}
     </Formik>

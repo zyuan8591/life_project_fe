@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import OrderDetail from './CheckPage/OrderDetail';
 import CreditCard from './CheckPage/CreditCard';
-import jsondata from '../../Users/Content/Account/CityCountyData.json';
+import jsondata from '../../../utils/CityCountyData.json';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 
 import { AiOutlineUser } from 'react-icons/ai';

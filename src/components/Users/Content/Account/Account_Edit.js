@@ -7,8 +7,8 @@ import WarnWindow from './component/WarnWindow';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
-import jsondata from './CityCountyData.json';
-import PreviewImage from './PreviewImage';
+import jsondata from '../../../../utils/CityCountyData.json';
+import PreviewImage from './component/PreviewImage';
 
 const Account = ({ setEdit }) => {
   const { user, setUser } = useUserRights();
