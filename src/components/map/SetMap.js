@@ -6,9 +6,9 @@ import { API_URL } from '../../utils/config';
 import { IconContext } from 'react-icons';
 import { MdLocationOn, MdOutlineIcecream } from 'react-icons/md';
 import { GiCampingTent } from 'react-icons/gi';
-import { SiPicnic } from 'react-icons/si';
-import { IoLocationOutline } from 'react-icons/io5';
-import { FaCanadianMapleLeaf } from 'react-icons/fa';
+// import { SiPicnic } from 'react-icons/si';
+// import { IoLocationOutline } from 'react-icons/io5';
+// import { FaCanadianMapleLeaf } from 'react-icons/fa';
 
 import {
   MapContainer,
@@ -67,7 +67,6 @@ function SetMap() {
   const [distanceSort, setDistanceSort] = useState('');
   const [radius, setRadius] = useState('');
 
-  // console.log(centerPosL, centerPosR);
   useEffect(() => {
     let getCampingData = async () => {
       let response = await axios.get(
@@ -83,17 +82,15 @@ function SetMap() {
   const campingIcon = new Icon({
     iconUrl: '/img/camping/activity_camping_img/ba1.png',
     iconSize: [20, 30],
-    // iconAnchor: [0, 0],
-    // popupAnchor: [-0, -76]
   });
   const picnicIcon = new Icon({
     iconUrl: '/img/camping/activity_camping_img/ba4.png',
     iconSize: [20, 30],
   });
-  const centerIcon = new Icon({
-    iconUrl: '/img/user/user_img/sandy.png',
-    iconSize: [30, 30],
-  });
+  // const centerIcon = new Icon({
+  //   iconUrl: '/img/user/user_img/sandy.png',
+  //   iconSize: [30, 30],
+  // });
 
   return (
     <>
@@ -187,7 +184,7 @@ function SetMap() {
                 center={position}
                 zoom={12}
                 scrollWheelZoom={true}
-                icon={centerIcon}
+                // icon={centerIcon}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -237,13 +234,48 @@ function SetMap() {
                     new Icon({
                       iconUrl: '/img/user/user_img/kerp.png',
                       iconSize: [30, 35],
-                      // iconAnchor: [0, 0],
-                      // popupAnchor: [-0, -76]
                     })
                   }
                 >
                   <Popup>You are here</Popup>
                 </Marker>
+                {/* group */}
+                {/* <MarkerClusterGroup>
+                  <Marker
+                    position={[24.546412977948872, 120.84101235560908]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                  <Marker
+                    position={[24.532100261186716, 120.80548586799523]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                  <Marker
+                    position={[24.561398171107996, 120.93603096784717]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                </MarkerClusterGroup> */}
+                {/* ------ */}
               </MapContainer>
             </div>
           </div>
