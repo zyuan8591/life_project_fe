@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ShowPassword from '../../user_Component/ShowPassword';
-import '../../../../styles/Users/password.scss';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';

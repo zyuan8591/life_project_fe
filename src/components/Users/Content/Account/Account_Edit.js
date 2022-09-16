@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-// import InputGender from './component/InputGender';
-// import InputAddress from './component/inputAddress';
 import WarnWindow from './component/WarnWindow';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';

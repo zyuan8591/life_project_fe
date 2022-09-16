@@ -22,7 +22,7 @@ import Password from './components/Users/Content/Password/Password';
 import Order from './components/Users/Content/Order/Order';
 import Points from './components/Users/Content/Points/Points';
 import Recipe from './components/Users/Content/Recipe/Recipe';
-import Caping from './components/Users/Content/Caping/Caping';
+import Camping from './components/Users/Content/Camping/Camping';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/Login';
 import { UserRights } from './usecontext/UserRights';
@@ -69,7 +69,7 @@ function App() {
       };
       getUser();
     } catch (e) {
-      console.error(e.response.data.message);
+      console.error(e.response.data.msg);
     }
   }, [setUser]);
 
@@ -126,6 +126,7 @@ function App() {
                   <Route path="/users/points" element={<Points />} />
                   <Route path="/users/pinic" element={<Pinic />} />
                   <Route path="/users/recipe" element={<Recipe />} />
+                  <Route path="/users/caping" element={<Camping />} />
                 </Route>
                 <Route path="/signin/" element={<Signin />}>
                   <Route path="/signin/login" element={<Login />} />
