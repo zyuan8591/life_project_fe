@@ -1,25 +1,77 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ShowPassword from '../../user_Component/ShowPassword';
 import '../../../../styles/Users/password.scss';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
+import emailjs from '@emailjs/browser';
+import { useUserRights } from '../../../../usecontext/UserRights';
+import Countdown from './Countdown';
 
 const Password = () => {
+  const { user } = useUserRights();
+  //顯示寄信倒數計時
+  const [timeStemp, setTimeStemp] = useState(false);
+  //驗證碼
+  const [verificationCode, setverificationCode] = useState(null);
+  //如果驗證碼不是空才寄出信件
+
+  //發送Email
+  const sendEmail = () => {
+    var templateParams = {
+      user_email: user.email,
+      user_name: user.name,
+      verification: verificationCode,
+    };
+    console.log(templateParams.verification);
+    emailjs
+      .send(
+        'service_4dxhhdy',
+        'template_vkxlzri',
+        templateParams,
+        '9DyK9oc27L4mFT8eX'
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
+  function randomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  function sendEmailVerify() {
+    setverificationCode(String(randomNum(100000, 999999)));
+    setTimeStemp(true);
+    setTimeout(() => {
+      setverificationCode(null);
+      setTimeStemp(false);
+    }, 180000);
+  }
+
   //顯示密碼
   const [eye, setEye] = useState({
     eye1: false,
     eye2: false,
     eye3: false,
   });
-
+  //認證碼有值才寄出信件
+  if (verificationCode !== null) {
+    sendEmail();
+  }
   return (
     <Formik
       initialValues={{
         password: '',
         newPassword: '',
         confirmPassword: '',
+        authentication: '',
       }}
       validationSchema={yup.object({
         password: yup
@@ -42,16 +94,20 @@ const Password = () => {
               ? schema.oneOf([newPassword], '密碼不一致')
               : schema;
           }),
+        authentication: yup
+          .string()
+          .required('必填項目未輸入。')
+          .test('verify', '驗證碼不正確', function (authentication) {
+            if (authentication === verificationCode) {
+              return true;
+            }
+          }),
       })}
       onSubmit={async (values) => {
         try {
-          let response = await axios.put(
-            `${API_URL}/userUpdata/password`,
-            values,
-            {
-              withCredentials: true,
-            }
-          );
+          await axios.put(`${API_URL}/userUpdata/password`, values, {
+            withCredentials: true,
+          });
         } catch (e) {
           console.error(e.response.data.message);
         }
@@ -132,12 +188,31 @@ const Password = () => {
                   </div>
                 )}
               </Field>
-              <div>
-                <label>　信箱驗證碼：</label>
-                <input value="" type="text" name="" id="" />
-                <a href="#/">重新發送驗證碼</a>
-              </div>
-              <button>確認</button>
+
+              <Field name="authentication" type="text">
+                {({ field, meta }) => (
+                  <div className="d-flex password-group">
+                    <label htmlFor="authentication">　信箱驗證碼：</label>
+                    <input id="authentication" maxLength="6" {...field} />
+                    <p
+                      className={`sendText ${timeStemp ? 'noClick' : ''}`}
+                      onClick={sendEmailVerify}
+                    >
+                      重新發送驗證碼
+                    </p>
+                    {timeStemp && <Countdown />}
+                    <ErrorMessage name="authentication">
+                      {(err) => (
+                        <>
+                          <i className="fa-regular fa-circle-xmark"></i>
+                          <p className="error-text">{err}</p>
+                        </>
+                      )}
+                    </ErrorMessage>
+                  </div>
+                )}
+              </Field>
+              <button type="sunmit">確認</button>
             </Form>
           </div>
         </>

@@ -10,7 +10,7 @@ const Login = () => {
   const { user, setUser } = useUserRights();
 
   const [loginUser, setLoginUser] = useState({
-    email: 'Ace@test.com',
+    email: 'cat814051@gmail.com',
     password: 'a12345678',
   });
   const [err, setErr] = useState(null);
@@ -32,7 +32,6 @@ const Login = () => {
       });
 
       setUser(response.data);
-      console.log(response.data);
     } catch (e) {
       setErr(e.response.data.message);
     }
@@ -41,7 +40,7 @@ const Login = () => {
   if (user) {
     return <Navigate to="/" />;
   }
-  console.log(user);
+
   return (
     <form action="">
       <div className="login">
