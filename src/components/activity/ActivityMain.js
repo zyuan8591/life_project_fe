@@ -64,7 +64,9 @@ function ActivityMain() {
             </div>
           </div>
         </main>
-        <div className="section">map</div>
+        <Link to="/map">
+          <div className="section">map</div>
+        </Link>
       </IconContext.Provider>
     </>
   );

@@ -16,6 +16,7 @@ function CampingDetailAside({
   user,
   handleDelJoin,
   handleAddJoin,
+  setLoading,
 }) {
   const priceReplace = (price) => {
     const newPrice = price.toString();
@@ -93,6 +94,7 @@ function CampingDetailAside({
                 disabled={v.state !== '開團中' ? true : false}
                 onClick={() => {
                   handleDelJoin(v.id);
+                  setLoading(true);
                 }}
               >
                 取消活動
@@ -105,6 +107,7 @@ function CampingDetailAside({
                 disabled={v.state !== '開團中' ? true : false}
                 onClick={() => {
                   handleAddJoin(v.id);
+                  setLoading(true);
                 }}
               >
                 {stateBtn(v.state)}

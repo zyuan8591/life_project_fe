@@ -25,6 +25,7 @@ import PlaceSlide from './component/slider/PlaceSlide';
 import CampingDetailInfo from './component/CampingDetailInfo';
 import CampingDetailJoinSlide from './component/CampingDetailJoinSlide';
 import CampingDetailAside from './component/CampingDetailAside';
+import Weather from '../../weather/Weather';
 import { useUserRights } from '../../../usecontext/UserRights';
 const stateClassName = (state) => {
   switch (state) {
@@ -117,6 +118,7 @@ function CampingDetailPage() {
   const [userCollected, setUserCollected] = useState([]);
   const [mapDataId, setMapDataId] = useState([]);
   const [mapDataIdLength, setMapDataIdLength] = useState('');
+  const [loading, setLoading] = useState(false);
 
   // console.log(campingId);
 
@@ -127,8 +129,9 @@ function CampingDetailPage() {
       setDetailData(response.data.result);
       setJoinCount(response.data.joinResult);
     };
+    setLoading(false);
     getCampingDetailData();
-  }, []);
+  }, [loading]);
 
   // mapDisId
   useEffect(() => {
@@ -360,6 +363,7 @@ function CampingDetailPage() {
                             <MdRemoveCircle
                               onClick={() => {
                                 handleDelJoin(v.id);
+                                setLoading(true);
                               }}
                             />
                           </IconContext.Provider>
@@ -374,6 +378,7 @@ function CampingDetailPage() {
                             <MdAddCircle
                               onClick={() => {
                                 handleAddJoin(v.id);
+                                setLoading(true);
                               }}
                             />
                           </IconContext.Provider>
@@ -430,16 +435,7 @@ function CampingDetailPage() {
                       </IconContext.Provider>
                     </div>
                     {/* weather */}
-                    <div
-                      style={{
-                        width: '250px',
-                        height: '280px',
-                        border: '1px solid lightBlue',
-                        margin: '25px',
-                      }}
-                    >
-                      weather
-                    </div>
+                    <Weather />
                   </div>
                   {/* title img */}
                   <div className="ContainerImg">
@@ -551,6 +547,7 @@ function CampingDetailPage() {
                           userJoin={userJoin}
                           handleDelJoin={handleDelJoin}
                           handleAddJoin={handleAddJoin}
+                          setLoading={setLoading}
                         />
                       );
                     })}
