@@ -33,14 +33,6 @@ const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
     { id: uuidv4(), step: 1, img: null, content: '' },
   ]);
 
-  // step resort asc
-  useEffect(() => {
-    let newData = [...step].map((d, i) => {
-      return { ...d, step: i + 1 };
-    });
-    setStep(newData);
-  }, [step]);
-
   // recipe info handler
   const inputChangeHandler = (e) => {
     setAddForm({ ...addForm, [e.target.name]: e.target.value });
@@ -99,34 +91,38 @@ const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
     setMaterial(newData);
   };
 
-  // step input change
-  const stepChangeHandler = (val, i) => {
-    let newData = [...step];
-    newData[i].content = val;
-    newData[i].step = i;
-    setStep(newData);
+  // step sort
+  const sortStep = (data) => {
+    return [...data].map((d, i) => {
+      return { ...d, step: i + 1 };
+    });
   };
-
+  // step input change
+  const stepChangeHandler = (val, i, input) => {
+    let newData = [...step];
+    if (input === 'content') newData[i].content = val;
+    if (input === 'img') newData[i].img = val;
+    setStep(sortStep(newData));
+  };
   // add step
   const addStepBtn = (i) => {
     let newData = [...step];
     newData.splice(i + 1, 0, { id: uuidv4(), step: i, img: null, content: '' });
-    setStep(newData);
+    setStep(sortStep(newData));
   };
-
   // delete step
   const deleteStepBtn = (i) => {
     let newData = [...step];
     newData.splice(i, 1);
     if (newData.length === 0) return;
-    setStep(newData);
+    setStep(sortStep(newData));
   };
 
   // submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
-    // let formData = new FormData();
     try {
+      // insert recipe
       let formData = new FormData();
       for (const key in addForm) {
         formData.append(key, addForm[key]);
@@ -135,13 +131,32 @@ const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
         withCredentials: true,
       });
       let insertId = response.data.id;
-      let materialResponse = await axios.post(
+      // insert recipe material
+      await axios.post(
         `${API_URL}/recipes/${insertId}/material`,
         { material },
         {
           withCredentials: true,
         }
       );
+      // insert recipe step
+      let stepFormData = new FormData();
+      let stepData = [];
+      let imgData = [];
+      let contentData = [];
+      for (let i = 0; i < step.length; i++) {
+        stepData.push(step[i].step);
+        imgData.push(step[i].img);
+        contentData.push(step[i].content);
+      }
+      stepFormData.append('step', stepData);
+      for (let i = 0; i < imgData.length; i++) {
+        stepFormData.append('img', imgData[i]);
+      }
+      stepFormData.append('content', contentData);
+      await axios.post(`${API_URL}/recipes/${insertId}/step`, stepFormData, {
+        withCredentials: true,
+      });
     } catch (e) {
       console.error(e);
     }
@@ -348,8 +363,11 @@ const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
           <label className="fs-4">步驟</label>
           {step.map((d, i) => (
             <RecipeStep
-              i={i}
               key={d.id}
+              i={i}
+              data={d}
+              demo={demo}
+              changeStep={stepChangeHandler}
               delStep={deleteStepBtn}
               addStep={addStepBtn}
             ></RecipeStep>

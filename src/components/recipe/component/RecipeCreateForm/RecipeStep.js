@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { TbTrash, TbMenu2 } from 'react-icons/tb';
@@ -20,25 +20,83 @@ const imgContainer = css`
   background: #eee;
   border-radius: 3px;
 `;
-const main = css``;
 
-const RecipeStep = ({ i, delStep, addStep }) => {
+const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo }) => {
   const [content, setContent] = useState('');
+  const [length, setLength] = useState(0);
+  useEffect(() => {
+    if (demo) {
+      setContent(data.content);
+      setLength(data.content.length);
+    }
+  }, []);
+
+  // preview file
+  const [file, setFile] = useState(null);
+  const [fileDataURL, setFileDataURL] = useState(null);
+  const imageMimeType = /image\/(png|jpg|jpeg|webp)/i;
+
+  // recipe img handler
+  const updateImgHandler = (e) => {
+    const file = e.target.files[0];
+    // check image type
+    if (!file.type.match(imageMimeType)) {
+      console.error('Image mime type is not valid');
+      return;
+    }
+    setFile(file);
+    changeStep(file, i, 'img');
+  };
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      // get image url
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setFileDataURL(result);
+        }
+      };
+      fileReader.readAsDataURL(file);
+    }
+    // unmounting
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [file]);
+
   return (
     <div css={container}>
       {/* img input */}
       <label
-        htmlFor="recipeStepImg"
+        htmlFor={`recipeStepImg${i}`}
         css={imgContainer}
         className="cursorPointer"
       >
-        <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-          <AiOutlineCamera />
-        </IconContext.Provider>
-
-        <span>點擊新增圖片</span>
+        {fileDataURL ? (
+          <img src={fileDataURL} alt="prev" className="w-100" />
+        ) : (
+          <>
+            <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+              <AiOutlineCamera />
+            </IconContext.Provider>
+            <span>點擊新增圖片</span>
+          </>
+        )}
       </label>
-      <input type="file" className="d-none" id="recipeStepImg" />
+      <input
+        type="file"
+        className="d-none"
+        id={`recipeStepImg${i}`}
+        onChange={(e) => {
+          updateImgHandler(e);
+        }}
+      />
       {/* right section */}
       <div className="d-flex flex-column gap-2">
         <div className="d-flex justify-content-between">
@@ -68,9 +126,14 @@ const RecipeStep = ({ i, delStep, addStep }) => {
           rows="4"
           cols="auto"
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length > 150) return;
+            setLength(e.target.value.length);
+            changeStep(e.target.value, i, 'content');
+            setContent(e.target.value);
+          }}
         />
-        <span className="align-self-end">0/150</span>
+        <span className="align-self-end">{length}/150</span>
       </div>
     </div>
   );
