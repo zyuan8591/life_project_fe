@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
+import RecipientInput from '../../component/RecipientInput';
+import RecipientSelect from '../../component/RecipientSelect';
+import jsondata from '../../../Users/Content/Account/CityCountyData.json';
+import { Field } from 'formik';
 
-function RecipientInfo() {
+function RecipientInfo(values) {
+  // console.log(values);
+
   return (
     <>
       <h2 className="mb-3">
@@ -11,28 +17,85 @@ function RecipientInfo() {
       <div className="recipient">
         <div className="row recipientInfo">
           <div className="col-6 mb-2">
-            <label className="mb-2">姓名</label>
-            <input type="text" className="recipientInput" />
+            <RecipientInput name="name" maxLength={10} label="姓名" />
           </div>
-          <div className="col-6">
-            <label className="mb-2">電話</label>
-            <input type="text" className="recipientInput" />
+
+          <div className="col-6 mb-2">
+            <RecipientInput name="phone" maxLength={10} label="電話" />
           </div>
+
           <div className="col-12 mb-2">
-            <label className="mb-2">Email</label>
-            <input type="text" className="recipientInput" />
+            <RecipientInput name="email" type="text" label="Email" />
           </div>
+
           <div className="col-12 mb-2">
-            <label className="mb-2">運送方式</label>
-            <input type="text" className="recipientInput" />
+            <RecipientSelect name="delivery" label="運送方式">
+              <option value="">--請選擇--</option>
+              {values.delivery.map((v, i) => {
+                return (
+                  <>
+                    <option
+                      key={Math.random().toString(36).replace('0.', '')}
+                      value={v.id}
+                    >
+                      {v.order_delivery}
+                    </option>
+                  </>
+                );
+              })}
+              ;
+            </RecipientSelect>
           </div>
-          <div className="col-12 mb-2">
+          <div className="col-12 mb-2 address">
             <label className="mb-2">地址</label>
-            <input type="text" className="recipientInput" />
+            <div className="row gap-2">
+              <div className="col">
+                <div className="row gap-2">
+                  <div className="col">
+                    <RecipientSelect name="cityName">
+                      <option value="">請選擇</option>
+                      {jsondata.map((v, i) => {
+                        return (
+                          <option
+                            key={Math.random().toString(36).replace('0.', '')}
+                            value={v.CityName}
+                          >
+                            {v.CityName}
+                          </option>
+                        );
+                      })}
+                    </RecipientSelect>
+                  </div>
+
+                  <div className="col">
+                    <RecipientSelect name="areaName">
+                      <option value="">請選擇</option>
+                      {jsondata
+                        .filter((v) => v.CityName === values.cityName)
+                        .map((v, i) => {
+                          <option
+                            key={Math.random().toString(36).replace('0.', '')}
+                          ></option>;
+                          return v.AreaList.map((v2, i2) => {
+                            return (
+                              <option key={i2} value={v2.AreaName}>
+                                {v2.AreaName}
+                              </option>
+                            );
+                          });
+                        })}
+                    </RecipientSelect>
+                  </div>
+                </div>
+              </div>
+              <div className="col">
+                <RecipientInput name="address" />
+              </div>
+            </div>
           </div>
           <div className="col-12 mb-2">
             <label className="mb-2">備註</label>
-            <textarea className="recipientInput" placeholder="最多100字" />
+            <Field name="memo" as="textarea" />
           </div>
         </div>
       </div>
