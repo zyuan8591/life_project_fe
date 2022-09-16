@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import '../../styles/_header.scss';
+import '../../../styles/_header.scss';
 import { IconContext } from 'react-icons';
+import HeaderSearch from './HeaderSearch';
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineUser,
 } from 'react-icons/ai';
 import axios from 'axios';
-import { API_URL, API_URL_IMG } from '../../utils/config';
-import { useUserRights } from '../../usecontext/UserRights';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
+import { useUserRights } from '../../../usecontext/UserRights';
 
 const pages = [
   { title: '商品一覽', route: '/products' },
@@ -24,17 +25,11 @@ const Header = ({ fixed = true }) => {
   const { user, setUser } = useUserRights();
   const [scrollDown, setScrollDown] = useState(false);
   const [userSelectActive, setUserSelectActive] = useState(false);
-  const [searchKey, setSearchKey] = useState('');
-  // const [searchData, setSearchData] = useState([]);
 
   // enter search bar
   const userAvatorClickHandler = () => {
     if (userSelectActive) return setUserSelectActive(false);
     setUserSelectActive(true);
-  };
-  // search bar key handler
-  const inputHandler = (e) => {
-    setSearchKey(e.target.value);
   };
 
   // SHOW header
@@ -151,55 +146,7 @@ const Header = ({ fixed = true }) => {
         </div>
       </IconContext.Provider>
       {/* Search Section */}
-      {search && (
-        <div
-          className={`headerSearchSection position-absolute top-0 start-0`}
-          onClick={() => {
-            setSearch(false);
-          }}
-        >
-          <div
-            className="headerSearch bg-white rounded-2 p-3 mx-auto"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <div className="headerSearchInput position-relative">
-              <input
-                type="text"
-                placeholder="搜尋"
-                className="w-100 rounded-2"
-                onChange={(e) => {
-                  inputHandler(e);
-                }}
-              />
-              <IconContext.Provider
-                value={{
-                  color: '#817161',
-                  size: '1.75rem',
-                  className:
-                    'position-absolute top-50 start-0 translate-middle-y ms-3',
-                }}
-              >
-                <AiOutlineSearch />
-              </IconContext.Provider>
-            </div>
-            <div className="py-2 headerSearchTitle">搜尋結果</div>
-            <div className="flexCenter mb-3">目前無搜尋結果</div>
-            <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
-              <li>
-                <span>543</span>
-              </li>
-              <li>
-                <span>1213213132132</span>
-              </li>
-              <li>
-                <span>1213213132132</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
+      {search && <HeaderSearch setSearch={setSearch} />}
     </header>
   );
 };

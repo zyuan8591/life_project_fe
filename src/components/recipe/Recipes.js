@@ -89,7 +89,7 @@ const Recipes = () => {
       setSearchMaterial(searchParams.get('searchMaterial'));
   }, []);
 
-  // Handle query
+  // Handle query string
   useEffect(() => {
     // recipe category
     let recipeCateQuery = searchParams.get('recipeCate');
