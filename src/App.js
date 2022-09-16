@@ -38,6 +38,7 @@ import Contact from './components/contact/Contact';
 import ScrollToTop from './components/public_component/ScrollToTop';
 import OrderStep from './components/Orders/OrderStep';
 import SetMap from './components/map/SetMap';
+import Weather from './components/weather/Weather';
 import { ProductCartProvider } from './orderContetxt/useProductCart';
 import { ActivityCartProvider } from './orderContetxt/useActivityCart';
 function HeaderFooter() {
@@ -119,6 +120,7 @@ function App() {
                   <Route path="/signin/signup" element={<Signup />} />
                 </Route>
                 <Route path="/map" element={<SetMap />} />
+                <Route path="/weather" element={<Weather />} />
                 {/* <Route path="*" element={<NotFound />} /> */}
               </Routes>
             </ActivityCartProvider>
