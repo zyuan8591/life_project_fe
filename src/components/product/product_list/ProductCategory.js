@@ -1,16 +1,19 @@
 import React from 'react';
 import '../../../styles/product/_productCategory.scss';
 import { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
-const ProductCategory = () => {
+const ProductCategory = ({ setProductCateNow }) => {
   const [productCate, setProductCate] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     (async () => {
       let productCateResult = await axios.get(`${API_URL}/products/category`);
       let productCateData = productCateResult.data;
-      setProductCate(productCateData);
+      setProductCate([{ id: 0, name: '所有分類' }, ...productCateData]);
     })();
   }, []);
   return (
@@ -21,7 +24,16 @@ const ProductCategory = () => {
       {productCate.map((v, i) => {
         const { id, name } = v;
         return (
-          <div key={id} className="category">
+          <div
+            key={id}
+            className="category"
+            onClick={() => {
+              // const params = Object.fromEntries([...searchParams]);
+              // params['productCate'] = v.id;
+              // setSearchParams(params);
+              setProductCateNow(v.id)
+            }}
+          >
             {name}
           </div>
         );

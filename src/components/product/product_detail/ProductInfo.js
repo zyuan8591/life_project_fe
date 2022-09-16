@@ -19,7 +19,6 @@ const ProductInfo = ({ data }) => {
     inventory,
     intro = '',
   } = data;
-  console.log();
   let split = '';
   if (intro.includes(' ')) {
     split = intro.split(' ');
@@ -31,35 +30,17 @@ const ProductInfo = ({ data }) => {
   const pic2 = `/img/product/product_img/${img2}`;
   const pic3 = `/img/product/product_img/${img3}`;
 
-  const Arr = [pic1, pic2, pic3];
+  const arr = [img, img2, img3];
   const [quantity, setQuantity] = useState(1);
   const [mainPhoto, setMainPic] = useState('');
-  // if (img === '') {
-  //   setMainPic('');
-  // }
-  // if (img2 === '') {
-  //   setMainPic('');
-  // }
-  // if (img3 === '') {
-  //   setMainPic('');
-  // }
 
   useEffect(() => {
     setMainPic(pic);
   }, [data]);
-  // let price = Nprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  // console.log(typeof intro);
   return (
     <div className="infoContainer">
       <div className="productInfo">
         <div className="picArea">
-          {/* <Magnifier
-            image={mainPhoto}
-            magnifierWidth={150}
-            magnifierHeight={150}
-            zoom={2}
-            width={400}
-          /> */}
           <figure className="mainPic">
             <Magnifier
               image={mainPhoto}
@@ -73,7 +54,7 @@ const ProductInfo = ({ data }) => {
             />
           </figure>
           <div className="d-flex mt-3">
-            {Arr.map((v, i) => {
+            {arr.map((v, i) => {
               return (
                 <figure
                   className="subPic"
@@ -82,7 +63,7 @@ const ProductInfo = ({ data }) => {
                     setMainPic(v);
                   }}
                 >
-                  <img src={v} alt="" />
+                  <img src={`/img/product/product_img/${v}`} alt="" />
                 </figure>
               );
             })}

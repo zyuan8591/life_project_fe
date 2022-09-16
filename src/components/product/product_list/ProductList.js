@@ -14,39 +14,48 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 const ProductList = () => {
   const [pageNow, setPageNow] = useState(1);
-  // const [productList, setProductList] = useState([]);
-  // const [productCate, setProductCate] = useState([]);
+  const [lastPage, setLastPage] = useState(0);
+  const [count, setCount] = useState(0);
+  const [productCateNow, setProductCateNow] = useState(0);
+  const [productList, setProductList] = useState([]);
+  const [search, setSearch] = useState('');
+  const [checked, setChecked] = useState([]);
 
-  // const getProductData = async (url = '') => {
-  //   let result = await axios.get(`${API_URL}/products${url}`);
-  //   let data = result.data;
-  //   return data;
-  // };
-  // useEffect(() => {
-  //   (async () => {
-  //     let productCateResult = await axios.get(`${API_URL}/products/category`);
-  //     let productCateData = productCateResult.data;
-  //     setProductCate(productCateData);
-  //     let productListData = await getProductData();
-  //     // let productListResult = await axios.get(`${API_URL}/products`);
-  //     // let productListData = productListResult.data;
-  //     console.log(productListData);
-  //     setProductList(productListData);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&brand=${checked}`
+      );
+      // console.log(result.data.data);
+      console.log(checked);
+      setLastPage(result.data.pagination.lastPage);
+      setCount(result.data.pagination.total);
+      setProductList(result.data.data);
+    })();
+  }, [pageNow, productCateNow, search, checked]);
   return (
     <>
       <Header />
       <div className="product">
         <ProductRank />
         <div className="d-flex mt-5 ">
-          <ProductCategory />
+          <ProductCategory setProductCateNow={setProductCateNow} />
           <div>
-            <ProductFilter />
-            <Product />
+            <ProductFilter
+              count={count}
+              search={search}
+              setSearch={setSearch}
+              checked={checked}
+              setChecked={setChecked}
+            />
+            <Product productList={productList} />
           </div>
         </div>
-        <PaginationBar lastPage={8} pageNow={pageNow} setPageNow={setPageNow} />
+        <PaginationBar
+          lastPage={lastPage}
+          pageNow={pageNow}
+          setPageNow={setPageNow}
+        />
         <Tools />
       </div>
       <Footer />

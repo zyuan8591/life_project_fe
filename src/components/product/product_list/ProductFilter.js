@@ -7,22 +7,23 @@ import { RiArrowDownSFill } from 'react-icons/ri';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
+import { clearConfigCache } from 'prettier';
 
 // const brandArr = [];
-const ProductFilter = () => {
+const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
   const [showBoard, setShowBoard] = useState(false);
   const [brand, setBrand] = useState('');
-  const [search, setSearch] = useState('');
+
   // const [isChecked, setIs ]
   useEffect(() => {
     (async () => {
-      let result = await axios.get(`${API_URL}/products/brand`);
-      // console.log(result.data);
+      let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
+      console.log(result.data);
       setBrandArr(result.data);
     })();
-  });
+  }, [brand]);
   return (
     <IconContext.Provider
       value={{ color: '#444', size: '1.6rem', className: '' }}
@@ -86,7 +87,19 @@ const ProductFilter = () => {
                           className="checkbox"
                           id={i}
                           onChange={(e) => {
-                            console.log(e.target.value);
+                            if (e.target.checked) {
+                              // console.log(v.id);
+                              setChecked([...checked, v.id]);
+                              // console.log(checked);
+                            }
+                            if (!e.target.checked) {
+                              let newArr = checked.filter((v2) => {
+                                return v.id !== v2.id;
+                              });
+                              setChecked(newArr);
+                              console.log(v.id);
+                            }
+                            console.log(checked);
                           }}
                         />
                         <label htmlFor={i}>{v.name}</label>
@@ -186,7 +199,7 @@ const ProductFilter = () => {
             <IoIosSearch />
           </button>
         </div>
-        <p>1 ~ 12 筆 (共 24 筆)</p>
+        <p>1 ~ 12 筆 (共 {count} 筆)</p>
       </div>
     </IconContext.Provider>
   );
