@@ -40,7 +40,6 @@ const commentSubmitBtn = css`
 `;
 
 const RecipeComments = ({ data, setData, setRecipeData }) => {
-  console.log('comment', typeof data);
   const [comment, setComment] = useState('');
   const [searchParams] = useSearchParams();
 
