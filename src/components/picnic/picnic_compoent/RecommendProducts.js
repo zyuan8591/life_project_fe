@@ -48,6 +48,7 @@ function RecommendProducts({ cardWidth, displayTotal, productsData }) {
               style={{ transform: `translateX(${productSlider}px)` }}
             >
               {productsData.map((product) => {
+                console.log(product);
                 return (
                   <div className="productCard" key={uuidv4()}>
                     <div className="productImg">
@@ -57,9 +58,10 @@ function RecommendProducts({ cardWidth, displayTotal, productsData }) {
                       />
                     </div>
                     <div className="hoverText">
-                      <span>{product.name}</span>
+                      <Link to={`/products/${product.product_id}`}>
+                        <span>{product.name}</span>
+                      </Link>
                     </div>
-                    <Link to={`/products/${product.product_id}`}></Link>
                   </div>
                 );
               })}

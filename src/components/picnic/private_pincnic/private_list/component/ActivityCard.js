@@ -5,8 +5,20 @@ import { FaHeart } from 'react-icons/fa';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { API_URL } from '../../../../../utils/config';
 
 function ActivityCard({ data }) {
+  // const handleAddCollect = async (groupId) => {
+  //   let response = await axios.post(
+  //     `${API_URL}/picnic/picnicCollect/${groupId}`,
+  //     {},
+  //     { withCredentials: true }
+  //   );
+  //   console.log('addCollect', response.data);
+
+  // };
+
   return (
     <>
       {data.length === 0 ? (
@@ -27,7 +39,12 @@ function ActivityCard({ data }) {
                   <IconContext.Provider
                     value={{ className: classes.collectBtn }}
                   >
-                    <FaHeart className={classes.collect} />
+                    <FaHeart
+                      className={classes.collect}
+                      // onClick={() => {
+                      //   handleAddCollect(item.id);
+                      // }}
+                    />
                   </IconContext.Provider>
                 </div>
                 <div className={`d-flex ${classes.labelContent}`}>

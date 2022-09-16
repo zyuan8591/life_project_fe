@@ -9,7 +9,6 @@ import News from './components/news/News';
 import Signin from './components/Login/Signin';
 import Users from './components/Users';
 import './styles/style.scss';
-import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';

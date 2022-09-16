@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { API_URL } from '../../../../utils/config';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 
-function AsideMessageFix({ data }) {
+function AsideMessageFix({ data, userJoin, user, handleAddJoin }) {
   const [scrollDown, setScrollDown] = useState(false);
 
   let scrollY = window.scrollY;
@@ -14,16 +16,21 @@ function AsideMessageFix({ data }) {
     setScrollDown(scrollNow > scrollY);
     scrollY = scrollNow;
   });
-
   function dataReplace(date) {
     return date.replace(/-/g, '/');
   }
+  // console.log(userJoin);
+  function lastCount(limit, currentJoin) {
+    let result = limit - currentJoin;
+    return result;
+  }
+  console.log(data.id);
   return (
     <>
-      <div className="asideMessageFix">
+      <div className="asideMessage">
         {data.map((item) => {
           return (
-            <aside
+            <div
               className={scrollDown ? 'sticky-top top-0' : 'sticky'}
               key={uuidv4()}
             >
@@ -41,18 +48,45 @@ function AsideMessageFix({ data }) {
               </div>
               <div className="mb-3">
                 <BsPersonFill className="personIcon" />
-                尚可參加人數：{item.join_limit}
+                尚可參加人數：{lastCount(item.join_limit, item.currentJoin)}
               </div>
               <div className="map mb-3">map</div>
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="price">NT${item.price}</div>
-                <Link to="/" className="btn joinInBtn">
-                  加入活動
-                </Link>
-              </div>
-            </aside>
+            </div>
           );
         })}
+        <div className="d-flex justify-content-between align-items-center">
+          {user ? (
+            userJoin.includes(data.id) ? (
+              <button
+                className="btn joinInBtn"
+                onClick={() => {
+                  handleAddJoin(data.id);
+                }}
+              >
+                取消活動
+              </button>
+            ) : (
+              <button
+                className="btn joinInBtn"
+                onClick={() => {
+                  handleAddJoin(data.id);
+                }}
+              >
+                加入活動
+              </button>
+            )
+          ) : (
+            <></>
+          )}
+          {/* <button
+                    className="btn joinInBtn"
+                    onClick={() => {
+                      alert('請先登入會員');
+                    }}
+                  >
+                    加入活動
+                  </button> */}
+        </div>
       </div>
     </>
   );

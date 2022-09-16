@@ -1,25 +1,28 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   FaExclamationTriangle,
   FaQuoteLeft,
   FaQuoteRight,
 } from 'react-icons/fa';
 
-function PrivateDetailContent() {
+function PrivateDetailContent({ data }) {
   return (
     <>
       {/* --- 活動內容 --- */}
       <div className="privateDetailContent ">
-        <div className="contentWrap1 mb-5">
-          {/* <h4 className="contentTitle">活動內容</h4> */}
-          <p>
-            <FaQuoteLeft className="quoteLeftIcon" />
-            起源於1988年的法國(Dîner en
-            Blanc)白色野餐，擁有30多年歷史，為了快速辨識賓客，規定與會人士皆須穿著全白服裝。全球近90座城市爭相舉辦這場白色盛宴，如:
-            紐約、巴塞隆納、倫敦、雪梨、溫哥華、香港、上海、東京、首爾等。白色野餐已然形成各國政商名流、時尚人士爭相參與的社交活動。
-            <FaQuoteRight className="quoteRightIcon" />
-          </p>
-        </div>
+        {data.map((data) => {
+          return (
+            <div className="contentWrap1 mb-5" key={uuidv4()}>
+              {/* <h4 className="contentTitle">活動內容</h4> */}
+              <p>
+                <FaQuoteLeft className="quoteLeftIcon" />
+                {data.intr}
+                <FaQuoteRight className="quoteRightIcon" />
+              </p>
+            </div>
+          );
+        })}
         {/* --- 活動須知 --- */}
         <div className="contentWrap2 mb-5">
           <h4 className="contentTitle">活動須知</h4>

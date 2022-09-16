@@ -9,7 +9,7 @@ import DetailTitle from '../../picnic_compoent/DetailTitle';
 import OffcialDetailContent from './OffcialDetailContent';
 import RecommendProducts from '../../picnic_compoent/RecommendProducts';
 import Paicipant from '../../picnic_compoent/Paicipant';
-import AsideMessageFix from '../../picnic_compoent/AsideMessageFix';
+import AsideMessage from '../../picnic_compoent/AsideMessage';
 import RecommendActivity from '../../picnic_compoent/RecommendActivity';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
@@ -65,7 +65,7 @@ function PicnicOfficalDetail() {
           </div>
           <div className="col-sm-2">
             {/* 側邊資訊欄 */}
-            <AsideMessageFix data={data} />
+            <AsideMessage data={data} />
           </div>
           {/* 推薦商品 */}
           <RecommendProducts

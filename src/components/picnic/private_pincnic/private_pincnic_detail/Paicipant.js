@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { API_URL_IMG } from '../../../../utils/config';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 
@@ -56,7 +57,7 @@ function Paicipant({ cardWidth, displayTotal, paicipantData }) {
                     <div className="paicipantCard" key={uuidv4()}>
                       <div className="avatar">
                         <img
-                          src={`/img/product/product_img/${paicipantData.photo}`}
+                          src={`${API_URL_IMG}${paicipantData.photo}`}
                           alt=""
                         />
                       </div>
@@ -69,7 +70,7 @@ function Paicipant({ cardWidth, displayTotal, paicipantData }) {
             <div className="userIntro">
               <p>
                 <FaQuoteLeft className="quoteIcon" />
-                我是朋友圈中的開心果，天生有著幽默風趣的性格，相信有我的加入，絕對是帶動氣氛的重要角色。
+                {paicipantData.intro}
                 <FaQuoteRight className="quoteIcon" />
               </p>
             </div>

@@ -7,8 +7,9 @@ import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../../styles/picnic/_picnicPrivateList.scss';
 import '../../../../styles/picnic/camping_main/_campingMain.scss';
-import Footer from '../../../public_component/Footer';
 import Header from '../../../public_component/Header';
+import BreadCrumb from '../../../public_component/BreadCrumb';
+import Footer from '../../../public_component/Footer';
 import BackToTop from '../../../public_component/BackToTop';
 import ActivityStateFilter from './component/ActivityStateFilter';
 import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
@@ -46,6 +47,8 @@ function PicnicPrivateList() {
   const [maxDateValue, setMaxDateValue] = useState('');
   const [minDateValue, setMinDateValue] = useState('');
   const [pageNow, setPageNow] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [dateRemind, setDateRemind] = useState('');
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
@@ -56,6 +59,7 @@ function PicnicPrivateList() {
     );
     // console.log(response.data.data);
     setData(response.data.data);
+    setLastPage(response.data.pagination.lastPage);
   };
   useEffect(() => {
     getPrivatelList();
@@ -77,6 +81,7 @@ function PicnicPrivateList() {
   return (
     <>
       <Header />
+      <BreadCrumb />
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {/* banner */}
@@ -103,6 +108,7 @@ function PicnicPrivateList() {
                           v={v}
                           filterState={filterState}
                           setFilterState={setFilterState}
+                          setPageNow={setPageNow}
                         />
                       );
                     })}
@@ -127,6 +133,7 @@ function PicnicPrivateList() {
                     setMaxDateValue={setMaxDateValue}
                     minDateValue={minDateValue}
                     setMinDateValue={setMinDateValue}
+                    setPageNow={setPageNow}
                   />
                 </div>
                 {/* 右側活動列表 */}
@@ -168,7 +175,11 @@ function PicnicPrivateList() {
                           <FaSearch
                             className="ms-2 mb-1"
                             style={{ cursor: 'pointer' }}
-                            onClick={() => setSearchWords(searchWord)}
+                            onClick={() => {
+                              if (searchWord === '') return setSearchWords('');
+                              setPageNow(1);
+                              setSearchWords(searchWord);
+                            }}
                           />
                         </div>
                       </IconContext.Provider>
@@ -185,7 +196,7 @@ function PicnicPrivateList() {
                     </div>
                   </IconContext.Provider>
                   <PaginationBar
-                    lastPage={2}
+                    lastPage={lastPage}
                     pageNow={pageNow}
                     setPageNow={setPageNow}
                   />

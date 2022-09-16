@@ -5,33 +5,34 @@ import { FaHeart } from 'react-icons/fa';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { API_URL, API_URL_IMG } from '../../../../../utils/config';
 
 function ActivityCard({ data }) {
   // console.log(data);
   //TODO: 進度條樣式沒反應
-  const progressBar = () => {
-    if (data.officialJoin === 0) {
+  const progressBar = (item) => {
+    if (data.currentJoin === 0) {
       return 0;
     } else {
-      let width = (data.officialJoin / data.join_limit) * 220 - 2;
-      return `${width} + px`;
+      let width = (item.currentJoin / item.join_limit) * 100 + '%';
+      console.log('progressBar', width);
+      return `${width}`;
     }
   };
-  console.log(data);
-  console.log('progressBar', progressBar());
+
   return (
     <>
       {data.length === 0 ? (
         <div style={{ fontSize: '16px', color: '#817161' }}>沒有相關資料</div>
       ) : (
         data.map((item) => {
+          {
+            /* console.log(`/${API_URL_IMG}/picnic/${item.img1}`); */
+          } //TODO:圖片顯示不出來
           return (
             <div className={classes.activityCardStyle} key={uuidv4()}>
               <div className={classes.activityImg}>
-                <img
-                  src={`/img/picnic/activity_picnic_img/${item.img1}`}
-                  alt="/"
-                />
+                <img src={`/${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
               </div>
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
@@ -73,12 +74,12 @@ function ActivityCard({ data }) {
                 <div className={classes.progressBar}>
                   <div
                     className={classes.bar}
-                    style={{ width: 10 }} //TODO: 進度條樣式沒反應
+                    style={{ width: progressBar(item) }} //TODO: 進度條樣式沒反應
                   ></div>
                 </div>
                 <div className={classes.content}>
                   <div className={classes.limit}>
-                    目前人數：{item.officialJoin}
+                    目前人數：{item.currentJoin}
                   </div>
                   <div className={classes.limit}>
                     活動名額：{item.join_limit}

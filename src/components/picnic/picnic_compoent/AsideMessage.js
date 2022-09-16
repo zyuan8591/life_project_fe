@@ -14,16 +14,21 @@ function AsideMessageFix({ data }) {
     setScrollDown(scrollNow > scrollY);
     scrollY = scrollNow;
   });
+
   function dataReplace(date) {
     return date.replace(/-/g, '/');
   }
 
+  function lastCount(limit,currentJoin) {
+    let result = limit-currentJoin
+    return result;
+  }
   return (
     <>
-      <div className="asideMessageFix">
+      <div className="asideMessage">
         {data.map((item) => {
           return (
-            <aside
+            <div
               className={scrollDown ? 'sticky-top top-0' : 'sticky'}
               key={uuidv4()}
             >
@@ -41,7 +46,7 @@ function AsideMessageFix({ data }) {
               </div>
               <div className="mb-3">
                 <BsPersonFill className="personIcon" />
-                尚可參加人數：{item.join_limit}
+                尚可參加人數：{lastCount(item.join_limit,item.currentJoin)}
               </div>
               <div className="map mb-3">map</div>
               <div className="d-flex justify-content-between align-items-center">
@@ -50,7 +55,7 @@ function AsideMessageFix({ data }) {
                   加入活動
                 </Link>
               </div>
-            </aside>
+            </div>
           );
         })}
       </div>

@@ -7,7 +7,7 @@ import { BsGridFill } from 'react-icons/bs';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../../styles/picnic/_picnicOffical.scss';
-import '../../../../styles/camping/camping_main/_campingMain.scss';
+import '../../../../styles/picnic/camping_main/_campingMain.scss';
 import Footer from '../../../public_component/Footer';
 import Header from '../../../public_component/Header';
 import BackToTop from '../../../public_component/BackToTop';
@@ -51,6 +51,7 @@ function PicnicList() {
   const [maxDate, setMaxDate] = useState('');
   const [maxDateValue, setMaxDateValue] = useState('');
   const [minDateValue, setMinDateValue] = useState('');
+  const [dateRemind, setDateRemind] = useState('');
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
@@ -79,28 +80,7 @@ function PicnicList() {
     maxDate,
   ]);
 
-  // const loader = (
-  //   <div className="sk-fading-circle">
-  //     <div className="sk-circle1 sk-circle"></div>
-  //     <div className="sk-circle2 sk-circle"></div>
-  //     <div className="sk-circle3 sk-circle"></div>
-  //     <div className="sk-circle4 sk-circle"></div>
-  //     <div className="sk-circle5 sk-circle"></div>
-  //     <div className="sk-circle6 sk-circle"></div>
-  //     <div className="sk-circle7 sk-circle"></div>
-  //     <div className="sk-circle8 sk-circle"></div>
-  //     <div className="sk-circle9 sk-circle"></div>
-  //     <div className="sk-circle10 sk-circle"></div>
-  //     <div className="sk-circle11 sk-circle"></div>
-  //     <div className="sk-circle12 sk-circle"></div>
-  //   </div>
-  // );
-
-  //TODO: 如何依照時間變更活動狀態？
-  // 費用篩選 不能用按鈕點選篩選
-  //TODO: 活動人數 篩選 第一次無資料
-  //TODO: 活動日期 篩選
-  //TODO: 人數進度條
+  //TODO: 人數進度條 樣式沒反應
 
   // 引入card
   const card = <ActivityCard data={data} />;
@@ -135,6 +115,7 @@ function PicnicList() {
                           v={v}
                           filterState={filterState}
                           setFilterState={setFilterState}
+                          setPageNow={setPageNow}
                         />
                       );
                     })}
@@ -169,6 +150,9 @@ function PicnicList() {
                     setMaxDateValue={setMaxDateValue}
                     minDateValue={minDateValue}
                     setMinDateValue={setMinDateValue}
+                    setPageNow={setPageNow}
+                    setDateRemind={setDateRemind}
+                    dateRemind={dateRemind}
                   />
                 </div>
                 {/* 右側活動列表 */}
@@ -213,8 +197,8 @@ function PicnicList() {
                             style={{ cursor: 'pointer' }}
                             onClick={() => {
                               if (searchWord === '') return setSearchWords('');
+                              setPageNow(1);
                               setSearchWords(searchWord);
-                              pageNow(1);
                             }}
                           />
                         </div>
