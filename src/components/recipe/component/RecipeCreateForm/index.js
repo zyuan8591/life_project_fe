@@ -9,7 +9,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 
-const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
+const RecipeCreateForm = ({ closeCreateRecipe, recipeCate }) => {
   // for demo
   const [demo, setDemo] = useState(false);
 
@@ -157,6 +157,9 @@ const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
       await axios.post(`${API_URL}/recipes/${insertId}/step`, stepFormData, {
         withCredentials: true,
       });
+
+      // close form
+      closeCreateRecipe();
     } catch (e) {
       console.error(e);
     }
@@ -174,7 +177,7 @@ const RecipeCreateForm = ({ setCreateRecipe, recipeCate }) => {
         </button>
         <button
           className={`mb-1 bg-danger ${classes.btn}`}
-          onClick={() => setCreateRecipe()}
+          onClick={() => closeCreateRecipe()}
         >
           取消
         </button>

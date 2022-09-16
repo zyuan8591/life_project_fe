@@ -146,7 +146,6 @@ const Recipes = () => {
   };
   const closeRecipeHandler = () => {
     const params = Object.fromEntries([...searchParams]);
-    // params['add'] = 'true';
     delete params.add;
     setSearchParams(params);
   };
@@ -282,7 +281,7 @@ const Recipes = () => {
         {searchParams.get('add') === 'true' && (
           <section className="creatingRecipe flexCenter">
             <RecipeCreateForm
-              setCreateRecipe={closeRecipeHandler}
+              closeCreateRecipe={closeRecipeHandler}
               recipeCate={recipeCate}
             />
           </section>

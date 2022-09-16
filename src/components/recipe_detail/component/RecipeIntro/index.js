@@ -105,20 +105,34 @@ const materialMain = css`
 const RecipeIntro = ({ data, id, setRecipeData }) => {
   // get recipe material
   const [material, setMaterial] = useState([]);
+  const [like, setLike] = useState(false);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/recipes/${id}/material`);
       setMaterial(result.data);
+      let likeResult = await axios.get(`${API_URL}/recipes/like`, {
+        withCredentials: true,
+      });
+      setLike(likeResult.data.data.includes(id));
     })();
   }, [id]);
 
   // recipe like
   const likeHandler = async () => {
-    await axios.post(
-      `${API_URL}/recipes/${id}/like`,
-      {},
-      { withCredentials: true }
-    );
+    if (!like) {
+      await axios.post(
+        `${API_URL}/recipes/${id}/like`,
+        {},
+        { withCredentials: true }
+      );
+      setLike(true);
+    } else {
+      await axios.delete(`${API_URL}/recipes/${id}/like`, {
+        withCredentials: true,
+      });
+      setLike(false);
+    }
     // recipe detail
     let result = await axios.get(`${API_URL}/recipes/${id}`);
     setRecipeData(result.data[0]);
@@ -186,7 +200,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
               </button> */}
             </div>
             <button css={[recipeCollectBtn, btn]} onClick={likeHandler}>
-              收藏食譜
+              {like ? '取消收藏' : '收藏食譜'}
             </button>
           </div>
           {/* material section */}
