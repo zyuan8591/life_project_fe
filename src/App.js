@@ -21,7 +21,7 @@ import Password from './components/Users/Content/Password/Password';
 import Order from './components/Users/Content/Order/Order';
 import Points from './components/Users/Content/Points/Points';
 import Recipe from './components/Users/Content/Recipe/Recipe';
-import Caping from './components/Users/Content/Caping/Caping';
+import Camping from './components/Users/Content/Camping/Camping';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/Login';
 import { UserRights } from './usecontext/UserRights';
@@ -59,13 +59,17 @@ function App() {
   //如果user有資料代表登入，如果為null代表未登入
   const [user, setUser] = useState(null);
   useEffect(() => {
-    let getUser = async () => {
-      let response = await axios.get(`${API_URL}/user`, {
-        withCredentials: true,
-      });
-      setUser(response.data);
-    };
-    getUser();
+    try {
+      let getUser = async () => {
+        let response = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+        setUser(response.data);
+      };
+      getUser();
+    } catch (e) {
+      console.error(e.response.data.msg);
+    }
   }, [setUser]);
 
   return (
@@ -121,6 +125,7 @@ function App() {
                   <Route path="/users/points" element={<Points />} />
                   <Route path="/users/pinic" element={<Pinic />} />
                   <Route path="/users/recipe" element={<Recipe />} />
+                  <Route path="/users/caping" element={<Camping />} />
                 </Route>
                 <Route path="/signin/" element={<Signin />}>
                   <Route path="/signin/login" element={<Login />} />

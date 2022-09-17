@@ -8,25 +8,33 @@ import { useUserRights } from '../../usecontext/UserRights';
 
 const Login = () => {
   const { user, setUser } = useUserRights();
+
   const [loginUser, setLoginUser] = useState({
-    email: 'Ace@test.com',
+    email: 'cat814051@gmail.com',
     password: 'a12345678',
   });
+  const [err, setErr] = useState(null);
 
   //顯示密碼
-  const [eye, setEye] = useState(false);
+  const [eye, setEye] = useState({
+    eye1: false,
+  });
 
   function handleChange(e) {
     setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    let response = await axios.post(`${API_URL}/login`, loginUser, {
-      withCredentials: true,
-    });
-    setUser(response.data);
-    // setIsLogin(true);
+    try {
+      e.preventDefault();
+      let response = await axios.post(`${API_URL}/login`, loginUser, {
+        withCredentials: true,
+      });
+
+      setUser(response.data);
+    } catch (e) {
+      setErr(e.response.data.message);
+    }
   }
   //TODO:製作記住帳號密碼
   if (user) {
@@ -52,20 +60,22 @@ const Login = () => {
           <i className="fa-solid fa-lock"></i>
           <input
             className="input"
-            type={eye ? 'text' : 'password'}
+            type={eye.eye1 ? 'text' : 'password'}
             id="password"
             name="password"
             placeholder="Password"
             value={loginUser.password}
             onChange={handleChange}
           />
-          <ShowPassword eye={eye} setEye={setEye} />
+          <ShowPassword eye={eye} setEye={setEye} name="eye1" />
         </div>
         <div className="remember">
           <input type="checkbox" id="remember" />
           <label htmlFor="remember">記住帳號密碼</label>
         </div>
+
         <div className="loginBtn login-group">
+          {err && <p className="errtext">{err}</p>}
           <button onClick={handleSubmit}>登入</button>
         </div>
 
