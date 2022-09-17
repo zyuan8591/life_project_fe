@@ -36,10 +36,10 @@ function IndexPrivateDetail() {
       setProductsData(response.data.productsData);
       setOrganiserData(response.data.organiserData);
       setPaicipantData(response.data.paicipantData);
+      // console.log(response);
     };
     getOfficalDetail();
   }, []);
-
   useEffect(() => {}, [data, productsData, organiserData, paicipantData]);
 
   useEffect(() => {
@@ -59,17 +59,27 @@ function IndexPrivateDetail() {
 
   // /api/1.0/picnic/groupAddJoin/1
   const handleAddJoin = async (groupId) => {
-    console.log(groupId);
     let response = await axios.post(
       `${API_URL}/picnic/groupAddJoin/${groupId}`,
       {},
       { withCredentials: true }
     );
-    console.log(response.data);
-    let repeatJoin = response.data.getJoin.map((data) => data.picnic_id);
-    setUserJoin(repeatJoin);
-    console.log('add', response.data);
+    // 回傳user所有加入活動
+    let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
+    setUserJoin(nowJoin);
+    // console.log('add', response.data);
     alert('已加入活動');
+  };
+
+  const handleDeleteJoin = async (groupId) => {
+    let response = await axios.delete(
+      `${API_URL}/picnic/groupJoin/${groupId}`,
+      { withCredentials: true }
+    );
+    let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
+    setUserJoin(nowJoin);
+    // console.log('add', response.data);
+    alert('已取消活動');
   };
 
   return (
@@ -90,6 +100,7 @@ function IndexPrivateDetail() {
             />
             {/* 參加者 */}
             <Paicipant
+              data={data}
               cardWidth={140}
               displayTotal={6}
               paicipantData={paicipantData}
@@ -99,6 +110,7 @@ function IndexPrivateDetail() {
             {/* 側邊資訊欄 */}
             <AsideMessage
               data={data}
+              handleDeleteJoin={handleDeleteJoin}
               handleAddJoin={handleAddJoin}
               userJoin={userJoin}
               user={user}

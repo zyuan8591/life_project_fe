@@ -6,18 +6,19 @@ import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import { API_URL } from '../../../../../utils/config';
+import { API_URL_IMG } from '../../../../../utils/config';
 
 function ActivityCard({ data }) {
-  // const handleAddCollect = async (groupId) => {
-  //   let response = await axios.post(
-  //     `${API_URL}/picnic/picnicCollect/${groupId}`,
-  //     {},
-  //     { withCredentials: true }
-  //   );
-  //   console.log('addCollect', response.data);
-
-  // };
+  const progressBar = (item) => {
+    if (data.currentJoin === 0) {
+      return 0;
+    } else {
+      let width = (item.currentJoin / item.join_limit) * 100 + '%';
+      // console.log('progressBar', width);
+      return `${width}`;
+    }
+  };
+  console.log(data);
 
   return (
     <>
@@ -28,10 +29,7 @@ function ActivityCard({ data }) {
           return (
             <div className={classes.activityCardStyle} key={uuidv4()}>
               <div className={classes.activityImg}>
-                <img
-                  src={`/img/picnic/activity_picnic_img/${item.img1}`}
-                  alt="/"
-                />
+                <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
               </div>
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
@@ -74,11 +72,14 @@ function ActivityCard({ data }) {
                   </div>
                 </div>
                 <div className={classes.progressBar}>
-                  <div className={classes.bar}></div>
+                  <div
+                    className={classes.bar}
+                    style={{ width: progressBar(item) }}
+                  ></div>
                 </div>
                 <div className={classes.content}>
                   <div className={classes.limit}>
-                    目前人數：{item.privateJoin}
+                    目前人數：{item.currentJoin}
                   </div>
                   <div className={classes.limit}>
                     活動名額：{item.join_limit}

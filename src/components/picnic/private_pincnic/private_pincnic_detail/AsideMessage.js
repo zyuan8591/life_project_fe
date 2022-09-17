@@ -7,7 +7,13 @@ import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 
-function AsideMessageFix({ data, userJoin, user, handleAddJoin }) {
+function AsideMessageFix({
+  data,
+  userJoin,
+  user,
+  handleAddJoin,
+  handleDeleteJoin,
+}) {
   const [scrollDown, setScrollDown] = useState(false);
 
   let scrollY = window.scrollY;
@@ -16,15 +22,16 @@ function AsideMessageFix({ data, userJoin, user, handleAddJoin }) {
     setScrollDown(scrollNow > scrollY);
     scrollY = scrollNow;
   });
+
   function dataReplace(date) {
     return date.replace(/-/g, '/');
   }
-  // console.log(userJoin);
+
   function lastCount(limit, currentJoin) {
     let result = limit - currentJoin;
     return result;
   }
-  console.log(data.id);
+
   return (
     <>
       <div className="asideMessage">
@@ -54,38 +61,38 @@ function AsideMessageFix({ data, userJoin, user, handleAddJoin }) {
             </div>
           );
         })}
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center" >
+          {/* {console.log(data)} */}
           {user ? (
-            userJoin.includes(data.id) ? (
+            userJoin.includes(data[0].id) ? (
               <button
-                className="btn joinInBtn"
+                className="joinInBtn"
                 onClick={() => {
-                  handleAddJoin(data.id);
+                  handleDeleteJoin(data[0].id);
                 }}
               >
                 取消活動
               </button>
             ) : (
               <button
-                className="btn joinInBtn"
+                className="joinInBtn"
                 onClick={() => {
-                  handleAddJoin(data.id);
+                  handleAddJoin(data[0].id);
                 }}
               >
                 加入活動
               </button>
             )
           ) : (
-            <></>
+            <button
+              className="joinInBtn"
+              onClick={() => {
+                alert('請先登入會員');
+              }}
+            >
+              加入活動
+            </button>
           )}
-          {/* <button
-                    className="btn joinInBtn"
-                    onClick={() => {
-                      alert('請先登入會員');
-                    }}
-                  >
-                    加入活動
-                  </button> */}
         </div>
       </div>
     </>

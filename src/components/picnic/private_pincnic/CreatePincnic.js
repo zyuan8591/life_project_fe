@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 import { API_URL } from '../../../utils/config';
 import '../../../styles/picnic/_createPincnic.scss';
 import Header from '../../public_component/Header';
@@ -221,7 +222,11 @@ function CreatePincnic() {
                   >
                     <option>地區</option>
                     {location.map((city) => {
-                      return <option value={city.value}>{city.name}</option>;
+                      return (
+                        <option value={city.value} key={city.value}>
+                          {city.name}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>

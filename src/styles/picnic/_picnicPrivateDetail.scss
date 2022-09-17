@@ -303,7 +303,7 @@
         // --------- 側邊資訊欄 ---------
         .asideMessage {
             min-width: 250px;
-            width: 20rem;
+            height: 400px;
             position: sticky;
             top: 0;
             right: 0;
@@ -338,9 +338,15 @@
             .joinInBtn {
                 color: $mainClrW;
                 background: $subClrBrown;
+                font-size: 14px;
+                border: none;
                 border-radius: 2px;
-                padding: 1px 8px;
+                padding: 6px 10px;
                 margin: auto;
+                margin-top: 2px;
+                &:hover {
+                    outline: 3px solid #817161b8;
+                }
             }
     
             }

@@ -5,7 +5,8 @@ import { API_URL_IMG } from '../../../../utils/config';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 
-function Paicipant({ cardWidth, displayTotal, paicipantData }) {
+
+function Paicipant({ cardWidth, displayTotal, paicipantData, data }) {
   const [user, setUser] = useState(paicipantData);
   const userLength = user.length; //總共幾張
   const [userSlider, setUserSlider] = useState(0); //移動值
@@ -28,11 +29,14 @@ function Paicipant({ cardWidth, displayTotal, paicipantData }) {
     setUserSlider(rightMove);
     nowLeft = rightMove;
   };
-
+  
+  // console.log(data[0].curren)
   return (
     <>
       <div className="paicipant">
-        <h4>參加者(7/25)</h4>
+        <h4>
+          {/* 參加者({data[0].currentJoin}/{data[0].join_limit}) */}
+        </h4>
         {paicipantData.length > 0 ? (
           <div className="arrowIconSlider">
             <IoIosArrowBack
@@ -54,7 +58,7 @@ function Paicipant({ cardWidth, displayTotal, paicipantData }) {
               >
                 {paicipantData.map((paicipantData) => {
                   return (
-                    <div className="paicipantCard" key={uuidv4()}>
+                    <div className="paicipantCard" key={paicipantData.id}>
                       <div className="avatar">
                         <img
                           src={`${API_URL_IMG}${paicipantData.photo}`}

@@ -13,7 +13,7 @@ function PrivateDetailContent({ data }) {
       <div className="privateDetailContent ">
         {data.map((data) => {
           return (
-            <div className="contentWrap1 mb-5" key={uuidv4()}>
+            <div className="contentWrap1 mb-5" key={data.id}>
               {/* <h4 className="contentTitle">活動內容</h4> */}
               <p>
                 <FaQuoteLeft className="quoteLeftIcon" />

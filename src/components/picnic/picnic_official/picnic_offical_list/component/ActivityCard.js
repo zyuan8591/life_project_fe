@@ -5,17 +5,16 @@ import { FaHeart } from 'react-icons/fa';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { API_URL, API_URL_IMG } from '../../../../../utils/config';
+import { API_URL_IMG } from '../../../../../utils/config';
 
 function ActivityCard({ data }) {
   // console.log(data);
-  //TODO: 進度條樣式沒反應
   const progressBar = (item) => {
     if (data.currentJoin === 0) {
       return 0;
     } else {
       let width = (item.currentJoin / item.join_limit) * 100 + '%';
-      console.log('progressBar', width);
+      // console.log('progressBar', width);
       return `${width}`;
     }
   };
@@ -26,13 +25,10 @@ function ActivityCard({ data }) {
         <div style={{ fontSize: '16px', color: '#817161' }}>沒有相關資料</div>
       ) : (
         data.map((item) => {
-          {
-            /* console.log(`/${API_URL_IMG}/picnic/${item.img1}`); */
-          } //TODO:圖片顯示不出來
           return (
             <div className={classes.activityCardStyle} key={uuidv4()}>
               <div className={classes.activityImg}>
-                <img src={`/${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
+                <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
               </div>
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
@@ -74,7 +70,7 @@ function ActivityCard({ data }) {
                 <div className={classes.progressBar}>
                   <div
                     className={classes.bar}
-                    style={{ width: progressBar(item) }} //TODO: 進度條樣式沒反應
+                    style={{ width: progressBar(item) }}
                   ></div>
                 </div>
                 <div className={classes.content}>

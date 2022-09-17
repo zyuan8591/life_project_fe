@@ -48,7 +48,6 @@ function RecommendProducts({ cardWidth, displayTotal, productsData }) {
               style={{ transform: `translateX(${productSlider}px)` }}
             >
               {productsData.map((product) => {
-                console.log(product);
                 return (
                   <div className="productCard" key={uuidv4()}>
                     <div className="productImg">

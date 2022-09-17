@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
+import { API_URL_IMG } from '../../../utils/config';
 
 function Paicipant({ cardWidth, displayTotal, paicipantData }) {
   const [user, setUser] = useState(paicipantData);
@@ -56,7 +57,7 @@ function Paicipant({ cardWidth, displayTotal, paicipantData }) {
                     <div className="paicipantCard" key={uuidv4()}>
                       <div className="avatar">
                         <img
-                          src={`/img/product/product_img/${paicipantData.photo}`}
+                          src={`${API_URL_IMG}${paicipantData.photo}`}
                           alt=""
                         />
                       </div>
@@ -66,13 +67,17 @@ function Paicipant({ cardWidth, displayTotal, paicipantData }) {
                 })}
               </div>
             </div>
-            <div className="userIntro">
-              <p>
-                <FaQuoteLeft className="quoteIcon" />
-                我是朋友圈中的開心果，天生有著幽默風趣的性格，相信有我的加入，絕對是帶動氣氛的重要角色。
-                <FaQuoteRight className="quoteIcon" />
-              </p>
-            </div>
+            {paicipantData.map((paicipantData) => {
+              return (
+                <div className="userIntro" key={uuidv4()}>
+                  <p>
+                    <FaQuoteLeft className="quoteIcon" />
+                    {paicipantData.intro}
+                    <FaQuoteRight className="quoteIcon" />
+                  </p>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <div style={{ fontSize: '16px', color: '#444' }}>尚無參加者</div>
