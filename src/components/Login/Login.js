@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import ShowPassword from '../Users/user_Component/ShowPassword';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const Login = () => {
   const { user, setUser } = useUserRights();
+  const navigate = useNavigate();
 
   const [loginUser, setLoginUser] = useState({
     email: 'Ace@test.com',
@@ -39,7 +40,8 @@ const Login = () => {
   }
   //TODO:製作記住帳號密碼
   if (user) {
-    return <Navigate to="/" />;
+    return navigate(-1);
+    // return <Navigate to="/" />;
   }
   console.log(user);
   return (

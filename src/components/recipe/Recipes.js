@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
 import Select from 'react-select';
@@ -21,6 +21,7 @@ import BreadCrumb from '../public_component/BreadCrumb';
 import IndexRecipeActivity from '../index/component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
+import { useUserRights } from '../../usecontext/UserRights';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -62,6 +63,8 @@ const customStyles = {
 const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user, setUser } = useUserRights();
+  const navigate = useNavigate();
 
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
@@ -140,6 +143,7 @@ const Recipes = () => {
 
   // handle add recipe
   const addRecipeHandler = () => {
+    if (!user) return navigate('/signin/login');
     const params = Object.fromEntries([...searchParams]);
     params['add'] = 'true';
     setSearchParams(params);
@@ -195,7 +199,7 @@ const Recipes = () => {
               </IconContext.Provider>
             </div>
           </div>
-          {/* TODO: add recipe, my recipe ... btn */}
+          {/* add recipe, my recipe ... btn */}
           <div className="recipeFeatureBtn">
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
@@ -204,11 +208,17 @@ const Recipes = () => {
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
-              <Link to="/users/recipe" className="featureBtn">
+              <Link
+                to={!user ? '/signin/login' : '/users/recipe'}
+                className="featureBtn"
+              >
                 <AiOutlineBook />
                 <span>我的食譜</span>
               </Link>
-              <Link to="/users/recipe" className="featureBtn">
+              <Link
+                to={!user ? '/signin/login' : '/users/recipe'}
+                className="featureBtn"
+              >
                 <AiOutlineHeart />
                 <span>食譜收藏</span>
               </Link>
