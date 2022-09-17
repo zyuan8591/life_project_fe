@@ -9,11 +9,7 @@ import News from './components/news/News';
 import Signin from './components/Login/Signin';
 import Users from './components/Users';
 import './styles/style.scss';
-import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOffical from './components/picnic/picnic_official/PicnicOffical';
-import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
-import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
-import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
 import Recipes from './components/recipe/Recipes';
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
@@ -25,9 +21,8 @@ import Account from './components/Users/Content/Account/Account';
 import Password from './components/Users/Content/Password/Password';
 import Order from './components/Users/Content/Order/Order';
 import Points from './components/Users/Content/Points/Points';
-import Pinic from './components/Users/Content/Picnic/Pinic';
 import Recipe from './components/Users/Content/Recipe/Recipe';
-import Caping from './components/Users/Content/Caping/Caping';
+import Camping from './components/Users/Content/Camping/Camping';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/Login';
 import { UserRights } from './usecontext/UserRights';
@@ -46,6 +41,15 @@ import { PicnicCartProvider } from './orderContetxt/usePicnicCart';
 import { CampingCartProvider } from './orderContetxt/useCampingCart';
 import { CartStepProvider } from './orderContetxt/useCartStep';
 
+
+import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
+import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';
+import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
+import PicnicPrivateList from './components/picnic/private_pincnic/private_list/PicnicPrivateList';
+import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
+import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
+import Pinic from './components/Users/Content/Picnic/Pinic';
+
 function HeaderFooter() {
   return (
     <>
@@ -62,13 +66,17 @@ function App() {
   //如果user有資料代表登入，如果為null代表未登入
   const [user, setUser] = useState(null);
   useEffect(() => {
-    let getUser = async () => {
-      let response = await axios.get(`${API_URL}/user`, {
-        withCredentials: true,
-      });
-      setUser(response.data);
-    };
-    getUser();
+    try {
+      let getUser = async () => {
+        let response = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+        setUser(response.data);
+      };
+      getUser();
+    } catch (e) {
+      console.error(e.response.data.msg);
+    }
   }, [setUser]);
 
   return (
@@ -115,14 +123,18 @@ function App() {
                     <Route path="/activity/picnic" element={<PicnicIndex />} />
                     <Route
                       path="/activity/picnic/official"
-                      element={<PicnicOffical />}
+                      element={<PicnicOfficalList />}
                     />
                     <Route
-                      path="/activity/picnic/official/:id"
+                      path="/activity/picnic/official/:officialId"
                       element={<PicnicOfficalDetail />}
                     />
                     <Route
-                      path="/activity/picnic/group/:id"
+                  path="/activity/picnic/group"
+                  element={<PicnicPrivateList />}
+                />
+                <Route
+                      path="/activity/picnic/group/:groupId"
                       element={<IndexPrivateDetail />}
                     />
                     <Route
@@ -137,6 +149,7 @@ function App() {
                       <Route path="/users/points" element={<Points />} />
                       <Route path="/users/pinic" element={<Pinic />} />
                       <Route path="/users/recipe" element={<Recipe />} />
+                  <Route path="/users/caping" element={<Camping />} />
                     </Route>
                     <Route path="/signin/" element={<Signin />}>
                       <Route path="/signin/login" element={<Login />} />

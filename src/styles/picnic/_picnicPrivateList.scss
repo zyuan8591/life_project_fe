@@ -1,0 +1,82 @@
+@import '../variable';
+
+.activityMainPage{
+    max-width: 1600px;
+    margin: 0 auto $headerHeight;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .activityCamping{
+        top: $headerHeight;
+        color: $mainClrW;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(51, 70, 80, 0.5);
+        position: relative;
+        overflow: hidden;
+        max-width: 700px;
+        height: 705px;
+        margin: 100px 0;
+        .activityCampingImg{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 2.5s ease;
+            }
+        }
+        .campingTitle{
+            font-size: $titleText;
+            position: absolute;
+            top: 20%;
+            left: 150px;
+            transition: opacity 1s ease;
+        }
+        .campingContainer{
+            color: $mainClrW;
+            position: absolute;
+            width: 700px;
+            height: 505px;
+            top: 705px;
+            padding: 50px;
+            transition: background-color 1.5s ease,transform 1.5s ease;
+            .campingText{
+                font-size: $titleText;
+                color: $focusClrY;
+            }
+            .campingDetail{
+                margin:30px;
+                font-size: 24px;
+                line-height: 3.2rem;
+            }
+            .campingBtnText{
+                color: $focusClrG;
+                font-size: 22px;
+                transition: color 1s ease;
+            }
+        }
+        &:hover .campingTitle{
+            opacity: 0;
+        }
+        &:hover .campingContainer{
+            background-color: rgba(0, 0, 0, 0.6);
+            transform: translateY(-505px);
+        }
+        &:hover img{
+            transform: scale(1.2);
+        }
+    }
+}
+
+
+// map
+.section{
+    max-width: $maxWidth;
+    position: relative;
+    margin: 0 auto;
+    // top: $headerHeight;
+    height: 100vh ;
+    background-color: rgb(246, 250, 215);
+}
