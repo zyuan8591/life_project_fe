@@ -90,7 +90,7 @@ const Header = ({ fixed = true }) => {
             </li>
             {/* OrderStep */}
             <li className="me-3 userItem">
-              <Link to="/orderstep" className="flexCenter">
+              <Link to="/orderstep/cart" className="flexCenter">
                 <AiOutlineShoppingCart />
               </Link>
             </li>

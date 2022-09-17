@@ -1,0 +1,31 @@
+@import '../variable';
+@mixin btn {
+  padding: 10px;
+  background:$subClrBrown;
+  color: #fff;
+  border: 0;   
+  border-radius: 5px;  
+};
+
+@mixin titleBtn {
+  padding:5px 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(204, 204, 204);      
+};
+
+@mixin listBtn{
+  padding: 10px;
+  background:$focusClrY;
+  color: #fff;
+  border: 0;   
+  border-radius: 5px;  
+}
+
+@mixin click{
+  &:hover {
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(1);    
+  }
+}
