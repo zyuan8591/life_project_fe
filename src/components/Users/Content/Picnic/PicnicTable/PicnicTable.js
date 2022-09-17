@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CampingTable = () => {
+const PicnicTable = () => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態', '主辦人'];
 
   const data = [
@@ -69,4 +69,4 @@ const CampingTable = () => {
   );
 };
 
-export default CampingTable;
+export default PicnicTable;

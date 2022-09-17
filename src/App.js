@@ -23,6 +23,7 @@ import Order from './components/Users/Content/Order/Order';
 import Points from './components/Users/Content/Points/Points';
 import Recipe from './components/Users/Content/Recipe/Recipe';
 import Camping from './components/Users/Content/Camping/Camping';
+import Picnic from './components/Users/Content/Picnic/Picnic';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/Login';
 import { UserRights } from './usecontext/UserRights';
@@ -35,14 +36,12 @@ import OrderStep from './components/Orders/OrderStep';
 import SetMap from './components/map/SetMap';
 import { ProductCartProvider } from './orderContetxt/useProductCart';
 import { ActivityCartProvider } from './orderContetxt/useActivityCart';
-
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';
 import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offical_detail/IndexOfficalDetail';
 import PicnicPrivateList from './components/picnic/private_pincnic/private_list/PicnicPrivateList';
 import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
 import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
-import Pinic from './components/Users/Content/Picnic/Pinic';
 
 function HeaderFooter() {
   return (
@@ -124,7 +123,7 @@ function App() {
                   <Route path="/users/password" element={<Password />} />
                   <Route path="/users/order" element={<Order />} />
                   <Route path="/users/points" element={<Points />} />
-                  <Route path="/users/pinic" element={<Pinic />} />
+                  <Route path="/users/picnic" element={<Picnic />} />
                   <Route path="/users/recipe" element={<Recipe />} />
                   <Route path="/users/caping" element={<Camping />} />
                 </Route>

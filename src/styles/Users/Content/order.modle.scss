@@ -1,11 +1,13 @@
 @import '../../variable';
+@import '../mixin';
+
 @mixin titleBtn {
   padding:5px 10px;
   border-radius: 10px; 
   background: $subClrBrown;
   color:#fff; 
   width: 50%;  
-}
+};
 
 .order{
   .order-filter{
@@ -21,8 +23,7 @@
       div{
         &:hover {         
           transform: scale(1.05);
-          @include titleBtn()
-        
+          @include titleBtn();        
         }
         &:active {
           transform: scale(1);
