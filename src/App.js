@@ -21,7 +21,7 @@ import Account from './components/Users/Content/Account/Account';
 import Password from './components/Users/Content/Password/Password';
 import Order from './components/Users/Content/Order/Order';
 import Points from './components/Users/Content/Points/Points';
-import Recipe from './components/Users/Content/Recipe/Recipe';
+import MyRecipe from './components/Users/Content/Recipe/MyRecipe';
 import Caping from './components/Users/Content/Caping/Caping';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/Login';
@@ -127,7 +127,7 @@ function App() {
                     <Route path="/users/order" element={<Order />} />
                     <Route path="/users/points" element={<Points />} />
                     <Route path="/users/pinic" element={<Pinic />} />
-                    <Route path="/users/recipe" element={<Recipe />} />
+                    <Route path="/users/recipe" element={<MyRecipe />} />
                   </Route>
                   <Route path="/signin/" element={<Signin />}>
                     <Route path="/signin/login" element={<Login />} />

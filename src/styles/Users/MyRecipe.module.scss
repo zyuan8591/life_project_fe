@@ -1,0 +1,19 @@
+@import '../variable';
+
+.myRecipe {
+  .title {
+    border-left: 8px solid $subClrBrown;
+    padding-left: 10px;
+  }
+  .racipeTable {
+    .recipeImgContainer {
+      max-width: 80px;
+    }
+    th {
+      font-size: 1rem;
+    }
+    td {
+      vertical-align: middle;
+    }
+  }
+}
