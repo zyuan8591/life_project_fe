@@ -9,7 +9,6 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
 const Product = ({ productList }) => {
-
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -25,32 +24,41 @@ const Product = ({ productList }) => {
               e.target.src = `/img/product/product_img/${img}`;
             }}
           >
-            <Link to={`/products/${id}`} className="hoverArea ">
-              <div className="productImg">
-                <div className="productHover">
-                  <IconContext.Provider
-                    value={{
-                      color: 'white',
-                      size: '2rem',
-                      margin: '5px',
+            {' '}
+            <div className="productHoverContainer">
+              <div className="productHover">
+                <IconContext.Provider
+                  value={{
+                    color: 'white',
+                    size: '2rem',
+                    margin: '5px',
+                  }}
+                >
+                  <div
+                    onClick={() => {
+                      console.log('h');
                     }}
                   >
-                    <HiOutlineHeart
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        e.defaultPrevented();
-                        console.log('h');
-                      }}
-                    />
-                    <IoCartOutline
-                      onClick={(e) => {
-                        console.log('c');
-                      }}
-                    />
-                  </IconContext.Provider>
+                    <HiOutlineHeart />
+                  </div>
+                  <IoCartOutline
+                    onClick={(e) => {
+                      console.log('c');
+                    }}
+                  />
+                </IconContext.Provider>
+              </div>
+            </div>
+            <Link to={`/products/${id}`} className="link">
+              <div
+                className="hoverArea "
+                onClick={(e) => {
+                  console.log('h');
+                }}
+              >
+                <div className="productImg">
+                  <img src={`/img/product/product_img/${img}`} alt="" />
                 </div>
-                <img src={`/img/product/product_img/${img}`} alt="" />
               </div>
             </Link>
             <div className="nameArea">

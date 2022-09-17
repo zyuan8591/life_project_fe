@@ -97,11 +97,14 @@ const Slider = ({
               return (
                 <div
                   className={
-                    progressRound === i
+                    now === -(i * itemWidth * moveCount)
                       ? classes.progressRoundActive
                       : classes.progressRound
                   }
                   key={i}
+                  onClick={() => {
+                    setNow(-(i * itemWidth * moveCount));
+                  }}
                 ></div>
               );
             })}

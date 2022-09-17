@@ -26,9 +26,6 @@ const ProductInfo = ({ data }) => {
     split = intro.split('，');
   }
   const pic = `/img/product/product_img/${img}`;
-  const pic1 = `/img/product/product_img/${img}`;
-  const pic2 = `/img/product/product_img/${img2}`;
-  const pic3 = `/img/product/product_img/${img3}`;
 
   const arr = [img, img2, img3];
   const [quantity, setQuantity] = useState(1);
@@ -60,7 +57,7 @@ const ProductInfo = ({ data }) => {
                   className="subPic"
                   key={i}
                   onMouseOver={() => {
-                    setMainPic(v);
+                    setMainPic(`/img/product/product_img/${v}`);
                   }}
                 >
                   <img src={`/img/product/product_img/${v}`} alt="" />

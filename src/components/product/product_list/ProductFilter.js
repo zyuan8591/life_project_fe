@@ -8,9 +8,8 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 
-// const brandArr = [];
 const ProductFilter = ({
-  count,
+  total,
   search,
   setSearch,
   checked,
@@ -18,6 +17,7 @@ const ProductFilter = ({
   setBiggerThan,
   setSmallThan,
   setSort,
+  count,
 }) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
@@ -26,7 +26,6 @@ const ProductFilter = ({
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
 
-  // const [isChecked, setIs ]
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
@@ -53,20 +52,8 @@ const ProductFilter = ({
             <RiArrowDownSFill />
           </div>
           {/* {showBoard && ( */}
-          <div
-            className="filterDisplay"
-            style={{ height: showBoard ? '305px' : '0' }}
-          >
-            <div
-              className="filterBoard"
-              style={{ transform: showBoard ? 'translateY(0px)' : '' }}
-              onMouseOver={() => {
-                setShowBoard(true);
-              }}
-              onMouseOut={() => {
-                setShowBoard(false);
-              }}
-            >
+          <div className="filterDisplay">
+            <div className="filterBoard">
               <div className="brandSection">
                 <div className="brandSearch">
                   <p>品牌</p>
@@ -76,7 +63,6 @@ const ProductFilter = ({
                     value={brand}
                     onChange={(e) => {
                       setBrand(e.target.value);
-                      // console.log(brand.length);
                     }}
                     onKeyDown={(e) => {
                       if (e.keyCode === 13) {
@@ -104,7 +90,7 @@ const ProductFilter = ({
                             }
                             if (!e.target.checked) {
                               let newArr = checked.filter((v2) => {
-                                return v.id !== v2.id;
+                                return v.id !== v2;
                               });
                               setChecked(newArr);
                               console.log(v.id);
@@ -244,7 +230,9 @@ const ProductFilter = ({
             <IoIosSearch />
           </button>
         </div>
-        <p>1 ~ 12 筆 (共 {count} 筆)</p>
+        <p>
+          {count + 1} ~ 12 筆 (共 {total} 筆)
+        </p>
       </div>
     </IconContext.Provider>
   );

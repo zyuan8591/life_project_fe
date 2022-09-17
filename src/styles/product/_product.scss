@@ -6,22 +6,27 @@ $productImgWidth: 250px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
   .products {
     width: 350px;
     margin: 0 0 40px 0;
     padding: 0;
-    .hoverArea {
-      height: 300px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1rem;
+    position: relative;
+    transition: 2.3s;
+    &:hover .productHoverContainer > .productHover {
+      transform: translateY(0px);
+    }
+    .productHoverContainer {
+      position: absolute;
+      top: calc(250px - 15px);
+      left: 50px;
+      height: 40px;
+      overflow: hidden;
       .productHover {
-        position: absolute;
-        z-index: 1000;
-        bottom: 0px;
-        width: $productImgWidth;
+        transition: .3s ease;
         height: 40px;
+
+        width: $productImgWidth;
         background: #000;
         opacity: 0.6;
         transform: translateY(40px);
@@ -29,11 +34,18 @@ $productImgWidth: 250px;
         justify-content: end;
         align-items: center;
       }
-      &:hover .productHover {
-        transform: translateY(0px);
-        transition: 0.3s;
-      }
+    }
+    .link {
+      // position: absolute;
 
+      .hoverArea {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+
+      }
       .productImg {
         position: relative;
         z-index: -1;

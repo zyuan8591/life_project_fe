@@ -15,7 +15,7 @@ import axios from 'axios';
 const ProductList = () => {
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
-  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(0);
   const [productCateNow, setProductCateNow] = useState(0);
   const [productList, setProductList] = useState([]);
   const [search, setSearch] = useState('');
@@ -23,20 +23,25 @@ const ProductList = () => {
   const [biggerThan, setBiggerThan] = useState('');
   const [smallThan, setSmallThan] = useState('');
   const [sort, setSort] = useState(0);
+  const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
-
   // console.log(smallThan, biggerThan);
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}`
+        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`
       );
       // console.log(result.data.data);
       // console.log(checked);
+      let test = pageNow * result.data.pagination.perPage;
+      // if (result.data.pagination.total % perPage !== 0) {
+      
+      // }
+      console.log(test);
       setLastPage(result.data.pagination.lastPage);
-      setCount(result.data.pagination.total);
+      setTotal(result.data.pagination.total);
       setProductList(result.data.data);
-      setCountNow(result.data.pagination.offset);
+      setCount(result.data.pagination.offset);
     })();
   }, [pageNow, productCateNow, search, checked, smallThan, biggerThan, sort]);
   return (
@@ -48,7 +53,7 @@ const ProductList = () => {
           <ProductCategory setProductCateNow={setProductCateNow} />
           <div>
             <ProductFilter
-              count={count}
+              total={total}
               search={search}
               setSearch={setSearch}
               checked={checked}
@@ -56,6 +61,7 @@ const ProductList = () => {
               setBiggerThan={setBiggerThan}
               setSmallThan={setSmallThan}
               setSort={setSort}
+              count={count}
             />
             <Product productList={productList} />
           </div>
