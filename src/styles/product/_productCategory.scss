@@ -7,7 +7,7 @@
 .categoryContainer {
   width: 290px;
   .title {
-    max-width: 290;
+    min-width: 290;
     height: 70px;
     @include d-flex();
     border-bottom: 1px solid $contentClr;
@@ -19,13 +19,11 @@
   }
   .category {
     @include d-flex();
-    max-width: 290;
+    min-width: 290;
     height: 70px;
     padding-left: 10px;
     &:hover {
-    background: $hoverClr;
-    // border-radius: 5px;
+      background: $hoverClr;
     }
   }
-
 }

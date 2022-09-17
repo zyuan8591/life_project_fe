@@ -97,7 +97,8 @@ const materialMain = css`
   flex-wrap: wrap;
 `;
 
-const RecipeIntro = ({ data, id }) => {
+const RecipeIntro = ({ data, id, setRecipeData }) => {
+  // get recipe material
   const [material, setMaterial] = useState([]);
   useEffect(() => {
     (async () => {
@@ -105,6 +106,22 @@ const RecipeIntro = ({ data, id }) => {
       setMaterial(result.data);
     })();
   }, [id]);
+
+  // recipe like
+  const likeHandler = async () => {
+    await axios.post(
+      `${API_URL}/recipes/${id}/like`,
+      {
+        user_id: 5,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    // recipe detail
+    let result = await axios.get(`${API_URL}/recipes/${id}`);
+    setRecipeData(result.data[0]);
+  };
 
   return (
     <>
@@ -167,7 +184,9 @@ const RecipeIntro = ({ data, id }) => {
                 追蹤
               </button> */}
             </div>
-            <button css={[recipeCollectBtn, btn]}>收藏食譜</button>
+            <button css={[recipeCollectBtn, btn]} onClick={likeHandler}>
+              收藏食譜
+            </button>
           </div>
           {/* material section */}
           <div css={materialContainer}>

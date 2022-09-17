@@ -72,9 +72,6 @@ const Login = () => {
         <div className="forget">
           <Link to="">忘記密碼 ? </Link>
         </div>
-        {/* <div className="google">
-        <p>G</p>
-      </div> */}
       </div>
     </form>
   );
