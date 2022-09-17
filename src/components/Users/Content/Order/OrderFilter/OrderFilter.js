@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-const OrderFilter = () => {
-  const [list, setList] = useState('全部');
+const OrderFilter = ({list, setList}) => {
+  
   const item = ['全部', '待付款', '待出貨', '待收貨', '完成', '未完成'];
 
   return (
     <>
-      <ul className="d-flex order-filter ">
-        {item.map((v) => {
+      <ul className="order-filter ">
+        {item.map((v, i) => {
           return (
             <li
-              key={uuidv4()}
-              className={`col ${list === v ? 'active' : ''}`}
+              key={i}
+              className="list"
               onClick={() => {
                 setList(v);
               }}
             >
-              <div>{v}</div>
+              <button className={`${list === v ? 'active' : ''}`}> {v}</button>
             </li>
           );
         })}

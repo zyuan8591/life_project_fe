@@ -166,7 +166,9 @@ const Tools = () => {
           >
             {item.map((v, i) => {
               const { id, name, color, img } = v;
-              console.log(item);
+              {
+                /* console.log(item); */
+              }
               return (
                 <div
                   className={classess.item}
@@ -177,28 +179,27 @@ const Tools = () => {
                     setItem(newArr);
                   }}
                 >
-                  {item ? (
-                    <>
-                      <figure>
-                        <img src={img} alt="" />
-                        <div className={classess.heart}>
-                          <IconContext.Provider
-                            value={{ color: 'white', size: '2.4rem' }}
-                          >
-                            <HiHeart />
-                          </IconContext.Provider>
-                        </div>
-                      </figure>
-                      <p>
-                        {name}　({color})
-                      </p>
-                    </>
-                  ) : (
-                    <p>沒有商品在我的最愛</p>
-                  )}
+                  <>
+                    <figure>
+                      <img src={img} alt="" />
+                      <div className={classess.heart}>
+                        <IconContext.Provider
+                          value={{ color: 'white', size: '2.4rem' }}
+                        >
+                          <HiHeart />
+                        </IconContext.Provider>
+                      </div>
+                    </figure>
+                    <p>
+                      {name}　({color})
+                    </p>
+                  </>
                 </div>
               );
             })}
+            {item.length === 0 && (
+              <div className={classess.nothingInFav}>沒有商品在我的最愛</div>
+            )}
           </div>
           <div
             className={classess.triangle}

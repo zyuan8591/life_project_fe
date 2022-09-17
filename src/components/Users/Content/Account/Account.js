@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { API_URL_IMG } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import AccountEdit from './Account_Edit';
-import '../../../../styles/Users/Account.scss';
 
 const Account = () => {
   const { user } = useUserRights();
@@ -49,8 +48,8 @@ const Account = () => {
               <p className="userTitle">地址：</p>
               <p>{`${user.city}${user.area}`}</p>
             </div>
-            <div className="userData row">
-              <p className="col userTitle">簡介:</p>
+            <div className="userData datatextarea">
+              <p className=" userTitle">簡介：</p>
               <textarea
                 className="intro"
                 name=""

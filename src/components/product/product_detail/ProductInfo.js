@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import '../../../styles/product/_productInfo.scss';
 import { IconContext } from 'react-icons';
@@ -8,28 +8,36 @@ import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import Magnifier from 'image-magnifier-react';
 import 'image-magnifier-react/lib/index.css';
 
-const pic = '/img/product/product_img/BRUNO_BOE059_BGR_CE_01.png';
-const pic1 = '/img/product/product_img/BRUNO_BOE059_BGR_CE_01.webp';
-const pic2 = '/img/product/product_img/BRUNO_BOE059_BGR_CE_02.jpeg';
-const pic3 = '/img/product/product_img/BRUNO_BOE059_BGR_CE_03.jpeg';
-const string =
-  '耐高溫不沾塗層烤盤 導熱快、清洗方便 兩用木匙，取出烤盤不燙手 分離式電源，方便使用好收納 牛排或章魚燒皆適合';
-let split = string.split(' ');
-const ProductInfo = () => {
-  const Arr = [pic1, pic2, pic3];
+const ProductInfo = ({ data }) => {
+  const {
+    name,
+    brand,
+    price = '',
+    img,
+    img2,
+    img3,
+    inventory,
+    intro = '',
+  } = data;
+  let split = '';
+  if (intro.includes(' ')) {
+    split = intro.split(' ');
+  } else {
+    split = intro.split('，');
+  }
+  const pic = `/img/product/product_img/${img}`;
+
+  const arr = [img, img2, img3];
   const [quantity, setQuantity] = useState(1);
-  const [mainPhoto, setMainPic] = useState(pic);
+  const [mainPhoto, setMainPic] = useState('');
+
+  useEffect(() => {
+    setMainPic(pic);
+  }, [data]);
   return (
     <div className="infoContainer">
       <div className="productInfo">
         <div className="picArea">
-          {/* <Magnifier
-            image={mainPhoto}
-            magnifierWidth={150}
-            magnifierHeight={150}
-            zoom={2}
-            width={400}
-          /> */}
           <figure className="mainPic">
             <Magnifier
               image={mainPhoto}
@@ -43,27 +51,34 @@ const ProductInfo = () => {
             />
           </figure>
           <div className="d-flex mt-3">
-            {Arr.map((v, i) => {
+            {arr.map((v, i) => {
               return (
                 <figure
                   className="subPic"
                   key={i}
                   onMouseOver={() => {
-                    setMainPic(v);
+                    setMainPic(`/img/product/product_img/${v}`);
                   }}
                 >
-                  <img src={v} alt="" />
+                  <img src={`/img/product/product_img/${v}`} alt="" />
                 </figure>
               );
             })}
           </div>
         </div>
         <div className="infoArea">
-          <div className="brand">Bruno</div>
-          <div className="name">多功能電烤盤-嚕嚕咪限量版</div>
+          <div className="brand">{brand}</div>
+          <div className="name">{name}</div>
           <div className="promotion">宅配滿NT$888免運</div>
           <div className="test">
-            <div className="price">NT$ 4,580</div>
+            <div className="price">
+              NT${' '}
+              {JSON.stringify(price).replace(
+                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                ','
+              )}
+              {/* {JSON.stringify(price)} */}
+            </div>
             <div className="mt-5 mb-5 introContainer">
               {split.map((v, i) => {
                 return (
@@ -74,33 +89,36 @@ const ProductInfo = () => {
               })}
             </div>
             <div className="quantity">
-              <div>數量</div>
-              <IconContext.Provider
-                value={{
-                  color: '#444',
-                  size: '1.8rem',
-                }}
-              >
-                <button>
-                  <AiFillMinusCircle
-                    onClick={() => {
-                      if (quantity > 1) {
-                        setQuantity(quantity - 1);
-                      }
-                    }}
-                  />
-                </button>
-                <div className="number">{quantity}</div>
-                <button>
-                  <AiFillPlusCircle
-                    onClick={() => {
-                      if (quantity < 99) {
-                        setQuantity(quantity + 1);
-                      }
-                    }}
-                  />
-                </button>
-              </IconContext.Provider>
+              <div className="d-flex ">
+                <div>數量</div>
+                <IconContext.Provider
+                  value={{
+                    color: '#444',
+                    size: '1.8rem',
+                  }}
+                >
+                  <button>
+                    <AiFillMinusCircle
+                      onClick={() => {
+                        if (quantity > 1) {
+                          setQuantity(quantity - 1);
+                        }
+                      }}
+                    />
+                  </button>
+                  <div className="number">{quantity}</div>
+                  <button>
+                    <AiFillPlusCircle
+                      onClick={() => {
+                        if (quantity < 99) {
+                          setQuantity(quantity + 1);
+                        }
+                      }}
+                    />
+                  </button>
+                </IconContext.Provider>
+              </div>
+              <div className="inventory">剩餘數量 : {inventory}</div>
             </div>
             <div className="cartFav">
               <IconContext.Provider
