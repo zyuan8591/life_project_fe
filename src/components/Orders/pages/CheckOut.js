@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import OrderDetail from './CheckPage/OrderDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
 import Payment from './CheckPage/Payment';
-import CreditCard from './CheckPage/CreditCard';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -95,13 +94,15 @@ const CheckOut = () => {
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
         })}
-        onSubmit={async (values, product) => {
-          // try {
-          //   await axios.post(`${API_URL}/order`, values);
-          // } catch (e) {
-          //   console.error('order', e);
-          // }
-          console.log(values);
+        onSubmit={async (values) => {
+          try {
+            await axios.post(`${API_URL}/orders/order`, values, {
+              withCredentials: true,
+            });
+          } catch (e) {
+            console.error('order', e);
+          }
+          // console.log(values);
         }}
       >
         {({ values, setFieldValue }) => (

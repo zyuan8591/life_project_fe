@@ -71,7 +71,7 @@ function RecipientInfo(values) {
                     <RecipientSelect name="areaName">
                       <option value="">請選擇</option>
                       {jsondata
-                        .filter((v) => v.CityName === values.cityName)
+                        .filter((v) => v.CityName === values.values.cityName)
                         .map((v, i) => {
                           <option
                             key={Math.random().toString(36).replace('0.', '')}

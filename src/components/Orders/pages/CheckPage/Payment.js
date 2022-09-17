@@ -19,7 +19,7 @@ function Payment(values, setFieldValue) {
         </p>
       );
     }
-    if (currentPayment === 2) {
+    if (currentPayment === 4) {
       return <CreditCard />;
     }
     return null;
@@ -44,7 +44,7 @@ function Payment(values, setFieldValue) {
                     value={v.id}
                     onChange={(e) => {
                       setCurrentPayment(v.id);
-                      setFieldValue('payment', v.id);
+                      values.setFieldValue('payment', v.id);
                     }}
                     checked={v.id === currentPayment}
                   />
