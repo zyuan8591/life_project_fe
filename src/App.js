@@ -48,7 +48,6 @@ import PicnicOfficalDetail from './components/picnic/picnic_official/picnic_offi
 import PicnicPrivateList from './components/picnic/private_pincnic/private_list/PicnicPrivateList';
 import IndexPrivateDetail from './components/picnic/private_pincnic/private_pincnic_detail/IndexPrivateDetail';
 import CreatePincnic from './components/picnic/private_pincnic/CreatePincnic';
-import Pinic from './components/Users/Content/Picnic/Pinic';
 
 function HeaderFooter() {
   return (
@@ -130,10 +129,10 @@ function App() {
                       element={<PicnicOfficalDetail />}
                     />
                     <Route
-                  path="/activity/picnic/group"
-                  element={<PicnicPrivateList />}
-                />
-                <Route
+                      path="/activity/picnic/group"
+                      element={<PicnicPrivateList />}
+                    />
+                    <Route
                       path="/activity/picnic/group/:groupId"
                       element={<IndexPrivateDetail />}
                     />
@@ -147,9 +146,9 @@ function App() {
                       <Route path="/users/password" element={<Password />} />
                       <Route path="/users/order" element={<Order />} />
                       <Route path="/users/points" element={<Points />} />
-                      <Route path="/users/pinic" element={<Pinic />} />
+                      <Route path="/users/picnic" element={<Picnic />} />
                       <Route path="/users/recipe" element={<Recipe />} />
-                  <Route path="/users/caping" element={<Camping />} />
+                      <Route path="/users/caping" element={<Camping />} />
                     </Route>
                     <Route path="/signin/" element={<Signin />}>
                       <Route path="/signin/login" element={<Login />} />
