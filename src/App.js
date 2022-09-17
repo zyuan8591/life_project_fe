@@ -23,6 +23,7 @@ import Order from './components/Users/Content/Order/Order';
 import Points from './components/Users/Content/Points/Points';
 import Recipe from './components/Users/Content/Recipe/Recipe';
 import Camping from './components/Users/Content/Camping/Camping';
+import Picnic from './components/Users/Content/Picnic/Picnic';
 import Signup from './components/Login/Signup';
 import Login from './components/Login/Login';
 import { UserRights } from './usecontext/UserRights';
@@ -40,7 +41,6 @@ import { ProductCartProvider } from './orderContetxt/useProductCart';
 import { PicnicCartProvider } from './orderContetxt/usePicnicCart';
 import { CampingCartProvider } from './orderContetxt/useCampingCart';
 import { CartStepProvider } from './orderContetxt/useCartStep';
-
 
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';

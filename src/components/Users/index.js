@@ -7,10 +7,10 @@ import { Navigate } from 'react-router-dom';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const Index = () => {
-  //TODO:製作請先登入視窗再進行跳轉
+  //TODO:排版結束改成跳轉回首頁
   const { user, setUser } = useUserRights();
   if (!user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/users/caping" />;
   }
   return (
     <div className="users">

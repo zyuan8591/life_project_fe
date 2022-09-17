@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = () => {
+const Table = ({ data }) => {
   const title = [
     '訂單編號',
     '訂單金額',
@@ -9,24 +9,6 @@ const Table = () => {
     '付款方式',
     '運送方式',
     '訂單詳情',
-  ];
-  const data = [
-    {
-      orderNumber: 123456,
-      total: 800,
-      orderState: '運送中',
-      date: '2022-04-18',
-      payment: '信用卡',
-      method: '貨到付款',
-    },
-    {
-      orderNumber: 1615616,
-      total: 1600,
-      orderState: '備貨中',
-      date: '2022-05-18',
-      payment: '綠界',
-      method: '超商取貨',
-    },
   ];
 
   return (
