@@ -63,7 +63,7 @@ const Password = () => {
     eye2: false,
     eye3: false,
   });
-  //認證碼有值才寄出信件
+  // 認證碼有值才寄出信件
   if (verificationCode !== null) {
     sendEmail();
   }
@@ -201,7 +201,7 @@ const Password = () => {
                       className={`sendText ${timeStemp ? 'noClick' : ''}`}
                       onClick={sendEmailVerify}
                     >
-                      重新發送驗證碼
+                      發送驗證碼
                     </p>
                     {timeStemp && <Countdown />}
                     <ErrorMessage name="authentication">

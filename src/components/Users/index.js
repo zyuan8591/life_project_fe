@@ -10,7 +10,7 @@ const Index = () => {
   //TODO:排版結束改成跳轉回首頁
   const { user, setUser } = useUserRights();
   if (!user) {
-    return <Navigate to="/users/caping" />;
+    return <Navigate to="/" />;
   }
   return (
     <div className="users">

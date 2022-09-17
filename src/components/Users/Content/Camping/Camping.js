@@ -9,25 +9,12 @@ import { useUserRights } from '../../../../usecontext/UserRights';
 const Camping = () => {
   const { user } = useUserRights();
   const [list, setList] = useState('官方活動');
-  const [data, setData] = useState([
-    {
-      titele: '露營Fun輕鬆',
-      activity_date: '2022-04-18',
-      place: '勤美學',
-      activity_state: '報名中',
-    },
-    {
-      titele: '露營Fun輕鬆',
-      activity_date: '2022-04-18',
-      place: '勤美學',
-      activity_state: '報名中',
-    },
-  ]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     try {
       let getUser = async () => {
-        let response = await axios.get(`${API_URL}/camping?id=${user.id}`, {
+        let response = await axios.get(`${API_URL}/getUserJoin`, {
           withCredentials: true,
         });
         // setData(response.data);]
