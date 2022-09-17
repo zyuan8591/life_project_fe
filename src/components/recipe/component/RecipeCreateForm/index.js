@@ -190,42 +190,74 @@ const RecipeCreateForm = ({ closeCreateRecipe, recipeCate }) => {
               content:
                 '夏日開胃料理檸檬魚，不用到泰式餐廳，用電鍋就可以輕鬆做出這道美食，只要掌握好調味料，廚房新手也可以完成這道菜。酸辣鮮美的醬汁可以讓人在夏天多吃一碗飯，海鮮類經過檸檬酸香提味，肉質鮮嫩、更加爽口。',
               category: 7,
-              product_category: 12,
+              product_category: 7,
             });
             setMaterial([
-              { id: uuidv4(), name: '鱸魚', quantity: '1條' },
-              { id: uuidv4(), name: '蔥', quantity: '1支' },
-              { id: uuidv4(), name: '辣椒', quantity: '1支' },
-              { id: uuidv4(), name: '蒜頭', quantity: '5瓣' },
-              { id: uuidv4(), name: '香菜', quantity: '少許' },
-              { id: uuidv4(), name: '檸檬', quantity: '1顆' },
-              { id: uuidv4(), name: '魚露', quantity: '2大匙' },
-              { id: uuidv4(), name: '白糖', quantity: '2大匙' },
-              { id: uuidv4(), name: '米酒', quantity: '1大匙' },
-              { id: uuidv4(), name: '鹽', quantity: '少許' },
+              { id: uuidv4(), name: '白蝦', quantity: '8尾' },
+              { id: uuidv4(), name: '海蝦仁', quantity: '280公克' },
+              { id: uuidv4(), name: '豬油', quantity: '80公克' },
+              { id: uuidv4(), name: '花枝', quantity: '280公克' },
+              { id: uuidv4(), name: '雞蛋', quantity: '1顆' },
+              { id: uuidv4(), name: '薑', quantity: '2公克' },
+              { id: uuidv4(), name: '蒜頭', quantity: '4瓣' },
+              { id: uuidv4(), name: '白胡椒粉', quantity: '1/4小匙' },
+              { id: uuidv4(), name: '鹽巴', quantity: '1/4小匙' },
+              { id: uuidv4(), name: '香油', quantity: '1小匙' },
+              { id: uuidv4(), name: '春捲皮', quantity: '2片' },
             ]);
             setStep([
               {
                 id: uuidv4(),
                 step: 1,
-                content:
-                  '將鱸魚洗淨切塊抹上醃料備用，檸檬榨汁，蔥切段，辣椒及蒜頭切末備用。',
+                content: '準備所有食材，白蝦去殼，薑切成薑末，蒜切成蒜末。',
               },
               {
                 id: uuidv4(),
                 step: 2,
-                content: '辣椒末、蒜末、檸檬汁與調味料拌勻為「醬汁」。',
+                content: '白蝦用刀子拍扁，並剁成碎狀。',
               },
               {
                 id: uuidv4(),
                 step: 3,
-                content: '取一盤子底部放蔥段，將魚攤平放上，再淋上醬汁。',
+                content: '將花枝、蝦仁、豬油放調理杯中，用電動攪拌棒打成泥狀。',
               },
               {
                 id: uuidv4(),
                 step: 4,
                 content:
-                  '電鍋外鍋加入1杯水，放入蒸架再將盤子放入電鍋內，按下加熱開關待開關跳起，撒上香菜即可享用。',
+                  '準備一個大容器，放進剁好的白蝦、攪打好的花枝蝦仁泥、雞蛋、薑末、蒜末、白胡椒粉、鹽巴、香油。',
+              },
+              {
+                id: uuidv4(),
+                step: 5,
+                content: '用手攪拌均勻，拌到稍微有黏性出來即可。。',
+              },
+              {
+                id: uuidv4(),
+                step: 6,
+                content:
+                  '拿出1片潤餅皮，粗面朝上，平均放入餡料，再蓋上另外1片潤餅皮，一樣粗面朝內。',
+              },
+              {
+                id: uuidv4(),
+                step: 7,
+                content: '將餅皮平均壓平，用刀子在表面戳洞透氣。',
+              },
+              {
+                id: uuidv4(),
+                step: 8,
+                content: '將月亮蝦餅放上瀝油不沾烤盤，在表面刷上植物油。',
+              },
+              {
+                id: uuidv4(),
+                step: 9,
+                content:
+                  '放進氣炸烤箱中層，以200度氣炸13分後，再翻面繼續氣炸5分鐘至上色。',
+              },
+              {
+                id: uuidv4(),
+                step: 10,
+                content: '待行程結束即可切開擺盤享用。',
               },
             ]);
             setDemo(true);

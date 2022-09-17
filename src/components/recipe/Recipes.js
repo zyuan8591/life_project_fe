@@ -209,14 +209,14 @@ const Recipes = () => {
                 <span>寫食譜</span>
               </div>
               <Link
-                to={!user ? '/signin/login' : '/users/recipe'}
+                to={!user ? '/signin/login' : '/users/recipe?p=1'}
                 className="featureBtn"
               >
                 <AiOutlineBook />
                 <span>我的食譜</span>
               </Link>
               <Link
-                to={!user ? '/signin/login' : '/users/recipe'}
+                to={!user ? '/signin/login' : '/users/recipe?p=2'}
                 className="featureBtn"
               >
                 <AiOutlineHeart />

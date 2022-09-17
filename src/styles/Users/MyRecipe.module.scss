@@ -9,11 +9,13 @@
     .recipeImgContainer {
       max-width: 80px;
     }
-    th {
-      font-size: 1rem;
-    }
+
     td {
       vertical-align: middle;
     }
   }
+}
+
+.rotate {
+  transform: rotate(-180deg);
 }
