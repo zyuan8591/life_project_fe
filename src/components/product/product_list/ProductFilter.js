@@ -7,14 +7,24 @@ import { RiArrowDownSFill } from 'react-icons/ri';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
-import { clearConfigCache } from 'prettier';
 
 // const brandArr = [];
-const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
+const ProductFilter = ({
+  count,
+  search,
+  setSearch,
+  checked,
+  setChecked,
+  setBiggerThan,
+  setSmallThan,
+  setSort,
+}) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
   const [showBoard, setShowBoard] = useState(false);
   const [brand, setBrand] = useState('');
+  const [big, setBig] = useState('');
+  const [small, setSmall] = useState('');
 
   // const [isChecked, setIs ]
   useEffect(() => {
@@ -115,6 +125,8 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                     className={`${price === '所有' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('所有');
+                      setBiggerThan('');
+                      setSmallThan('');
                     }}
                   >
                     所有
@@ -125,6 +137,8 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                     className={`${price === '1000-3000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('1000-3000');
+                      setBiggerThan(1000);
+                      setSmallThan(3000);
                     }}
                   >
                     $1,000 - $3,000
@@ -133,6 +147,8 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                     className={`${price === '3000-5000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('3000-5000');
+                      setBiggerThan(3000);
+                      setSmallThan(5000);
                     }}
                   >
                     $3,000 - $5,000
@@ -141,6 +157,8 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                     className={`${price === '5000-10000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('5000-10000');
+                      setBiggerThan(5000);
+                      setSmallThan(1000);
                     }}
                   >
                     $5,000 - $10,000
@@ -149,6 +167,8 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                     className={`${price === '10000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('10000');
+                      setBiggerThan(10000);
+                      setSmallThan('');
                     }}
                   >
                     $10,000以上
@@ -156,9 +176,28 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                 </div>
                 <div className="priceSearch">
                   <p className="mx-2">NT$</p>
-                  <input className="mx-2" type="number" min={0} />
+                  <input
+                    className="mx-2"
+                    type="number"
+                    min={0}
+                    onChange={(e) => {
+                      setBiggerThan(e.target.value);
+                      setBig(e.target);
+                      // console.log(big);
+                    }}
+                  />
                   <p className="mx-2">-</p>
-                  <input className="mx-2" type="number" min={0} />
+                  <input
+                    className="mx-2"
+                    type="number"
+                    min={0}
+                    max={100000}
+                    onChange={(e) => {
+                      setSmallThan(e.target.value);
+                      setSmall(e.target.value);
+                      // console.log(small);
+                    }}
+                  />
                   <IconContext.Provider
                     value={{
                       color: '#817161',
@@ -168,8 +207,10 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
                   >
                     <BsFillArrowRightSquareFill
                       className="mx-2 pointer"
-                      onClick={() => {
-                        console.log('');
+                      onClick={(e) => {
+                        // console.log('');
+                        setBiggerThan(big);
+                        setSmallThan(small);
                       }}
                     />
                   </IconContext.Provider>
@@ -179,11 +220,15 @@ const ProductFilter = ({ count, search, setSearch, checked, setChecked }) => {
           </div>
           {/* )} */}
         </div>
-        <select className="filterPopular">
-          <option value="">熱門程度優先</option>
-          <option value="">最新商品</option>
-          <option value="">2</option>
-          <option value="">3</option>
+        <select
+          className="filterPopular"
+          onChange={(e) => {
+            setSort(e.target.value);
+          }}
+        >
+          <option value="0">預設</option>
+          <option value="1">熱門程度優先</option>
+          <option value="2">最新商品</option>
         </select>
         <div className="d-flex">
           <input

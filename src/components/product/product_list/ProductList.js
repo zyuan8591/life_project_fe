@@ -20,19 +20,25 @@ const ProductList = () => {
   const [productList, setProductList] = useState([]);
   const [search, setSearch] = useState('');
   const [checked, setChecked] = useState([]);
+  const [biggerThan, setBiggerThan] = useState('');
+  const [smallThan, setSmallThan] = useState('');
+  const [sort, setSort] = useState(0);
+  const [countNow, setCountNow] = useState(0);
 
+  // console.log(smallThan, biggerThan);
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&brand=${checked}`
+        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}`
       );
       // console.log(result.data.data);
-      console.log(checked);
+      // console.log(checked);
       setLastPage(result.data.pagination.lastPage);
       setCount(result.data.pagination.total);
       setProductList(result.data.data);
+      setCountNow(result.data.pagination.offset);
     })();
-  }, [pageNow, productCateNow, search, checked]);
+  }, [pageNow, productCateNow, search, checked, smallThan, biggerThan, sort]);
   return (
     <>
       <Header />
@@ -47,6 +53,9 @@ const ProductList = () => {
               setSearch={setSearch}
               checked={checked}
               setChecked={setChecked}
+              setBiggerThan={setBiggerThan}
+              setSmallThan={setSmallThan}
+              setSort={setSort}
             />
             <Product productList={productList} />
           </div>
