@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
-import RecipientInput from '../../component/RecipientInput';
+import TextField from '../../component/TextField';
 import RecipientSelect from '../../component/RecipientSelect';
 import jsondata from '../../../Users/Content/Account/CityCountyData.json';
 import { Field } from 'formik';
@@ -17,15 +17,15 @@ function RecipientInfo(values) {
       <div className="recipient">
         <div className="row recipientInfo">
           <div className="col-6 mb-2">
-            <RecipientInput name="name" maxLength={10} label="姓名" />
+            <TextField name="name" maxLength={10} label="姓名" />
           </div>
 
           <div className="col-6 mb-2">
-            <RecipientInput name="phone" maxLength={10} label="電話" />
+            <TextField name="phone" maxLength={10} label="電話" />
           </div>
 
           <div className="col-12 mb-2">
-            <RecipientInput name="email" type="text" label="Email" />
+            <TextField name="email" type="text" label="Email" />
           </div>
 
           <div className="col-12 mb-2">
@@ -89,7 +89,7 @@ function RecipientInfo(values) {
                 </div>
               </div>
               <div className="col">
-                <RecipientInput name="address" />
+                <TextField name="address" />
               </div>
             </div>
           </div>

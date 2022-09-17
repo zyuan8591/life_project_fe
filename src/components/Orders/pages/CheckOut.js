@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import OrderDetail from './CheckPage/OrderDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
+import Payment from './CheckPage/Payment';
 import CreditCard from './CheckPage/CreditCard';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
@@ -10,15 +11,16 @@ import { useCampingCart } from '../../../orderContetxt/useCampingCart';
 
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
+import { useCartStep } from '../../../orderContetxt/useCartStep';
 
-const CheckOut = (props) => {
+const CheckOut = () => {
+  const { currentStep, setCurrentStep } = useCartStep();
+
   const [delivery, setDelivery] = useState([]);
 
   const [payment, setPayment] = useState([]);
-  const [isVisa, setIsVisa] = useState(false);
-  const [isAtm, setIsAtm] = useState(false);
 
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
@@ -39,26 +41,12 @@ const CheckOut = (props) => {
       console.log(paymentData);
       setPayment(paymentData);
     })();
+    setCurrentStep(2);
   }, []);
-
-  useEffect(() => {
-    if (payment === 0) {
-      setIsAtm(true);
-      setIsVisa(false);
-    } else if (payment === 3) {
-      setIsVisa(true);
-      setIsAtm(false);
-    } else {
-      setIsAtm(false);
-      setIsVisa(false);
-    }
-  }, [payment]);
 
   // post {"orders":[{productCart.state.items.id:1, productCart.state.items.quantity:2, name:aaa, email:aaa@test.com, phone:0900000000, address:XXX, delivery: 2, memo:yyy, payment: lp}]}
 
   const initialValues = {
-    // product: ProductCartProvider.state.items.id,
-    // quantity: ProductCartProvider.state.items.quantity,
     name: '',
     email: '',
     phone: '',
@@ -68,6 +56,8 @@ const CheckOut = (props) => {
     address: '',
     memo: '',
     payment: '',
+    // productItems:[{}]
+    // productTotal:10000
   };
 
   const productItems = productCart.state.items;
@@ -88,8 +78,6 @@ const CheckOut = (props) => {
           productTotal,
           picnicTotal,
           campingTotal,
-          // productId: productCart.state.items.id,
-          // quantity: productCart.state.items.quantity,
         }}
         validationSchema={yup.object({
           name: yup
@@ -123,71 +111,25 @@ const CheckOut = (props) => {
               setDelivery={setDelivery}
               delivery={delivery}
             />
-
-            <h2 className="mb-3">付款方式</h2>
-
-            <div className="payment">
-              {payment.map((v, i) => {
-                return (
-                  <>
-                    <div
-                      className="mb-2 px-2"
-                      key={Math.random().toString(36).replace('0.', '')}
-                    >
-                      <label>
-                        <Field
-                          className="me-3"
-                          type="radio"
-                          name="payment"
-                          value={v.id}
-                          // checked={(payment = v)}
-                          onChange={(e) => {
-                            // setPayment();
-                            // console.log(e);
-                            setFieldValue('payment', v.id);
-                          }}
-                        />
-                        {v.order_payment}
-                      </label>
-                      {(i === 0 && isAtm && (
-                        <>
-                          <p className="px-5">
-                            1、選擇"ATM付款"即生成供本次使用的銀行虛擬帳號與唯一的訂單編號（轉帳時請務必輸入正確帳號，避免轉錯帳號造成損失）
-                            <br />
-                            2、虛擬帳號從生成之時起在24小時內有效，超時則無法付款成功
-                          </p>
-                        </>
-                      )) ||
-                        (i === 3 && isVisa && (
-                          <>
-                            <CreditCard />
-                          </>
-                        ))}
-                    </div>
-                  </>
-                );
-              })}
-              <ErrorMessage name="payment">
-                {(err) => (
-                  <>
-                    <p className="text-danger px-2">{err}</p>
-                  </>
-                )}
-              </ErrorMessage>
-            </div>
+            <Payment
+              values={values}
+              payment={payment}
+              setPayment={setPayment}
+              setFieldValue={setFieldValue}
+            />
 
             <div className="orderStepBtns gap-3">
               <Link
-                to
+                to="/orderstep/cart"
                 className="btn stepBtn prevButton"
-                onClick={() => props.updateCurrentStep(props.currentStep - 1)}
+                onClick={() => setCurrentStep(currentStep - 1)}
               >
                 上一步
               </Link>
               <button
                 className="btn stepBtn nextButton"
                 type="submit"
-                // onClick={() => props.updateCurrentStep(props.currentStep + 1)}
+                // onClick={() => setCurrentStep(currentStep + 1)}
               >
                 下一步
               </button>
