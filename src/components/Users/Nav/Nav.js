@@ -1,8 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import {
   BsFillPersonFill,
   BsFillTreeFill,
@@ -46,7 +45,7 @@ const userNav = [
     url: '/users/caping',
     item: [
       { title: '露營活動', url: 'caping' },
-      { title: '野餐活動', url: 'caping' },
+      { title: '野餐活動', url: 'picnic' },
     ],
   },
   {

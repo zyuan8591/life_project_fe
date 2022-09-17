@@ -2,12 +2,12 @@ import React, { useReducer, useContext, createContext, useEffect } from 'react';
 import { reducer, init } from './cartReducer';
 import useLocalStorage from './useLocalStorage';
 
-const ActivityCartContext = createContext(null);
+const PicnicCartContext = createContext(null);
 
-export const ActivityCartProvider = ({
+export const PicnicCartProvider = ({
   children,
   initialCartItems = [],
-  localStorageKey = 'activityCart',
+  localStorageKey = 'picnicCart',
 }) => {
   let items = initialCartItems;
   if (!items.length) {
@@ -77,7 +77,7 @@ export const ActivityCartProvider = ({
     });
   };
   return (
-    <ActivityCartContext.Provider
+    <PicnicCartContext.Provider
       value={{
         state,
         addItem,
@@ -89,8 +89,8 @@ export const ActivityCartProvider = ({
       }}
     >
       {children}
-    </ActivityCartContext.Provider>
+    </PicnicCartContext.Provider>
   );
 };
 
-export const useActivityCart = () => useContext(ActivityCartContext);
+export const usePicnicCart = () => useContext(PicnicCartContext);
