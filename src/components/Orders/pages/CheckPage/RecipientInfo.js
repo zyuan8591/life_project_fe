@@ -2,7 +2,7 @@ import React from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import TextField from '../../component/TextField';
 import RecipientSelect from '../../component/RecipientSelect';
-import jsondata from '../../../Users/Content/Account/CityCountyData.json';
+import jsondata from '../../../../utils/CityCountyData.json';
 import { Field } from 'formik';
 
 function RecipientInfo(values) {

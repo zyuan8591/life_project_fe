@@ -1,9 +1,8 @@
-import { Field } from 'formik';
-import { ErrorMessage } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 import CreditCard from './CreditCard';
 import { useState } from 'react';
 
-function Payment(values, setFieldValue) {
+function Payment(values) {
   // console.log(values);
 
   const [currentPayment, setCurrentPayment] = useState(null);
