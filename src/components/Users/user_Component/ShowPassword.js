@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { FaRegEye } from 'react-icons/fa';
-import { RiEyeCloseLine,RiEyeLine } from 'react-icons/ri';
+import { RiEyeCloseLine, RiEyeLine } from 'react-icons/ri';
 import { IconContext } from 'react-icons';
 
-const ShowPassword = ({ eye, setEye }) => {
+const ShowPassword = ({ eye, setEye, name }) => {
   function clickEye() {
-    setEye(eye ? false : true);
+    let newEye = { ...eye };
+    newEye[name] = newEye[name] ? false : true;
+    setEye(newEye);
   }
+
   return (
     <>
       <div className="eyegroup" onClick={clickEye}>
         <IconContext.Provider value={{ className: 'eye' }}>
-          {eye ? <FaRegEye /> : <RiEyeCloseLine />}
+          {eye[name] ? <FaRegEye /> : <RiEyeCloseLine />}
         </IconContext.Provider>
       </div>
     </>

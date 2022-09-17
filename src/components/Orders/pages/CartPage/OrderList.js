@@ -3,12 +3,13 @@ import '../../../../styles/Order/orderList.scss';
 import { IconContext } from 'react-icons';
 import { TbTrash } from 'react-icons/tb';
 import { useProductCart } from '../../../../orderContetxt/useProductCart';
-import { useActivityCart } from '../../../../orderContetxt/useActivityCart';
-import { check } from 'prettier';
+import { usePicnicCart } from '../../../../orderContetxt/usePicnicCart';
+import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
 
 const OrderList = (props) => {
   const productCart = useProductCart();
-  const activityCart = useActivityCart();
+  const picnicCart = usePicnicCart();
+  const campingCart = useCampingCart();
   const [selectAll, setSelectAll] = useState(false);
   // console.log(productCart.state);
   // const [count, setCount] = useState({});
@@ -37,9 +38,11 @@ const OrderList = (props) => {
 
   return (
     <>
-      {productCart.state.items.length < 1 ? (
-        '滾'
-      ) : (
+      {productCart.state.items.length < 1 &&
+        picnicCart.state.items.length < 1 &&
+        campingCart.state.items.length < 1 && <>滾</>}
+
+      {productCart.state.items.length > 0 && (
         <>
           <h2 className="h1 ps-3 pb-2">商品</h2>
 
@@ -56,7 +59,8 @@ const OrderList = (props) => {
                       }
                     );
                     if (checkcount.length !== productCart.state.items.length) {
-                      console.log('888',
+                      console.log(
+                        '888',
                         checkcount,
                         productCart.state.items.length
                       );
@@ -176,7 +180,6 @@ const OrderList = (props) => {
           </div>
         </>
       )}
-
       {/* {test} */}
       <div className="btn-group-vertical">
         <button
@@ -263,10 +266,8 @@ const OrderList = (props) => {
           check id=222 if in cart
         </button>
       </div>
-
-      {activityCart.state.items.length < 1 ? (
-        '滾'
-      ) : (
+      {(picnicCart.state.items.length > 0 ||
+        campingCart.state.items.length > 0) && (
         <>
           <h2 className="h1 ps-3 pb-2">活動</h2>
           <div className="row orderList">
@@ -283,7 +284,7 @@ const OrderList = (props) => {
             </div>
 
             <div className="orderItemList">
-              {activityCart.state.items.map((v, i) => {
+              {picnicCart.state.items.map((v, i) => {
                 return (
                   <div
                     className="row orderItem gap-3"
@@ -297,7 +298,7 @@ const OrderList = (props) => {
                         type="checkbox"
                         checked={v.ischecked}
                         onChange={() => {
-                          activityCart.updateItem({
+                          picnicCart.updateItem({
                             ...v,
                             ischecked: !v.ischecked,
                           });
@@ -312,18 +313,7 @@ const OrderList = (props) => {
                     </div>
                     <div className="col">{v.name}</div>
                     <div className="col">{v.price}</div>
-                    <div className="col">
-                      <div className="counter">
-                        <div className="counterContent">
-                          <input
-                            type="text"
-                            className="counterInput"
-                            value={1}
-                            readOnly
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <div className="col">{v.quantity}</div>
                     <div className="col">{v.price * v.quantity}</div>
                     <div className="col cursorPointer">
                       <IconContext.Provider
@@ -331,7 +321,52 @@ const OrderList = (props) => {
                       >
                         <TbTrash
                           onClick={() => {
-                            activityCart.removeItem(v.id);
+                            picnicCart.removeItem(v.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    </div>
+                  </div>
+                );
+              })}
+              {campingCart.state.items.map((v, i) => {
+                return (
+                  <div
+                    className="row orderItem gap-3"
+                    key={v.id}
+                    style={{
+                      background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
+                    }}
+                  >
+                    <div className="col">
+                      <input
+                        type="checkbox"
+                        checked={v.ischecked}
+                        onChange={() => {
+                          campingCart.updateItem({
+                            ...v,
+                            ischecked: !v.ischecked,
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="col">
+                      <img
+                        alt=""
+                        src="/img/product/product_img/BRUNO_BOE059_BGR_CE_01.webp"
+                      />
+                    </div>
+                    <div className="col">{v.name}</div>
+                    <div className="col">{v.price}</div>
+                    <div className="col">{v.quantity}</div>
+                    <div className="col">{v.price * v.quantity}</div>
+                    <div className="col cursorPointer">
+                      <IconContext.Provider
+                        value={{ color: 'black', size: '2rem' }}
+                      >
+                        <TbTrash
+                          onClick={() => {
+                            campingCart.removeItem(v.id);
                           }}
                         />
                       </IconContext.Provider>
@@ -343,9 +378,12 @@ const OrderList = (props) => {
 
             <div className="row orderListInfo">
               <div className="col position-relative">
-                已選擇 {activityCart.state.totalItems} 項商品
+                已選擇{' '}
+                {picnicCart.state.totalItems + campingCart.state.totalItems}{' '}
+                項商品
                 <div className="col subTotal">
-                  小計： $ {activityCart.state.cartTotal} 元
+                  小計： ${' '}
+                  {picnicCart.state.cartTotal + campingCart.state.cartTotal} 元
                 </div>
               </div>
             </div>
@@ -358,15 +396,7 @@ const OrderList = (props) => {
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
-            // console.log(activityCart.state);
-          }}
-        >
-          log cart
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            activityCart.addItem({
+            picnicCart.addItem({
               id: '333',
               quantity: 1,
               name: 'Moomin 多功能電烤盤1111111',
@@ -375,12 +405,26 @@ const OrderList = (props) => {
             });
           }}
         >
-          add item (id=333, x1)
+          add pic item (id=333, x1)
         </button>
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
-            activityCart.addItem({
+            picnicCart.addItem({
+              id: '888',
+              quantity: 1,
+              name: 'Moomin 多功能電烤盤1111111',
+              price: 15000,
+              ischecked: false,
+            });
+          }}
+        >
+          add pic item (id=888, x1)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            campingCart.addItem({
               id: '444',
               quantity: 1,
               name: 'ipad',
@@ -389,54 +433,21 @@ const OrderList = (props) => {
             });
           }}
         >
-          add item (id=444, x1)
+          add camp item (id=444, x1)
         </button>
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
-            activityCart.removeItem('444');
-          }}
-        >
-          remove item(id=444)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            activityCart.updateItem({
-              id: '444',
+            campingCart.addItem({
+              id: '666',
               quantity: 1,
+              name: 'ipad',
+              price: 19000,
+              ischecked: false,
             });
           }}
         >
-          update id=444 item quantity to 1
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            activityCart.updateItem({
-              id: '333',
-              quantity: 1,
-            });
-          }}
-        >
-          update id=333 item quantity to 1
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            activityCart.clearCart();
-          }}
-        >
-          clear cart
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            if (activityCart.isInCart('222')) alert('id=222 item is in cart');
-            else alert('no id=222  ');
-          }}
-        >
-          check id=444 if in cart
+          add camp item (id=666, x1)
         </button>
       </div>
     </>

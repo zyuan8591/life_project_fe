@@ -8,9 +8,12 @@ import ShowPassword from '../Users/user_Component/ShowPassword';
 import { Navigate } from 'react-router-dom';
 
 const Signup = () => {
-  const [eye, setEye] = useState(false);
-  const [eye1, setEye1] = useState(false);
+  const [eye, setEye] = useState({
+    eye1: false,
+    eye2: false,
+  });
   const [sign, setSign] = useState(false);
+  const [error, setError] = useState(null);
 
   //TODO:新增轉場效果，直接跳轉太詭異
   if (sign) {
@@ -52,16 +55,15 @@ const Signup = () => {
           await axios.post(`${API_URL}/signup`, values);
           setSign(true);
         } catch (e) {
-          console.error('register', e);
+          setError(e.response.data.message);
         }
       }}
     >
-      {(formik) => (
-        <form onSubmit={formik.handleSubmit}>
+      {(props) => (
+        <Form >
           <div className="signup">
-            <Field
-              name="name"
-              render={({ field, meta }) => (
+            <Field name="name">
+              {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-name">
                     <i className="fa-regular fa-user"></i>
@@ -75,7 +77,7 @@ const Signup = () => {
                     <ErrorMessage name="name">
                       {(err) => (
                         <>
-                          <i class="fa-regular fa-circle-xmark"></i>
+                          <i className="fa-regular fa-circle-xmark"></i>
                           <p className="error-text">{err}</p>
                         </>
                       )}
@@ -83,11 +85,10 @@ const Signup = () => {
                   </div>
                 </>
               )}
-            />
+            </Field>
 
-            <Field
-              name="email"
-              render={({ field, meta }) => (
+            <Field name="email">
+              {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-email">
                     <i className="fa-regular fa-envelope"></i>
@@ -98,6 +99,12 @@ const Signup = () => {
                       {...field}
                       className={`input ${meta.error ? 'is-error' : ''}`}
                     />
+                    {error && ( //後端驗證
+                      <>
+                        <i className="fa-regular fa-circle-xmark"></i>
+                        <p className="error-text">{error}</p>
+                      </>
+                    )}
                     <ErrorMessage name="email">
                       {(err) => (
                         <>
@@ -109,16 +116,15 @@ const Signup = () => {
                   </div>
                 </>
               )}
-            />
+            </Field>
 
-            <Field
-              name="password"
-              render={({ field, meta }) => (
+            <Field name="password">
+              {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-psaaword">
                     <i className="fa-solid fa-unlock-keyhole"></i>
                     <input
-                      type={eye ? 'text' : 'password'}
+                      type={eye.eye1 ? 'text' : 'password'}
                       placeholder="8-16個半形英文及數字，請注意大小寫"
                       maxLength="16"
                       {...field}
@@ -132,15 +138,14 @@ const Signup = () => {
                         </>
                       )}
                     </ErrorMessage>
-                    <ShowPassword eye={eye} setEye={setEye} />
+                    <ShowPassword eye={eye} setEye={setEye} name="eye1" />
                   </div>
                 </>
               )}
-            />
+            </Field>
 
-            <Field
-              name="confirmPassword"
-              render={({ field, meta }) => (
+            <Field name="confirmPassword">
+              {({ field, meta }) => (
                 <>
                   <div
                     className={`signup-input signup-group signup-psaaword  ${
@@ -149,7 +154,7 @@ const Signup = () => {
                   >
                     <i className="fa-solid fa-lock"></i>
                     <input
-                      type={eye1 ? 'text' : 'password'}
+                      type={eye.eye2 ? 'text' : 'password'}
                       placeholder="再次確認密碼"
                       maxLength="16"
                       {...field}
@@ -163,17 +168,17 @@ const Signup = () => {
                         </>
                       )}
                     </ErrorMessage>
-                    <ShowPassword eye={eye1} setEye={setEye1} />
+                    <ShowPassword eye={eye} setEye={setEye} name="eye2" />
                   </div>
                 </>
               )}
-            />
+            </Field>
 
             <div className="siginupBtn">
               <button type="submit">註冊</button>
             </div>
           </div>
-        </form>
+        </Form>
       )}
     </Formik>
   );
