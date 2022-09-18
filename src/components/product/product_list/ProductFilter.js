@@ -1,18 +1,38 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../../../styles/product/_productFilter.scss';
 import { IconContext } from 'react-icons';
 import { IoIosSearch } from 'react-icons/io';
 import { RiArrowDownSFill } from 'react-icons/ri';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 
-// const brandArr = [];
-const ProductFilter = () => {
-  const [brandArr, setBrandArr] = useState(26);
+const ProductFilter = ({
+  total,
+  search,
+  setSearch,
+  checked,
+  setChecked,
+  setBiggerThan,
+  setSmallThan,
+  setSort,
+  count,
+}) => {
+  const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
   const [showBoard, setShowBoard] = useState(false);
   const [brand, setBrand] = useState('');
-  const [search, setSearch] = useState('');
+  const [big, setBig] = useState('');
+  const [small, setSmall] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
+      console.log(result.data);
+      setBrandArr(result.data);
+    })();
+  }, [brand]);
   return (
     <IconContext.Provider
       value={{ color: '#444', size: '1.6rem', className: '' }}
@@ -32,20 +52,8 @@ const ProductFilter = () => {
             <RiArrowDownSFill />
           </div>
           {/* {showBoard && ( */}
-          <div
-            className="filterDisplay"
-            style={{ height: showBoard ? '305px' : '0' }}
-          >
-            <div
-              className="filterBoard"
-              style={{ transform: showBoard ? 'translateY(0px)' : '' }}
-              onMouseOver={() => {
-                setShowBoard(true);
-              }}
-              onMouseOut={() => {
-                setShowBoard(false);
-              }}
-            >
+          <div className="filterDisplay">
+            <div className="filterBoard">
               <div className="brandSection">
                 <div className="brandSearch">
                   <p>品牌</p>
@@ -55,7 +63,6 @@ const ProductFilter = () => {
                     value={brand}
                     onChange={(e) => {
                       setBrand(e.target.value);
-                      console.log(brand.length);
                     }}
                     onKeyDown={(e) => {
                       if (e.keyCode === 13) {
@@ -68,16 +75,33 @@ const ProductFilter = () => {
                   />
                 </div>
                 <div className="d-flex flex-wrap">
-                  {Array(brandArr)
-                    .fill(1)
-                    .map((v, i) => {
-                      return (
-                        <div className="brand" key={i}>
-                          <input type="checkbox" className="checkbox" id={i} />
-                          <label htmlFor={i}>aaaaaa</label>
-                        </div>
-                      );
-                    })}
+                  {brandArr.map((v, i) => {
+                    return (
+                      <div className="brand" key={i}>
+                        <input
+                          type="checkbox"
+                          className="checkbox"
+                          id={i}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              // console.log(v.id);
+                              setChecked([...checked, v.id]);
+                              // console.log(checked);
+                            }
+                            if (!e.target.checked) {
+                              let newArr = checked.filter((v2) => {
+                                return v.id !== v2;
+                              });
+                              setChecked(newArr);
+                              console.log(v.id);
+                            }
+                            console.log(checked);
+                          }}
+                        />
+                        <label htmlFor={i}>{v.name}</label>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               <div className="priceSection">
@@ -87,6 +111,8 @@ const ProductFilter = () => {
                     className={`${price === '所有' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('所有');
+                      setBiggerThan('');
+                      setSmallThan('');
                     }}
                   >
                     所有
@@ -97,6 +123,8 @@ const ProductFilter = () => {
                     className={`${price === '1000-3000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('1000-3000');
+                      setBiggerThan(1000);
+                      setSmallThan(3000);
                     }}
                   >
                     $1,000 - $3,000
@@ -105,6 +133,8 @@ const ProductFilter = () => {
                     className={`${price === '3000-5000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('3000-5000');
+                      setBiggerThan(3000);
+                      setSmallThan(5000);
                     }}
                   >
                     $3,000 - $5,000
@@ -113,6 +143,8 @@ const ProductFilter = () => {
                     className={`${price === '5000-10000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('5000-10000');
+                      setBiggerThan(5000);
+                      setSmallThan(1000);
                     }}
                   >
                     $5,000 - $10,000
@@ -121,6 +153,8 @@ const ProductFilter = () => {
                     className={`${price === '10000' ? 'active' : ''}`}
                     onClick={() => {
                       setPrice('10000');
+                      setBiggerThan(10000);
+                      setSmallThan('');
                     }}
                   >
                     $10,000以上
@@ -128,9 +162,28 @@ const ProductFilter = () => {
                 </div>
                 <div className="priceSearch">
                   <p className="mx-2">NT$</p>
-                  <input className="mx-2" type="number" min={0} />
+                  <input
+                    className="mx-2"
+                    type="number"
+                    min={0}
+                    onChange={(e) => {
+                      setBiggerThan(e.target.value);
+                      setBig(e.target);
+                      // console.log(big);
+                    }}
+                  />
                   <p className="mx-2">-</p>
-                  <input className="mx-2" type="number" min={0} />
+                  <input
+                    className="mx-2"
+                    type="number"
+                    min={0}
+                    max={100000}
+                    onChange={(e) => {
+                      setSmallThan(e.target.value);
+                      setSmall(e.target.value);
+                      // console.log(small);
+                    }}
+                  />
                   <IconContext.Provider
                     value={{
                       color: '#817161',
@@ -140,8 +193,10 @@ const ProductFilter = () => {
                   >
                     <BsFillArrowRightSquareFill
                       className="mx-2 pointer"
-                      onClick={() => {
-                        console.log('');
+                      onClick={(e) => {
+                        // console.log('');
+                        setBiggerThan(big);
+                        setSmallThan(small);
                       }}
                     />
                   </IconContext.Provider>
@@ -151,11 +206,15 @@ const ProductFilter = () => {
           </div>
           {/* )} */}
         </div>
-        <select className="filterPopular">
-          <option value="">熱門程度優先</option>
-          <option value="">最新商品</option>
-          <option value="">2</option>
-          <option value="">3</option>
+        <select
+          className="filterPopular"
+          onChange={(e) => {
+            setSort(e.target.value);
+          }}
+        >
+          <option value="0">預設</option>
+          <option value="1">熱門程度優先</option>
+          <option value="2">最新商品</option>
         </select>
         <div className="d-flex">
           <input
@@ -171,7 +230,9 @@ const ProductFilter = () => {
             <IoIosSearch />
           </button>
         </div>
-        <p>1 ~ 12 筆 (共 24 筆)</p>
+        <p>
+          {count + 1} ~ 12 筆 (共 {total} 筆)
+        </p>
       </div>
     </IconContext.Provider>
   );

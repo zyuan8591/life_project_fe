@@ -6,11 +6,13 @@ import ProductRecommend from './ProductRecommend';
 import ProductRecipe from './ProductRecipe';
 import '../../../styles/product/_productTabContent.scss';
 
-const ProductTabContent = ({ tabNow, setTabNow }) => {
+const ProductTabContent = ({ tabNow, setTabNow, spec }) => {
+  console.log(spec);
+
   const tabs = [
     <ProductIntro />,
     <ProductComment />,
-    <ProductSpec />,
+    <ProductSpec spec={spec} />,
     <ProductRecommend />,
     <ProductRecipe />,
   ];

@@ -1,69 +1,82 @@
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
+import { API_URL } from '../../../utils/config';
+import axios from 'axios';
 
-const Product = () => {
+const Product = ({ productList }) => {
   return (
     <div className="productContainer">
-      {Array(12)
-        .fill(1)
-        .map((v, i) => {
-          return (
-            <div className="products" key={i}>
-              <Link
-                to="/products/:id"
+      {productList.map((v, i) => {
+        const { id, name, price, brand, img, color, img2 } = v;
+        return (
+          <div
+            className="products"
+            key={i}
+            onMouseOver={(e) => {
+              e.target.src = `/img/product/product_img/${img2}`;
+            }}
+            onMouseOut={(e) => {
+              e.target.src = `/img/product/product_img/${img}`;
+            }}
+          >
+            {' '}
+            <div className="productHoverContainer">
+              <div className="productHover">
+                <IconContext.Provider
+                  value={{
+                    color: 'white',
+                    size: '2rem',
+                    margin: '5px',
+                  }}
+                >
+                  <div
+                    onClick={() => {
+                      console.log('h');
+                    }}
+                  >
+                    <HiOutlineHeart />
+                  </div>
+                  <IoCartOutline
+                    onClick={(e) => {
+                      console.log('c');
+                    }}
+                  />
+                </IconContext.Provider>
+              </div>
+            </div>
+            <Link to={`/products/${id}`} className="link">
+              <div
                 className="hoverArea "
-                onMouseOver={(e) => {
-                  e.target.src =
-                    '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
-                }}
-                onMouseOut={(e) => {
-                  e.target.src =
-                    '/img/product/product_img/BRUNO_BOE021_RD_01.jpeg';
+                onClick={(e) => {
+                  console.log('h');
                 }}
               >
                 <div className="productImg">
-                  <div className="productHover">
-                    <IconContext.Provider
-                      value={{
-                        color: 'white',
-                        size: '2rem',
-                        margin: '5px',
-                      }}
-                    >
-                      <HiOutlineHeart
-                        onClick={() => {
-                          console.log('h');
-                        }}
-                      />
-                      <IoCartOutline
-                        onClick={() => {
-                          console.log('c');
-                        }}
-                      />
-                    </IconContext.Provider>
-                  </div>
-                  <img
-                    src="/img/product/product_img/BRUNO_BOE021_RD_01.jpeg"
-                    alt=""
-                  />
+                  <img src={`/img/product/product_img/${img}`} alt="" />
                 </div>
-              </Link>
-              <div className="nameArea">
-                <p className="name">BOE021 多功能電烤盤-經典款</p>
-                <p className="color">紅色</p>
               </div>
-              <div className="brandArea">
-                <p className="brand">BRUNO</p>
-                <p className="price">NT$ 3,290</p>
-              </div>
+            </Link>
+            <div className="nameArea">
+              <p className="name">{name}</p>
+              <p className="color">{color}</p>
             </div>
-          );
-        })}
+            <div className="brandArea">
+              <p className="brand">{brand}</p>
+              <p className="price">
+                NT${' '}
+                {price
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+              </p>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };

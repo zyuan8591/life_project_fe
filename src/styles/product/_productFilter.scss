@@ -16,16 +16,27 @@
     justify-content: space-between;
     position: relative;
   }
+  &:hover .filterDisplay {
+    transform: translateY(0px);
+    display: block;
+  }
+  .filterBrand:hover .filterDisplay {
+    // transform: translateY(0px);
+    display: block;
+  }
   .filterDisplay {
     height: 305px;
     width: 1205px;
     overflow: hidden;
     position: absolute;
     left: -3px;
+    z-index: 100;
     // display: none;
+    display: none;
+    transition: 0.3s;
+    // transform: translateY(-310px);
     .filterBoard {
-      transform: translateY(-310px);
-      transition: .3s;
+      transition: 0.3s;
       max-width: 1200px;
       min-height: 300px;
       overflow: hidden;
@@ -35,6 +46,7 @@
       box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25);
       padding: 15px 30px;
       background: $mainClrW;
+      transition: 0.3s;
       .brandSection {
         display: flex;
         padding-bottom: 15px;

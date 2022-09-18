@@ -1,16 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from '../../styles/moduleCss/contact/contact.module.scss';
 import { AiOutlineMinus, AiOutlineClose, AiOutlineSend } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
+import io from 'socket.io-client';
+import { useUserRights } from '../../usecontext/UserRights';
+import { v4 as uuidv4 } from 'uuid';
+import { AiOutlineComment } from 'react-icons/ai';
 
 const Contact = () => {
+  // check is chat or not
   const [chat, setChat] = useState(false);
+  // const { user, setUser } = useUserRights();
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
 
-  const Message = ({ person, msg }) => {
+  useEffect(() => {
+    // 加上是否已經連線的檢查
+    if (!socket) {
+      console.log('socket connected');
+      let ws = io('http://localhost:3001');
+      setSocket(ws);
+
+      ws.on('chat', (msg) => {
+        // 這裡的 messages 會一直抓到原始的值 []
+        console.log('來自後端的訊息', msg, messages.length);
+        // 要用這樣的方式寫，但為什麼？
+        setMessages(function (prevState, props) {
+          return [{ id: uuidv4(), role: 'life', content: msg }, ...prevState];
+        });
+      });
+    }
+  }, []);
+
+  function messageSubmit() {
+    // 把訊息送到後端去
+    if (message) {
+      socket.emit('life', message);
+      setMessages([
+        { id: uuidv4(), role: 'user', content: message },
+        ...messages,
+      ]);
+      setMessage('');
+    }
+  }
+
+  function buttonSubmit(e) {
+    e.preventDefault();
+    messageSubmit();
+  }
+  function enterSubmit(e) {
+    if (e.keyCode === 13) {
+      messageSubmit();
+    }
+  }
+
+  const Message = ({ role, msg }) => {
     return (
       <div
         className={`px-3 py-1 mb-2 rounded-pill ${
-          person === 'user' ? `align-self-end` : ''
+          role === 'user' ? `align-self-end` : ''
         } bg-white ${classes.myMsg} ${classes.msg}`}
       >
         {msg}
@@ -21,14 +70,12 @@ const Contact = () => {
   return (
     <>
       <div
-        className={`${classes.contactAvator} cursorPointer position-fixed end-0 rounded-circle me-3`}
-        onClick={() => setChat(true)}
+        className={`${classes.contactAvator} cursorPointer position-fixed end-0 rounded-circle me-3 flexCenter`}
+        onClick={() => setChat(!chat)}
       >
-        <img
-          src="/img/index/chatRoomImg.png"
-          alt="chatRoomImg"
-          className="objectContain"
-        />
+        <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+          <AiOutlineComment />
+        </IconContext.Provider>
       </div>
       {/* Chat box */}
       {chat && (
@@ -39,7 +86,7 @@ const Contact = () => {
           <div
             className={`${classes.chatBoxHeader} px-3 py-1 d-flex justify-content-between align-items-center`}
           >
-            <span className="life fs-2 text-white">LIFE</span>
+            <span className="life fs-2 text-white userSelectNone">LIFE</span>
             <div className={`${classes.chatBoxControl} d-flex gap-2`}>
               <IconContext.Provider value={{ color: 'white', size: '1.5rem' }}>
                 <button
@@ -61,32 +108,29 @@ const Contact = () => {
           <div
             className={`${classes.chatDisplay} mw-100 ms-4 d-flex flex-column-reverse py-3 pe-3 overflow-auto`}
           >
-            <Message person="user" msg="456" />
-            <Message person="user" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
-            <Message person="life" msg="123" />
+            {messages.map((m) => {
+              return (
+                <Message key={m.id} role={m.role} msg={m.content}></Message>
+              );
+            })}
           </div>
 
           {/* Chat type msg */}
           <div
             className={`${classes.chatSendMsg} mb-2 position-absolute bottom-0 start-0 d-flex align-items-center justify-content-evenly w-100`}
           >
-            <input type="text" className="rounded-pill px-3 py-1" />
+            <input
+              type="text"
+              className="rounded-pill px-3 py-1"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={enterSubmit}
+            />
             <IconContext.Provider value={{ color: '#444', size: '1.6rem' }}>
-              <button className="flexCenter bg-transparent border-0">
+              <button
+                className="flexCenter bg-transparent border-0"
+                onClick={buttonSubmit}
+              >
                 <AiOutlineSend />
               </button>
             </IconContext.Provider>
