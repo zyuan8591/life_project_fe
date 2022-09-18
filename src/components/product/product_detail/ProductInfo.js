@@ -30,6 +30,9 @@ const ProductInfo = ({ data }) => {
   const pic = `/img/product/product_img/${img}`;
 
   const arr = [img, img2, img3];
+  const newArr = arr.filter((v) => {
+    return v !== '';
+  });
   const [quantity, setQuantity] = useState(1);
   const [mainPhoto, setMainPic] = useState('');
 
@@ -53,7 +56,7 @@ const ProductInfo = ({ data }) => {
             />
           </figure>
           <div className="d-flex mt-3">
-            {arr.map((v, i) => {
+            {newArr.map((v, i) => {
               return (
                 <figure
                   className="subPic"
