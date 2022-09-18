@@ -104,6 +104,13 @@ const Recipes = () => {
     setProductCateNow(productCateQuery);
   }, [searchParams]);
 
+  // const set product category for component
+  const setProductCateNowFunc = (id) => {
+    const params = Object.fromEntries([...searchParams]);
+    params['productCate'] = id;
+    setSearchParams(params);
+  };
+
   // set page to 1
   useEffect(() => {
     setPageNow(1);
@@ -228,7 +235,7 @@ const Recipes = () => {
         {/* Main Section */}
         <div className="recipeListMain">
           <div className="position-sticky top-0 align-self-start">
-            <ProductCategory />
+            <ProductCategory setProductCateNow={setProductCateNowFunc} />
           </div>
           <div className="recipeList">
             {/* Choose mode and filter */}
