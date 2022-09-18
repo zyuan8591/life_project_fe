@@ -66,6 +66,7 @@ const ProductList = () => {
   useEffect(() => {
     setPageNow(1);
   }, [productCateNow, search, checked]);
+
   return (
     <>
       <Header />

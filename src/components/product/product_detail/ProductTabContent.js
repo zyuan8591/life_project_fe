@@ -7,8 +7,6 @@ import ProductRecipe from './ProductRecipe';
 import '../../../styles/product/_productTabContent.scss';
 
 const ProductTabContent = ({ tabNow, spec }) => {
-  console.log(spec);
-
   const tabs = [
     <ProductIntro />,
     <ProductComment />,

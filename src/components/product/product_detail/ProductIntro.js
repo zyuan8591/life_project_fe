@@ -11,7 +11,7 @@ const ProductIntro = () => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/${id}/detailImg`);
       setImg(result.data);
-      console.log(result.data);
+      // console.log(result.data);
     })();
   }, [id]);
   return (
