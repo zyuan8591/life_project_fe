@@ -19,12 +19,12 @@ const dragBtn = css`
   cursor: move;
 `;
 
-const RecipeMaterial = ({ i, delHandler, onchange, data, demo }) => {
+const RecipeMaterial = ({ i, delHandler, onchange, data, demo, edit }) => {
   const [materialName, setMaterialName] = useState('');
   const [materialQ, setMaterialQ] = useState('');
   // for demo
   useEffect(() => {
-    if (demo) {
+    if (demo || edit) {
       setMaterialName(data.name);
       setMaterialQ(data.quantity);
     }

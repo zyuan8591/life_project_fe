@@ -297,10 +297,7 @@ const Recipes = () => {
         {/* Create Recipe Form */}
         {searchParams.get('add') === 'true' && (
           <section className="creatingRecipe flexCenter">
-            <RecipeCreateForm
-              closeCreateRecipe={closeRecipeHandler}
-              recipeCate={recipeCate}
-            />
+            <RecipeCreateForm closeCreateRecipe={closeRecipeHandler} />
           </section>
         )}
       </div>
