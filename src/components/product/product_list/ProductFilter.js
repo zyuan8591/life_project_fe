@@ -18,10 +18,11 @@ const ProductFilter = ({
   setSmallThan,
   setSort,
   count,
+  countNow,
 }) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
-  const [showBoard, setShowBoard] = useState(false);
+  const [showBoard, setShowBoard] = useState(true);
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
@@ -47,13 +48,32 @@ const ProductFilter = ({
             onMouseOut={() => {
               setShowBoard(false);
             }}
+            // onClick={() => {
+            //   setShowBoard(!showBoard);
+            // }}
           >
             <p>篩選廠商、價格...</p>
             <RiArrowDownSFill />
           </div>
           {/* {showBoard && ( */}
-          <div className="filterDisplay">
-            <div className="filterBoard">
+          <div
+            className="filterDisplay"
+            style={{
+              height: showBoard ? '305px' : '0',
+            }}
+          >
+            <div
+              className="filterBoard"
+              style={{
+                transform: showBoard ? 'translateY(0px)' : '',
+              }}
+              onMouseOver={() => {
+                setShowBoard(true);
+              }}
+              onMouseOut={() => {
+                setShowBoard(false);
+              }}
+            >
               <div className="brandSection">
                 <div className="brandSearch">
                   <p>品牌</p>
@@ -231,7 +251,8 @@ const ProductFilter = ({
           </button>
         </div>
         <p>
-          {count + 1} ~ 12 筆 (共 {total} 筆)
+          {total === 0 ? '' : `${count + 1} ~ ${countNow} 筆`}
+          (共 {total} 筆)
         </p>
       </div>
     </IconContext.Provider>
