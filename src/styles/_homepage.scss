@@ -42,4 +42,12 @@
     background: $hoverClr;
     margin: 5rem 0;
   }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $contentClr;
+    text-decoration: none;
+  }
 }
