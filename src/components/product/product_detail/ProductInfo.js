@@ -22,6 +22,8 @@ const ProductInfo = ({ data }) => {
   let split = '';
   if (intro.includes(' ')) {
     split = intro.split(' ');
+  } else if (intro.includes(',')) {
+    split = intro.split(',');
   } else {
     split = intro.split('，');
   }
@@ -70,7 +72,7 @@ const ProductInfo = ({ data }) => {
           <div className="brand">{brand}</div>
           <div className="name">{name}</div>
           <div className="promotion">宅配滿NT$888免運</div>
-          <div className="test">
+          <div>
             <div className="price">
               NT${' '}
               {JSON.stringify(price).replace(
