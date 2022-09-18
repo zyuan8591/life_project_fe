@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { useSearchParams } from 'react-router-dom';
-import { type } from '@testing-library/user-event/dist/type';
+import { API_URL_IMG } from '../../../utils/config';
 
 const subClrBrown = '#817161';
 const title = css`
@@ -19,7 +19,7 @@ const recommend = css`
   border: 2px solid ${subClrBrown};
 `;
 const avatorContainer = css`
-  max-width: 80px;
+  max-width: 70px;
 `;
 const borderBottom = css`
   border-bottom: 1px solid ${subClrBrown};
@@ -40,7 +40,6 @@ const commentSubmitBtn = css`
 `;
 
 const RecipeComments = ({ data, setData, setRecipeData }) => {
-  console.log('comment', typeof data);
   const [comment, setComment] = useState('');
   const [searchParams] = useSearchParams();
 
@@ -52,13 +51,8 @@ const RecipeComments = ({ data, setData, setRecipeData }) => {
   const commentSubmit = async (e) => {
     await axios.post(
       `${API_URL}/recipes/${id}/comment`,
-      {
-        user_id: 5,
-        comment,
-      },
-      {
-        withCredentials: true,
-      }
+      { comment },
+      { withCredentials: true }
     );
     // recipe detail
     let result = await axios.get(`${API_URL}/recipes/${id}`);
@@ -85,19 +79,19 @@ const RecipeComments = ({ data, setData, setRecipeData }) => {
               css={recommend}
               key={d.id}
             >
-              <figure css={avatorContainer} className="m-0">
+              <figure css={avatorContainer} className="m-0 p-1">
                 <img
-                  src="/img/user/user_img/alen.png"
+                  src={`${API_URL_IMG}${d.photo}`}
                   alt=""
                   className="objectContain"
                 />
               </figure>
-              <div className="d-flex flex-column w-100 px-3">
+              <div className="d-flex flex-column w-100 ps-2 pe-3">
                 <div
                   css={borderBottom}
                   className="d-flex justify-content-between"
                 >
-                  <span>{d.user_id}</span>
+                  <span>{d.name}</span>
                   <span>{d.create_time.replace(/-/g, '.')}</span>
                 </div>
 

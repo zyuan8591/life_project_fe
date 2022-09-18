@@ -50,10 +50,10 @@ const userNav = [
   },
   {
     title: '食譜一覽',
-    url: '/users/recipe',
+    url: '/users/recipe?p=1',
     item: [
-      { title: '我的食譜', url: 'recipe' },
-      { title: '食譜收藏', url: 'recipe' },
+      { title: '我的食譜', url: 'recipe?p=1' },
+      { title: '食譜收藏', url: 'recipe?p=2' },
     ],
   },
   {

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import React from 'react';
+import { API_URL_IMG } from '../../../utils/config';
 
 const container = css`
   .eggIcon {
@@ -61,7 +62,7 @@ const RecipeStepItem = ({ i, img, content, position }) => {
         css={recipeImgContainer}
       >
         <img
-          src={`/img/recipe/recipe_step_img/${img}`}
+          src={`${API_URL_IMG}${img}`}
           alt=""
           css={eggIcon}
           className="objectContain"

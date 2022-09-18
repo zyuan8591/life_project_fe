@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import classes from '../../../styles/moduleCss/recipeDetail/recipeSlide.module.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
 
 const RecipeSlide = () => {
   const slideRef = useRef(null);
@@ -61,7 +61,7 @@ const RecipeSlide = () => {
                   className={` ${classes.imgContainer} m-0 transition rounded-1 overflow-hidden`}
                 >
                   <img
-                    src={`/img/recipe/recipe_img/${d.image}`}
+                    src={`${API_URL_IMG}${d.image}`}
                     alt={d.name}
                     className="objectContain"
                   />
