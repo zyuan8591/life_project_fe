@@ -39,7 +39,7 @@ function LocationMarker() {
   });
 
   const customIcon = new Icon({
-    iconUrl: '/img/user/user_img/kerp.png',
+    iconUrl: '/img/user/user_img/userAvatar/kerp.png',
     iconSize: [30, 35],
     // iconAnchor: [0, 0],
     // popupAnchor: [-0, -76]
@@ -232,7 +232,7 @@ function SetMap() {
                   position={[25.10542873699434, 121.52266751703542]}
                   icon={
                     new Icon({
-                      iconUrl: '/img/user/user_img/kerp.png',
+                      iconUrl: '/img/user/user_img/userAvatar/kerp.png',
                       iconSize: [30, 35],
                     })
                   }
