@@ -14,14 +14,21 @@ const ProductComment = () => {
   const { id } = useParams();
   const star = solid + 1;
   const submit = async () => {
+    console.log(writeComment);
     await axios.post(
       `${API_URL}/products/${id}/comment`,
-      { comment, star },
+      { writeComment, star },
       { withCredentials: true }
     );
     let result = await axios.get(`${API_URL}/products/${id}/productComment`);
     setComment(result.data);
   };
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/${id}/productComment`);
+      setComment(result.data);
+    })();
+  }, []);
 
   return (
     <>
