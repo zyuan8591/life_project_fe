@@ -1,0 +1,23 @@
+@import '../variable';
+
+.backstageAddPage{
+    position: relative;
+    top: $headerHeight;
+    height: calc(100vh - $headerHeight) ;
+    margin: 0 auto;
+}
+
+.input{
+    width: 160px;
+    height: 32px;
+    padding: 2px;
+    border: 2px solid $subClrGY;
+    outline: none;
+    &:focus{
+    border: 2px solid $subClrBrown;
+    }
+}
+.imgInput{
+   background: $hoverClr;
+   padding: 20px; 
+}
