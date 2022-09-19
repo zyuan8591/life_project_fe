@@ -11,7 +11,6 @@ function PlaceSlide({ placeSlider, mapDataId }) {
   const newDistance = (distance) => {
     return Math.floor(distance);
   };
-
   return (
     <>
       <div className={classes.slide}>
@@ -22,6 +21,16 @@ function PlaceSlide({ placeSlider, mapDataId }) {
           <IconContext.Provider value={{ color: '#444', size: '1.5rem' }}>
             {/* card 更換 */}
             {mapDataId.map((v) => {
+              const allJoin = v.users;
+              const joinSlice = allJoin.slice(0, 3);
+              const allJoinL = allJoin.length;
+              //console.log(joinSlice);
+
+              const countAll = (count) => {
+                const total = count - 3;
+                return `+${total}`;
+              };
+
               return (
                 <div className={classes.placeSliderContainer} key={v.id}>
                   <div className={classes.contentDate}>{v.activity_date}</div>
@@ -33,19 +42,38 @@ function PlaceSlide({ placeSlider, mapDataId }) {
                     </div>
                   </div>
                   <div className={classes.contentDistance}>
-                    距離當前活動： {newDistance(v.distance)} 公尺
+                    距離當前活動： {newDistance(v.distance)} km
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
-                      <div className={classes.contentImg}>
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
-                      <div className={classes.contentImg}>
-                        <img src="/img/user/company_icon/aarke.jpg" alt="" />
-                      </div>
+                      {joinSlice.map((v) => {
+                        return (
+                          <div className="d-flex" key={v.id}>
+                            <div style={{ marginLeft: '-4px' }}>
+                              <div className={classes.contentImg}>
+                                <img
+                                  src={`/img/user/user_img/${v.photo}`}
+                                  alt="/"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                      {allJoinL < 4 ? (
+                        ''
+                      ) : (
+                        <div className="d-flex" key={v.id}>
+                          <div className={classes.addCount}>
+                            <div className="countNumber">
+                              {countAll(allJoinL)}
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <Link
-                      to="/activity/camping/1"
+                      to={`/activity/camping/${v.id}`}
                       className={classes.contentBtn}
                     >
                       更多詳情

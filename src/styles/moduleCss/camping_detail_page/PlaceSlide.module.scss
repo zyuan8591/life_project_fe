@@ -37,11 +37,26 @@
                 border: 1px solid $subClrGY;
                 border-radius: 50%;
                 overflow: hidden;
-                margin-right: 5px;
+                margin-right: -5px;
                 img{
                     width: 100%;
                     object-fit: cover;
+                    background: $mainClrW;
                 }
+            }
+            .addCount{
+                width: 35px;
+                height: 35px;
+                border: 1px solid $subClrGY;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-left: -5px;
+                background: $hoverClr;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                color: $subClrBrown;
             }
             .contentBtn{
                 font-size: $text14;
@@ -56,9 +71,98 @@
                 background-color: #f2ab31df;
                 color: $mainClrW;
                 border: 2px solid $subClrBrown;
+                .addCount{
+                    color: $subClrBrown;
+                    background: $mainClrW;
+                }
                 .contentBtn{
                     background-color: $focusClrG;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:375px) {
+    .slide{
+        // max-width:1375px;
+        // overflow: hidden;
+        // position: relative;
+        .placeSlider{
+            // left:0;
+            // margin-bottom: 50px;
+            // width:5000px;
+            // align-items: center;
+            // position: relative;
+            // transform: translateX(-275px);
+            .placeSliderContainer{
+                // display: inline-block;
+                width: 245px;
+                // padding: 20px;
+                // margin: 20px;                
+                // border: 2px solid $focusClrY;
+                // transition: .3s;
+                // .contentDate{
+                //     font-size: $text12;
+                // }
+                // .contentName{
+                //     font-size: $contentText;
+                //     padding: 8px 0 25px;
+                // }
+                // .contentCounty{
+                //     font-size: $text14;
+                // }
+                // .contentDistance{
+                //     font-size: $text12;
+                //     padding: 15px 0;
+                // }
+                // .contentImg{
+                //     max-width: 35px;
+                //     border: 1px solid $subClrGY;
+                //     border-radius: 50%;
+                //     overflow: hidden;
+                //     margin-right: -5px;
+                //     img{
+                //         width: 100%;
+                //         object-fit: cover;
+                //         background: $mainClrW;
+                //     }
+                // }
+                // .addCount{
+                //     width: 35px;
+                //     height: 35px;
+                //     border: 1px solid $subClrGY;
+                //     border-radius: 50%;
+                //     overflow: hidden;
+                //     margin-left: -5px;
+                //     background: $hoverClr;
+                //     display: flex;
+                //     align-items: center;
+                //     justify-content: center;
+                //     font-weight: 600;
+                //     color: $subClrBrown;
+                // }
+                .contentBtn{
+                    font-size: $text12;
+                    // padding: 6px 10px;
+                    // background-color: $focusClrY;
+                    // border-radius: 15px;
+                    // border: 0;
+                    // color: $mainClrW;
+                    // transition: .3s;
+                }
+                // &:hover{
+                //     background-color: #f2ab31df;
+                //     color: $mainClrW;
+                //     border: 2px solid $subClrBrown;
+                //     .addCount{
+                //         color: $subClrBrown;
+                //         background: $mainClrW;
+                //     }
+                //     .contentBtn{
+                //         background-color: $focusClrG;
+                //     }
+                // }
             }
         }
     }

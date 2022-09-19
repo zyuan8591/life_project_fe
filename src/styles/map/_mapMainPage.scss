@@ -1,0 +1,65 @@
+@import '../variable';
+
+.mapMainContain{
+    position: relative;
+    color: $contentClr;
+    .mapContain{
+        display: flex;
+        justify-content: center;
+        .leaflet-container{
+            height: calc(100vh - $headerHeight) ;
+            width: 1500px;
+            z-index: 10;
+            .map{
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    .linkBtn{
+        z-index: 20;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: $text32;
+        color: $mainClrW;
+        background: $focusClrY;
+        padding: 15px 35px;
+        
+    }
+    &::before{
+            content: '';
+            position: absolute;
+            width: 1500px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            background: rgba(68, 68, 68, 0.597);
+            margin: 0 auto;
+        }
+    
+}
+
+@media screen and (max-width:375px) {
+    .mapMainContain{
+        .mapContain{
+            .leaflet-container{
+                height: 300px;
+                width: 350px;
+                margin-bottom: 40px;
+            }
+        }
+        .linkBtn{
+            transform: translate(-50%, -90%);
+            font-size: 18px;
+            padding: 10px 15px;
+        }
+        &::before{
+                width: 350px;
+                height: 300px;
+        }
+    } 
+}
