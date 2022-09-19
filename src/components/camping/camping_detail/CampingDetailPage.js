@@ -26,6 +26,7 @@ import CampingDetailInfo from './component/CampingDetailInfo';
 import CampingDetailJoinSlide from './component/CampingDetailJoinSlide';
 import CampingDetailAside from './component/CampingDetailAside';
 import Weather from '../../weather/Weather';
+import MapAside from '../../map/component/MapAside';
 import { useUserRights } from '../../../usecontext/UserRights';
 const stateClassName = (state) => {
   switch (state) {
@@ -119,6 +120,7 @@ function CampingDetailPage() {
   const [mapDataId, setMapDataId] = useState([]);
   const [mapDataIdLength, setMapDataIdLength] = useState('');
   const [loading, setLoading] = useState(false);
+  // const [joinLink, setJoinLink] = useState(false);
 
   // console.log(campingId);
 
@@ -284,7 +286,7 @@ function CampingDetailPage() {
               <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
               <div className="row">
                 {/* 左側 */}
-                <div className="col-8" style={{ backgroundColor: 'white' }}>
+                <div className="col-12 col-sm-8">
                   <div className="mainTitle">
                     <div className="title">{v.title}</div>
 
@@ -435,7 +437,9 @@ function CampingDetailPage() {
                       </IconContext.Provider>
                     </div>
                     {/* weather */}
-                    <Weather />
+                    <div className="p-view">
+                      <Weather />
+                    </div>
                   </div>
                   {/* title img */}
                   <div className="ContainerImg">
@@ -468,68 +472,138 @@ function CampingDetailPage() {
                   />
 
                   {/* join */}
-                  <IconContext.Provider
-                    value={{ color: '#817161', size: '2rem' }}
-                  >
-                    {detailData.map((v) => {
-                      return (
-                        <div className="joinUserTitle" key={v.id}>
-                          參加者（{v.pepcount}/{v.join_limit}）
-                        </div>
-                      );
-                    })}
-
-                    <div className="joinSlide">
-                      {joinLength < 6 ? (
-                        ''
-                      ) : (
-                        <>
-                          <div className="sliderLeft">
-                            <IoIosArrowDropleftCircle
-                              onClick={() => {
-                                sliderAllLeft(185, 5);
-                              }}
-                            />
+                  {/* p-view */}
+                  <div className="p-view">
+                    <IconContext.Provider
+                      value={{ color: '#817161', size: '2rem' }}
+                    >
+                      {detailData.map((v) => {
+                        return (
+                          <div className="joinUserTitle" key={v.id}>
+                            參加者（{v.pepcount}/{v.join_limit}）
                           </div>
-                          <div className="sliderRight">
-                            <IoIosArrowDroprightCircle
-                              onClick={() => {
-                                sliderAllRight(185, joinLength, 5);
-                              }}
-                            />
-                          </div>
-                        </>
-                      )}
+                        );
+                      })}
 
-                      <div className="joinContainer">
-                        <div className="slide">
-                          {joinLength !== 0 ? (
-                            joinCount.map((v) => {
-                              return (
-                                <CampingDetailJoinSlide
-                                  key={v.id}
-                                  joinSlider={joinSlider}
-                                  v={v}
-                                />
-                              );
-                            })
-                          ) : (
-                            <div
-                              className="ms-4 mt-4"
-                              style={{ fontSize: '16px', color: '#1F9998' }}
-                            >
-                              暫無會員加入
+                      {/* joinslide */}
+                      <div className="joinSlide">
+                        {joinLength < 6 ? (
+                          ''
+                        ) : (
+                          <>
+                            <div className="sliderLeft">
+                              <IoIosArrowDropleftCircle
+                                onClick={() => {
+                                  sliderAllLeft(185, 5);
+                                }}
+                              />
                             </div>
-                          )}
+                            <div className="sliderRight">
+                              <IoIosArrowDroprightCircle
+                                onClick={() => {
+                                  sliderAllRight(185, joinLength, 5);
+                                }}
+                              />
+                            </div>
+                          </>
+                        )}
+
+                        {/* slide contain */}
+                        <div className="joinContainer">
+                          <div className="slide">
+                            {joinLength !== 0 ? (
+                              joinCount.map((v) => {
+                                return (
+                                  <CampingDetailJoinSlide
+                                    key={v.id}
+                                    joinSlider={joinSlider}
+                                    v={v}
+                                  />
+                                );
+                              })
+                            ) : (
+                              <div
+                                className="ms-4 mt-4"
+                                style={{ fontSize: '16px', color: '#1F9998' }}
+                              >
+                                暫無會員加入
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </IconContext.Provider>
+                    </IconContext.Provider>
+                  </div>
+                  {/* ------ */}
+
+                  {/* m-view */}
+                  <div className="m-view flex-column">
+                    <IconContext.Provider
+                      value={{ color: '#817161', size: '2rem' }}
+                    >
+                      {detailData.map((v) => {
+                        return (
+                          <div className="joinUserTitle" key={v.id}>
+                            參加者（{v.pepcount}/{v.join_limit}）
+                          </div>
+                        );
+                      })}
+
+                      {/* joinslide */}
+                      <div className="joinSlide">
+                        {joinLength < 3 ? (
+                          ''
+                        ) : (
+                          <>
+                            <div className="sliderLeft">
+                              <IoIosArrowDropleftCircle
+                                onClick={() => {
+                                  sliderAllLeft(155, 2);
+                                }}
+                              />
+                            </div>
+                            <div className="sliderRight">
+                              <IoIosArrowDroprightCircle
+                                onClick={() => {
+                                  sliderAllRight(155, joinLength, 2);
+                                }}
+                              />
+                            </div>
+                          </>
+                        )}
+
+                        {/* slide contain */}
+                        <div className="joinContainer">
+                          <div className="slide">
+                            {joinLength !== 0 ? (
+                              joinCount.map((v) => {
+                                return (
+                                  <CampingDetailJoinSlide
+                                    key={v.id}
+                                    joinSlider={joinSlider}
+                                    v={v}
+                                  />
+                                );
+                              })
+                            ) : (
+                              <div
+                                className="ms-4 mt-4"
+                                style={{ fontSize: '16px', color: '#1F9998' }}
+                              >
+                                暫無會員加入
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </IconContext.Provider>
+                  </div>
+                  {/* ------ */}
                 </div>
 
                 {/* 右側 aside */}
                 <IconContext.Provider value={{ color: '#444', size: '1.2rem' }}>
-                  <div className="col-4 ">
+                  <div className="col-4 p-view">
                     {detailData.map((v) => {
                       function joinPep() {
                         return v.join_limit - v.pepcount;
@@ -548,7 +622,9 @@ function CampingDetailPage() {
                           handleDelJoin={handleDelJoin}
                           handleAddJoin={handleAddJoin}
                           setLoading={setLoading}
-                        />
+                        >
+                          <MapAside />
+                        </CampingDetailAside>
                       );
                     })}
                   </div>
@@ -556,37 +632,91 @@ function CampingDetailPage() {
               </div>
 
               {/* 商品推薦 */}
-              <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                <div className="productTitle">輕鬆享受露營，猜你會需要...</div>
-                <Slide
-                  contentLength={productLength}
-                  maxWidth={1260}
-                  Slider={productSlider}
-                  setSlider={setProductSlider}
-                  cardWidth={210}
-                  displayContainer={6}
-                >
-                  <ProductSlide
-                    product={product}
-                    productSlider={productSlider}
-                  />
-                </Slide>
+              <div className="p-view">
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  <div className="productTitle">
+                    輕鬆享受露營，猜你會需要...
+                  </div>
+                  <Slide
+                    contentLength={productLength}
+                    maxWidth={1260}
+                    Slider={productSlider}
+                    setSlider={setProductSlider}
+                    cardWidth={210}
+                    displayContainer={6}
+                  >
+                    <ProductSlide
+                      product={product}
+                      productSlider={productSlider}
+                    />
+                  </Slide>
 
-                {/* 地點推薦 */}
-                <div className="placeTitle">
-                  喜歡露營的你，附近的活動還有...
-                </div>
-                <Slide
-                  contentLength={mapDataIdLength}
-                  maxWidth={1375}
-                  Slider={placeSlider}
-                  setSlider={setPlaceSlider}
-                  cardWidth={275}
-                  displayContainer={5}
-                >
-                  <PlaceSlide placeSlider={placeSlider} mapDataId={mapDataId} />
-                </Slide>
-              </IconContext.Provider>
+                  {/* 地點推薦 */}
+                  <div className="placeTitle">
+                    喜歡露營的你，附近的活動還有...
+                  </div>
+                  <Slide
+                    contentLength={mapDataIdLength}
+                    maxWidth={1375}
+                    Slider={placeSlider}
+                    setSlider={setPlaceSlider}
+                    cardWidth={275}
+                    displayContainer={5}
+                  >
+                    <PlaceSlide
+                      placeSlider={placeSlider}
+                      mapDataId={mapDataId}
+                      // setJoinLink={setJoinLink}
+                    />
+                  </Slide>
+                </IconContext.Provider>
+              </div>
+
+              {/* RWD product */}
+              {/* <div className="m-view flex-column">
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  <div className="productTitle">
+                    輕鬆享受露營，猜你會需要...
+                  </div>
+                  <Slide
+                    contentLength={productLength}
+                    maxWidth={1260}
+                    Slider={productSlider}
+                    setSlider={setProductSlider}
+                    cardWidth={210}
+                    displayContainer={6}
+                  >
+                    <ProductSlide
+                      product={product}
+                      productSlider={productSlider}
+                    />
+                  </Slide>
+                </IconContext.Provider>
+              </div> */}
+
+              {/* RWD place */}
+              <div className="m-view flex-column">
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  {/* 地點推薦 */}
+                  <div className="placeTitle">
+                    喜歡露營的你，附近的活動還有...
+                  </div>
+                  <Slide
+                    contentLength={mapDataIdLength}
+                    maxWidth={285}
+                    Slider={placeSlider}
+                    setSlider={setPlaceSlider}
+                    cardWidth={285}
+                    displayContainer={1}
+                  >
+                    <PlaceSlide
+                      placeSlider={placeSlider}
+                      mapDataId={mapDataId}
+                      // setJoinLink={setJoinLink}
+                    />
+                  </Slide>
+                </IconContext.Provider>
+              </div>
             </div>
           </main>
         );

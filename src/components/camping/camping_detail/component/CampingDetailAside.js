@@ -17,6 +17,7 @@ function CampingDetailAside({
   handleDelJoin,
   handleAddJoin,
   setLoading,
+  children,
 }) {
   const priceReplace = (price) => {
     const newPrice = price.toString();
@@ -78,11 +79,9 @@ function CampingDetailAside({
             </div>
           </IconContext.Provider>
         </div>
-        <div className={classes.asideMap}>map</div>
+        {children}
+        {/* <div className={classes.asideMap}>map</div> */}
         <div className="text-center">
-          {/* TODO:已報名---取消報名 */}
-          {/* TODO:更換成icon? */}
-
           {user ? (
             userJoin.includes(v.id) ? (
               <button

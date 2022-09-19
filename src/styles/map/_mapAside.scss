@@ -1,0 +1,26 @@
+@import '../variable';
+
+.mapContain{
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // position: relative;
+    // margin: 0 auto;
+    color: $contentClr;
+    // background-color: lemonchiffon;
+    .mapContain{
+        // display: flex;
+        // justify-content: center;
+        .leaflet-container{
+            height: 180px ;
+            width: 280px;
+            // display: flex;
+            .map{
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    
+    
+}
