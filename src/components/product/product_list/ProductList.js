@@ -28,8 +28,7 @@ const ProductList = () => {
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`,
-        { withCredentials: true }
+        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`
       );
       // console.log(result.data.data);
       // let test = pageNow * result.data.pagination.perPage;

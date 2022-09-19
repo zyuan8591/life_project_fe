@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import classess from '../../styles/product/tools.module.scss';
 import { IconContext } from 'react-icons';
@@ -7,12 +7,17 @@ import { IoCartOutline } from 'react-icons/io5';
 import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineCreditCard } from 'react-icons/ai';
 import { FaTrashAlt } from 'react-icons/fa';
+// import axios from 'axios';
+// import { API_URL } from '../../utils/config';
+import { useUserRights } from '../../usecontext/UserRights';
+
 const img = '/img/product/product_img/BRUNO_BOE021_BGY_01.jpeg';
 const img1 = '/img/product/product_img/BRUNO_BOE021_01.jpeg';
 const img2 = '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
 
 const Tools = () => {
   const [cart, setCart] = useState(false);
+  const [user] = useUserRights();
   const arr = [
     {
       id: 0,
@@ -55,6 +60,12 @@ const Tools = () => {
       img: img2,
     },
   ];
+  console.log(user);
+  useEffect(() => {
+    (async () => {
+      // let result = await axios.get(`${API_URL}/product/${user_id}/like`);
+    })();
+  });
   const [item, setItem] = useState(arr);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
@@ -166,9 +177,6 @@ const Tools = () => {
           >
             {item.map((v, i) => {
               const { id, name, color, img } = v;
-              {
-                /* console.log(item); */
-              }
               return (
                 <div
                   className={classess.item}

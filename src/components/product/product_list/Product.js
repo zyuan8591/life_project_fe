@@ -9,15 +9,6 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
 const Product = ({ productList }) => {
-  const [id, setId] = useState(0);
-  console.log(id);
-  const addProductLike = async () => {
-    await axios.post(
-      `${API_URL}/products/like`,
-      { id },
-      { withCredentials: true }
-    );
-  };
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -44,9 +35,12 @@ const Product = ({ productList }) => {
                   }}
                 >
                   <div
-                    onClick={() => {
-                      setId(id);
-                      // addProductLike();
+                    onClick={async () => {
+                      await axios.post(
+                        `${API_URL}/products/like`,
+                        { id },
+                        { withCredentials: true }
+                      );
                     }}
                   >
                     <HiOutlineHeart />
