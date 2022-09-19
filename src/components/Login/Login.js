@@ -111,7 +111,7 @@ const Login = () => {
           </div>
 
           <div className="forget">
-            <Link to="">忘記密碼 ? </Link>
+            <Link to="/forgot/email">忘記密碼 ? </Link>
           </div>
         </div>
       </form>

@@ -15,7 +15,6 @@ const Signup = () => {
   const [sign, setSign] = useState(false);
   const [error, setError] = useState(null);
 
-  //TODO:新增轉場效果，直接跳轉太詭異
   if (sign) {
     return <Navigate to="/signin/login" />;
   }
@@ -60,7 +59,7 @@ const Signup = () => {
       }}
     >
       {(props) => (
-        <Form >
+        <Form>
           <div className="signup">
             <Field name="name">
               {({ field, meta }) => (
