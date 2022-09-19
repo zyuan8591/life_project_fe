@@ -25,7 +25,10 @@ import PlaceSlide from './component/slider/PlaceSlide';
 import CampingDetailInfo from './component/CampingDetailInfo';
 import CampingDetailJoinSlide from './component/CampingDetailJoinSlide';
 import CampingDetailAside from './component/CampingDetailAside';
+import Weather from '../../weather/Weather';
+import MapAside from '../../map/component/MapAside';
 import { useUserRights } from '../../../usecontext/UserRights';
+import Notification from '../../activity/Notification';
 const stateClassName = (state) => {
   switch (state) {
     case '開團中':
@@ -115,6 +118,17 @@ function CampingDetailPage() {
   const { user, setUser } = useUserRights();
   const [userJoin, setUserJoin] = useState([]);
   const [userCollected, setUserCollected] = useState([]);
+  const [mapDataId, setMapDataId] = useState([]);
+  const [mapDataIdLength, setMapDataIdLength] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [collectConfirm, setCollectConfirm] = useState(false);
+  const [collectCancel, setCollectCancel] = useState(false);
+  const [addActConfirm, setAddActConfirm] = useState(false);
+
+  const [actCencel, setActCencel] = useState(false);
+
+  // const [joinLink, setJoinLink] = useState(false);
 
   // console.log(campingId);
 
@@ -125,7 +139,19 @@ function CampingDetailPage() {
       setDetailData(response.data.result);
       setJoinCount(response.data.joinResult);
     };
+    setLoading(false);
     getCampingDetailData();
+  }, [loading]);
+
+  // mapDisId
+  useEffect(() => {
+    let getCampingMapDis = async () => {
+      let response = await axios.get(`${API_URL}/map/${campingId}`);
+      // console.log(response.data.campingResultL);
+      setMapDataId(response.data.campingResult);
+      setMapDataIdLength(response.data.campingResultL);
+    };
+    getCampingMapDis();
   }, []);
 
   useEffect(() => {
@@ -202,6 +228,11 @@ function CampingDetailPage() {
           return date.replace(/-/g, '/');
         }
 
+        const priceReplace = (price) => {
+          const newPrice = price.toString();
+          return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+        };
+
         const handleAddJoin = async (campingId) => {
           // console.log(campingId);
           let response = await axios.post(
@@ -213,7 +244,10 @@ function CampingDetailPage() {
           setUserJoin(hadJoin);
           console.log('add', response.data);
           //TODO: 改掉alert
-          alert('已加入活動');
+          setAddActConfirm(true);
+          setTimeout(() => {
+            setAddActConfirm(false);
+          }, 2000);
         };
 
         const handleDelJoin = async (campingId) => {
@@ -226,7 +260,10 @@ function CampingDetailPage() {
           setUserJoin(hadJoin);
           console.log('del', response.data);
           //TODO: 改掉alert
-          alert('已取消活動');
+          setActCencel(true);
+          setTimeout(() => {
+            setActCencel(false);
+          }, 2000);
         };
 
         const handleAddCollect = async (campingId) => {
@@ -240,7 +277,10 @@ function CampingDetailPage() {
           let collected = response.data.getCamping.map((v) => v.activity_id);
           setUserCollected(collected);
           // TODO: 修改alert
-          alert('已加入收藏');
+          setCollectConfirm(true);
+          setTimeout(() => {
+            setCollectConfirm(false);
+          }, 2000);
         };
 
         const handleDelCollect = async (campingId) => {
@@ -253,17 +293,69 @@ function CampingDetailPage() {
           let collected = response.data.getCamping.map((v) => v.activity_id);
           setUserCollected(collected);
           // TODO: 修改alert
-          alert('已取消收藏');
+          setCollectCancel(true);
+          setTimeout(() => {
+            setCollectCancel(false);
+          }, 2000);
         };
 
         return (
           <main className="CampingDetailPage" key={v.id}>
+            {collectConfirm ? (
+              <Notification
+                contaninText={'已加入收藏'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {collectCancel ? (
+              <Notification
+                contaninText={'已取消收藏'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {addActConfirm ? (
+              <Notification
+                contaninText={'已加入活動'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {actCencel ? (
+              <Notification
+                contaninText={'已取消活動'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {loginBtn ? (
+              <Notification
+                contaninText={'請先登入會員'}
+                linkTo={'/signin/login'}
+                setLoginBtn={setLoginBtn}
+              />
+            ) : (
+              ''
+            )}
             <div className="main">
               {/* breadCrumb */}
               <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
               <div className="row">
                 {/* 左側 */}
-                <div className="col-8" style={{ backgroundColor: 'white' }}>
+                <div className="col-12 col-sm-8">
                   <div className="mainTitle">
                     <div className="title">{v.title}</div>
 
@@ -321,7 +413,7 @@ function CampingDetailPage() {
                             // className={classes.collect}
                             onClick={() => {
                               // TODO: 改掉alert
-                              alert('請先登入會員');
+                              setLoginBtn(true);
                             }}
                           />
                         </IconContext.Provider>
@@ -342,6 +434,7 @@ function CampingDetailPage() {
                             <MdRemoveCircle
                               onClick={() => {
                                 handleDelJoin(v.id);
+                                setLoading(true);
                               }}
                             />
                           </IconContext.Provider>
@@ -356,6 +449,7 @@ function CampingDetailPage() {
                             <MdAddCircle
                               onClick={() => {
                                 handleAddJoin(v.id);
+                                setLoading(true);
                               }}
                             />
                           </IconContext.Provider>
@@ -400,7 +494,9 @@ function CampingDetailPage() {
                         <div className="titleContent">
                           <FaPaw />
                           <div className="mx-2">報名費用：</div>
-                          <div className="titleText">NT${v.price}</div>
+                          <div className="titleText">
+                            NT${priceReplace(v.price)}
+                          </div>
                         </div>
                         <div className="titleContent">
                           <FaPaw />
@@ -410,15 +506,8 @@ function CampingDetailPage() {
                       </IconContext.Provider>
                     </div>
                     {/* weather */}
-                    <div
-                      style={{
-                        width: '250px',
-                        height: '280px',
-                        border: '1px solid lightBlue',
-                        margin: '25px',
-                      }}
-                    >
-                      weather
+                    <div className="p-view">
+                      <Weather />
                     </div>
                   </div>
                   {/* title img */}
@@ -452,68 +541,138 @@ function CampingDetailPage() {
                   />
 
                   {/* join */}
-                  <IconContext.Provider
-                    value={{ color: '#817161', size: '2rem' }}
-                  >
-                    {detailData.map((v) => {
-                      return (
-                        <div className="joinUserTitle" key={v.id}>
-                          參加者（{v.pepcount}/{v.join_limit}）
-                        </div>
-                      );
-                    })}
-
-                    <div className="joinSlide">
-                      {joinLength < 6 ? (
-                        ''
-                      ) : (
-                        <>
-                          <div className="sliderLeft">
-                            <IoIosArrowDropleftCircle
-                              onClick={() => {
-                                sliderAllLeft(185, 5);
-                              }}
-                            />
+                  {/* p-view */}
+                  <div className="p-view">
+                    <IconContext.Provider
+                      value={{ color: '#817161', size: '2rem' }}
+                    >
+                      {detailData.map((v) => {
+                        return (
+                          <div className="joinUserTitle" key={v.id}>
+                            參加者（{v.pepcount}/{v.join_limit}）
                           </div>
-                          <div className="sliderRight">
-                            <IoIosArrowDroprightCircle
-                              onClick={() => {
-                                sliderAllRight(185, joinLength, 5);
-                              }}
-                            />
-                          </div>
-                        </>
-                      )}
+                        );
+                      })}
 
-                      <div className="joinContainer">
-                        <div className="slide">
-                          {joinLength !== 0 ? (
-                            joinCount.map((v) => {
-                              return (
-                                <CampingDetailJoinSlide
-                                  key={v.id}
-                                  joinSlider={joinSlider}
-                                  v={v}
-                                />
-                              );
-                            })
-                          ) : (
-                            <div
-                              className="ms-4 mt-4"
-                              style={{ fontSize: '16px', color: '#1F9998' }}
-                            >
-                              暫無會員加入
+                      {/* joinslide */}
+                      <div className="joinSlide">
+                        {joinLength < 6 ? (
+                          ''
+                        ) : (
+                          <>
+                            <div className="sliderLeft">
+                              <IoIosArrowDropleftCircle
+                                onClick={() => {
+                                  sliderAllLeft(185, 5);
+                                }}
+                              />
                             </div>
-                          )}
+                            <div className="sliderRight">
+                              <IoIosArrowDroprightCircle
+                                onClick={() => {
+                                  sliderAllRight(185, joinLength, 5);
+                                }}
+                              />
+                            </div>
+                          </>
+                        )}
+
+                        {/* slide contain */}
+                        <div className="joinContainer">
+                          <div className="slide">
+                            {joinLength !== 0 ? (
+                              joinCount.map((v) => {
+                                return (
+                                  <CampingDetailJoinSlide
+                                    key={v.id}
+                                    joinSlider={joinSlider}
+                                    v={v}
+                                  />
+                                );
+                              })
+                            ) : (
+                              <div
+                                className="ms-4 mt-4"
+                                style={{ fontSize: '16px', color: '#1F9998' }}
+                              >
+                                暫無會員加入
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </IconContext.Provider>
+                    </IconContext.Provider>
+                  </div>
+                  {/* ------ */}
+
+                  {/* m-view */}
+                  <div className="m-view flex-column">
+                    <IconContext.Provider
+                      value={{ color: '#817161', size: '2rem' }}
+                    >
+                      {detailData.map((v) => {
+                        return (
+                          <div className="joinUserTitle" key={v.id}>
+                            參加者（{v.pepcount}/{v.join_limit}）
+                          </div>
+                        );
+                      })}
+
+                      {/* joinslide */}
+                      <div className="joinSlide">
+                        {joinLength < 3 ? (
+                          ''
+                        ) : (
+                          <>
+                            <div className="sliderLeft">
+                              <IoIosArrowDropleftCircle
+                                onClick={() => {
+                                  sliderAllLeft(155, 2);
+                                }}
+                              />
+                            </div>
+                            <div className="sliderRight">
+                              <IoIosArrowDroprightCircle
+                                onClick={() => {
+                                  sliderAllRight(155, joinLength, 2);
+                                }}
+                              />
+                            </div>
+                          </>
+                        )}
+
+                        {/* slide contain */}
+                        <div className="joinContainer">
+                          <div className="slide">
+                            {joinLength !== 0 ? (
+                              joinCount.map((v) => {
+                                return (
+                                  <CampingDetailJoinSlide
+                                    key={v.id}
+                                    joinSlider={joinSlider}
+                                    v={v}
+                                  />
+                                );
+                              })
+                            ) : (
+                              <div
+                                className="ms-4 mt-4"
+                                style={{ fontSize: '16px', color: '#1F9998' }}
+                              >
+                                暫無會員加入
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </IconContext.Provider>
+                  </div>
+                  {/* ------ */}
                 </div>
 
                 {/* 右側 aside */}
                 <IconContext.Provider value={{ color: '#444', size: '1.2rem' }}>
-                  <div className="col-4 ">
+                  <div className="col-4 p-view">
                     {detailData.map((v) => {
                       function joinPep() {
                         return v.join_limit - v.pepcount;
@@ -531,7 +690,11 @@ function CampingDetailPage() {
                           userJoin={userJoin}
                           handleDelJoin={handleDelJoin}
                           handleAddJoin={handleAddJoin}
-                        />
+                          setLoading={setLoading}
+                          setLoginBtn={setLoginBtn}
+                        >
+                          <MapAside />
+                        </CampingDetailAside>
                       );
                     })}
                   </div>
@@ -539,37 +702,91 @@ function CampingDetailPage() {
               </div>
 
               {/* 商品推薦 */}
-              <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                <div className="productTitle">輕鬆享受露營，猜你會需要...</div>
-                <Slide
-                  contentLength={productLength}
-                  maxWidth={1260}
-                  Slider={productSlider}
-                  setSlider={setProductSlider}
-                  cardWidth={210}
-                  displayContainer={6}
-                >
-                  <ProductSlide
-                    product={product}
-                    productSlider={productSlider}
-                  />
-                </Slide>
+              <div className="p-view">
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  <div className="productTitle">
+                    輕鬆享受露營，猜你會需要...
+                  </div>
+                  <Slide
+                    contentLength={productLength}
+                    maxWidth={1260}
+                    Slider={productSlider}
+                    setSlider={setProductSlider}
+                    cardWidth={210}
+                    displayContainer={6}
+                  >
+                    <ProductSlide
+                      product={product}
+                      productSlider={productSlider}
+                    />
+                  </Slide>
 
-                {/* 地點推薦 */}
-                <div className="placeTitle">
-                  喜歡露營的你，附近的活動還有...
-                </div>
-                <Slide
-                  contentLength={productLength}
-                  maxWidth={1375}
-                  Slider={placeSlider}
-                  setSlider={setPlaceSlider}
-                  cardWidth={275}
-                  displayContainer={5}
-                >
-                  <PlaceSlide product={product} placeSlider={placeSlider} />
-                </Slide>
-              </IconContext.Provider>
+                  {/* 地點推薦 */}
+                  <div className="placeTitle">
+                    喜歡露營的你，附近的活動還有...
+                  </div>
+                  <Slide
+                    contentLength={mapDataIdLength}
+                    maxWidth={1375}
+                    Slider={placeSlider}
+                    setSlider={setPlaceSlider}
+                    cardWidth={275}
+                    displayContainer={5}
+                  >
+                    <PlaceSlide
+                      placeSlider={placeSlider}
+                      mapDataId={mapDataId}
+                      // setJoinLink={setJoinLink}
+                    />
+                  </Slide>
+                </IconContext.Provider>
+              </div>
+
+              {/* RWD product */}
+              {/* <div className="m-view flex-column">
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  <div className="productTitle">
+                    輕鬆享受露營，猜你會需要...
+                  </div>
+                  <Slide
+                    contentLength={productLength}
+                    maxWidth={1260}
+                    Slider={productSlider}
+                    setSlider={setProductSlider}
+                    cardWidth={210}
+                    displayContainer={6}
+                  >
+                    <ProductSlide
+                      product={product}
+                      productSlider={productSlider}
+                    />
+                  </Slide>
+                </IconContext.Provider>
+              </div> */}
+
+              {/* RWD place */}
+              <div className="m-view flex-column">
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  {/* 地點推薦 */}
+                  <div className="placeTitle">
+                    喜歡露營的你，附近的活動還有...
+                  </div>
+                  <Slide
+                    contentLength={mapDataIdLength}
+                    maxWidth={285}
+                    Slider={placeSlider}
+                    setSlider={setPlaceSlider}
+                    cardWidth={285}
+                    displayContainer={1}
+                  >
+                    <PlaceSlide
+                      placeSlider={placeSlider}
+                      mapDataId={mapDataId}
+                      // setJoinLink={setJoinLink}
+                    />
+                  </Slide>
+                </IconContext.Provider>
+              </div>
             </div>
           </main>
         );

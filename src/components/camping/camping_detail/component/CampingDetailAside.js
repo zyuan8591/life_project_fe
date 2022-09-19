@@ -16,7 +16,15 @@ function CampingDetailAside({
   user,
   handleDelJoin,
   handleAddJoin,
+  setLoading,
+  setLoginBtn,
+  children,
 }) {
+  const priceReplace = (price) => {
+    const newPrice = price.toString();
+    return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   const stateBtn = (state) => {
     if (user) {
       if (state === '已成團') return '已成團';
@@ -52,7 +60,7 @@ function CampingDetailAside({
             {v.state}
           </div>
         </div>
-        <div className={classes.asidePrice}>NT${v.price}</div>
+        <div className={classes.asidePrice}>NT${priceReplace(v.price)}</div>
         <div className={classes.asideContent}>
           <div className={classes.contentItem}>
             <FaCalendarAlt />
@@ -72,11 +80,9 @@ function CampingDetailAside({
             </div>
           </IconContext.Provider>
         </div>
-        <div className={classes.asideMap}>map</div>
+        {children}
+        {/* <div className={classes.asideMap}>map</div> */}
         <div className="text-center">
-          {/* TODO:已報名---取消報名 */}
-          {/* TODO:更換成icon? */}
-
           {user ? (
             userJoin.includes(v.id) ? (
               <button
@@ -88,6 +94,7 @@ function CampingDetailAside({
                 disabled={v.state !== '開團中' ? true : false}
                 onClick={() => {
                   handleDelJoin(v.id);
+                  setLoading(true);
                 }}
               >
                 取消活動
@@ -100,6 +107,7 @@ function CampingDetailAside({
                 disabled={v.state !== '開團中' ? true : false}
                 onClick={() => {
                   handleAddJoin(v.id);
+                  setLoading(true);
                 }}
               >
                 {stateBtn(v.state)}
@@ -112,7 +120,8 @@ function CampingDetailAside({
               }
               disabled={v.state !== '開團中' ? true : false}
               onClick={() => {
-                alert('請先登入會員');
+                //TODO:
+                setLoginBtn(true);
               }}
             >
               {stateBtn(v.state)}

@@ -1,27 +1,30 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { API_URL } from '../../utils/config';
 import { IconContext } from 'react-icons';
-import { MdLocationOn } from 'react-icons/md';
+import { MdLocationOn, MdOutlineIcecream } from 'react-icons/md';
 import { GiCampingTent } from 'react-icons/gi';
-import { SiPicnic } from 'react-icons/si';
+// import { SiPicnic } from 'react-icons/si';
+// import { IoLocationOutline } from 'react-icons/io5';
+// import { FaCanadianMapleLeaf } from 'react-icons/fa';
 
 import {
   MapContainer,
   TileLayer,
-  useMap,
+  Circle,
   Marker,
   Popup,
-  Map,
   useMapEvents,
 } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../styles/map/_map.scss';
 import Header from '../../components/public_component/Header';
-import MapActivitySelect from '../../components/map/MapActivitySelect';
-import DistanceSelect from '../../components/map/MapDistanceSelect';
+import MapActivitySelect from './component/MapActivitySelect';
+import DistanceSelect from './component/MapDistanceSelect';
+import MapSortSelect from './component/MapSortSelect';
 // here position
 function LocationMarker() {
   const [position, setPosition] = useState(null);
@@ -29,15 +32,15 @@ function LocationMarker() {
     click() {
       map.locate();
     },
-    locationfound(e) {
-      setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom());
+    locationfound() {
+      setPosition([25.10542873699434, 121.52266751703542]);
+      map.flyTo(position, map.getZoom());
     },
   });
 
   const customIcon = new Icon({
-    iconUrl: '/img/user/user_img/horse.png',
-    iconSize: [30, 30],
+    iconUrl: '/img/user/user_img/userAvatar/kerp.png',
+    iconSize: [30, 35],
     // iconAnchor: [0, 0],
     // popupAnchor: [-0, -76]
   });
@@ -49,39 +52,45 @@ function LocationMarker() {
   );
 }
 // -------------
+
+// circle
+const center = [25.10542873699434, 121.52266751703542];
+const fillBlueOptions = { fillColor: 'blue' };
+
 // map container
 function SetMap() {
   const [mapData, setMapData] = useState([]);
+  const [mapDataLength, setMapDataLength] = useState('');
   const [typeSelect, setTypeSelect] = useState('');
-  const [centerPosL, setCenterPosL] = useState(23.8896861412312);
-  const [centerPosR, setCenterPosR] = useState(120.9216218);
+  const [distanceSelect, setDistanceSelect] = useState('');
+  const [nameSearch, setNameSearch] = useState('');
+  const [distanceSort, setDistanceSort] = useState('');
+  const [radius, setRadius] = useState('');
 
-  // console.log(centerPosL, centerPosR);
   useEffect(() => {
     let getCampingData = async () => {
-      let response = await axios.get(`${API_URL}/map?type=${typeSelect}`);
-      // console.log(response.data.result);
-
-      setMapData(response.data.result);
+      let response = await axios.get(
+        `${API_URL}/map?type=${typeSelect}&search=${nameSearch}&distance=${distanceSelect}&order=${distanceSort}`
+      );
+      setMapDataLength(response.data.allResultL);
+      setMapData(response.data.allResult);
     };
     getCampingData();
-  }, [typeSelect]);
+  }, [typeSelect, distanceSelect, nameSearch, distanceSort]);
 
-  const position = [centerPosL, centerPosR];
+  const position = [25.10542873699434, 121.52266751703542];
   const campingIcon = new Icon({
-    iconUrl: '/img/user/user_img/joe.png',
-    iconSize: [30, 30],
-    // iconAnchor: [0, 0],
-    // popupAnchor: [-0, -76]
+    iconUrl: '/img/camping/activity_camping_img/ba1.png',
+    iconSize: [20, 30],
   });
   const picnicIcon = new Icon({
-    iconUrl: '/img/user/user_img/amy.png',
-    iconSize: [30, 30],
+    iconUrl: '/img/camping/activity_camping_img/ba4.png',
+    iconSize: [20, 30],
   });
-  const centerIcon = new Icon({
-    iconUrl: '/img/user/user_img/sandy.png',
-    iconSize: [30, 30],
-  });
+  // const centerIcon = new Icon({
+  //   iconUrl: '/img/user/user_img/sandy.png',
+  //   iconSize: [30, 30],
+  // });
 
   return (
     <>
@@ -91,60 +100,81 @@ function SetMap() {
           <div className="selectContainer">
             {/* TODO: 區域篩選？ */}
             <div className="select ">
-              <MapActivitySelect
-                setTypeSelect={setTypeSelect}
-                setCenterPosL={setCenterPosL}
-                setCenterPosR={setCenterPosR}
+              <MapActivitySelect setTypeSelect={setTypeSelect} />
+              <DistanceSelect
+                setDistanceSelect={setDistanceSelect}
+                setRadius={setRadius}
               />
-              <DistanceSelect />
+              <MapSortSelect setDistanceSort={setDistanceSort} />
+            </div>
+            <div className="inputSearch">
               <input
                 className="searchInput"
                 placeholder="Search.."
                 type="text"
-                maxLength={12}
-                // value={titleSearch}
+                maxLength={15}
+                value={nameSearch}
                 onChange={(e) => {
-                  // let textValue = e.target.value.replace(/[, ]/g, '');
-                  // setTitleSearch(textValue);
+                  let textValue = e.target.value.replace(/[, ]/g, '');
+                  setNameSearch(textValue);
                 }}
               />
+              <div style={{ color: '#817161' }}>
+                目前搜尋到 {mapDataLength} 筆
+              </div>
             </div>
             <IconContext.Provider value={{ color: '#444', size: '1.3em' }}>
               <div className="mapCardContainer">
-                {mapData.map((v) => {
-                  const newAddress = v.address.substr(0, 6);
-                  //console.log(newAddress);
-                  return (
-                    <div className="mapCard" key={v.id}>
-                      <div className="mapImg">
-                        <img
-                          src={`/img/camping/activity_camping_img/${v.img}`}
-                          alt="/"
-                        />
-                      </div>
-                      <div className="intContainer">
-                        <div className="d-flex justify-content-between">
-                          <div className="intDate">{v.activity_date}</div>
-                          <div className="intDistance">300km</div>
+                {mapDataLength > 0 ? (
+                  mapData.map((v) => {
+                    const newDistance = Math.floor(v.distance);
+                    //const newAddress = v.address.substr(0, 6);
+                    //console.log(newDistance);
+                    return (
+                      <div className="mapCard" key={v.id}>
+                        <div className="mapImg">
+                          <img
+                            src={`/img/camping/activity_camping_img/${v.img}`}
+                            alt="/"
+                          />
                         </div>
-                        <div className="intTitle">{v.title}</div>
-                        <div className="d-flex justify-content-between">
-                          <div className="d-flex align-items-center">
-                            <MdLocationOn />
-                            <div className="intAddress">{newAddress}</div>
+                        <div className="intContainer">
+                          <div className="d-flex justify-content-between">
+                            <div className="intDate">{v.activity_date}</div>
+                            <div className="intDistance">{newDistance} km</div>
                           </div>
-                          <IconContext.Provider
-                            value={{ color: '#F2AC33', size: '1.5em' }}
-                          >
-                            <div>
-                              {v.type === 1 ? <GiCampingTent /> : <SiPicnic />}
+                          <div className="intTitle">{v.title}</div>
+                          <div className="d-flex justify-content-between">
+                            <div className="d-flex align-items-center">
+                              <MdLocationOn />
+                              <div>{v.address}</div>
                             </div>
-                          </IconContext.Provider>
+                            <IconContext.Provider
+                              value={{
+                                color: '#F2AC33',
+                                size: '1.8em',
+                              }}
+                            >
+                              <div>
+                                {v.type === 1 ? (
+                                  <Link to={`/activity/camping/${v.id}`}>
+                                    <GiCampingTent />
+                                  </Link>
+                                ) : (
+                                  <Link to={`/activity/picnic/${v.id}`}>
+                                    <MdOutlineIcecream />
+                                  </Link>
+                                )}
+                              </div>
+                            </IconContext.Provider>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                ) : (
+                  <div className="noDataText">尚無符合的資料</div>
+                )}
               </div>
             </IconContext.Provider>
           </div>
@@ -152,13 +182,18 @@ function SetMap() {
             <div className="map" id="map">
               <MapContainer
                 center={position}
-                zoom={11}
+                zoom={12}
                 scrollWheelZoom={true}
-                icon={centerIcon}
+                // icon={centerIcon}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Circle
+                  center={center}
+                  pathOptions={fillBlueOptions}
+                  radius={radius}
                 />
                 {mapData.map((v) => {
                   return (
@@ -170,7 +205,21 @@ function SetMap() {
                       >
                         <Popup>
                           <div>
-                            <div style={{ color: '#221E73' }}>{v.place}</div>
+                            {v.type === 1 ? (
+                              <Link
+                                to={`/activity/camping/${v.id}`}
+                                style={{ color: '#221E73' }}
+                              >
+                                {v.place}
+                              </Link>
+                            ) : (
+                              <Link
+                                to={`/activity/picnic/${v.id}`}
+                                style={{ color: '#221E73' }}
+                              >
+                                {v.place}
+                              </Link>
+                            )}
                             <div>{v.address}</div>
                           </div>
                         </Popup>
@@ -179,6 +228,54 @@ function SetMap() {
                   );
                 })}
                 <LocationMarker />
+                <Marker
+                  position={[25.10542873699434, 121.52266751703542]}
+                  icon={
+                    new Icon({
+                      iconUrl: '/img/user/user_img/userAvatar/kerp.png',
+                      iconSize: [30, 35],
+                    })
+                  }
+                >
+                  <Popup>You are here</Popup>
+                </Marker>
+                {/* group */}
+                {/* <MarkerClusterGroup>
+                  <Marker
+                    position={[24.546412977948872, 120.84101235560908]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                  <Marker
+                    position={[24.532100261186716, 120.80548586799523]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                  <Marker
+                    position={[24.561398171107996, 120.93603096784717]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                </MarkerClusterGroup> */}
+                {/* ------ */}
               </MapContainer>
             </div>
           </div>

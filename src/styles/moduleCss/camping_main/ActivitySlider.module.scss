@@ -12,13 +12,12 @@
 
 .activitySlider{
     margin-bottom: 40px;
-
     .sliderText{
         @include filterTitle;
     }
     .slider {
         width: 80%-5;
-        margin: 10px;
+        margin: 20px 10px 10px;
       }
     .sliderSearch{
         width: 80%-8;
@@ -39,6 +38,28 @@
             &:hover{
                 @include buttonHover;
             }
+        }
+    }
+}
+
+@media screen and (max-width:375px) {
+    .activitySlider{
+        // margin-bottom: 40px;
+        .sliderText{
+            text-align: center;
+            width: 170px;        
+        }
+        .slider {
+            width: 100%-10;
+            // margin: 20px 10px 10px;
+          }
+        .sliderSearch{
+            width: 50%-6;
+            margin-left: 50%;
+            // text-align: end;
+            // display: flex;
+            // justify-content: end;
+            // align-items: center;
         }
     }
 }
