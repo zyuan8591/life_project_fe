@@ -17,6 +17,7 @@ function CampingDetailAside({
   handleDelJoin,
   handleAddJoin,
   setLoading,
+  setLoginBtn,
   children,
 }) {
   const priceReplace = (price) => {
@@ -119,7 +120,8 @@ function CampingDetailAside({
               }
               disabled={v.state !== '開團中' ? true : false}
               onClick={() => {
-                alert('請先登入會員');
+                //TODO:
+                setLoginBtn(true);
               }}
             >
               {stateBtn(v.state)}

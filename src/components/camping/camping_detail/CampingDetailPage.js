@@ -28,6 +28,7 @@ import CampingDetailAside from './component/CampingDetailAside';
 import Weather from '../../weather/Weather';
 import MapAside from '../../map/component/MapAside';
 import { useUserRights } from '../../../usecontext/UserRights';
+import Notification from '../../activity/Notification';
 const stateClassName = (state) => {
   switch (state) {
     case '開團中':
@@ -120,6 +121,13 @@ function CampingDetailPage() {
   const [mapDataId, setMapDataId] = useState([]);
   const [mapDataIdLength, setMapDataIdLength] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [collectConfirm, setCollectConfirm] = useState(false);
+  const [collectCancel, setCollectCancel] = useState(false);
+  const [addActConfirm, setAddActConfirm] = useState(false);
+
+  const [actCencel, setActCencel] = useState(false);
+
   // const [joinLink, setJoinLink] = useState(false);
 
   // console.log(campingId);
@@ -236,7 +244,10 @@ function CampingDetailPage() {
           setUserJoin(hadJoin);
           console.log('add', response.data);
           //TODO: 改掉alert
-          alert('已加入活動');
+          setAddActConfirm(true);
+          setTimeout(() => {
+            setAddActConfirm(false);
+          }, 2000);
         };
 
         const handleDelJoin = async (campingId) => {
@@ -249,7 +260,10 @@ function CampingDetailPage() {
           setUserJoin(hadJoin);
           console.log('del', response.data);
           //TODO: 改掉alert
-          alert('已取消活動');
+          setActCencel(true);
+          setTimeout(() => {
+            setActCencel(false);
+          }, 2000);
         };
 
         const handleAddCollect = async (campingId) => {
@@ -263,7 +277,10 @@ function CampingDetailPage() {
           let collected = response.data.getCamping.map((v) => v.activity_id);
           setUserCollected(collected);
           // TODO: 修改alert
-          alert('已加入收藏');
+          setCollectConfirm(true);
+          setTimeout(() => {
+            setCollectConfirm(false);
+          }, 2000);
         };
 
         const handleDelCollect = async (campingId) => {
@@ -276,11 +293,63 @@ function CampingDetailPage() {
           let collected = response.data.getCamping.map((v) => v.activity_id);
           setUserCollected(collected);
           // TODO: 修改alert
-          alert('已取消收藏');
+          setCollectCancel(true);
+          setTimeout(() => {
+            setCollectCancel(false);
+          }, 2000);
         };
 
         return (
           <main className="CampingDetailPage" key={v.id}>
+            {collectConfirm ? (
+              <Notification
+                contaninText={'已加入收藏'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {collectCancel ? (
+              <Notification
+                contaninText={'已取消收藏'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {addActConfirm ? (
+              <Notification
+                contaninText={'已加入活動'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {actCencel ? (
+              <Notification
+                contaninText={'已取消活動'}
+                setLoginBtn={setLoginBtn}
+              >
+                <GiCampingTent />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {loginBtn ? (
+              <Notification
+                contaninText={'請先登入會員'}
+                linkTo={'/signin/login'}
+                setLoginBtn={setLoginBtn}
+              />
+            ) : (
+              ''
+            )}
             <div className="main">
               {/* breadCrumb */}
               <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
@@ -344,7 +413,7 @@ function CampingDetailPage() {
                             // className={classes.collect}
                             onClick={() => {
                               // TODO: 改掉alert
-                              alert('請先登入會員');
+                              setLoginBtn(true);
                             }}
                           />
                         </IconContext.Provider>
@@ -622,6 +691,7 @@ function CampingDetailPage() {
                           handleDelJoin={handleDelJoin}
                           handleAddJoin={handleAddJoin}
                           setLoading={setLoading}
+                          setLoginBtn={setLoginBtn}
                         >
                           <MapAside />
                         </CampingDetailAside>
