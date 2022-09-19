@@ -202,13 +202,13 @@ const OrderList = (props) => {
             });
           }}
         >
-          add item (id=111, x5)
+          add item (id=11, x5)
         </button>
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
             productCart.addItem({
-              id: '222',
+              id: '22',
               quantity: 1,
               name: 'ipad',
               price: 19000,
@@ -216,7 +216,7 @@ const OrderList = (props) => {
             });
           }}
         >
-          add item (id=222, x1)
+          add item (id=22, x1)
         </button>
         <button
           className="btn btn-outline-secondary"
@@ -224,13 +224,13 @@ const OrderList = (props) => {
             productCart.removeItem('222');
           }}
         >
-          remove item(id=222)
+          remove item(id=22)
         </button>
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
             productCart.updateItem({
-              id: '222',
+              id: '22',
               quantity: 7,
             });
           }}
@@ -241,12 +241,12 @@ const OrderList = (props) => {
           className="btn btn-outline-secondary"
           onClick={() => {
             productCart.updateItem({
-              id: '111',
-              quantity: 99,
+              id: '11',
+              quantity: 9,
             });
           }}
         >
-          update id=111 item quantity to 99
+          update id=11 item quantity to 9
         </button>
         <button
           className="btn btn-outline-secondary"
@@ -259,8 +259,8 @@ const OrderList = (props) => {
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
-            if (productCart.isInCart('222')) alert('id=222 item is in cart');
-            else alert('no id=222  ');
+            if (productCart.isInCart('22')) alert('id=22 item is in cart');
+            else alert('no id=22  ');
           }}
         >
           check id=222 if in cart
@@ -397,7 +397,7 @@ const OrderList = (props) => {
           className="btn btn-outline-secondary"
           onClick={() => {
             picnicCart.addItem({
-              id: '333',
+              id: '33',
               quantity: 1,
               name: 'Moomin 多功能電烤盤1111111',
               price: 15000,
@@ -411,7 +411,7 @@ const OrderList = (props) => {
           className="btn btn-outline-secondary"
           onClick={() => {
             picnicCart.addItem({
-              id: '888',
+              id: '88',
               quantity: 1,
               name: 'Moomin 多功能電烤盤1111111',
               price: 15000,
@@ -425,7 +425,7 @@ const OrderList = (props) => {
           className="btn btn-outline-secondary"
           onClick={() => {
             campingCart.addItem({
-              id: '444',
+              id: '44',
               quantity: 1,
               name: 'ipad',
               price: 19000,
@@ -439,7 +439,7 @@ const OrderList = (props) => {
           className="btn btn-outline-secondary"
           onClick={() => {
             campingCart.addItem({
-              id: '666',
+              id: '66',
               quantity: 1,
               name: 'ipad',
               price: 19000,

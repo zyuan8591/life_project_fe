@@ -41,15 +41,20 @@
       box-shadow:0px 0px 5px $subClrGY; 
       padding: .5rem;
       margin: 2rem auto;
-      .row{    
+      
+      .row{
         --bs-gutter-x:0;
-    
-        .col img{
+      }
+
+      
+      .cCard{
+        max-width: 800px;
+        .img{
           max-width: 100%;
-        } 
+        }
       }
     
-      .cCardInput{
+      input{
         // display: block;
         // text-align: center;
         width: 100%;

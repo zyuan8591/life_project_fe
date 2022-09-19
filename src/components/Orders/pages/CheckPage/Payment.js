@@ -1,12 +1,14 @@
 import { Field, ErrorMessage } from 'formik';
 import CreditCard from './CreditCard';
-import { useState } from 'react';
 
-function Payment(values) {
-  // console.log(values);
-
-  const [currentPayment, setCurrentPayment] = useState(null);
-
+function Payment({
+  values,
+  payment,
+  setCurrentPayment,
+  currentPayment,
+  setFieldValue,
+  // showPaymentDetail,
+}) {
   const showPaymentDetail = (vid) => {
     if (currentPayment !== vid) return null;
     if (currentPayment === 1) {
@@ -19,16 +21,17 @@ function Payment(values) {
       );
     }
     if (currentPayment === 4) {
-      return <CreditCard />;
+      return <CreditCard values={values} setFieldValue={setFieldValue} />;
     }
     return null;
   };
+
   return (
     <>
       <h2 className="mb-3">付款方式</h2>
 
       <div className="payment">
-        {values.payment.map((v, i) => {
+        {payment.map((v, i) => {
           return (
             <>
               <div
@@ -43,7 +46,7 @@ function Payment(values) {
                     value={v.id}
                     onChange={(e) => {
                       setCurrentPayment(v.id);
-                      values.setFieldValue('payment', v.id);
+                      setFieldValue('payment', v.id);
                     }}
                     checked={v.id === currentPayment}
                   />

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import OrderDetail from './CheckPage/OrderDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
 import Payment from './CheckPage/Payment';
+// import CreditCard from './CheckPage/CreditCard';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -20,6 +21,7 @@ const CheckOut = () => {
   const [delivery, setDelivery] = useState([]);
 
   const [payment, setPayment] = useState([]);
+  const [currentPayment, setCurrentPayment] = useState(null);
 
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
@@ -37,7 +39,7 @@ const CheckOut = () => {
     (async () => {
       let paymentResult = await axios.get(`${API_URL}/orders/payment`);
       let paymentData = paymentResult.data;
-      console.log(paymentData);
+      // console.log(paymentData);
       setPayment(paymentData);
     })();
     setCurrentStep(2);
@@ -55,6 +57,13 @@ const CheckOut = () => {
     address: '',
     memo: '',
     payment: '',
+    cCardNum1: '',
+    // cCardNum2: '',
+    // cCardNum3: '',
+    // cCardNum4: '',
+    // cCardMonth: '',
+    // cCardDate: '',
+    // cCardCheck: '',
     // productItems:[{}]
     // productTotal:10000
   };
@@ -93,15 +102,22 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
+          cCardNum1: yup.string().required('必填'),
+          // cCardNum2: yup.string().required('必填'),
+          // cCardNum3: yup.string().required('必填'),
+          // cCardNum4: yup.string().required('必填'),
+          // cCardMonth: yup.string().required('必填'),
+          // cCardDate: yup.string().required('必填'),
+          // cCardCheck: yup.string().required('必填'),
         })}
         onSubmit={async (values) => {
-          try {
-            await axios.post(`${API_URL}/orders/order`, values, {
-              withCredentials: true,
-            });
-          } catch (e) {
-            console.error('order', e);
-          }
+          // try {
+          //   await axios.post(`${API_URL}/orders/order`, values, {
+          //     withCredentials: true,
+          //   });
+          // } catch (e) {
+          //   console.error('order', e);
+          // }
           // console.log(values);
         }}
       >
@@ -109,14 +125,16 @@ const CheckOut = () => {
           <Form>
             <RecipientInfo
               values={values}
-              setDelivery={setDelivery}
+              // setDelivery={setDelivery}
               delivery={delivery}
             />
             <Payment
               values={values}
               payment={payment}
-              setPayment={setPayment}
               setFieldValue={setFieldValue}
+              currentPayment={currentPayment}
+              setCurrentPayment={setCurrentPayment}
+              // showPaymentDetail={showPaymentDetail}
             />
 
             <div className="orderStepBtns gap-3">
@@ -129,8 +147,10 @@ const CheckOut = () => {
               </Link>
               <button
                 className="btn stepBtn nextButton"
-                type="submit"
-                // onClick={() => setCurrentStep(currentStep + 1)}
+                // type="submit"
+                onClick={(e) => {
+                  // setCurrentStep(currentStep + 1);
+                }}
               >
                 下一步
               </button>
