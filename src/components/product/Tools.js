@@ -10,7 +10,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 
-const Tools = ({ item, setItem }) => {
+const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
@@ -122,17 +122,18 @@ const Tools = ({ item, setItem }) => {
             }}
           >
             {item.map((v, i) => {
-              const { id, name, color, img } = v;
-              console.log(v);
+              const { name, color, img, product_id } = v;
               return (
                 <div
                   className={classess.item}
-                  onClick={(e) => {
-                    let newArr = item.filter((v2, i2) => {
-                      return id !== v2.id;
-                    });
-                    setItem(newArr);
-                    // console.log(item);
+                  onClick={async () => {
+                    await axios.delete(
+                      `${API_URL}/products/${product_id}/removeLike`,
+                      {
+                        withCredentials: true,
+                      }
+                    );
+                    setProductLikeId(!productLikeId);
                   }}
                 >
                   <>

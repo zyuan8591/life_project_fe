@@ -62,7 +62,6 @@ const ProductList = () => {
         let favNumber = result.data.map((v) => v.product_id);
         setFav(favNumber);
       })();
-      console.log(productLikeId);
     })();
   }, [
     pageNow,
@@ -113,7 +112,12 @@ const ProductList = () => {
           pageNow={pageNow}
           setPageNow={setPageNow}
         />
-        <Tools item={item} setItem={setItem} />
+        <Tools
+          item={item}
+          setItem={setItem}
+          setProductLikeId={setProductLikeId}
+          productLikeId={productLikeId}
+        />
       </div>
       <Footer />
     </>

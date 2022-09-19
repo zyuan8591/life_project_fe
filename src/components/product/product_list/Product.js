@@ -8,12 +8,7 @@ import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
-const Product = ({
-  productList,
-  fav,
-  setProductLikeId,
-  productLikeId
-}) => {
+const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -42,21 +37,18 @@ const Product = ({
                   <div
                     style={{ cursor: 'pointer' }}
                     onClick={async () => {
-                      console.log(id);
                       if (fav.includes(v.id)) {
                         await axios.delete(
                           `${API_URL}/products/${id}/removeLike`,
                           { withCredentials: true }
                         );
                         setProductLikeId(!productLikeId);
-                        // console.log(id);
                       } else {
                         await axios.post(
                           `${API_URL}/products/addLike`,
                           { id },
                           { withCredentials: true }
                         );
-                        // console.log(id);
                         setProductLikeId(!productLikeId);
                       }
                     }}
