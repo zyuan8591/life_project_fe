@@ -25,6 +25,10 @@ const ProductList = () => {
   const [sort, setSort] = useState(0);
   const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
+  // like data
+  const [item, setItem] = useState([]);
+
+  const [fav, setFav] = useState([]);
   useEffect(() => {
     (async () => {
       let result = await axios.get(
@@ -52,6 +56,14 @@ const ProductList = () => {
       setTotal(result.data.pagination.total);
       setProductList(result.data.data);
       setCount(result.data.pagination.offset);
+      // (async () => {
+      //   let result = await axios.get(`${API_URL}/products/like`, {
+      //     withCredentials: true,
+      //   });
+      //   setItem(result.data);
+      //   let favNumber = result.data.map((v) => v.product_id);
+      //   setFav(favNumber);
+      // })();
     })();
   }, [
     pageNow,
@@ -62,11 +74,23 @@ const ProductList = () => {
     biggerThan,
     sort,
     lastPage,
+    // fav,
   ]);
   useEffect(() => {
     setPageNow(1);
   }, [productCateNow, search, checked]);
 
+  // like data
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/like`, {
+        withCredentials: true,
+      });
+      setItem(result.data);
+      let favNumber = result.data.map((v) => v.product_id);
+      setFav(favNumber);
+    })();
+  }, []);
   return (
     <>
       <Header />
@@ -87,7 +111,7 @@ const ProductList = () => {
               count={count}
               countNow={countNow}
             />
-            <Product productList={productList} />
+            <Product productList={productList} item={item} fav={fav} />
           </div>
         </div>
         <PaginationBar
@@ -95,7 +119,7 @@ const ProductList = () => {
           pageNow={pageNow}
           setPageNow={setPageNow}
         />
-        <Tools />
+        <Tools item={item} setItem={setItem} />
       </div>
       <Footer />
     </>

@@ -9,27 +9,11 @@ import { AiOutlineCreditCard } from 'react-icons/ai';
 import { FaTrashAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import { useUserRights } from '../../usecontext/UserRights';
 
-const img = '/img/product/product_img/BRUNO_BOE021_BGY_01.jpeg';
-const img1 = '/img/product/product_img/BRUNO_BOE021_01.jpeg';
-const img2 = '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
-
-const Tools = () => {
+const Tools = ({ item, setItem }) => {
   const [cart, setCart] = useState(false);
-  const [item, setItem] = useState([]);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      let result = await axios.get(`${API_URL}/products/like`, {
-        withCredentials: true,
-      });
-      setItem(result.data);
-      console.log(result);
-    })();
-  }, []);
 
   return (
     <>
@@ -85,7 +69,7 @@ const Tools = () => {
         }}
       >
         <div className={classess.cartTitle}>購物車</div>
-        {item.map((v, i) => {
+        {/* {item.map((v, i) => {
           const { id, name, count, price, img } = v;
           return (
             <div className={classess.cartItem} key={i}>
@@ -114,7 +98,7 @@ const Tools = () => {
               </div>
             </div>
           );
-        })}
+        })} */}
       </div>
       {point && (
         <div
@@ -139,6 +123,7 @@ const Tools = () => {
           >
             {item.map((v, i) => {
               const { id, name, color, img } = v;
+              console.log(v);
               return (
                 <div
                   className={classess.item}
@@ -147,6 +132,7 @@ const Tools = () => {
                       return id !== v2.id;
                     });
                     setItem(newArr);
+                    // console.log(item);
                   }}
                 >
                   <>

@@ -8,8 +8,7 @@ import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
-const Product = ({ productList }) => {
-  const [heart, setHeart] = useState(false);
+const Product = ({ productList, fav }) => {
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -37,14 +36,29 @@ const Product = ({ productList }) => {
                 >
                   <div
                     onClick={async () => {
-                      await axios.post(
-                        `${API_URL}/products/addLike`,
-                        { id },
-                        { withCredentials: true }
-                      );
+                      if (fav.includes(v.id)) {
+                      } else {
+                        await axios.post(
+                          `${API_URL}/products/addLike`,
+                          { id },
+                          { withCredentials: true }
+                        );
+                      }
                     }}
                   >
-                    <HiOutlineHeart />
+                    {fav.includes(v.id) ? (
+                      <IconContext.Provider
+                        value={{
+                          color: 'red',
+                          size: '2rem',
+                          margin: '5px',
+                        }}
+                      >
+                        <HiHeart />
+                      </IconContext.Provider>
+                    ) : (
+                      <HiOutlineHeart />
+                    )}
                   </div>
                   <IoCartOutline
                     onClick={(e) => {
