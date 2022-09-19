@@ -17,63 +17,20 @@ const img2 = '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
 
 const Tools = () => {
   const [cart, setCart] = useState(false);
-  const { user } = useUserRights();
-  const arr = [
-    {
-      id: 0,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '粉綠色',
-      count: 2,
-      price: 4690,
-      img: img,
-    },
-    {
-      id: 1,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '粉色',
-      count: 1,
-      price: 4690,
-      img: img1,
-    },
-    {
-      id: 2,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '白色',
-      count: 7,
-      price: 4690,
-      img: img2,
-    },
-    {
-      id: 3,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '白色',
-      count: 7,
-      price: 4690,
-      img: img2,
-    },
-    {
-      id: 4,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '白色',
-      count: 7,
-      price: 4690,
-      img: img2,
-    },
-  ];
-  // let id =  user.id ;
+  const [item, setItem] = useState([]);
+  const [point, setPoint] = useState(false);
+  const [heart, setHeart] = useState(false);
+
   useEffect(() => {
-    let user_id = user ? user.id : '';
-    console.log(user_id);
     (async () => {
-      let result = await axios.get(`${API_URL}/product/like`, {
+      let result = await axios.get(`${API_URL}/products/like`, {
         withCredentials: true,
       });
+      setItem(result.data);
       console.log(result);
     })();
   }, []);
-  const [item, setItem] = useState(arr);
-  const [point, setPoint] = useState(false);
-  const [heart, setHeart] = useState(false);
+
   return (
     <>
       <div
@@ -129,15 +86,15 @@ const Tools = () => {
       >
         <div className={classess.cartTitle}>購物車</div>
         {item.map((v, i) => {
-          const { id, name, color, count, price, img } = v;
+          const { id, name, count, price, img } = v;
           return (
             <div className={classess.cartItem} key={i}>
               <figure>
-                <img src={img} alt="" />
+                <img src={`/img/product/product_img/${img}`} alt="" />
               </figure>
               <div className={classess.cartInfo}>
                 <p>{name}</p>
-                <p>{color}</p>
+                <p></p>
                 <p>
                   {count} x NT${price}
                 </p>
@@ -194,7 +151,7 @@ const Tools = () => {
                 >
                   <>
                     <figure>
-                      <img src={img} alt="" />
+                      <img src={`/img/product/product_img/${img}`} alt="" />
                       <div className={classess.heart}>
                         <IconContext.Provider
                           value={{ color: 'white', size: '2.4rem' }}

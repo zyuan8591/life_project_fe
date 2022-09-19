@@ -9,6 +9,7 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
 const Product = ({ productList }) => {
+  const [heart, setHeart] = useState(false);
   return (
     <div className="productContainer">
       {productList.map((v, i) => {

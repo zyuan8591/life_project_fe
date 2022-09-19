@@ -30,7 +30,7 @@ const ProductFilter = ({
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
-      console.log(result.data);
+      // console.log(result.data);
       setBrandArr(result.data);
     })();
   }, [brand]);

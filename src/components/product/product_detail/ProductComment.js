@@ -14,7 +14,6 @@ const ProductComment = () => {
   const { id } = useParams();
   const star = solid + 1;
   const submit = async () => {
-    console.log(writeComment);
     await axios.post(
       `${API_URL}/products/${id}/comment`,
       { writeComment, star },
