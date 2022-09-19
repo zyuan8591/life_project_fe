@@ -25,6 +25,7 @@ const ProductList = () => {
   const [sort, setSort] = useState(0);
   const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
+  const [productLikeId, setProductLikeId] = useState(false);
   // like data
   const [item, setItem] = useState([]);
 
@@ -34,9 +35,7 @@ const ProductList = () => {
       let result = await axios.get(
         `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`
       );
-      // console.log(result.data.data);
-      // let test = pageNow * result.data.pagination.perPage;
-      // console.log(pageNow, lastPage);
+
       if (
         result.data.pagination.total % 12 !== 0 ||
         result.data.pagination.total > 12
@@ -51,19 +50,19 @@ const ProductList = () => {
       } else {
         setCountNow(pageNow * result.data.pagination.perPage);
       }
-      // console.log(result.data.pagination.total % 12);
       setLastPage(result.data.pagination.lastPage);
       setTotal(result.data.pagination.total);
       setProductList(result.data.data);
       setCount(result.data.pagination.offset);
-      // (async () => {
-      //   let result = await axios.get(`${API_URL}/products/like`, {
-      //     withCredentials: true,
-      //   });
-      //   setItem(result.data);
-      //   let favNumber = result.data.map((v) => v.product_id);
-      //   setFav(favNumber);
-      // })();
+      (async () => {
+        let result = await axios.get(`${API_URL}/products/like`, {
+          withCredentials: true,
+        });
+        setItem(result.data);
+        let favNumber = result.data.map((v) => v.product_id);
+        setFav(favNumber);
+      })();
+      console.log(productLikeId);
     })();
   }, [
     pageNow,
@@ -74,23 +73,12 @@ const ProductList = () => {
     biggerThan,
     sort,
     lastPage,
-    // fav,
+    productLikeId,
   ]);
   useEffect(() => {
     setPageNow(1);
   }, [productCateNow, search, checked]);
 
-  // like data
-  useEffect(() => {
-    (async () => {
-      let result = await axios.get(`${API_URL}/products/like`, {
-        withCredentials: true,
-      });
-      setItem(result.data);
-      let favNumber = result.data.map((v) => v.product_id);
-      setFav(favNumber);
-    })();
-  }, []);
   return (
     <>
       <Header />
@@ -111,7 +99,13 @@ const ProductList = () => {
               count={count}
               countNow={countNow}
             />
-            <Product productList={productList} item={item} fav={fav} />
+            <Product
+              productList={productList}
+              item={item}
+              fav={fav}
+              setProductLikeId={setProductLikeId}
+              productLikeId={productLikeId}
+            />
           </div>
         </div>
         <PaginationBar
