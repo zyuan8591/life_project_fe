@@ -37,7 +37,7 @@ const Product = ({ productList }) => {
                   <div
                     onClick={async () => {
                       await axios.post(
-                        `${API_URL}/products/like`,
+                        `${API_URL}/products/addLike`,
                         { id },
                         { withCredentials: true }
                       );

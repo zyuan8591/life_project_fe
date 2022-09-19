@@ -7,8 +7,8 @@ import { IoCartOutline } from 'react-icons/io5';
 import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineCreditCard } from 'react-icons/ai';
 import { FaTrashAlt } from 'react-icons/fa';
-// import axios from 'axios';
-// import { API_URL } from '../../utils/config';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const img = '/img/product/product_img/BRUNO_BOE021_BGY_01.jpeg';
@@ -17,7 +17,7 @@ const img2 = '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
 
 const Tools = () => {
   const [cart, setCart] = useState(false);
-  const [user] = useUserRights();
+  const { user } = useUserRights();
   const arr = [
     {
       id: 0,
@@ -60,12 +60,17 @@ const Tools = () => {
       img: img2,
     },
   ];
-  console.log(user);
+  // let id =  user.id ;
   useEffect(() => {
+    let user_id = user ? user.id : '';
+    console.log(user_id);
     (async () => {
-      // let result = await axios.get(`${API_URL}/product/${user_id}/like`);
+      let result = await axios.get(`${API_URL}/product/like`, {
+        withCredentials: true,
+      });
+      console.log(result);
     })();
-  });
+  }, []);
   const [item, setItem] = useState(arr);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
