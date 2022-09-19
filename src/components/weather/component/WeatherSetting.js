@@ -96,7 +96,7 @@ const WeatherSetting = ({
   const [locationName, setLocationName] = useState(cityName);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setLocationName(e.target.value);
     setRemind('');
   };
@@ -104,7 +104,7 @@ const WeatherSetting = ({
   const handleSave = () => {
     // 是否包含在 locations 內
     if (locations.includes(locationName)) {
-      console.log(`儲存的地區資訊為：${locationName}`);
+      // console.log(`儲存的地區資訊為：${locationName}`);
       setCurrentCity(locationName);
 
       // setCurrentPage 導回天氣資訊頁
