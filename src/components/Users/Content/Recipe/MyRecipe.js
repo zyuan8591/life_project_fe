@@ -38,9 +38,11 @@ function MyRecipe() {
   };
   // set recipe valid = 0
   const delRecipe = async (recipe_id) => {
-    await axios.put(`${API_URL}/recipes/${recipe_id}?valid=0`, {
-      withCredentials: true,
-    });
+    await axios.put(
+      `${API_URL}/recipes/${recipe_id}?valid=0`,
+      {},
+      { withCredentials: true }
+    );
     getDataList(`${API_URL}/recipes?user=${user.id}&perPage=5&page=${pageNow}`);
   };
   // EDIT BUTTON =====================================================
@@ -62,7 +64,7 @@ function MyRecipe() {
       }
       getDataList(apiurl);
     })();
-  }, [display, pageNow]);
+  }, [display, pageNow, isEdit]);
 
   useEffect(() => {
     setPageNow(1);

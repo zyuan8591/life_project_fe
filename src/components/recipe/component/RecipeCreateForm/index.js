@@ -56,12 +56,9 @@ const RecipeCreateForm = ({
       // editing default value
       if (isEdit) {
         let id = defaultData;
-        console.log(id);
-        let recipe = await axios.get(`${API_URL}/recipes/${defaultData}`);
-        let material = await axios.get(
-          `${API_URL}/recipes/${defaultData}/material`
-        );
-        let step = await axios.get(`${API_URL}/recipes/${defaultData}/step`);
+        let recipe = await axios.get(`${API_URL}/recipes/${id}`);
+        let material = await axios.get(`${API_URL}/recipes/${id}/material`);
+        let step = await axios.get(`${API_URL}/recipes/${id}/step`);
         recipe = recipe.data.map((d) => {
           let { name, content, category, product_category, image } = d;
           return {
@@ -92,12 +89,15 @@ const RecipeCreateForm = ({
 
   // test useeffect
   useEffect(() => {
-    console.log(addForm);
+    console.log('addform', addForm);
   }, [addForm]);
   useEffect(() => {
     console.log(material);
   }, [material]);
   useEffect(() => {
+    step.map((d) => {
+      console.log(typeof d.img);
+    });
     console.log(step);
   }, [step]);
 
@@ -230,10 +230,35 @@ const RecipeCreateForm = ({
           withCredentials: true,
         });
       } else if (isEdit) {
+        let id = defaultData;
+        // put recipe
+        let recipeData = null;
+        console.log('editing', formData);
+        if (typeof addForm.image === 'object') recipeData = formData;
+        if (typeof addForm.image === 'string') recipeData = { ...addForm };
+        console.log('recipeData', recipeData);
+        await axios.put(`${API_URL}/recipes/${id}`, recipeData, {
+          withCredentials: true,
+        });
+        // del origin material
+        await axios.delete(`${API_URL}/recipes/${id}/material`, {
+          withCredentials: true,
+        });
+        // post new material
+        await axios.post(
+          `${API_URL}/recipes/${id}/material`,
+          { material },
+          {
+            withCredentials: true,
+          }
+        );
+        // del origin step
+        // post new step
+
         console.log('put recipe & step & material');
       }
       // close form
-      closeCreateRecipe();
+      // closeCreateRecipe();
     } catch (e) {
       console.error(e);
     }
@@ -261,9 +286,9 @@ const RecipeCreateForm = ({
             className={`mb-1 bg-warning text-dark ${classes.btn}`}
             onClick={() => {
               setAddForm({
-                name: '泰式檸檬魚',
+                name: '月亮蝦餅',
                 content:
-                  '夏日開胃料理檸檬魚，不用到泰式餐廳，用電鍋就可以輕鬆做出這道美食，只要掌握好調味料，廚房新手也可以完成這道菜。酸辣鮮美的醬汁可以讓人在夏天多吃一碗飯，海鮮類經過檸檬酸香提味，肉質鮮嫩、更加爽口。',
+                  '在家也能輕鬆做月亮蝦餅喔！蝦餅名稱的由來，是因為在還沒炸之前是呈現圓圓白白像月亮的樣子，所以就叫月亮蝦餅。這道經典美食更常蟬聯團購榜首呢！如果你想品嘗人氣團購商品，又不想面對遙遙無期的漫長等待，那麼就一定要來學學這道料理，搭配氣炸烤箱現做現炸快速又方便，一鍵輕鬆免看顧，讓您享受美味不必久等。',
                 category: 7,
                 product_category: 7,
               });
