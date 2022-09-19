@@ -6,6 +6,7 @@ import { IconContext } from 'react-icons';
 function Notification({
   contaninText,
   linkTo = '',
+  linkToText = '前往會員中心',
   setLoginBtn,
   left = 30,
   bottom = 0,
@@ -21,7 +22,7 @@ function Notification({
         <div className="msgText">{contaninText}</div>
         <div className="btns">
           <Link to={linkTo} className="confirmBtn">
-            前往會員中心
+            {linkToText}
           </Link>
           <button
             className="cancelBtn"
@@ -35,7 +36,7 @@ function Notification({
       </div>
     </div>
   ) : (
-    <IconContext.Provider value={{ color: '#F2AC33', size: `${iconSize}em` }}>
+    <IconContext.Provider value={{ color: '#1F9998', size: `${iconSize}em` }}>
       <div className="notificationContainer">
         <div
           className="contain noTextBox"
