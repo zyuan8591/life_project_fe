@@ -13,6 +13,9 @@ function ActivityCard({
   user,
   userCollected,
   setUserCollected,
+  setCollectConfirm,
+  setCollectCancel,
+  setLoginBtn,
 }) {
   const dataReplace = (date) => {
     return date.replace(/-/g, '/');
@@ -40,7 +43,10 @@ function ActivityCard({
     let collected = response.data.getCamping.map((v) => v.activity_id);
     setUserCollected(collected);
     // TODO: 修改alert
-    alert('已加入收藏');
+    setCollectConfirm(true);
+    setTimeout(() => {
+      setCollectConfirm(false);
+    }, 2000);
   };
 
   const handleDelCollect = async (campingId) => {
@@ -53,7 +59,10 @@ function ActivityCard({
     let collected = response.data.getCamping.map((v) => v.activity_id);
     setUserCollected(collected);
     // TODO: 修改alert
-    alert('已取消收藏');
+    setCollectCancel(true);
+    setTimeout(() => {
+      setCollectCancel(false);
+    }, 2000);
   };
 
   return (
@@ -94,7 +103,7 @@ function ActivityCard({
                   // className={classes.collect}
                   onClick={() => {
                     // TODO: 改掉alert
-                    alert('請先登入會員');
+                    setLoginBtn(true);
                   }}
                 />
               </IconContext.Provider>

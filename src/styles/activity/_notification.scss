@@ -1,0 +1,64 @@
+@import '../variable';
+@mixin btnStyle {
+    border: 2px solid $mainClrW;
+        padding: 5px 12px;
+        font-size: $contentText;
+        color: $mainClrW;
+        background-color: transparent;
+        transition: .4s;
+        &:hover{
+            background-color: $mainClrW;
+            color: $subClrBrown;
+        }
+}
+
+.notificationContainer{
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - $headerHeight);
+    // background: rgba(0, 0, 0, 0.363);
+    z-index: 40;
+    .contain{
+        // background: $subClrBrown;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .msgText{
+            color: $mainClrW;
+            font-size: 24px;
+        }
+        .message{
+            color: $focusClrY;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        .btns{
+            margin-top: 15px;
+            padding-top: 40px;
+            border-top: 2px solid $mainClrW ;
+            .confirmBtn{
+                margin-right: 60px;
+                @include btnStyle;
+            }
+            .cancelBtn{
+                @include btnStyle;
+            }
+        }
+    }
+    .textBox{
+        width: 20%;
+        height: 20%;
+        background: $subClrBrown;
+        flex-direction: column;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .noTextBox{
+        width: 10%;
+        height: 7%;
+        background: $mainClrW;
+        box-shadow: .2px .2px 10px rgba(51, 70, 80, 0.207);
+    }
+}
