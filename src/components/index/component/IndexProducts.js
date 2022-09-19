@@ -3,6 +3,8 @@ import { css } from '@emotion/react';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import CardSm from '../../public_component/CardSm';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 
 // emotion css
 const hoverClr = '#eee';
@@ -48,6 +50,25 @@ const controlDir = css`
 
 const IndexProducts = () => {
   const cardClr = ['#f7f3ed', '#f6f2f7', '#fcf3f0', '#f7faf2'];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/index`);
+      result = result.data.map((d, i) => {
+        return {
+          id: d.id,
+          name: d.name,
+          image: d.img,
+          brand: d.brand,
+          date: d.created_time.slice(5, 11).replace(/-/g, '.'),
+          color: cardClr[i % cardClr.length],
+        };
+      });
+      setData(result);
+      console.log(result);
+    })();
+  }, []);
 
   const productListRef = useRef(null);
 
@@ -70,7 +91,15 @@ const IndexProducts = () => {
       setProgressWidth(progressRef.current.offsetWidth);
       setProgressBarWidth(progressBarRef.current.offsetWidth);
       setVwState(window.innerWidth);
+      console.log('scrollwidth', productListRef.current.scrollWidth);
+      console.log('offsetwidth', progressRef.current.offsetWidth);
+      console.log('baroffsetwidth', progressBarRef.current.offsetWidth);
+      console.log('vw', vwState);
     });
+    console.log('scrollwidth', productListRef.current.scrollWidth);
+    console.log('offsetwidth', progressRef.current.offsetWidth);
+    console.log('baroffsetwidth', progressBarRef.current.offsetWidth);
+    console.log('vw', vwState);
     setProductListWidth(productListRef.current.scrollWidth);
     setProgressWidth(progressRef.current.offsetWidth);
     setProgressBarWidth(progressBarRef.current.offsetWidth);
@@ -112,21 +141,19 @@ const IndexProducts = () => {
   return (
     <>
       <div ref={productListRef} css={productList}>
-        {Array(9)
-          .fill(1)
-          .map((d, i) => {
-            return (
-              <CardSm
-                key={i}
-                title="05.28 上架"
-                type="TOSHIBA"
-                name="AA_5566烤箱"
-                img={`/img/product/product_img/kolin_KBO_SD1915_01.jpg`}
-                link="/"
-                bg={cardClr[0]}
-              />
-            );
-          })}
+        {data.map((d, i) => {
+          return (
+            <CardSm
+              key={d.id}
+              title={`${d.date} 上架`}
+              type={d.brand}
+              name={d.name}
+              img={`/img/product/product_img/${d.image}`}
+              link={`/products/${d.id}`}
+              bg={d.color}
+            />
+          );
+        })}
       </div>
       <div css={controller}>
         <div
