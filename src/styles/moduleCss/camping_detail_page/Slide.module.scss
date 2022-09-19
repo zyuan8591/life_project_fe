@@ -3,7 +3,7 @@
   z-index: 5;
   position: absolute;
   top: 50%;
-  transform: translate($translateX, -20px);
+  transform: translate($translateX, -50%);
   cursor: pointer;
 }
 .productSlide {
@@ -17,5 +17,29 @@
   .sliderRight {
     @include slide(60px);
     right: 0;
+  }
+}
+
+@media screen and (max-width:375px) {
+  .productSlide {
+    margin: 35px auto;
+    // max-width: 1260px.;
+    // position: relative;
+    .sliderLeft {
+      // z-index: 5;
+      // position: absolute;
+      // top: 0;
+      transform: translate(-30px, -40px);
+      cursor: pointer;
+      // left: 0;
+    }
+    .sliderRight {
+      // z-index: 5;
+      // position: absolute;
+      // top: 50%;
+      transform: translate(30px, -45px);
+      // cursor: pointer;
+      // right: 0;
+    }
   }
 }

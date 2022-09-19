@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ShowPassword from '../Users/user_Component/ShowPassword';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const Login = () => {
@@ -54,7 +54,7 @@ const Login = () => {
 
   //TODO:製作記住帳號密碼
   if (user) {
-    return navigate(-1);
+    return navigate('/');
     // return <Navigate to="/" />;
   }
 

@@ -8,6 +8,7 @@ import { IconContext } from 'react-icons';
 import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 import { Link, useSearchParams } from 'react-router-dom';
 import WarnWindow from '../Account/component/WarnWindow';
+import RecipeCreateForm from '../../../recipe/component/RecipeCreateForm';
 
 function MyRecipe() {
   const { user, setUser } = useUserRights();
@@ -17,6 +18,8 @@ function MyRecipe() {
   const [warn, setWarn] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [display, setDisplay] = useState(0);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editData, setEditData] = useState([]);
 
   // get data list
   const getDataList = async (apiurl) => {
@@ -25,12 +28,26 @@ function MyRecipe() {
     setLastPage(result.data.pagination.lastPage);
   };
 
+  // TRASH BUTTON ====================================================
   // del recipe like
   const delLike = async (recipe_id) => {
     await axios.delete(`${API_URL}/recipes/${recipe_id}/like`, {
       withCredentials: true,
     });
     getDataList(`${API_URL}/recipes?perPage=5&page=${pageNow}&userLike=true`);
+  };
+  // set recipe valid = 0
+  const delRecipe = async (recipe_id) => {
+    await axios.put(
+      `${API_URL}/recipes/${recipe_id}?valid=0`,
+      {},
+      { withCredentials: true }
+    );
+    getDataList(`${API_URL}/recipes?user=${user.id}&perPage=5&page=${pageNow}`);
+  };
+  // EDIT BUTTON =====================================================
+  const closeEditRecipe = () => {
+    setIsEdit(false);
   };
 
   useEffect(() => {
@@ -47,7 +64,7 @@ function MyRecipe() {
       }
       getDataList(apiurl);
     })();
-  }, [display, pageNow]);
+  }, [display, pageNow, isEdit]);
 
   useEffect(() => {
     setPageNow(1);
@@ -113,16 +130,21 @@ function MyRecipe() {
               </td>
               {display === 1 && (
                 <td>
-                  <i className="fa-solid fa-pen-to-square icon cursorPointer"></i>
+                  <i
+                    className="fa-solid fa-pen-to-square icon cursorPointer"
+                    onClick={() => {
+                      setIsEdit(true);
+                      setEditData(d.id);
+                    }}
+                  ></i>
                 </td>
               )}
               <td>
                 <i
                   className="fa-solid fa-trash icon cursorPointer"
                   onClick={() => {
-                    if (display === 2) {
-                      delLike(d.id);
-                    }
+                    if (display === 2) return delLike(d.id);
+                    delRecipe(d.id);
                   }}
                 ></i>
               </td>
@@ -138,6 +160,15 @@ function MyRecipe() {
         />
       )}
       <WarnWindow warn={warn} setWarn={setWarn} />
+      {isEdit && (
+        <section className={`${classes.creatingRecipe} flexCenter`}>
+          <RecipeCreateForm
+            closeCreateRecipe={closeEditRecipe}
+            isEdit={isEdit}
+            defaultData={editData}
+          />
+        </section>
+      )}
     </div>
   );
 }

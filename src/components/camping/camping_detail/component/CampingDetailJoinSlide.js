@@ -12,14 +12,12 @@ function CampingDetailJoinSlide({ joinSlider, v }) {
       >
         <div className={classes.joinUser}>
           <div className={classes.userImg}>
-            <img src={`/img/user/user_img/${v.img}`} alt="/" />
+            <img src={`/img/user/user_img/${v.photo}`} alt="/" />
           </div>
           <div className={classes.userName}>{v.name}</div>
           <div className={classes.back}>
             <div className={classes.backbcg}>
-              <div className={classes.backInt}>
-                我喜歡輕鬆隨性的旅行，曾經去過許多國家，理解了旅行的意義，若你也有跟我一樣的人生經驗，可以一起來聊聊！！
-              </div>
+              <div className={classes.backInt}>{v.intro}</div>
             </div>
           </div>
         </div>
