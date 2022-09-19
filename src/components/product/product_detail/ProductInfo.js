@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import '../../../styles/product/_productInfo.scss';
 import { IconContext } from 'react-icons';
-import { HiOutlineHeart } from 'react-icons/hi';
-import { IoCartOutline } from 'react-icons/io5';
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import Magnifier from 'image-magnifier-react';
 import 'image-magnifier-react/lib/index.css';
+import { API_URL } from '../../../utils/config';
+import axios from 'axios';
 
-const ProductInfo = ({ data }) => {
+const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const {
+    id,
     name,
     brand,
     price = '',
@@ -20,12 +24,12 @@ const ProductInfo = ({ data }) => {
     intro = '',
   } = data;
   let split = '';
-  if (intro.includes(' ')) {
-    split = intro.split(' ');
-  } else if (intro.includes(',')) {
+  if (intro.includes(',')) {
     split = intro.split(',');
-  } else {
+  } else if (intro.includes('，')) {
     split = intro.split('，');
+  } else {
+    split = intro.split(' ');
   }
   const pic = `/img/product/product_img/${img}`;
 
@@ -35,7 +39,7 @@ const ProductInfo = ({ data }) => {
   });
   const [quantity, setQuantity] = useState(1);
   const [mainPhoto, setMainPic] = useState('');
-
+  console.log();
   useEffect(() => {
     setMainPic(pic);
   }, [data]);
@@ -139,8 +143,36 @@ const ProductInfo = ({ data }) => {
                 >
                   <IoCartOutline />
                 </button>
-                <button>
-                  <HiOutlineHeart />
+                <button
+                  onClick={async () => {
+                    if (fav.includes(id)) {
+                      await axios.delete(
+                        `${API_URL}/products/${id}/removeLike`,
+                        { withCredentials: true }
+                      );
+                      setProductLikeId(!productLikeId);
+                    } else {
+                      await axios.post(
+                        `${API_URL}/products/addLike`,
+                        { id },
+                        { withCredentials: true }
+                      );
+                      setProductLikeId(!productLikeId);
+                    }
+                  }}
+                >
+                  {fav.includes(id) ? (
+                    <IconContext.Provider
+                      value={{
+                        color: 'red',
+                        size: '1.6rem',
+                      }}
+                    >
+                      <HiHeart />
+                    </IconContext.Provider>
+                  ) : (
+                    <HiOutlineHeart />
+                  )}
                 </button>
               </IconContext.Provider>
             </div>

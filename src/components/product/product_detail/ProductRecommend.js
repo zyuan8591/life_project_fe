@@ -3,7 +3,7 @@ import Slider from './Slider';
 import '../../../styles/product/_productRecommend.scss';
 import ProductListSlider from './ProductListSlider';
 import { useState } from 'react';
-const ProductRecommend = () => {
+const ProductRecommend = ({ data }) => {
   const [now, setNow] = useState(0);
   return (
     <div>
@@ -17,7 +17,7 @@ const ProductRecommend = () => {
           pattern={'recommend'}
           itemWidth={250}
         >
-          <ProductListSlider now={now} total={9} />
+          <ProductListSlider now={now} total={9} data={data} />
         </Slider>
       </div>
     </div>

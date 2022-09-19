@@ -25,11 +25,11 @@ const ProductList = () => {
   const [sort, setSort] = useState(0);
   const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
-  const [productLikeId, setProductLikeId] = useState(false);
   // like data
   const [item, setItem] = useState([]);
-
   const [fav, setFav] = useState([]);
+  const [productLikeId, setProductLikeId] = useState(false);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(

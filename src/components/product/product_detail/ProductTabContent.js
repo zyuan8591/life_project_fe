@@ -6,12 +6,12 @@ import ProductRecommend from './ProductRecommend';
 import ProductRecipe from './ProductRecipe';
 import '../../../styles/product/_productTabContent.scss';
 
-const ProductTabContent = ({ tabNow, spec }) => {
+const ProductTabContent = ({ tabNow, spec, data }) => {
   const tabs = [
     <ProductIntro />,
     <ProductComment />,
     <ProductSpec spec={spec} />,
-    <ProductRecommend />,
+    <ProductRecommend data={data} />,
     <ProductRecipe />,
   ];
   return (

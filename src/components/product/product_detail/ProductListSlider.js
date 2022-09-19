@@ -1,10 +1,22 @@
+import axios from 'axios';
 import React from 'react';
-// import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect } from 'react';
+import { API_URL } from '../../../utils/config';
 
 const img = '/img/product/product_img/BRUNO_BOE059_BGR_CE_01.png';
 
-const ProductListSlider = ({ now, total }) => {
-  // console.log(now);
+const ProductListSlider = ({ now, total, data }) => {
+  // const []
+  const { category } = data;
+  console.log(category);
+  useEffect(() => {
+    (async () => {
+      let recommend = await axios.get(
+        `${API_URL}/products/${category}/recommend`
+      );
+      console.log(recommend);
+    })();
+  }, [category]);
   return (
     <>
       {[...Array(total)].map((v, i) => {
