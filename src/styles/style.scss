@@ -1,5 +1,7 @@
 @import './variable';
-
+body {
+  height: auto;
+}
 //Html Element Style
 html {
   scroll-behavior: smooth;
@@ -63,4 +65,7 @@ ul {
 }
 .transition {
   transition: 0.2s;
+}
+.userSelectNone {
+  user-select: none;
 }

@@ -167,6 +167,11 @@ p {
         width: 120px;
       }
     }
+    .nothingInFav {
+      position: absolute;
+      top: calc(50% - 11px);
+      left: calc(50% - 63px);
+    }
   }
   .triangle {
     width: 10px;
@@ -176,6 +181,6 @@ p {
     right: -5px;
     background: $contentClr;
     z-index: 10;
-    transition: .4s;
+    transition: 0.4s;
   }
 }

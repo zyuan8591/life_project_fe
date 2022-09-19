@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCartStep } from '../../../orderContetxt/useCartStep';
 import OrderList from './CartPage/OrderList';
 import Summary from './CartPage/Summary';
 
 const Cart = (props) => {
+  const { currentStep, setCurrentStep } = useCartStep();
+
   return (
     <>
       <OrderList />
@@ -13,8 +16,8 @@ const Cart = (props) => {
           繼續購買
         </Link>
         <Link
-          to
-          onClick={() => props.updateCurrentStep(props.currentStep + 1)}
+          to="/orderstep/checkout"
+          onClick={() => setCurrentStep(currentStep + 1)}
           className="btn stepBtn nextButton"
         >
           下一步

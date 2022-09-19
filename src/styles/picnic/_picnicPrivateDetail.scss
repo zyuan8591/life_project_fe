@@ -25,7 +25,7 @@
     line-height: 2rem;
 }
 
-.privateDetailContent {
+.PicnicOfficalDetailContainer {
     margin: $headerHeight auto;
     .contentTitle {
         @include contentTitle;  
@@ -56,7 +56,7 @@
             }
             .image {
                 width: 100%;
-                height: 22rem;
+                height: 500px;
                 img {
                     @include imgWH;
                     object-fit: cover;
@@ -65,177 +65,232 @@
             }
             // --------- 活動內容 ---------
             .privateDetailContent {
-            // margin: 4rem 0;
             // 主題內容
-            .contentWrap1 {
-                padding: 2rem 3rem;
-                margin: auto 0;
-                border-radius: 10px;
-                box-shadow: 0px 0px 3px $subClrGY;
-                .quoteLeftIcon {
-                    font-size: 1.2rem;
-                    margin: -1rem 5px 0;
-                }
-                .quoteRightIcon {
-                    font-size: 1.2rem;
-                    margin: 0 5px -1rem;
-                }
-                p {
-                    font-size: $text18;
-                    text-align:justify;
-                    margin: 0;
-                    @include lineHeight;
-                }    
-            }
-            // 活動須知
-            .contentWrap2 {   
-                p {
-                    font-size: $text18;
-                    color: $subClrBrown;
-                    .warnIcon {
-                        @include iconSize;
-                        color: $focusClrY;
-                        margin: -3px 5px 0 0;
+                .contentWrap1 {
+                    padding: 2rem 3rem;
+                    margin: auto 0;
+                    border-radius: 10px;
+                    box-shadow: 0px 0px 3px $subClrGY;
+                    .quoteLeftIcon {
+                        font-size: 1.2rem;
+                        margin: -1rem 5px 0;
                     }
-                }
-                ul {
-
-                    li {
+                    .quoteRightIcon {
+                        font-size: 1.2rem;
+                        margin: 0 5px -1rem;
+                    }
+                    p {
+                        font-size: $text18;
+                        text-align:justify;
+                        margin: 0;
                         @include lineHeight;
-                        margin-left: 38px;
-                        text-indent: -1rem;
-                    }
-                }  
-                
-            }
-            }
-            // --------- 主辦人 ---------
-            .organiser {
-            margin: 6rem 0 0;
-            display: flex;
-            align-items: center;
-            .avatar {
-                width: 8rem;
-                padding: .5rem;
-                text-align: center;
-                // background-color: $hoverClr;
-                .avatarImg {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                    margin: auto auto .5rem;
-                    overflow: hidden;
-                    background: #2651ad;
-                    img {
-                        @include imgWH;
-                        object-fit: cover;
-                    }
+                    }    
                 }
-            }
-            .info {
-                width: 400px;
-                height: 10rem;
-                line-height: 1.6rem;
-                display: flex;
-                align-items: center;
-                border-radius: 3px;
-                padding: 1rem;
-                margin-left: .5rem;
-                box-shadow: .8px .8px 3px $subClrGY;
-                border: 1px solid $hoverClr;
-                p {
-                    text-align: justify;
-                    font-size: $contentText;
+                // 活動須知
+                .contentWrap2 {   
+                    p {
+                        font-size: $text18;
+                        color: $subClrBrown;
+                        .warnIcon {
+                            @include iconSize;
+                            color: $focusClrY;
+                            margin: -3px 5px 0 0;
+                        }
+                    }
+                    ul {
+
+                        li {
+                            @include lineHeight;
+                            margin-left: 38px;
+                            text-indent: -1rem;
+                        }
+                    }  
+
                 }
-                
-            }
             }
             // --------- 參加者 ---------
             .paicipant {
-            margin: 3rem 0 6rem;
-            h4 {
-                @include contentTitle;
-                border: 0;
-                margin: 1.5rem 0;
-                font-size: $text20;
-                color: $subClrBrown;
-            }
-            .arrowIcon {
-                @include arrowIcon;
-            }
-            .paicipantCard {
-                width: 7rem;
-                margin: auto .5rem;
-                padding: .6rem;
-                background: $hoverClr;
-                text-align: center;
-                .avatar {
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 50%;
-                    margin: auto ;
-                    overflow: hidden;
-                    background: lightsalmon;
-                    img {
-                        @include imgWH;
-                        object-fit: cover;
-                    }
+                margin: 5rem 0;
+                h4 {
+                    margin: 1.5rem 0;
+                    font-size: $text20;
                 }
-            }
+                .arrowIconSlider{
+                    width: 936px;
+                    position: relative;
+                    .arrowIconLeft {
+                    @include arrowIcon;
+                    font-size: 40px;
+                    color: $contentClr;
+                    position: absolute;
+                    top: 50%;
+                    left: 10px;
+                    transform: translate(-8px,-50%);
+                    }
+                    .arrowIconRight {
+                    @include arrowIcon;
+                    font-size: 40px;
+                    color: $contentClr;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    }
+                    .slider {
+                        max-width: 900px;
+                        height: 190px;
+                        margin: auto 46px;
+                        position: relative;
+                        overflow: hidden;
+                        .slidewrap {
+                            width: 3500px;
+                            position: absolute;
+                            transform: translateX(-200px);
+                            .paicipantCard {
+                                width: 130px;
+                                margin: 5px 5px;
+                                padding: 10px 0px;
+                                background: $hoverClr;
+                                text-align: center;
+                                .avatar {
+                                    width: 100px;
+                                    height: 100px;
+                                    border-radius: 50%;
+                                    margin: auto ;
+                                    overflow: hidden;
+                                    background: lightsalmon;
+                                    img {
+                                        @include imgWH;
+                                        object-fit: cover;
+                                    }
+                                }
+                                .userName {
+                                    font-size: $contentText;
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                }
+                .userIntro {
+                    display: none;
+                }
+                &:hover {
+                    .userIntro {
+                        background-color: white;
+                        width: 200px;
+                        padding: 15px;
+                        text-align: justify;
+                        border: 3px  dashed $subClrBrown;
+                        border-radius: 10px;
+                        box-shadow: .2px .2px 5px #e0e0e0;
+                        display: block;
+                        position: absolute;
+                        top: -150px;
+                        left: 80px;
+                        // z-index: 2;
+                        p {
+                            padding: 0; 
+                            margin: 0;
+                            .quoteIcon {
+                                color: $contentClr;
+                                font-size: 14px;
+                                margin: 0 5px;
+                            }
+                        }
+                    } 
+                }
             }
             // --------- 推薦商品 ---------
             .recommendProducts {
-        margin: 6rem 0;
+        margin:0 0 5rem;
         h4 {
-            @include contentTitle;
-            border: 0;
             margin: 1.5rem 0;
             font-size: $text20;
             color: $subClrBrown;
         }
-        .arrowIcon {
-            @include arrowIcon;
-        }
-        .productCard {
-            // width: 100%;
-            margin: auto;
+        .arrowIconSlider {
+            width: 1350px;
+            // background-color: aqua;
             position: relative;
-            margin: 0 .3rem;
-            .productImg{
-                width: 11.25rem;
-                height: 10rem;
-                img {
-                    @include imgWH;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-            .hoverText{
-                width: 100%;
-                height: 160px;
-                background:rgba(68, 68, 68, 0.619) 80%;
-                text-align: center;
-                display: flex;
-                align-items: center;
-                color: $mainClrW;
+            .arrowIconLeft {
+                @include arrowIcon;
+                font-size: 40px;
+                color: $contentClr;
                 position: absolute;
-                top: 0;
-                opacity: 0;
+                top: 50%;
+                left: 0px;
+                transform: translate(-10px,-50%);
             }
-            span {
-                text-shadow: .5px .5px .5px $contentClr;
+            .arrowIconRight {
+                @include arrowIcon;
+                font-size: 40px;
+                color: $contentClr;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
             }
-            &:hover {
-                .hoverText {
-                    cursor: pointer;
-                    transition: .5s;
-                    // background: linear-gradient(to bottom, transparent 0%,rgba(100, 100, 100, 0.588), rgba(68, 68, 68, 0.718) 80%);
-                    background:rgba(68, 68, 68, 0.515) 80%;
-                    opacity: 1;
+            .slider{
+                // background:rgb(202, 0, 0);
+                max-width: 1260px;
+                height: 220px;
+                margin: auto 40px;
+                position: relative;
+                overflow: hidden;
+                .slidewrap{
+                    width: 3000px;
+                    position: absolute;
+                    // transform: translateX(-200px);
+                    .productCard {
+                        max-width: 200px;
+                        height: 200px;
+                        margin: 5px;
+                        overflow: hidden;
+                        position: relative;
+                        .productImg{
+                            width: 100%;
+                            height: 100%;
+                            img {
+                                @include imgWH;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                        .hoverText{
+                            width: 100%;
+                            height: 200px;
+                            color: $mainClrW;
+                            font-size: $contentText;
+                            background:#444444b7 80%;
+                            text-align: center;
+                            transition: .5s;
+                            display: flex;
+                            align-items: center;
+                            position: absolute;
+                            top: 0;
+                            opacity: 0;
+                        }
+                        span {
+                            display: inline-block;
+                            text-shadow: .5px .5px 1px $contentClr;
+                            font-size: $contentText;
+                            margin: auto;
+                        }
+                        &:hover {
+                            .hoverText {
+                                cursor: pointer;
+                                transition: .5s;
+                                opacity: 1;
+                            }
+                        }
+                    }
+                    
                 }
-                
             }
         }
+                    
             }
         }    
         // --------- 側邊資訊欄 ---------
@@ -368,4 +423,44 @@
 
     }
 
-}
+}            // --------- 主辦人 ---------
+            .organiser {
+            margin: 6rem 0 0;
+            display: flex;
+            align-items: center;
+            .avatar {
+                width: 8rem;
+                padding: .5rem;
+                text-align: center;
+                // background-color: $hoverClr;
+                .avatarImg {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    margin: auto auto .5rem;
+                    overflow: hidden;
+                    background: #2651ad;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .info {
+                width: 400px;
+                height: 10rem;
+                line-height: 1.6rem;
+                display: flex;
+                align-items: center;
+                border-radius: 3px;
+                padding: 1rem;
+                margin-left: .5rem;
+                box-shadow: .8px .8px 3px $subClrGY;
+                border: 1px solid $hoverClr;
+                p {
+                    text-align: justify;
+                    font-size: $contentText;
+                }
+                
+            }
+            }

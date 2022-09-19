@@ -21,7 +21,7 @@ const RecipeDetail = () => {
   const [step, setStep] = useState([]);
   const [comments, setComments] = useState([]);
 
-  const id = searchParams.get('id');
+  const id = parseInt(searchParams.get('id'));
 
   useEffect(() => {
     (async () => {
@@ -118,7 +118,11 @@ const RecipeDetail = () => {
         <div ref={introRef}>
           <Header fixed={false} />
           <section className="recipeDetailIntro">
-            <RecipeIntro data={recipeData} id={id} />
+            <RecipeIntro
+              data={recipeData}
+              id={id}
+              setRecipeData={setRecipeData}
+            />
           </section>
         </div>
 

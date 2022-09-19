@@ -1,14 +1,10 @@
 @import '../variable';
-
-// @import './login.scss';
-@mixin btn {
-   padding: 10px;
-   background:$subClrBrown;
-   color: #fff;
-   border: 0;   
-   border-radius: 5px;  
-;
-}
+@import './mixin.scss';
+@import './Content/Account.scss';
+@import './Content/password.scss';
+@import './Content/points.scss';
+@import './Content/activity.scss';
+@import './Content/order.scss';
 
 .users {    
    background: #f2f2f2;     

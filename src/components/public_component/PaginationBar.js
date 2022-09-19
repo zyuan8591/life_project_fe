@@ -70,7 +70,7 @@ const PaginationBar = ({ lastPage = 5, pageNow = 1, setPageNow }) => {
             if (i < displayPage - 10) return;
             return (
               <li
-                key={uuidv4()}
+                key={i}
                 css={css`
                   ${pageItem};
                   background: ${pageNow === i + 1 ? subClrBrown : '#fff'};
