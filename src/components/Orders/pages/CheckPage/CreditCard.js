@@ -4,7 +4,6 @@ import TextField from '../../component/TextField';
 import { Field } from 'formik';
 
 function CreditCard({ values, setFieldValue }) {
-  console.log('cccccc',values);
   return (
     <>
       <div className="cCardLayout">
@@ -16,39 +15,12 @@ function CreditCard({ values, setFieldValue }) {
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
                     <TextField
-                      name="cCardNum1"
-                      maxLength={4}
-                      value={values.cCardNum1}
+                      name="cardNumber"
+                      maxLength={12}
+                      // value={values.cardNumber}
                       // onChange={(e) => {
-                      //   setFieldValue(e.target.name, e.target.value);
+                      //   setFieldValue('cardNumber', values.cardNumber);
                       // }}
-                    />
-                  </div>
-                  -
-                  <div className="col">
-                    <TextField
-                      name="cCardNum2"
-                      maxLength={4}
-                      values={values}
-                      setFieldValue={setFieldValue}
-                    />
-                  </div>
-                  -
-                  <div className="col">
-                    <TextField
-                      name="cCardNum3"
-                      maxLength={4}
-                      values={values}
-                      setFieldValue={setFieldValue}
-                    />
-                  </div>
-                  -
-                  <div className="col">
-                    <TextField
-                      name="cCardNum4"
-                      maxLength={4}
-                      values={values}
-                      setFieldValue={setFieldValue}
                     />
                   </div>
                 </div>
@@ -59,22 +31,22 @@ function CreditCard({ values, setFieldValue }) {
                 <label className="mb-2">到期日</label>
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
-                    <TextField
+                    <Field
                       maxLength={2}
                       name="cCardMonth"
                       values={values}
                       onChange={(e) => {
-                        setFieldValue(e.target.name, e.target.value);
+                        // setFieldValue(e.target.name, e.target.value);
                       }}
                     />
                   </div>
                   /
                   <div className="col">
-                    <TextField
+                    <Field
                       maxLength={2}
                       name="cCardDate"
                       values={values}
-                      setFieldValue={setFieldValue}
+                      // setFieldValue={setFieldValue}
                     />
                   </div>
                 </div>
@@ -82,12 +54,12 @@ function CreditCard({ values, setFieldValue }) {
             </div>
             <div className="row align-items-center">
               <div className="col">
-                <TextField
+                <Field
                   label="安全碼"
                   maxLength={3}
                   name="cCardCheck"
                   values={values}
-                  setFieldValue={setFieldValue}
+                  // setFieldValue={setFieldValue}
                 />
               </div>
             </div>

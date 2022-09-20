@@ -4,10 +4,9 @@ import CreditCard from './CreditCard';
 function Payment({
   values,
   payment,
-  setCurrentPayment,
   currentPayment,
+  setCurrentPayment,
   setFieldValue,
-  // showPaymentDetail,
 }) {
   const showPaymentDetail = (vid) => {
     if (currentPayment !== vid) return null;

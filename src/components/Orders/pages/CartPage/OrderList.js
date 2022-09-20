@@ -90,7 +90,6 @@ const OrderList = (props) => {
                   <div
                     className="row orderItem gap-3"
                     key={v.id}
-                    // TODO: background color
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
@@ -118,6 +117,11 @@ const OrderList = (props) => {
                     <div className="col">
                       <div className="counter">
                         <button
+                          style={{
+                            background: v.ischecked
+                              ? 'rgba(185,189,197,.2)'
+                              : '#fff',
+                          }}
                           className="counterButton"
                           onClick={() => {
                             productCart.minusOne(v.id);
@@ -127,6 +131,11 @@ const OrderList = (props) => {
                         </button>
                         <div className="counterContent">
                           <input
+                            style={{
+                              background: v.ischecked
+                                ? 'rgba(185,189,197,.2)'
+                                : '#fff',
+                            }}
                             type="text"
                             className="counterInput"
                             // value={v.quantity}
@@ -143,6 +152,11 @@ const OrderList = (props) => {
                         </div>
 
                         <button
+                          style={{
+                            background: v.ischecked
+                              ? 'rgba(185,189,197,.2)'
+                              : '#fff',
+                          }}
                           className="counterButton"
                           onClick={() => {
                             productCart.plusOne(v.id);

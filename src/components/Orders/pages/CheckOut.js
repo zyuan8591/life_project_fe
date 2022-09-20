@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import OrderDetail from './CheckPage/OrderDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
@@ -17,11 +17,14 @@ import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 const CheckOut = () => {
   const { currentStep, setCurrentStep } = useCartStep();
+  const navigate = useNavigate();
 
   const [delivery, setDelivery] = useState([]);
 
   const [payment, setPayment] = useState([]);
   const [currentPayment, setCurrentPayment] = useState(null);
+
+  const [isOrder, setIsOrder] = useState(false);
 
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
@@ -45,6 +48,13 @@ const CheckOut = () => {
     setCurrentStep(2);
   }, []);
 
+  useEffect(() => {
+    if (isOrder) {
+      // <Navigate to="/orderstep/ordercheck" />;
+      navigate('/orderstep/ordercheck');
+    }
+  }, [isOrder]);
+
   // post {"orders":[{productCart.state.items.id:1, productCart.state.items.quantity:2, name:aaa, email:aaa@test.com, phone:0900000000, address:XXX, delivery: 2, memo:yyy, payment: lp}]}
 
   const initialValues = {
@@ -57,10 +67,7 @@ const CheckOut = () => {
     address: '',
     memo: '',
     payment: '',
-    cCardNum1: '',
-    // cCardNum2: '',
-    // cCardNum3: '',
-    // cCardNum4: '',
+    // cardNumber: '',
     // cCardMonth: '',
     // cCardDate: '',
     // cCardCheck: '',
@@ -102,39 +109,33 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
-          cCardNum1: yup.string().required('必填'),
-          // cCardNum2: yup.string().required('必填'),
-          // cCardNum3: yup.string().required('必填'),
-          // cCardNum4: yup.string().required('必填'),
+          // cardNumber: yup.string().required('必填'),
           // cCardMonth: yup.string().required('必填'),
           // cCardDate: yup.string().required('必填'),
           // cCardCheck: yup.string().required('必填'),
         })}
         onSubmit={async (values) => {
-          // try {
-          //   await axios.post(`${API_URL}/orders/order`, values, {
-          //     withCredentials: true,
-          //   });
-          // } catch (e) {
-          //   console.error('order', e);
-          // }
+          try {
+            let response = await axios.post(`${API_URL}/orders/order`, values, {
+              withCredentials: true,
+            });
+            // console.log(response);
+            if (response.data) return setIsOrder(true);
+          } catch (e) {
+            console.error('order', e);
+          }
           // console.log(values);
         }}
       >
         {({ values, setFieldValue }) => (
           <Form>
-            <RecipientInfo
-              values={values}
-              // setDelivery={setDelivery}
-              delivery={delivery}
-            />
+            <RecipientInfo values={values} delivery={delivery} />
             <Payment
               values={values}
               payment={payment}
               setFieldValue={setFieldValue}
               currentPayment={currentPayment}
               setCurrentPayment={setCurrentPayment}
-              // showPaymentDetail={showPaymentDetail}
             />
 
             <div className="orderStepBtns gap-3">
@@ -145,13 +146,7 @@ const CheckOut = () => {
               >
                 上一步
               </Link>
-              <button
-                className="btn stepBtn nextButton"
-                // type="submit"
-                onClick={(e) => {
-                  // setCurrentStep(currentStep + 1);
-                }}
-              >
+              <button className="btn stepBtn nextButton" type="submit">
                 下一步
               </button>
             </div>
