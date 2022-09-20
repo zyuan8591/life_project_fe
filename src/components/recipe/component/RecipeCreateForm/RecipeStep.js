@@ -78,7 +78,7 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
         css={imgContainer}
         className="cursorPointer"
       >
-        {fileDataURL || edit ? (
+        {fileDataURL || data.img ? (
           <img src={fileDataURL || data.img} alt="prev" className="w-100" />
         ) : (
           <>
