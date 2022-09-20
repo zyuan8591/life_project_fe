@@ -146,9 +146,9 @@ function PicnicPrivateList() {
           </div>
           <div className="main">
             {/* breadCrumb */}
-            <p className="breadCrumb py-3">
+            <div className="breadCrumb py-3">
               <BreadCrumb />
-            </p>
+            </div>
             <div className="contain">
               <div className="row m-0">
                 {/* 左側篩選欄 */}

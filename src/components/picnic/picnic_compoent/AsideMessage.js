@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
+import MapAside from '../../map/component/MapAside';
 
 function AsideMessageFix({
   data,
@@ -77,12 +78,26 @@ function AsideMessageFix({
                 <BsPersonFill className="personIcon" />
                 達已成團還差：{lastCount(item.join_limit, item.currentJoin)}人
               </div>
-              <div className="map mb-3">map</div>
+              <div className="map mb-3">
+                <MapAside />
+              </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="price">NT${item.price}</div>
                 {/* TODO: 即將開團BTN 不能是加入 */}
-                {/* TODO: map */}
-                {user ? (
+                {item.activity_state === '即將開團' ? (
+                  <button
+                    className="joinInBtn"
+                    style={{
+                      background: '#B9BDC5',
+                      color: '#444',
+                    }}
+                    onClick={() => {
+                      handleDeleteJoin(item.id);
+                    }}
+                  >
+                    gggg
+                  </button>
+                ) : user ? (
                   userJoin.includes(item.id) ? (
                     <button
                       className="joinInBtn"
@@ -116,6 +131,40 @@ function AsideMessageFix({
                     加入活動
                   </button>
                 )}
+                {/* {user ? (
+                  userJoin.includes(item.id) ? (
+                    <button
+                      className="joinInBtn"
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      onClick={() => {
+                        handleDeleteJoin(item.id);
+                      }}
+                    >
+                      取消活動
+                    </button>
+                  ) : (
+                    <button
+                      className="joinInBtn"
+                      onClick={() => {
+                        handleAddJoin(data[0].id);
+                      }}
+                    >
+                      加入活動
+                    </button>
+                  )
+                ) : (
+                  <button
+                    className="joinInBtn"
+                    onClick={() => {
+                      alert('請先登入會員');
+                    }}
+                  >
+                    加入活動
+                  </button>
+                )} */}
               </div>
             </div>
           );

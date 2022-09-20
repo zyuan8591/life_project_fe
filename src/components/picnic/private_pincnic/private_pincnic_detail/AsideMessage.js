@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
+import MapAside from '../../../map/component/MapAside';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
@@ -80,7 +81,7 @@ function AsideMessage({
                   <BsPersonFill className="personIcon" />
                   達已成團還差：{lastCount(item.join_limit, item.currentJoin)}人
                 </div>
-                <div className="map mb-3">map</div>
+                <div className="map mb-3">{/* <MapAside /> */}</div>
               </div>
             );
           })}

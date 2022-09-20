@@ -60,7 +60,7 @@ function PrivateDetailContent({ data }) {
               </li>
               <li>
                 {/* <FaExclamationTriangle className="warnIcon" /> */}
-                2. 成團條件：2人(含)以上
+                2. 成團條件：5人(含)以上
               </li>
               <li>
                 {/* <FaExclamationTriangle className="warnIcon" /> */}
