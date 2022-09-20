@@ -107,7 +107,7 @@ const Password = () => {
       })}
       onSubmit={async (values) => {
         try {
-          await axios.put(`${API_URL}/userUpdata/password`, values, {
+          await axios.put(`${API_URL}/user/password`, values, {
             withCredentials: true,
           });
           setPopWindow(true);
@@ -218,7 +218,11 @@ const Password = () => {
               <button type="sunmit">確認</button>
             </Form>
           </div>
-          <PopWindow popWindow={popWindow} setPopWindow={setPopWindow} />
+          <PopWindow
+            popWindow={popWindow}
+            setPopWindow={setPopWindow}
+            linkTo="/users/account"
+          />
         </>
       )}
     </Formik>

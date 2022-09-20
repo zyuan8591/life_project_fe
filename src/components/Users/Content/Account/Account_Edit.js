@@ -45,7 +45,7 @@ const Account = ({ setEdit }) => {
             formData.append('cityName', values.cityName);
             formData.append('areaName', values.areaName);
             formData.append('intro', values.intro);
-            let response = await axios.put(`${API_URL}/userUpdata`, formData, {
+            let response = await axios.put(`${API_URL}/user`, formData, {
               withCredentials: true,
             });
             setUser(response.data);
