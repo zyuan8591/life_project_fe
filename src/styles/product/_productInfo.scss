@@ -38,6 +38,7 @@
     }
     .infoArea {
       min-width: 475px;
+      max-width: 475px;
       margin: 0 50px;
       .brand {
         font-size: $text32;
@@ -70,6 +71,8 @@
       }
       .quantity {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-size: $text24;
         margin-bottom: 20px;
         button {
@@ -80,6 +83,9 @@
         .number {
           min-width: 30px;
           text-align: center;
+        }
+        .inventory {
+          font-size: $text14;
         }
       }
       .cartFav {

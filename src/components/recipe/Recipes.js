@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import '../../styles/_recipes.scss';
 import RecipeCateBtn from './component/RecipeCateBtn';
 import Select from 'react-select';
@@ -21,6 +21,7 @@ import BreadCrumb from '../public_component/BreadCrumb';
 import IndexRecipeActivity from '../index/component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
+import { useUserRights } from '../../usecontext/UserRights';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -61,8 +62,9 @@ const customStyles = {
 
 const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
-  const [createRecipe, setCreateRecipe] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user, setUser } = useUserRights();
+  const navigate = useNavigate();
 
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
@@ -90,7 +92,7 @@ const Recipes = () => {
       setSearchMaterial(searchParams.get('searchMaterial'));
   }, []);
 
-  // Handle query
+  // Handle query string
   useEffect(() => {
     // recipe category
     let recipeCateQuery = searchParams.get('recipeCate');
@@ -101,6 +103,13 @@ const Recipes = () => {
     if (!productCateQuery) productCateQuery = 0;
     setProductCateNow(productCateQuery);
   }, [searchParams]);
+
+  // const set product category for component
+  const setProductCateNowFunc = (id) => {
+    const params = Object.fromEntries([...searchParams]);
+    params['productCate'] = id;
+    setSearchParams(params);
+  };
 
   // set page to 1
   useEffect(() => {
@@ -123,6 +132,7 @@ const Recipes = () => {
     searchName,
     pageNow,
     productCateNow,
+    searchParams,
   ]);
 
   const searchNameHandler = (e) => {
@@ -135,6 +145,19 @@ const Recipes = () => {
     setSearchMaterial(e.target.value);
     const params = Object.fromEntries([...searchParams]);
     params['searchMaterial'] = e.target.value;
+    setSearchParams(params);
+  };
+
+  // handle add recipe
+  const addRecipeHandler = () => {
+    if (!user) return navigate('/signin/login');
+    const params = Object.fromEntries([...searchParams]);
+    params['add'] = 'true';
+    setSearchParams(params);
+  };
+  const closeRecipeHandler = () => {
+    const params = Object.fromEntries([...searchParams]);
+    delete params.add;
     setSearchParams(params);
   };
 
@@ -183,20 +206,26 @@ const Recipes = () => {
               </IconContext.Provider>
             </div>
           </div>
-          {/* TODO: add recipe, my recipe ... btn */}
+          {/* add recipe, my recipe ... btn */}
           <div className="recipeFeatureBtn">
             <IconContext.Provider
               value={{ size: '2.5rem', className: 'recipeFeatureSvg' }}
             >
-              <div className="featureBtn" onClick={() => setCreateRecipe(true)}>
+              <div className="featureBtn" onClick={() => addRecipeHandler()}>
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
-              <Link to="/users/recipe" className="featureBtn">
+              <Link
+                to={!user ? '/signin/login' : '/users/recipe?p=1'}
+                className="featureBtn"
+              >
                 <AiOutlineBook />
                 <span>我的食譜</span>
               </Link>
-              <Link to="/users/recipe" className="featureBtn">
+              <Link
+                to={!user ? '/signin/login' : '/users/recipe?p=2'}
+                className="featureBtn"
+              >
                 <AiOutlineHeart />
                 <span>食譜收藏</span>
               </Link>
@@ -206,7 +235,7 @@ const Recipes = () => {
         {/* Main Section */}
         <div className="recipeListMain">
           <div className="position-sticky top-0 align-self-start">
-            <ProductCategory />
+            <ProductCategory setProductCateNow={setProductCateNowFunc} />
           </div>
           <div className="recipeList">
             {/* Choose mode and filter */}
@@ -265,15 +294,10 @@ const Recipes = () => {
             />
           </div>
         </div>
-        {/* TODO: Create Recipe Form */}
-        {createRecipe && (
-          <section
-            className="creatingRecipe flexCenter"
-            onClick={() => {
-              setCreateRecipe(false);
-            }}
-          >
-            <RecipeCreateForm setCreateRecipe={setCreateRecipe} />
+        {/* Create Recipe Form */}
+        {searchParams.get('add') === 'true' && (
+          <section className="creatingRecipe flexCenter">
+            <RecipeCreateForm closeCreateRecipe={closeRecipeHandler} />
           </section>
         )}
       </div>

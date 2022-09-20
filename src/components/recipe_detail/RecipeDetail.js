@@ -21,7 +21,7 @@ const RecipeDetail = () => {
   const [step, setStep] = useState([]);
   const [comments, setComments] = useState([]);
 
-  const id = searchParams.get('id');
+  const id = parseInt(searchParams.get('id'));
 
   useEffect(() => {
     (async () => {

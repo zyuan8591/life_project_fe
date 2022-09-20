@@ -99,8 +99,8 @@
           max-height: 40px;
           border-radius: 50%;
           border: 2px solid $subClrBrown;
+          padding: 0.1rem;
           overflow: hidden;
-          
         }
         .loginAvator {
           @extend .headerAvator;
@@ -134,47 +134,11 @@
     color: rgba(0, 0, 0, 0.363);
   }
 
-  // Search section
-  .headerSearchSection {
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.5);
-    height: calc(100vh + $headerHeight);
-    width: 100vw;
-    overflow: hidden;
-    .headerSearch {
-      max-height: 60%;
-      max-width: 500px;
-      margin-top: 10%;
-      // Search input
-      input {
-        border: 2px solid $subClrBrown;
-        padding-left: 3.5rem;
-        padding: 0.75rem 0 0.75rem 3.25rem;
-        &:focus {
-          outline: none;
-          &::placeholder {
-            color: transparent;
-          }
-        }
-      }
-      // Result text
-      .headerSearchTitle {
-        color: $subClrBrown;
-      }
-      .headerSearchResult {
-        border: 1px solid $subClrGY;
-        li {
-          border-bottom: 1px solid $subClrGY;
-          padding: 0.75rem 1rem;
-          &:last-child {
-            border: none;
-          }
-          &:hover {
-            background: $subClrBrown;
-            color: #fff;
-          }
-        }
-      }
-    }
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $contentClr;
+    text-decoration: none;
   }
 }

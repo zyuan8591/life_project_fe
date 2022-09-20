@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/activity/_activityMain.scss';
-
+import MapMainPage from '../map/component/MapMainPage';
 import { IconContext } from 'react-icons';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
 
 function ActivityMain() {
   return (
     <>
-      <IconContext.Provider value={{ color: '#1F9998', size: '2rem' }}>
+      <IconContext.Provider
+        value={{ color: '#1F9998', size: '2rem', className: 'goIcon' }}
+      >
         <main className="activityMainPage">
           {/* camping */}
           <div className="activityCamping">
@@ -29,7 +31,7 @@ function ActivityMain() {
                 <br />
                 再也不用一身狼狽同樣能享受野趣的全新體驗！
               </div>
-              <div className="text-end pt-4">
+              <div className="linkTo">
                 <Link to="/activity/camping" className="campingBtnText">
                   我也想露營
                   <IoIosArrowDroprightCircle className="ms-1" />
@@ -39,7 +41,7 @@ function ActivityMain() {
           </div>
 
           {/* picnic */}
-          <div className="activityCamping">
+          <div className="activityCamping  bottomRWD">
             <figure className="activityCampingImg">
               <img
                 src="/img/picnic/activity_picnic_img/picnic_01_01.jpg"
@@ -49,13 +51,23 @@ function ActivityMain() {
             <div className="campingTitle">Do you like picnics？</div>
             <div className="campingContainer">
               <div className="campingText">LET's GO PICNIC！</div>
-              <div className="campingDetail">
+              <div className="campingDetail p-view">
                 節奏明快的臺北步調，用「野餐」享受相聚時光， <br />
                 趁著風光明媚的假期，和家人、好友在草地上一同享受野餐之樂。
                 <br />
                 在這裡，野可以，浪漫一夏！
               </div>
-              <div className="text-end pt-4">
+              {/* RWD */}
+              <div className="campingDetail m-view">
+                節奏明快的臺北步調，用「野餐」享受相聚時光 <br />
+                趁著風光明媚的假期，和家人、好友
+                <br />
+                在草地上一同享受野餐之樂。
+                <br />
+                在這裡，野可以，浪漫一夏！
+              </div>
+              {/* ------ */}
+              <div className="linkTo">
                 <Link to="/activity/picnic" className="campingBtnText">
                   我也想野餐
                   <IoIosArrowDroprightCircle className="ms-1" />
@@ -64,7 +76,7 @@ function ActivityMain() {
             </div>
           </div>
         </main>
-        <div className="section">map</div>
+        <MapMainPage />
       </IconContext.Provider>
     </>
   );

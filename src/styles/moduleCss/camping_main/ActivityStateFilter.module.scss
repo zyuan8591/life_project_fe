@@ -18,3 +18,16 @@
         @include buttonHover;
     }
 }
+@media screen and (max-width:375px) {
+    .searchBtn{
+        // font-size: $contentText;
+        // border: none;
+        // border-radius: 20px;
+        // color: white;
+        // padding: 7px 10px;
+        // display: block;
+        margin: 10px 8px;
+        width: 100px;
+        // transition: .5s;
+    }
+}

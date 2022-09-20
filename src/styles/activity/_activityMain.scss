@@ -1,5 +1,7 @@
 @import '../variable';
-
+.m-view{
+    display: none;
+}
 .activityMainPage{
     max-width: 1600px;
     margin: 0 auto $headerHeight;
@@ -14,7 +16,7 @@
         position: relative;
         overflow: hidden;
         max-width: 700px;
-        height: 705px;
+        height: 715px;
         margin: 100px 0;
         .activityCampingImg{
             position: relative;
@@ -39,7 +41,7 @@
             position: absolute;
             width: 700px;
             height: 505px;
-            top: 705px;
+            top: 715px;
             padding: 50px;
             transition: background-color 1.5s ease,transform 1.5s ease;
             .campingText{
@@ -50,6 +52,10 @@
                 margin:30px;
                 font-size: 24px;
                 line-height: 3.2rem;
+            }
+            .linkTo{
+                text-align: end;
+                padding-top: 24px;
             }
             .campingBtnText{
                 color: $focusClrG;
@@ -68,15 +74,65 @@
             transform: scale(1.2);
         }
     }
+    .goIcon{
+        color: $focusClrG;
+        font-size: 2rem;
+    }
 }
 
 
-// map
-.section{
-    max-width: $maxWidth;
-    position: relative;
-    margin: 0 auto;
-    // top: $headerHeight;
-    height: 100vh ;
-    background-color: rgb(246, 250, 215);
+@media screen and (max-width:375px) {
+    .m-view{
+        display: flex;
+    }
+    .p-view{
+        display: none;
+    }
+    .activityMainPage{
+        width: 90%;
+        justify-content: center;
+        flex-direction: column;
+        .activityCamping{
+            width: 100%;
+            height: 350px;
+            margin: 20px 0;
+            .campingTitle{
+                font-size: $contentText;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .campingContainer{
+                width: 400px;
+                height: 300px;
+                top: 400px;
+                padding: 30px 20px;
+                .campingText{
+                    font-size: $contentText;
+                }
+                .campingDetail{
+                    margin:10px;
+                    text-align: justify;
+                    font-size: $text14;
+                    line-height: 2rem;
+                }
+                .linkTo{
+                    padding-top: 2px;
+                }
+                .campingBtnText{
+                    font-size: $text12;
+                    margin-right: 40px;
+                    padding-top: 10px;
+                }
+            }
+            &:hover .campingContainer{
+                transform: translateY(-300px);
+            } 
+        }
+        .bottomRWD{
+            margin-bottom: 40px;
+        }
+    }
+    .goIcon{
+        font-size: 1rem;
+    }
 }

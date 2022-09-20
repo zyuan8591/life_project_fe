@@ -1,15 +1,29 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import React from 'react';
-const img = '/img/product/product_detail_img/BRUNO_BOE051_detail_01.jpeg';
-const img2 = '/img/product/product_detail_img/BRUNO_BOE051_detail_02.jpeg';
-const img3 = '/img/product/product_detail_img/BRUNO_BOE051_detail_03.jpeg';
-const img4 = '/img/product/product_detail_img/BRUNO_BOE051_detail_04.jpeg';
-const img5 = '/img/product/product_detail_img/BRUNO_BOE051_detail_05.jpeg';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
+
 const ProductIntro = () => {
-  const imgArr = [img, img2, img3, img4, img5];
+  const [img, setImg] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/${id}/detailImg`);
+      setImg(result.data);
+      console.log(result.data);
+    })();
+  }, [id]);
   return (
     <>
-      {imgArr.map((v, i) => {
-        return <img src={v} alt="" key={i} />;
+      {img.map((v, i) => {
+        return (
+          <img
+            src={`/img/product/product_detail_img/${v.img}`}
+            alt=""
+            key={i}
+          />
+        );
       })}
     </>
   );

@@ -1,54 +1,52 @@
-import React, { useState } from 'react';
-import BackToTop from '../public_component/BackToTop';
+import React, { useEffect, useState } from 'react';
 import '../../styles/Order/orderstep.scss';
 import StepNavigation from './component/StepNavigation';
-import Cart from './pages/Cart';
-import CheckOut from './pages/CheckOut';
-import OrderCheck from './pages/OrderCheck';
+import { Outlet } from 'react-router-dom';
+import { useCartStep } from '../../orderContetxt/useCartStep';
 
 const OrderStep = () => {
   // stepNavigation state
   const stepLabel = ['確認購物車', '填寫資料', '訂單完成'];
-  const [currentStep, updateCurrentStep] = useState(1);
+  // const [currentStep, updateCurrentStep] = useState(1);
+  const { currentStep } = useCartStep();
 
-  const stepPages = (s) => {
-    switch (s) {
-      case 1:
-        return (
-          <Cart
-            updateCurrentStep={updateCurrentStep}
-            currentStep={currentStep}
-          />
-        );
-      case 2:
-        return (
-          <CheckOut
-            updateCurrentStep={updateCurrentStep}
-            currentStep={currentStep}
-          />
-        );
-      case 3:
-        return (
-          <OrderCheck
-            updateCurrentStep={updateCurrentStep}
-            currentStep={currentStep}
-          />
-        );
+  // const stepPages = (s) => {
+  //   switch (s) {
+  //     case 1:
+  //       return (
+  //         <Cart
+  //           updateCurrentStep={updateCurrentStep}
+  //           currentStep={currentStep}
+  //         />
+  //       );
+  //     case 2:
+  //       return (
+  //         <CheckOut
+  //           updateCurrentStep={updateCurrentStep}
+  //           currentStep={currentStep}
+  //         />
+  //       );
+  //     case 3:
+  //       return (
+  //         <OrderCheck
+  //           updateCurrentStep={updateCurrentStep}
+  //           currentStep={currentStep}
+  //         />
+  //       );
 
-      default:
-        break;
-    }
-  };
+  //     default:
+  //       break;
+  //   }
+  // };
 
   return (
     <>
       <div className="cartPage">
-        <StepNavigation currentStep={currentStep} stepLabel={stepLabel} />
+        <StepNavigation stepLabel={stepLabel} currentStep={currentStep} />
 
-        {stepPages(currentStep)}
+        {/* {stepPages(currentStep)} */}
+        <Outlet />
       </div>
-
-      <BackToTop />
     </>
   );
 };

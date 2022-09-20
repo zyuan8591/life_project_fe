@@ -13,9 +13,17 @@ function ActivityCard({
   user,
   userCollected,
   setUserCollected,
+  setCollectConfirm,
+  setCollectCancel,
+  setLoginBtn,
 }) {
   const dataReplace = (date) => {
     return date.replace(/-/g, '/');
+  };
+
+  const priceReplace = (price) => {
+    const newPrice = price.toString();
+    return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
   };
 
   const progressBarWidth = () => {
@@ -35,7 +43,10 @@ function ActivityCard({
     let collected = response.data.getCamping.map((v) => v.activity_id);
     setUserCollected(collected);
     // TODO: 修改alert
-    alert('已加入收藏');
+    setCollectConfirm(true);
+    setTimeout(() => {
+      setCollectConfirm(false);
+    }, 2000);
   };
 
   const handleDelCollect = async (campingId) => {
@@ -48,7 +59,10 @@ function ActivityCard({
     let collected = response.data.getCamping.map((v) => v.activity_id);
     setUserCollected(collected);
     // TODO: 修改alert
-    alert('已取消收藏');
+    setCollectCancel(true);
+    setTimeout(() => {
+      setCollectCancel(false);
+    }, 2000);
   };
 
   return (
@@ -89,7 +103,7 @@ function ActivityCard({
                   // className={classes.collect}
                   onClick={() => {
                     // TODO: 改掉alert
-                    alert('請先登入會員');
+                    setLoginBtn(true);
                   }}
                 />
               </IconContext.Provider>
@@ -105,7 +119,7 @@ function ActivityCard({
                 {v.state}
               </div>
             </div>
-            <div className={classes.price}>{`$ ${v.price}`}</div>
+            <div className={classes.price}>$ {priceReplace(v.price)}</div>
           </div>
 
           <div className={`${classes.activityDate} my-2`}>

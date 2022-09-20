@@ -1,6 +1,6 @@
 @import './variable';
-body{
-  height: auto;
+body {
+  height: auto !important;
 }
 //Html Element Style
 html {
@@ -65,4 +65,7 @@ ul {
 }
 .transition {
   transition: 0.2s;
+}
+.userSelectNone {
+  user-select: none;
 }
