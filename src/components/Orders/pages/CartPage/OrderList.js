@@ -108,10 +108,7 @@ const OrderList = (props) => {
                       />
                     </div>
                     <div className="col">
-                      <img
-                        alt=""
-                        src="/img/product/product_img/BRUNO_BOE059_BGR_CE_01.webp"
-                      />
+                      <img alt="" src={`/img/product/product_img/${v.img}`} />
                     </div>
                     <div className="col">{v.name}</div>
                     <div className="col">{v.price}</div>

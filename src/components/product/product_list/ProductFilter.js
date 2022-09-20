@@ -232,7 +232,7 @@ const ProductFilter = ({
             setSort(e.target.value);
           }}
         >
-          <option value="0">預設</option>
+          <option value="0">綜合排序</option>
           <option value="1">熱門程度優先</option>
           <option value="2">最新商品</option>
         </select>
