@@ -40,10 +40,10 @@
                 font-size: 18px;
                 border-bottom: 1px solid #ccc;
                 .icon{
-                    @include iconStyle(-10px);
+                    @include iconStyle(-8px);
                 }
                 .priceIcon{
-                    @include iconStyle(5px);
+                    @include iconStyle(8px);
                 }
             }
         }
@@ -60,12 +60,17 @@
                     font-size: $contentText;
                     border-bottom: 1px solid #ccc;
                     .titleImg{
-                        max-width: 150px;
+                        width: 150px;
                         height: 100px;
                         img{
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
+                        }
+                    }
+                    .icons{
+                        &:hover{
+                            transform: scale(1.1);
                         }
                     }
                 } 
