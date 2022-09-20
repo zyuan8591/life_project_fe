@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import '../../../styles/product/_productComment.scss';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
+import { useUserRights } from '../../../usecontext/UserRights';
 const img = '/img/product/product_avatar/avatar.png';
 
 const ProductComment = () => {
@@ -12,7 +13,9 @@ const ProductComment = () => {
   const [hollow, sethollow] = useState(0);
   const [solid, setsolid] = useState(0);
   const { id } = useParams();
+  const { user, setUser } = useUserRights();
   const star = solid + 1;
+  console.log(user.photo);
   const submit = async () => {
     await axios.post(
       `${API_URL}/products/${id}/comment`,
@@ -84,7 +87,7 @@ const ProductComment = () => {
               <div className="d-flex justify-content-between">
                 <div className="avatar">
                   <figure>
-                    <img src={v.photo} alt="" />
+                    <img src={`/img/user/user_img/${user.photo}`} alt="" />
                   </figure>
                   <p>{v.name}</p>
                 </div>

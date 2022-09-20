@@ -37,49 +37,64 @@ $numberSize: 36px;
     .rankTitle {
       margin-top: 5px;
     }
-    .rank {
-      position: relative;
-      height: 300px;
-      width: 250px;
-      margin-right: 38px;
-      .number {
-        width: $numberSize;
-        height: $numberSize;
-        background: $other;
-        text-align: center;
-        line-height: 2.25rem;
-        p {
+    .test1 {
+      height: 320px;
+      // &:hover .rank{
+      //   filter:blur(3px);
+      //   opacity:.5;
+      //   transform: scale(.98);
+      //   box-shadow:none;
+      // }
+      // &:hover .rank:hover{
+      //   transform:scale(1);
+      //   filter:blur(0px);
+      //   opacity:1;
+      //   box-shadow:0 10px 20px 0px rgba(0,0,0,.3);
+      // }
+      .rank {
+        position: relative;
+        height: 300px;
+        width: 250px;
+        margin-right: 38px;
+        .number {
+          width: $numberSize;
+          height: $numberSize;
+          background: $other;
+          text-align: center;
+          line-height: 2.25rem;
+          p {
+            margin: 0;
+            font-size: $text24;
+            color: $mainClrW;
+          }
+        }
+        .one {
+          background: $one;
+        }
+        .two {
+          background: $two;
+        }
+        .three {
+          background: $three;
+        }
+        figure {
+          min-width: 214px;
+          height: 220px;
+          position: absolute;
+          top: $numberSize/2;
+          left: $numberSize;
+          z-index: -1;
           margin: 0;
-          font-size: $text24;
-          color: $mainClrW;
+          padding: 0;
+          img {
+            width: 100%;
+            object-fit: cover;
+            margin: 0 auto;
+          }
         }
-      }
-      .one {
-        background: $one;
-      }
-      .two {
-        background: $two;
-      }
-      .three {
-        background: $three;
-      }
-      figure {
-        min-width: 214px;
-        height: 220px;
-        position: absolute;
-        top: $numberSize/2;
-        left: $numberSize;
-        z-index: -1;
-        margin: 0;
-        padding: 0;
-        img {
-          width: 100%;
-          object-fit: cover;
-          margin: 0 auto;
+        p {
+          margin: 214px 0 0;
         }
-      }
-      p {
-        margin: 214px 0 0;
       }
     }
   }

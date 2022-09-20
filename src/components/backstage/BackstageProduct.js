@@ -18,14 +18,14 @@ function Backstage() {
             <thead>
               <tr>
                 <th></th>
-                <th>標題</th>
-                <th>地點</th>
-                <th>地址</th>
-                <th>費用</th>
-                <th>活動日期</th>
-                <th>報名期間</th>
-                <th>報名人數</th>
-                <th>活動狀態</th>
+                <th>商品名稱</th>
+                <th>分類</th>
+                <th>庫存</th>
+                <th>價格</th>
+                <th>顏色</th>
+                <th>介紹</th>
+                <th>規格</th>
+                <th>狀態</th>
                 <th></th>
                 <th></th>
               </tr>
