@@ -26,12 +26,12 @@ const ProductCategory = ({ setProductCateNow }) => {
         return (
           <div
             key={id}
-            className="category"
+            className="category cursorPointer"
             onClick={() => {
               // const params = Object.fromEntries([...searchParams]);
               // params['productCate'] = v.id;
               // setSearchParams(params);
-              setProductCateNow(v.id)
+              setProductCateNow(v.id);
             }}
           >
             {name}

@@ -26,3 +26,32 @@
     }
     }
 }
+
+@media screen and (max-width:375px) {
+    .aboutContainer{
+        // margin: 20px;
+        .about{
+        // margin-bottom: 30px;
+        .aboutTitle{
+            // padding: 0 10px;
+            // margin-bottom: 10px;
+            // border-left: 5px solid $subClrBrown;
+            font-size: $contentText;
+            // color: $subClrBrown;
+        }
+        .aboutDetail{
+            font-size: $text14;
+            text-align: justify;
+            padding-left: 15px;
+            line-height: 1.8rem;
+            .aboutText{
+                display: flex;
+                align-items: center;
+                .textTitle{
+                    color: $focusClrY;
+                }
+            }
+        }
+        }
+    }
+}

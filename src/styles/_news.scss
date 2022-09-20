@@ -85,4 +85,12 @@ $newsBgClr: #f2f2f2;
       }
     }
   }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $contentClr;
+    text-decoration: none;
+  }
 }

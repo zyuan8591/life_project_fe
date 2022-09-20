@@ -3,16 +3,19 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: '', label: '全部活動' },
-  { value: 1, label: '露營' },
-  { value: 2, label: '野餐' },
+  { value: 0, label: '搜尋範圍', distance: '', radius: '' },
+  { value: 1, label: '< 1.5km', distance: '<1.5', radius: 3000 },
+  { value: 2, label: '< 3km', distance: '<3', radius: 6000 },
+  { value: 3, label: '< 4.5km', distance: '<4.5', radius: 9000 },
+  { value: 4, label: '< 6km', distance: '<6', radius: 12000 },
+  { value: 5, label: '< 10km', distance: '<10', radius: 20000 },
+  // { value: 5, label: '>= 20km', distance: '>=20', radius: 10000 },
 ];
 
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
     height: '32px',
-    // width: '110px',
     color: state.isSelected ? '#fff' : '#444',
     background: state.isSelected ? '#817161' : '#fff',
     ':active': {
@@ -31,10 +34,10 @@ const customStyles = {
   }),
   control: (base, state) => ({
     ...base,
-    width: '110px',
     marginRight: '5px',
     border: '1px solid #817161',
     minHeight: '32px',
+    width: '110px',
     borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
     boxShadow: 0,
     '&:hover': {
@@ -49,7 +52,7 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
 };
-function MapActivitySelect({ setTypeSelect, setCenterPosL, setCenterPosR }) {
+function DistanceSelect({ setDistanceSelect, setRadius }) {
   // const [selectSortOption, setSelectSortOption] = useState(null);
 
   return (
@@ -57,17 +60,9 @@ function MapActivitySelect({ setTypeSelect, setCenterPosL, setCenterPosR }) {
       <Select
         defaultValue={sortOption[0]}
         onChange={(e) => {
-          // console.log(e.value);
-          const value = e.value;
-          if (value === 2) {
-            setTypeSelect(e.value);
-            setCenterPosL(25.05414332);
-            setCenterPosR(121.5188148);
-          } else {
-            setTypeSelect(e.value);
-            setCenterPosL(23.8896861412312);
-            setCenterPosR(120.9216218);
-          }
+          // console.log(e.radius);
+          setRadius(e.radius);
+          setDistanceSelect(e.distance);
         }}
         options={sortOption}
         styles={customStyles}
@@ -77,4 +72,4 @@ function MapActivitySelect({ setTypeSelect, setCenterPosL, setCenterPosR }) {
   );
 }
 
-export default MapActivitySelect;
+export default DistanceSelect;

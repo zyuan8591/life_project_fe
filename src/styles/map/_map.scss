@@ -5,9 +5,9 @@
     justify-content: center;
     align-items: center;
     height: calc(100vh - $headerHeight) ;
-    top: 65px;
+    top: 80px;
     position: relative;
-    margin: 0 auto $headerHeight;
+    margin: 0 auto;
     color: $contentClr;
     // background-color: lemonchiffon;
     .mapContain{
@@ -20,9 +20,18 @@
             .select{
                 display: flex;
                 justify-content: center;
-                padding: 25px 10px;
+                padding: 25px 0px 15px;
+                
+            }
+            .inputSearch{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0 23px 15px;
+                padding-bottom: 12px;
+                border-bottom: 1px dashed #aaa;
                 .searchInput{
-                    width: 150px;
+                    width: 200px;
                     height: 32px;
                     padding: 2px;
                     border: 2px solid $subClrGY;
@@ -32,6 +41,7 @@
                     }
                 }
             }
+            
             .mapCardContainer{
                 // background-color: lightcoral;
                 overflow-y: scroll;
@@ -57,7 +67,7 @@
                     }
                     .intContainer{
                         // background: lemonchiffon;
-                        padding: 10px;
+                        padding: 10px 10px 8px;
                         .intDate{
                             font-size: $text12;
                         }
@@ -70,6 +80,12 @@
                             padding: 5px;
                         }
                     }
+                }
+                .noDataText{
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 20px;
+                    color: $subClrBrown;
                 }
             }
         }

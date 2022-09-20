@@ -133,4 +133,12 @@
     transform: translateY(-$headerHeight);
     color: rgba(0, 0, 0, 0.363);
   }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $contentClr;
+    text-decoration: none;
+  }
 }

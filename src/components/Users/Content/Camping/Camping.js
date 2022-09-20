@@ -8,23 +8,36 @@ import { useUserRights } from '../../../../usecontext/UserRights';
 
 const Camping = () => {
   const { user } = useUserRights();
+  const [pageNow, setPageNow] = useState(1);
+  const [lastPage, setLastPage] = useState(0);
   const [list, setList] = useState('官方活動');
   const [data, setData] = useState([]);
 
   useEffect(() => {
     try {
       let getUser = async () => {
-        let response = await axios.get(`${API_URL}/getUserJoin`, {
-          withCredentials: true,
-        });
-        // setData(response.data);]
-        console.log(response.data);
+        //撈會員全部活動
+        // let response = await axios.get(
+        //   `${API_URL}/camping/getUserJoin/${user.id}?page=${pageNow}`,
+        //   {
+        //     withCredentials: true,
+        //   }
+        // );
+        //撈會員收藏活動
+        let response = await axios.get(
+          `${API_URL}/camping/userCollect?page=${pageNow}`,
+          {
+            withCredentials: true,
+          }
+        );
+        setData(response.data.result);
+        setLastPage(response.data.pagination.lastPage);
       };
       getUser();
     } catch (e) {
-      console.error(e.response.data.msg);
+      console.error(e.response.data.messag);
     }
-  }, []);
+  }, [pageNow, user]);
 
   return (
     <>
@@ -32,7 +45,11 @@ const Camping = () => {
       <div className="user_activity">
         <CapmingFilter list={list} setList={setList} />
         <CampingTable data={data} />
-        <PaginationBar />
+        <PaginationBar
+          lastPage={lastPage}
+          pageNow={pageNow}
+          setPageNow={setPageNow}
+        />
       </div>
     </>
   );

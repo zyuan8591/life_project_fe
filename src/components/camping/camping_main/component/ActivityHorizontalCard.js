@@ -16,6 +16,12 @@ function ActivityHorizontalCard({
   const dataReplace = (date) => {
     return date.replace(/-/g, '/');
   };
+
+  const priceReplace = (price) => {
+    const newPrice = price.toString();
+    return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   const progressBarWidth = () => {
     if (v.pepcount === 0) return 0;
     let width = (v.pepcount / v.join_limit) * 350 - 4;
@@ -107,7 +113,7 @@ function ActivityHorizontalCard({
               {dataReplace(v.activity_start_date)} ~
               {dataReplace(v.activity_end_date)}
             </div>
-            <div>{`$ ${v.price}`}</div>
+            <div>$ {priceReplace(v.price)}</div>
           </div>
           <div className={classes.activityText}>
             <div className={classes.activityInt}>活動簡介：</div>

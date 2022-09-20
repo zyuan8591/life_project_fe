@@ -3,17 +3,17 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: 1, label: '< 1km' },
-  { value: 2, label: '< 2km' },
-  { value: 3, label: '< 3km' },
-  { value: 4, label: '< 4km' },
-  { value: 5, label: '< 5km' },
+  { value: '', label: '請選擇排序' },
+  { value: 1, label: '公里 低>高' },
+  { value: 2, label: '公里 高>低' },
 ];
 
 const customStyles = {
   option: (provided, state) => ({
     ...provided,
     height: '32px',
+    width: '150px',
+
     color: state.isSelected ? '#fff' : '#444',
     background: state.isSelected ? '#817161' : '#fff',
     ':active': {
@@ -32,9 +32,9 @@ const customStyles = {
   }),
   control: (base, state) => ({
     ...base,
-    marginRight: '5px',
     border: '1px solid #817161',
     minHeight: '32px',
+    width: '125px',
     borderColor: state.isFocused ? '#817161' : 'hsl(0, 0%, 80%)',
     boxShadow: 0,
     '&:hover': {
@@ -49,8 +49,8 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
 };
-function DistanceSelect() {
-  // const [selectSortOption, setSelectSortOption] = useState(null);
+function MapSortSelect({ setDistanceSort }) {
+  const [selectSortOption, setSelectSortOption] = useState(null);
 
   return (
     <>
@@ -58,7 +58,7 @@ function DistanceSelect() {
         defaultValue={sortOption[0]}
         onChange={(e) => {
           // console.log(e.value);
-          // setOrder(e.value);
+          setDistanceSort(e.value);
         }}
         options={sortOption}
         styles={customStyles}
@@ -68,4 +68,4 @@ function DistanceSelect() {
   );
 }
 
-export default DistanceSelect;
+export default MapSortSelect;
