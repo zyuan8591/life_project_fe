@@ -14,6 +14,9 @@ const container = css`
   max-height: 600px;
   height: 600px;
   max-width: 100vw;
+  @media (max-width: 500px) {
+    max-height: 450px;
+  }
 `;
 const joinUs = css`
   position: absolute;
@@ -44,6 +47,13 @@ const joinUs = css`
     border-radius: 50%;
     z-index: -1;
     backdrop-filter: blur(4px);
+  }
+  @media (max-width: 500px) {
+    width: 300px;
+    height: 300px;
+    p {
+      font-size: 12px;
+    }
   }
 `;
 const joinUsTitle = css`

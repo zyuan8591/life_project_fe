@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import CardSm from '../../public_component/CardSm';
 import { API_URL_IMG } from '../../../utils/config';
@@ -12,6 +12,16 @@ const IndexRecipe = ({ data = [] }) => {
     autoplaySpeed: 1500,
     centerMode: true,
   };
+
+  const [vw, setVw] = useState(window.innerWidth);
+
+  const setViewportWidth = () => setVw(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', setViewportWidth);
+    return function cleanUp() {
+      window.removeEventListener('resize', setViewportWidth);
+    };
+  }, []);
 
   return (
     <div className="recipeCard">

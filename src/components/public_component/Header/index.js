@@ -35,7 +35,7 @@ const Header = ({ fixed = true }) => {
     window.addEventListener('resize', windowResize);
   }, []);
   useEffect(() => {
-    if (vw > 500) setMenu(false);
+    if (vw > 768) setMenu(false);
   }, [vw]);
 
   // enter search bar
