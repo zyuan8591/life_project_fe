@@ -5,7 +5,7 @@ import RecipeStep from './RecipeStep';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import { v4 as uuidv4 } from 'uuid';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+// import { Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';
 
@@ -42,6 +42,8 @@ const RecipeCreateForm = ({
 
   const [recipeCate, setRecipeCate] = useState([]);
   const [productCate, setProductCate] = useState([]);
+  const [stepDefault, setStepDefault] = useState(0);
+
   useEffect(() => {
     (async () => {
       // get all recipe cate name
@@ -59,6 +61,7 @@ const RecipeCreateForm = ({
         let recipe = await axios.get(`${API_URL}/recipes/${id}`);
         let material = await axios.get(`${API_URL}/recipes/${id}/material`);
         let step = await axios.get(`${API_URL}/recipes/${id}/step`);
+        setStepDefault(step.data.length);
         recipe = recipe.data.map((d) => {
           let { name, content, category, product_category, image } = d;
           return {
@@ -89,22 +92,15 @@ const RecipeCreateForm = ({
 
   // test useeffect
   useEffect(() => {
-    console.log('addform', addForm);
-  }, [addForm]);
-  useEffect(() => {
-    console.log(material);
-  }, [material]);
-  useEffect(() => {
-    step.map((d) => {
-      console.log(typeof d.img);
-    });
-    console.log(step);
+    console.log('step', step);
+    console.log('default', stepDefault);
   }, [step]);
 
   // recipe info handler
   const inputChangeHandler = (e) => {
     setAddForm({ ...addForm, [e.target.name]: e.target.value });
   };
+
   // recipe img handler
   const updateImgHandler = (e) => {
     const file = e.target.files[0];
@@ -198,20 +194,21 @@ const RecipeCreateForm = ({
       // recipe step formdata
       let stepFormData = new FormData();
       let stepData = [];
-      let imgData = [];
+      // let imgData = [];
       let contentData = [];
       for (let i = 0; i < step.length; i++) {
         stepData.push(step[i].step);
-        imgData.push(step[i].img);
+        // imgData.push(step[i].img);
         contentData.push(step[i].content);
+        stepFormData.append('img', step[i].img);
       }
       stepFormData.append('step', stepData);
-      for (let i = 0; i < imgData.length; i++) {
-        stepFormData.append('img', imgData[i]);
-      }
+      // for (let i = 0; i < imgData.length; i++) {
+      // stepFormData.append('img', imgData[i]);
+      // }
       stepFormData.append('content', contentData);
 
-      // connect to api
+      // connect to api ===============================================
       if (!isEdit) {
         // insert recipe
         let response = await axios.post(`${API_URL}/recipes`, formData, {
@@ -233,10 +230,8 @@ const RecipeCreateForm = ({
         let id = defaultData;
         // put recipe
         let recipeData = null;
-        console.log('editing', formData);
         if (typeof addForm.image === 'object') recipeData = formData;
         if (typeof addForm.image === 'string') recipeData = { ...addForm };
-        console.log('recipeData', recipeData);
         await axios.put(`${API_URL}/recipes/${id}`, recipeData, {
           withCredentials: true,
         });
@@ -252,13 +247,50 @@ const RecipeCreateForm = ({
             withCredentials: true,
           }
         );
-        // del origin step
+        let putContent = [];
+        let putImageStep = [];
+        let postStepData = [];
+        let postContentData = [];
+        let putImageFormData = new FormData();
+        let postFormData = new FormData();
+        step.map((d) => {
+          if (d.step > stepDefault) {
+            postStepData.push(d.step);
+            postContentData.push(d.content);
+            postFormData.append('img', d.img);
+            return;
+          }
+          if (typeof d.img === 'object') {
+            putImageFormData.append('img', d.img);
+            putImageStep.push(d.step);
+            return;
+          }
+          putContent.push([d.step, d.content]);
+        });
+        // put step content
+        await axios.put(
+          `${API_URL}/recipes/${id}/step?mode=content`,
+          { putContent },
+          { withCredentials: true }
+        );
+        // put step image
+        if (putImageStep.length) {
+          putImageFormData.append('step', putImageStep);
+          await axios.put(
+            `${API_URL}/recipes/${id}/step?mode=image`,
+            putImageFormData,
+            { withCredentials: true }
+          );
+        }
         // post new step
-
-        console.log('put recipe & step & material');
+        postFormData.append('step', postStepData);
+        postFormData.append('content', postContentData);
+        await axios.post(`${API_URL}/recipes/${id}/step`, postFormData, {
+          withCredentials: true,
+        });
       }
       // close form
-      // closeCreateRecipe();
+      closeCreateRecipe();
     } catch (e) {
       console.error(e);
     }

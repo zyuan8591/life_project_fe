@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { TbTrash, TbMenu2 } from 'react-icons/tb';
 import { IconContext } from 'react-icons';
-import { Draggable } from 'react-beautiful-dnd';
+// import { Draggable } from 'react-beautiful-dnd';
 
 const container = css`
   display: grid;

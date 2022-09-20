@@ -1,16 +1,6 @@
 @import '../variable';
 @import '../picnic/picnicVariable';
 
-// //font-size
-// $text9Rem: 9rem;
-// $text18: 18px;
-// // $text18: 
-
-// //font-weight
-// $fW900: 900;
-// $fW700: 700;
-
-
 @mixin w-h($width, $height) {
     width: $width;
     height: $height;
@@ -21,28 +11,31 @@
 }
 @mixin contentWrap {
     .wrap {
-        // height: 500px;
+        max-width: 1440px;
         display: flex;
         align-items: center;
         border-radius: 10px;
-        box-shadow: .8px .8px 10px $subClrGY;
+        box-shadow: .8px .8px 12px $subClrGY;
         margin: 80px 0 ;
-        .image{
+        transition: transform .5s ease-in-out;
+        .image {
             width: 700px;
             height: 500px;
-            // margin-left: 3rem;
             overflow: hidden;
-            // box-shadow: .3px .3px 7px;
-            border-radius: 3px;
             img {
                 @include imgObj;
                 height: 100%;
             }
-        
-    }&:hover{
-        transform: translateY(-20px);
-        transition: transform 1s ease-in-out;
-    }
+        }
+        .contentbn1, .contentbn3 {
+            border-radius: 10px 0 0 10px;
+        }
+        .contentbn2 {
+            border-radius: 0 10px 10px 0;
+        }
+        &:hover{
+            transform: translateY(-20px);
+        }
     .content-text{
         width: 500px;
         margin: auto;
@@ -75,45 +68,17 @@
     }
 }
 
-// ----- main banner -----
+// ----- main banner 上方 -----
 .section-main{
     display: flex;
     margin: 65px 0 0;
-    // .iconArrowDropdown{
-    //     color: white;
-    //     font-size: 5rem;
-    //     position: absolute;
-    //     bottom: 15%;
-    //     right: 50%;
-    // }
     .banner{
         width: 100%;
-        height: 600px;
+        height: 450px;
         img{
         width: 100%;
         height: 100%;
         object-fit: cover;
-        }
-    }
-    .title-bn {
-        width: 60%;
-        display: flex;
-        align-items: center;
-        margin: auto 0 auto 30px;
-        img {
-            @include imgObj;
-        }
-        .balloon1{
-            width: 7%;
-            position: absolute;
-            top: 9%;
-            left: 20%;
-        }
-        .balloon2{
-            width: 7%;
-            position: absolute;
-            top: 14%;
-            left: 28%;
         }
     }
     .title-text {
@@ -121,8 +86,8 @@
         position: relative;
         .title-slogan {
             position: absolute;
-            top: 10rem;
-            right: 5%;
+            top: 0;
+            right: 0;
             span {
             color: $mainClrW;
             font-size: 12rem;
@@ -162,7 +127,7 @@
     margin: auto;
     position: relative;
     top: $headerHeight;
-// ----- content ------
+// ----- 活動介紹 ------
     .section-content{
         margin: 0 auto 100px; 
             @include contentWrap;

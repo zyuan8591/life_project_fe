@@ -42,6 +42,7 @@ const BreadCrumb = ({ last = '' }) => {
         </li>
       );
     });
+    
     if (last) {
       listArray.push(
         <li

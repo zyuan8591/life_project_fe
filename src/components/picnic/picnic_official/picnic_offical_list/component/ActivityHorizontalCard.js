@@ -4,18 +4,25 @@ import { FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import classes from '../../../../../styles/moduleCss/picnic_main/ActivityHorizontalCard.module.scss';
 import { v4 as uuidv4 } from 'uuid';
+import { API_URL_IMG } from '../../../../../utils/config';
 
 function ActivityHorizontalCard({ data }) {
+  const progressBar = (item) => {
+    if (data.currentJoin === 0) {
+      return 0;
+    } else {
+      let width = (item.currentJoin / item.join_limit) * 100 + '%';
+      console.log('progressBar', width);
+      return `${width}`;
+    }
+  };
   return (
     <>
       {data.map((item) => {
         return (
           <div className={classes.activityHorizontalStyle} key={uuidv4()}>
             <div className={classes.activityImg}>
-              <img
-                src={`/img/picnic/activity_picnic_img/${item.img1}`}
-                alt="/"
-              />
+              <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
             </div>
             <div className={classes.activityInfo}>
               <div className={`${classes.activityTitle} mb-2`}>
@@ -55,11 +62,14 @@ function ActivityHorizontalCard({ data }) {
               <div className={`${classes.intMore} mt-3`}>
                 <div>
                   <div className={classes.progressBar}>
-                    <div className={classes.bar}></div>
+                    <div
+                      className={classes.bar}
+                      style={{ width: progressBar(item) }}
+                    ></div>
                   </div>
                   <div className={classes.progressBarText}>
                     <div className={classes.limit}>
-                      目前人數：{item.officialJoin}
+                      目前人數：{item.currentJoin}
                     </div>
                     <div className={classes.limit}>
                       活動名額：{item.join_limit}
