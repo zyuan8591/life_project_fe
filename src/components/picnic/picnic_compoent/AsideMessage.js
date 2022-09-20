@@ -83,7 +83,6 @@ function AsideMessageFix({
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="price">NT${item.price}</div>
-                {/* TODO: 即將開團BTN 不能是加入 */}
                 {item.activity_state === '即將開團' ? (
                   <button
                     className="joinInBtn"
@@ -91,11 +90,9 @@ function AsideMessageFix({
                       background: '#B9BDC5',
                       color: '#444',
                     }}
-                    onClick={() => {
-                      handleDeleteJoin(item.id);
-                    }}
+                    disabled
                   >
-                    gggg
+                    即將開團
                   </button>
                 ) : user ? (
                   userJoin.includes(item.id) ? (
@@ -131,40 +128,6 @@ function AsideMessageFix({
                     加入活動
                   </button>
                 )}
-                {/* {user ? (
-                  userJoin.includes(item.id) ? (
-                    <button
-                      className="joinInBtn"
-                      style={{
-                        background: '#B9BDC5',
-                        color: '#444',
-                      }}
-                      onClick={() => {
-                        handleDeleteJoin(item.id);
-                      }}
-                    >
-                      取消活動
-                    </button>
-                  ) : (
-                    <button
-                      className="joinInBtn"
-                      onClick={() => {
-                        handleAddJoin(data[0].id);
-                      }}
-                    >
-                      加入活動
-                    </button>
-                  )
-                ) : (
-                  <button
-                    className="joinInBtn"
-                    onClick={() => {
-                      alert('請先登入會員');
-                    }}
-                  >
-                    加入活動
-                  </button>
-                )} */}
               </div>
             </div>
           );
