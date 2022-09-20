@@ -22,10 +22,13 @@ const ProductFilter = ({
 }) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
-  const [showBoard, setShowBoard] = useState(false);
+  const [showBoard, setShowBoard] = useState(true);
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
+  if (brand.length > 1) {
+    setSort(3);
+  }
 
   useEffect(() => {
     (async () => {
@@ -71,7 +74,7 @@ const ProductFilter = ({
                 setShowBoard(true);
               }}
               onMouseOut={() => {
-                setShowBoard(false);
+                // setShowBoard(false);
               }}
             >
               <div className="brandSection">
@@ -94,7 +97,7 @@ const ProductFilter = ({
                     }}
                   />
                 </div>
-                <div className="d-flex flex-wrap">
+                <div className="test1">
                   {brandArr.map((v, i) => {
                     return (
                       <div className="brand" key={i}>
@@ -113,9 +116,9 @@ const ProductFilter = ({
                                 return v.id !== v2;
                               });
                               setChecked(newArr);
-                              console.log(v.id);
+                              // console.log(v.id);
                             }
-                            console.log(checked);
+                            // console.log(checked);
                           }}
                         />
                         <label htmlFor={i}>{v.name}</label>

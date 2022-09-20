@@ -28,7 +28,7 @@ const ProductCategory = ({ setProductCateNow }) => {
       </div>
       {hover ? (
         <div
-          className="test"
+          className="active"
           style={{ transform: `translateY(${move}px)` }}
         ></div>
       ) : (
@@ -42,8 +42,9 @@ const ProductCategory = ({ setProductCateNow }) => {
             key={id}
             className="category cursorPointer"
             style={{
-              background:
-                activeId === id && active ? 'rgba(0, 0, 0, 0.24)' : '',
+              background: activeId === id && active ? '#817161' : '',
+              color: activeId === id && active ? 'white' : '',
+              borderRadius: activeId === id && active ? '5px' : '',
             }}
             onClick={() => {
               // const params = Object.fromEntries([...searchParams]);

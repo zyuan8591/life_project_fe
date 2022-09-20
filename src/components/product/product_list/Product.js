@@ -10,11 +10,9 @@ import { useProductCart } from '../../../orderContetxt/useProductCart';
 
 const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
-  console.log(productCart.state.items);
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
-  console.log(cart);
   return (
     <div className="productContainer">
       {productList.map((v, i) => {

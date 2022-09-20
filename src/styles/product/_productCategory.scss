@@ -24,19 +24,21 @@ $height: 60px;
     min-width: 240;
     height: $height;
     padding-left: 10px;
-    // transition: 0.2s;
     &:hover {
       // background: $hoverClr;
+      transition: 0.4s;
+      color: $mainClrW;
     }
   }
-  .test {
+  .active {
     position: absolute;
     top: 0px;
     min-width: 100%;
     height: $height;
-    background: rgba(0, 0, 0, 0.24);
+    background: $subClrBrown;
     cursor: pointer;
     transition: 0.4s;
     z-index: -1;
+    border-radius: 5px;
   }
 }
