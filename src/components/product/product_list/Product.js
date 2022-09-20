@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';

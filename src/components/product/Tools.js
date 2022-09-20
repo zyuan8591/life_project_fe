@@ -6,7 +6,7 @@ import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 import { IoCartOutline } from 'react-icons/io5';
 import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineCreditCard } from 'react-icons/ai';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaHeartBroken } from 'react-icons/fa';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 
@@ -69,7 +69,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
         }}
       >
         <div className={classess.cartTitle}>購物車</div>
-        {/* {item.map((v, i) => {
+        {item.map((v, i) => {
           const { id, name, count, price, img } = v;
           return (
             <div className={classess.cartItem} key={i}>
@@ -98,7 +98,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
               </div>
             </div>
           );
-        })} */}
+        })}
       </div>
       {point && (
         <div
@@ -141,9 +141,9 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
                       <img src={`/img/product/product_img/${img}`} alt="" />
                       <div className={classess.heart}>
                         <IconContext.Provider
-                          value={{ color: 'white', size: '2.4rem' }}
+                          value={{ color: '#444', size: '2.4rem' }}
                         >
-                          <HiHeart />
+                          <FaHeartBroken />
                         </IconContext.Provider>
                       </div>
                     </figure>
