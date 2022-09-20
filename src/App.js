@@ -6,29 +6,6 @@ import axios from 'axios';
 // react hooks / context =======================================================================
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
-<<<<<<< HEAD
-import Homepage from './components/index/Homepage';
-import News from './components/news/News';
-import Signin from './components/Login/Signin';
-import Users from './components/Users';
-import './styles/style.scss';
-import Recipes from './components/recipe/Recipes';
-import ProductList from './components/product/product_list/ProductList';
-import ProductDetail from './components/product/product_detail/ProductDetail';
-import RecipeDetail from './components/recipe_detail/RecipeDetail';
-import Footer from './components/public_component/Footer';
-import Header from './components/public_component/Header';
-import BackToTop from './components/public_component/BackToTop';
-import Account from './components/Users/Content/Account/Account';
-import Password from './components/Users/Content/Password/Password';
-import Order from './components/Users/Content/Order/Order';
-import Points from './components/Users/Content/Points/Points';
-import Recipe from './components/Users/Content/Recipe/Recipe';
-import Camping from './components/Users/Content/Camping/Camping';
-import Signup from './components/Login/Signup';
-import Login from './components/Login/Login';
-=======
->>>>>>> main
 import { UserRights } from './usecontext/UserRights';
 import { useEffect, useState } from 'react';
 import { ProductCartProvider } from './orderContetxt/useProductCart';
