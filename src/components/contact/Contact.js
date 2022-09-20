@@ -73,14 +73,14 @@ const Contact = () => {
         className={`${classes.contactAvator} cursorPointer position-fixed end-0 rounded-circle me-3 flexCenter`}
         onClick={() => setChat(!chat)}
       >
-        <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+        <IconContext.Provider value={{ color: '#817161', size: '2.5rem' }}>
           <AiOutlineComment />
         </IconContext.Provider>
       </div>
       {/* Chat box */}
       {chat && (
         <div
-          className={`${classes.chatBox} position-fixed bottom-0 rounded-top shadow d-flex flex-column`}
+          className={`${classes.chatBox} position-fixed rounded-top shadow d-flex flex-column`}
         >
           {/* Chat header */}
           <div

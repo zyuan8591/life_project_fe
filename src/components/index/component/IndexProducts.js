@@ -91,18 +91,18 @@ const IndexProducts = () => {
   const [vwState, setVwState] = useState(window.innerWidth);
 
   // set list width
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setProductListWidth(productListRef.current.scrollWidth);
-      setProgressWidth(progressRef.current.offsetWidth);
-      setProgressBarWidth(progressBarRef.current.offsetWidth);
-      setVwState(window.innerWidth);
-    });
+  const settingState = () => {
     setProductListWidth(productListRef.current.scrollWidth);
     setProgressWidth(progressRef.current.offsetWidth);
     setProgressBarWidth(progressBarRef.current.offsetWidth);
-
-    console.log(productListRef.current);
+    setVwState(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', settingState);
+    settingState();
+    return function cleanUp() {
+      window.removeEventListener('resize', settingState);
+    };
   }, []);
 
   useEffect(() => {
