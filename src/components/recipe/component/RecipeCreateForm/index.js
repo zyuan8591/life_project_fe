@@ -5,7 +5,7 @@ import RecipeStep from './RecipeStep';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import { v4 as uuidv4 } from 'uuid';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+// import { Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';
 

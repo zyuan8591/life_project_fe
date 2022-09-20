@@ -14,23 +14,48 @@ const ProductDetail = () => {
   const [productData, setProductData] = useState([]);
   // const id = searchParams.get('id');
   const { id } = useParams();
+  // like data
+  const [item, setItem] = useState([]);
+  const [fav, setFav] = useState([]);
+  const [productLikeId, setProductLikeId] = useState(false);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/${id}`);
       setProductData(result.data[0]);
     })();
-  }, [id]);
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/like`, {
+        withCredentials: true,
+      });
+      setItem(result.data);
+      let favNumber = result.data.map((v) => v.product_id);
+      setFav(favNumber)
+    })();
+  }, [id, productLikeId]);
   return (
     <>
       <Header />
-      <ProductInfo data={productData} />
+      <ProductInfo
+        data={productData}
+        item={item}
+        fav={fav}
+        setProductLikeId={setProductLikeId}
+        productLikeId={productLikeId}
+      />
       <ProductTab tabNow={tabNow} setTabNow={setTabNow} />
       <ProductTabContent
+        data={productData}
         tabNow={tabNow}
         setTabNow={setTabNow}
         spec={productData.spec}
       />
-      <Tools />
+      <Tools
+        item={item}
+        setItem={setItem}
+        setProductLikeId={setProductLikeId}
+        productLikeId={productLikeId}
+      />
       <Footer />
     </>
   );

@@ -36,7 +36,7 @@ function OffcialDetailContent({ data }) {
             </li>
             <li>
               <FaExclamationTriangle className="warnIcon" />
-              成團條件：2人(含)以上，上限依每個活動規定人數
+              成團條件：5人(含)以上，上限依每個活動規定人數
             </li>
             <li>
               <FaExclamationTriangle className="warnIcon" />

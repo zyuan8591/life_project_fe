@@ -7,9 +7,10 @@ import { BsGridFill } from 'react-icons/bs';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../../styles/picnic/_picnicOffical.scss';
-import '../../../../styles/camping/camping_main/_campingMain.scss';
-import Footer from '../../../public_component/Footer';
+import '../../../../styles/picnic/camping_main/_campingMain.scss';
 import Header from '../../../public_component/Header';
+import BreadCrumb from '../../../public_component/BreadCrumb';
+import Footer from '../../../public_component/Footer';
 import BackToTop from '../../../public_component/BackToTop';
 import ActivityStateFilter from './component/ActivityStateFilter';
 import ActivitySliderPrice from './component/ActivitySliderPrice';
@@ -19,6 +20,7 @@ import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
+import { useUserRights } from '../../../../usecontext/UserRights';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -51,9 +53,13 @@ function PicnicList() {
   const [maxDate, setMaxDate] = useState('');
   const [maxDateValue, setMaxDateValue] = useState('');
   const [minDateValue, setMinDateValue] = useState('');
+  const [dateRemind, setDateRemind] = useState('');
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
+  const { officialId } = useParams();
+  const { user, setUser } = useUserRights();
+  const [userCollect, setUserCollect] = useState([]);
 
   // 列表首頁 搜尋、排序、頁碼
   const getOfficalList = async () => {
@@ -79,33 +85,61 @@ function PicnicList() {
     maxDate,
   ]);
 
-  // const loader = (
-  //   <div className="sk-fading-circle">
-  //     <div className="sk-circle1 sk-circle"></div>
-  //     <div className="sk-circle2 sk-circle"></div>
-  //     <div className="sk-circle3 sk-circle"></div>
-  //     <div className="sk-circle4 sk-circle"></div>
-  //     <div className="sk-circle5 sk-circle"></div>
-  //     <div className="sk-circle6 sk-circle"></div>
-  //     <div className="sk-circle7 sk-circle"></div>
-  //     <div className="sk-circle8 sk-circle"></div>
-  //     <div className="sk-circle9 sk-circle"></div>
-  //     <div className="sk-circle10 sk-circle"></div>
-  //     <div className="sk-circle11 sk-circle"></div>
-  //     <div className="sk-circle12 sk-circle"></div>
-  //   </div>
-  // );
+  // 此會員所有收藏
+  useEffect(() => {
+    let getAllCollect = async () => {
+      let response = await axios.get(
+        `${API_URL}/picnic/official/officialAllCollect`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log('getAllCollect', response.data);
+      let hadJoinCollect = response.data.map((data) => data.picnic_id);
+      setUserCollect(hadJoinCollect);
+    };
+    if (user) {
+      getAllCollect();
+    }
+  }, [user]);
 
-  //TODO: 如何依照時間變更活動狀態？
-  // 費用篩選 不能用按鈕點選篩選
-  //TODO: 活動人數 篩選 第一次無資料
-  //TODO: 活動日期 篩選
-  //TODO: 人數進度條
+  async function handleAddFav(officialId) {
+    // console.log(officialId);
+    let response = await axios.post(
+      `${API_URL}/picnic/collectAddJoin/${officialId}`,
+      {},
+      { withCredentials: true }
+    );
+    console.log('handleAddJoin', response.data);
+    let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
+    setUserCollect(nowJoinCollect);
+    alert('加入收藏');
+    // console.log('add', nowJoinCollect);
+  }
+
+  async function handleDelFav(officialId) {
+    let response = await axios.delete(
+      `${API_URL}/picnic/collectDelJoin/${officialId}`,
+      { withCredentials: true }
+    );
+    console.log('handleDelFav', response.data);
+    let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
+    setUserCollect(nowJoinCollect);
+    alert('取消收藏');
+    // console.log('del', nowJoinCollect);
+  }
 
   // 引入card
-  const card = <ActivityCard data={data} />;
+  const card = (
+    <ActivityCard
+      data={data}
+      handleAddFav={handleAddFav}
+      handleDelFav={handleDelFav}
+      user={user}
+      userCollect={userCollect}
+    />
+  );
   const horizontalCard = <ActivityHorizontalCard data={data} />;
-
   return (
     <>
       <Header />
@@ -120,7 +154,9 @@ function PicnicList() {
           </div>
           <div className="main">
             {/* breadCrumb */}
-            <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
+            <div className="breadCrumb py-3">
+              <BreadCrumb />
+            </div>
             <div className="contain">
               <div className="row m-0">
                 {/* 左側篩選欄 */}
@@ -135,6 +171,7 @@ function PicnicList() {
                           v={v}
                           filterState={filterState}
                           setFilterState={setFilterState}
+                          setPageNow={setPageNow}
                         />
                       );
                     })}
@@ -169,6 +206,9 @@ function PicnicList() {
                     setMaxDateValue={setMaxDateValue}
                     minDateValue={minDateValue}
                     setMinDateValue={setMinDateValue}
+                    setPageNow={setPageNow}
+                    setDateRemind={setDateRemind}
+                    dateRemind={dateRemind}
                   />
                 </div>
                 {/* 右側活動列表 */}
@@ -213,8 +253,8 @@ function PicnicList() {
                             style={{ cursor: 'pointer' }}
                             onClick={() => {
                               if (searchWord === '') return setSearchWords('');
+                              setPageNow(1);
                               setSearchWords(searchWord);
-                              pageNow(1);
                             }}
                           />
                         </div>

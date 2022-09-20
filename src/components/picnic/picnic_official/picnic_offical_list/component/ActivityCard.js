@@ -5,20 +5,21 @@ import { FaHeart } from 'react-icons/fa';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { API_URL_IMG } from '../../../../../utils/config';
 
-function ActivityCard({ data }) {
+function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
   // console.log(data);
-  //TODO: 進度條樣式沒反應
-  const progressBar = () => {
-    if (data.officialJoin === 0) {
+
+  const progressBar = (item) => {
+    if (data.currentJoin === 0) {
       return 0;
     } else {
-      let width = (data.officialJoin / data.join_limit) * 220 - 2;
-      return `${width} + px`;
+      let width = (item.currentJoin / item.join_limit) * 100 + '%';
+      // console.log('progressBar', width);
+      return `${width}`;
     }
   };
-  console.log(data);
-  console.log('progressBar', progressBar());
+  // console.log(data);
   return (
     <>
       {data.length === 0 ? (
@@ -28,19 +29,45 @@ function ActivityCard({ data }) {
           return (
             <div className={classes.activityCardStyle} key={uuidv4()}>
               <div className={classes.activityImg}>
-                <img
-                  src={`/img/picnic/activity_picnic_img/${item.img1}`}
-                  alt="/"
-                />
+                <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
               </div>
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
                   <div className={classes.title}>{item.picnic_title}</div>
-                  <IconContext.Provider
-                    value={{ className: classes.collectBtn }}
-                  >
-                    <FaHeart className={classes.collect} />
-                  </IconContext.Provider>
+                  {user ? (
+                    userCollect.includes(item.id) ? (
+                      <IconContext.Provider
+                        value={{ className: classes.hasCollectBtn }}
+                      >
+                        <FaHeart
+                          onClick={() => {
+                            handleDelFav(item.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    ) : (
+                      <IconContext.Provider
+                        value={{ className: classes.collectBtn }}
+                      >
+                        <FaHeart
+                          onClick={() => {
+                            handleAddFav(item.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    )
+                  ) : (
+                    <IconContext.Provider
+                      value={{ className: classes.collectBtn }}
+                    >
+                      <FaHeart
+                        className={classes.collect}
+                        onClick={() => {
+                          alert('請登入會員');
+                        }}
+                      />
+                    </IconContext.Provider>
+                  )}
                 </div>
 
                 <div className={`d-flex ${classes.labelContent}`}>
@@ -73,12 +100,12 @@ function ActivityCard({ data }) {
                 <div className={classes.progressBar}>
                   <div
                     className={classes.bar}
-                    style={{ width: 10 }} //TODO: 進度條樣式沒反應
+                    style={{ width: progressBar(item) }}
                   ></div>
                 </div>
                 <div className={classes.content}>
                   <div className={classes.limit}>
-                    目前人數：{item.officialJoin}
+                    目前人數：{item.currentJoin}
                   </div>
                   <div className={classes.limit}>
                     活動名額：{item.join_limit}

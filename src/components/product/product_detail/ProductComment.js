@@ -1,46 +1,34 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import '../../../styles/product/_productComment.scss';
-import { IconContext } from 'react-icons';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
 const img = '/img/product/product_avatar/avatar.png';
 
 const ProductComment = () => {
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState([]);
+  const [writeComment, setWriteComment] = useState('');
   const [hollow, sethollow] = useState(0);
   const [solid, setsolid] = useState(0);
-  const comments = [
-    {
-      name: '梓源源',
-      comment: '有嚕嚕咪先給五星>< 可愛又好用 ',
-      star: 5,
-      date: '2022/08/17',
-    },
-    {
-      name: '振銓銓',
-      comment: '有嚕嚕咪先給五星>< 可愛又好用 ',
-      star: 4,
-      date: '2022/07/22',
-    },
-    {
-      name: '姐姐姐',
-      comment: '有嚕嚕咪先給五星>< 可愛又好用 ',
-      star: 3,
-      date: '2022/05/12',
-    },
-    {
-      name: '妹妹妹',
-      comment: '有嚕嚕咪先給五星>< 可愛又好用 ',
-      star: 2,
-      date: '2022/04/17',
-    },
-    {
-      name: '阿倫倫',
-      comment:
-        '有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用有嚕嚕咪先給五星>< 可愛又好用 ',
-      star: 1,
-      date: '2022/03/22',
-    },
-  ];
+  const { id } = useParams();
+  const star = solid + 1;
+  const submit = async () => {
+    await axios.post(
+      `${API_URL}/products/${id}/comment`,
+      { writeComment, star },
+      { withCredentials: true }
+    );
+    let result = await axios.get(`${API_URL}/products/${id}/productComment`);
+    setComment(result.data);
+  };
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/${id}/productComment`);
+      setComment(result.data);
+    })();
+  }, []);
+
   return (
     <>
       <div className="typeArea">
@@ -50,7 +38,6 @@ const ProductComment = () => {
               <img src={img} alt="" />
             </figure>
             <div>
-
               {[...Array(5)].map((star, i) => {
                 return (
                   <>
@@ -79,29 +66,29 @@ const ProductComment = () => {
               cols="50"
               rows="8"
               placeholder="寫下評論..."
-              value={comment}
+              value={writeComment}
               onChange={(e) => {
-                setComment(e.target.value);
+                setWriteComment(e.target.value);
               }}
             />
           </div>
         </div>
         <div className="d-flex justify-content-end me-3 my-2">
-          <button>送出</button>
+          <button onClick={submit}>送出</button>
         </div>
       </div>
-      {comments.map((v, i) => {
+      {comment.map((v, i) => {
         return (
           <>
             <div className="commentArea" key={i}>
-              <div className="d-flex justify-content-between" key={i}>
+              <div className="d-flex justify-content-between">
                 <div className="avatar">
                   <figure>
-                    <img src={img} alt="" />
+                    <img src={v.photo} alt="" />
                   </figure>
                   <p>{v.name}</p>
                 </div>
-                <div className="date">2022/01/08</div>
+                <div className="date">{v.create_time.slice(0, 10)}</div>
               </div>
               <div className="mt-3 d-flex justify-content-between align-items-end">
                 <div className="comment pe-3">

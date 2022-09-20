@@ -21,6 +21,7 @@
     }
     .activityInfo{
         margin: 0 10px;
+        flex-grow: 1;
         .activityTitle{
             display: flex;
             justify-content: space-between;

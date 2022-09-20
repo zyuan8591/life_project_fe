@@ -1,6 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { FaPaw } from 'react-icons/fa';
+import { API_URL_IMG } from '../../../utils/config';
 
 function DetailTitle({ data }) {
   // console.log(data);
@@ -11,7 +12,7 @@ function DetailTitle({ data }) {
           return date.replace(/-/g, '/');
         }
         return (
-          <div className="detailTitle" key={uuidv4()}>
+          <div className="detailTitle" key={item.id}>
             <div>
               <h2 className="title">{item.picnic_title}</h2>
               <ul className="titleContent my-4">
@@ -21,7 +22,7 @@ function DetailTitle({ data }) {
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
-                  地點：{item.location}
+                  地點：{item.address}
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
@@ -38,10 +39,7 @@ function DetailTitle({ data }) {
               </ul>
             </div>
             <div className="image mb-5">
-              <img
-                src={`/img/picnic/activity_picnic_img/${item.img2}`}
-                alt="picnic"
-              />
+              <img src={`${API_URL_IMG}/picnic/${item.img2}`} alt="picnic" />
             </div>
           </div>
         );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
@@ -7,8 +8,9 @@ import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../../styles/picnic/_picnicPrivateList.scss';
 import '../../../../styles/picnic/camping_main/_campingMain.scss';
-import Footer from '../../../public_component/Footer';
 import Header from '../../../public_component/Header';
+import BreadCrumb from '../../../public_component/BreadCrumb';
+import Footer from '../../../public_component/Footer';
 import BackToTop from '../../../public_component/BackToTop';
 import ActivityStateFilter from './component/ActivityStateFilter';
 import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
@@ -17,6 +19,7 @@ import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
+import { useUserRights } from '../../../../usecontext/UserRights';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -46,9 +49,13 @@ function PicnicPrivateList() {
   const [maxDateValue, setMaxDateValue] = useState('');
   const [minDateValue, setMinDateValue] = useState('');
   const [pageNow, setPageNow] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
+  const { groupId } = useParams();
+  const { user, setUser } = useUserRights();
+  const [userCollect, setUserCollect] = useState([]);
 
   const getPrivatelList = async () => {
     let response = await axios.get(
@@ -56,6 +63,7 @@ function PicnicPrivateList() {
     );
     // console.log(response.data.data);
     setData(response.data.data);
+    setLastPage(response.data.pagination.lastPage);
   };
   useEffect(() => {
     getPrivatelList();
@@ -70,8 +78,58 @@ function PicnicPrivateList() {
     maxDate,
   ]);
 
+  useEffect(() => {
+    let getAllCollect = async () => {
+      let response = await axios.get(
+        `${API_URL}/picnic/group/privateAllCollect`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log('getAllCollect', response.data);
+      let hadJoinCollect = response.data.map((data) => data.picnic_id);
+      setUserCollect(hadJoinCollect);
+    };
+    if (user) {
+      getAllCollect();
+    }
+  }, [user]);
+
+  async function handleAddFav(groupId) {
+    // console.log(groupId);
+    let response = await axios.post(
+      `${API_URL}/picnic/collectGroupAddJoin/${groupId}`,
+      {},
+      { withCredentials: true }
+    );
+    console.log('handleAddJoin', response.data);
+    let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
+    setUserCollect(nowJoinCollect);
+    alert('加入收藏');
+    // console.log('add', nowJoinCollect);
+  }
+
+  async function handleDelFav(groupId) {
+    let response = await axios.delete(
+      `${API_URL}/picnic/collectGroupDelJoin/${groupId}`,
+      { withCredentials: true }
+    );
+    console.log('handleDelFav', response.data);
+    let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
+    setUserCollect(nowJoinCollect);
+    alert('取消收藏');
+  }
+
   // 引入card
-  const card = <ActivityCard data={data} />;
+  const card = (
+    <ActivityCard
+      data={data}
+      handleAddFav={handleAddFav}
+      handleDelFav={handleDelFav}
+      user={user}
+      userCollect={userCollect}
+    />
+  );
   const horizontalCard = <ActivityHorizontalCard data={data} />;
 
   return (
@@ -88,7 +146,9 @@ function PicnicPrivateList() {
           </div>
           <div className="main">
             {/* breadCrumb */}
-            <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
+            <div className="breadCrumb py-3">
+              <BreadCrumb />
+            </div>
             <div className="contain">
               <div className="row m-0">
                 {/* 左側篩選欄 */}
@@ -103,6 +163,7 @@ function PicnicPrivateList() {
                           v={v}
                           filterState={filterState}
                           setFilterState={setFilterState}
+                          setPageNow={setPageNow}
                         />
                       );
                     })}
@@ -127,6 +188,7 @@ function PicnicPrivateList() {
                     setMaxDateValue={setMaxDateValue}
                     minDateValue={minDateValue}
                     setMinDateValue={setMinDateValue}
+                    setPageNow={setPageNow}
                   />
                 </div>
                 {/* 右側活動列表 */}
@@ -168,7 +230,11 @@ function PicnicPrivateList() {
                           <FaSearch
                             className="ms-2 mb-1"
                             style={{ cursor: 'pointer' }}
-                            onClick={() => setSearchWords(searchWord)}
+                            onClick={() => {
+                              if (searchWord === '') return setSearchWords('');
+                              setPageNow(1);
+                              setSearchWords(searchWord);
+                            }}
                           />
                         </div>
                       </IconContext.Provider>
@@ -185,7 +251,7 @@ function PicnicPrivateList() {
                     </div>
                   </IconContext.Provider>
                   <PaginationBar
-                    lastPage={2}
+                    lastPage={lastPage}
                     pageNow={pageNow}
                     setPageNow={setPageNow}
                   />

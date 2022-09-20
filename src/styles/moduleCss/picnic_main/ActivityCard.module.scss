@@ -32,7 +32,15 @@
                 font-size: 1.2rem;
                 cursor: pointer;
                 &:hover{
-                    color: rgb(221, 36, 36);
+                    color: #dd2424
+                }
+            }
+            .hasCollectBtn{
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #dd2424;
+                &:hover{
+                    color: $contentClr;
                 }
             }
         }
