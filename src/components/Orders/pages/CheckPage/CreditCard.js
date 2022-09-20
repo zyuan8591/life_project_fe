@@ -17,7 +17,7 @@ function CreditCard({ values, setFieldValue }) {
                     <TextField
                       name="cardNumber"
                       maxLength={12}
-                      // value={values.cardNumber}
+                      value={values.cardNumber}
                       // onChange={(e) => {
                       //   setFieldValue('cardNumber', values.cardNumber);
                       // }}
@@ -31,22 +31,18 @@ function CreditCard({ values, setFieldValue }) {
                 <label className="mb-2">到期日</label>
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
-                    <Field
+                    <TextField
                       maxLength={2}
                       name="cCardMonth"
-                      values={values}
-                      onChange={(e) => {
-                        // setFieldValue(e.target.name, e.target.value);
-                      }}
+                      values={values.cCardMonth}
                     />
                   </div>
                   /
                   <div className="col">
-                    <Field
+                    <TextField
                       maxLength={2}
                       name="cCardDate"
-                      values={values}
-                      // setFieldValue={setFieldValue}
+                      values={values.cCardDate}
                     />
                   </div>
                 </div>
@@ -58,8 +54,7 @@ function CreditCard({ values, setFieldValue }) {
                   label="安全碼"
                   maxLength={3}
                   name="cCardCheck"
-                  values={values}
-                  // setFieldValue={setFieldValue}
+                  values={values.cCardCheck}
                 />
               </div>
             </div>

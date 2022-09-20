@@ -67,10 +67,10 @@ const CheckOut = () => {
     address: '',
     memo: '',
     payment: '',
-    // cardNumber: '',
-    // cCardMonth: '',
-    // cCardDate: '',
-    // cCardCheck: '',
+    cardNumber: '',
+    cCardMonth: '',
+    cCardDate: '',
+    cCardCheck: '',
     // productItems:[{}]
     // productTotal:10000
   };
@@ -109,10 +109,10 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
-          // cardNumber: yup.string().required('必填'),
-          // cCardMonth: yup.string().required('必填'),
-          // cCardDate: yup.string().required('必填'),
-          // cCardCheck: yup.string().required('必填'),
+          cardNumber: yup.string().required('必填'),
+          cCardMonth: yup.string().required('必填'),
+          cCardDate: yup.string().required('必填'),
+          cCardCheck: yup.string().required('必填'),
         })}
         onSubmit={async (values) => {
           try {

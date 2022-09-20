@@ -33,10 +33,7 @@ function Payment({
         {payment.map((v, i) => {
           return (
             <>
-              <div
-                className="mb-2 px-2"
-                key={Math.random().toString(36).replace('0.', '')}
-              >
+              <div className="mb-2 px-2" key={v.id}>
                 <label>
                   <Field
                     className="me-3"

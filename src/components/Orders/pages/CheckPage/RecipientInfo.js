@@ -34,10 +34,7 @@ function RecipientInfo({ values, delivery }) {
               {delivery.map((v, i) => {
                 return (
                   <>
-                    <option
-                      key={Math.random().toString(36).replace('0.', '')}
-                      value={v.id}
-                    >
+                    <option key={v.id} value={v.id}>
                       {v.order_delivery}
                     </option>
                   </>
