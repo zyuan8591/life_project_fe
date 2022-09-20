@@ -22,7 +22,7 @@ const ProductFilter = ({
 }) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
-  const [showBoard, setShowBoard] = useState(true);
+  const [showBoard, setShowBoard] = useState(false);
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
@@ -74,7 +74,7 @@ const ProductFilter = ({
                 setShowBoard(true);
               }}
               onMouseOut={() => {
-                // setShowBoard(false);
+                setShowBoard(false);
               }}
             >
               <div className="brandSection">
@@ -97,7 +97,7 @@ const ProductFilter = ({
                     }}
                   />
                 </div>
-                <div className="test1">
+                <div className="brandLayout">
                   {brandArr.map((v, i) => {
                     return (
                       <div className="brand" key={i}>
