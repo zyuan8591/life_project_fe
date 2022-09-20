@@ -44,7 +44,7 @@ const ForgotPassword = () => {
       })}
       onSubmit={async (values) => {
         try {
-          await axios.put(`${API_URL}/userUpdata/forgotpassword`, values, {
+          await axios.put(`${API_URL}/user/forgotpassword`, values, {
             withCredentials: true,
           });
           setPopWindow(true);
@@ -114,7 +114,11 @@ const ForgotPassword = () => {
                 </div>
               </Form>
             </div>
-            <PopWindow popWindow={popWindow} setPopWindow={setPopWindow} />
+            <PopWindow
+              popWindow={popWindow}
+              setPopWindow={setPopWindow}
+              linkTo="/signin/login"
+            />
           </div>
         </>
       )}

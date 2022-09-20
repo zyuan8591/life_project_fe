@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { Navigate } from 'react-router-dom';
-function PopWindow({ popWindow, setPopWindow, linkTo = '/signin/login' }) {
+function PopWindow({
+  popWindow,
+  setPopWindow,
+  linkTo = '',
+  text = '密碼變更成功',
+}) {
   const [isGo, setIsGo] = useState(false);
   function exit(e) {
     e.preventDefault();
     setPopWindow(false);
     setIsGo(true);
   }
+  useEffect(() => {
+    setIsGo(false);
+  }, [isGo]);
   if (isGo) {
     return <Navigate to={linkTo} />;
   }
+
   return popWindow ? (
     <div className="popwindow" css={popwindow}>
       <div className="inner">
         <div className="text ">
-          <p>密碼變更成功</p>
+          <p>{text}</p>
         </div>
         <div className="btngroup">
           <button onClick={exit} className="">

@@ -3,9 +3,11 @@ import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import '../../../../styles/Users/ForgotPassword/ForgotPassword.scss';
 import emailjs from '@emailjs/browser';
+import PopWindow from './PopWindow';
 
 const PopForgotPassword = () => {
   const [user, setUser] = useState(null);
+  const [popWindow, setPopWindow] = useState(false);
   const [loginUser, setLoginUser] = useState({
     email: '',
   });
@@ -17,11 +19,15 @@ const PopForgotPassword = () => {
   async function handleSubmit(e) {
     try {
       e.preventDefault();
-      let response = await axios.post(`${API_URL}/forgetpassword`, loginUser, {
-        withCredentials: true,
-      });
-
+      let response = await axios.post(
+        `${API_URL}/user/forgotpassword`,
+        loginUser,
+        {
+          withCredentials: true,
+        }
+      );
       setUser(response.data);
+      setPopWindow(true);
     } catch (e) {
       setErr(e.response.data.message);
     }
@@ -68,10 +74,22 @@ const PopForgotPassword = () => {
               className="form-control"
               placeholder="電子郵件信箱"
             />
-            <button onClick={handleSubmit}>送出</button>
+            {err && (
+              <div className="Emailerrtext">
+                <i className="fa-regular fa-circle-xmark">{err}</i>
+              </div>
+            )}
+            <div className="forgotbtn">
+              <button onClick={handleSubmit}>送出</button>
+            </div>
           </form>
         </div>
       </div>
+      <PopWindow
+        popWindow={popWindow}
+        setPopWindow={setPopWindow}
+        text="郵件寄出成功"
+      />
     </div>
   );
 };
