@@ -26,6 +26,8 @@ const Header = ({ fixed = true }) => {
   const [scrollDown, setScrollDown] = useState(false);
   const [userSelectActive, setUserSelectActive] = useState(false);
 
+  const [menu, setMenu] = useState(false);
+
   // enter search bar
   const userAvatorClickHandler = () => {
     if (userSelectActive) return setUserSelectActive(false);
@@ -55,11 +57,17 @@ const Header = ({ fixed = true }) => {
       <IconContext.Provider
         value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
       >
+        <i
+          class={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
+          onClick={() => setMenu(!menu)}
+        ></i>
         <Link to="/" className="headerTitle">
           <h1 className="m-0 header-item">LIFE</h1>
         </Link>
         {/* NAV BAR */}
-        <nav className="flexCenter header-item">
+        <nav
+          className={`flexCenter header-item ${menu ? 'active shadow-sm' : ''}`}
+        >
           <ul className="nav list-unstyled flexCenter">
             {pages.map((p) => {
               return (
