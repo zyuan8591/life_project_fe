@@ -4,11 +4,13 @@
   justify-content: start;
   align-items: center;
 }
+$height: 60px;
 .categoryContainer {
   width: 290px;
+  position: relative;
   .title {
     min-width: 290;
-    height: 70px;
+    height: $height;
     @include d-flex();
     border-bottom: 1px solid $contentClr;
     color: $subClrBrown;
@@ -19,11 +21,22 @@
   }
   .category {
     @include d-flex();
-    min-width: 290;
-    height: 70px;
+    min-width: 240;
+    height: $height;
     padding-left: 10px;
+    // transition: 0.2s;
     &:hover {
-      background: $hoverClr;
+      // background: $hoverClr;
     }
+  }
+  .test {
+    position: absolute;
+    top: 0px;
+    min-width: 100%;
+    height: $height;
+    background: rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    transition: 0.4s;
+    z-index: -1;
   }
 }

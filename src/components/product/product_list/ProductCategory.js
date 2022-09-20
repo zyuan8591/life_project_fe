@@ -8,6 +8,11 @@ import axios from 'axios';
 const ProductCategory = ({ setProductCateNow }) => {
   const [productCate, setProductCate] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const height = 60;
+  const [move, setMove] = useState(height);
+  const [activeId, setActiveId] = useState(0);
+  const [hover, setHover] = useState(false);
+  const [active, setActive] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -21,17 +26,42 @@ const ProductCategory = ({ setProductCateNow }) => {
       <div className="title">
         <p>CATEGORY</p>
       </div>
+      {hover ? (
+        <div
+          className="test"
+          style={{ transform: `translateY(${move}px)` }}
+        ></div>
+      ) : (
+        ''
+      )}
+
       {productCate.map((v, i) => {
         const { id, name } = v;
         return (
           <div
             key={id}
             className="category cursorPointer"
+            style={{
+              background:
+                activeId === id && active ? 'rgba(0, 0, 0, 0.24)' : '',
+            }}
             onClick={() => {
               // const params = Object.fromEntries([...searchParams]);
               // params['productCate'] = v.id;
               // setSearchParams(params);
               setProductCateNow(v.id);
+              setMove((i + 1) * height);
+              setActiveId(id);
+            }}
+            onMouseOver={() => {
+              setMove((i + 1) * height);
+              setHover(true);
+              setActive(false);
+            }}
+            onMouseOut={() => {
+              setMove((i + 1) * height);
+              setHover(false);
+              setActive(true);
             }}
           >
             {name}
