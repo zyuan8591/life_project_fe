@@ -111,7 +111,9 @@ function CreatePincnic() {
       formData.append('intr', activityContent.intr);
       formData.append('image', activityContent.image);
 
-      let response = await axios.post(`${API_URL}/picnic/create`, formData);
+      let response = await axios.post(`${API_URL}/picnic/create`, formData, {
+        withCredentials: true,
+      });
       setSuccess(true);
 
       console.log(response.data);

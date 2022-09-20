@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
@@ -18,6 +19,7 @@ import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
+import { useUserRights } from '../../../../usecontext/UserRights';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -48,10 +50,12 @@ function PicnicPrivateList() {
   const [minDateValue, setMinDateValue] = useState('');
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
-  const [dateRemind, setDateRemind] = useState('');
 
   // 列表首頁 全部資料
   const [data, setData] = useState([]);
+  const { groupId } = useParams();
+  const { user, setUser } = useUserRights();
+  const [userCollect, setUserCollect] = useState([]);
 
   const getPrivatelList = async () => {
     let response = await axios.get(
@@ -74,14 +78,63 @@ function PicnicPrivateList() {
     maxDate,
   ]);
 
+  useEffect(() => {
+    let getAllCollect = async () => {
+      let response = await axios.get(
+        `${API_URL}/picnic/group/privateAllCollect`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log('getAllCollect', response.data);
+      let hadJoinCollect = response.data.map((data) => data.picnic_id);
+      setUserCollect(hadJoinCollect);
+    };
+    if (user) {
+      getAllCollect();
+    }
+  }, [user]);
+
+  async function handleAddFav(groupId) {
+    // console.log(groupId);
+    let response = await axios.post(
+      `${API_URL}/picnic/collectGroupAddJoin/${groupId}`,
+      {},
+      { withCredentials: true }
+    );
+    console.log('handleAddJoin', response.data);
+    let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
+    setUserCollect(nowJoinCollect);
+    alert('加入收藏');
+    // console.log('add', nowJoinCollect);
+  }
+
+  async function handleDelFav(groupId) {
+    let response = await axios.delete(
+      `${API_URL}/picnic/collectGroupDelJoin/${groupId}`,
+      { withCredentials: true }
+    );
+    console.log('handleDelFav', response.data);
+    let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
+    setUserCollect(nowJoinCollect);
+    alert('取消收藏');
+  }
+
   // 引入card
-  const card = <ActivityCard data={data} />;
+  const card = (
+    <ActivityCard
+      data={data}
+      handleAddFav={handleAddFav}
+      handleDelFav={handleDelFav}
+      user={user}
+      userCollect={userCollect}
+    />
+  );
   const horizontalCard = <ActivityHorizontalCard data={data} />;
 
   return (
     <>
       <Header />
-      <BreadCrumb />
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {/* banner */}
@@ -93,7 +146,9 @@ function PicnicPrivateList() {
           </div>
           <div className="main">
             {/* breadCrumb */}
-            <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
+            <p className="breadCrumb py-3">
+              <BreadCrumb />
+            </p>
             <div className="contain">
               <div className="row m-0">
                 {/* 左側篩選欄 */}

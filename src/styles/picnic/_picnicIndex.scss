@@ -17,6 +17,7 @@
         border-radius: 10px;
         box-shadow: .8px .8px 12px $subClrGY;
         margin: 80px 0 ;
+        transition: transform .5s ease-in-out;
         .image {
             width: 700px;
             height: 500px;
@@ -34,7 +35,6 @@
         }
         &:hover{
             transform: translateY(-20px);
-            transition: transform .5s ease-in-out;
         }
     .content-text{
         width: 500px;
@@ -81,27 +81,6 @@
         object-fit: cover;
         }
     }
-    // .title-bn {
-    //     width: 60%;
-    //     display: flex;
-    //     align-items: center;
-    //     margin: auto 0 auto 30px;
-    //     img {
-    //         @include imgObj;
-    //     }
-    //     .balloon1{
-    //         width: 7%;
-    //         position: absolute;
-    //         top: 9%;
-    //         left: 20%;
-    //     }
-    //     .balloon2{
-    //         width: 7%;
-    //         position: absolute;
-    //         top: 14%;
-    //         left: 28%;
-    //     }
-    // }
     .title-text {
         width: 40%;
         position: relative;

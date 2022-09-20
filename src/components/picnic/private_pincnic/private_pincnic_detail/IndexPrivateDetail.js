@@ -10,6 +10,7 @@ import DetailTitle from './DetailTitle';
 import PrivateDetailContent from './PrivateDetailContent';
 import RecommendProducts from './RecommendProducts';
 import Paicipant from './Paicipant';
+import PaicipantCard from './PaicipantCard';
 import Organiser from './Organiser';
 import AsideMessage from './AsideMessage';
 import RecommendActivity from './RecommendActivity';
@@ -24,9 +25,15 @@ function IndexPrivateDetail() {
   const [paicipantData, setPaicipantData] = useState([]); //參加者
   const [organiserData, setOrganiserData] = useState([]); //主辦人
 
+  const userLength = paicipantData.length;
+  const [userSlider, setUserSlider] = useState(0);
+
   const { groupId } = useParams();
   const { user, setUser } = useUserRights();
   const [userJoin, setUserJoin] = useState([]);
+  const [getMap, setGetMap] = useState([]);
+  const [getMapUser, setGetMapUser] = useState([]);
+  const { officialId } = useParams();
 
   // --- 詳細頁 全部資料 ---
   useEffect(() => {
@@ -40,6 +47,16 @@ function IndexPrivateDetail() {
     };
     getOfficalDetail();
   }, []);
+
+  // useEffect(() => {
+  //   let getMap = async () => {
+  //     let response = await axios.get(`${API_URL}/getMap/${officialId}`);
+  //     setGetMap(response.data.picnicResult);
+  //     setGetMapUser(response.data.picnicResult[0].users);
+  //   };
+  //   getMap();
+  // }, []);
+
   useEffect(() => {}, [data, productsData, organiserData, paicipantData]);
 
   useEffect(() => {
@@ -78,14 +95,15 @@ function IndexPrivateDetail() {
     );
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
     setUserJoin(nowJoin);
-    // console.log('add', response.data);
+    // console.log('delete', response.data);
     alert('已取消活動');
   };
 
+  //TODO: 加入活動後 要重新整理才能顯示參加者和人數
   return (
     <>
       <Header />
-      <main className="PicnicOfficalDetailContainer container ">
+      <main className="picnicPrivateDetailContainer container ">
         <BreadCrumb />
         <div className="main row">
           <div className="mainWrap col-sm-8 me-5">
@@ -100,11 +118,19 @@ function IndexPrivateDetail() {
             />
             {/* 參加者 */}
             <Paicipant
-              data={data}
+              userLength={userLength}
+              userSlider={userSlider}
+              setUserSlider={setUserSlider}
               cardWidth={140}
               displayTotal={6}
+              data={data}
               paicipantData={paicipantData}
-            />
+            >
+              <PaicipantCard
+                userSlider={userSlider}
+                paicipantData={paicipantData}
+              />
+            </Paicipant>
           </div>
           <div className="col-sm-2">
             {/* 側邊資訊欄 */}

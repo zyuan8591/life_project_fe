@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL_IMG } from '../../../../../utils/config';
 
-function ActivityCard({ data }) {
+function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
   // console.log(data);
+
   const progressBar = (item) => {
     if (data.currentJoin === 0) {
       return 0;
@@ -18,7 +19,7 @@ function ActivityCard({ data }) {
       return `${width}`;
     }
   };
-
+  // console.log(data);
   return (
     <>
       {data.length === 0 ? (
@@ -33,11 +34,40 @@ function ActivityCard({ data }) {
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
                   <div className={classes.title}>{item.picnic_title}</div>
-                  <IconContext.Provider
-                    value={{ className: classes.collectBtn }}
-                  >
-                    <FaHeart className={classes.collect} />
-                  </IconContext.Provider>
+                  {user ? (
+                    userCollect.includes(item.id) ? (
+                      <IconContext.Provider
+                        value={{ className: classes.hasCollectBtn }}
+                      >
+                        <FaHeart
+                          onClick={() => {
+                            handleDelFav(item.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    ) : (
+                      <IconContext.Provider
+                        value={{ className: classes.collectBtn }}
+                      >
+                        <FaHeart
+                          onClick={() => {
+                            handleAddFav(item.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    )
+                  ) : (
+                    <IconContext.Provider
+                      value={{ className: classes.collectBtn }}
+                    >
+                      <FaHeart
+                        className={classes.collect}
+                        onClick={() => {
+                          alert('請登入會員');
+                        }}
+                      />
+                    </IconContext.Provider>
+                  )}
                 </div>
 
                 <div className={`d-flex ${classes.labelContent}`}>

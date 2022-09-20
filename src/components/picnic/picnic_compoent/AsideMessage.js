@@ -14,6 +14,21 @@ function AsideMessageFix({
 }) {
   const [scrollDown, setScrollDown] = useState(false);
 
+  const stateColor = (state) => {
+    switch (state) {
+      case '即將開團':
+        return '#817161';
+      case '開團中':
+        return '#F2AC33';
+      case '已成團':
+        return '#1F9998';
+      case '開團已截止':
+        return '#B9BDC5';
+      default:
+        return '#817161';
+    }
+  };
+
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
@@ -29,6 +44,7 @@ function AsideMessageFix({
     let result = limit - currentJoin;
     return result;
   }
+  // console.log(data);
   return (
     <>
       <div className="asideMessage">
@@ -40,7 +56,14 @@ function AsideMessageFix({
             >
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <p>{item.picnic_title}</p>
-                <div className="stateBtn">{item.activity_state}</div>
+                <div
+                  className="stateBtn"
+                  style={{
+                    backgroundColor: `${stateColor(item.activity_state)}`,
+                  }}
+                >
+                  {item.activity_state}
+                </div>
               </div>
               <div className="mb-2">
                 <FaCalendarAlt className="calendarIcon" />
@@ -52,26 +75,42 @@ function AsideMessageFix({
               </div>
               <div className="mb-3">
                 <BsPersonFill className="personIcon" />
-                尚可參加人數：{lastCount(item.join_limit, item.currentJoin)}
+                達已成團還差：{lastCount(item.join_limit, item.currentJoin)}人
               </div>
               <div className="map mb-3">map</div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="price">NT${item.price}</div>
+                {/* TODO: 即將開團BTN 不能是加入 */}
+                {/* TODO: map */}
                 {user ? (
-                  <button
-                    className="joinInBtn"
-                    style={{ background: '#B9BDC5', color: '#444' }}
-                    onClick={() => {
-                      handleDeleteJoin(data[0].id);
-                    }}
-                  >
-                    取消活動
-                  </button>
+                  userJoin.includes(item.id) ? (
+                    <button
+                      className="joinInBtn"
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      onClick={() => {
+                        handleDeleteJoin(item.id);
+                      }}
+                    >
+                      取消活動
+                    </button>
+                  ) : (
+                    <button
+                      className="joinInBtn"
+                      onClick={() => {
+                        handleAddJoin(data[0].id);
+                      }}
+                    >
+                      加入活動
+                    </button>
+                  )
                 ) : (
                   <button
                     className="joinInBtn"
                     onClick={() => {
-                      handleAddJoin(data[0].id);
+                      alert('請先登入會員');
                     }}
                   >
                     加入活動
