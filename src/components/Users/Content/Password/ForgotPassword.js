@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ShowPassword from '../../user_Component/ShowPassword';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -108,8 +108,10 @@ const ForgotPassword = () => {
                     </div>
                   )}
                 </Field>
-                <button className="exitBtn">取消</button>
-                <button type="sunmit">確認</button>
+                <div className="forgotbtn">
+                  <button className="exitBtn">取消</button>
+                  <button type="sunmit">確認</button>
+                </div>
               </Form>
             </div>
             <PopWindow popWindow={popWindow} setPopWindow={setPopWindow} />

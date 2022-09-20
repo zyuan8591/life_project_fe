@@ -218,7 +218,11 @@ const Password = () => {
               <button type="sunmit">確認</button>
             </Form>
           </div>
-          <PopWindow popWindow={popWindow} setPopWindow={setPopWindow} />
+          <PopWindow
+            popWindow={popWindow}
+            setPopWindow={setPopWindow}
+            linkTo="/users/account"
+          />
         </>
       )}
     </Formik>
