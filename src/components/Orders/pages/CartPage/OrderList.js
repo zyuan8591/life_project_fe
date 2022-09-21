@@ -41,7 +41,6 @@ const OrderList = (props) => {
       {productCart.state.items.length < 1 &&
         picnicCart.state.items.length < 1 &&
         campingCart.state.items.length < 1 && <>滾</>}
-
       {productCart.state.items.length > 0 && (
         <>
           <h2 className="h1 ps-3 pb-2">商品</h2>
@@ -190,92 +189,6 @@ const OrderList = (props) => {
           </div>
         </>
       )}
-      {/* {test} */}
-      <div className="btn-group-vertical">
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            console.log(productCart.state);
-          }}
-        >
-          log cart
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.addItem({
-              id: '111',
-              quantity: 5,
-              name: 'Moomin 多功能電烤盤1111111',
-              price: 15000,
-              ischecked: false,
-            });
-          }}
-        >
-          add item (id=11, x5)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.addItem({
-              id: '22',
-              quantity: 1,
-              name: 'ipad',
-              price: 19000,
-              ischecked: false,
-            });
-          }}
-        >
-          add item (id=22, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.removeItem('222');
-          }}
-        >
-          remove item(id=22)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.updateItem({
-              id: '22',
-              quantity: 7,
-            });
-          }}
-        >
-          update id=222 item quantity to 7
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.updateItem({
-              id: '11',
-              quantity: 9,
-            });
-          }}
-        >
-          update id=11 item quantity to 9
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.clearCart();
-          }}
-        >
-          clear cart
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            if (productCart.isInCart('22')) alert('id=22 item is in cart');
-            else alert('no id=22  ');
-          }}
-        >
-          check id=222 if in cart
-        </button>
-      </div>
       {(picnicCart.state.items.length > 0 ||
         campingCart.state.items.length > 0) && (
         <>
@@ -400,66 +313,6 @@ const OrderList = (props) => {
           </div>
         </>
       )}
-
-      {/* {test} */}
-      <div className="btn-group-vertical">
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            picnicCart.addItem({
-              id: '33',
-              quantity: 1,
-              name: 'Moomin 多功能電烤盤1111111',
-              price: 15000,
-              ischecked: false,
-            });
-          }}
-        >
-          add pic item (id=333, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            picnicCart.addItem({
-              id: '88',
-              quantity: 1,
-              name: 'Moomin 多功能電烤盤1111111',
-              price: 15000,
-              ischecked: false,
-            });
-          }}
-        >
-          add pic item (id=888, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            campingCart.addItem({
-              id: '44',
-              quantity: 1,
-              name: 'ipad',
-              price: 19000,
-              ischecked: false,
-            });
-          }}
-        >
-          add camp item (id=444, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            campingCart.addItem({
-              id: '66',
-              quantity: 1,
-              name: 'ipad',
-              price: 19000,
-              ischecked: false,
-            });
-          }}
-        >
-          add camp item (id=666, x1)
-        </button>
-      </div>
     </>
   );
 };
