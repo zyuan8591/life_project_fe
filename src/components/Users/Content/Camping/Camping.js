@@ -16,7 +16,6 @@ const Camping = () => {
 
   const getUser = async (apiurl) => {
     let response = await axios.get(apiurl, { withCredentials: true });
-    console.log(response.data.result);
     setData(response.data.result);
     setLastPage(response.data.pagination.lastPage);
   };
@@ -24,10 +23,12 @@ const Camping = () => {
   useEffect(() => {
     let apiurl = '';
     (async () => {
-      if (display === 0) {
-        apiurl = `${API_URL}/camping/getUserJoin/${user.id}?page=${pageNow}`;
+      if (display === 1) {
+        apiurl = `${API_URL}/camping/userJoin?page=${pageNow}`;
       } else if (display === 2) {
         apiurl = `${API_URL}/camping/userCollect?page=${pageNow}`;
+      } else {
+        apiurl = `${API_URL}/camping/getUserJoin/${user.id}?page=${pageNow}`;
       }
       getUser(apiurl);
     })();

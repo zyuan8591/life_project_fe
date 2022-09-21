@@ -1,6 +1,9 @@
 import React from 'react';
 
 const PointGroup = () => {
+  //總增加點數 該使用者點數紀錄>=0
+  //總減少點數 該使用者點數<0
+  //前面兩個相加
   return (
     <div className="points-group">
       <div className="user-point row">
