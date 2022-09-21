@@ -224,7 +224,7 @@
          // --------- 側邊資訊欄 ---------
          .asideMessage {
         min-width: 280px;
-        width: 335px;
+        width: 330px;
         position: sticky;
         top: 0;
         right: 0;
@@ -248,9 +248,9 @@
             margin: -3px 5px 0 0;
         }
         .map {
-            width: 100%;
+            width: 280px;
             height: 100%;
-            border: 1px solid $contentClr; 
+            border: 1px solid #8b8b8b; 
         }
         .price {
             color: $contentClr;

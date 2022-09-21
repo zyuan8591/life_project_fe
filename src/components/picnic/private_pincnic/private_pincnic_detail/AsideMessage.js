@@ -14,6 +14,7 @@ function AsideMessage({
   user,
   handleAddJoin,
   handleDeleteJoin,
+  setIsgo,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
 
@@ -83,7 +84,18 @@ function AsideMessage({
                 </div>
                 <div className="map mb-3">{/* <MapAside /> */}</div>
                 <div className="d-flex justify-content-between align-items-center">
-                  {item.activity_state === '即將開團' ? (
+                  {item.activity_state === '開團已截止' ? (
+                    <button
+                      className="joinInBtn"
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      disabled
+                    >
+                      開團已截止
+                    </button>
+                  ) : item.activity_state === '即將開團' ? (
                     <button
                       className="joinInBtn"
                       style={{
@@ -104,6 +116,7 @@ function AsideMessage({
                         }}
                         onClick={() => {
                           handleDeleteJoin(item.id);
+                          setIsgo(true);
                         }}
                       >
                         取消活動
@@ -113,6 +126,7 @@ function AsideMessage({
                         className="joinInBtn"
                         onClick={() => {
                           handleAddJoin(data[0].id);
+                          setIsgo(true);
                         }}
                       >
                         加入活動
@@ -128,6 +142,7 @@ function AsideMessage({
                       加入活動
                     </button>
                   )}
+                  {}
                 </div>
               </div>
             );

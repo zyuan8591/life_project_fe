@@ -18,3 +18,8 @@
         @include buttonHover;
     }
 }
+@media screen and (max-width:375px) {
+    .searchBtn{
+        margin: 6px;
+    }
+}

@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import MapAside from '../../map/component/MapAside';
+import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 
 function AsideMessageFix({
   data,
@@ -12,8 +13,10 @@ function AsideMessageFix({
   handleDeleteJoin,
   userJoin,
   user,
+  setIsgo,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
+  const picnicCart = usePicnicCart([]);
 
   const stateColor = (state) => {
     switch (state) {
@@ -103,7 +106,15 @@ function AsideMessageFix({
                         color: '#444',
                       }}
                       onClick={() => {
+                        setIsgo(true);
                         handleDeleteJoin(item.id);
+                        picnicCart.addItem({
+                          id: item.id,
+                          quantity: 1,
+                          name: item.picnic_title,
+                          price: item.price,
+                          ischecked: false,
+                        });
                       }}
                     >
                       取消活動
@@ -112,6 +123,7 @@ function AsideMessageFix({
                     <button
                       className="joinInBtn"
                       onClick={() => {
+                        setIsgo(true);
                         handleAddJoin(data[0].id);
                       }}
                     >
