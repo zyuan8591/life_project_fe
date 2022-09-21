@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { API_URL_IMG } from '../../../../utils/config';
 import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
+import BreadCrumb from '../../../public_component/BreadCrumb';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
@@ -104,7 +105,7 @@ const materialMain = css`
   flex-wrap: wrap;
 `;
 
-const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn }) => {
+const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn, setToast }) => {
   // get recipe material
   const [material, setMaterial] = useState([]);
   const [like, setLike] = useState(false);
@@ -132,12 +133,17 @@ const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn }) => {
         { withCredentials: true }
       );
       setLike(true);
+      setToast(1);
     } else {
       await axios.delete(`${API_URL}/recipes/${id}/like`, {
         withCredentials: true,
       });
       setLike(false);
+      setToast(2);
     }
+    setTimeout(() => {
+      setToast(0);
+    }, 2000);
     // recipe detail
     let result = await axios.get(`${API_URL}/recipes/${id}`);
     setRecipeData(result.data[0]);
@@ -145,6 +151,7 @@ const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn }) => {
 
   return (
     <>
+      <BreadCrumb last={data.name} />
       {/* Title */}
       <div css={recipeName}>
         {data.name}

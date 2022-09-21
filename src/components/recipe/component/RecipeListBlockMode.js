@@ -25,6 +25,10 @@ const RecipeListBlockMode = ({ data }) => {
           />
         </figure>
         <span className={classes.title}>{data.name}</span>
+        <div className="d-flex gap-1 my-1">
+          <span className={classes.tag}>{data.recipe_category_name}</span>
+          <span className={classes.tag}>{data.product_category_name}</span>
+        </div>
         <span>作者：{data.user_name}</span>
         <span className={classes.material}>食材：{material}</span>
         <div className={classes.about}>

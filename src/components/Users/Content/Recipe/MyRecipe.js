@@ -9,6 +9,7 @@ import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 import { Link, useSearchParams } from 'react-router-dom';
 import WarnWindow from '../Account/component/WarnWindow';
 import RecipeCreateForm from '../../../recipe/component/RecipeCreateForm';
+import NoDataDisplay from '../../../public_component/NoDataDisplay';
 
 function MyRecipe() {
   const { user, setUser } = useUserRights();
@@ -152,6 +153,7 @@ function MyRecipe() {
           ))}
         </tbody>
       </table>
+      {recipeData.length === 0 && <NoDataDisplay noDataText="食譜" />}
       {!!lastPage && (
         <PaginationBar
           lastPage={lastPage}

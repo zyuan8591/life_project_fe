@@ -8,7 +8,8 @@ const container = css`
     filter: invert(46%) sepia(26%) saturate(296%) hue-rotate(349deg)
       brightness(93%) contrast(90%);
   }
-  &:hover {
+  &:hover,
+  &.active {
     .eggIcon {
       filter: invert(77%) sepia(56%) saturate(864%) hue-rotate(333deg)
         brightness(98%) contrast(93%);
@@ -39,11 +40,13 @@ const textContent = css`
   border: 2px solid #444;
 `;
 
-const RecipeStepItem = ({ i, img, content, position }) => {
+const RecipeStepItem = ({ i, img, content, position, stepNow }) => {
   let align = ['align-slef-center', 'align-self-start'];
   return (
     <div
-      className={`d-flex flex-column px-3 position-relative flex-shrink-0 ${align[position]}`}
+      className={`d-flex flex-column px-3 position-relative flex-shrink-0 ${
+        align[position]
+      } ${stepNow === i ? 'active' : ''}`}
       css={container}
     >
       <figure className="m-0 position-relative" css={iconContainer}>
