@@ -34,6 +34,7 @@ function IndexPrivateDetail() {
   const [getMap, setGetMap] = useState([]);
   const [getMapUser, setGetMapUser] = useState([]);
   const { officialId } = useParams();
+  const [isGo, setIsgo] = useState(false);
 
   // --- 詳細頁 全部資料 ---
   useEffect(() => {
@@ -45,8 +46,9 @@ function IndexPrivateDetail() {
       setPaicipantData(response.data.paicipantData);
       // console.log(response);
     };
+    setIsgo(false);
     getOfficalDetail();
-  }, []);
+  }, [isGo]);
 
   // useEffect(() => {
   //   let getMap = async () => {
@@ -140,6 +142,7 @@ function IndexPrivateDetail() {
               handleAddJoin={handleAddJoin}
               userJoin={userJoin}
               user={user}
+              setIsgo={setIsgo}
             />
           </div>
           {/* 推薦商品 */}

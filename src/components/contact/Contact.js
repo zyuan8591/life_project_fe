@@ -18,14 +18,9 @@ const Contact = () => {
   useEffect(() => {
     // 加上是否已經連線的檢查
     if (!socket) {
-      console.log('socket connected');
       let ws = io('http://localhost:3001');
       setSocket(ws);
-
       ws.on('chat', (msg) => {
-        // 這裡的 messages 會一直抓到原始的值 []
-        console.log('來自後端的訊息', msg, messages.length);
-        // 要用這樣的方式寫，但為什麼？
         setMessages(function (prevState, props) {
           return [{ id: uuidv4(), role: 'life', content: msg }, ...prevState];
         });

@@ -40,7 +40,13 @@ const commentSubmitBtn = css`
   background: ${subClrBrown};
 `;
 
-const RecipeComments = ({ data, setData, setRecipeData, setLoginBtn }) => {
+const RecipeComments = ({
+  data,
+  setData,
+  setRecipeData,
+  setLoginBtn,
+  setToast,
+}) => {
   const [comment, setComment] = useState('');
   const [searchParams] = useSearchParams();
   const { user } = useUserRights();
@@ -64,6 +70,10 @@ const RecipeComments = ({ data, setData, setRecipeData, setLoginBtn }) => {
     let commentsResult = await axios.get(`${API_URL}/recipes/${id}/comment`);
     setData(commentsResult.data);
     setComment('');
+    setToast(3);
+    setTimeout(() => {
+      setToast(0);
+    }, 2000);
   };
   const demoHandler = () => {
     setComment('感謝作者的食譜分享~');

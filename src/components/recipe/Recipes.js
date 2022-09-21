@@ -24,6 +24,7 @@ import axios from 'axios';
 import { useUserRights } from '../../usecontext/UserRights';
 import Notification from '../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
+import NoDataDisplay from '../public_component/NoDataDisplay';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -84,7 +85,6 @@ const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(1);
 
   useEffect(() => {
-    showToast();
     (async () => {
       // get all recipe cate name
       let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
@@ -153,7 +153,7 @@ const Recipes = () => {
     setSearchParams(params);
   };
 
-  // handle add recipe
+  // handle add recipe form
   const addRecipeHandler = () => {
     if (!user) return setLoginBtn(true);
     const params = Object.fromEntries([...searchParams]);
@@ -299,7 +299,13 @@ const Recipes = () => {
               />
             </div>
             {/* Main Content */}
-            {displayMode === 1 ? (
+            {recipeList.length === 0 ? (
+              <NoDataDisplay
+                noDataText="食譜"
+                linkFunc={addRecipeHandler}
+                linkText="立即上傳食譜"
+              />
+            ) : displayMode === 1 ? (
               <div className="recipeBlockModeList">
                 {recipeList.map((d, i) => {
                   return (
@@ -317,11 +323,13 @@ const Recipes = () => {
                 })}
               </div>
             )}
-            <PaginationBar
-              lastPage={lastPage}
-              pageNow={pageNow}
-              setPageNow={setPageNow}
-            />
+            {recipeList.length === 0 || (
+              <PaginationBar
+                lastPage={lastPage}
+                pageNow={pageNow}
+                setPageNow={setPageNow}
+              />
+            )}
           </div>
         </div>
         {/* Create Recipe Form */}

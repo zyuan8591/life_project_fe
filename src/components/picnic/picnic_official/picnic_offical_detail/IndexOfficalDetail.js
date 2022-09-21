@@ -32,6 +32,7 @@ function PicnicOfficalDetail() {
   const { officialId } = useParams();
   const { user, setUser } = useUserRights();
   const [userJoin, setUserJoin] = useState([]);
+  const [isGo, setIsgo] = useState(false);
   // console.log(officialId);
 
   // --- 詳細頁 全部資料 ---
@@ -44,8 +45,9 @@ function PicnicOfficalDetail() {
       setPaicipantData(response.data.paicipantData);
       setProductsData(response.data.productsData);
     };
+    setIsgo(false);
     getOfficalDetail();
-  }, []);
+  }, [isGo]);
 
   useEffect(() => {
     let getMap = async () => {
@@ -141,6 +143,7 @@ function PicnicOfficalDetail() {
               handleDeleteJoin={handleDeleteJoin}
               userJoin={userJoin}
               user={user}
+              setIsgo={setIsgo}
             />
           </div>
           {/* 推薦商品 */}

@@ -14,6 +14,7 @@ function AsideMessage({
   user,
   handleAddJoin,
   handleDeleteJoin,
+  setIsgo,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
 
@@ -82,41 +83,70 @@ function AsideMessage({
                   達已成團還差：{lastCount(item.join_limit, item.currentJoin)}人
                 </div>
                 <div className="map mb-3">{/* <MapAside /> */}</div>
+                <div className="d-flex justify-content-between align-items-center">
+                  {item.activity_state === '開團已截止' ? (
+                    <button
+                      className="joinInBtn"
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      disabled
+                    >
+                      開團已截止
+                    </button>
+                  ) : item.activity_state === '即將開團' ? (
+                    <button
+                      className="joinInBtn"
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      disabled
+                    >
+                      即將開團
+                    </button>
+                  ) : user ? (
+                    userJoin.includes(item.id) ? (
+                      <button
+                        className="joinInBtn"
+                        style={{
+                          background: '#B9BDC5',
+                          color: '#444',
+                        }}
+                        onClick={() => {
+                          handleDeleteJoin(item.id);
+                          setIsgo(true);
+                        }}
+                      >
+                        取消活動
+                      </button>
+                    ) : (
+                      <button
+                        className="joinInBtn"
+                        onClick={() => {
+                          handleAddJoin(data[0].id);
+                          setIsgo(true);
+                        }}
+                      >
+                        加入活動
+                      </button>
+                    )
+                  ) : (
+                    <button
+                      className="joinInBtn"
+                      onClick={() => {
+                        alert('請先登入會員');
+                      }}
+                    >
+                      加入活動
+                    </button>
+                  )}
+                  {}
+                </div>
               </div>
             );
           })}
-          <div className="d-flex justify-content-between align-items-center">
-            {user ? (
-              userJoin.includes(data[0].id) ? (
-                <button
-                  className="joinInBtn"
-                  onClick={() => {
-                    handleDeleteJoin(data[0].id);
-                  }}
-                >
-                  取消活動
-                </button>
-              ) : (
-                <button
-                  className="joinInBtn"
-                  onClick={() => {
-                    handleAddJoin(data[0].id);
-                  }}
-                >
-                  加入活動
-                </button>
-              )
-            ) : (
-              <button
-                className="joinInBtn"
-                onClick={() => {
-                  alert('請先登入會員');
-                }}
-              >
-                加入活動
-              </button>
-            )}
-          </div>
         </div>
       )}
     </>

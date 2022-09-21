@@ -29,7 +29,10 @@ const RecipeStepNumb = ({ num = 5, onClick }) => {
                 stepNow === i ? 'active' : ''
               } cursorPointer`}
               css={stepContainer}
-              onClick={(e) => setStepNow(i)}
+              onClick={(e) => {
+                setStepNow(i);
+                onClick(i + 1);
+              }}
             >
               {i + 1}
             </div>

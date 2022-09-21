@@ -40,3 +40,17 @@
         }
     }
 }
+@media screen and (max-width:375px){
+    .activityDate{
+        .dateText{
+            width: 100%;
+            text-align: center;
+        }
+        .dateInputGrop{
+            align-items: center;
+        }
+        button{
+            margin-right: 30px;
+        }
+    }
+}

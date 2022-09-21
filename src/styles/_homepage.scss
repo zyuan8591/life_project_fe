@@ -23,6 +23,15 @@
   }
   .hPrecipeActivity {
     margin-top: 8rem;
+    @media (max-width: 1200px) {
+      margin-top: 6rem;
+    }
+    @media (max-width: 1000px) {
+      margin-top: 4rem;
+    }
+    @media (max-width: 765px) {
+      margin-top: 2rem;
+    }
   }
   .recipeCard {
     margin: 2rem 0;
