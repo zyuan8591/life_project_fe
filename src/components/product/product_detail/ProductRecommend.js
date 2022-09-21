@@ -11,13 +11,13 @@ const ProductRecommend = ({ data }) => {
         <Slider
           now={now}
           setNow={setNow}
-          maxWidth={750}
-          moveCount={3}
-          total={9}
+          maxWidth={1000}
+          moveCount={4}
+          total={12}
           pattern={'recommend'}
           itemWidth={250}
         >
-          <ProductListSlider now={now} total={9} data={data} />
+          <ProductListSlider now={now} total={12} data={data} />
         </Slider>
       </div>
     </div>

@@ -3,14 +3,16 @@
 .recommendContainer {
   max-width: $maxWidth;
   padding-bottom: 50px;
-//   margin: 20px;
+  //   margin: 20px;
   .productContainer {
     max-width: 1400px;
     margin: 0 auto;
     display: flex !important;
     justify-content: center;
     img {
-        width: 300px;
+      width: 300px;
     }
   }
+
+
 }

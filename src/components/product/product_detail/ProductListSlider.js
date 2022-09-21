@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { API_URL } from '../../../utils/config';
 import { Link } from 'react-router-dom';
 
-
 const ProductListSlider = ({ now, total, data }) => {
   const [recommendArr, setRecommendArr] = useState([]);
   const { category } = data;
@@ -25,7 +24,7 @@ const ProductListSlider = ({ now, total, data }) => {
         const { id, name, img, color, price } = v;
         return (
           <>
-            <Link to={`/products/${id}`} >
+            <Link to={`/products/${id}`} style={{ color: '#444' }}>
               <figure
                 style={{
                   transform: `translateX(${now}px)`,

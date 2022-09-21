@@ -99,9 +99,13 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
             </div>
           );
         })}
-        <Link to={`/orderstep/cart`} className={classess.checkout}>
-          前往結帳
-        </Link>
+        {productCart.state.items.length > 0 ? (
+          <Link to={`/orderstep/cart`} className={classess.checkout}>
+            前往結帳
+          </Link>
+        ) : (
+          <div className={classess.nothingInCart}>沒有商品在購物車</div>
+        )}
       </div>
       {point && (
         <div

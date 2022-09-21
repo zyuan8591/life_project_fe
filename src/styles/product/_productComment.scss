@@ -35,7 +35,7 @@
       }
     }
     .star {
-      @include star(1.4rem, #c5c5c5)
+      @include star(1.4rem, $focusClrY)
     }
   }
   textarea {
@@ -74,10 +74,11 @@
     display: flex;
     flex-direction: row;
     figure {
-      @include figure(60px);
+      @include figure(70px);
       margin: 0 10px;
       img {
         @include img();
+        background: #afafaf;
       }
     }
     p {
