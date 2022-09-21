@@ -348,7 +348,7 @@ function CreatePincnic() {
             </div>
           </form>
         </div>
-      </main>{' '}
+      </main>
       {/* <Formik
         initialValues={{
           title: '',

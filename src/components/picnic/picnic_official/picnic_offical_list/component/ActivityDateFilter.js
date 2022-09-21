@@ -18,11 +18,12 @@ function ActivityDateFilter({
   return (
     <>
       <div className={classes.activityDate}>
-        <p className={classes.dateText}>活動日期</p>
-        <div className="d-flex ms-auto ms-sm-3 mt-sm-3">
+        <p className={`${classes.dateText}`}>活動日期</p>
+        <div
+          className={`${classes.dateInputGrop} d-flex ms-auto ms-sm-0 mt-sm-3`}
+        >
           <input
             type="date"
-            style={{ maxWidth: '115px' }}
             onChange={(e) => {
               let newDate = e.target.value;
               setMinDateValue(newDate);
@@ -32,7 +33,6 @@ function ActivityDateFilter({
           <div className="mx-2">-</div>
           <input
             type="date"
-            style={{ maxWidth: '115px' }}
             onChange={(e) => {
               let newDate = e.target.value;
               setMaxDateValue(newDate);
@@ -40,8 +40,8 @@ function ActivityDateFilter({
             }}
           />
         </div>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="mt-auto ms-3" style={{ fontSize:'14px' }}>
+        <div className="dateBtn">
+          <div className="mt-auto ms-3" style={{ fontSize: '14px' }}>
             {dateRemind}
           </div>
           <button

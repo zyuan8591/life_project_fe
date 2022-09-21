@@ -8,7 +8,14 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { API_URL_IMG } from '../../../../../utils/config';
 
-function ActivityCard({ data, handleAddFav,handleDelFav, user, userCollect }) {
+function ActivityCard({
+  data,
+  handleAddFav,
+  handleDelFav,
+  user,
+  userCollect,
+  setLoginBtn,
+}) {
   const progressBar = (item) => {
     if (data.currentJoin === 0) {
       return 0;
@@ -62,7 +69,7 @@ function ActivityCard({ data, handleAddFav,handleDelFav, user, userCollect }) {
                       <FaHeart
                         className={classes.collect}
                         onClick={() => {
-                          alert('請登入會員');
+                          setLoginBtn(true);
                         }}
                       />
                     </IconContext.Provider>
@@ -94,13 +101,13 @@ function ActivityCard({ data, handleAddFav,handleDelFav, user, userCollect }) {
                     {item.start_date} ~ {item.end_date}
                   </div>
                 </div>
-                <div className={classes.progressBar}>
+                <div className={`${classes.progressBar} pc-view`}>
                   <div
                     className={classes.bar}
                     style={{ width: progressBar(item) }}
                   ></div>
                 </div>
-                <div className={classes.content}>
+                <div className={`${classes.content1} pc-view`}>
                   <div className={classes.limit}>
                     目前人數：{item.currentJoin}
                   </div>

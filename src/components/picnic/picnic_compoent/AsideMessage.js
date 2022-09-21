@@ -14,6 +14,7 @@ function AsideMessageFix({
   userJoin,
   user,
   setIsgo,
+  setLoginBtn,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
   const picnicCart = usePicnicCart([]);
@@ -134,7 +135,7 @@ function AsideMessageFix({
                   <button
                     className="joinInBtn"
                     onClick={() => {
-                      alert('請先登入會員');
+                      setLoginBtn(true);
                     }}
                   >
                     加入活動

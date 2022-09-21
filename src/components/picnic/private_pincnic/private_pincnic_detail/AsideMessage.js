@@ -15,6 +15,7 @@ function AsideMessage({
   handleAddJoin,
   handleDeleteJoin,
   setIsgo,
+  setLoginBtn,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
 
@@ -82,7 +83,9 @@ function AsideMessage({
                   <BsPersonFill className="personIcon" />
                   達已成團還差：{lastCount(item.join_limit, item.currentJoin)}人
                 </div>
-                <div className="map mb-3">{/* <MapAside /> */}</div>
+                <div className="map mb-3">
+                  <MapAside />
+                </div>
                 <div className="d-flex justify-content-between align-items-center">
                   {item.activity_state === '開團已截止' ? (
                     <button
@@ -136,7 +139,7 @@ function AsideMessage({
                     <button
                       className="joinInBtn"
                       onClick={() => {
-                        alert('請先登入會員');
+                        setLoginBtn(true)
                       }}
                     >
                       加入活動
