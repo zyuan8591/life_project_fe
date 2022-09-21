@@ -109,10 +109,22 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
-          cardNumber: yup.string().required('必填'),
-          cCardMonth: yup.string().required('必填'),
-          cCardDate: yup.string().required('必填'),
-          cCardCheck: yup.string().required('必填'),
+          cardNumber: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
+          cCardMonth: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
+          cCardDate: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
+          cCardCheck: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
         })}
         onSubmit={async (values) => {
           try {
