@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
@@ -8,6 +8,9 @@ import { GiCampingTent } from 'react-icons/gi';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
+import AddImgCamping from './AddImgCamping';
+import AddImgCamping2 from './AddImgCamping2';
+import AddImgCamping3 from './AddImgCamping3';
 function AddPage({ setAddPage }) {
   const counties = { 1: '新北市', 2: '台南市' };
 
@@ -15,7 +18,7 @@ function AddPage({ setAddPage }) {
   const [loginBtn, setLoginBtn] = useState(false);
 
   const [camping, setCamping] = useState({
-    title: '享靜靜露營吧！',
+    title: '露營吧！',
     place: '享靜靜露營區',
     lat: '24.965723410923705',
     price: '1000',
@@ -29,6 +32,9 @@ function AddPage({ setAddPage }) {
     address: '土城區',
     actInt: 'hhhhhhhh',
     actLodging: 'cccccccccc',
+    photo1: '',
+    photo2: '',
+    photo3: '',
   });
 
   function handleChange(e) {
@@ -45,13 +51,87 @@ function AddPage({ setAddPage }) {
     console.log(campingData);
   }
 
+  // function handleUpload(e) {
+
+  // }
+
+  // const [file, setFile] = useState(null);
+  // const [fileDataURL, setFileDataURL] = useState(null);
+
+  // const imageMimeType = /image\/(png|jpg|jpeg|webp)/i;
+
+  // recipe img handler
+  // const updateImgHandler = (e) => {
+  //   const file = e.target.files[0];
+
+  //   // check image type
+  //   if (!file.type.match(imageMimeType)) {
+  //     console.error('Image mime type is not valid');
+  //     return;
+  //   }
+
+  //   setFile(file);
+  //   setCamping({ ...camping, photo1: file });
+  // };
+
+  // useEffect(() => {
+  //   let fileReader,
+  //     isCancel = false;
+  //   if (file) {
+  //     fileReader = new FileReader();
+  //     // get image url
+  //     fileReader.onload = (e) => {
+  //       const { result } = e.target;
+  //       if (result && !isCancel) {
+  //         setFileDataURL(result);
+  //       }
+  //     };
+  //     fileReader.readAsDataURL(file);
+  //   }
+
+  //   // unmounting
+  //   return () => {
+  //     isCancel = true;
+  //     if (fileReader && fileReader.readyState === 1) {
+  //       fileReader.abort();
+  //     }
+  //   };
+  // }, [file]);
+
   async function handleSubmit(e) {
     e.preventDefault();
-    // 驗證
 
-    // if (camping[e.target.name] === '') return alert('ok');
     try {
-      let response = await axios.post(`${API_URL}/camping/campingAdd`, camping);
+      // let response = await axios.post(`${API_URL}/camping/campingAdd`, camping);
+
+      let formData = new FormData();
+      formData.append('title', camping.title);
+      formData.append('place', camping.place);
+      formData.append('lat', camping.lat);
+      formData.append('price', camping.price);
+      formData.append('pepCount', camping.pepCount);
+      formData.append('lng', camping.lng);
+      formData.append('actStartDate', camping.actStartDate);
+      formData.append('actEndDate', camping.actEndDate);
+      formData.append('startDate', camping.startDate);
+      formData.append('endDate', camping.endDate);
+      formData.append('county', camping.county);
+      formData.append('address', camping.address);
+      formData.append('actInt', camping.actInt);
+      formData.append('actLodging', camping.actLodging);
+      formData.append('countyName', camping.countyName);
+      formData.append('photo1', camping.photo1);
+      formData.append('photo2', camping.photo2);
+      formData.append('photo3', camping.photo3);
+
+      let response = await axios.post(
+        `${API_URL}/camping/campingAdd`,
+        formData
+        // {
+        //   withCredentials: true,
+        // }
+      );
+
       if (response.data.message === '此活動標題已存在') {
         setErrMsg(true);
         setTimeout(() => {
@@ -68,8 +148,6 @@ function AddPage({ setAddPage }) {
       console.error('addCamping', e);
     }
   }
-
-  function handleUpload(e) {}
 
   return (
     <>
@@ -291,52 +369,85 @@ function AddPage({ setAddPage }) {
           <div className="mb-4 leftInput">活動照片：</div>
           <div className="mb-4 d-flex justify-content-center">
             {/* 1 */}
-            <label className="mb-4" htmlFor="photo1">
-              <div className="d-flex flex-column align-items-center imgInput me-4">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
+            <AddImgCamping camping={camping} setCamping={setCamping} />
+            <AddImgCamping2 camping={camping} setCamping={setCamping} />
+            <AddImgCamping3 camping={camping} setCamping={setCamping} />
+
+            {/* <label className="mb-4" htmlFor="photo1">
+              {fileDataURL ? (
+                <figure className="m-0 campingImg me-4">
+                  <img src={fileDataURL} alt="/" className="objectCover" />
+                </figure>
+              ) : (
+                <div className="d-flex flex-column align-items-center imgInput me-4">
+                  <IconContext.Provider
+                    value={{ color: '#444', size: '2.5rem' }}
+                  >
+                    <AiOutlineCamera />
+                  </IconContext.Provider>
+                  <span>點擊新增圖片</span>
+                </div>
+              )}
             </label>
             <input
               className="input d-none"
-              name="actImg1"
+              name="photo1"
               type="file"
               id="photo1"
-              onChange={handleUpload}
-            />
+              onChange={updateImgHandler}
+            /> */}
             {/* 2 */}
-            <label className="mb-4" htmlFor="photo2">
-              <div className="d-flex flex-column align-items-center imgInput me-4">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-
-            <input
-              className="input d-none"
-              name="actImg2"
-              type="file"
-              id="photo2"
-            />
+            {/* {fileDataURL2 ? (
+              <figure className="m-0 campingImg me-4">
+                <img src={fileDataURL2} alt="/" className="objectCover" />
+              </figure>
+            ) : (
+              <>
+                <label className="mb-4" htmlFor="photo2">
+                  <div className="d-flex flex-column align-items-center imgInput me-4">
+                    <IconContext.Provider
+                      value={{ color: '#444', size: '2.5rem' }}
+                    >
+                      <AiOutlineCamera />
+                    </IconContext.Provider>
+                    <span>點擊新增圖片</span>
+                  </div>
+                </label>
+                <input
+                  className="input d-none"
+                  name="photo2"
+                  type="file"
+                  id="photo2"
+                  onChange={updateImgHandler}
+                />
+              </>
+            )} */}
             {/* 3 */}
-            <label className="mb-4" htmlFor="photo3">
-              <div className="d-flex flex-column align-items-center imgInput">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-            <input
-              className="input d-none"
-              name="actImg3"
-              type="file"
-              id="photo3"
-            />
+            {/* {fileDataURL3 ? (
+              <figure className="m-0 campingImg">
+                <img src={fileDataURL3} alt="/" className="objectCover" />
+              </figure>
+            ) : (
+              <>
+                <label className="mb-4" htmlFor="photo3">
+                  <div className="d-flex flex-column align-items-center imgInput me-4">
+                    <IconContext.Provider
+                      value={{ color: '#444', size: '2.5rem' }}
+                    >
+                      <AiOutlineCamera />
+                    </IconContext.Provider>
+                    <span>點擊新增圖片</span>
+                  </div>
+                </label>
+                <input
+                  className="input d-none"
+                  name="photo3"
+                  type="file"
+                  id="photo3"
+                  onChange={updateImgHandler}
+                />
+              </>
+            )} */}
           </div>
           {/* btn */}
           <div className="mt-5 mb-4 text-center">

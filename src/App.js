@@ -32,6 +32,7 @@ import News from './components/news/News';
 // activity =======================================================================
 import ActivityMain from './components/activity/ActivityMain';
 import SetMap from './components/map/SetMap';
+import BackstageCamping from './components/backstage/BackstageCamping';
 // activity picnic =======================================================================
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';
@@ -126,8 +127,8 @@ function App() {
                         path="/activity/camping/:campingId"
                         element={<CampingDetailPage />}
                       />
-                      <Route path="/map" element={<SetMap />} />
                     </Route>
+                    <Route path="/map" element={<SetMap />} />
                     {/* recipe */}
                     <Route path="/recipeDetail" element={<RecipeDetail />} />
                     {/* product */}
@@ -178,6 +179,10 @@ function App() {
                       <Route path="/signin/login" element={<Login />} />
                       <Route path="/signin/signup" element={<Signup />} />
                     </Route>
+                    <Route
+                      path="/backstageCamping"
+                      element={<BackstageCamping />}
+                    />
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>
