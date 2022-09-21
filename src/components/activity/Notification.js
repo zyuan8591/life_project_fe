@@ -6,7 +6,7 @@ import { IconContext } from 'react-icons';
 function Notification({
   contaninText,
   linkTo = '',
-  linkToText = '前往會員中心',
+  linkToText = '登入',
   setLoginBtn,
   left = 30,
   bottom = 0,

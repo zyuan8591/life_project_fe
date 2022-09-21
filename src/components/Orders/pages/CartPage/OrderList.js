@@ -41,7 +41,6 @@ const OrderList = (props) => {
       {productCart.state.items.length < 1 &&
         picnicCart.state.items.length < 1 &&
         campingCart.state.items.length < 1 && <>滾</>}
-
       {productCart.state.items.length > 0 && (
         <>
           <h2 className="h1 ps-3 pb-2">商品</h2>
@@ -90,7 +89,6 @@ const OrderList = (props) => {
                   <div
                     className="row orderItem gap-3"
                     key={v.id}
-                    // TODO: background color
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
@@ -115,6 +113,11 @@ const OrderList = (props) => {
                     <div className="col">
                       <div className="counter">
                         <button
+                          style={{
+                            background: v.ischecked
+                              ? 'rgba(185,189,197,.2)'
+                              : '#fff',
+                          }}
                           className="counterButton"
                           onClick={() => {
                             productCart.minusOne(v.id);
@@ -124,9 +127,13 @@ const OrderList = (props) => {
                         </button>
                         <div className="counterContent">
                           <input
+                            style={{
+                              background: v.ischecked
+                                ? 'rgba(185,189,197,.2)'
+                                : '#fff',
+                            }}
                             type="text"
                             className="counterInput"
-                            // value={v.quantity}
                             value={v.quantity}
                             onChange={(e) => {
                               // productCart.updateItem(e.target.value);
@@ -140,6 +147,11 @@ const OrderList = (props) => {
                         </div>
 
                         <button
+                          style={{
+                            background: v.ischecked
+                              ? 'rgba(185,189,197,.2)'
+                              : '#fff',
+                          }}
                           className="counterButton"
                           onClick={() => {
                             productCart.plusOne(v.id);
@@ -177,92 +189,6 @@ const OrderList = (props) => {
           </div>
         </>
       )}
-      {/* {test} */}
-      <div className="btn-group-vertical">
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            console.log(productCart.state);
-          }}
-        >
-          log cart
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.addItem({
-              id: '111',
-              quantity: 5,
-              name: 'Moomin 多功能電烤盤1111111',
-              price: 15000,
-              ischecked: false,
-            });
-          }}
-        >
-          add item (id=111, x5)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.addItem({
-              id: '222',
-              quantity: 1,
-              name: 'ipad',
-              price: 19000,
-              ischecked: false,
-            });
-          }}
-        >
-          add item (id=222, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.removeItem('222');
-          }}
-        >
-          remove item(id=222)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.updateItem({
-              id: '222',
-              quantity: 7,
-            });
-          }}
-        >
-          update id=222 item quantity to 7
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.updateItem({
-              id: '111',
-              quantity: 99,
-            });
-          }}
-        >
-          update id=111 item quantity to 99
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            productCart.clearCart();
-          }}
-        >
-          clear cart
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            if (productCart.isInCart('222')) alert('id=222 item is in cart');
-            else alert('no id=222  ');
-          }}
-        >
-          check id=222 if in cart
-        </button>
-      </div>
       {(picnicCart.state.items.length > 0 ||
         campingCart.state.items.length > 0) && (
         <>
@@ -387,66 +313,6 @@ const OrderList = (props) => {
           </div>
         </>
       )}
-
-      {/* {test} */}
-      <div className="btn-group-vertical">
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            picnicCart.addItem({
-              id: '333',
-              quantity: 1,
-              name: 'Moomin 多功能電烤盤1111111',
-              price: 15000,
-              ischecked: false,
-            });
-          }}
-        >
-          add pic item (id=333, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            picnicCart.addItem({
-              id: '888',
-              quantity: 1,
-              name: 'Moomin 多功能電烤盤1111111',
-              price: 15000,
-              ischecked: false,
-            });
-          }}
-        >
-          add pic item (id=888, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            campingCart.addItem({
-              id: '444',
-              quantity: 1,
-              name: 'ipad',
-              price: 19000,
-              ischecked: false,
-            });
-          }}
-        >
-          add camp item (id=444, x1)
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => {
-            campingCart.addItem({
-              id: '666',
-              quantity: 1,
-              name: 'ipad',
-              price: 19000,
-              ischecked: false,
-            });
-          }}
-        >
-          add camp item (id=666, x1)
-        </button>
-      </div>
     </>
   );
 };

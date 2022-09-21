@@ -5,7 +5,7 @@ import RecipientSelect from '../../component/RecipientSelect';
 import jsondata from '../../../../utils/CityCountyData.json';
 import { Field } from 'formik';
 
-function RecipientInfo(values) {
+function RecipientInfo({ values, delivery }) {
   // console.log(values);
 
   return (
@@ -31,13 +31,10 @@ function RecipientInfo(values) {
           <div className="col-12 mb-2">
             <RecipientSelect name="delivery" label="運送方式">
               <option value="">--請選擇--</option>
-              {values.delivery.map((v, i) => {
+              {delivery.map((v, i) => {
                 return (
                   <>
-                    <option
-                      key={Math.random().toString(36).replace('0.', '')}
-                      value={v.id}
-                    >
+                    <option key={v.id} value={v.id}>
                       {v.order_delivery}
                     </option>
                   </>
@@ -71,7 +68,7 @@ function RecipientInfo(values) {
                     <RecipientSelect name="areaName">
                       <option value="">請選擇</option>
                       {jsondata
-                        .filter((v) => v.CityName === values.values.cityName)
+                        .filter((v) => v.CityName === values.cityName)
                         .map((v, i) => {
                           <option
                             key={Math.random().toString(36).replace('0.', '')}

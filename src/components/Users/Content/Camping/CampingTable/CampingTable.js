@@ -35,9 +35,7 @@ const CampingTable = ({ data }) => {
                 <td>{v.state}</td>
                 <td>
                   <Link to={`/activity/camping/${v.id}`}>
-                    <IconContext.Provider value={{ size: '1rem' }}>
-                      <FaRegEye />
-                    </IconContext.Provider>
+                    <button>訂單詳情</button>
                   </Link>
                 </td>
               </tr>
