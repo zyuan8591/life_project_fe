@@ -96,7 +96,7 @@ p {
     transition: 0.4s;
     &:hover {
       transform: translateY(-2px);
-      box-shadow:4px 4px $mainClrW, 3px 3px $mainClrW, 2px 2px $mainClrW, 1px 1px $mainClrW;
+      box-shadow:  2px 2px $mainClrW, 1px 1px $mainClrW;
     }
   }
 }

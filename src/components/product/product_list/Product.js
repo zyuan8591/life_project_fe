@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
@@ -7,29 +8,45 @@ import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
+import Notification from '../../activity/Notification';
 
 const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
+  const [changePic, setChangePic] = useState(false);
+  const [changePicNumber, setChangePicNumber] = useState('');
   return (
     <div className="productContainer">
+      {/* <Notification contaninText="收藏成功">
+        <HiHeart />
+      </Notification> */}
       {productList.map((v, i) => {
         const { id, name, price, brand, img, color, img2 } = v;
         return (
           <div
             className="products"
             key={i}
-            onMouseOver={(e) => {
-              e.target.src = `/img/product/product_img/${img2}`;
+            onMouseOver={() => {
+              setChangePic(true);
+              setChangePicNumber(id);
             }}
             onMouseOut={(e) => {
-              e.target.src = `/img/product/product_img/${img}`;
+              setChangePic(false);
             }}
           >
             {' '}
-            <div className="productHoverContainer">
+            <div
+              className="productHoverContainer"
+              onMouseOver={() => {
+                setChangePic(true);
+                setChangePicNumber(id);
+              }}
+              onMouseOut={(e) => {
+                setChangePic(false);
+              }}
+            >
               <div className="productHover">
                 <IconContext.Provider
                   value={{
@@ -123,7 +140,21 @@ const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
                 }}
               >
                 <div className="productImg">
-                  <img src={`/img/product/product_img/${img}`} alt="" />
+                  <img
+                    style={{
+                      opacity: changePic && changePicNumber === id ? 0 : 1,
+                    }}
+                    src={`/img/product/product_img/${img}`}
+                    alt=""
+                  />
+                  <img
+                    className="pic2"
+                    style={{
+                      opacity: changePic && changePicNumber === id ? 1 : 0,
+                    }}
+                    src={`/img/product/product_img/${img2}`}
+                    alt=""
+                  />
                 </div>
               </div>
             </Link>

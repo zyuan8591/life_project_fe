@@ -8,7 +8,7 @@ import axios from 'axios';
 const ProductCategory = ({ setProductCateNow }) => {
   const [productCate, setProductCate] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const height = 60;
+  const height = 50;
   const [move, setMove] = useState(height);
   const [activeId, setActiveId] = useState(0);
   const [hover, setHover] = useState(false);
