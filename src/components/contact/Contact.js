@@ -18,14 +18,9 @@ const Contact = () => {
   useEffect(() => {
     // 加上是否已經連線的檢查
     if (!socket) {
-      console.log('socket connected');
       let ws = io('http://localhost:3001');
       setSocket(ws);
-
       ws.on('chat', (msg) => {
-        // 這裡的 messages 會一直抓到原始的值 []
-        console.log('來自後端的訊息', msg, messages.length);
-        // 要用這樣的方式寫，但為什麼？
         setMessages(function (prevState, props) {
           return [{ id: uuidv4(), role: 'life', content: msg }, ...prevState];
         });
@@ -73,14 +68,14 @@ const Contact = () => {
         className={`${classes.contactAvator} cursorPointer position-fixed end-0 rounded-circle me-3 flexCenter`}
         onClick={() => setChat(!chat)}
       >
-        <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+        <IconContext.Provider value={{ color: '#817161', size: '2.5rem' }}>
           <AiOutlineComment />
         </IconContext.Provider>
       </div>
       {/* Chat box */}
       {chat && (
         <div
-          className={`${classes.chatBox} position-fixed bottom-0 rounded-top shadow d-flex flex-column`}
+          className={`${classes.chatBox} position-fixed rounded-top shadow d-flex flex-column`}
         >
           {/* Chat header */}
           <div

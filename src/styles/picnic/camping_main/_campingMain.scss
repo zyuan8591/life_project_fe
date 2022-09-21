@@ -61,3 +61,32 @@
 
     }
 }}
+
+@media screen and (max-width:375px) {
+    .activityPage{
+        .mb-view{
+            display: flex;
+        }
+        .pc-view{
+            display: none;
+        }
+        .mb-flex{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-items: center;
+        }
+        .banner{
+            width: 100%;
+            top: -100px;
+            // transform: translateY(-50px);
+            img{
+                object-fit: fill;
+            }
+            
+        }
+
+    }
+    
+
+}

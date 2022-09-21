@@ -5,8 +5,20 @@ import { FaHeart } from 'react-icons/fa';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { API_URL_IMG } from '../../../../../utils/config';
 
-function ActivityCard({ data }) {
+function ActivityCard({ data, handleAddFav,handleDelFav, user, userCollect }) {
+  const progressBar = (item) => {
+    if (data.currentJoin === 0) {
+      return 0;
+    } else {
+      let width = (item.currentJoin / item.join_limit) * 100 + '%';
+      // console.log('progressBar', width);
+      return `${width}`;
+    }
+  };
+
   return (
     <>
       {data.length === 0 ? (
@@ -16,19 +28,45 @@ function ActivityCard({ data }) {
           return (
             <div className={classes.activityCardStyle} key={uuidv4()}>
               <div className={classes.activityImg}>
-                <img
-                  src={`/img/picnic/activity_picnic_img/${item.img1}`}
-                  alt="/"
-                />
+                <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
               </div>
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
                   <div className={classes.title}>{item.picnic_title}</div>
-                  <IconContext.Provider
-                    value={{ className: classes.collectBtn }}
-                  >
-                    <FaHeart className={classes.collect} />
-                  </IconContext.Provider>
+                  {user ? (
+                    userCollect.includes(item.id) ? (
+                      <IconContext.Provider
+                        value={{ className: classes.hasCollectBtn }}
+                      >
+                        <FaHeart
+                          onClick={() => {
+                            handleDelFav(item.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    ) : (
+                      <IconContext.Provider
+                        value={{ className: classes.collectBtn }}
+                      >
+                        <FaHeart
+                          onClick={() => {
+                            handleAddFav(item.id);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    )
+                  ) : (
+                    <IconContext.Provider
+                      value={{ className: classes.collectBtn }}
+                    >
+                      <FaHeart
+                        className={classes.collect}
+                        onClick={() => {
+                          alert('請登入會員');
+                        }}
+                      />
+                    </IconContext.Provider>
+                  )}
                 </div>
                 <div className={`d-flex ${classes.labelContent}`}>
                   <div className="d-flex">
@@ -57,11 +95,14 @@ function ActivityCard({ data }) {
                   </div>
                 </div>
                 <div className={classes.progressBar}>
-                  <div className={classes.bar}></div>
+                  <div
+                    className={classes.bar}
+                    style={{ width: progressBar(item) }}
+                  ></div>
                 </div>
                 <div className={classes.content}>
                   <div className={classes.limit}>
-                    目前人數：{item.privateJoin}
+                    目前人數：{item.currentJoin}
                   </div>
                   <div className={classes.limit}>
                     活動名額：{item.join_limit}

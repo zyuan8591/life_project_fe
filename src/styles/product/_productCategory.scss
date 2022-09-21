@@ -4,11 +4,13 @@
   justify-content: start;
   align-items: center;
 }
+$height: 60px;
 .categoryContainer {
   width: 290px;
+  position: relative;
   .title {
     min-width: 290;
-    height: 70px;
+    height: $height;
     @include d-flex();
     border-bottom: 1px solid $contentClr;
     color: $subClrBrown;
@@ -19,11 +21,24 @@
   }
   .category {
     @include d-flex();
-    min-width: 290;
-    height: 70px;
+    min-width: 240;
+    height: $height;
     padding-left: 10px;
     &:hover {
-      background: $hoverClr;
+      // background: $hoverClr;
+      transition: 0.4s;
+      color: $mainClrW;
     }
+  }
+  .active {
+    position: absolute;
+    top: 0px;
+    min-width: 100%;
+    height: $height;
+    background: $subClrBrown;
+    cursor: pointer;
+    transition: 0.4s;
+    z-index: -1;
+    border-radius: 5px;
   }
 }

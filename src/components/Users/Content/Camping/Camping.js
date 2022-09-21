@@ -12,38 +12,33 @@ const Camping = () => {
   const [lastPage, setLastPage] = useState(0);
   const [list, setList] = useState('官方活動');
   const [data, setData] = useState([]);
+  const [display, setDisplay] = useState(0);
+
+  const getUser = async (apiurl) => {
+    let response = await axios.get(apiurl, { withCredentials: true });
+    setData(response.data.result);
+    setLastPage(response.data.pagination.lastPage);
+  };
 
   useEffect(() => {
-    try {
-      let getUser = async () => {
-        //撈會員全部活動
-        // let response = await axios.get(
-        //   `${API_URL}/camping/getUserJoin/${user.id}?page=${pageNow}`,
-        //   {
-        //     withCredentials: true,
-        //   }
-        // );
-        //撈會員收藏活動
-        let response = await axios.get(
-          `${API_URL}/camping/userCollect?page=${pageNow}`,
-          {
-            withCredentials: true,
-          }
-        );
-        setData(response.data.result);
-        setLastPage(response.data.pagination.lastPage);
-      };
-      getUser();
-    } catch (e) {
-      console.error(e.response.data.messag);
-    }
-  }, [pageNow, user]);
+    let apiurl = '';
+    (async () => {
+      if (display === 1) {
+        apiurl = `${API_URL}/camping/userJoin?page=${pageNow}`;
+      } else if (display === 2) {
+        apiurl = `${API_URL}/camping/userCollect?page=${pageNow}`;
+      } else {
+        apiurl = `${API_URL}/camping/getUserJoin/${user.id}?page=${pageNow}`;
+      }
+      getUser(apiurl);
+    })();
+  }, [display, pageNow]);
 
   return (
     <>
       <h3>露營活動</h3>
       <div className="user_activity">
-        <CapmingFilter list={list} setList={setList} />
+        <CapmingFilter list={list} setList={setList} setDisplay={setDisplay} />
         <CampingTable data={data} />
         <PaginationBar
           lastPage={lastPage}

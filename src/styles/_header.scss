@@ -1,5 +1,17 @@
 @import './variable';
 
+@mixin ipad {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
 .header {
   color: $contentClr;
   height: $headerHeight;
@@ -16,6 +28,12 @@
   z-index: 50;
   background: #fff;
   // justify-content: space-between;
+  .headerMenu {
+    display: none;
+    @include ipad {
+      display: inline-block;
+    }
+  }
   .headerTitle {
     max-width: 350px;
     flex-grow: 1;
@@ -27,6 +45,28 @@
   //navbar
   nav {
     flex-grow: 1;
+    @include ipad {
+      position: fixed;
+      top: $headerHeight;
+      left: 0;
+      background: #fff;
+      width: 100vw;
+      height: 0;
+      transition: 0.3s;
+      overflow: hidden;
+      &.active {
+        height: $headerHeight;
+      }
+    }
+    @include mobile {
+      height: auto;
+      height: 0;
+      transition: 0.3s;
+      overflow: hidden;
+      &.active {
+        height: 230px;
+      }
+    }
   }
   .nav {
     display: flex;
@@ -64,6 +104,14 @@
         opacity: 1;
         color: $subClrBrown;
       }
+    }
+    @include ipad {
+      width: 100%;
+      justify-content: space-evenly;
+    }
+    @include mobile {
+      margin: 1rem 0;
+      flex-direction: column;
     }
   }
   //user
@@ -132,5 +180,13 @@
   &.hidden {
     transform: translateY(-$headerHeight);
     color: rgba(0, 0, 0, 0.363);
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $contentClr;
+    text-decoration: none;
   }
 }

@@ -18,6 +18,7 @@ const ProductFilter = ({
   setSmallThan,
   setSort,
   count,
+  countNow,
 }) => {
   const [brandArr, setBrandArr] = useState([]);
   const [price, setPrice] = useState('所有');
@@ -25,11 +26,14 @@ const ProductFilter = ({
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
+  if (brand.length > 1) {
+    setSort(3);
+  }
 
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
-      console.log(result.data);
+      // console.log(result.data);
       setBrandArr(result.data);
     })();
   }, [brand]);
@@ -47,13 +51,32 @@ const ProductFilter = ({
             onMouseOut={() => {
               setShowBoard(false);
             }}
+            // onClick={() => {
+            //   setShowBoard(!showBoard);
+            // }}
           >
             <p>篩選廠商、價格...</p>
             <RiArrowDownSFill />
           </div>
           {/* {showBoard && ( */}
-          <div className="filterDisplay">
-            <div className="filterBoard">
+          <div
+            className="filterDisplay"
+            style={{
+              height: showBoard ? '305px' : '0',
+            }}
+          >
+            <div
+              className="filterBoard"
+              style={{
+                transform: showBoard ? 'translateY(0px)' : '',
+              }}
+              onMouseOver={() => {
+                setShowBoard(true);
+              }}
+              onMouseOut={() => {
+                setShowBoard(false);
+              }}
+            >
               <div className="brandSection">
                 <div className="brandSearch">
                   <p>品牌</p>
@@ -74,7 +97,7 @@ const ProductFilter = ({
                     }}
                   />
                 </div>
-                <div className="d-flex flex-wrap">
+                <div className="brandLayout">
                   {brandArr.map((v, i) => {
                     return (
                       <div className="brand" key={i}>
@@ -93,9 +116,9 @@ const ProductFilter = ({
                                 return v.id !== v2;
                               });
                               setChecked(newArr);
-                              console.log(v.id);
+                              // console.log(v.id);
                             }
-                            console.log(checked);
+                            // console.log(checked);
                           }}
                         />
                         <label htmlFor={i}>{v.name}</label>
@@ -212,7 +235,7 @@ const ProductFilter = ({
             setSort(e.target.value);
           }}
         >
-          <option value="0">預設</option>
+          <option value="0">綜合排序</option>
           <option value="1">熱門程度優先</option>
           <option value="2">最新商品</option>
         </select>
@@ -231,7 +254,8 @@ const ProductFilter = ({
           </button>
         </div>
         <p>
-          {count + 1} ~ 12 筆 (共 {total} 筆)
+          {total === 0 ? '' : `${count + 1} ~ ${countNow} 筆`}
+          (共 {total} 筆)
         </p>
       </div>
     </IconContext.Provider>

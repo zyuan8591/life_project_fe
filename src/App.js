@@ -24,6 +24,7 @@ import ScrollToTop from './components/public_component/ScrollToTop';
 // product =======================================================================
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
+import Backstage from './components/backstage/BackstageProduct';
 // recipe & news =======================================================================
 import Recipes from './components/recipe/Recipes';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
@@ -61,7 +62,8 @@ import Cart from './components/Orders/pages/Cart';
 import OrderStep from './components/Orders/OrderStep';
 import CheckOut from './components/Orders/pages/CheckOut';
 import OrderCheck from './components/Orders/pages/OrderCheck';
-
+import ForgotPassword from './components/Users/Content/Password/ForgotPassword';
+import ForgotPasswordEmail from './components/Users/Content/Password/ForgotPasswordEmail';
 // Layout
 function HeaderFooter() {
   return (
@@ -134,6 +136,7 @@ function App() {
                     {/* product */}
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/products/:id" element={<ProductDetail />} />
+                    <Route path="/products/backstage" element={<Backstage />} />
                     {/* activity picnic */}
                     <Route path="/activity/picnic" element={<PicnicIndex />} />
                     <Route
@@ -179,6 +182,14 @@ function App() {
                       <Route path="/signin/login" element={<Login />} />
                       <Route path="/signin/signup" element={<Signup />} />
                     </Route>
+                    <Route
+                      path="/forgot/password"
+                      element={<ForgotPassword />}
+                    />
+                    <Route
+                      path="/forgot/email"
+                      element={<ForgotPasswordEmail />}
+                    />
                     <Route
                       path="/backstageCamping"
                       element={<BackstageCamping />}

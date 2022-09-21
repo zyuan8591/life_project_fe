@@ -21,11 +21,11 @@ const imgContainer = css`
   border-radius: 3px;
 `;
 
-const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo }) => {
+const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
   const [content, setContent] = useState('');
   const [length, setLength] = useState(0);
   useEffect(() => {
-    if (demo) {
+    if (demo || edit) {
       setContent(data.content);
       setLength(data.content.length);
     }
@@ -78,8 +78,8 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo }) => {
         css={imgContainer}
         className="cursorPointer"
       >
-        {fileDataURL ? (
-          <img src={fileDataURL} alt="prev" className="w-100" />
+        {fileDataURL || data.img ? (
+          <img src={fileDataURL || data.img} alt="prev" className="w-100" />
         ) : (
           <>
             <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>

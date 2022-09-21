@@ -1,25 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { Navigate } from 'react-router-dom';
-function PopWindow({ popWindow, setPopWindow }) {
+function PopWindow({
+  popWindow,
+  setPopWindow,
+  linkTo = '',
+  text = '密碼變更成功',
+}) {
   const [isGo, setIsGo] = useState(false);
   function exit(e) {
     e.preventDefault();
     setPopWindow(false);
     setIsGo(true);
   }
+  useEffect(() => {
+    setIsGo(false);
+  }, [isGo]);
   if (isGo) {
-    return <Navigate to="/users/account" />;
+    return <Navigate to={linkTo} />;
   }
+
   return popWindow ? (
     <div className="popwindow" css={popwindow}>
       <div className="inner">
         <div className="text ">
-          <p>密碼變更成功</p>
+          <p>{text}</p>
         </div>
-        <div className="btn">
-          <button onClick={exit} className="exit exitBtn">
+        <div className="btngroup">
+          <button onClick={exit} className="">
             確定
           </button>
         </div>
@@ -34,6 +43,9 @@ export default PopWindow;
 
 const popwindow = css`
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100vh;
   left: 0;
@@ -44,47 +56,31 @@ const popwindow = css`
     background: #fff;
     width: 200px;
     border: 2px solid rgba(129, 113, 97, 0.9);
-    border-radius: 20px;
-    position: absolute;
-    left: 45%;
-    top: 40%;
+    border-radius: 5px;
     overflow: hidden;
-    padding: 0 10px;
+    padding: 0 20px;
   }
   .text {
-    padding-top: 10px;
     text-align: center;
     font-weight: bold;
-    line-height: 3rem;
     border-bottom: 1px solid #ccc;
+    p {
+      margin: 10px 0;
+    }
   }
-  .btn {
-    margin-top: 0.6rem;
+  .btngroup {
     display: flex;
     justify-content: space-around;
     border: 0;
+    margin: 5px 0;
   }
   button {
     padding: 0px 5px;
-    border: rgba(129, 113, 97, 0.9) 3px solid;
+    border: 1px solid rgba(130, 113, 97, 0.9);
     border-radius: 5px;
     font-weight: 500;
-  }
-  .storeBtn {
-    background: rgba(129, 113, 97, 0.9);
-    border: 0;
     color: #fff;
-    &:hover {
-      transform: scale(1.05);
-    }
-    &:active {
-      transform: scale(1);
-      box-shadow: inset 0 0 10px 1px rgba(50, 50, 50, 2);
-    }
-  }
-  .exitBtn {
-    background: #fff;
-    color: #000;
+    background: rgba(129, 113, 97, 0.9);
     &:hover {
       transform: scale(1.05);
     }

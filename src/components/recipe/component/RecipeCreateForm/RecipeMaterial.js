@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { TbTrash, TbMenu2 } from 'react-icons/tb';
 import { IconContext } from 'react-icons';
-import { Draggable } from 'react-beautiful-dnd';
+// import { Draggable } from 'react-beautiful-dnd';
 
 const container = css`
   display: grid;
@@ -19,12 +19,12 @@ const dragBtn = css`
   cursor: move;
 `;
 
-const RecipeMaterial = ({ i, delHandler, onchange, data, demo }) => {
+const RecipeMaterial = ({ i, delHandler, onchange, data, demo, edit }) => {
   const [materialName, setMaterialName] = useState('');
   const [materialQ, setMaterialQ] = useState('');
   // for demo
   useEffect(() => {
-    if (demo) {
+    if (demo || edit) {
       setMaterialName(data.name);
       setMaterialQ(data.quantity);
     }

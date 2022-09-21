@@ -18,18 +18,44 @@ const HeaderSearch = ({ setSearch }) => {
   useEffect(() => {
     console.log(searchKey);
     if (!searchKey || searchKey === '') {
+      setProductSearchData([]);
       setRecipeSearchData([]);
       setCampingSearchData([]);
+      setPicnicPrivateSearchData([]);
+      setPicnicOfficialSearchData([]);
       return;
     }
     (async () => {
+      // Product
+      let productResult = await axios.get(
+        `${API_URL}/products?productName=${searchKey}`
+      );
+      let productData = productResult.data.data.map((d) => {
+        return { id: d.id, name: d.name };
+      });
+      setProductSearchData(productData);
       // Recipe
       let result = await axios.get(`${API_URL}/recipes?name=${searchKey}`);
-      console.log(result.data.data);
       let recipeData = result.data.data.map((d) => {
         return { id: d.id, name: d.name };
       });
       setRecipeSearchData(recipeData);
+      // PICNIC official
+      let picnicResult = await axios.get(
+        `${API_URL}/picnic/official?searchWord=${searchKey}`
+      );
+      let picnicData = picnicResult.data.data.map((d) => {
+        return { id: d.id, name: d.picnic_title };
+      });
+      setPicnicOfficialSearchData(picnicData);
+      // PICNIC private
+      let picnicGroupResult = await axios.get(
+        `${API_URL}/picnic/group?searchWord=${searchKey}`
+      );
+      let picnicGroupData = picnicGroupResult.data.data.map((d) => {
+        return { id: d.id, name: d.picnic_title };
+      });
+      setPicnicPrivateSearchData(picnicGroupData);
       // Camping
       let campingResult = await axios.get(
         `${API_URL}/camping?search=${searchKey}`
@@ -83,59 +109,79 @@ const HeaderSearch = ({ setSearch }) => {
             <div className="flexCenter">目前無搜尋結果</div>
           ) : (
             <>
+              {/* product */}
               {searchProductData.length !== 0 && (
                 <>
                   <p className="fs-6 mb-2 headerSearchResultTitle">商品</p>
                   <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
                     {searchProductData.map((d, i) => {
-                      return <Link to={`/products/${d.id}`}>{d.name}</Link>;
+                      return (
+                        <Link to={`/products/${d.id}`} key={d.id}>
+                          {d.name}
+                        </Link>
+                      );
                     })}
                   </ul>
                 </>
               )}
+              {/* recipe */}
               {searchRecipeData.length !== 0 && (
                 <>
                   <p className="fs-6 mb-2 headerSearchResultTitle">食譜</p>
                   <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
                     {searchRecipeData.map((d, i) => {
                       return (
-                        <Link to={`/recipeDetail?id=${d.id}`}>{d.name}</Link>
+                        <Link to={`/recipeDetail?id=${d.id}`} key={d.id}>
+                          {d.name}
+                        </Link>
                       );
                     })}
                   </ul>
                 </>
               )}
+              {/* picnic official */}
               {searchPicnicOfficialData.length !== 0 && (
                 <>
                   <p className="fs-6 mb-2 headerSearchResultTitle">野餐活動</p>
                   <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
                     {searchPicnicOfficialData.map((d, i) => {
                       return (
-                        <Link to={`/recipeDetail?id=${d.id}`}>{d.name}</Link>
+                        <Link
+                          to={`/activity/picnic/official/${d.id}`}
+                          key={d.id}
+                        >
+                          {d.name}
+                        </Link>
                       );
                     })}
                   </ul>
                 </>
               )}
+              {/* picnic private */}
               {searchPicnicPrivateData.length !== 0 && (
                 <>
                   <p className="fs-6 mb-2 headerSearchResultTitle">野餐揪團</p>
                   <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
                     {searchPicnicPrivateData.map((d, i) => {
                       return (
-                        <Link to={`/recipeDetail?id=${d.id}`}>{d.name}</Link>
+                        <Link to={`/activity/picnic/group/${d.id}`} key={d.id}>
+                          {d.name}
+                        </Link>
                       );
                     })}
                   </ul>
                 </>
               )}
+              {/* camping */}
               {searchCampingData.length !== 0 && (
                 <>
                   <p className="fs-6 mb-2 headerSearchResultTitle">露營活動</p>
                   <ul className="headerSearchResult w-100 mb-3 ps-0 d-flex flex-column rounded-2">
                     {searchCampingData.map((d, i) => {
                       return (
-                        <Link to={`/activity/camping/${d.id}`}>{d.name}</Link>
+                        <Link to={`/activity/camping/${d.id}`} key={d.id}>
+                          {d.name}
+                        </Link>
                       );
                     })}
                   </ul>

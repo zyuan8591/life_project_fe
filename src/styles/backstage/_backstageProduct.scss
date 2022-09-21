@@ -1,47 +1,76 @@
 @import '../variable';
 
-.icons{
-    cursor: pointer;
+.icons {
+  cursor: pointer;
 }
-.backstageContainer{
-    position: relative;
-    top: $headerHeight;
-    max-width: 1600px;
-    height: calc(100vh - $headerHeight) ;
+.backstageContainer {
+  position: relative;
+  top: $headerHeight;
+  max-width: 1600px;
+  height: calc(100vh - $headerHeight);
+  margin: 50px auto;
+  padding: 50px 0;
+  color: $contentClr;
+
+  .addBtn {
+    padding: 5px 10px;
+    background: $subClrBrown;
+    border: 0;
+    border-radius: 3px;
+    color: $mainClrW;
+    position: absolute;
+    top: 20px;
+    right: 0;
+  }
+  table {
     margin: 0 auto;
-    padding: 50px 0;
-    color: $contentClr;
-    table{
-        margin: 0 auto;
-        thead{
-            th{
-                padding: 10px 15px;
-                font-size: 18px;
-                border-bottom: 1px solid #ccc;
-            }
-        }
-        tbody{
-            tr{
-                transition: .3s ease;
-                &:hover{
-                    color: $focusClrB;
-                    background: $hoverClr;
-                }
-                td{
-                    padding: 15px;
-                    font-size: $contentText;
-                    border-bottom: 1px solid #ccc;
-                    .titleImg{
-                        max-width: 150px;
-                        height: 100px;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                    }
-                } 
-            }
-        }  
+    width: 100%;
+    thead {
+      th {
+        padding: 10px 15px;
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+      }
     }
+    tbody {
+      tr {
+        transition: 0.3s ease;
+        &:hover {
+          color: $focusClrB;
+          background: $hoverClr;
+        }
+        .ellipsis {
+            width: 250px;
+        }
+        td {
+          padding: 15px;
+          font-size: $contentText;
+          border-bottom: 1px solid #ccc;
+          position: relative;
+          &:before {
+            content: ' ';
+            visibility: hidden;
+          }
+          span {
+            position: absolute;
+            top: calc(50% - .75rem);
+            left: 15px;
+            right: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .titleImg {
+            max-width: 150px;
+            height: 100px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+  }
 }

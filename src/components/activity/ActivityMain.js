@@ -44,7 +44,7 @@ function ActivityMain() {
           <div className="activityCamping  bottomRWD">
             <figure className="activityCampingImg">
               <img
-                src="/img/Camping/activity_Camping_img/picnic_13_01.jpg"
+                src="/img/picnic/activity_picnic_img/picnic_01_01.jpg"
                 alt="#/"
               />
             </figure>

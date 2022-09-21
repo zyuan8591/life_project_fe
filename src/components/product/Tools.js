@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import classess from '../../styles/product/tools.module.scss';
 import { IconContext } from 'react-icons';
@@ -6,58 +6,17 @@ import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 import { IoCartOutline } from 'react-icons/io5';
 import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineCreditCard } from 'react-icons/ai';
-import { FaTrashAlt } from 'react-icons/fa';
-const img = '/img/product/product_img/BRUNO_BOE021_BGY_01.jpeg';
-const img1 = '/img/product/product_img/BRUNO_BOE021_01.jpeg';
-const img2 = '/img/product/product_img/BRUNO_BOE021_WH_01.webp';
+import { FaTrashAlt, FaHeartBroken } from 'react-icons/fa';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
+import { useProductCart } from '../../orderContetxt/useProductCart';
+import { Link } from 'react-router-dom';
 
-const Tools = () => {
+const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
-  const arr = [
-    {
-      id: 0,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '粉綠色',
-      count: 2,
-      price: 4690,
-      img: img,
-    },
-    {
-      id: 1,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '粉色',
-      count: 1,
-      price: 4690,
-      img: img1,
-    },
-    {
-      id: 2,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '白色',
-      count: 7,
-      price: 4690,
-      img: img2,
-    },
-    {
-      id: 3,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '白色',
-      count: 7,
-      price: 4690,
-      img: img2,
-    },
-    {
-      id: 4,
-      name: 'BOE021 多功能電烤盤-經典款',
-      color: '白色',
-      count: 7,
-      price: 4690,
-      img: img2,
-    },
-  ];
-  const [item, setItem] = useState(arr);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
+  const productCart = useProductCart({});
   return (
     <>
       <div
@@ -112,27 +71,25 @@ const Tools = () => {
         }}
       >
         <div className={classess.cartTitle}>購物車</div>
-        {item.map((v, i) => {
-          const { id, name, color, count, price, img } = v;
+        {productCart.state.items.map((v, i) => {
+          const { id, name, quantity, price, img } = v;
+
           return (
             <div className={classess.cartItem} key={i}>
               <figure>
-                <img src={img} alt="" />
+                <img src={`/img/product/product_img/${img}`} alt="" />
               </figure>
               <div className={classess.cartInfo}>
                 <p>{name}</p>
-                <p>{color}</p>
+                <p></p>
                 <p>
-                  {count} x NT${price}
+                  {quantity} x NT${price}
                 </p>
               </div>
               <div
                 className={classess.trash}
                 onClick={(e) => {
-                  let newArr = item.filter((v2, i2) => {
-                    return id !== v2.id;
-                  });
-                  setItem(newArr);
+                  productCart.removeItem(id);
                 }}
               >
                 <IconContext.Provider value={{ color: '#777', size: '1.2rem' }}>
@@ -142,6 +99,9 @@ const Tools = () => {
             </div>
           );
         })}
+        <Link to={`/orderstep/cart`} className={classess.checkout}>
+          前往結帳
+        </Link>
       </div>
       {point && (
         <div
@@ -165,28 +125,28 @@ const Tools = () => {
             }}
           >
             {item.map((v, i) => {
-              const { id, name, color, img } = v;
-              {
-                /* console.log(item); */
-              }
+              const { name, color, img, product_id } = v;
               return (
                 <div
                   className={classess.item}
-                  onClick={(e) => {
-                    let newArr = item.filter((v2, i2) => {
-                      return id !== v2.id;
-                    });
-                    setItem(newArr);
+                  onClick={async () => {
+                    await axios.delete(
+                      `${API_URL}/products/${product_id}/removeLike`,
+                      {
+                        withCredentials: true,
+                      }
+                    );
+                    setProductLikeId(!productLikeId);
                   }}
                 >
                   <>
                     <figure>
-                      <img src={img} alt="" />
+                      <img src={`/img/product/product_img/${img}`} alt="" />
                       <div className={classess.heart}>
                         <IconContext.Provider
-                          value={{ color: 'white', size: '2.4rem' }}
+                          value={{ color: '#444', size: '2.4rem' }}
                         >
-                          <HiHeart />
+                          <FaHeartBroken />
                         </IconContext.Provider>
                       </div>
                     </figure>

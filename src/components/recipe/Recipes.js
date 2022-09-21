@@ -22,6 +22,9 @@ import IndexRecipeActivity from '../index/component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
 import { useUserRights } from '../../usecontext/UserRights';
+import Notification from '../activity/Notification';
+import { SiFoodpanda } from 'react-icons/si';
+import NoDataDisplay from '../public_component/NoDataDisplay';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -63,7 +66,9 @@ const customStyles = {
 const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user, setUser } = useUserRights();
+  const { user } = useUserRights();
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [addToast, setAddToast] = useState(false);
   const navigate = useNavigate();
 
   // init data
@@ -104,6 +109,13 @@ const Recipes = () => {
     setProductCateNow(productCateQuery);
   }, [searchParams]);
 
+  // const set product category for component
+  const setProductCateNowFunc = (id) => {
+    const params = Object.fromEntries([...searchParams]);
+    params['productCate'] = id;
+    setSearchParams(params);
+  };
+
   // set page to 1
   useEffect(() => {
     setPageNow(1);
@@ -141,9 +153,9 @@ const Recipes = () => {
     setSearchParams(params);
   };
 
-  // handle add recipe
+  // handle add recipe form
   const addRecipeHandler = () => {
-    if (!user) return navigate('/signin/login');
+    if (!user) return setLoginBtn(true);
     const params = Object.fromEntries([...searchParams]);
     params['add'] = 'true';
     setSearchParams(params);
@@ -153,9 +165,34 @@ const Recipes = () => {
     delete params.add;
     setSearchParams(params);
   };
+  // link to user page
+  const linkToUserPage = (url) => {
+    if (!user) return setLoginBtn(true);
+    navigate(url);
+  };
+  // toast message
+  const showToast = () => {
+    setAddToast(true);
+    setTimeout(() => {
+      setAddToast(false);
+    }, 2000);
+  };
 
   return (
     <>
+      {loginBtn && (
+        <Notification
+          contaninText="請先登入會員"
+          linkTo="/signin/login"
+          linkToText="登入"
+          setLoginBtn={setLoginBtn}
+        />
+      )}
+      {addToast && (
+        <Notification contaninText="新增食譜成功" iconSize={2}>
+          <SiFoodpanda />
+        </Notification>
+      )}
       <div className="pageRecipes">
         <BreadCrumb />
         <IndexRecipeActivity />
@@ -208,27 +245,27 @@ const Recipes = () => {
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
-              <Link
-                to={!user ? '/signin/login' : '/users/recipe?p=1'}
-                className="featureBtn"
+              <button
+                onClick={() => linkToUserPage('/users/recipe?p=1')}
+                className="featureBtn border-0 bg-white"
               >
                 <AiOutlineBook />
                 <span>我的食譜</span>
-              </Link>
-              <Link
-                to={!user ? '/signin/login' : '/users/recipe?p=2'}
-                className="featureBtn"
+              </button>
+              <button
+                onClick={() => linkToUserPage('/users/recipe?p=2')}
+                className="featureBtn border-0 bg-white"
               >
                 <AiOutlineHeart />
                 <span>食譜收藏</span>
-              </Link>
+              </button>
             </IconContext.Provider>
           </div>
         </div>
         {/* Main Section */}
         <div className="recipeListMain">
           <div className="position-sticky top-0 align-self-start">
-            <ProductCategory />
+            <ProductCategory setProductCateNow={setProductCateNowFunc} />
           </div>
           <div className="recipeList">
             {/* Choose mode and filter */}
@@ -262,7 +299,13 @@ const Recipes = () => {
               />
             </div>
             {/* Main Content */}
-            {displayMode === 1 ? (
+            {recipeList.length === 0 ? (
+              <NoDataDisplay
+                noDataText="食譜"
+                linkFunc={addRecipeHandler}
+                linkText="立即上傳食譜"
+              />
+            ) : displayMode === 1 ? (
               <div className="recipeBlockModeList">
                 {recipeList.map((d, i) => {
                   return (
@@ -280,11 +323,13 @@ const Recipes = () => {
                 })}
               </div>
             )}
-            <PaginationBar
-              lastPage={lastPage}
-              pageNow={pageNow}
-              setPageNow={setPageNow}
-            />
+            {recipeList.length === 0 || (
+              <PaginationBar
+                lastPage={lastPage}
+                pageNow={pageNow}
+                setPageNow={setPageNow}
+              />
+            )}
           </div>
         </div>
         {/* Create Recipe Form */}
@@ -292,7 +337,7 @@ const Recipes = () => {
           <section className="creatingRecipe flexCenter">
             <RecipeCreateForm
               closeCreateRecipe={closeRecipeHandler}
-              recipeCate={recipeCate}
+              showToast={showToast}
             />
           </section>
         )}

@@ -7,19 +7,15 @@ const newsTextClr = '#8c8c8c';
 const newsBgClr = '#f2f2f2';
 
 const container = css`
-  display: flex;
-  align-items: center;
-  padding: 1rem 0;
-  gap: 1rem;
   color: #444;
   flex-wrap: wrap;
   border-bottom: 1px dashed ${newsTextClr};
+  padding: 1rem 0;
   &:last-child {
     border: 0;
   }
   &:hover {
     color: ${subClrBrown};
-    cursor: pointer;
   }
 `;
 const category = css`
@@ -27,6 +23,9 @@ const category = css`
   background: ${newsBgClr};
   padding: 0.25rem 1.5rem;
   font-weight: bold;
+  @media (max-width: 768px) {
+    padding: 0.25rem 0.75rem;
+  }
 `;
 
 const IndexNews = ({ data = [] }) => {
@@ -37,9 +36,8 @@ const IndexNews = ({ data = [] }) => {
           return (
             <li
               key={d.id}
-              css={css`
-                ${container}
-              `}
+              css={container}
+              className="d-flex align-items-center gap-2 cursorPointer"
             >
               <span>{d.date}</span>
               <div className="text-nowrap" css={category}>

@@ -5,6 +5,7 @@ export const pathnameLocale = {
   products: '商品',
   orderstep: '購物車',
   recipes: '食譜',
+  recipeDetail: '食譜',
   news: '最新消息',
   activity: '活動專區',
   picnic: '野餐',

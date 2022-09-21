@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { useSearchParams } from 'react-router-dom';
 import { API_URL_IMG } from '../../../utils/config';
+import { useUserRights } from '../../../usecontext/UserRights';
 
 const subClrBrown = '#817161';
 const title = css`
@@ -39,9 +40,16 @@ const commentSubmitBtn = css`
   background: ${subClrBrown};
 `;
 
-const RecipeComments = ({ data, setData, setRecipeData }) => {
+const RecipeComments = ({
+  data,
+  setData,
+  setRecipeData,
+  setLoginBtn,
+  setToast,
+}) => {
   const [comment, setComment] = useState('');
   const [searchParams] = useSearchParams();
+  const { user } = useUserRights();
 
   const id = searchParams.get('id');
 
@@ -49,6 +57,7 @@ const RecipeComments = ({ data, setData, setRecipeData }) => {
     setComment(e.target.value);
   };
   const commentSubmit = async (e) => {
+    if (!user) return setLoginBtn(true);
     await axios.post(
       `${API_URL}/recipes/${id}/comment`,
       { comment },
@@ -61,6 +70,10 @@ const RecipeComments = ({ data, setData, setRecipeData }) => {
     let commentsResult = await axios.get(`${API_URL}/recipes/${id}/comment`);
     setData(commentsResult.data);
     setComment('');
+    setToast(3);
+    setTimeout(() => {
+      setToast(0);
+    }, 2000);
   };
   const demoHandler = () => {
     setComment('感謝作者的食譜分享~');

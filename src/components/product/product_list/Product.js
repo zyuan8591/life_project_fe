@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
@@ -7,8 +6,13 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
+import { useProductCart } from '../../../orderContetxt/useProductCart';
 
-const Product = ({ productList }) => {
+const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
+  const productCart = useProductCart({});
+  const cart = productCart.state.items.map((v) => {
+    return v.id;
+  });
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -35,17 +39,79 @@ const Product = ({ productList }) => {
                   }}
                 >
                   <div
-                    onClick={() => {
-                      console.log('h');
+                    style={{ cursor: 'pointer' }}
+                    onClick={async () => {
+                      if (fav.includes(v.id)) {
+                        await axios.delete(
+                          `${API_URL}/products/${id}/removeLike`,
+                          { withCredentials: true }
+                        );
+                        setProductLikeId(!productLikeId);
+                      } else {
+                        await axios.post(
+                          `${API_URL}/products/addLike`,
+                          { id },
+                          { withCredentials: true }
+                        );
+                        setProductLikeId(!productLikeId);
+                      }
                     }}
                   >
-                    <HiOutlineHeart />
+                    {fav.includes(v.id) ? (
+                      <IconContext.Provider
+                        value={{
+                          color: 'red',
+                          size: '2rem',
+                          margin: '5px',
+                        }}
+                      >
+                        <HiHeart />
+                      </IconContext.Provider>
+                    ) : (
+                      <HiOutlineHeart />
+                    )}
                   </div>
-                  <IoCartOutline
-                    onClick={(e) => {
-                      console.log('c');
-                    }}
-                  />
+                  <div style={{ cursor: 'pointer' }}>
+                    {cart.includes(id) ? (
+                      <IconContext.Provider
+                        value={{
+                          color: '#F2AC33 ',
+                          size: '2rem',
+                          margin: '5px',
+                        }}
+                      >
+                        <IoCartSharp
+                          onClick={(e) => {
+                            // console.log(id, name)
+                            productCart.addItem({
+                              id: id,
+                              quantity: 1,
+                              name: name,
+                              price: price,
+                              ischecked: false,
+                              img: img,
+                            });
+                            console.log(productCart.state.items);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    ) : (
+                      <IoCartOutline
+                        onClick={(e) => {
+                          // console.log(id, name)
+                          productCart.addItem({
+                            id: id,
+                            quantity: 1,
+                            name: name,
+                            price: price,
+                            ischecked: false,
+                            img: img,
+                          });
+                          console.log(productCart.state.items);
+                        }}
+                      />
+                    )}
+                  </div>
                 </IconContext.Provider>
               </div>
             </div>

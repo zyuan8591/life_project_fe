@@ -11,6 +11,12 @@ const container = css`
   gap: 0.5rem;
   color: #444;
   flex: 0 0 270px;
+  @media (max-width: 768px) {
+    flex: 0 0 220px;
+  }
+  @media (max-width: 500px) {
+    flex: 0 0 200px;
+  }
 `;
 const cardTitle = css`
   font-weight: bold;
@@ -21,6 +27,12 @@ const imgContainer = css`
   max-width: ${imgWidth};
   max-height: ${imgWidth};
   overflow: hidden;
+  @media (max-width: 768px) {
+    max-width: 220px;
+  }
+  @media (max-width: 500px) {
+    max-width: 200px;
+  }
 `;
 const cartType = css`
   color: $subClrBrown;
