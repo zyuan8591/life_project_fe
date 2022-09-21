@@ -55,7 +55,6 @@ function RecommendActivity({ getMap, data, userJoin, user, handleAddJoin }) {
                       );
                     })}
                   </Avatar.Group>
-                  {/* TODO: 連結無法跳轉 */}
                   <Link
                     to={`/activity/picnic/official/${getMap.id}`}
                     className="joinBtn btn"
