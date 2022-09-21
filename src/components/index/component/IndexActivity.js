@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
-const imgRoute = '/img/index/';
 
 // emotion css
 const subClrBrown = '#817161';
@@ -17,6 +16,10 @@ const container = css`
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0;
+  }
 `;
 const cards = css`
   display: flex;
@@ -49,9 +52,11 @@ const card = css`
   &:hover .cardCotainer .imgContainer {
     opacity: 0.5;
   }
-
   &:last-child .cardCotainer {
     border: none;
+  }
+  @media (max-width: 500px) {
+    padding: 1rem 0;
   }
 `;
 const cardCotainer = css`
@@ -63,6 +68,13 @@ const cardCotainer = css`
   position: relative;
   border-right: 1px dashed ${subClrGY};
   margin: 0 -0.25rem;
+  @media (max-width: 768px) {
+    border: none;
+  }
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 const imgContainer = css`
   max-width: 50px;
@@ -82,6 +94,10 @@ const btns = css`
   gap: 0.5rem;
   flex: 1 1 auto;
   max-width: 180px;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    flex-direction: row;
+  }
 `;
 const btn = css`
   flex: 1 1 auto;
@@ -95,6 +111,9 @@ const btn = css`
   white-space: nowrap;
   &:hover {
     border-color: ${subClrBrown};
+  }
+  @media (max-width: 768px) {
+    padding: 0.5rem 0;
   }
 `;
 
@@ -120,10 +139,20 @@ const IndexActivity = () => {
     },
   ];
 
+  const [vw, setVw] = useState(window.innerWidth);
+  const setViewportWidth = () => setVw(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', setViewportWidth);
+    return function cleanUp() {
+      window.removeEventListener('resize', setViewportWidth);
+    };
+  }, []);
+
   return (
     <div css={container}>
       <div css={cards}>
         {activity.map((a, i) => {
+          if (vw < 795 && i === 0) return '';
           return (
             <Link to={a.link} key={a.titleEn} css={card}>
               <div css={cardCotainer}>
@@ -138,11 +167,13 @@ const IndexActivity = () => {
                   <span>{a.titleEn}</span>
                   <span>{a.titleCh}</span>
                 </div>
-                <IconContext.Provider
-                  value={{ color: '#817161', size: '0.75rem' }}
-                >
-                  <FaArrowAltCircleRight />
-                </IconContext.Provider>
+                {vw > 500 && (
+                  <IconContext.Provider
+                    value={{ color: '#817161', size: '0.75rem' }}
+                  >
+                    <FaArrowAltCircleRight />
+                  </IconContext.Provider>
+                )}
               </div>
             </Link>
           );

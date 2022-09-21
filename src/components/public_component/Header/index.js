@@ -28,6 +28,16 @@ const Header = ({ fixed = true }) => {
 
   const [menu, setMenu] = useState(false);
 
+  // viewportWidth state for RWD design
+  const [vw, setVw] = useState(window.innerWidth);
+  const windowResize = () => setVw(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', windowResize);
+  }, []);
+  useEffect(() => {
+    if (vw > 768) setMenu(false);
+  }, [vw]);
+
   // enter search bar
   const userAvatorClickHandler = () => {
     if (userSelectActive) return setUserSelectActive(false);
@@ -58,7 +68,7 @@ const Header = ({ fixed = true }) => {
         value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
       >
         <i
-          class={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
+          className={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
           onClick={() => setMenu(!menu)}
         ></i>
         <Link to="/" className="headerTitle">

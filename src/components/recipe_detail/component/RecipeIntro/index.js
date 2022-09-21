@@ -6,6 +6,8 @@ import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { Link } from 'react-router-dom';
 import { API_URL_IMG } from '../../../../utils/config';
+import Notification from '../../../activity/Notification';
+import { useUserRights } from '../../../../usecontext/UserRights';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
@@ -102,10 +104,12 @@ const materialMain = css`
   flex-wrap: wrap;
 `;
 
-const RecipeIntro = ({ data, id, setRecipeData }) => {
+const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn }) => {
   // get recipe material
   const [material, setMaterial] = useState([]);
   const [like, setLike] = useState(false);
+
+  const { user } = useUserRights();
 
   useEffect(() => {
     (async () => {
@@ -120,6 +124,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
 
   // recipe like
   const likeHandler = async () => {
+    if (!user) return setLoginBtn(true);
     if (!like) {
       await axios.post(
         `${API_URL}/recipes/${id}/like`,

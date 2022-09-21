@@ -10,6 +10,9 @@
 
 .homepage {
   padding: 4.5rem 0;
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+  }
   .hPnewsContainer,
   .hPproductContainer,
   .hPrecipeContainer,
@@ -41,6 +44,12 @@
     height: 1px;
     background: $hoverClr;
     margin: 5rem 0;
+    @media (max-width: 768px) {
+      margin: 3rem 0;
+    }
+    @media (max-width: 500px) {
+      margin: 1.5rem 0;
+    }
   }
 
   a,
