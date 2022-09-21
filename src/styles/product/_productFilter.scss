@@ -16,14 +16,6 @@
     justify-content: space-between;
     position: relative;
   }
-  &:hover .filterDisplay {
-    transform: translateY(0px);
-    display: block;
-  }
-  .filterBrand:hover .filterDisplay {
-    // transform: translateY(0px);
-    display: block;
-  }
   .filterDisplay {
     height: 305px;
     width: 1205px;
@@ -31,11 +23,9 @@
     position: absolute;
     left: -3px;
     z-index: 100;
-    // display: none;
-    display: none;
     transition: 0.3s;
-    // transform: translateY(-310px);
     .filterBoard {
+      transform: translateY(-310px);
       transition: 0.3s;
       max-width: 1200px;
       min-height: 300px;
@@ -48,6 +38,7 @@
       background: $mainClrW;
       transition: 0.3s;
       .brandSection {
+        min-height: 175px;
         display: flex;
         padding-bottom: 15px;
         border-bottom: 1px solid $hoverClr;
@@ -82,7 +73,7 @@
           }
         }
         .brand {
-          // height: 150px;
+          min-width: 125px;
           display: flex;
           align-items: start;
           line-height: 1rem;
@@ -91,10 +82,12 @@
             accent-color: $subClrBrown;
             zoom: 150%;
             margin-right: 5px;
+            border-radius: none !important;
           }
         }
       }
       .priceSection {
+        margin-top: 15px;
         display: flex;
         align-items: center;
         .priceTitle {

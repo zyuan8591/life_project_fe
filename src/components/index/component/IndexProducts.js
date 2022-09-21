@@ -17,6 +17,12 @@ const productList = css`
   overflow-y: auto;
   overflow-x: hidden;
   transition: 0.3s;
+  @media (max-width: 768px) {
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 768px) {
+    margin: 1rem 0;
+  }
 `;
 const dragLine = css`
   max-width: 350px;
@@ -49,9 +55,10 @@ const controlDir = css`
 `;
 
 const IndexProducts = () => {
-  const cardClr = ['#f7f3ed', '#f6f2f7', '#fcf3f0', '#f7faf2'];
   const [data, setData] = useState([]);
+  const cardClr = ['#f7f3ed', '#f6f2f7', '#fcf3f0', '#f7faf2'];
 
+  // get default data
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/index`);
@@ -66,7 +73,6 @@ const IndexProducts = () => {
         };
       });
       setData(result);
-      console.log(result);
     })();
   }, []);
 
@@ -82,28 +88,21 @@ const IndexProducts = () => {
 
   // product list
   const [productListWidth, setProductListWidth] = useState(0);
-  const [vwState, setVwState] = useState(0);
+  const [vwState, setVwState] = useState(window.innerWidth);
 
   // set list width
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setProductListWidth(productListRef.current.scrollWidth);
-      setProgressWidth(progressRef.current.offsetWidth);
-      setProgressBarWidth(progressBarRef.current.offsetWidth);
-      setVwState(window.innerWidth);
-      console.log('scrollwidth', productListRef.current.scrollWidth);
-      console.log('offsetwidth', progressRef.current.offsetWidth);
-      console.log('baroffsetwidth', progressBarRef.current.offsetWidth);
-      console.log('vw', vwState);
-    });
-    console.log('scrollwidth', productListRef.current.scrollWidth);
-    console.log('offsetwidth', progressRef.current.offsetWidth);
-    console.log('baroffsetwidth', progressBarRef.current.offsetWidth);
-    console.log('vw', vwState);
+  const settingState = () => {
     setProductListWidth(productListRef.current.scrollWidth);
     setProgressWidth(progressRef.current.offsetWidth);
     setProgressBarWidth(progressBarRef.current.offsetWidth);
     setVwState(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', settingState);
+    settingState();
+    return function cleanUp() {
+      window.removeEventListener('resize', settingState);
+    };
   }, []);
 
   useEffect(() => {
@@ -114,8 +113,7 @@ const IndexProducts = () => {
   const controlHandler = (ctrl) => {
     let newState = 0;
     const max = ((progressBarWidth - progressWidth) / progressBarWidth) * 100;
-    let productListPercent =
-      (productListWidth - window.innerWidth) / productListWidth;
+    let productListPercent = (productListWidth - vwState) / productListWidth;
     let progressBarPercent =
       (progressBarWidth - progressWidth) / progressBarWidth;
     switch (ctrl) {

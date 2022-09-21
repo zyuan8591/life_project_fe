@@ -25,25 +25,59 @@ const ProductList = () => {
   const [sort, setSort] = useState(0);
   const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
-  // console.log(smallThan, biggerThan);
+  // like data
+  const [item, setItem] = useState([]);
+  const [fav, setFav] = useState([]);
+  const [productLikeId, setProductLikeId] = useState(false);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(
         `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`
       );
-      // console.log(result.data.data);
-      // console.log(checked);
-      let test = pageNow * result.data.pagination.perPage;
-      // if (result.data.pagination.total % perPage !== 0) {
-      
-      // }
-      console.log(test);
+
+      if (
+        result.data.pagination.total % 12 !== 0 ||
+        result.data.pagination.total > 12
+      ) {
+        pageNow === lastPage
+          ? setCountNow(result.data.pagination.total)
+          : setCountNow(pageNow * result.data.pagination.perPage);
+      } else if (result.data.pagination.total % 12 !== 0) {
+        pageNow === lastPage
+          ? setCountNow(result.data.pagination.total)
+          : setCountNow(pageNow * result.data.pagination.perPage);
+      } else {
+        setCountNow(pageNow * result.data.pagination.perPage);
+      }
       setLastPage(result.data.pagination.lastPage);
       setTotal(result.data.pagination.total);
       setProductList(result.data.data);
       setCount(result.data.pagination.offset);
+      (async () => {
+        let result = await axios.get(`${API_URL}/products/like`, {
+          withCredentials: true,
+        });
+        setItem(result.data);
+        let favNumber = result.data.map((v) => v.product_id);
+        setFav(favNumber);
+      })();
     })();
-  }, [pageNow, productCateNow, search, checked, smallThan, biggerThan, sort]);
+  }, [
+    pageNow,
+    productCateNow,
+    search,
+    checked,
+    smallThan,
+    biggerThan,
+    sort,
+    lastPage,
+    productLikeId,
+  ]);
+  useEffect(() => {
+    setPageNow(1);
+  }, [productCateNow, search, checked]);
+
   return (
     <>
       <Header />
@@ -62,8 +96,15 @@ const ProductList = () => {
               setSmallThan={setSmallThan}
               setSort={setSort}
               count={count}
+              countNow={countNow}
             />
-            <Product productList={productList} />
+            <Product
+              productList={productList}
+              item={item}
+              fav={fav}
+              setProductLikeId={setProductLikeId}
+              productLikeId={productLikeId}
+            />
           </div>
         </div>
         <PaginationBar
@@ -71,7 +112,12 @@ const ProductList = () => {
           pageNow={pageNow}
           setPageNow={setPageNow}
         />
-        <Tools />
+        <Tools
+          item={item}
+          setItem={setItem}
+          setProductLikeId={setProductLikeId}
+          productLikeId={productLikeId}
+        />
       </div>
       <Footer />
     </>

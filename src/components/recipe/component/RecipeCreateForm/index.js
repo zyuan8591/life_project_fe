@@ -13,6 +13,7 @@ const RecipeCreateForm = ({
   closeCreateRecipe,
   isEdit = false,
   defaultData = [],
+  showToast = () => {},
 }) => {
   // for demo
   const [demo, setDemo] = useState(false);
@@ -226,6 +227,7 @@ const RecipeCreateForm = ({
         await axios.post(`${API_URL}/recipes/${insertId}/step`, stepFormData, {
           withCredentials: true,
         });
+        showToast();
       } else if (isEdit) {
         let id = defaultData;
         // put recipe

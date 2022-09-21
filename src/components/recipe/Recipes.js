@@ -22,6 +22,8 @@ import IndexRecipeActivity from '../index/component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
 import { useUserRights } from '../../usecontext/UserRights';
+import Notification from '../activity/Notification';
+import { SiFoodpanda } from 'react-icons/si';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -63,7 +65,9 @@ const customStyles = {
 const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user, setUser } = useUserRights();
+  const { user } = useUserRights();
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [addToast, setAddToast] = useState(false);
   const navigate = useNavigate();
 
   // init data
@@ -80,6 +84,7 @@ const Recipes = () => {
   const [selectSortOption, setSelectSortOption] = useState(1);
 
   useEffect(() => {
+    showToast();
     (async () => {
       // get all recipe cate name
       let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
@@ -150,7 +155,7 @@ const Recipes = () => {
 
   // handle add recipe
   const addRecipeHandler = () => {
-    if (!user) return navigate('/signin/login');
+    if (!user) return setLoginBtn(true);
     const params = Object.fromEntries([...searchParams]);
     params['add'] = 'true';
     setSearchParams(params);
@@ -160,9 +165,34 @@ const Recipes = () => {
     delete params.add;
     setSearchParams(params);
   };
+  // link to user page
+  const linkToUserPage = (url) => {
+    if (!user) return setLoginBtn(true);
+    navigate(url);
+  };
+  // toast message
+  const showToast = () => {
+    setAddToast(true);
+    setTimeout(() => {
+      setAddToast(false);
+    }, 2000);
+  };
 
   return (
     <>
+      {loginBtn && (
+        <Notification
+          contaninText="請先登入會員"
+          linkTo="/signin/login"
+          linkToText="登入"
+          setLoginBtn={setLoginBtn}
+        />
+      )}
+      {addToast && (
+        <Notification contaninText="新增食譜成功" iconSize={2}>
+          <SiFoodpanda />
+        </Notification>
+      )}
       <div className="pageRecipes">
         <BreadCrumb />
         <IndexRecipeActivity />
@@ -215,20 +245,20 @@ const Recipes = () => {
                 <AiOutlinePlusCircle />
                 <span>寫食譜</span>
               </div>
-              <Link
-                to={!user ? '/signin/login' : '/users/recipe?p=1'}
-                className="featureBtn"
+              <button
+                onClick={() => linkToUserPage('/users/recipe?p=1')}
+                className="featureBtn border-0 bg-white"
               >
                 <AiOutlineBook />
                 <span>我的食譜</span>
-              </Link>
-              <Link
-                to={!user ? '/signin/login' : '/users/recipe?p=2'}
-                className="featureBtn"
+              </button>
+              <button
+                onClick={() => linkToUserPage('/users/recipe?p=2')}
+                className="featureBtn border-0 bg-white"
               >
                 <AiOutlineHeart />
                 <span>食譜收藏</span>
-              </Link>
+              </button>
             </IconContext.Provider>
           </div>
         </div>
@@ -297,7 +327,10 @@ const Recipes = () => {
         {/* Create Recipe Form */}
         {searchParams.get('add') === 'true' && (
           <section className="creatingRecipe flexCenter">
-            <RecipeCreateForm closeCreateRecipe={closeRecipeHandler} />
+            <RecipeCreateForm
+              closeCreateRecipe={closeRecipeHandler}
+              showToast={showToast}
+            />
           </section>
         )}
       </div>

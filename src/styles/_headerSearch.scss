@@ -12,7 +12,12 @@
     margin-top: 10%;
     display: flex;
     flex-direction: column;
-
+    @media (max-width: 768px) {
+      max-width: 450px;
+    }
+    @media (max-width: 500px) {
+      max-width: 350px;
+    }
     // Search input
     .headerSearchInput {
       input {

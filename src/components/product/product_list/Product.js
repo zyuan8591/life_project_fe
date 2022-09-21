@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
@@ -8,7 +7,7 @@ import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
-const Product = ({ productList }) => {
+const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -35,17 +34,45 @@ const Product = ({ productList }) => {
                   }}
                 >
                   <div
-                    onClick={() => {
-                      console.log('h');
+                    style={{ cursor: 'pointer' }}
+                    onClick={async () => {
+                      if (fav.includes(v.id)) {
+                        await axios.delete(
+                          `${API_URL}/products/${id}/removeLike`,
+                          { withCredentials: true }
+                        );
+                        setProductLikeId(!productLikeId);
+                      } else {
+                        await axios.post(
+                          `${API_URL}/products/addLike`,
+                          { id },
+                          { withCredentials: true }
+                        );
+                        setProductLikeId(!productLikeId);
+                      }
                     }}
                   >
-                    <HiOutlineHeart />
+                    {fav.includes(v.id) ? (
+                      <IconContext.Provider
+                        value={{
+                          color: 'red',
+                          size: '2rem',
+                          margin: '5px',
+                        }}
+                      >
+                        <HiHeart />
+                      </IconContext.Provider>
+                    ) : (
+                      <HiOutlineHeart />
+                    )}
                   </div>
-                  <IoCartOutline
-                    onClick={(e) => {
-                      console.log('c');
-                    }}
-                  />
+                  <div style={{ cursor: 'pointer' }}>
+                    <IoCartOutline
+                      onClick={(e) => {
+                        console.log('c');
+                      }}
+                    />
+                  </div>
                 </IconContext.Provider>
               </div>
             </div>

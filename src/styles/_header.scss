@@ -30,7 +30,7 @@
   // justify-content: space-between;
   .headerMenu {
     display: none;
-    @include mobile {
+    @include ipad {
       display: inline-block;
     }
   }
@@ -51,7 +51,12 @@
       left: 0;
       background: #fff;
       width: 100vw;
-      height: $headerHeight;
+      height: 0;
+      transition: 0.3s;
+      overflow: hidden;
+      &.active {
+        height: $headerHeight;
+      }
     }
     @include mobile {
       height: auto;

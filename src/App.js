@@ -60,7 +60,8 @@ import Cart from './components/Orders/pages/Cart';
 import OrderStep from './components/Orders/OrderStep';
 import CheckOut from './components/Orders/pages/CheckOut';
 import OrderCheck from './components/Orders/pages/OrderCheck';
-
+import ForgotPassword from './components/Users/Content/Password/ForgotPassword';
+import ForgotPasswordEmail from './components/Users/Content/Password/ForgotPasswordEmail';
 // Layout
 function HeaderFooter() {
   return (
@@ -178,6 +179,14 @@ function App() {
                       <Route path="/signin/login" element={<Login />} />
                       <Route path="/signin/signup" element={<Signup />} />
                     </Route>
+                    <Route
+                      path="/forgot/password"
+                      element={<ForgotPassword />}
+                    />
+                    <Route
+                      path="/forgot/email"
+                      element={<ForgotPasswordEmail />}
+                    />
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>
