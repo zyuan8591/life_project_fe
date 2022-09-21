@@ -42,3 +42,19 @@
         }
     }
 }
+@media screen and (max-width:375px) {
+    .activitySlider{
+        // margin-bottom: 40px;
+        width: 100%;
+        .sliderText{
+            width: 100%;
+            text-align: center;
+        }
+        .slider{
+            margin: 0 auto;
+        }
+        .priceText{
+            margin-top: 8px;
+        }
+    }
+}

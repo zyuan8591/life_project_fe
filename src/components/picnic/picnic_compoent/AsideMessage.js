@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import MapAside from '../../map/component/MapAside';
+import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 
 function AsideMessageFix({
   data,
@@ -12,8 +13,10 @@ function AsideMessageFix({
   handleDeleteJoin,
   userJoin,
   user,
+  setIsgo,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
+  const picnicCart = usePicnicCart([]);
 
   const stateColor = (state) => {
     switch (state) {
@@ -83,7 +86,6 @@ function AsideMessageFix({
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="price">NT${item.price}</div>
-                {/* TODO: 即將開團BTN 不能是加入 */}
                 {item.activity_state === '即將開團' ? (
                   <button
                     className="joinInBtn"
@@ -91,11 +93,9 @@ function AsideMessageFix({
                       background: '#B9BDC5',
                       color: '#444',
                     }}
-                    onClick={() => {
-                      handleDeleteJoin(item.id);
-                    }}
+                    disabled
                   >
-                    gggg
+                    即將開團
                   </button>
                 ) : user ? (
                   userJoin.includes(item.id) ? (
@@ -106,7 +106,15 @@ function AsideMessageFix({
                         color: '#444',
                       }}
                       onClick={() => {
+                        setIsgo(true);
                         handleDeleteJoin(item.id);
+                        picnicCart.addItem({
+                          id: item.id,
+                          quantity: 1,
+                          name: item.picnic_title,
+                          price: item.price,
+                          ischecked: false,
+                        });
                       }}
                     >
                       取消活動
@@ -115,6 +123,7 @@ function AsideMessageFix({
                     <button
                       className="joinInBtn"
                       onClick={() => {
+                        setIsgo(true);
                         handleAddJoin(data[0].id);
                       }}
                     >
@@ -131,40 +140,6 @@ function AsideMessageFix({
                     加入活動
                   </button>
                 )}
-                {/* {user ? (
-                  userJoin.includes(item.id) ? (
-                    <button
-                      className="joinInBtn"
-                      style={{
-                        background: '#B9BDC5',
-                        color: '#444',
-                      }}
-                      onClick={() => {
-                        handleDeleteJoin(item.id);
-                      }}
-                    >
-                      取消活動
-                    </button>
-                  ) : (
-                    <button
-                      className="joinInBtn"
-                      onClick={() => {
-                        handleAddJoin(data[0].id);
-                      }}
-                    >
-                      加入活動
-                    </button>
-                  )
-                ) : (
-                  <button
-                    className="joinInBtn"
-                    onClick={() => {
-                      alert('請先登入會員');
-                    }}
-                  >
-                    加入活動
-                  </button>
-                )} */}
               </div>
             </div>
           );

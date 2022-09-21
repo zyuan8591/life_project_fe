@@ -113,7 +113,6 @@ function PicnicList() {
     console.log('handleAddJoin', response.data);
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
     setUserCollect(nowJoinCollect);
-    alert('加入收藏');
     // console.log('add', nowJoinCollect);
   }
 
@@ -125,7 +124,6 @@ function PicnicList() {
     console.log('handleDelFav', response.data);
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
     setUserCollect(nowJoinCollect);
-    alert('取消收藏');
     // console.log('del', nowJoinCollect);
   }
 
@@ -160,21 +158,23 @@ function PicnicList() {
             <div className="contain">
               <div className="row m-0">
                 {/* 左側篩選欄 */}
-                <div className="col-3">
+                <div className="col-sm-3 col-12">
                   {/* state filter */}
-                  <div className="activityState">
-                    <p className="stateText">活動狀態</p>
-                    {stateSearch.map((v, i) => {
-                      return (
-                        <ActivityStateFilter
-                          key={uuidv4()}
-                          v={v}
-                          filterState={filterState}
-                          setFilterState={setFilterState}
-                          setPageNow={setPageNow}
-                        />
-                      );
-                    })}
+                  <div className="activityState ">
+                    <p className="stateText ">活動狀態</p>
+                    <div className="mb-flex">
+                      {stateSearch.map((v, i) => {
+                        return (
+                          <ActivityStateFilter
+                            key={uuidv4()}
+                            v={v}
+                            filterState={filterState}
+                            setFilterState={setFilterState}
+                            setPageNow={setPageNow}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {/* price slider */}
@@ -212,7 +212,7 @@ function PicnicList() {
                   />
                 </div>
                 {/* 右側活動列表 */}
-                <div className="col-9">
+                <div className="col-sm-9 col-12">
                   <div className="d-flex justify-content-between">
                     <div className="mb-3 ">
                       {/* card 切換 篩選ICON */}
@@ -237,7 +237,7 @@ function PicnicList() {
                       <IconContext.Provider
                         value={{ color: '#817161', size: '1.7em' }}
                       >
-                        <div className="me-2">
+                        <div className="me-ms-2">
                           <input
                             className="searchInput"
                             placeholder="Search.."

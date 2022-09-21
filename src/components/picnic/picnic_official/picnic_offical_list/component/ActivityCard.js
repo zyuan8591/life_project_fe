@@ -6,6 +6,7 @@ import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL_IMG } from '../../../../../utils/config';
+import { Button, message, Space } from 'antd';
 
 function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
   // console.log(data);
@@ -19,6 +20,7 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
       return `${width}`;
     }
   };
+
   // console.log(data);
   return (
     <>
@@ -42,6 +44,13 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                         <FaHeart
                           onClick={() => {
                             handleDelFav(item.id);
+                            message.success({
+                              content: '取消收藏',
+                              className: 'custom-class',
+                              style: {
+                                marginTop: '20vh',
+                              },
+                            });
                           }}
                         />
                       </IconContext.Provider>
@@ -52,6 +61,13 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                         <FaHeart
                           onClick={() => {
                             handleAddFav(item.id);
+                            message.success({
+                              content: '加入收藏',
+                              className: 'custom-class',
+                              style: {
+                                marginTop: '20vh',
+                              },
+                            });
                           }}
                         />
                       </IconContext.Provider>
@@ -63,7 +79,7 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                       <FaHeart
                         className={classes.collect}
                         onClick={() => {
-                          alert('請登入會員');
+                          message.success('請先登入會員');
                         }}
                       />
                     </IconContext.Provider>

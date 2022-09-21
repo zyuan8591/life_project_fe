@@ -31,7 +31,7 @@ function ActivitySliderHeadcount({
           onAfterChange={onAfterChange}
         />
         <div className={classes.sliderSearch}>
-          <div>
+          <div className={classes.priceText}>
             {minJoinPeople}人 - {maxJoinPeople}人
           </div>
           {/* <button>篩選</button> */}
