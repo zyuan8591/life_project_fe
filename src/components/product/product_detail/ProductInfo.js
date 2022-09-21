@@ -10,8 +10,10 @@ import Magnifier from 'image-magnifier-react';
 import 'image-magnifier-react/lib/index.css';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
+import { useProductCart } from '../../../orderContetxt/useProductCart';
 
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
+  const productCart = useProductCart({});
   const {
     id,
     name,
@@ -139,6 +141,14 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                 <button
                   onClick={() => {
                     console.log(quantity);
+                    productCart.addItem({
+                      id: id,
+                      quantity: quantity,
+                      name: name,
+                      price: price,
+                      ischecked: false,
+                      img: img,
+                    });
                   }}
                 >
                   <IoCartOutline />

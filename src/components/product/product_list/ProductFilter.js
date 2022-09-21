@@ -26,6 +26,9 @@ const ProductFilter = ({
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
+  if (brand.length > 1) {
+    setSort(3);
+  }
 
   useEffect(() => {
     (async () => {
@@ -94,7 +97,7 @@ const ProductFilter = ({
                     }}
                   />
                 </div>
-                <div className="d-flex flex-wrap">
+                <div className="brandLayout">
                   {brandArr.map((v, i) => {
                     return (
                       <div className="brand" key={i}>
@@ -113,9 +116,9 @@ const ProductFilter = ({
                                 return v.id !== v2;
                               });
                               setChecked(newArr);
-                              console.log(v.id);
+                              // console.log(v.id);
                             }
-                            console.log(checked);
+                            // console.log(checked);
                           }}
                         />
                         <label htmlFor={i}>{v.name}</label>
@@ -232,7 +235,7 @@ const ProductFilter = ({
             setSort(e.target.value);
           }}
         >
-          <option value="0">預設</option>
+          <option value="0">綜合排序</option>
           <option value="1">熱門程度優先</option>
           <option value="2">最新商品</option>
         </select>

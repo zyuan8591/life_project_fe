@@ -86,13 +86,13 @@ const Slider = ({
       {pattern === 'rank' ? (
         <div className="d-flex justify-content-end align-items-center">
           <IconContext.Provider value={{ color: '#444', size: '1.3rem' }}>
-            {/* <div className={classes.cursor}> */}
-            <IoIosArrowBack
-              onClick={() => {
-                slideLeft();
-              }}
-            />
-            {/* </div> */}
+            <div className={classes.cursor}>
+              <IoIosArrowBack
+                onClick={() => {
+                  slideLeft();
+                }}
+              />
+            </div>
             {[...Array(3)].map((v, i) => {
               return (
                 <div
@@ -108,13 +108,13 @@ const Slider = ({
                 ></div>
               );
             })}
-            {/* <div className={classes.cursor}> */}
-            <IoIosArrowForward
-              onClick={() => {
-                slideRight();
-              }}
-            />
-            {/* </div> */}
+            <div className={classes.cursor}>
+              <IoIosArrowForward
+                onClick={() => {
+                  slideRight();
+                }}
+              />
+            </div>
           </IconContext.Provider>
         </div>
       ) : (

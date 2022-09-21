@@ -24,6 +24,7 @@ import ScrollToTop from './components/public_component/ScrollToTop';
 // product =======================================================================
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
+import Backstage from './components/backstage/BackstageProduct';
 // recipe & news =======================================================================
 import Recipes from './components/recipe/Recipes';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
@@ -134,6 +135,7 @@ function App() {
                     {/* product */}
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/products/:id" element={<ProductDetail />} />
+                    <Route path="/products/backstage" element={<Backstage />} />
                     {/* activity picnic */}
                     <Route path="/activity/picnic" element={<PicnicIndex />} />
                     <Route
