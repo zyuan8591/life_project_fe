@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../public_component/Header';
 import PaginationBar from '../public_component/PaginationBar';
 import '../../styles/backstage/_backstageProduct.scss';
+import Contact from '../contact/Contact';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -61,6 +62,7 @@ function Backstage() {
           {/* lastPage={lastPage}
           pageNow={page}
           setPageNow={setPage} */}
+          <Contact />
         </div>
       </IconContext.Provider>
     </>

@@ -3,6 +3,9 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import Header from '../public_component/Header';
 import PaginationBar from '../public_component/PaginationBar';
+import AddCamping from './component/AddCamping';
+import UpdateCamping from './component/UpdateCamping';
+import Contact from '../contact/Contact';
 import '../../styles/backstage/_backstageCamping.scss';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
@@ -17,7 +20,8 @@ function Backstage() {
   const [campingData, setCampingData] = useState([]);
   const [price, setPrice] = useState(false);
   const [date, setDate] = useState(false);
-  const [addpage, setAddPage] = useState(false);
+  const [addPage, setAddPage] = useState(false);
+  const [updatePage, setUpdatePage] = useState(false);
 
   useEffect(() => {
     let getCampingData = async () => {
@@ -25,7 +29,6 @@ function Backstage() {
         `${API_URL}/camping/backstage?state=${state}&order=${order}&page=${page}`
       );
       // console.log(response.data.pagination.total);
-      // setnumberTtl(response.data.pagination.total);
       setLastPage(response.data.pagination.lastPage);
       setCampingData(response.data.result);
     };
@@ -34,14 +37,23 @@ function Backstage() {
   return (
     <>
       <Header />
-      <IconContext.Provider
-        value={{ color: '#817161', size: '1.5em', className: 'icons' }}
-      >
-        <div className="backstageContainer">
-          <button className="addBtn" onClick={()=>{
+      {addPage ? <AddCamping setAddPage={setAddPage} /> : ''}
+      {updatePage ? <UpdateCamping setUpdatePage={setUpdatePage} /> : ''}
 
-          }}>新增活動</button>
-          <table>
+      <div className="backstageContainer">
+        <button
+          className="addBtn"
+          onClick={(e) => {
+            e.preventDefault();
+            setAddPage(true);
+          }}
+        >
+          新增活動
+        </button>
+        <table>
+          <IconContext.Provider
+            value={{ color: '#1F9998', size: '1.7em', className: 'icons' }}
+          >
             <thead>
               <tr>
                 <th></th>
@@ -99,6 +111,10 @@ function Backstage() {
                 <th></th>
               </tr>
             </thead>
+          </IconContext.Provider>
+          <IconContext.Provider
+            value={{ color: '#817161', size: '1.5em', className: 'icons' }}
+          >
             <tbody>
               {campingData.map((v) => {
                 const dataReplace = (date) => {
@@ -138,7 +154,11 @@ function Backstage() {
                     <td className="text-center">{v.join_limit}</td>
                     <td style={{ width: '110px' }}>{v.state}</td>
                     <td>
-                      <BsPencilSquare />
+                      <BsPencilSquare
+                        onClick={() => {
+                          setUpdatePage(true);
+                        }}
+                      />
                     </td>
                     <td>
                       <FaTrashAlt />
@@ -147,14 +167,15 @@ function Backstage() {
                 );
               })}
             </tbody>
-          </table>
-          <PaginationBar
-            lastPage={lastPage}
-            pageNow={page}
-            setPageNow={setPage}
-          />
-        </div>
-      </IconContext.Provider>
+          </IconContext.Provider>
+        </table>
+        <PaginationBar
+          lastPage={lastPage}
+          pageNow={page}
+          setPageNow={setPage}
+        />
+        <Contact />
+      </div>
     </>
   );
 }
