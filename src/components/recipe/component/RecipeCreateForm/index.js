@@ -1,13 +1,17 @@
-import React, { useState, useEffect, DragEvent } from 'react';
+import React, { useState, useEffect, DragEvent, useRef } from 'react';
 import classes from '../../../../styles/moduleCss/recipes/RecipeCreatingForm.module.scss';
 import RecipeMaterial from './RecipeMaterial';
-import RecipeStep from './RecipeStep';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import { v4 as uuidv4 } from 'uuid';
 // import { Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';
+
+// TODO: drag
+import { ItemTypes } from './ItemTypes';
+import { useDrag } from 'react-dnd';
+import RecipeStep from './RecipeStep';
 
 const RecipeCreateForm = ({
   closeCreateRecipe,
@@ -493,28 +497,30 @@ const RecipeCreateForm = ({
         {/* material */}
         <div className={classes.formItem}>
           <label className="fs-4">食材</label>
+          {/* TODO: drag */}
           {/* Drop zone */}
           {/* <Droppable droppableId="list">
             {(provided, snapshot) => (
               <div ref={provided.innerRef} {...provided.droppableProps}> */}
-          {material.map((d, i) => {
-            return (
-              <RecipeMaterial
-                key={d.id}
-                i={i}
-                data={d}
-                demo={demo}
-                edit={edit}
-                delHandler={deleteMaterailBtn}
-                onchange={materialChangerHandler}
-              ></RecipeMaterial>
-            );
-          })}
+          <div>
+            {material.map((d, i) => {
+              return (
+                <RecipeMaterial
+                  key={d.id}
+                  i={i}
+                  data={d}
+                  demo={demo}
+                  edit={edit}
+                  delHandler={deleteMaterailBtn}
+                  onchange={materialChangerHandler}
+                ></RecipeMaterial>
+              );
+            })}
+          </div>
           {/* {provided.placeholder}
               </div>
             )}
           </Droppable> */}
-
           <button
             className={classes.addMaterialBtn}
             onClick={(e) => {

@@ -3,6 +3,8 @@ import 'normalize.css';
 import './styles/style.scss';
 // package =======================================================================
 import axios from 'axios';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 // react hooks / context =======================================================================
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
@@ -94,106 +96,114 @@ function App() {
 
   return (
     <>
-      <UserRights.Provider value={{ user, setUser }}>
-        <ScrollToTop>
-          <ProductCartProvider>
-            <PicnicCartProvider>
-              <CampingCartProvider>
-                <CartStepProvider>
-                  <Routes>
-                    <Route path="/" element={<HeaderFooter />}>
-                      <Route path="/" element={<Homepage />} />
-                      <Route path="/recipes" element={<Recipes />} />
-                      <Route path="/orderstep/" element={<OrderStep />}>
-                        <Route path="/orderstep/cart" element={<Cart />} />
+      <DndProvider backend={HTML5Backend}>
+        <UserRights.Provider value={{ user, setUser }}>
+          <ScrollToTop>
+            <ProductCartProvider>
+              <PicnicCartProvider>
+                <CampingCartProvider>
+                  <CartStepProvider>
+                    <Routes>
+                      <Route path="/" element={<HeaderFooter />}>
+                        <Route path="/" element={<Homepage />} />
+                        <Route path="/recipes" element={<Recipes />} />
+                        <Route path="/orderstep/" element={<OrderStep />}>
+                          <Route path="/orderstep/cart" element={<Cart />} />
+                          <Route
+                            path="/orderstep/checkout"
+                            element={<CheckOut />}
+                          />
+                          <Route
+                            path="/orderstep/ordercheck"
+                            element={<OrderCheck />}
+                          />
+                        </Route>
+                        <Route path="/news" element={<News />} />
+                        {/* activity */}
+                        <Route path="/activity" element={<ActivityMain />} />
+                        {/* activity camping */}
                         <Route
-                          path="/orderstep/checkout"
-                          element={<CheckOut />}
+                          path="/activity/camping"
+                          element={<CampingMain />}
                         />
                         <Route
-                          path="/orderstep/ordercheck"
-                          element={<OrderCheck />}
+                          path="/activity/camping/:campingId"
+                          element={<CampingDetailPage />}
                         />
+                        <Route path="/map" element={<SetMap />} />
                       </Route>
-                      <Route path="/news" element={<News />} />
-                      {/* activity */}
-                      <Route path="/activity" element={<ActivityMain />} />
+                      {/* recipe */}
+                      <Route path="/recipeDetail" element={<RecipeDetail />} />
+                      {/* product */}
+                      <Route path="/products" element={<ProductList />} />
+                      <Route path="/products/:id" element={<ProductDetail />} />
+                      {/* activity picnic */}
+                      <Route
+                        path="/activity/picnic"
+                        element={<PicnicIndex />}
+                      />
+                      <Route
+                        path="/activity/picnic/official"
+                        element={<PicnicOfficalList />}
+                      />
+                      <Route
+                        path="/activity/picnic/official/:officialId"
+                        element={<PicnicOfficalDetail />}
+                      />
+                      <Route
+                        path="/activity/picnic/group"
+                        element={<PicnicPrivateList />}
+                      />
+                      <Route
+                        path="/activity/picnic/group/:groupId"
+                        element={<IndexPrivateDetail />}
+                      />
+                      <Route
+                        path="/activity/picnic/create"
+                        element={<CreatePincnic />}
+                      />
                       {/* activity camping */}
+                      <Route path="/activity" element={<ActivityMain />} />
                       <Route
                         path="/activity/camping"
                         element={<CampingMain />}
                       />
                       <Route
-                        path="/activity/camping/:campingId"
+                        path="/activity/camping/:id"
                         element={<CampingDetailPage />}
                       />
                       <Route path="/map" element={<SetMap />} />
-                    </Route>
-                    {/* recipe */}
-                    <Route path="/recipeDetail" element={<RecipeDetail />} />
-                    {/* product */}
-                    <Route path="/products" element={<ProductList />} />
-                    <Route path="/products/:id" element={<ProductDetail />} />
-                    {/* activity picnic */}
-                    <Route path="/activity/picnic" element={<PicnicIndex />} />
-                    <Route
-                      path="/activity/picnic/official"
-                      element={<PicnicOfficalList />}
-                    />
-                    <Route
-                      path="/activity/picnic/official/:officialId"
-                      element={<PicnicOfficalDetail />}
-                    />
-                    <Route
-                      path="/activity/picnic/group"
-                      element={<PicnicPrivateList />}
-                    />
-                    <Route
-                      path="/activity/picnic/group/:groupId"
-                      element={<IndexPrivateDetail />}
-                    />
-                    <Route
-                      path="/activity/picnic/create"
-                      element={<CreatePincnic />}
-                    />
-                    {/* activity camping */}
-                    <Route path="/activity" element={<ActivityMain />} />
-                    <Route path="/activity/camping" element={<CampingMain />} />
-                    <Route
-                      path="/activity/camping/:id"
-                      element={<CampingDetailPage />}
-                    />
-                    <Route path="/map" element={<SetMap />} />
-                    {/* user */}
-                    <Route path="/users/" element={<Users />}>
-                      <Route path="/users/account" element={<Account />} />
-                      <Route path="/users/password" element={<Password />} />
-                      <Route path="/users/order" element={<Order />} />
-                      <Route path="/users/points" element={<Points />} />
-                      <Route path="/users/picnic" element={<Picnic />} />
-                      <Route path="/users/recipe" element={<MyRecipe />} />
-                      <Route path="/users/caping" element={<Camping />} />
-                    </Route>
-                    {/* login / signup */}
-                    <Route path="/signin/" element={<Signin />}>
-                      <Route path="/signin/login" element={<Login />} />
-                      <Route path="/signin/signup" element={<Signup />} />
-                    </Route>
-                    <Route
-                      path="/forgot/password"
-                      element={<ForgotPassword />}
-                    />
-                    <Route
-                      path="/forgot/email"
-                      element={<ForgotPasswordEmail />}
-                    />
-                  </Routes>
-                </CartStepProvider>
-              </CampingCartProvider>
-            </PicnicCartProvider>
-          </ProductCartProvider>
-        </ScrollToTop>
-      </UserRights.Provider>
+                      {/* user */}
+                      <Route path="/users/" element={<Users />}>
+                        <Route path="/users/account" element={<Account />} />
+                        <Route path="/users/password" element={<Password />} />
+                        <Route path="/users/order" element={<Order />} />
+                        <Route path="/users/points" element={<Points />} />
+                        <Route path="/users/picnic" element={<Picnic />} />
+                        <Route path="/users/recipe" element={<MyRecipe />} />
+                        <Route path="/users/caping" element={<Camping />} />
+                      </Route>
+                      {/* login / signup */}
+                      <Route path="/signin/" element={<Signin />}>
+                        <Route path="/signin/login" element={<Login />} />
+                        <Route path="/signin/signup" element={<Signup />} />
+                      </Route>
+                      <Route
+                        path="/forgot/password"
+                        element={<ForgotPassword />}
+                      />
+                      <Route
+                        path="/forgot/email"
+                        element={<ForgotPasswordEmail />}
+                      />
+                    </Routes>
+                  </CartStepProvider>
+                </CampingCartProvider>
+              </PicnicCartProvider>
+            </ProductCartProvider>
+          </ScrollToTop>
+        </UserRights.Provider>
+      </DndProvider>
     </>
   );
 }
