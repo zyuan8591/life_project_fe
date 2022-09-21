@@ -21,7 +21,7 @@ function Backstage() {
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products/1/backstage?page=${pageNow}`,
+        `${API_URL}/products/backstage?page=${pageNow}&brand=1`,
         {
           withCredentials: true,
         }

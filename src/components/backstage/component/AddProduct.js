@@ -20,8 +20,8 @@ function AddPage({ setAddPage }) {
     price: '1000',
     actStartDate: '2022-12-12',
     actEndDate: '2022-12-13',
-    intro: 'hhhhhhhh',
-    spec: 'cccccccccc',
+    intro: '榮獲Good Design大獎 15Bar氣壓蒸氣高壓萃取技術 不鏽鋼蒸氣奶泡管，完成綿密奶泡 自動停止滴漏設計 1公升分離式透明水箱，加水便利',
+    spec: '類型	半自動咖啡機, 義式咖啡機/品牌	SMEG/型號	ECF01CRUS/顏色	白色系/產地	中國/機身材質	不鏽鋼/機身尺寸(長x寬x高)(mm)	14.9 x 37 x 30 cm/電壓	120V/產品重量	5kg/水箱容量	0.5公升-1公升/保固	1年/消耗功率	1200~1400W/BSMI許可字號	R45336',
   });
 
   function handleChange(e) {}
@@ -58,7 +58,7 @@ function AddPage({ setAddPage }) {
   return (
     <>
       {errMsg ? (
-        <Notification contaninText="活動標題已存在">
+        <Notification contaninText="商品名稱重複">
           <FiShoppingBag />
         </Notification>
       ) : (
@@ -67,7 +67,7 @@ function AddPage({ setAddPage }) {
       {loginBtn ? (
         <Notification
           // linkToText="返回列表頁"
-          // linkTo="/backstageCamping"
+          // linkTo="/backstage"
           contaninText="新增成功"
           // setLoginBtn={setLoginBtn}
         />
