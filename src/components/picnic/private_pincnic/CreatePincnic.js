@@ -1,11 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 import { API_URL } from '../../../utils/config';
 import '../../../styles/picnic/_createPincnic.scss';
 import Header from '../../public_component/Header';
+import BreadCrumb from '../../public_component/BreadCrumb';
 import Footer from '../../public_component/Footer';
 import BackToTop from '../../public_component/BackToTop';
 import { IconContext } from 'react-icons';
@@ -18,16 +22,48 @@ import {
 } from 'react-icons/fa';
 import { AiOutlineCamera } from 'react-icons/ai';
 
+const city = [
+  { value: 1, name: '信義區' },
+  { value: 2, name: '中正區' },
+  { value: 3, name: '萬華區' },
+  { value: 4, name: '大同區' },
+  { value: 5, name: '中山區' },
+  { value: 6, name: '松山區' },
+  { value: 7, name: '大安區' },
+  { value: 8, name: '內湖區' },
+  { value: 9, name: '南港區' },
+  { value: 10, name: '士林區' },
+  { value: 11, name: '北投區' },
+  { value: 12, name: '文山區' },
+];
+
 function CreatePincnic() {
+  const [imageSrc, setImageSrc] = useState('');
+  const [location, setLocation] = useState(city);
+
+  // Navigate state
+  const [success, setSuccess] = useState(false);
+
+  // remind text
+  const [remindTitle, setRemindTitle] = useState('');
+  const [remindActivityDate, setRemindActivityDate] = useState('');
+  const [remindAddress, setRemindAddress] = useState('');
+  const [remindJoinLimit, setRemindJoinLimit] = useState('');
+  const [remindStartDate, setRemindStartDate] = useState('');
+  const [remindEndDate, setRemindEndDate] = useState('');
+  const [remindIntr, setRemindIntr] = useState('');
+  const [remindImage, setRemindImage] = useState('');
+
+  // from data
   const [activityContent, setActivityContent] = useState({
-    title: '',
-    activityDate: '',
-    location: '',
-    address: '',
-    joinLimit: '',
-    startDate: '',
-    endDate: '',
-    intr: '',
+    title: 'test',
+    activityDate: '2022-11-15',
+    location: '2',
+    address: 'test',
+    joinLimit: '10',
+    startDate: '2022-11-01',
+    endDate: '2022-11-13',
+    intr: '隱藏在靜謐巷弄裡，占地寬闊、綠意環繞，宛如社區裡的後花園，假日總能看見親子一同蹓狗、散步、野餐，悠閒共度溫暖的午後。沿著湖邊走，可以看見休憩涼亭和九曲橋，也可在平緩的步道中觀察生態、吸收森林芬多精。',
     image: '',
   });
 
@@ -40,10 +76,29 @@ function CreatePincnic() {
 
   function handleUpload(e) {
     setActivityContent({ ...activityContent, image: e.target.files[0] });
+
+    let file = e.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
+      setImageSrc(reader.result);
+    });
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    console.log(file);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (activityContent.joinLimit < 5) {
+      return setRemindJoinLimit('最低活動人數5人');
+    }
+    if (activityContent.startDate > activityContent.endDate) {
+      return setRemindStartDate('*開始日期不得大於結束日期');
+    }
+    if (activityContent.endDate > activityContent.activityDate) {
+      return setRemindActivityDate('*活動日期不得小於報名日期');
+    }
     try {
       let formData = new FormData();
       formData.append('title', activityContent.title);
@@ -55,34 +110,30 @@ function CreatePincnic() {
       formData.append('endDate', activityContent.endDate);
       formData.append('intr', activityContent.intr);
       formData.append('image', activityContent.image);
-      let response = await axios.post(`${API_URL}/picnic/create`, formData);
+
+      let response = await axios.post(`${API_URL}/picnic/create`, formData, {
+        withCredentials: true,
+      });
+      setSuccess(true);
+
       console.log(response.data);
+      alert(response.data.Message);
     } catch (e) {
       console.log('formData', e);
     }
   }
-
-  //TODO: 無法取得地區資料
-  const [locationData, setlocationData] = useState([]);
-  const getLocationData = async () => {
-    let response = await axios.get(`${API_URL}/picnic/create?`);
-    setlocationData(response.data.data);
-    // console.log(response.data.data);
-  };
-  useEffect(() => {
-    getLocationData();
-  });
-
+  // TODO: 表單重新驗證
   return (
     <>
       <Header />
       <main className="createPincnicMain container">
+        <BreadCrumb />
         <div>
           <form className="d-flex flex-column">
             <div className="form d-flex flex-column mt-4 mb-2">
               <label>
                 <FaPenAlt className="faIcon" />
-                活動標題
+                活動標題 <span className="remindText">{remindTitle}</span>
               </label>
               <input
                 type="text"
@@ -91,10 +142,14 @@ function CreatePincnic() {
                 name="title"
                 onChange={handleChange}
                 required
+                onBlur={() => {
+                  if (!activityContent.title) {
+                    setRemindTitle('*請輸入標題');
+                  } else {
+                    setRemindTitle('');
+                  }
+                }}
               />
-              {/* <div>{if(activityContent.title===''){
-                return( <div>'必填項目未輸入'</div>)
-              }}</div> */}
             </div>
 
             <div className="form d-flex flex-column mb-4">
@@ -102,20 +157,32 @@ function CreatePincnic() {
                 <IconContext.Provider value={{ color: '#444', size: '4rem' }}>
                   <AiOutlineCamera />
                 </IconContext.Provider>
-                新增圖片
+                <div className="imgTitleText">
+                  <span>新增圖片</span>
+                  <span className="remindText">{remindImage}</span>
+                </div>
+                <img className="upLoadImg" src={imageSrc} alt="" />
               </label>
               <input
                 type="file"
+                className="imageInput"
                 id="createImg"
-                // className="d-none"
                 onChange={handleUpload}
+                onBlur={() => {
+                  if (!activityContent.image) {
+                    setRemindImage('*請上傳圖片');
+                  } else {
+                    setRemindImage('');
+                  }
+                }}
               />
             </div>
 
             <div className="form d-flex flex-column mb-4">
               <label>
                 <FaCalendarAlt className="faIcon" />
-                活動日期
+                活動日期{' '}
+                <span className="remindText">{remindActivityDate}</span>
               </label>
               <input
                 type="date"
@@ -123,13 +190,20 @@ function CreatePincnic() {
                 name="activityDate"
                 onChange={handleChange}
                 required
+                onBlur={() => {
+                  if (!activityContent.activityDate) {
+                    setRemindActivityDate('*請輸入活動日期');
+                  } else {
+                    setRemindActivityDate('');
+                  }
+                }}
               />
             </div>
 
             <div className="form mb-4">
               <label>
                 <FaMapMarkerAlt className="faIcon" />
-                活動地點
+                活動地點 <span className="remindText">{remindAddress}</span>
               </label>
               <div className="m-auto">
                 <div className="location mb-2">
@@ -148,11 +222,14 @@ function CreatePincnic() {
                     onChange={handleChange}
                     required
                   >
-                    {/* TODO:撈地區資料 */}
                     <option>地區</option>
-                    <option value="1">松山區</option>
-                    <option value="2">大安區</option>
-                    <option value="3">信義區</option>
+                    {location.map((city) => {
+                      return (
+                        <option value={city.value} key={city.value}>
+                          {city.name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <input
@@ -163,6 +240,13 @@ function CreatePincnic() {
                   value={activityContent.address}
                   onChange={handleChange}
                   required
+                  onBlur={() => {
+                    if (!activityContent.address) {
+                      setRemindAddress('*請輸入地址');
+                    } else {
+                      setRemindAddress('');
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -170,7 +254,8 @@ function CreatePincnic() {
             <div className="form d-flex flex-column mb-4">
               <label>
                 <FaUserFriends className="faIcon" />
-                活動人數上限 (最低人數5人)
+                活動人數上限 (最低人數5人){' '}
+                <span className="remindText">{remindJoinLimit}</span>
               </label>
               <input
                 type="number"
@@ -179,12 +264,19 @@ function CreatePincnic() {
                 value={activityContent.joinLimit}
                 onChange={handleChange}
                 required
+                onBlur={() => {
+                  if (!activityContent.joinLimit) {
+                    setRemindJoinLimit('*請輸入活動人數');
+                  } else {
+                    setRemindJoinLimit('');
+                  }
+                }}
               />
             </div>
             <div className="form d-flex flex-column mb-4">
               <label>
                 <FaCalendarAlt className="faIcon" />
-                報名起始日
+                報名起始日 <span className="remindText">{remindStartDate}</span>
               </label>
               <input
                 type="date"
@@ -192,26 +284,40 @@ function CreatePincnic() {
                 value={activityContent.startDate}
                 onChange={handleChange}
                 required
+                onBlur={() => {
+                  if (!activityContent.startDate) {
+                    setRemindStartDate('*請輸入開始日期');
+                  } else {
+                    setRemindStartDate('');
+                  }
+                }}
               />
             </div>
 
             <div className="form d-flex flex-column mb-4">
               <label>
                 <FaCalendarAlt className="faIcon" />
-                報名結束日
+                報名結束日 <span className="remindText">{remindEndDate}</span>
               </label>
               <input
                 type="date"
                 name="endDate"
                 onChange={handleChange}
                 required
+                onBlur={() => {
+                  if (!activityContent.endDate) {
+                    setRemindEndDate('*請輸入結束日期');
+                  } else {
+                    setRemindEndDate('');
+                  }
+                }}
               />
             </div>
 
             <div className="form d-flex flex-column mb-4">
               <label>
                 <FaCommentAlt className="faIcon" />
-                活動內容
+                活動內容 <span className="remindText">{remindIntr}</span>
               </label>
               <textarea
                 type="text"
@@ -221,6 +327,13 @@ function CreatePincnic() {
                 value={activityContent.intr}
                 onChange={handleChange}
                 required
+                onBlur={() => {
+                  if (!activityContent.intr) {
+                    setRemindIntr('*請輸入內容');
+                  } else {
+                    setRemindIntr('');
+                  }
+                }}
               />
             </div>
 
@@ -276,6 +389,7 @@ function CreatePincnic() {
       </Formik> */}
       <Footer />
       <BackToTop />
+      {success && <Navigate to="/activity/picnic/group" />}
     </>
   );
 }

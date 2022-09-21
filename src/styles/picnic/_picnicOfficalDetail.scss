@@ -120,7 +120,7 @@
             }
             }
             // --------- 參加者 ---------
-            .paicipant {
+            .paicipantOff {
                 margin: 5rem 0;
                 h4 {
                     margin: 1.5rem 0;
@@ -129,6 +129,7 @@
                 .arrowIconSlider{
                     width: 936px;
                     position: relative;
+                    margin-top: -20px;
                     .arrowIconLeft {
                     @include arrowIcon;
                     font-size: 40px;
@@ -147,77 +148,83 @@
                     right: 0;
                     transform: translateY(-50%);
                     }
-                    .slider {
-                        max-width: 900px;
-                        height: 190px;
-                        margin: auto 46px;
-                        position: relative;
-                        overflow: hidden;
-                        .slidewrap {
-                            width: 3500px;
-                            position: absolute;
-                            transform: translateX(-200px);
-                            .paicipantCard {
-                                width: 130px;
-                                margin: 5px 5px;
-                                padding: 10px 0px;
-                                background: $hoverClr;
-                                text-align: center;
-                                .avatar {
-                                    width: 100px;
-                                    height: 100px;
-                                    border-radius: 50%;
-                                    margin: auto ;
-                                    overflow: hidden;
-                                    background: lightsalmon;
-                                    img {
-                                        @include imgWH;
-                                        object-fit: cover;
-                                    }
-                                }
-                                .userName {
-                                    font-size: $contentText;
-                                }
-                                
-                            }
-                        }
-                    }
-                    
                 }
-                .userIntro {
-                    display: none;
-                }
-                &:hover {
-                    .userIntro {
-                        background-color: white;
-                        width: 200px;
-                        padding: 15px;
-                        text-align: justify;
-                        border: 3px  dashed $subClrBrown;
-                        border-radius: 10px;
-                        box-shadow: .2px .2px 5px #e0e0e0;
-                        display: block;
+                .slider {
+                    max-width: 900px;
+                    height: 250px;
+                    margin: auto 46px;
+                    position: relative;
+                    top: 40px;
+                    overflow: hidden;
+                    .slidewrap {
+                        width: 3500px;
                         position: absolute;
-                        top: -150px;
-                        left: 10px;
-                        // z-index: 2;
-                        p {
-                            padding: 0; 
-                            margin: 0;
-                            .quoteIcon {
-                                color: $contentClr;
-                                font-size: 14px;
-                                margin: 0 5px;
+                        // transform: translateX(-200px);
+                        .paicipantCard {
+                            width: 130px;
+                            margin: 5px 5px;
+                            padding: 10px 0px;
+                            background: $hoverClr;
+                            box-shadow: 1px 1px 5px $hoverClr;
+                            text-align: center;
+                            &:hover .userIntro{
+                                transition: .5s;
+                                opacity: 1;
+                            }   
+                            .avatar {
+                                width: 110px;
+                                height: 110px;
+                                border-radius: 50%;
+                                border: 1px solid $hoverClr;
+                                margin: auto ;
+                                overflow: hidden;
+                                img {
+                                    @include imgWH;
+                                    object-fit: cover;
+                                }
                             }
+                            .userName {
+                                font-size: $contentText;
+                            }
+                            // .userIntro1{
+                            //     font-size: 12px;
+                            //     display: -webkit-box;
+                            //     -webkit-box-orient: vertical;
+                            //     -webkit-line-clamp: 2;
+                            //     overflow: hidden;
+                            // }
+                            .userIntro {
+                                background: white;
+                                position: absolute;
+                                top: 5px;
+                                width: 130px;
+                                min-height: 170px;
+                                padding: 15px;
+                                text-align: justify;
+                                border-radius: 12px;
+                                box-shadow: .2px .2px 5px #e0e0e0;
+                                display: block;
+                                font-size: 13px;
+                                opacity: 0;
+                                .quoteIcon {
+                                    color: $contentClr;
+                                    font-size: 12px;
+                                    margin: 0 5px;
+                                }           
+                            }               
+                            
                         }
-                    } 
+                           
+
+                    }
                 }
+               
             }
         }
          // --------- 側邊資訊欄 ---------
-         .asideMessageFix {
-        min-width: 250px;
-        width: 20rem;
+         .asideMessage {
+        min-width: 280px;
+        width: 330px;
         position: sticky;
         top: 0;
         right: 0;
@@ -233,7 +240,7 @@
             background: $focusClrY;
             border-radius: 2rem;
             color: $mainClrW;
-            padding: 0 7px;
+            padding: 2px 7px;
 
         }
         .calendarIcon, .mapMarkerIcon, .personIcon {
@@ -241,9 +248,9 @@
             margin: -3px 5px 0 0;
         }
         .map {
-            width: 100%;
-            height: 150px;
-            border: 1px solid; 
+            width: 280px;
+            height: 100%;
+            border: 1px solid #8b8b8b; 
         }
         .price {
             color: $contentClr;
@@ -252,10 +259,13 @@
         .joinInBtn {
             color: $mainClrW;
             background: $subClrBrown;
-            border-radius: 2px;
-            padding: 1px 8px;
+            border-radius: 4px;
+            padding: 5px 9px;
+            border: none;
+            &:hover {
+                outline: 3px solid #817161b8;
+            }
         }
-
         }
     }   
      // --------- 推薦商品 ---------
@@ -328,7 +338,11 @@
                             top: 0;
                             opacity: 0;
                         }
+                        a{
+                            width: 100%;
+                        }
                         span {
+                            width: 100%;
                             display: inline-block;
                             text-shadow: .5px .5px 1px $contentClr;
                             font-size: $contentText;
@@ -339,6 +353,9 @@
                                 cursor: pointer;
                                 transition: .5s;
                                 opacity: 1;
+                            }
+                            span{
+                                color: white;
                             }
                         }
                     }
@@ -366,7 +383,7 @@
             flex-direction: column;
             margin:5px 1px;
             padding: 20px ;
-            box-shadow: .5px .5px 2px $subClrGY;
+            box-shadow: .5px .5px 6px $subClrGY;
             .date {
                 font-size: $text14;
             }
@@ -431,8 +448,6 @@
 
             }
         }
-    
-
     }
 
 

@@ -26,6 +26,18 @@ const Header = ({ fixed = true }) => {
   const [scrollDown, setScrollDown] = useState(false);
   const [userSelectActive, setUserSelectActive] = useState(false);
 
+  const [menu, setMenu] = useState(false);
+
+  // viewportWidth state for RWD design
+  const [vw, setVw] = useState(window.innerWidth);
+  const windowResize = () => setVw(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', windowResize);
+  }, []);
+  useEffect(() => {
+    if (vw > 768) setMenu(false);
+  }, [vw]);
+
   // enter search bar
   const userAvatorClickHandler = () => {
     if (userSelectActive) return setUserSelectActive(false);
@@ -33,7 +45,7 @@ const Header = ({ fixed = true }) => {
   };
 
   // SHOW header
-  let scrollY = window.scrollY;
+  let scrollY = window.scrollY < 65 ? 65 : window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
     setScrollDown(scrollNow > scrollY);
@@ -55,11 +67,17 @@ const Header = ({ fixed = true }) => {
       <IconContext.Provider
         value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
       >
+        <i
+          className={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
+          onClick={() => setMenu(!menu)}
+        ></i>
         <Link to="/" className="headerTitle">
           <h1 className="m-0 header-item">LIFE</h1>
         </Link>
         {/* NAV BAR */}
-        <nav className="flexCenter header-item">
+        <nav
+          className={`flexCenter header-item ${menu ? 'active shadow-sm' : ''}`}
+        >
           <ul className="nav list-unstyled flexCenter">
             {pages.map((p) => {
               return (

@@ -35,10 +35,9 @@ function ActivitySliderPrice({
           onAfterChange={log}
         />
         <div className={classes.sliderSearch}>
-          <div>
+          <div className={classes.priceText}>
             ${minPrice} - ${maxPrice}
           </div>
-          {/* <button>篩選</button> */}
         </div>
       </div>
     </>

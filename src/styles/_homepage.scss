@@ -10,6 +10,9 @@
 
 .homepage {
   padding: 4.5rem 0;
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+  }
   .hPnewsContainer,
   .hPproductContainer,
   .hPrecipeContainer,
@@ -20,6 +23,15 @@
   }
   .hPrecipeActivity {
     margin-top: 8rem;
+    @media (max-width: 1200px) {
+      margin-top: 6rem;
+    }
+    @media (max-width: 1000px) {
+      margin-top: 4rem;
+    }
+    @media (max-width: 765px) {
+      margin-top: 2rem;
+    }
   }
   .recipeCard {
     margin: 2rem 0;
@@ -41,6 +53,12 @@
     height: 1px;
     background: $hoverClr;
     margin: 5rem 0;
+    @media (max-width: 768px) {
+      margin: 3rem 0;
+    }
+    @media (max-width: 500px) {
+      margin: 1.5rem 0;
+    }
   }
 
   a,

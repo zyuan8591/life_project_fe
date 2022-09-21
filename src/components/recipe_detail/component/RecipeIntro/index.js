@@ -6,6 +6,9 @@ import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { Link } from 'react-router-dom';
 import { API_URL_IMG } from '../../../../utils/config';
+import Notification from '../../../activity/Notification';
+import { useUserRights } from '../../../../usecontext/UserRights';
+import BreadCrumb from '../../../public_component/BreadCrumb';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
@@ -102,10 +105,12 @@ const materialMain = css`
   flex-wrap: wrap;
 `;
 
-const RecipeIntro = ({ data, id, setRecipeData }) => {
+const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn, setToast }) => {
   // get recipe material
   const [material, setMaterial] = useState([]);
   const [like, setLike] = useState(false);
+
+  const { user } = useUserRights();
 
   useEffect(() => {
     (async () => {
@@ -120,6 +125,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
 
   // recipe like
   const likeHandler = async () => {
+    if (!user) return setLoginBtn(true);
     if (!like) {
       await axios.post(
         `${API_URL}/recipes/${id}/like`,
@@ -127,12 +133,17 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
         { withCredentials: true }
       );
       setLike(true);
+      setToast(1);
     } else {
       await axios.delete(`${API_URL}/recipes/${id}/like`, {
         withCredentials: true,
       });
       setLike(false);
+      setToast(2);
     }
+    setTimeout(() => {
+      setToast(0);
+    }, 2000);
     // recipe detail
     let result = await axios.get(`${API_URL}/recipes/${id}`);
     setRecipeData(result.data[0]);
@@ -140,6 +151,7 @@ const RecipeIntro = ({ data, id, setRecipeData }) => {
 
   return (
     <>
+      <BreadCrumb last={data.name} />
       {/* Title */}
       <div css={recipeName}>
         {data.name}

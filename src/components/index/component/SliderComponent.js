@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import classes from '../../../styles/moduleCss/index/slider.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -31,7 +31,6 @@ const SliderComponent = () => {
       <Slider {...settings}>
         <div>
           <figure className={classes.textSliderContainer}>
-            {/* <img src={slideImg1} alt="slide1" className="objectContain" /> */}
             <img
               src="/img/index/slide/slide1.jpg"
               alt="slide1"
