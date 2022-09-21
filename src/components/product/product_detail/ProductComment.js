@@ -5,7 +5,7 @@ import '../../../styles/product/_productComment.scss';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
-const img = '/img/product/product_avatar/avatar.png';
+import { API_URL_IMG } from '../../../utils/config';
 
 const ProductComment = () => {
   const [comment, setComment] = useState([]);
@@ -38,7 +38,7 @@ const ProductComment = () => {
         <div className="d-flex">
           <div className="avatarArea">
             <figure>
-              <img src={img} alt="" />
+              <img src={`${API_URL_IMG}${user.photo}`} alt="" />
             </figure>
             <div>
               {[...Array(5)].map((star, i) => {
@@ -87,7 +87,7 @@ const ProductComment = () => {
               <div className="d-flex justify-content-between">
                 <div className="avatar">
                   <figure>
-                    <img src={`/img/user/user_img/${user.photo}`} alt="" />
+                    <img src={`${API_URL_IMG}${v.photo}`} alt="" />
                   </figure>
                   <p>{v.name}</p>
                 </div>

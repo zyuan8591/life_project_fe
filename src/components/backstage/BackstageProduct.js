@@ -6,15 +6,50 @@ import Contact from '../contact/Contact';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaTrashAlt } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { API_URL } from '../../utils/config';
+import AddProduct from './component/AddProduct';
+import UpdateProduct from './component/UpdateProduct';
 
 function Backstage() {
+  const [productData, setProductData] = useState([]);
+  const [pageNow, setPageNow] = useState(1);
+  const [lastPage, setLastPage] = useState(0);
+  const [addPage, setAddPage] = useState(false);
+  const [updatePage, setUpdatePage] = useState(false);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/products/1/backstage?page=${pageNow}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log(result.data);
+      setProductData(result.data.data);
+      setLastPage(result.data.pagination.lastPage);
+    })();
+  }, [pageNow, lastPage]);
   return (
     <>
       <Header />
+      {addPage ? <AddProduct setAddPage={setAddPage} /> : ''}
+      {updatePage ? <UpdateProduct setUpdatePage={setUpdatePage} /> : ''}
       <IconContext.Provider
         value={{ color: '#817161', size: '1.5em', className: 'icons' }}
       >
         <div className="backstageContainer">
+          <button
+            className="addBtn"
+            onClick={(e) => {
+              e.preventDefault();
+              setAddPage(true);
+            }}
+          >
+            新增商品
+          </button>
           <table>
             <thead>
               <tr>
@@ -31,37 +66,61 @@ function Backstage() {
                 <th></th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td>
-                  <div className="titleImg">
-                    <img
-                      src="/img/camping/activity_camping_img/camping_01_01.jpeg"
-                      alt="/"
-                    />
-                  </div>
-                </td>
-                <td>露營Fun輕鬆</td>
-                <td>勤美學</td>
-                <td>苗栗縣造橋鄉豐湖村1鄰乳姑山15-3號</td>
-                <td className="text-center">3,680</td>
-                <td>2022/08/31 ~2022/09/01</td>
-                <td>2022/08/01 ~2022/08/25</td>
-                <td className="text-center">15</td>
-                <td>開團已截止</td>
-                <td>
-                  <BsPencilSquare />
-                </td>
-                <td>
-                  <FaTrashAlt />
-                </td>
-              </tr>
+              {productData.map((v) => {
+                let {
+                  id,
+                  name,
+                  price,
+                  inventory,
+                  img,
+                  intro,
+                  spec,
+                  valid,
+                  color,
+                } = v;
+                return (
+                  <tr>
+                    <td>
+                      <div className="titleImg">
+                        <img src={`/img/product/product_img/${img}`} alt="/" />
+                      </div>
+                    </td>
+                    <td>{name}</td>
+                    <td></td>
+                    <td>{inventory}</td>
+                    <td className="text-center">{price}</td>
+                    <td>{color}</td>
+                    <td className="ellipsis">
+                      <span>{intro}</span>
+                    </td>
+                    <td className="text-center ellipsis">
+                      <span>{spec}</span>
+                    </td>
+                    <td>{valid === 1 ? '上架中' : '下架中'}</td>
+                    <td>
+                      <div
+                        onClick={() => {
+                          setUpdatePage(true);
+                        }}
+                      >
+                        <BsPencilSquare />
+                      </div>
+                    </td>
+                    <td>
+                      <FaTrashAlt />
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          <PaginationBar />
-          {/* lastPage={lastPage}
-          pageNow={page}
-          setPageNow={setPage} */}
+          <PaginationBar
+            lastPage={lastPage}
+            pageNow={pageNow}
+            setPageNow={setPageNow}
+          />
           <Contact />
         </div>
       </IconContext.Provider>
