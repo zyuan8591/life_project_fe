@@ -45,7 +45,7 @@ const Header = ({ fixed = true }) => {
   };
 
   // SHOW header
-  let scrollY = window.scrollY;
+  let scrollY = window.scrollY < 65 ? 65 : window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
     setScrollDown(scrollNow > scrollY);
