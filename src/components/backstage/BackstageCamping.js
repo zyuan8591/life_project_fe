@@ -23,23 +23,22 @@ function Backstage() {
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
   const [updateData, setUpdateData] = useState([]);
+
   useEffect(() => {
     let getCampingData = async () => {
       let response = await axios.get(
         `${API_URL}/camping/backstage?order=${order}&page=${page}`
       );
-      // console.log(response.data.pagination.total);
       setLastPage(response.data.pagination.lastPage);
-
       setCampingData(response.data.result);
     };
     getCampingData();
   }, [page, order]);
 
-  const handleSubmit = async (id) => {
-    console.log(id);
-    let response = await axios.delete(`${API_URL}/campingDel/${id}`);
-    console.log('del', response.data);
+  const handleSubmit = async (campingId) => {
+    console.log(campingId);
+    // let response = await axios.put(`${API_URL}/campingDel/${campingId}`);
+    // console.log('del', response.data);
   };
   return (
     <>
