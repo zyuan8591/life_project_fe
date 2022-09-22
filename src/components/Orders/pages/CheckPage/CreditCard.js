@@ -1,23 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../../../../styles/Order/creditCard.scss';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 
 function CreditCard({ values, setFieldValue }) {
   const [isFlip, setIsFlip] = useState(false);
   const cardNumRef = useRef(null);
-  const cardMonth = useRef(null);
-  const cardDate = useRef(null);
-  const cardCheck = useRef(null);
+  const cardMonthRef = useRef(null);
+  const cardYearRef = useRef(null);
+  const cardCvcRef = useRef(null);
+  const cardNameRef = useRef(null);
   const [cardNum, setCardNum] = useState('');
   const [focusSec, setFocusSec] = useState(0);
-  const [cardCcv, setCardCcv] = useState('');
+  const [cardCvc, setCardCvc] = useState('');
+  const [cardName, setCardName] = useState('');
 
-  // console.log('first', cardNum);
-
-  // switch (focusSec) {
-  //   case 1:
-  //     return;
-  // }
+  const makeOptions = (min, max) => {
+    const options = [];
+    for (let i = min; i < max + 1; i++) {
+      options.push(String(i));
+    }
+    return options;
+  };
 
   useEffect(() => {
     // console.log(values.cardNumber);
@@ -25,9 +28,13 @@ function CreditCard({ values, setFieldValue }) {
   }, [values.cardNumber]);
 
   useEffect(() => {
-    setCardCcv(values.cCardCheck);
-  }, [values.cCardCheck]);
-  console.log(cardCcv);
+    setCardCvc(values.cardCvc);
+  }, [values.cardCvc]);
+  console.log(cardCvc);
+
+  useEffect(() => {
+    setCardName(values.cardName);
+  }, [values.cardName]);
 
   let cardNumRows = cardNum.split('');
   // console.log(cardNumRows);
@@ -51,7 +58,18 @@ function CreditCard({ values, setFieldValue }) {
     return cardNumRow;
   };
 
-  console.log(cardNumRows);
+  // console.log(cardNumRows);
+
+  let cardExpirationDate = 'MM/YY';
+
+  cardExpirationDate = cardExpirationDate.replace(
+    /MM/,
+    values.cardMonth || 'MM'
+  );
+  cardExpirationDate = cardExpirationDate.replace(
+    /YY/,
+    values.cardYear || 'YY'
+  );
 
   return (
     <>
@@ -63,7 +81,7 @@ function CreditCard({ values, setFieldValue }) {
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
                     <Field name="cardNumber">
-                      {({ field, meta }) => {
+                      {({ field }) => {
                         return (
                           <>
                             <label className="mb-2">卡號</label>
@@ -98,22 +116,58 @@ function CreditCard({ values, setFieldValue }) {
             </div>
             <div className="row mb-3">
               <div className="col">
+                <Field name="cardName">
+                  {({ field }) => {
+                    return (
+                      <>
+                        <label className="mb-2">持卡人</label>
+                        <input
+                          type="text"
+                          {...field}
+                          ref={cardNameRef}
+                          values={values.cardName}
+                          onFocus={() => {
+                            setIsFlip(false);
+                          }}
+                        />
+                        <ErrorMessage name="cardName">
+                          {(err) => {
+                            <p className="text-danger">{err}</p>;
+                          }}
+                        </ErrorMessage>
+                      </>
+                    );
+                  }}
+                </Field>
+              </div>
+            </div>
+            <div className="row align-items-center gap-2">
+              <div className="col">
                 <label className="mb-2">到期日</label>
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
-                    <Field name="cCardMonth" as="select">
-                      {({ field, meta }) => {
+                    <Field name="cardMonth">
+                      {({ field }) => {
                         return (
                           <>
                             <select
                               {...field}
-                              ref={cardMonth}
-                              values={values.cCardMonth}
+                              ref={cardMonthRef}
+                              value={values.cardMonth}
                               onFocus={() => {
                                 setIsFlip(false);
                               }}
-                            ></select>
-                            <ErrorMessage name="cCardMonth">
+                            >
+                              <option value="">月</option>
+                              {makeOptions(1, 12).map((v, i) => {
+                                return (
+                                  <option key={i} value={v}>
+                                    {v}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                            <ErrorMessage name="cardMonth">
                               {(err) => {
                                 <p className="text-danger">{err}</p>;
                               }}
@@ -125,21 +179,28 @@ function CreditCard({ values, setFieldValue }) {
                   </div>
                   /
                   <div className="col">
-                    <Field name="cCardDate">
-                      {({ field, meta }) => {
+                    <Field name="cardYear">
+                      {({ field }) => {
                         return (
                           <>
-                            <input
-                              type="text"
-                              maxLength={2}
+                            <select
                               {...field}
-                              ref={cardDate}
-                              values={values.cCardDate}
+                              ref={cardYearRef}
+                              value={values.cardYear}
                               onFocus={() => {
                                 setIsFlip(false);
                               }}
-                            />
-                            <ErrorMessage name="cCardDate">
+                            >
+                              <option value="">年</option>
+                              {makeOptions(2020, 2031).map((v, i) => {
+                                return (
+                                  <option key={i} value={v}>
+                                    {v}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                            <ErrorMessage name="cardYear">
                               {(err) => {
                                 <p className="text-danger">{err}</p>;
                               }}
@@ -151,10 +212,9 @@ function CreditCard({ values, setFieldValue }) {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row align-items-center">
+
               <div className="col">
-                <Field name="cCardCheck">
+                <Field name="cardCvc">
                   {({ field }) => {
                     return (
                       <>
@@ -163,13 +223,13 @@ function CreditCard({ values, setFieldValue }) {
                           type="text"
                           maxLength={3}
                           {...field}
-                          ref={cardCheck}
-                          values={values.cCardCheck}
+                          ref={cardCvcRef}
+                          values={values.cardCvc}
                           onFocus={() => {
                             setIsFlip(true);
                           }}
                         />
-                        <ErrorMessage name="cCardCheck">
+                        <ErrorMessage name="cardCvc">
                           {(err) => {
                             <p className="text-danger">{err}</p>;
                           }}
@@ -182,78 +242,56 @@ function CreditCard({ values, setFieldValue }) {
             </div>
           </div>
           <div className="col px-5 py-3">
-            {/* TODO: focus */}
             <div className={`cCard  ${isFlip ? 'active' : ''}`}>
               <div className="cardFront">
                 <div className="cardBackground">
                   <img src="https://i.imgur.com/5XHCjPT.jpg" alt="" />
                 </div>
                 <div className="cardWrapper">
-                  <div className="card__top">
-                    <div className="card__chip-icon">
+                  <div className="cardTop">
+                    <div className="cardChipIcon">
                       <img src="https://i.imgur.com/7xhP2ZA.png" alt="" />
                     </div>
-                    <div className="card__visa-icon">
+                    <div className="cardVisaIcon">
                       <img src="https://i.imgur.com/lokBLnp.png" alt="" />
                     </div>
                   </div>
                   <div
-                    // TODO: border
                     className={`cardNumber ${focusSec === 1 ? 'active' : ''}`}
-                    onClick={() => {
-                      // handleSetFocusSection('cc-number');
-                      // handleSetIsInputFocused(true);
-                    }}
-                    // ref={cardItemRefs.ccNumberRef}
                   >
                     {getCardNum()}
                   </div>
-                  <div className="card__content">
-                    <div
-                      className="card__card-holder"
-                      onClick={() => {
-                        // handleSetFocusSection('cc-name');
-                        // handleSetIsInputFocused(true);
-                      }}
-                      // ref={cardItemRefs.ccNameRef}
-                    >
-                      <div className="card__card-holder-title">Card Holder</div>
-                      <div className="card__card-holder-name">
-                        {/* {props.cardHolder || 'FULL NAME'} */}
+                  <div className="cardContent">
+                    <div className="cardHolder">
+                      <div className="cardHolderTitle">Card Holder</div>
+                      <div className="cardHolderName" ref={cardNameRef}>
+                        <span>{cardName || 'FULL NAME'}</span>
                       </div>
                     </div>
-                    <div
-                      className="card__expires"
-                      onClick={() => {
-                        // handleSetFocusSection('cc-exp');
-                        // handleSetIsInputFocused(true);
-                      }}
-                      // ref={cardItemRefs.ccExpRef}
-                    >
-                      <div className="card__expires-title">Expires</div>
-                      <div className="card__expires-date">
-                        {/* {cardExpirationDate} */}
+                    <div className="cardExpires">
+                      <div className="cardExpiresTitle">Expires</div>
+                      <div className="cardExpiresDate">
+                        {cardExpirationDate}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="cardBack">
-                <div className="focus-box" />
                 <div className="cardBackground">
                   <img src="https://i.imgur.com/5XHCjPT.jpg" alt="" />
                 </div>
-                <div className="card__top">
-                  <div className="card__black-line"></div>
+                <div className="cardTop">
+                  <div className="cardBlackLine"></div>
                 </div>
-                <div className="card__card-cvc">
-                  <div className="card__card-cvc-title">
-                    <span ref={cardCheck}>{cardCcv}</span>
+                <div className="cardCvc">
+                  <div className="cardCvcTitle">
+                    <span ref={cardCvcRef}>{cardCvc}</span>
                   </div>
-                  <div className="card__card-cvc-number"></div>
+                  <div className="cardCvcNumber"></div>
                 </div>
-                <div className="card__bottom">
-                  <div className="card__visa-icon">
+                <div className="cardBottom">
+                  <div className="cardVisaIcon">
                     <img src="https://i.imgur.com/lokBLnp.png" alt="" />
                   </div>
                 </div>

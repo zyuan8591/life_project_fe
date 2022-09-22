@@ -68,9 +68,10 @@ const CheckOut = () => {
     memo: '',
     payment: '',
     cardNumber: '',
-    cCardMonth: '',
-    cCardDate: '',
-    cCardCheck: '',
+    cardName:'',
+    cardMonth: '',
+    cardYear: '',
+    cardCvc: '',
     // productItems:[{}]
     // productTotal:10000
   };
@@ -110,23 +111,24 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
-          cardNumber: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required('87'),
-          }),
+          // cardNumber: yup.string().when('payment', {
+          //   is: 'payment' === 4,
+          //   then: yup.string().required('87'),
+          // }),
+          // cardName:yup.string().required(),
 
-          cCardMonth: yup.string().when('payment', {
-            is: 4,
-            then: yup.string().required,
-          }),
-          cCardDate: yup.string().when('payment', {
-            is: 4,
-            then: yup.string().required('87'),
-          }),
-          cCardCheck: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required('sdfas'),
-          }),
+          // cardMonth: yup.string().when('payment', {
+          //   is: 4,
+          //   then: yup.string().required,
+          // }),
+          // cardYear: yup.string().when('payment', {
+          //   is: 4,
+          //   then: yup.string().required('87'),
+          // }),
+          // cardCvc: yup.string().when('payment', {
+          //   is: 'payment' === 4,
+          //   then: yup.string().required('sdfas'),
+          // }),
         })}
         onSubmit={async (values) => {
           try {
