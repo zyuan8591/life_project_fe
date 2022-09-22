@@ -15,15 +15,28 @@ const commentContainer = css`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-column-gap: 1rem;
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const recommend = css`
   border: 2px solid ${subClrBrown};
 `;
 const avatorContainer = css`
   max-width: 70px;
+  @media (max-width: 500px) {
+    max-width: 50px;
+  }
 `;
-const borderBottom = css`
+const userDetail = css`
   border-bottom: 1px solid ${subClrBrown};
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    & :last-child {
+      font-size: 12px;
+    }
+  }
 `;
 const commentArea = css`
   resize: none;
@@ -101,7 +114,7 @@ const RecipeComments = ({
               </figure>
               <div className="d-flex flex-column w-100 ps-2 pe-3">
                 <div
-                  css={borderBottom}
+                  css={userDetail}
                   className="d-flex justify-content-between"
                 >
                   <span>{d.name}</span>

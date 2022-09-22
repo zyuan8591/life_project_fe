@@ -11,6 +11,9 @@ const container = css`
   border-bottom: 1px solid #eee;
   padding: 1rem 0;
   gap: 1rem;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const imgContainer = css`
   display: flex;
@@ -19,6 +22,9 @@ const imgContainer = css`
   justify-content: center;
   background: #eee;
   border-radius: 3px;
+  @media (max-width: 900px) {
+    min-height: 150px;
+  }
 `;
 
 const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
