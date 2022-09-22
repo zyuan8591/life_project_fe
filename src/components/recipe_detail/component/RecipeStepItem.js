@@ -28,6 +28,9 @@ const recipeImgContainer = css`
   max-width: 300px;
   overflow: hidden;
   border: 3px solid transparent;
+  @media (max-width: 1024px) {
+    max-width: 250px;
+  }
 `;
 const eggIcon = css``;
 const textContainer = css`
@@ -40,7 +43,7 @@ const textContent = css`
   border: 2px solid #444;
 `;
 
-const RecipeStepItem = ({ i, img, content, position, stepNow }) => {
+const RecipeStepItem = ({ i, img, content, position, stepNow, setStepNow }) => {
   let align = ['align-slef-center', 'align-self-start'];
   return (
     <div
@@ -48,6 +51,7 @@ const RecipeStepItem = ({ i, img, content, position, stepNow }) => {
         align[position]
       } ${stepNow === i ? 'active' : ''}`}
       css={container}
+      onClick={() => setStepNow(i)}
     >
       <figure className="m-0 position-relative" css={iconContainer}>
         <img

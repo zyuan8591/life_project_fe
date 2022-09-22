@@ -73,8 +73,21 @@ const Recipes = () => {
 
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
+  const [productCate, setProductCate] = useState([]);
   const [recipeList, setRecipeList] = useState([]);
   const [lastPage, setLastPage] = useState(0);
+  const [vw, setVw] = useState(window.innerWidth);
+
+  const setViewPortWidth = () => setVw(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', setViewPortWidth);
+    return function clean() {
+      window.removeEventListener('resize', setViewPortWidth);
+    };
+  }, []);
+  useEffect(() => {
+    if (vw < 765) setDisplayMode(1);
+  }, [vw]);
 
   // sql query data
   const [pageNow, setPageNow] = useState(1);
@@ -90,6 +103,9 @@ const Recipes = () => {
       let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
       let recipeCateData = recipeCateResult.data;
       setRecipeCate([{ id: 0, name: '所有分類' }, ...recipeCateData]);
+      let productCateResult = await axios.get(`${API_URL}/products/category`);
+      let productCateData = productCateResult.data;
+      setProductCate([{ id: 0, name: '所有分類' }, ...productCateData]);
     })();
     searchParams.get('searchName') &&
       setSearchName(searchParams.get('searchName'));
@@ -205,15 +221,32 @@ const Recipes = () => {
                   cateNum={d.id}
                   content={d.name}
                   active={i === parseInt(recipeCateNow) ? true : false}
+                  type="recipeCate"
                 />
               </div>
             );
           })}
         </div>
+        {vw < 1000 && (
+          <div className="recipesCateBtnGroup mb-3">
+            {productCate.map((d, i) => {
+              return (
+                <div key={d.id}>
+                  <RecipeCateBtn
+                    cateNum={d.id}
+                    content={d.name}
+                    active={i === parseInt(productCateNow) ? true : false}
+                    type="productCate"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        )}
         <div className="recipeToolBar">
           {/* search Button... */}
           <div className="recipeSearchBar">
-            <span className="searchFor flexCenter">找食譜</span>
+            <span className="searchFor flexCenter text-nowrap">找食譜</span>
             <input
               type="text"
               className="searchForName"
@@ -221,13 +254,15 @@ const Recipes = () => {
               value={searchName}
               onChange={(e) => searchNameHandler(e)}
             />
-            <input
-              type="text"
-              className="searchForMaterial"
-              placeholder="請輸入食材名稱"
-              value={searchMaterial}
-              onChange={(e) => searchMaterialHandler(e)}
-            />
+            {vw > 500 && (
+              <input
+                type="text"
+                className="searchForMaterial"
+                placeholder="請輸入食材名稱"
+                value={searchMaterial}
+                onChange={(e) => searchMaterialHandler(e)}
+              />
+            )}
             <div className="recipesSearchBtn">
               <IconContext.Provider
                 value={{ size: '1.5rem', className: 'RecipeSearchBtnSvg' }}
@@ -264,31 +299,37 @@ const Recipes = () => {
         </div>
         {/* Main Section */}
         <div className="recipeListMain">
-          <div className="position-sticky top-0 align-self-start">
-            <ProductCategory setProductCateNow={setProductCateNowFunc} />
-          </div>
+          {vw > 1000 && (
+            <div className="position-sticky top-0 align-self-start">
+              <ProductCategory setProductCateNow={setProductCateNowFunc} />
+            </div>
+          )}
           <div className="recipeList">
             {/* Choose mode and filter */}
             <div className="recipeMainToolBar flexCenter mb-3">
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
               >
-                <div
-                  className={`recipeListMode ${
-                    displayMode === 0 ? 'active' : ''
-                  }`}
-                  onClick={() => setDisplayMode(parseInt(0))}
-                >
-                  <AiOutlineBars />
-                </div>
-                <div
-                  className={`recipeBlockMode ${
-                    displayMode === 1 ? 'active' : ''
-                  }`}
-                  onClick={() => setDisplayMode(parseInt(1))}
-                >
-                  <AiOutlineAppstore />
-                </div>
+                {vw > 765 && (
+                  <>
+                    <div
+                      className={`recipeListMode ${
+                        displayMode === 0 ? 'active' : ''
+                      }`}
+                      onClick={() => setDisplayMode(parseInt(0))}
+                    >
+                      <AiOutlineBars />
+                    </div>
+                    <div
+                      className={`recipeBlockMode ${
+                        displayMode === 1 ? 'active' : ''
+                      }`}
+                      onClick={() => setDisplayMode(parseInt(1))}
+                    >
+                      <AiOutlineAppstore />
+                    </div>
+                  </>
+                )}
               </IconContext.Provider>
               <Select
                 defaultValue={sortOption[0]}
