@@ -13,25 +13,28 @@ import AddProduct from './component/AddProduct';
 import UpdateProduct from './component/UpdateProduct';
 
 function Backstage() {
-  const [productData, setProductData] = useState([]);
+  const [productsData, setProductsData] = useState([]);
+  const [productData, setProductData] = useState({});
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products/backstage?page=${pageNow}&brand=1`,
+        `${API_URL}/products/backstage?page=${pageNow}&brand=11`,
         {
           withCredentials: true,
         }
       );
 
-      console.log(result.data);
-      setProductData(result.data.data);
+      // console.log(result.data);
+      setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
   }, [pageNow, lastPage]);
+
   return (
     <>
       <Header />
@@ -68,7 +71,7 @@ function Backstage() {
             </thead>
 
             <tbody>
-              {productData.map((v) => {
+              {productsData.map((v) => {
                 let {
                   id,
                   name,
@@ -80,6 +83,12 @@ function Backstage() {
                   valid,
                   color,
                 } = v;
+                {
+                  /* console.log(v); */
+                }
+
+                {/* setProductData({ id: v.id }); */}
+
                 return (
                   <tr>
                     <td>

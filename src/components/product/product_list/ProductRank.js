@@ -1,12 +1,21 @@
 import React from 'react';
 import '../../../styles/product/_productList.scss';
 import Slider from '../product_detail/Slider';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BreadCrumb from '../../public_component/BreadCrumb';
-const slideImg = '/img/product/product_img/BRUNO_BOE021_RD_01.jpeg';
+import axios from 'axios';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
 
 const ProductRank = () => {
   const [now, setNow] = useState(0);
+  const [rankData, setRankData] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/rank`);
+      // console.log(result.data);
+      setRankData(result.data);
+    })();
+  }, []);
   return (
     <div className="reset">
       <div className="d-flex align-items-center justify-content-between title">
@@ -26,13 +35,14 @@ const ProductRank = () => {
         itemWidth={250 + 38}
       >
         <div
-          className="d-flex justify-content-between test1"
+          className="d-flex justify-content-between rankContainer"
           style={{
             transform: `translateX(${now}px)`,
             transition: '0.4s',
           }}
         >
-          {[...Array(15)].map((v, i) => {
+          {rankData.map((v, i) => {
+            let { name, color, img } = v;
             return (
               <div className="rank" key={i}>
                 <div
@@ -43,9 +53,14 @@ const ProductRank = () => {
                   <p>{i + 1}</p>
                 </div>
                 <figure>
-                  <img src={slideImg} alt="" />
+                  <img
+                    src={`${API_URL_IMG}/product/product_img/${img}`}
+                    alt=""
+                  />
                 </figure>
-                <p>BOE021 多功能電烤盤-經典款（紅色）</p>
+                <p>
+                  {name}（{color}）
+                </p>
               </div>
             );
           })}
