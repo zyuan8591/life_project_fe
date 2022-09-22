@@ -1,40 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import '../../../styles/backstage/_addCamping.scss';
+import '../../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
-import { AiOutlineCamera } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
 import { GiCampingTent } from 'react-icons/gi';
 
 import axios from 'axios';
-import { API_URL } from '../../../utils/config';
-import Notification from '../../activity/Notification';
+import { API_URL } from '../../../../utils/config';
+import Notification from '../../../activity/Notification';
 import AddImgCamping from './AddImgCamping';
 import AddImgCamping2 from './AddImgCamping2';
 import AddImgCamping3 from './AddImgCamping3';
+
 function AddPage({ setAddPage }) {
-  const counties = { 1: '新北市', 2: '台南市' };
+  const counties = {
+    1: '台北市',
+    2: '新北市',
+    3: '基隆市',
+    4: '桃園市',
+    5: '新竹市',
+    6: '新竹縣',
+    7: '苗栗縣',
+    8: '台中市',
+    9: '彰化縣',
+    10: '南投縣',
+    11: '雲林縣',
+    12: '嘉義市',
+    13: '嘉義縣',
+    14: '台南市',
+    15: '高雄市',
+    16: '屏東縣',
+    17: '台東縣',
+    18: '花蓮縣',
+    19: '宜蘭縣',
+  };
+  const location = Object.keys(counties);
 
   const [errMsg, setErrMsg] = useState(false);
   const [loginBtn, setLoginBtn] = useState(false);
 
   const [camping, setCamping] = useState({
-    title: '露營吧！',
-    place: '享靜靜露營區',
-    lat: '24.965723410923705',
-    price: '1000',
-    pepCount: '15',
-    lng: '121.43240848267295',
-    actStartDate: '2022-12-12',
-    actEndDate: '2022-12-13',
-    startDate: '2022-11-01',
-    endDate: '2022-11-30',
-    county: '1',
-    address: '土城區',
-    actInt: 'hhhhhhhh',
-    actLodging: 'cccccccccc',
-    photo1: '',
-    photo2: '',
-    photo3: '',
+    title: '',
+    place: '',
+    lat: '',
+    price: '',
+    pepCount: '',
+    lng: '',
+    actStartDate: '',
+    actEndDate: '',
+    startDate: '',
+    endDate: '',
+    county: '',
+    address: '',
+    actInt: '',
+    actLodging: '',
+    photo: '',
   });
 
   function handleChange(e) {
@@ -47,8 +66,8 @@ function AddPage({ setAddPage }) {
       countyName: counties[nowCounty],
     };
 
-    setCamping(campingData);
     console.log(campingData);
+    setCamping(campingData);
   }
 
   // function handleUpload(e) {
@@ -121,9 +140,11 @@ function AddPage({ setAddPage }) {
       formData.append('actLodging', camping.actLodging);
       formData.append('countyName', camping.countyName);
       formData.append('photo1', camping.photo1);
-      formData.append('photo2', camping.photo2);
-      formData.append('photo3', camping.photo3);
-
+      formData.append('photo1', camping.photo2);
+      formData.append('photo1', camping.photo3);
+      // formData.append('photo2', camping.photo2);
+      // formData.append('photo3', camping.photo3);
+      // idben.chen@gmail.com
       let response = await axios.post(
         `${API_URL}/camping/campingAdd`,
         formData
@@ -141,7 +162,10 @@ function AddPage({ setAddPage }) {
         setLoginBtn(true);
         setTimeout(() => {
           setLoginBtn(false);
-        }, 2000);
+        }, 500);
+        setTimeout(() => {
+          setAddPage(false);
+        }, 500);
       }
       console.log(response.data.message);
     } catch (e) {
@@ -158,16 +182,7 @@ function AddPage({ setAddPage }) {
       ) : (
         ''
       )}
-      {loginBtn ? (
-        <Notification
-          // linkToText="返回列表頁"
-          // linkTo="/backstageCamping"
-          contaninText="新增成功"
-          // setLoginBtn={setLoginBtn}
-        />
-      ) : (
-        ''
-      )}
+      {loginBtn ? <Notification contaninText="新增成功" /> : ''}
       <div className="backstageAddPage">
         <form className="formContainer">
           <IconContext.Provider
@@ -193,10 +208,9 @@ function AddPage({ setAddPage }) {
                   id="title"
                   name="title"
                   type="text"
-                  maxLength={15}
+                  maxLength={20}
                   value={camping.title}
                   onChange={handleChange}
-                  required
                 />
               </div>
               <div className="mb-4">
@@ -209,7 +223,6 @@ function AddPage({ setAddPage }) {
                   maxLength={15}
                   value={camping.place}
                   onChange={handleChange}
-                  required
                 />
               </div>
               <div className="mb-4">
@@ -318,11 +331,24 @@ function AddPage({ setAddPage }) {
           {/* address */}
           <div className="mb-4 leftInput">
             <label>活動地址：</label>
-            <select name="county" id="county">
-              <option value="1">新北市</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
+            <select
+              name="county"
+              id="county"
+              // value={camping.countyName}
+              value={camping.county}
+              onChange={handleChange}
+            >
+              {location.map((v, i) => {
+                return (
+                  <option
+                    key={v}
+                    value={v}
+                    // selected={camping.county === v ? true : false}
+                  >
+                    {counties[i + 1]}
+                  </option>
+                );
+              })}
             </select>
             <input
               className="input addressSty"
@@ -368,86 +394,9 @@ function AddPage({ setAddPage }) {
           {/* img */}
           <div className="mb-4 leftInput">活動照片：</div>
           <div className="mb-4 d-flex justify-content-center">
-            {/* 1 */}
             <AddImgCamping camping={camping} setCamping={setCamping} />
             <AddImgCamping2 camping={camping} setCamping={setCamping} />
             <AddImgCamping3 camping={camping} setCamping={setCamping} />
-
-            {/* <label className="mb-4" htmlFor="photo1">
-              {fileDataURL ? (
-                <figure className="m-0 campingImg me-4">
-                  <img src={fileDataURL} alt="/" className="objectCover" />
-                </figure>
-              ) : (
-                <div className="d-flex flex-column align-items-center imgInput me-4">
-                  <IconContext.Provider
-                    value={{ color: '#444', size: '2.5rem' }}
-                  >
-                    <AiOutlineCamera />
-                  </IconContext.Provider>
-                  <span>點擊新增圖片</span>
-                </div>
-              )}
-            </label>
-            <input
-              className="input d-none"
-              name="photo1"
-              type="file"
-              id="photo1"
-              onChange={updateImgHandler}
-            /> */}
-            {/* 2 */}
-            {/* {fileDataURL2 ? (
-              <figure className="m-0 campingImg me-4">
-                <img src={fileDataURL2} alt="/" className="objectCover" />
-              </figure>
-            ) : (
-              <>
-                <label className="mb-4" htmlFor="photo2">
-                  <div className="d-flex flex-column align-items-center imgInput me-4">
-                    <IconContext.Provider
-                      value={{ color: '#444', size: '2.5rem' }}
-                    >
-                      <AiOutlineCamera />
-                    </IconContext.Provider>
-                    <span>點擊新增圖片</span>
-                  </div>
-                </label>
-                <input
-                  className="input d-none"
-                  name="photo2"
-                  type="file"
-                  id="photo2"
-                  onChange={updateImgHandler}
-                />
-              </>
-            )} */}
-            {/* 3 */}
-            {/* {fileDataURL3 ? (
-              <figure className="m-0 campingImg">
-                <img src={fileDataURL3} alt="/" className="objectCover" />
-              </figure>
-            ) : (
-              <>
-                <label className="mb-4" htmlFor="photo3">
-                  <div className="d-flex flex-column align-items-center imgInput me-4">
-                    <IconContext.Provider
-                      value={{ color: '#444', size: '2.5rem' }}
-                    >
-                      <AiOutlineCamera />
-                    </IconContext.Provider>
-                    <span>點擊新增圖片</span>
-                  </div>
-                </label>
-                <input
-                  className="input d-none"
-                  name="photo3"
-                  type="file"
-                  id="photo3"
-                  onChange={updateImgHandler}
-                />
-              </>
-            )} */}
           </div>
           {/* btn */}
           <div className="mt-5 mb-4 text-center">
