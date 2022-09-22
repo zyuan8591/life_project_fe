@@ -41,10 +41,16 @@ $newsBgClr: #f2f2f2;
       grid-template-columns: minmax(142px, 1fr) 7fr;
       position: sticky;
       top: 0;
+      @media (max-width: 500px) {
+        grid-template-columns: minmax(125px, 1fr) 7fr;
+      }
       .yearMonth {
         border-right: 1px solid $subClrGY;
         border-top: 1px solid $subClrGY;
         font-size: 2rem;
+        @media (max-width: 500px) {
+          font-size: 1.5rem;
+        }
       }
       .newMainContainer {
         flex: 1 1 auto;
