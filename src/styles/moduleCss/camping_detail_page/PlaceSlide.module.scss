@@ -41,7 +41,7 @@
                 img{
                     width: 100%;
                     object-fit: cover;
-                    background: $mainClrW;
+                    background: rgba(255, 255, 255, 0.882);
                 }
             }
             .addCount{
@@ -73,7 +73,7 @@
                 border: 2px solid $subClrBrown;
                 .addCount{
                     color: $subClrBrown;
-                    background: $mainClrW;
+                    background: rgba(255, 255, 255, 0.924);
                 }
                 .contentBtn{
                     background-color: $focusClrG;

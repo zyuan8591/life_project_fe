@@ -13,14 +13,16 @@
 }
 
 .notificationContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - $headerHeight);
-  z-index: 40;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // width: 100%;
+  // height: calc(100vh - $headerHeight);
+  // z-index: 40;
   .contain {
-    position: absolute;
+    position: fixed;
+    z-index: 40;
+    transform: translateY(-80%);
     display: flex;
     justify-content: center;
     align-items: center;

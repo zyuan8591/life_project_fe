@@ -163,9 +163,9 @@ function UpdatePage({ setUpdatePage, updateData }) {
       setTimeout(() => {
         setLoginBtn(false);
       }, 500);
-      // setTimeout(() => {
-      //   setUpdatePage(false);
-      // }, 500);
+      setTimeout(() => {
+        setUpdatePage(false);
+      }, 500);
 
       console.log(response.data.message);
     } catch (e) {

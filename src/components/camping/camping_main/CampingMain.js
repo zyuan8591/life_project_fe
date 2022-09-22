@@ -18,7 +18,8 @@ import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
 import Notification from '../../activity/Notification';
-import NotFound from './NotFound';
+import NoDataDisplay from '../../public_component/NoDataDisplay';
+import BreadCrumb from '../../public_component/BreadCrumb';
 import { useUserRights } from '../../../usecontext/UserRights';
 
 const activityState = [
@@ -121,16 +122,14 @@ function CampingMain() {
             setUser={setUser}
             userCollected={userCollected}
             setUserCollected={setUserCollected}
-            // collectConfirm={collectConfirm}
             setCollectConfirm={setCollectConfirm}
-            // collectCancel={collectCancel}
             setCollectCancel={setCollectCancel}
             setLoginBtn={setLoginBtn}
           />
         );
       });
     } else {
-      return <NotFound />;
+      return <NoDataDisplay />;
     }
   };
   // TODO:noData view
@@ -146,11 +145,14 @@ function CampingMain() {
             setUser={setUser}
             userCollected={userCollected}
             setUserCollected={setUserCollected}
+            setCollectConfirm={setCollectConfirm}
+            setCollectCancel={setCollectCancel}
+            setLoginBtn={setLoginBtn}
           />
         );
       });
     } else {
-      return <NotFound />;
+      return <NoDataDisplay />;
     }
   };
   // campingData.map((v) => {
@@ -204,7 +206,7 @@ function CampingMain() {
           </div>
           <div className="main">
             {/* breadCrumb */}
-            <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
+            <BreadCrumb />
             <div className="contain">
               <div className="row m-0">
                 {/* 左側篩選欄 */}
@@ -351,7 +353,10 @@ function CampingMain() {
 
                   {/* RWD m-view */}
                   <div className="m-view justify-content-between align-items-center">
-                    <ActivitySelect setOrder={setOrder} />
+                    <div className="ms-2">
+                      <ActivitySelect setOrder={setOrder} />
+                    </div>
+
                     <IconContext.Provider
                       value={{ color: '#817161', size: '1.7em' }}
                     >
@@ -380,25 +385,7 @@ function CampingMain() {
                     </IconContext.Provider>
                   </div>
 
-                  <div className="m-view justify-content-between mt-3 mx-2">
-                    <div className="d-flex align-items-center">
-                      {/* card 切換 */}
-                      <FaListUl
-                        className="me-3 changeBtn"
-                        onClick={() => {
-                          setCardChange(false);
-                          setHorizontalCardChange(true);
-                        }}
-                      />
-
-                      <BsGridFill
-                        className="me-3 changeBtn"
-                        onClick={() => {
-                          setCardChange(true);
-                          setHorizontalCardChange(false);
-                        }}
-                      />
-                    </div>
+                  <div className="m-view justify-content-end mt-3 mx-2">
                     {/* page */}
                     <div className="pageTtl text-end m-view">
                       {numberTtl !== 0
@@ -424,11 +411,15 @@ function CampingMain() {
                         : horizontalCard()}
                     </div>
                   </IconContext.Provider>
-                  <PaginationBar
-                    lastPage={lastPage}
-                    pageNow={page}
-                    setPageNow={setPage}
-                  />
+                  {numberTtl !== 0 ? (
+                    <PaginationBar
+                      lastPage={lastPage}
+                      pageNow={page}
+                      setPageNow={setPage}
+                    />
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
             </div>

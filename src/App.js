@@ -191,7 +191,7 @@ function App() {
                       element={<ForgotPasswordEmail />}
                     />
                     <Route
-                      path="/backstageCamping"
+                      path="/backstageCamping/:camping"
                       element={<BackstageCamping />}
                     />
                   </Routes>
