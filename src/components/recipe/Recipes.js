@@ -77,6 +77,7 @@ const Recipes = () => {
   const [recipeList, setRecipeList] = useState([]);
   const [lastPage, setLastPage] = useState(0);
   const [vw, setVw] = useState(window.innerWidth);
+  const [perPage, setPerPage] = useState(12);
 
   const setViewPortWidth = () => setVw(window.innerWidth);
   useEffect(() => {
@@ -135,17 +136,19 @@ const Recipes = () => {
   // set page to 1
   useEffect(() => {
     setPageNow(1);
+    setPerPage(12);
   }, [recipeCateNow, searchMaterial, searchName]);
 
   // get recipe list data
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}&productCate=${productCateNow}`
+        `${API_URL}/recipes?perPage=${perPage}&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}&productCate=${productCateNow}`
       );
       setRecipeList(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
+    console.log('perPage', perPage);
   }, [
     recipeCateNow,
     selectSortOption,
@@ -154,6 +157,7 @@ const Recipes = () => {
     pageNow,
     productCateNow,
     searchParams,
+    perPage,
   ]);
 
   const searchNameHandler = (e) => {
@@ -256,15 +260,13 @@ const Recipes = () => {
               value={searchName}
               onChange={(e) => searchNameHandler(e)}
             />
-            {vw > 500 && (
-              <input
-                type="text"
-                className="searchForMaterial"
-                placeholder="請輸入食材名稱"
-                value={searchMaterial}
-                onChange={(e) => searchMaterialHandler(e)}
-              />
-            )}
+            <input
+              type="text"
+              className="searchForMaterial"
+              placeholder="請輸入食材名稱"
+              value={searchMaterial}
+              onChange={(e) => searchMaterialHandler(e)}
+            />
             <div className="recipesSearchBtn">
               <IconContext.Provider
                 value={{ size: '1.5rem', className: 'RecipeSearchBtnSvg' }}
@@ -370,7 +372,9 @@ const Recipes = () => {
               <PaginationBar
                 lastPage={lastPage}
                 pageNow={pageNow}
+                perPage={perPage}
                 setPageNow={setPageNow}
+                setPerPage={setPerPage}
               />
             )}
           </div>

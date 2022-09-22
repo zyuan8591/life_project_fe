@@ -49,6 +49,11 @@
           outline: transparent;
         }
       }
+      .searchForMaterial {
+        @media (max-width: 500px) {
+          display: none;
+        }
+      }
       .recipesSearchBtn {
         padding: 0 0.75rem;
         cursor: pointer;
