@@ -9,6 +9,7 @@ import { API_URL, API_URL_IMG } from '../../../../utils/config';
 
 // TODO: drag
 import RecipeStep from './RecipeStep';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const RecipeCreateForm = ({
   closeCreateRecipe,
@@ -46,6 +47,7 @@ const RecipeCreateForm = ({
   const [productCate, setProductCate] = useState([]);
   const [stepDefault, setStepDefault] = useState(0);
 
+  // get initial data
   useEffect(() => {
     (async () => {
       // get all recipe cate name
@@ -91,18 +93,11 @@ const RecipeCreateForm = ({
       }
     })();
   }, []);
-
-  // test useeffect
-  useEffect(() => {
-    console.log('step', step);
-    console.log('default', stepDefault);
-  }, [step]);
-
+  // Recipe ===========================================================
   // recipe info handler
   const inputChangeHandler = (e) => {
     setAddForm({ ...addForm, [e.target.name]: e.target.value });
   };
-
   // recipe img handler
   const updateImgHandler = (e) => {
     const file = e.target.files[0];
@@ -136,7 +131,7 @@ const RecipeCreateForm = ({
       }
     };
   }, [file]);
-
+  // Material ==========================================================
   // materail input change
   const materialChangerHandler = (val, i, input) => {
     let newData = [...material];
@@ -144,7 +139,6 @@ const RecipeCreateForm = ({
     if (input === 'q') newData[i].quantity = val;
     setMaterial(newData);
   };
-
   // add material
   const addMaterialBtn = () => {
     setMaterial([...material, { id: uuidv4(), name: '', quantity: '' }]);
@@ -156,7 +150,25 @@ const RecipeCreateForm = ({
     if (newData.length === 0) return;
     setMaterial(newData);
   };
-
+  // Step ===============================================================
+  // step DragEnd
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    if (destination.index === source.index) return;
+    console.log('result', result);
+    let newStep = [...step];
+    let add = newStep[source.index];
+    console.log('add', add);
+    newStep.splice(source.index, 1);
+    console.log('remove : newstep', newStep);
+    newStep.splice(destination.index, 0, add);
+    console.log('add : newstep', newStep);
+    setStep(sortStep(newStep));
+  };
+  useEffect(() => {
+    console.log('step', step);
+  }, [step]);
   // step sort
   const sortStep = (data) => {
     return [...data].map((d, i) => {
@@ -184,7 +196,7 @@ const RecipeCreateForm = ({
     setStep(sortStep(newData));
   };
 
-  // submit handler
+  // submit handler ======================================================
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -300,202 +312,204 @@ const RecipeCreateForm = ({
   };
 
   return (
-    <div className={classes.container} onClick={(e) => e.stopPropagation()}>
-      {/* add and cancel and demo button */}
-      <div className={`ms-3 ${classes.createController}`}>
-        <button
-          className={`mb-1 bg-success ${classes.btn}`}
-          onClick={submitHandler}
-        >
-          {isEdit ? '修改' : '新增'}
-        </button>
-        <button
-          className={`mb-1 bg-danger ${classes.btn}`}
-          onClick={() => closeCreateRecipe()}
-        >
-          取消
-        </button>
-        {/* demo button */}
-        {!isEdit && (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className={classes.container} onClick={(e) => e.stopPropagation()}>
+        {/* add and cancel and demo button */}
+        <div className={`ms-3 ${classes.createController}`}>
           <button
-            className={`mb-1 bg-warning text-dark ${classes.btn}`}
-            onClick={() => {
-              setAddForm({
-                name: '月亮蝦餅',
-                content:
-                  '在家也能輕鬆做月亮蝦餅喔！蝦餅名稱的由來，是因為在還沒炸之前是呈現圓圓白白像月亮的樣子，所以就叫月亮蝦餅。這道經典美食更常蟬聯團購榜首呢！如果你想品嘗人氣團購商品，又不想面對遙遙無期的漫長等待，那麼就一定要來學學這道料理，搭配氣炸烤箱現做現炸快速又方便，一鍵輕鬆免看顧，讓您享受美味不必久等。',
-                category: 7,
-                product_category: 7,
-              });
-              setMaterial([
-                { id: uuidv4(), name: '白蝦', quantity: '8尾' },
-                { id: uuidv4(), name: '海蝦仁', quantity: '280公克' },
-                { id: uuidv4(), name: '豬油', quantity: '80公克' },
-                { id: uuidv4(), name: '花枝', quantity: '280公克' },
-                { id: uuidv4(), name: '雞蛋', quantity: '1顆' },
-                { id: uuidv4(), name: '薑', quantity: '2公克' },
-                { id: uuidv4(), name: '蒜頭', quantity: '4瓣' },
-                { id: uuidv4(), name: '白胡椒粉', quantity: '1/4小匙' },
-                { id: uuidv4(), name: '鹽巴', quantity: '1/4小匙' },
-                { id: uuidv4(), name: '香油', quantity: '1小匙' },
-                { id: uuidv4(), name: '春捲皮', quantity: '2片' },
-              ]);
-              setStep([
-                {
-                  id: uuidv4(),
-                  step: 1,
-                  content: '準備所有食材，白蝦去殼，薑切成薑末，蒜切成蒜末。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 2,
-                  content: '白蝦用刀子拍扁，並剁成碎狀。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 3,
-                  content:
-                    '將花枝、蝦仁、豬油放調理杯中，用電動攪拌棒打成泥狀。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 4,
-                  content:
-                    '準備一個大容器，放進剁好的白蝦、攪打好的花枝蝦仁泥、雞蛋、薑末、蒜末、白胡椒粉、鹽巴、香油。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 5,
-                  content: '用手攪拌均勻，拌到稍微有黏性出來即可。。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 6,
-                  content:
-                    '拿出1片潤餅皮，粗面朝上，平均放入餡料，再蓋上另外1片潤餅皮，一樣粗面朝內。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 7,
-                  content: '將餅皮平均壓平，用刀子在表面戳洞透氣。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 8,
-                  content: '將月亮蝦餅放上瀝油不沾烤盤，在表面刷上植物油。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 9,
-                  content:
-                    '放進氣炸烤箱中層，以200度氣炸13分後，再翻面繼續氣炸5分鐘至上色。',
-                },
-                {
-                  id: uuidv4(),
-                  step: 10,
-                  content: '待行程結束即可切開擺盤享用。',
-                },
-              ]);
-              setDemo(true);
-            }}
+            className={`mb-1 bg-success ${classes.btn}`}
+            onClick={submitHandler}
           >
-            填入
+            {isEdit ? '修改' : '新增'}
           </button>
-        )}
-      </div>
-      {/* create form */}
-      <form action="" className={classes.addingForm}>
-        {/* recipe info */}
-        <>
-          {/* title */}
-          <div className={classes.formItem}>
-            <label className="fs-4">食譜名稱</label>
-            <input
-              name="name"
-              type="text"
-              placeholder="請輸入食譜名稱"
-              value={addForm.name}
-              onChange={inputChangeHandler}
-            />
-          </div>
-          {/* image */}
-          <div className={classes.formItem}>
-            <label
-              htmlFor="createRecipeImg"
-              className={`${classes.imgLabel} cursorPointer h-auto`}
+          <button
+            className={`mb-1 bg-danger ${classes.btn}`}
+            onClick={() => closeCreateRecipe()}
+          >
+            取消
+          </button>
+          {/* demo button */}
+          {!isEdit && (
+            <button
+              className={`mb-1 bg-warning text-dark ${classes.btn}`}
+              onClick={() => {
+                setAddForm({
+                  name: '月亮蝦餅',
+                  content:
+                    '在家也能輕鬆做月亮蝦餅喔！蝦餅名稱的由來，是因為在還沒炸之前是呈現圓圓白白像月亮的樣子，所以就叫月亮蝦餅。這道經典美食更常蟬聯團購榜首呢！如果你想品嘗人氣團購商品，又不想面對遙遙無期的漫長等待，那麼就一定要來學學這道料理，搭配氣炸烤箱現做現炸快速又方便，一鍵輕鬆免看顧，讓您享受美味不必久等。',
+                  category: 7,
+                  product_category: 7,
+                });
+                setMaterial([
+                  { id: uuidv4(), name: '白蝦', quantity: '8尾' },
+                  { id: uuidv4(), name: '海蝦仁', quantity: '280公克' },
+                  { id: uuidv4(), name: '豬油', quantity: '80公克' },
+                  { id: uuidv4(), name: '花枝', quantity: '280公克' },
+                  { id: uuidv4(), name: '雞蛋', quantity: '1顆' },
+                  { id: uuidv4(), name: '薑', quantity: '2公克' },
+                  { id: uuidv4(), name: '蒜頭', quantity: '4瓣' },
+                  { id: uuidv4(), name: '白胡椒粉', quantity: '1/4小匙' },
+                  { id: uuidv4(), name: '鹽巴', quantity: '1/4小匙' },
+                  { id: uuidv4(), name: '香油', quantity: '1小匙' },
+                  { id: uuidv4(), name: '春捲皮', quantity: '2片' },
+                ]);
+                setStep([
+                  {
+                    id: uuidv4(),
+                    step: 1,
+                    content: '準備所有食材，白蝦去殼，薑切成薑末，蒜切成蒜末。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 2,
+                    content: '白蝦用刀子拍扁，並剁成碎狀。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 3,
+                    content:
+                      '將花枝、蝦仁、豬油放調理杯中，用電動攪拌棒打成泥狀。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 4,
+                    content:
+                      '準備一個大容器，放進剁好的白蝦、攪打好的花枝蝦仁泥、雞蛋、薑末、蒜末、白胡椒粉、鹽巴、香油。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 5,
+                    content: '用手攪拌均勻，拌到稍微有黏性出來即可。。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 6,
+                    content:
+                      '拿出1片潤餅皮，粗面朝上，平均放入餡料，再蓋上另外1片潤餅皮，一樣粗面朝內。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 7,
+                    content: '將餅皮平均壓平，用刀子在表面戳洞透氣。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 8,
+                    content: '將月亮蝦餅放上瀝油不沾烤盤，在表面刷上植物油。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 9,
+                    content:
+                      '放進氣炸烤箱中層，以200度氣炸13分後，再翻面繼續氣炸5分鐘至上色。',
+                  },
+                  {
+                    id: uuidv4(),
+                    step: 10,
+                    content: '待行程結束即可切開擺盤享用。',
+                  },
+                ]);
+                setDemo(true);
+              }}
             >
-              {fileDataURL || edit ? (
-                <img
-                  src={fileDataURL || addForm.image}
-                  alt="prev"
-                  className="w-100"
-                />
-              ) : (
-                <IconContext.Provider value={{ color: '#444', size: '4.5rem' }}>
-                  <AiOutlineCamera />
-                  <span>點此新增圖片</span>
-                </IconContext.Provider>
-              )}
-            </label>
-            <input
-              name="image"
-              type="file"
-              id="createRecipeImg"
-              className="d-none"
-              onChange={updateImgHandler}
-            />
-          </div>
-          {/* content */}
+              填入
+            </button>
+          )}
+        </div>
+        {/* create form */}
+        <form action="" className={classes.addingForm}>
+          {/* recipe info */}
+          <>
+            {/* title */}
+            <div className={classes.formItem}>
+              <label className="fs-4">食譜名稱</label>
+              <input
+                name="name"
+                type="text"
+                placeholder="請輸入食譜名稱"
+                value={addForm.name}
+                onChange={inputChangeHandler}
+              />
+            </div>
+            {/* image */}
+            <div className={classes.formItem}>
+              <label
+                htmlFor="createRecipeImg"
+                className={`${classes.imgLabel} cursorPointer h-auto`}
+              >
+                {fileDataURL || edit ? (
+                  <img
+                    src={fileDataURL || addForm.image}
+                    alt="prev"
+                    className="w-100"
+                  />
+                ) : (
+                  <IconContext.Provider
+                    value={{ color: '#444', size: '4.5rem' }}
+                  >
+                    <AiOutlineCamera />
+                    <span>點此新增圖片</span>
+                  </IconContext.Provider>
+                )}
+              </label>
+              <input
+                name="image"
+                type="file"
+                id="createRecipeImg"
+                className="d-none"
+                onChange={updateImgHandler}
+              />
+            </div>
+            {/* content */}
+            <div className={classes.formItem}>
+              <label className="fs-4">簡介</label>
+              <textarea
+                name="content"
+                type="text"
+                placeholder="請輸入食譜描述 ( 最多200字 )"
+                rows="5"
+                value={addForm.content}
+                onChange={inputChangeHandler}
+              />
+            </div>
+            {/* category */}
+            <div className="d-flex gap-3 mb-2">
+              <select
+                name="category"
+                className={classes.cateSelect}
+                onChange={inputChangeHandler}
+                value={addForm.category}
+              >
+                {recipeCate.map((d) => {
+                  if (d.id === 0) return;
+                  return (
+                    <option value={d.id} key={d.id}>
+                      {d.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <select
+                name="product_category"
+                className={classes.cateSelect}
+                onChange={inputChangeHandler}
+                value={addForm.product_category}
+              >
+                {productCate.map((d) => {
+                  if (d.id === 0) return;
+                  return (
+                    <option value={d.id} key={d.id}>
+                      {d.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </>
+          {/* material */}
           <div className={classes.formItem}>
-            <label className="fs-4">簡介</label>
-            <textarea
-              name="content"
-              type="text"
-              placeholder="請輸入食譜描述 ( 最多200字 )"
-              rows="5"
-              value={addForm.content}
-              onChange={inputChangeHandler}
-            />
-          </div>
-          {/* category */}
-          <div className="d-flex gap-3 mb-2">
-            <select
-              name="category"
-              className={classes.cateSelect}
-              onChange={inputChangeHandler}
-              value={addForm.category}
-            >
-              {recipeCate.map((d) => {
-                if (d.id === 0) return;
-                return (
-                  <option value={d.id} key={d.id}>
-                    {d.name}
-                  </option>
-                );
-              })}
-            </select>
-            <select
-              name="product_category"
-              className={classes.cateSelect}
-              onChange={inputChangeHandler}
-              value={addForm.product_category}
-            >
-              {productCate.map((d) => {
-                if (d.id === 0) return;
-                return (
-                  <option value={d.id} key={d.id}>
-                    {d.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </>
-        {/* material */}
-        <div className={classes.formItem}>
-          <label className="fs-4">食材</label>
-          {/* TODO: drag */}
-          <div>
+            <label className="fs-4">食材</label>
+            {/* TODO: drag */}
             {material.map((d, i) => {
               return (
                 <RecipeMaterial
@@ -509,35 +523,47 @@ const RecipeCreateForm = ({
                 ></RecipeMaterial>
               );
             })}
+            <button
+              className={classes.addMaterialBtn}
+              onClick={(e) => {
+                e.preventDefault();
+                addMaterialBtn();
+              }}
+            >
+              加入食材
+            </button>
           </div>
-          <button
-            className={classes.addMaterialBtn}
-            onClick={(e) => {
-              e.preventDefault();
-              addMaterialBtn();
-            }}
-          >
-            加入食材
-          </button>
-        </div>
-
-        <div className={classes.formItem}>
-          <label className="fs-4">步驟</label>
-          {step.map((d, i) => (
-            <RecipeStep
-              key={d.id}
-              i={i}
-              data={d}
-              demo={demo}
-              edit={edit}
-              changeStep={stepChangeHandler}
-              delStep={deleteStepBtn}
-              addStep={addStepBtn}
-            ></RecipeStep>
-          ))}
-        </div>
-      </form>
-    </div>
+          {/* steps */}
+          <div className={classes.formItem}>
+            <label className="fs-4">步驟</label>
+            {/* droppableId -> only identify the droppable is unique */}
+            <Droppable droppableId="stepList">
+              {(provided) => (
+                <div
+                  className="steps"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {step.map((d, i) => (
+                    <RecipeStep
+                      key={d.id}
+                      i={i}
+                      data={d}
+                      demo={demo}
+                      edit={edit}
+                      changeStep={stepChangeHandler}
+                      delStep={deleteStepBtn}
+                      addStep={addStepBtn}
+                    ></RecipeStep>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
+        </form>
+      </div>
+    </DragDropContext>
   );
 };
 

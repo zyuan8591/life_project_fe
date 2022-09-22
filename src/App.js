@@ -3,6 +3,7 @@ import 'normalize.css';
 import './styles/style.scss';
 // package =======================================================================
 import axios from 'axios';
+// import { DragDropContext } from 'react-beautiful-dnd';
 // react hooks / context =======================================================================
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
@@ -94,8 +95,16 @@ function App() {
     }
   }, [setUser]);
 
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    if (destination.index === source.index) return;
+    console.log(result);
+  };
+
   return (
     <>
+      {/* <DragDropContext onDragEnd={onDragEnd}> */}
       <UserRights.Provider value={{ user, setUser }}>
         <ScrollToTop>
           <ProductCartProvider>
@@ -198,6 +207,7 @@ function App() {
           </ProductCartProvider>
         </ScrollToTop>
       </UserRights.Provider>
+      {/* </DragDropContext> */}
     </>
   );
 }

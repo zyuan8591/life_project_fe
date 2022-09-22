@@ -171,7 +171,8 @@ const Recipes = () => {
 
   // handle add recipe form
   const addRecipeHandler = () => {
-    if (!user) return setLoginBtn(true);
+    // TODO: test
+    // if (!user) return setLoginBtn(true);
     const params = Object.fromEntries([...searchParams]);
     params['add'] = 'true';
     setSearchParams(params);
@@ -227,6 +228,7 @@ const Recipes = () => {
             );
           })}
         </div>
+        {/* productCategory */}
         {vw < 1000 && (
           <div className="recipesCateBtnGroup mb-3">
             {productCate.map((d, i) => {
