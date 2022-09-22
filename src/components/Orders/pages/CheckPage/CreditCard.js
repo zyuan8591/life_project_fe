@@ -1,8 +1,58 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../../../../styles/Order/creditCard.scss';
-import TextField from '../../component/TextField';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 
-function CreditCard({ values }) {
+function CreditCard({ values, setFieldValue }) {
+  const [isFlip, setIsFlip] = useState(false);
+  const cardNumRef = useRef(null);
+  const cardMonth = useRef(null);
+  const cardDate = useRef(null);
+  const cardCheck = useRef(null);
+  const [cardNum, setCardNum] = useState('');
+  const [focusSec, setFocusSec] = useState(0);
+  const [cardCcv, setCardCcv] = useState('');
+
+  // console.log('first', cardNum);
+
+  // switch (focusSec) {
+  //   case 1:
+  //     return;
+  // }
+
+  useEffect(() => {
+    // console.log(values.cardNumber);
+    setCardNum(values.cardNumber);
+  }, [values.cardNumber]);
+
+  useEffect(() => {
+    setCardCcv(values.cCardCheck);
+  }, [values.cCardCheck]);
+  console.log(cardCcv);
+
+  let cardNumRows = cardNum.split('');
+  // console.log(cardNumRows);
+
+  // cardNumRows.forEach((s, i) => {
+  //   if (i === 4 || i === 9 || i === 14) {
+  //     cardNumRows.splice(i, 0, ' ');
+  //   }
+  // });
+  // let cardNumRow = [];
+
+  const getCardNum = () => {
+    let cardNumRow = [];
+    for (let i = 0; i < cardNumRows.length; i++) {
+      cardNumRow.push(
+        <span className={i === 3 || i === 7 || i === 11 ? 'space' : ''}>
+          {cardNumRows[i]}
+        </span>
+      );
+    }
+    return cardNumRow;
+  };
+
+  console.log(cardNumRows);
+
   return (
     <>
       <div className="cCardLayout">
@@ -10,17 +60,38 @@ function CreditCard({ values }) {
           <div className="col-6 px-5 py-3 cardInput">
             <div className="row mb-3">
               <div className="col">
-                <label className="mb-2">卡號</label>
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
-                    <TextField
-                      name="cardNumber"
-                      maxLength={12}
-                      value={values.cardNumber}
-                      // onChange={(e) => {
-                      //   setFieldValue('cardNumber', values.cardNumber);
-                      // }}
-                    />
+                    <Field name="cardNumber">
+                      {({ field, meta }) => {
+                        return (
+                          <>
+                            <label className="mb-2">卡號</label>
+                            <input
+                              type="text"
+                              maxLength={16}
+                              {...field}
+                              ref={cardNumRef}
+                              value={values.cardNumber}
+                              onFocus={(e) => {
+                                setIsFlip(false);
+                                setFocusSec(1);
+                                console.log('focus');
+                              }}
+                              onBlur={(e) => {
+                                // setFocusSec(0);
+                                console.log('blur');
+                              }}
+                            />
+                            <ErrorMessage name="cardNumber">
+                              {(err) => {
+                                <p className="text-danger">{err}</p>;
+                              }}
+                            </ErrorMessage>
+                          </>
+                        );
+                      }}
+                    </Field>
                   </div>
                 </div>
               </div>
@@ -30,38 +101,90 @@ function CreditCard({ values }) {
                 <label className="mb-2">到期日</label>
                 <div className="row gap-2 align-items-baseline">
                   <div className="col">
-                    <TextField
-                      maxLength={2}
-                      name="cCardMonth"
-                      values={values.cCardMonth}
-                    />
+                    <Field name="cCardMonth" as="select">
+                      {({ field, meta }) => {
+                        return (
+                          <>
+                            <select
+                              {...field}
+                              ref={cardMonth}
+                              values={values.cCardMonth}
+                              onFocus={() => {
+                                setIsFlip(false);
+                              }}
+                            ></select>
+                            <ErrorMessage name="cCardMonth">
+                              {(err) => {
+                                <p className="text-danger">{err}</p>;
+                              }}
+                            </ErrorMessage>
+                          </>
+                        );
+                      }}
+                    </Field>
                   </div>
                   /
                   <div className="col">
-                    <TextField
-                      maxLength={2}
-                      name="cCardDate"
-                      values={values.cCardDate}
-                    />
+                    <Field name="cCardDate">
+                      {({ field, meta }) => {
+                        return (
+                          <>
+                            <input
+                              type="text"
+                              maxLength={2}
+                              {...field}
+                              ref={cardDate}
+                              values={values.cCardDate}
+                              onFocus={() => {
+                                setIsFlip(false);
+                              }}
+                            />
+                            <ErrorMessage name="cCardDate">
+                              {(err) => {
+                                <p className="text-danger">{err}</p>;
+                              }}
+                            </ErrorMessage>
+                          </>
+                        );
+                      }}
+                    </Field>
                   </div>
                 </div>
               </div>
             </div>
             <div className="row align-items-center">
               <div className="col">
-                <TextField
-                  label="安全碼"
-                  maxLength={3}
-                  name="cCardCheck"
-                  values={values.cCardCheck}
-                />
+                <Field name="cCardCheck">
+                  {({ field }) => {
+                    return (
+                      <>
+                        <label className="mb-2">安全碼</label>
+                        <input
+                          type="text"
+                          maxLength={3}
+                          {...field}
+                          ref={cardCheck}
+                          values={values.cCardCheck}
+                          onFocus={() => {
+                            setIsFlip(true);
+                          }}
+                        />
+                        <ErrorMessage name="cCardCheck">
+                          {(err) => {
+                            <p className="text-danger">{err}</p>;
+                          }}
+                        </ErrorMessage>
+                      </>
+                    );
+                  }}
+                </Field>
               </div>
             </div>
           </div>
           <div className="col px-5 py-3">
-            <div className="cCard">
+            {/* TODO: focus */}
+            <div className={`cCard  ${isFlip ? 'active' : ''}`}>
               <div className="cardFront">
-                <div className="focus-box" />
                 <div className="cardBackground">
                   <img src="https://i.imgur.com/5XHCjPT.jpg" alt="" />
                 </div>
@@ -75,14 +198,15 @@ function CreditCard({ values }) {
                     </div>
                   </div>
                   <div
-                    className="card__card-number"
+                    // TODO: border
+                    className={`cardNumber ${focusSec === 1 ? 'active' : ''}`}
                     onClick={() => {
                       // handleSetFocusSection('cc-number');
                       // handleSetIsInputFocused(true);
                     }}
                     // ref={cardItemRefs.ccNumberRef}
                   >
-                    {/* {cardNumberRow} */}
+                    {getCardNum()}
                   </div>
                   <div className="card__content">
                     <div
@@ -124,9 +248,7 @@ function CreditCard({ values }) {
                 </div>
                 <div className="card__card-cvc">
                   <div className="card__card-cvc-title">
-                    {/* <span ref={cardItemRefs.ccCvcRef}>
-                      {props.cardCVC || 'CVC'}
-                    </span> */}
+                    <span ref={cardCheck}>{cardCcv}</span>
                   </div>
                   <div className="card__card-cvc-number"></div>
                 </div>
