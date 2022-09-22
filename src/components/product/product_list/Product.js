@@ -9,6 +9,8 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import Notification from '../../activity/Notification';
+import { API_URL_IMG } from '../../../utils/config';
+
 
 const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
@@ -144,7 +146,7 @@ const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
                     style={{
                       opacity: changePic && changePicNumber === id ? 0 : 1,
                     }}
-                    src={`/img/product/product_img/${img}`}
+                    src={`${API_URL_IMG}/product/product_img/${img}`}
                     alt=""
                   />
                   <img
@@ -152,7 +154,7 @@ const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
                     style={{
                       opacity: changePic && changePicNumber === id ? 1 : 0,
                     }}
-                    src={`/img/product/product_img/${img2}`}
+                    src={`${API_URL_IMG}/product/product_img/${img2}`}
                     alt=""
                   />
                 </div>

@@ -8,7 +8,7 @@ import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineCreditCard } from 'react-icons/ai';
 import { FaTrashAlt, FaHeartBroken } from 'react-icons/fa';
 import axios from 'axios';
-import { API_URL } from '../../utils/config';
+import { API_URL, API_URL_IMG } from '../../utils/config';
 import { useProductCart } from '../../orderContetxt/useProductCart';
 import { Link } from 'react-router-dom';
 
@@ -77,7 +77,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
           return (
             <div className={classess.cartItem} key={i}>
               <figure>
-                <img src={`/img/product/product_img/${img}`} alt="" />
+                <img src={`${API_URL_IMG}/product/product_img/${img}`} alt="" />
               </figure>
               <div className={classess.cartInfo}>
                 <p>{name}</p>
@@ -145,7 +145,10 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
                 >
                   <>
                     <figure>
-                      <img src={`/img/product/product_img/${img}`} alt="" />
+                      <img
+                        src={`${API_URL_IMG}/product/product_img/${img}`}
+                        alt=""
+                      />
                       <div className={classess.heart}>
                         <IconContext.Provider
                           value={{ color: '#444', size: '2.4rem' }}

@@ -7,6 +7,7 @@ import { FiShoppingBag } from 'react-icons/fi';
 import AddImgProduct from './AddImgProduct';
 import AddImgProduct2 from './AddImgProduct2';
 import AddImgProduct3 from './AddImgProduct3';
+import AddImgProduct4 from './AddImgProduct4';
 
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
@@ -53,9 +54,9 @@ function AddPage({ setAddPage }) {
       formData.append('spec', product.spec);
       formData.append('inventory', product.inventory);
       formData.append('photo1', product.photo1);
-      formData.append('photo2', product.photo2);
-      formData.append('photo3', product.photo3);
-
+      formData.append('photo1', product.photo2);
+      formData.append('photo1', product.photo3);
+      formData.append('photo1', product.photo4);
       let response = await axios.post(
         `${API_URL}/products/addProduct`,
         formData
@@ -75,6 +76,7 @@ function AddPage({ setAddPage }) {
         }, 2000);
       }
       console.log(response.data.message);
+      console.log(formData);
     } catch (e) {
       console.error('addCamping', e);
     }
@@ -114,7 +116,7 @@ function AddPage({ setAddPage }) {
           <div className="pageTitle">
             <p>新增商品</p>
           </div>
-          <div className="d-flex justify-content-center mt-4">
+          <div className="grid">
             {/* title place lat */}
             <div className="d-flex flex-column align-items-end">
               <div className="mb-4">
@@ -156,9 +158,8 @@ function AddPage({ setAddPage }) {
                 />
               </div>
             </div>
-
             {/* price pepCount lng */}
-            <div className="ms-5 d-flex flex-column align-items-end">
+            <div className="">
               <div className="mb-4">
                 <label>庫存：</label>
                 <input
@@ -187,29 +188,37 @@ function AddPage({ setAddPage }) {
           </div>
 
           {/* actDate */}
-          <div className="mb-4 leftInput dateInput">
-            <label>折扣日期：</label>
-            <input
-              className="input"
-              id="actStartDate"
-              name="actStartDate"
-              type="date"
-              maxLength={10}
-              value={product.actStartDate}
-              onChange={handleChange}
-            />
-            <span>&emsp;～&emsp;</span>
-            <input
-              className="input"
-              id="actEndDate"
-              name="actEndDate"
-              type="date"
-              maxLength={10}
-              value={product.actEndDate}
-              onChange={handleChange}
-            />
-          </div>
+          <div className="grid2">
+          <div className='d-flex flex-column align-items-end'>
+            <div className="mb-4 ">
+              <label>折扣日期：</label>
+              <input
+                className="input"
+                id="actStartDate"
+                name="actStartDate"
+                type="date"
+                maxLength={10}
+                value={product.actStartDate}
+                onChange={handleChange}
+              />
+              
 
+              </div>
+            </div>
+            <div>
+              <span>&emsp;　&emsp;</span>
+              <input
+                className="input"
+                id="actEndDate"
+                name="actEndDate"
+                type="date"
+                maxLength={10}
+                value={product.actEndDate}
+                onChange={handleChange}
+              />
+            </div>
+            
+          </div>
           {/* int */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
             <label className="mb-2">商品介紹：</label>
@@ -229,12 +238,12 @@ function AddPage({ setAddPage }) {
             <label className="mb-2">商品規格：</label>
             <textarea
               className="textContent"
-              placeholder="限150字"
+              placeholder="限200字"
               id="spec"
               name="spec"
               rows="5"
               cols="68"
-              maxLength={150}
+              maxLength={200}
               value={product.spec}
               onChange={handleChange}
             />
@@ -242,7 +251,7 @@ function AddPage({ setAddPage }) {
 
           {/* img */}
           <div className="mb-4 leftInput">商品圖片：</div>
-          <div className="mb-4 d-flex justify-content-center">
+          <div className="mb-4 d-flex justify-content-center ms-4">
             <AddImgProduct product={product} setProduct={setProduct} />
             <AddImgProduct2 product={product} setProduct={setProduct} />
             <AddImgProduct3 product={product} setProduct={setProduct} />
@@ -251,54 +260,10 @@ function AddPage({ setAddPage }) {
                 
               );
             })} */}
-
-            {/* 1 */}
-            {/* <label className="mb-4" htmlFor="photo1">
-              <div className="d-flex flex-column align-items-center imgInput me-4">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-            <input
-              className="input d-none"
-              name="photo1"
-              type="file"
-              id="photo1"
-              onChange={handleUpload}
-            /> */}
-            {/* 2 */}
-            {/* <label className="mb-4" htmlFor="photo2">
-              <div className="d-flex flex-column align-items-center imgInput me-4">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-
-            <input
-              className="input d-none"
-              name="photo2"
-              type="file"
-              id="photo2"
-            /> */}
-            {/* 3 */}
-            {/* <label className="mb-4" htmlFor="photo3">
-              <div className="d-flex flex-column align-items-center imgInput">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-            <input
-              className="input d-none"
-              name="photo3"
-              type="file"
-              id="photo3"
-            /> */}
+          </div>
+          <div className="mb-4 leftInput">商品圖片：</div>
+          <div className="mb-4 d-flex justify-content-center ms-4">
+            <AddImgProduct4 product={product} setProduct={setProduct} />
           </div>
           {/* btn */}
           <div className="mt-5 mb-4 text-center">

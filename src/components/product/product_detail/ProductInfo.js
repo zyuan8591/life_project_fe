@@ -11,6 +11,7 @@ import 'image-magnifier-react/lib/index.css';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
+import { API_URL_IMG } from '../../../utils/config';
 
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
@@ -33,7 +34,7 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   } else {
     split = intro.split(' ');
   }
-  const pic = `/img/product/product_img/${img}`;
+  const pic = `${API_URL_IMG}/product/product_img/${img}`;
 
   const arr = [img, img2, img3];
   const newArr = arr.filter((v) => {
@@ -68,10 +69,10 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   className="subPic"
                   key={i}
                   onMouseOver={() => {
-                    setMainPic(`/img/product/product_img/${v}`);
+                    setMainPic(`${API_URL_IMG}/product/product_img/${v}`);
                   }}
                 >
-                  <img src={`/img/product/product_img/${v}`} alt="" />
+                  <img src={`${API_URL_IMG}/product/product_img/${v}`} alt="" />
                 </figure>
               );
             })}

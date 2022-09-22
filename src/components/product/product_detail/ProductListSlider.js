@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { API_URL } from '../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
 import { Link } from 'react-router-dom';
 
-const ProductListSlider = ({ now, total, data }) => {
+const ProductListSlider = ({ now, data }) => {
   const [recommendArr, setRecommendArr] = useState([]);
   const { category } = data;
   console.log(category);
@@ -21,7 +21,7 @@ const ProductListSlider = ({ now, total, data }) => {
   return (
     <>
       {recommendArr.map((v, i) => {
-        const { id, name, img, color, price } = v;
+        const { id, name, img, color, price, brand } = v;
         return (
           <>
             <Link to={`/products/${id}`} style={{ color: '#444' }}>
@@ -38,10 +38,13 @@ const ProductListSlider = ({ now, total, data }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <img src={`/img/product/product_img/${img}`} alt="" />
+                  <img
+                    src={`${API_URL_IMG}/product/product_img/${img}`}
+                    alt=""
+                  />
                 </div>
                 <p>
-                  <span className="me-2">BRUNO</span>
+                  <span className="me-2">{brand}</span>
                   {name}
                   <span className="ms-2">({color})</span>
                 </p>
