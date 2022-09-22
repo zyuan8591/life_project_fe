@@ -2,6 +2,15 @@
 $newsTextClr: #8c8c8c;
 $newsBgClr: #f2f2f2;
 
+%cateBtn {
+  display: inline-block;
+  color: $newsTextClr;
+  background: $newsBgClr;
+  padding: 0.25rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
 .newsPage {
   position: relative;
   top: $headerHeight;
@@ -9,7 +18,7 @@ $newsBgClr: #f2f2f2;
   max-width: 1200px;
   padding: 4rem 2rem 8rem;
   color: $contentClr;
-  // news title
+  // news title ======================================
   .title {
     display: flex;
     flex-direction: column;
@@ -30,6 +39,18 @@ $newsBgClr: #f2f2f2;
     .ch {
       color: $subClrBrown;
       font-weight: bold;
+    }
+  }
+  // category ======================================
+  .newsCate {
+    li {
+      @extend %cateBtn;
+      border-radius: 2.5px;
+      &:hover,
+      &.active {
+        background: $newsTextClr;
+        color: $newsBgClr;
+      }
     }
   }
   // main content
@@ -74,12 +95,7 @@ $newsBgClr: #f2f2f2;
         }
         .content {
           .type {
-            display: inline-block;
-            color: $newsTextClr;
-            background: $newsBgClr;
-            padding: 0.25rem 1.5rem;
-            font-weight: bold;
-            font-size: 0.75rem;
+            @extend %cateBtn;
           }
           .text {
             font-size: $text14;

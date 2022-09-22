@@ -6,6 +6,8 @@ import axios from 'axios';
 
 const News = () => {
   const [newsData, setNewsData] = useState([]);
+  const [newsCate, setNewsCate] = useState([]);
+  const [cateNow, setCateNow] = useState(0);
 
   // connect api with prop url
   const getData = async (url) => {
@@ -20,7 +22,24 @@ const News = () => {
   // get init data
   useEffect(() => {
     getData('/news');
+    (async () => {
+      let data = await axios.get(`${API_URL}/news/category`);
+      setNewsCate(data.data);
+    })();
   }, []);
+
+  let newsCateArr = newsCate.map((d) => (
+    <li
+      key={d.id}
+      onClick={() => {
+        newsFilter(d.id);
+        setCateNow(d.id);
+      }}
+      className={`cursorPointer transition ${cateNow === d.id ? 'active' : ''}`}
+    >
+      {d.name}
+    </li>
+  ));
 
   // get filter data
   const newsFilter = async (cate) => {
@@ -31,10 +50,17 @@ const News = () => {
     <>
       <div className="newsPage">
         {/* news title */}
-        <div className="title cursorPointer" onClick={() => getData('/news')}>
+        <div
+          className="title cursorPointer"
+          onClick={() => {
+            getData('/news');
+            setCateNow(0);
+          }}
+        >
           <span className="en">最新消息</span>
           <span className="ch">WHAT'S NEW</span>
         </div>
+        <ul className="d-flex newsCate p-0 mt-3 mb-0 gap-2">{newsCateArr}</ul>
 
         {/* main news data */}
         <div className="news py-3">
@@ -66,6 +92,7 @@ const News = () => {
                       className="type mb-1 border-0"
                       onClick={() => {
                         newsFilter(d.category);
+                        setCateNow(d.category);
                       }}
                     >
                       {d.categoryName}
