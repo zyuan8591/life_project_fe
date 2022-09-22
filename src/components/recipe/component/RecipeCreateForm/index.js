@@ -4,13 +4,10 @@ import RecipeMaterial from './RecipeMaterial';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import { v4 as uuidv4 } from 'uuid';
-// import { Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';
 
 // TODO: drag
-import { ItemTypes } from './ItemTypes';
-import { useDrag } from 'react-dnd';
 import RecipeStep from './RecipeStep';
 
 const RecipeCreateForm = ({
@@ -498,10 +495,6 @@ const RecipeCreateForm = ({
         <div className={classes.formItem}>
           <label className="fs-4">食材</label>
           {/* TODO: drag */}
-          {/* Drop zone */}
-          {/* <Droppable droppableId="list">
-            {(provided, snapshot) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}> */}
           <div>
             {material.map((d, i) => {
               return (
@@ -517,10 +510,6 @@ const RecipeCreateForm = ({
               );
             })}
           </div>
-          {/* {provided.placeholder}
-              </div>
-            )}
-          </Droppable> */}
           <button
             className={classes.addMaterialBtn}
             onClick={(e) => {
