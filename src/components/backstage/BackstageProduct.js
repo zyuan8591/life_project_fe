@@ -28,6 +28,7 @@ function Backstage() {
           withCredentials: true,
         }
       );
+      // let detailResult = await axios.get(`${API_URL}/products/detailImg?id=`)
 
       // console.log(result.data);
       setProductsData(result.data.data);
@@ -39,7 +40,14 @@ function Backstage() {
     <>
       <Header />
       {addPage ? <AddProduct setAddPage={setAddPage} /> : ''}
-      {updatePage ? <UpdateProduct setUpdatePage={setUpdatePage} /> : ''}
+      {updatePage ? (
+        <UpdateProduct
+          setUpdatePage={setUpdatePage}
+          productData={productData}
+        />
+      ) : (
+        ''
+      )}
       <IconContext.Provider
         value={{ color: '#817161', size: '1.5em', className: 'icons' }}
       >
@@ -83,11 +91,6 @@ function Backstage() {
                   valid,
                   color,
                 } = v;
-                {
-                  /* console.log(v); */
-                }
-
-                {/* setProductData({ id: v.id }); */}
 
                 return (
                   <tr>
@@ -112,6 +115,7 @@ function Backstage() {
                       <div
                         onClick={() => {
                           setUpdatePage(true);
+                          setProductData(v);
                         }}
                       >
                         <BsPencilSquare />

@@ -42,7 +42,6 @@ function AddPage({ setAddPage }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      // let response = await axios.post(`${API_URL}/camping/campingAdd`, camping);
 
       let formData = new FormData();
       formData.append('name', product.name);
@@ -189,20 +188,18 @@ function AddPage({ setAddPage }) {
 
           {/* actDate */}
           <div className="grid2">
-          <div className='d-flex flex-column align-items-end'>
-            <div className="mb-4 ">
-              <label>折扣日期：</label>
-              <input
-                className="input"
-                id="actStartDate"
-                name="actStartDate"
-                type="date"
-                maxLength={10}
-                value={product.actStartDate}
-                onChange={handleChange}
-              />
-              
-
+            <div className="d-flex flex-column align-items-end">
+              <div className="mb-4 ">
+                <label>折扣日期：</label>
+                <input
+                  className="input"
+                  id="actStartDate"
+                  name="actStartDate"
+                  type="date"
+                  maxLength={10}
+                  value={product.actStartDate}
+                  onChange={handleChange}
+                />
               </div>
             </div>
             <div>
@@ -217,7 +214,6 @@ function AddPage({ setAddPage }) {
                 onChange={handleChange}
               />
             </div>
-            
           </div>
           {/* int */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">

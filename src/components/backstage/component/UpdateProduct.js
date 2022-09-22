@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
@@ -10,49 +10,67 @@ import AddImgProduct4 from './AddImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
-function UpdatePage({ setUpdatePage }) {
+function UpdatePage({ setUpdatePage, productData }) {
+  const {
+    name,
+    price,
+    category,
+    color,
+    img,
+    img2,
+    img3,
+    intro,
+    spec,
+    inventory,
+  } = productData;
   const [errMsg, setErrMsg] = useState(false);
   const [loginBtn, setLoginBtn] = useState(false);
   const [product, setProduct] = useState({
-    name: '義大利半自動義式咖啡機',
-    cate: 9,
-    color: '白色',
-    inventory: 12,
-    price: 25800,
+    name: name,
+    cate: category,
+    color: color,
+    inventory: inventory,
+    price: price,
     // actStartDate: '2022-09-01',
     // actEndDate: '2022-09-29',
-    intro:
-      '榮獲Good Design大獎 15Bar氣壓蒸氣高壓萃取技術 不鏽鋼蒸氣奶泡管，完成綿密奶泡 自動停止滴漏設計 1公升分離式透明水箱，加水便利',
-    spec: '類型	半自動咖啡機, 義式咖啡機/品牌	SMEG/型號	ECF01CRUS/顏色	白色系/產地	中國/機身材質	不鏽鋼/機身尺寸(長x寬x高)(mm)	14.9 x 37 x 30 cm/電壓	120V/產品重量	5kg/水箱容量	0.5公升-1公升/保固	1年/消耗功率	1200~1400W/BSMI許可字號	R45336',
-    photo1: '',
-    photo2: '',
-    photo3: '',
+    intro: intro,
+    spec: spec,
+    photo1: img,
+    photo2: img2,
+    photo3: img3,
   });
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/products/${productData.id}/detailImg`
+      );
+      let { img } = result.data[0];
+      // console.log(img);
+    })();
+  }, [productData.id]);
+
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
-
     setProduct(newProduct);
-    console.log(newProduct);
+    console.log(product);
   }
-  let brand = 9;
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      // let response = await axios.post(`${API_URL}/camping/campingAdd`, camping);
-
       let formData = new FormData();
-      formData.append('name', product.name);
-      formData.append('price', product.price);
-      formData.append('cate', product.cate);
-      formData.append('brand', brand);
-      formData.append('color', product.color);
-      formData.append('intro', product.intro);
-      formData.append('spec', product.spec);
-      formData.append('inventory', product.inventory);
-      formData.append('photo1', product.photo1);
-      formData.append('photo1', product.photo2);
-      formData.append('photo1', product.photo3);
-      formData.append('photo1', product.photo4);
+      // formData.append('name', name);
+      // formData.append('price', product.price);
+      // formData.append('cate', product.cate);
+      // formData.append('brand', brand);
+      // formData.append('color', product.color);
+      // formData.append('intro', product.intro);
+      // formData.append('spec', product.spec);
+      // formData.append('inventory', product.inventory);
+      // formData.append('photo1', product.photo1);
+      // formData.append('photo1', product.photo2);
+      // formData.append('photo1', product.photo3);
+      // formData.append('photo1', product.photo4);
       let response = await axios.post(
         `${API_URL}/products/addProduct`,
         formData
@@ -77,6 +95,7 @@ function UpdatePage({ setUpdatePage }) {
       console.error('addCamping', e);
     }
   }
+
   return (
     <>
       <div className="backstageAddPage">
@@ -104,7 +123,7 @@ function UpdatePage({ setUpdatePage }) {
                   name="name"
                   type="text"
                   maxLength={15}
-                  value={product.name}
+                  value={name}
                   onChange={handleChange}
                   required
                 />
@@ -117,7 +136,7 @@ function UpdatePage({ setUpdatePage }) {
                   name="cate"
                   type="text"
                   maxLength={15}
-                  value={product.cate}
+                  value={category}
                   onChange={handleChange}
                   required
                 />
@@ -130,7 +149,7 @@ function UpdatePage({ setUpdatePage }) {
                   name="color"
                   type="text"
                   maxLength={10}
-                  value={product.color}
+                  value={color}
                   onChange={handleChange}
                 />
               </div>
@@ -145,7 +164,7 @@ function UpdatePage({ setUpdatePage }) {
                   name="inventory"
                   type="number"
                   maxLength={10}
-                  value={product.inventory}
+                  value={inventory}
                   onChange={handleChange}
                 />
               </div>
@@ -157,7 +176,7 @@ function UpdatePage({ setUpdatePage }) {
                   name="price"
                   type="number"
                   maxLength={10}
-                  value={product.price}
+                  value={price}
                   onChange={handleChange}
                 />
               </div>
@@ -175,7 +194,7 @@ function UpdatePage({ setUpdatePage }) {
                   name="actStartDate"
                   type="date"
                   maxLength={10}
-                  value={product.actStartDate}
+                  value=""
                   onChange={handleChange}
                 />
               </div>
@@ -188,7 +207,7 @@ function UpdatePage({ setUpdatePage }) {
                 name="actEndDate"
                 type="date"
                 maxLength={10}
-                value={product.actEndDate}
+                value=""
                 onChange={handleChange}
               />
             </div>
@@ -204,7 +223,7 @@ function UpdatePage({ setUpdatePage }) {
               rows="5"
               cols="68"
               maxLength={150}
-              value={product.intro}
+              value={intro}
               onChange={handleChange}
             />
           </div>
@@ -218,7 +237,7 @@ function UpdatePage({ setUpdatePage }) {
               rows="5"
               cols="68"
               maxLength={200}
-              value={product.spec}
+              value={spec}
               onChange={handleChange}
             />
           </div>
@@ -226,18 +245,13 @@ function UpdatePage({ setUpdatePage }) {
           {/* img */}
           <div className="mb-4 leftInput">商品圖片：</div>
           <div className="mb-4 d-flex justify-content-center ms-4">
-            <AddImgProduct product={product} setProduct={setProduct} />
-            <AddImgProduct2 product={product} setProduct={setProduct} />
-            <AddImgProduct3 product={product} setProduct={setProduct} />
-            {/* {[...Array(3)].map((v, i) => {
-              return (
-                
-              );
-            })} */}
+            <AddImgProduct img={img} />
+            <AddImgProduct2 img2={img2} />
+            <AddImgProduct3 img3={img3} />
           </div>
           <div className="mb-4 leftInput">商品圖片：</div>
           <div className="mb-4 d-flex justify-content-center ms-4">
-            <AddImgProduct4 product={product} setProduct={setProduct} />
+            <AddImgProduct4 />
           </div>
 
           {/* btn */}

@@ -31,7 +31,7 @@ const ProductComment = () => {
       setComment(result.data);
     })();
   }, []);
-
+  
   return (
     <>
       <div className="typeArea">
@@ -81,6 +81,7 @@ const ProductComment = () => {
         </div>
       </div>
       {comment.map((v, i) => {
+        console.log(v.photo)
         return (
           <>
             <div className="commentArea" key={i}>
