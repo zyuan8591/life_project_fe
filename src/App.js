@@ -53,10 +53,10 @@ import Points from './components/Users/Content/Points/Points';
 import MyRecipe from './components/Users/Content/Recipe/MyRecipe';
 import Camping from './components/Users/Content/Camping/Camping';
 import Picnic from './components/Users/Content/Picnic/Picnic';
-// login / signup =======================================================================
-import Login from './components/Login/Login';
+// signin =======================================================================
+
 import Signin from './components/Login/Signin';
-import Signup from './components/Login/Signup';
+
 // cart =======================================================================
 import Cart from './components/Orders/pages/Cart';
 import OrderStep from './components/Orders/OrderStep';
@@ -178,10 +178,7 @@ function App() {
                       <Route path="/users/caping" element={<Camping />} />
                     </Route>
                     {/* login / signup */}
-                    <Route path="/signin/" element={<Signin />}>
-                      <Route path="/signin/login" element={<Login />} />
-                      <Route path="/signin/signup" element={<Signup />} />
-                    </Route>
+                    <Route path="/signin" element={<Signin />} />
                     <Route
                       path="/forgot/password"
                       element={<ForgotPassword />}

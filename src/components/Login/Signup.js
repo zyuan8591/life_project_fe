@@ -16,7 +16,7 @@ const Signup = () => {
   const [error, setError] = useState(null);
 
   if (sign) {
-    return <Navigate to="/signin/login" />;
+    return <Navigate to="/signin?p=1" />;
   }
   return (
     <Formik

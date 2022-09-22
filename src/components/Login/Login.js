@@ -10,6 +10,7 @@ const Login = () => {
   const { user, setUser } = useUserRights();
   const navigate = useNavigate();
   const [remember, setRemember] = useState(false);
+  const [firstRemember, setFirstRemember] = useState(false);
 
   const [loginUser, setLoginUser] = useState({
     email: '',
@@ -17,18 +18,23 @@ const Login = () => {
   });
   const [err, setErr] = useState(null);
 
-  // 記住帳號密碼;
+  //TODO:製作記住帳號密碼
+  function changeRemember() {
+    setRemember(remember ? false : true);
+  }
   useEffect(() => {
     setRemember(JSON.parse(localStorage.getItem('remember')));
+    setFirstRemember(true);
   }, []);
-
   useEffect(() => {
-    localStorage.setItem('remember', JSON.stringify(remember));
     let [account] = JSON.parse(localStorage.getItem('account'));
     if (!remember) {
       return;
     }
     setLoginUser({ ...loginUser, ...account });
+  }, [firstRemember]);
+  useEffect(() => {
+    localStorage.setItem('remember', JSON.stringify(remember));
   }, [remember]);
 
   //顯示密碼
@@ -66,14 +72,18 @@ const Login = () => {
       password: 'a12345678',
     });
   }
+  function easyBackend() {
+    setLoginUser({
+      email: 'backend@test.com',
+      password: 'a12345678',
+    });
+  }
 
-  //TODO:製作記住帳號密碼
-  function changeRemember() {
-    setRemember(remember ? false : true);
+  if (user && user.status === 0) {
+    return navigate('/products/backstage'); //後台
   }
   if (user) {
-    return navigate('/');
-    // return <Navigate to="/" />;
+    return navigate(-1);
   }
 
   return (
@@ -84,6 +94,9 @@ const Login = () => {
         </button>
         <button className="btn btn-outline-warning mt-2" onClick={easyEmail}>
           寄信測試帳號
+        </button>
+        <button className="btn btn-outline-success mt-2" onClick={easyBackend}>
+          後台帳號
         </button>
       </div>
       <form action="">
