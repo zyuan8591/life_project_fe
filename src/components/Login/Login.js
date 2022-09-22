@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ShowPassword from '../Users/user_Component/ShowPassword';
 import axios from 'axios';
@@ -9,12 +9,27 @@ import { useUserRights } from '../../usecontext/UserRights';
 const Login = () => {
   const { user, setUser } = useUserRights();
   const navigate = useNavigate();
+  const [remember, setRemember] = useState(false);
 
   const [loginUser, setLoginUser] = useState({
     email: '',
     password: '',
   });
   const [err, setErr] = useState(null);
+
+  // 記住帳號密碼;
+  useEffect(() => {
+    setRemember(JSON.parse(localStorage.getItem('remember')));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('remember', JSON.stringify(remember));
+    let [account] = JSON.parse(localStorage.getItem('account'));
+    if (!remember) {
+      return;
+    }
+    setLoginUser({ ...loginUser, ...account });
+  }, [remember]);
 
   //顯示密碼
   const [eye, setEye] = useState({
@@ -31,8 +46,8 @@ const Login = () => {
       let response = await axios.post(`${API_URL}/login`, loginUser, {
         withCredentials: true,
       });
-
       setUser(response.data);
+      localStorage.setItem('account', JSON.stringify([loginUser]));
     } catch (e) {
       setErr(e.response.data.message);
     }
@@ -53,6 +68,9 @@ const Login = () => {
   }
 
   //TODO:製作記住帳號密碼
+  function changeRemember() {
+    setRemember(remember ? false : true);
+  }
   if (user) {
     return navigate('/');
     // return <Navigate to="/" />;
@@ -102,7 +120,12 @@ const Login = () => {
             <ShowPassword eye={eye} setEye={setEye} name="eye1" />
           </div>
           <div className="remember">
-            <input type="checkbox" id="remember" />
+            <input
+              type="checkbox"
+              id="remember"
+              checked={remember}
+              onChange={changeRemember}
+            />
             <label htmlFor="remember">記住帳號密碼</label>
           </div>
 

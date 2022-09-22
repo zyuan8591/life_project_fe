@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PicnicFilter = ({ list, setList }) => {
+const PicnicFilter = ({ list, setList, setDisplay }) => {
   const item = ['官方活動', '私人活動', '我開的團', '歷史紀錄', '活動蒐藏'];
   return (
     <ul className="activity-filter ">
@@ -11,6 +11,7 @@ const PicnicFilter = ({ list, setList }) => {
             className="list"
             onClick={() => {
               setList(v);
+              setDisplay(i);
             }}
           >
             <button className={` ${list === v ? 'active' : ''}`}>{v}</button>
