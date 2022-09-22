@@ -28,6 +28,7 @@ import CampingDetailAside from './component/CampingDetailAside';
 import Weather from '../../weather/Weather';
 import MapAside from '../../map/component/MapAside';
 import { useUserRights } from '../../../usecontext/UserRights';
+import { useCampingCart } from '../../../orderContetxt/useCampingCart';
 import Notification from '../../activity/Notification';
 const stateClassName = (state) => {
   switch (state) {
@@ -86,23 +87,30 @@ const aboutDetailContent = [
 ];
 
 const products = [
-  { name: 'Moomin多功能電烤盤', img: 'BRUNO_BOE059_BGR_CE_02.jpeg' },
-  { name: '隨行果汁機', img: 'CHANCOO_CC5800_GRE_03.webp' },
-  { name: '多功能電烤盤-經典款', img: 'BRUNO_BOE021_RD_03.jpeg' },
-  { name: '多功能計時鬆餅機', img: 'Giaretti_gtswt26_03.jpg' },
-  { name: 'Ball Mason Jar隨鮮瓶果汁機', img: 'OSTER_ BLSTMM_BA4_02.jpeg' },
-  { name: '熱壓吐司鬆餅機', img: 'COOKPOWER_MF1115P_02.jpg' },
-  { name: '多功能電烤盤-經典款', img: 'BRUNO_ BOE026_CGR_02.webp' },
-  { name: 'SOU‧SOU 多功能電烤盤', img: 'BRUNO_BOE021_SOUSOU_02.webp' },
-  { name: '單片熱壓三明治機', img: 'Toffy_khs3_p_02.jpg' },
-  { name: 'Luxury440', img: 'luxury440_w_003.jpg' },
+  { id: 3, name: 'Moomin多功能電烤盤', img: 'BRUNO_BOE059_BGR_CE_02.jpeg' },
+  { id: 57, name: '隨行果汁機', img: 'CHANCOO_CC5800_GRE_03.webp' },
+  { id: 4, name: '多功能電烤盤-經典款', img: 'BRUNO_BOE021_RD_03.jpeg' },
+  { id: 176, name: '多功能計時鬆餅機', img: 'Giaretti_gtswt26_03.jpg' },
+  {
+    id: 56,
+    name: 'Ball Mason Jar隨鮮瓶果汁機',
+    img: 'OSTER_BLSTMM_BA4_02.jpeg',
+  },
+  { id: 169, name: '熱壓吐司鬆餅機', img: 'COOKPOWER_MF1115P_02.jpg' },
+  { id: 8, name: '多功能電烤盤-經典款', img: 'BRUNO_BOE026_CGR_02.webp' },
+  { id: 1, name: 'SOU‧SOU 多功能電烤盤', img: 'BRUNO_BOE021_SOUSOU_02.webp' },
+  { id: 173, name: '單片熱壓三明治機', img: 'Toffy_khs3_p_02.jpg' },
+  { id: 149, name: 'Luxury440', img: 'luxury440_w_003.jpg' },
 ];
 
 function CampingDetailPage() {
+  const cart = useCampingCart({});
+
   const [aboutIcon, setAboutIcon] = useState(aboutIcons);
   const [aboutDetail, setAboutDetail] = useState(aboutDetailContent);
   const [scrollDown, setScrollDown] = useState(false);
   const [product, setProduct] = useState(products);
+
   const productLength = product.length;
   // console.log(productLength);
 
@@ -141,7 +149,7 @@ function CampingDetailPage() {
     };
     setLoading(false);
     getCampingDetailData();
-  }, [loading]);
+  }, [loading, campingId]);
 
   // mapDisId
   useEffect(() => {
@@ -152,7 +160,7 @@ function CampingDetailPage() {
       setMapDataIdLength(response.data.campingResultL);
     };
     getCampingMapDis();
-  }, []);
+  }, [campingId]);
 
   useEffect(() => {
     let getAllJoin = async () => {
@@ -243,6 +251,13 @@ function CampingDetailPage() {
           let hadJoin = response.data.getJoin.map((v) => v.activity_id);
           setUserJoin(hadJoin);
           console.log('add', response.data);
+          cart.addItem({
+            id: v.id,
+            quantity: 1,
+            name: v.title,
+            price: v.price,
+            ischecked: false,
+          });
           //TODO: 改掉alert
           setAddActConfirm(true);
           setTimeout(() => {
