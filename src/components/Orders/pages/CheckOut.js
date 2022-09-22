@@ -16,7 +16,7 @@ import * as yup from 'yup';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 const CheckOut = () => {
-  const { currentStep, setCurrentStep } = useCartStep();
+  const { currentStep, setCurrentStep, setOrderId } = useCartStep();
   const navigate = useNavigate();
 
   const [delivery, setDelivery] = useState([]);
@@ -81,6 +81,7 @@ const CheckOut = () => {
   const picnicTotal = picnicCart.state.cartTotal;
   const campingItems = campingCart.state.items;
   const campingTotal = campingCart.state.cartTotal;
+
   return (
     <>
       <OrderDetail />
@@ -111,19 +112,20 @@ const CheckOut = () => {
           payment: yup.string().required('必須'),
           cardNumber: yup.string().when('payment', {
             is: 'payment' === 4,
-            then: yup.string().required,
+            then: yup.string().required('87'),
           }),
+
           cCardMonth: yup.string().when('payment', {
-            is: 'payment' === 4,
+            is: 4,
             then: yup.string().required,
           }),
           cCardDate: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required,
+            is: 4,
+            then: yup.string().required('87'),
           }),
           cCardCheck: yup.string().when('payment', {
             is: 'payment' === 4,
-            then: yup.string().required,
+            then: yup.string().required('sdfas'),
           }),
         })}
         onSubmit={async (values) => {
@@ -132,7 +134,10 @@ const CheckOut = () => {
               withCredentials: true,
             });
             // console.log(response);
-            if (response.data) return setIsOrder(true);
+            if (response.data) {
+              setIsOrder(true);
+              setOrderId(response.data);
+            }
           } catch (e) {
             console.error('order', e);
           }
