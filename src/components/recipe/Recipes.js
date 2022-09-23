@@ -175,8 +175,7 @@ const Recipes = () => {
 
   // handle add recipe form
   const addRecipeHandler = () => {
-    // TODO: test
-    // if (!user) return setLoginBtn(true);
+    if (!user) return setLoginBtn(true);
     const params = Object.fromEntries([...searchParams]);
     params['add'] = 'true';
     setSearchParams(params);
@@ -204,13 +203,13 @@ const Recipes = () => {
       {loginBtn && (
         <Notification
           contaninText="請先登入會員"
-          linkTo="/signin/login"
+          linkTo="/signin?p=1"
           linkToText="登入"
           setLoginBtn={setLoginBtn}
         />
       )}
       {addToast && (
-        <Notification contaninText="新增食譜成功" iconSize={2}>
+        <Notification contaninText="新增食譜成功" iconSize={2} bottom={30}>
           <SiFoodpanda />
         </Notification>
       )}

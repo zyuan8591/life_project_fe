@@ -130,13 +130,14 @@ const RecipeDetail = () => {
         {loginBtn && (
           <Notification
             contaninText="請先登入會員"
-            linkTo="/signin/login"
+            linkTo="/signin?p=1"
             linkToText="登入"
             setLoginBtn={setLoginBtn}
           />
         )}
         {!!toast && (
           <Notification
+            bottom={30}
             contaninText={
               toast === 1
                 ? '已加入收藏'
