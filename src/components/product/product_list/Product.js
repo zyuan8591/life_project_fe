@@ -8,8 +8,9 @@ import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
-import Notification from '../../activity/Notification';
 import { API_URL_IMG } from '../../../utils/config';
+import Notification from '../../activity/Notification';
+import { useUserRights } from '../../../usecontext/UserRights';
 
 const Product = ({
   item,
@@ -17,6 +18,12 @@ const Product = ({
   fav,
   setProductLikeId,
   productLikeId,
+  setCollectConfirm,
+  setCollectCancel,
+  collectCancel,
+  collectConfirm,
+  cartConfirm,
+  setCartConfirm,
 }) => {
   const productCart = useProductCart({});
   const cart = productCart.state.items.map((v) => {
@@ -25,12 +32,8 @@ const Product = ({
   const [changePic, setChangePic] = useState(false);
   const [changePicNumber, setChangePicNumber] = useState('');
   const [loginBtn, setLoginBtn] = useState(false);
-  let favArr = item.map((v) => {
-    return v.product_id;
-  });
-  console.log(favArr);
-  console.log(fav);
-  // console.log(item.includes(fav));
+  const { user } = useUserRights();
+
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -47,15 +50,45 @@ const Product = ({
               setChangePic(false);
             }}
           >
-            {/* { ? (
-              <Notification contaninText="收藏成功" setLoginBtn={setLoginBtn}>
+            {cartConfirm ? (
+              <Notification
+                contaninText={'已加入購物車'}
+                setLoginBtn={setLoginBtn}
+              >
                 <HiHeart />
               </Notification>
             ) : (
-              <Notification contaninText="取消收藏" setLoginBtn={setLoginBtn}>
+              ''
+            )}
+            {collectConfirm ? (
+              <Notification
+                contaninText={'已加入收藏'}
+                setLoginBtn={setLoginBtn}
+              >
                 <HiHeart />
               </Notification>
-            )} */}
+            ) : (
+              ''
+            )}
+            {collectCancel ? (
+              <Notification
+                contaninText={'已取消收藏'}
+                setLoginBtn={setLoginBtn}
+              >
+                <HiOutlineHeart />
+              </Notification>
+            ) : (
+              ''
+            )}
+            {loginBtn ? (
+              <Notification
+                contaninText={'請先登入會員'}
+                linkTo={'/signin/login'}
+                setLoginBtn={setLoginBtn}
+              />
+            ) : (
+              ''
+            )}
 
             <div
               className="productHoverContainer"
@@ -75,39 +108,60 @@ const Product = ({
                     margin: '5px',
                   }}
                 >
-                  <div
-                    style={{ cursor: 'pointer' }}
-                    onClick={async () => {
-                      if (fav.includes(v.id)) {
-                        await axios.delete(
-                          `${API_URL}/products/${id}/removeLike`,
-                          { withCredentials: true }
-                        );
-                        setProductLikeId(!productLikeId);
-                      } else {
-                        await axios.post(
-                          `${API_URL}/products/addLike`,
-                          { id },
-                          { withCredentials: true }
-                        );
-                        setProductLikeId(!productLikeId);
-                      }
-                    }}
-                  >
-                    {fav.includes(v.id) ? (
-                      <IconContext.Provider
-                        value={{
-                          color: 'red',
-                          size: '2rem',
-                          margin: '5px',
-                        }}
-                      >
-                        <HiHeart />
-                      </IconContext.Provider>
-                    ) : (
-                      <HiOutlineHeart />
-                    )}
-                  </div>
+                  {user ? (
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      onClick={async () => {
+                        setCollectConfirm(true);
+                        setTimeout(() => {
+                          setCollectConfirm(false);
+                        }, 1200);
+                        if (fav.includes(v.id)) {
+                          await axios.delete(
+                            `${API_URL}/products/${id}/removeLike`,
+                            { withCredentials: true }
+                          );
+                          setProductLikeId(!productLikeId);
+                        } else {
+                          await axios.post(
+                            `${API_URL}/products/addLike`,
+                            { id },
+                            { withCredentials: true }
+                          );
+                          setProductLikeId(!productLikeId);
+                        }
+                      }}
+                    >
+                      {fav.includes(v.id) ? (
+                        <IconContext.Provider
+                          value={{
+                            color: 'red',
+                            size: '2rem',
+                            margin: '5px',
+                          }}
+                        >
+                          <HiHeart
+                            onClick={() => {
+                              setCollectCancel(true);
+                              setTimeout(() => {
+                                setCollectCancel(false);
+                              }, 1200);
+                            }}
+                          />
+                        </IconContext.Provider>
+                      ) : (
+                        <HiOutlineHeart />
+                      )}
+                    </div>
+                  ) : (
+                    <HiOutlineHeart
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        setLoginBtn(true);
+                      }}
+                    />
+                  )}
+
                   <div style={{ cursor: 'pointer' }}>
                     {cart.includes(id) ? (
                       <IconContext.Provider
@@ -128,7 +182,10 @@ const Product = ({
                               ischecked: false,
                               img: img,
                             });
-                            console.log(productCart.state.items);
+                            setCartConfirm(true);
+                            setTimeout(() => {
+                              setCartConfirm(false);
+                            }, 1200);
                           }}
                         />
                       </IconContext.Provider>
@@ -144,7 +201,10 @@ const Product = ({
                             ischecked: false,
                             img: img,
                           });
-                          console.log(productCart.state.items);
+                          setCartConfirm(true);
+                          setTimeout(() => {
+                            setCartConfirm(false);
+                          }, 1200);
                         }}
                       />
                     )}

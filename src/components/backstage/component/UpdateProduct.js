@@ -268,7 +268,7 @@ function UpdatePage({ setUpdatePage, productData }) {
               name="spec"
               rows="5"
               cols="68"
-              maxLength={200}
+              maxLength={300}
               value={product.spec}
               onChange={handleChange}
             />

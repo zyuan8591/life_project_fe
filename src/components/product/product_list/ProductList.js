@@ -30,7 +30,10 @@ const ProductList = () => {
   const [fav, setFav] = useState([]);
   const [productLikeId, setProductLikeId] = useState(false);
 
-  // console.log(item);
+  // toast
+  const [collectConfirm, setCollectConfirm] = useState(false);
+  const [collectCancel, setCollectCancel] = useState(false);
+  const [cartConfirm, setCartConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -106,6 +109,12 @@ const ProductList = () => {
               fav={fav}
               setProductLikeId={setProductLikeId}
               productLikeId={productLikeId}
+              setCollectConfirm={setCollectConfirm}
+              collectConfirm={collectConfirm}
+              setCollectCancel={setCollectCancel}
+              collectCancel={collectCancel}
+              setCartConfirm={setCartConfirm}
+              cartConfirm={cartConfirm}
             />
           </div>
         </div>

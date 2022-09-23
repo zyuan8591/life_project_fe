@@ -42,4 +42,7 @@ $height: 50px;
     z-index: -1;
     border-radius: 5px;
   }
+  @media (max-width:420px) {
+    display: none;
+  }
 }

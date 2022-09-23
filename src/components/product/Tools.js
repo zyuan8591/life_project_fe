@@ -11,14 +11,28 @@ import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../utils/config';
 import { useProductCart } from '../../orderContetxt/useProductCart';
 import { Link } from 'react-router-dom';
+import Notification from '../activity/Notification';
+import { useUserRights } from '../../usecontext/UserRights';
 
 const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
   const productCart = useProductCart({});
+  const { user } = useUserRights();
+  const [loginBtn, setLoginBtn] = useState(false);
+
   return (
     <>
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin/login'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <div
         className={classess.tool}
         style={{
@@ -100,9 +114,23 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
           );
         })}
         {productCart.state.items.length > 0 ? (
-          <Link to={`/orderstep/cart`} className={classess.checkout}>
-            前往結帳
-          </Link>
+          <>
+            {user ? (
+              <Link to={`/orderstep/cart`} className={classess.checkout}>
+                前往結帳
+              </Link>
+            ) : (
+              <Link
+                to={``}
+                className={classess.checkout}
+                onClick={() => {
+                  setLoginBtn(true);
+                }}
+              >
+                前往結帳
+              </Link>
+            )}
+          </>
         ) : (
           <div className={classess.nothingInCart}>沒有商品在購物車</div>
         )}

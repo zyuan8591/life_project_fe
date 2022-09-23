@@ -12,6 +12,8 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { API_URL_IMG } from '../../../utils/config';
+import Notification from '../../activity/Notification';
+import { useUserRights } from '../../../usecontext/UserRights';
 
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
@@ -42,12 +44,49 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   });
   const [quantity, setQuantity] = useState(1);
   const [mainPhoto, setMainPic] = useState('');
+  const [collectConfirm, setCollectConfirm] = useState(false);
+  const [collectCancel, setCollectCancel] = useState(false);
+  const [cartConfirm, setCartConfirm] = useState(false);
+  const { user } = useUserRights();
+  const [loginBtn, setLoginBtn] = useState(false);
+
   console.log();
   useEffect(() => {
     setMainPic(pic);
   }, [data]);
+
   return (
     <div className="infoContainer">
+      {cartConfirm ? (
+        <Notification contaninText={'已加入購物車'} setLoginBtn={setLoginBtn}>
+          <HiHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {collectConfirm ? (
+        <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+          <HiHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {collectCancel ? (
+        <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+          <HiOutlineHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin/login'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <div className="productInfo">
         <div className="picArea">
           <figure className="mainPic">
@@ -150,41 +189,66 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                       ischecked: false,
                       img: img,
                     });
+                    setCartConfirm(true);
+                    setTimeout(() => {
+                      setCartConfirm(false);
+                    }, 1200);
                   }}
                 >
                   <IoCartOutline />
                 </button>
-                <button
-                  onClick={async () => {
-                    if (fav.includes(id)) {
-                      await axios.delete(
-                        `${API_URL}/products/${id}/removeLike`,
-                        { withCredentials: true }
-                      );
-                      setProductLikeId(!productLikeId);
-                    } else {
-                      await axios.post(
-                        `${API_URL}/products/addLike`,
-                        { id },
-                        { withCredentials: true }
-                      );
-                      setProductLikeId(!productLikeId);
-                    }
-                  }}
-                >
-                  {fav.includes(id) ? (
-                    <IconContext.Provider
-                      value={{
-                        color: 'red',
-                        size: '1.6rem',
-                      }}
-                    >
-                      <HiHeart />
-                    </IconContext.Provider>
-                  ) : (
+                {user ? (
+                  <button
+                    onClick={async () => {
+                      setCollectConfirm(true);
+                      setTimeout(() => {
+                        setCollectConfirm(false);
+                      }, 1200);
+                      if (fav.includes(id)) {
+                        await axios.delete(
+                          `${API_URL}/products/${id}/removeLike`,
+                          { withCredentials: true }
+                        );
+                        setProductLikeId(!productLikeId);
+                      } else {
+                        await axios.post(
+                          `${API_URL}/products/addLike`,
+                          { id },
+                          { withCredentials: true }
+                        );
+                        setProductLikeId(!productLikeId);
+                      }
+                    }}
+                  >
+                    {fav.includes(id) ? (
+                      <IconContext.Provider
+                        value={{
+                          color: 'red',
+                          size: '1.6rem',
+                        }}
+                      >
+                        <HiHeart
+                          onClick={() => {
+                            setCollectCancel(true);
+                            setTimeout(() => {
+                              setCollectCancel(false);
+                            }, 1200);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    ) : (
+                      <HiOutlineHeart />
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setLoginBtn(true);
+                    }}
+                  >
                     <HiOutlineHeart />
-                  )}
-                </button>
+                  </button>
+                )}
               </IconContext.Provider>
             </div>
           </div>

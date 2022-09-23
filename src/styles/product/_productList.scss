@@ -54,6 +54,9 @@ $numberSize: 36px;
       //   opacity:1;
       //   box-shadow:0 10px 20px 0px rgba(0,0,0,.3);
       // }
+      @media (max-width: 420px) {
+        min-height: 200px;
+      }
       
       .rank {
         position: relative;
