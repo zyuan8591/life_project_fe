@@ -68,7 +68,7 @@ const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
-  const [addToast, setAddToast] = useState(false);
+  const [addToast, setAddToast] = useState(true);
   const navigate = useNavigate();
 
   // init data
