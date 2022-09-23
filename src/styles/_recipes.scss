@@ -1,18 +1,39 @@
 @import './variable';
 
 .pageRecipes {
-  position: relative;
   margin: $headerHeight auto 8rem;
   max-width: $maxWidth;
   padding: 3rem 2rem;
   color: $contentClr;
-  .recipesCateBtnGroup {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  position: relative;
+  .cateBtnContainer {
+    overflow: hidden;
+    position: relative;
+    .recipesCateBtnGroup {
+      padding-right: 1.2rem;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      gap: 1rem;
+      transition: 0.5s;
+      height: fit-content;
+
+      @media (max-width: 1000px) {
+      }
+      @media (max-width: 500px) {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
+    .rotate180 {
+      transform: rotate(180deg);
+    }
     @media (max-width: 1000px) {
       border-bottom: 1px solid $hoverClr;
-      padding-bottom: 1rem;
       &:last-child {
         border: none;
       }

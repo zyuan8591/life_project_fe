@@ -11,6 +11,7 @@ import {
   AiOutlineHeart,
   AiOutlineBars,
   AiOutlineAppstore,
+  AiOutlineDown,
 } from 'react-icons/ai';
 import ProductCategory from '../product/product_list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
@@ -67,8 +68,6 @@ const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useUserRights();
-  const [loginBtn, setLoginBtn] = useState(false);
-  const [addToast, setAddToast] = useState(true);
   const navigate = useNavigate();
 
   // init data
@@ -97,6 +96,14 @@ const Recipes = () => {
   const [searchName, setSearchName] = useState('');
   const [searchMaterial, setSearchMaterial] = useState('');
   const [selectSortOption, setSelectSortOption] = useState(1);
+
+  // close & open
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [addToast, setAddToast] = useState(false);
+  const [recipeCateCollapse, setRecipeCateCollapse] = useState(false);
+  const [productCateCollapse, setProductCateCollapse] = useState(false);
+  let recipeCollapseStyle = recipeCateCollapse ? { flexWrap: 'wrap' } : {};
+  let productCollapseStyle = productCateCollapse ? { flexWrap: 'wrap' } : {};
 
   useEffect(() => {
     (async () => {
@@ -148,7 +155,6 @@ const Recipes = () => {
       setRecipeList(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
-    console.log('perPage', perPage);
   }, [
     recipeCateNow,
     selectSortOption,
@@ -217,35 +223,66 @@ const Recipes = () => {
         <BreadCrumb />
         <IndexRecipeActivity />
         {/* recipeCategory */}
-        <div className="recipesCateBtnGroup mb-3">
-          {recipeCate.map((d, i) => {
-            return (
-              <div key={d.id}>
+        <div className="cateBtnContainer pb-3 mb-3">
+          <div className={`recipesCateBtnGroup`} style={recipeCollapseStyle}>
+            {recipeCate.map((d, i) => {
+              return (
                 <RecipeCateBtn
+                  key={d.id}
                   cateNum={d.id}
                   content={d.name}
                   active={i === parseInt(recipeCateNow) ? true : false}
                   type="recipeCate"
-                />
-              </div>
-            );
-          })}
+                ></RecipeCateBtn>
+              );
+            })}
+          </div>
+          <div
+            className="position-absolute top-0 end-0 bg-white h-100 cursorPointer pt-1"
+            onClick={() => setRecipeCateCollapse(!recipeCateCollapse)}
+          >
+            <IconContext.Provider
+              value={{
+                color: '#444',
+                size: '1rem',
+                className: `transition ${recipeCateCollapse && 'rotate180'}`,
+              }}
+            >
+              <AiOutlineDown />
+            </IconContext.Provider>
+          </div>
         </div>
         {/* productCategory */}
         {vw < 1000 && (
-          <div className="recipesCateBtnGroup mb-3">
-            {productCate.map((d, i) => {
-              return (
-                <div key={d.id}>
-                  <RecipeCateBtn
-                    cateNum={d.id}
-                    content={d.name}
-                    active={i === parseInt(productCateNow) ? true : false}
-                    type="productCate"
-                  />
-                </div>
-              );
-            })}
+          <div className="cateBtnContainer pb-3 mb-3">
+            <div className={`recipesCateBtnGroup`} style={productCollapseStyle}>
+              {productCate.map((d, i) => {
+                return (
+                  <div key={d.id}>
+                    <RecipeCateBtn
+                      cateNum={d.id}
+                      content={d.name}
+                      active={i === parseInt(productCateNow) ? true : false}
+                      type="productCate"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <div
+              className="position-absolute top-0 end-0 bg-white h-100 cursorPointer pt-1"
+              onClick={() => setProductCateCollapse(!productCateCollapse)}
+            >
+              <IconContext.Provider
+                value={{
+                  color: '#444',
+                  size: '1rem',
+                  className: `transition ${productCateCollapse && 'rotate180'}`,
+                }}
+              >
+                <AiOutlineDown />
+              </IconContext.Provider>
+            </div>
           </div>
         )}
         <div className="recipeToolBar">

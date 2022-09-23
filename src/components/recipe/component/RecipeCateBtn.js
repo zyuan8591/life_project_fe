@@ -12,9 +12,9 @@ const RecipeCateBtn = ({ cateNum, type, content, active }) => {
     color: #444;
     padding: 0.5rem 0.75rem;
     border-radius: 3px;
-    border: none;
-    box-shadow: 0px 0px 1.7px rgba(0, 0, 0, 0.5);
+    border: 1.7px solid rgba(0, 0, 0, 0.2);
     background: none;
+    height: fit-content;
     &:hover,
     &.active {
       background: ${btnColor};

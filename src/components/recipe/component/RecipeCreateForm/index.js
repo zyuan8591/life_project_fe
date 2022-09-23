@@ -156,19 +156,17 @@ const RecipeCreateForm = ({
     const { source, destination } = result;
     if (!destination) return;
     if (destination.index === source.index) return;
-    console.log('result', result);
+    // console.log('result', result);
     let newStep = [...step];
     let add = newStep[source.index];
-    console.log('add', add);
+    // console.log('add', add);
     newStep.splice(source.index, 1);
-    console.log('remove : newstep', newStep);
+    // console.log('remove : newstep', newStep);
     newStep.splice(destination.index, 0, add);
-    console.log('add : newstep', newStep);
+    // console.log('add : newstep', newStep);
     setStep(sortStep(newStep));
   };
-  useEffect(() => {
-    console.log('step', step);
-  }, [step]);
+
   // step sort
   const sortStep = (data) => {
     return [...data].map((d, i) => {
@@ -390,22 +388,17 @@ const RecipeCreateForm = ({
                   {
                     id: uuidv4(),
                     step: 7,
-                    content: '將餅皮平均壓平，用刀子在表面戳洞透氣。',
-                  },
-                  {
-                    id: uuidv4(),
-                    step: 8,
                     content: '將月亮蝦餅放上瀝油不沾烤盤，在表面刷上植物油。',
                   },
                   {
                     id: uuidv4(),
-                    step: 9,
+                    step: 8,
                     content:
                       '放進氣炸烤箱中層，以200度氣炸13分後，再翻面繼續氣炸5分鐘至上色。',
                   },
                   {
                     id: uuidv4(),
-                    step: 10,
+                    step: 9,
                     content: '待行程結束即可切開擺盤享用。',
                   },
                 ]);
