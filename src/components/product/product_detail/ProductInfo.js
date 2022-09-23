@@ -14,6 +14,7 @@ import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { API_URL_IMG } from '../../../utils/config';
 import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
+import BreadCrumb from '../../public_component/BreadCrumb';
 
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
@@ -87,6 +88,9 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
       ) : (
         ''
       )}
+      <div className='breadCrumb'>
+        <BreadCrumb />
+      </div>
       <div className="productInfo">
         <div className="picArea">
           <figure className="mainPic">
