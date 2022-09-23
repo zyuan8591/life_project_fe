@@ -18,7 +18,7 @@ const Login = () => {
   });
   const [err, setErr] = useState(null);
 
-  //TODO:製作記住帳號密碼
+  //記住帳號密碼
   function changeRemember() {
     setRemember(remember ? false : true);
   }
