@@ -143,6 +143,10 @@ const RecipeDetail = () => {
                 ? '已加入收藏'
                 : toast === 2
                 ? '已取消收藏'
+                : toast === 3
+                ? '已刪除留言'
+                : toast === 4
+                ? '已更新留言'
                 : '已新增留言'
             }
             iconSize={2}
