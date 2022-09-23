@@ -13,12 +13,13 @@
 }
 
 .notificationContainer {
-  // position: fixed;
-  // top: 0;
-  // left: 0;
-  // width: 100%;
-  // height: calc(100vh - $headerHeight);
-  // z-index: 40;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
   .contain {
     position: fixed;
     z-index: 40;
@@ -49,18 +50,57 @@
     }
   }
   .textBox {
-    width: 22%;
-    height: 24%;
+    border: 1.5px solid $mainClrW;
+    border-radius: 3px;
+    width: 350px;
+    height: 23%;
     background: $subClrBrown;
     flex-direction: column;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    transition: 0.3s;
+    @media (max-width: 500px) {
+      top: 100%;
+      transform: translate(-50%, -100%);
+      width: 100vw;
+      border: none;
+      border-radius: 10px 10px 0 0;
+      height: 30vh;
+    }
   }
-  .noTextBox {
-    width: 10%;
-    height: 7%;
-    background: $mainClrW;
-    box-shadow: 0.2px 0.2px 10px rgba(51, 70, 80, 0.207);
+}
+.noTextBox {
+  position: fixed;
+  width: 80vw;
+  max-width: 200px;
+  height: 7%;
+  background: $mainClrW;
+  box-shadow: 0.2px 0.2px 10px rgba(51, 70, 80, 0.207);
+  transform: translateY(200%);
+  z-index: 500;
+  &.active {
+    transform: translateY(0%);
+  }
+  .message {
+    color: $focusClrG;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  @media (max-width: 500px) {
+    width: 80vw;
+    max-width: none;
+
+    top: $headerHeight;
+    left: 50% !important;
+    margin-top: 0.5rem;
+    backdrop-filter: blur(50%);
+    transform: translateY(-100%);
+    &.active {
+      transform: translate(-50%, 0);
+    }
+    .toastClose {
+      width: 15px;
+    }
   }
 }

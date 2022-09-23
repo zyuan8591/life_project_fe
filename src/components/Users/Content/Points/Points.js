@@ -11,7 +11,8 @@ const Points = () => {
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
   const [data, setData] = useState([]);
-  console.log(data);
+  const [alldata, setAllData] = useState([]);
+
   useEffect(() => {
     try {
       let getdata = async () => {
@@ -22,6 +23,7 @@ const Points = () => {
           }
         );
         setData(response.data.data);
+        setAllData(response.data.alldata);
         setLastPage(response.data.pagination.lastPage);
       };
       getdata();
@@ -31,14 +33,16 @@ const Points = () => {
   }, [pageNow]);
   return (
     <>
-      <h3>我的點數</h3>
-      <PointGroup />
-      <List data={data} />
-      <PaginationBar
-        lastPage={lastPage}
-        pageNow={pageNow}
-        setPageNow={setPageNow}
-      />
+      <div className="pointsGroup">
+        <h3>我的點數</h3>
+        <PointGroup data={alldata} />
+        <List data={data} />
+        <PaginationBar
+          lastPage={lastPage}
+          pageNow={pageNow}
+          setPageNow={setPageNow}
+        />
+      </div>
     </>
   );
 };

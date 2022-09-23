@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/activity/_notification.scss';
 import { IconContext } from 'react-icons';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 function Notification({
   contaninText,
@@ -15,10 +16,19 @@ function Notification({
   iconSize = 2.5,
   children,
 }) {
+  const [show, setIsShow] = useState(false);
+  useEffect(() => {
+    setIsShow(true);
+  }, []);
+
   // console.log(position);
   return linkTo !== '' ? (
     <div className="notificationContainer">
-      <div className={`contain textBox`}>
+      <div
+        className={`contain textBox opacity-0 ${
+          show && 'opacity-100'
+        } transition`}
+      >
         <div className="msgText">{contaninText}</div>
         <div className="btns">
           <Link to={linkTo} className="confirmBtn">
@@ -36,22 +46,36 @@ function Notification({
       </div>
     </div>
   ) : (
-    <IconContext.Provider value={{ color: '#1F9998', size: `${iconSize}em` }}>
-      <div className="notificationContainer">
-        <div
-          className="contain noTextBox"
-          style={{
-            left: `${left}px`,
-            bottom: `${bottom}px`,
-            right: `${right}px`,
-            top: `${top}px`,
+    <div
+      className={`flexCenter noTextBox opacity-0 ${
+        show && 'opacity-100 active'
+      } transition `}
+      style={{
+        left: `${left}px`,
+        bottom: `${bottom}px`,
+        right: `${right}px`,
+        top: `${top}px`,
+      }}
+    >
+      <IconContext.Provider value={{ color: '#1F9998', size: `${iconSize}em` }}>
+        {children}
+      </IconContext.Provider>
+      <div className="message">{contaninText}</div>
+      <div
+        className="position-absolute top-0 start-100 translate-middle cursorPointer"
+        onClick={() => setIsShow(false)}
+      >
+        <IconContext.Provider
+          value={{
+            color: '#1F9998',
+            size: `1.25rem`,
+            className: 'toastClose',
           }}
         >
-          {children}
-          <div className="message">{contaninText}</div>
-        </div>
+          <AiFillCloseCircle />
+        </IconContext.Provider>
       </div>
-    </IconContext.Provider>
+    </div>
   );
 }
 

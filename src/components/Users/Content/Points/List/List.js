@@ -16,7 +16,9 @@ const List = ({ data }) => {
             {data.map((v, i) => {
               return (
                 <tr className="row" key={i}>
-                  <td className="col">{v.point}</td>
+                  <td className="col">
+                    {v.point > 0 ? `+${v.point}點` : v.point + '點'}
+                  </td>
                   <td className="col">{v.event}</td>
                   <td className="col">{v.time}</td>
                 </tr>

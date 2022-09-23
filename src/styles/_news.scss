@@ -2,6 +2,15 @@
 $newsTextClr: #8c8c8c;
 $newsBgClr: #f2f2f2;
 
+%cateBtn {
+  display: inline-block;
+  color: $newsTextClr;
+  background: $newsBgClr;
+  padding: 0.25rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
 .newsPage {
   position: relative;
   top: $headerHeight;
@@ -9,7 +18,7 @@ $newsBgClr: #f2f2f2;
   max-width: 1200px;
   padding: 4rem 2rem 8rem;
   color: $contentClr;
-  // news title
+  // news title ======================================
   .title {
     display: flex;
     flex-direction: column;
@@ -32,6 +41,18 @@ $newsBgClr: #f2f2f2;
       font-weight: bold;
     }
   }
+  // category ======================================
+  .newsCate {
+    li {
+      @extend %cateBtn;
+      border-radius: 2.5px;
+      &:hover,
+      &.active {
+        background: $newsTextClr;
+        color: $newsBgClr;
+      }
+    }
+  }
   // main content
   .news {
     margin-top: 2rem;
@@ -41,10 +62,16 @@ $newsBgClr: #f2f2f2;
       grid-template-columns: minmax(142px, 1fr) 7fr;
       position: sticky;
       top: 0;
+      @media (max-width: 500px) {
+        grid-template-columns: minmax(125px, 1fr) 7fr;
+      }
       .yearMonth {
         border-right: 1px solid $subClrGY;
         border-top: 1px solid $subClrGY;
         font-size: 2rem;
+        @media (max-width: 500px) {
+          font-size: 1.5rem;
+        }
       }
       .newMainContainer {
         flex: 1 1 auto;
@@ -68,12 +95,7 @@ $newsBgClr: #f2f2f2;
         }
         .content {
           .type {
-            display: inline-block;
-            color: $newsTextClr;
-            background: $newsBgClr;
-            padding: 0.25rem 1.5rem;
-            font-weight: bold;
-            font-size: 0.75rem;
+            @extend %cateBtn;
           }
           .text {
             font-size: $text14;

@@ -143,6 +143,10 @@ const nav = css`
   width: 250px;
   line-height: 3.5rem;
   border-right: 1px solid #ccc;
+  @media (max-width: 768px) {
+    display: none;
+  }
+
   .list {
     margin: 0 auto;
     padding: 0;
