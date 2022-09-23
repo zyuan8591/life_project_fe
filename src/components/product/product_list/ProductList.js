@@ -30,6 +30,8 @@ const ProductList = () => {
   const [fav, setFav] = useState([]);
   const [productLikeId, setProductLikeId] = useState(false);
 
+  // console.log(item);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(

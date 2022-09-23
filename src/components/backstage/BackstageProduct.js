@@ -8,7 +8,7 @@ import { BsPencilSquare } from 'react-icons/bs';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL } from '../../utils/config';
+import { API_URL, API_URL_IMG } from '../../utils/config';
 import AddProduct from './component/AddProduct';
 import UpdateProduct from './component/UpdateProduct';
 
@@ -23,18 +23,24 @@ function Backstage() {
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products/backstage?page=${pageNow}&brand=11`,
+        `${API_URL}/products/backstage?page=${pageNow}&brand=11 `,
         {
           withCredentials: true,
         }
       );
-      // let detailResult = await axios.get(`${API_URL}/products/detailImg?id=`)
 
       // console.log(result.data);
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
-  }, [pageNow, lastPage]);
+  }, [pageNow, lastPage, productData]);
+  // console.log(id);
+  const handleDelete = async (id) => {
+    let response = await axios.put(
+      `${API_URL}/products/deleteProduct?id=${id}`
+    );
+    console.log(response);
+  };
 
   return (
     <>
@@ -91,12 +97,15 @@ function Backstage() {
                   valid,
                   color,
                 } = v;
-
+                console.log(id);
                 return (
                   <tr>
                     <td>
                       <div className="titleImg">
-                        <img src={`/img/product/product_img/${img}`} alt="/" />
+                        <img
+                          src={`${API_URL_IMG}/product/product_img/${img}`}
+                          alt="/"
+                        />
                       </div>
                     </td>
                     <td>{name}</td>
@@ -121,7 +130,11 @@ function Backstage() {
                         <BsPencilSquare />
                       </div>
                     </td>
-                    <td>
+                    <td
+                      onClick={(e) => {
+                        handleDelete(id);
+                      }}
+                    >
                       <FaTrashAlt />
                     </td>
                   </tr>

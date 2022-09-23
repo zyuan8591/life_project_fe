@@ -38,11 +38,10 @@ function AddPage({ setAddPage }) {
     setProduct(newProduct);
     console.log(newProduct);
   }
-  let brand = 9;
+  let brand = 11;
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-
       let formData = new FormData();
       formData.append('name', product.name);
       formData.append('price', product.price);
@@ -257,7 +256,7 @@ function AddPage({ setAddPage }) {
               );
             })} */}
           </div>
-          <div className="mb-4 leftInput">商品圖片：</div>
+          <div className="mb-4 leftInput">商品詳細圖片：</div>
           <div className="mb-4 d-flex justify-content-center ms-4">
             <AddImgProduct4 product={product} setProduct={setProduct} />
           </div>

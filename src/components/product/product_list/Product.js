@@ -11,19 +11,28 @@ import { useProductCart } from '../../../orderContetxt/useProductCart';
 import Notification from '../../activity/Notification';
 import { API_URL_IMG } from '../../../utils/config';
 
-
-const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
+const Product = ({
+  item,
+  productList,
+  fav,
+  setProductLikeId,
+  productLikeId,
+}) => {
   const productCart = useProductCart({});
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
   const [changePic, setChangePic] = useState(false);
   const [changePicNumber, setChangePicNumber] = useState('');
+  const [loginBtn, setLoginBtn] = useState(false);
+  let favArr = item.map((v) => {
+    return v.product_id;
+  });
+  console.log(favArr);
+  console.log(fav);
+  // console.log(item.includes(fav));
   return (
     <div className="productContainer">
-      {/* <Notification contaninText="收藏成功">
-        <HiHeart />
-      </Notification> */}
       {productList.map((v, i) => {
         const { id, name, price, brand, img, color, img2 } = v;
         return (
@@ -38,7 +47,16 @@ const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
               setChangePic(false);
             }}
           >
-            {' '}
+            {/* { ? (
+              <Notification contaninText="收藏成功" setLoginBtn={setLoginBtn}>
+                <HiHeart />
+              </Notification>
+            ) : (
+              <Notification contaninText="取消收藏" setLoginBtn={setLoginBtn}>
+                <HiHeart />
+              </Notification>
+            )} */}
+
             <div
               className="productHoverContainer"
               onMouseOver={() => {

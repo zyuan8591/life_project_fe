@@ -3,10 +3,10 @@ import '../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
-import AddImgProduct from './AddImgProduct';
-import AddImgProduct2 from './AddImgProduct2';
-import AddImgProduct3 from './AddImgProduct3';
-import AddImgProduct4 from './AddImgProduct4';
+import UpdateImgProduct from './UpdateImgProduct';
+import UpdateImgProduct2 from './UpdateImgProduct2';
+import UpdateImgProduct3 from './UpdateImgProduct3';
+import UpdateImgProduct4 from './UpdateImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
@@ -25,6 +25,14 @@ function UpdatePage({ setUpdatePage, productData }) {
   } = productData;
   const [errMsg, setErrMsg] = useState(false);
   const [loginBtn, setLoginBtn] = useState(false);
+  const [detailImg, setDetailImg] = useState([]);
+  const [originImages, setOriginImages] = useState({
+    photo1: productData.img1,
+    photo2: productData.img2,
+    photo3: productData.img3,
+    photo4: productData.img4,
+  });
+
   const [product, setProduct] = useState({
     name: name,
     cate: category,
@@ -38,41 +46,65 @@ function UpdatePage({ setUpdatePage, productData }) {
     photo1: img,
     photo2: img2,
     photo3: img3,
+    photo4: "",
   });
-  useEffect(() => {
-    (async () => {
-      let result = await axios.get(
-        `${API_URL}/products/${productData.id}/detailImg`
-      );
-      let { img } = result.data[0];
-      // console.log(img);
-    })();
-  }, [productData.id]);
-
+  console.log(product.photo4);
+  
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
     setProduct(newProduct);
     console.log(product);
   }
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/products/${productData.id}/detailImg`
+      );
+      setDetailImg(result.data[0]);
+      setProduct({...product, photo4: result.data[0].img });
+    })();
+  }, [productData]);
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       let formData = new FormData();
-      // formData.append('name', name);
-      // formData.append('price', product.price);
-      // formData.append('cate', product.cate);
-      // formData.append('brand', brand);
-      // formData.append('color', product.color);
-      // formData.append('intro', product.intro);
-      // formData.append('spec', product.spec);
-      // formData.append('inventory', product.inventory);
-      // formData.append('photo1', product.photo1);
-      // formData.append('photo1', product.photo2);
-      // formData.append('photo1', product.photo3);
-      // formData.append('photo1', product.photo4);
-      let response = await axios.post(
-        `${API_URL}/products/addProduct`,
+      formData.append('id', productData.id);
+      formData.append('detailId', detailImg.id);
+      formData.append('name', product.name);
+      formData.append('price', product.price);
+      formData.append('cate', product.cate);
+      // formData.append('brand', product.brand);
+      formData.append('color', product.color);
+      formData.append('intro', product.intro);
+      formData.append('spec', product.spec);
+      formData.append('inventory', product.inventory);
+      formData.append('photo1', product.photo1);
+      formData.append('photo1', product.photo2);
+      formData.append('photo1', product.photo3);
+      formData.append('photo1', product.photo4);
+
+      formData.append('photoOrgin1', originImages.photo1);
+      formData.append('photoOrgin2', originImages.photo2);
+      formData.append('photoOrgin3', originImages.photo3);
+      formData.append('photoOrgin4', originImages.photo4);
+
+      formData.append('photoChange1', originImages.photo1 === product.photo1);
+      formData.append('photoChange2', originImages.photo2 === product.photo2);
+      formData.append('photoChange3', originImages.photo3 === product.photo3);
+      formData.append('photoChange4', originImages.photo4 === product.photo4);
+      console.log(
+        'photo1',
+        product.photo4,
+        'photoOrgin2',
+        originImages.photo2,
+        'product',
+        product,
+        'detailImg',
+        detailImg
+      );
+      let response = await axios.put(
+        `${API_URL}/products/updateProduct`,
         formData
         // {
         //   withCredentials: true,
@@ -123,7 +155,7 @@ function UpdatePage({ setUpdatePage, productData }) {
                   name="name"
                   type="text"
                   maxLength={15}
-                  value={name}
+                  value={product.name}
                   onChange={handleChange}
                   required
                 />
@@ -136,7 +168,7 @@ function UpdatePage({ setUpdatePage, productData }) {
                   name="cate"
                   type="text"
                   maxLength={15}
-                  value={category}
+                  value={product.cate}
                   onChange={handleChange}
                   required
                 />
@@ -149,7 +181,7 @@ function UpdatePage({ setUpdatePage, productData }) {
                   name="color"
                   type="text"
                   maxLength={10}
-                  value={color}
+                  value={product.color}
                   onChange={handleChange}
                 />
               </div>
@@ -164,7 +196,7 @@ function UpdatePage({ setUpdatePage, productData }) {
                   name="inventory"
                   type="number"
                   maxLength={10}
-                  value={inventory}
+                  value={product.inventory}
                   onChange={handleChange}
                 />
               </div>
@@ -176,7 +208,7 @@ function UpdatePage({ setUpdatePage, productData }) {
                   name="price"
                   type="number"
                   maxLength={10}
-                  value={price}
+                  value={product.price}
                   onChange={handleChange}
                 />
               </div>
@@ -223,7 +255,7 @@ function UpdatePage({ setUpdatePage, productData }) {
               rows="5"
               cols="68"
               maxLength={150}
-              value={intro}
+              value={product.intro}
               onChange={handleChange}
             />
           </div>
@@ -237,7 +269,7 @@ function UpdatePage({ setUpdatePage, productData }) {
               rows="5"
               cols="68"
               maxLength={200}
-              value={spec}
+              value={product.spec}
               onChange={handleChange}
             />
           </div>
@@ -245,18 +277,24 @@ function UpdatePage({ setUpdatePage, productData }) {
           {/* img */}
           <div className="mb-4 leftInput">商品圖片：</div>
           <div className="mb-4 d-flex justify-content-center ms-4">
-            <AddImgProduct img={img} />
-            <AddImgProduct2 img2={img2} />
-            <AddImgProduct3 img3={img3} />
+            <UpdateImgProduct product={product} setProduct={setProduct} />
+            <UpdateImgProduct2 product={product} setProduct={setProduct} />
+            <UpdateImgProduct3 product={product} setProduct={setProduct} />
           </div>
-          <div className="mb-4 leftInput">商品圖片：</div>
+          <div className="mb-4 leftInput">商品詳細圖片：</div>
           <div className="mb-4 d-flex justify-content-center ms-4">
-            <AddImgProduct4 />
+            <UpdateImgProduct4
+              product={product}
+              setProduct={setProduct}
+              detailImg={detailImg}
+            />
           </div>
 
           {/* btn */}
           <div className="mt-5 mb-4 text-center">
-            <button className="addBtn">修改</button>
+            <button className="addBtn" onClick={handleSubmit}>
+              修改
+            </button>
             <button
               className="cancelBtn"
               onClick={() => {
