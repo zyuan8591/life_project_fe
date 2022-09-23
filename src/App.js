@@ -53,6 +53,7 @@ import Points from './components/Users/Content/Points/Points';
 import MyRecipe from './components/Users/Content/Recipe/MyRecipe';
 import Camping from './components/Users/Content/Camping/Camping';
 import Picnic from './components/Users/Content/Picnic/Picnic';
+import Product from './components/Users/Content/Product/Product';
 // signin =======================================================================
 
 import Signin from './components/Login/Signin';
@@ -176,6 +177,7 @@ function App() {
                       <Route path="/users/picnic" element={<Picnic />} />
                       <Route path="/users/recipe" element={<MyRecipe />} />
                       <Route path="/users/caping" element={<Camping />} />
+                      <Route path="/users/product" element={<Product />} />
                     </Route>
                     {/* login / signup */}
                     <Route path="/signin" element={<Signin />} />

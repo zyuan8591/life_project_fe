@@ -27,6 +27,9 @@ const Login = () => {
     setFirstRemember(true);
   }, []);
   useEffect(() => {
+    if (localStorage.getItem('account') === null) {
+      return;
+    }
     let [account] = JSON.parse(localStorage.getItem('account'));
     if (!remember) {
       return;
