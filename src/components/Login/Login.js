@@ -92,15 +92,9 @@ const Login = () => {
   return (
     <>
       <div className="test">
-        <button className="btn btn-outline-danger" onClick={easy}>
-          一鍵填寫
-        </button>
-        <button className="btn btn-outline-warning mt-2" onClick={easyEmail}>
-          寄信測試帳號
-        </button>
-        <button className="btn btn-outline-success mt-2" onClick={easyBackend}>
-          後台帳號
-        </button>
+        <button className="bg-danger" onClick={easy}></button>
+        <button className="bg-warning" onClick={easyEmail}></button>
+        <button className="bg-success" onClick={easyBackend}></button>
       </div>
       <form action="">
         <div className="login">
