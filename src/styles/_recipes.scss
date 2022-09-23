@@ -101,6 +101,13 @@
         position: absolute;
         top: 3rem;
         right: 2rem;
+        gap: 0.5rem;
+        span {
+          font-size: 12px;
+        }
+        svg {
+          width: 32px;
+        }
       }
     }
   }
