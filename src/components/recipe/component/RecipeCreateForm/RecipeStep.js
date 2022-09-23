@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { TbTrash, TbMenu2 } from 'react-icons/tb';
 import { AiOutlinePlus, AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
+import { Draggable } from 'react-beautiful-dnd';
 
 const container = css`
   display: grid;
@@ -11,6 +12,10 @@ const container = css`
   border-bottom: 1px solid #eee;
   padding: 1rem 0;
   gap: 1rem;
+  background: #fff;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const imgContainer = css`
   display: flex;
@@ -19,9 +24,13 @@ const imgContainer = css`
   justify-content: center;
   background: #eee;
   border-radius: 3px;
+  @media (max-width: 900px) {
+    min-height: 150px;
+  }
 `;
 
 const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
+  // console.log(i, data.id);
   const [content, setContent] = useState('');
   const [length, setLength] = useState(0);
   useEffect(() => {
@@ -69,73 +78,81 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
       }
     };
   }, [file]);
-
   return (
-    <div css={container}>
-      {/* img input */}
-      <label
-        htmlFor={`recipeStepImg${i}`}
-        css={imgContainer}
-        className="cursorPointer"
-      >
-        {fileDataURL || data.img ? (
-          <img src={fileDataURL || data.img} alt="prev" className="w-100" />
-        ) : (
-          <>
-            <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-              <AiOutlineCamera />
-            </IconContext.Provider>
-            <span>點擊新增圖片</span>
-          </>
-        )}
-      </label>
-      <input
-        type="file"
-        className="d-none"
-        id={`recipeStepImg${i}`}
-        onChange={(e) => {
-          updateImgHandler(e);
-        }}
-      />
-      {/* right section */}
-      <div className="d-flex flex-column gap-2">
-        <div className="d-flex justify-content-between">
-          <span className="fw-bold">{i + 1}</span>
-          <div className="d-flex gap-1">
-            <IconContext.Provider
-              value={{
-                color: '#444',
-                size: '1.5rem',
-                className: 'cursorPointer',
+    <Draggable draggableId={`step${i}`} index={i}>
+      {(provided) => (
+        <div
+          css={container}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          {/* img input */}
+          <label
+            htmlFor={`recipeStepImg${i}`}
+            css={imgContainer}
+            className="cursorPointer"
+          >
+            {fileDataURL || data.img ? (
+              <img src={fileDataURL || data.img} alt="prev" className="w-100" />
+            ) : (
+              <>
+                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
+                  <AiOutlineCamera />
+                </IconContext.Provider>
+                <span>點擊新增圖片</span>
+              </>
+            )}
+          </label>
+          <input
+            type="file"
+            className="d-none"
+            id={`recipeStepImg${i}`}
+            onChange={(e) => {
+              updateImgHandler(e);
+            }}
+          />
+          {/* right section */}
+          <div className="d-flex flex-column gap-2">
+            <div className="d-flex justify-content-between">
+              <span className="fw-bold">{i + 1}</span>
+              <div className="d-flex gap-1">
+                <IconContext.Provider
+                  value={{
+                    color: '#444',
+                    size: '1.5rem',
+                    className: 'cursorPointer',
+                  }}
+                >
+                  <div onClick={() => addStep(i)}>
+                    <AiOutlinePlus />
+                  </div>
+                  <div onClick={() => delStep(i)}>
+                    <TbTrash />
+                  </div>
+                  <div>
+                    <TbMenu2 />
+                  </div>
+                </IconContext.Provider>
+              </div>
+            </div>
+            <textarea
+              placeholder="請輸入步驟說明 (最多 150 字)"
+              rows="4"
+              cols="auto"
+              value={content}
+              onChange={(e) => {
+                if (e.target.value.length > 150) return;
+                setLength(e.target.value.length);
+                changeStep(e.target.value, i, 'content');
+                setContent(e.target.value);
               }}
-            >
-              <div onClick={() => addStep(i)}>
-                <AiOutlinePlus />
-              </div>
-              <div onClick={() => delStep(i)}>
-                <TbTrash />
-              </div>
-              <div>
-                <TbMenu2 />
-              </div>
-            </IconContext.Provider>
+            />
+            <span className="align-self-end">{length}/150</span>
           </div>
         </div>
-        <textarea
-          placeholder="請輸入步驟說明 (最多 150 字)"
-          rows="4"
-          cols="auto"
-          value={content}
-          onChange={(e) => {
-            if (e.target.value.length > 150) return;
-            setLength(e.target.value.length);
-            changeStep(e.target.value, i, 'content');
-            setContent(e.target.value);
-          }}
-        />
-        <span className="align-self-end">{length}/150</span>
-      </div>
-    </div>
+      )}
+    </Draggable>
   );
 };
 

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { IconContext } from 'react-icons';
-import { FaRegEye } from 'react-icons/fa';
 
 const CampingTable = ({ data }) => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態', '查看'];
@@ -35,7 +33,7 @@ const CampingTable = ({ data }) => {
                 <td>{v.state}</td>
                 <td>
                   <Link to={`/activity/camping/${v.id}`}>
-                    <button>訂單詳情</button>
+                    <button>活動詳情</button>
                   </Link>
                 </td>
               </tr>

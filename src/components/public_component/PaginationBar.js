@@ -6,33 +6,6 @@ import { IconContext } from 'react-icons';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
-// emotion css setting
-const subClrBrown = '#817161';
-
-const pageList = css`
-  display: flex;
-  gap: 1rem;
-  margin-top: 5rem;
-  padding: 0;
-  justify-content: center;
-`;
-const pageItem = css`
-  padding: 0.3rem 1rem;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 0 1.7px 1px rgb(0 0 0 / 8%);
-  &:hover {
-    color: #fff;
-    background: ${subClrBrown};
-    svg {
-      color: #fff !important;
-    }
-  }
-`;
-
 // page on click change display pages
 const displayPageHandler = (i, pageNow, lastPage, displayPage) => {
   let result = 0;
@@ -46,11 +19,65 @@ const displayPageHandler = (i, pageNow, lastPage, displayPage) => {
   return result;
 };
 
-const PaginationBar = ({ lastPage = 5, pageNow = 1, setPageNow }) => {
+const PaginationBar = ({
+  lastPage = 5,
+  pageNow = 1,
+  setPageNow,
+  setPerPage,
+  perPage,
+}) => {
   const [displayPage, setDisplayPage] = useState(10);
   useEffect(() => {
     setDisplayPage(10);
   }, [lastPage]);
+
+  // emotion css setting
+  const subClrBrown = '#817161';
+
+  const pageList = css`
+    display: flex;
+    gap: 1rem;
+    margin-top: 5rem;
+    padding: 0;
+    justify-content: center;
+    @media (max-width: 700px) {
+      display: ${setPerPage && perPage ? 'none' : 'flex'};
+    }
+  `;
+  const pageItem = css`
+    padding: 0.3rem 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 0 1.7px 1px rgb(0 0 0 / 8%);
+
+    &:hover {
+      color: #fff;
+      background: ${subClrBrown};
+      svg {
+        color: #fff !important;
+      }
+    }
+  `;
+  const loadMore = css`
+    display: none;
+    margin: 3rem auto 0;
+    border: 2px solid ${subClrBrown};
+    color: ${subClrBrown};
+    padding: 0.5rem 2rem;
+    background: #fff;
+    border-radius: 3px;
+    &:active {
+      color: #fff;
+      background: ${subClrBrown};
+    }
+    @media (max-width: 700px) {
+      display: inline-block;
+    }
+  `;
+
   return (
     <IconContext.Provider value={{ color: subClrBrown }}>
       <ul css={pageList}>
@@ -99,6 +126,11 @@ const PaginationBar = ({ lastPage = 5, pageNow = 1, setPageNow }) => {
           <AiOutlineRight />
         </li>
       </ul>
+      {setPerPage && (
+        <button onClick={() => setPerPage(perPage + 12)} css={loadMore}>
+          查看更多食譜
+        </button>
+      )}
     </IconContext.Provider>
   );
 };

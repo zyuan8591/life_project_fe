@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ShowPassword from '../Users/user_Component/ShowPassword';
 import axios from 'axios';
@@ -9,12 +9,36 @@ import { useUserRights } from '../../usecontext/UserRights';
 const Login = () => {
   const { user, setUser } = useUserRights();
   const navigate = useNavigate();
+  const [remember, setRemember] = useState(false);
+  const [firstRemember, setFirstRemember] = useState(false);
 
   const [loginUser, setLoginUser] = useState({
     email: '',
     password: '',
   });
   const [err, setErr] = useState(null);
+
+  //TODO:製作記住帳號密碼
+  function changeRemember() {
+    setRemember(remember ? false : true);
+  }
+  useEffect(() => {
+    setRemember(JSON.parse(localStorage.getItem('remember')));
+    setFirstRemember(true);
+  }, []);
+  useEffect(() => {
+    if (localStorage.getItem('account') === null) {
+      return;
+    }
+    let [account] = JSON.parse(localStorage.getItem('account'));
+    if (!remember) {
+      return;
+    }
+    setLoginUser({ ...loginUser, ...account });
+  }, [firstRemember]);
+  useEffect(() => {
+    localStorage.setItem('remember', JSON.stringify(remember));
+  }, [remember]);
 
   //顯示密碼
   const [eye, setEye] = useState({
@@ -31,8 +55,8 @@ const Login = () => {
       let response = await axios.post(`${API_URL}/login`, loginUser, {
         withCredentials: true,
       });
-
       setUser(response.data);
+      localStorage.setItem('account', JSON.stringify([loginUser]));
     } catch (e) {
       setErr(e.response.data.message);
     }
@@ -51,11 +75,18 @@ const Login = () => {
       password: 'a12345678',
     });
   }
+  function easyBackend() {
+    setLoginUser({
+      email: 'backend@test.com',
+      password: 'a12345678',
+    });
+  }
 
-  //TODO:製作記住帳號密碼
+  if (user && user.status === 0) {
+    return navigate('/products/backstage'); //後台
+  }
   if (user) {
-    return navigate('/');
-    // return <Navigate to="/" />;
+    return navigate(-1);
   }
 
   return (
@@ -66,6 +97,9 @@ const Login = () => {
         </button>
         <button className="btn btn-outline-warning mt-2" onClick={easyEmail}>
           寄信測試帳號
+        </button>
+        <button className="btn btn-outline-success mt-2" onClick={easyBackend}>
+          後台帳號
         </button>
       </div>
       <form action="">
@@ -102,7 +136,12 @@ const Login = () => {
             <ShowPassword eye={eye} setEye={setEye} name="eye1" />
           </div>
           <div className="remember">
-            <input type="checkbox" id="remember" />
+            <input
+              type="checkbox"
+              id="remember"
+              checked={remember}
+              onChange={changeRemember}
+            />
             <label htmlFor="remember">記住帳號密碼</label>
           </div>
 

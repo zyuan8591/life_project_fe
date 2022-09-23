@@ -1,13 +1,22 @@
 @import './variable';
 
 .pageRecipes {
+  position: relative;
   margin: $headerHeight auto 8rem;
   max-width: $maxWidth;
   padding: 3rem 2rem;
   color: $contentClr;
   .recipesCateBtnGroup {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+    @media (max-width: 1000px) {
+      border-bottom: 1px solid $hoverClr;
+      padding-bottom: 1rem;
+      &:last-child {
+        border: none;
+      }
+    }
   }
   .recipeToolBar {
     display: flex;
@@ -17,6 +26,8 @@
     // Search Bar
     .recipeSearchBar {
       display: flex;
+      max-width: 600px;
+      width: 100vw;
       * {
         border: 2px solid $subClrBrown;
       }
@@ -32,8 +43,15 @@
       .searchForMaterial {
         padding-left: 0.5rem;
         color: $contentClr;
+        flex: 1 1 auto;
+        width: 100%;
         &:focus {
           outline: transparent;
+        }
+      }
+      .searchForMaterial {
+        @media (max-width: 500px) {
+          display: none;
         }
       }
       .recipesSearchBtn {
@@ -57,6 +75,11 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+      }
+      @media (max-width: 790px) {
+        position: absolute;
+        top: 3rem;
+        right: 2rem;
       }
     }
   }
@@ -95,7 +118,10 @@
       }
       .recipeBlockModeList,
       .recipeListModeList {
-        max-width: 1054px;
+        // max-width: 1054px;
+      }
+      @media (max-width: 1000px) {
+        padding: 1rem 0 0 0;
       }
     }
   }

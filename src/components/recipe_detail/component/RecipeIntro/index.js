@@ -6,21 +6,17 @@ import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { Link } from 'react-router-dom';
 import { API_URL_IMG } from '../../../../utils/config';
-import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import BreadCrumb from '../../../public_component/BreadCrumb';
 
 const focusClrY = '#F2AC33';
 const subClrBrown = '#817161';
-
-const container = css`
-  display: flex;
-  gap: 1rem;
-  color: #444;
-`;
 // title
 const recipeName = css`
   font-size: 40px;
+  @media (max-width: 1000px) {
+    font-size: 32px;
+  }
 `;
 const tag = css`
   background: ${subClrBrown};
@@ -28,13 +24,23 @@ const tag = css`
   padding: 0 0.5rem;
   font-size: 0.5rem;
   border-radius: 50px;
-  display: inline-flex;
   user-select: none;
+`;
+// container
+const container = css`
+  display: flex;
+  gap: 1rem;
+  color: #444;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
 // Left Section
 const introContainer = css`
   flex: 1 0 600px;
-  /* max-width: 600px; */
+  @media (max-width: 1000px) {
+    flex: 1 1 auto;
+  }
 `;
 
 const recipeContainer = css`
@@ -46,6 +52,9 @@ const recipeContainer = css`
 const infoContainer = css`
   flex: 1 1 auto;
   width: 500px;
+  @media (max-width: 1000px) {
+    width: auto;
+  }
 `;
 const authorDetail = css`
   border: 1px solid ${focusClrY};
@@ -153,18 +162,23 @@ const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn, setToast }) => {
     <>
       <BreadCrumb last={data.name} />
       {/* Title */}
-      <div css={recipeName}>
-        {data.name}
-        <Link
-          to={`/recipes?recipeCate=${data.category}`}
-          css={tag}
-          className="mx-1"
-        >
-          {data.recipe_category_name}
-        </Link>
-        <Link to={`/recipes?productCate=${data.product_category}`} css={tag}>
-          {data.product_category_name}
-        </Link>
+      <div
+        css={recipeName}
+        className="d-flex align-items-center flex-wrap mb-2"
+      >
+        <div>{data.name}</div>
+        <div className="flexCenter">
+          <Link
+            to={`/recipes?recipeCate=${data.category}`}
+            css={tag}
+            className="mx-1"
+          >
+            {data.recipe_category_name}
+          </Link>
+          <Link to={`/recipes?productCate=${data.product_category}`} css={tag}>
+            {data.product_category_name}
+          </Link>
+        </div>
       </div>
       <div css={container}>
         {/* left side */}
@@ -181,7 +195,7 @@ const RecipeIntro = ({ data, id, setRecipeData, setLoginBtn, setToast }) => {
           <p className="fs-6">{data.content}</p>
         </div>
         {/* right side */}
-        <div className="pe-4" css={infoContainer}>
+        <div className="" css={infoContainer}>
           {/* author detail */}
           <div css={authorDetail} className="p-3 mb-3 mx-auto">
             <div

@@ -151,10 +151,10 @@ const Header = ({ fixed = true }) => {
                 {userSelectActive && (
                   <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
                     <li className="py-1">
-                      <Link to="/signin/login">登入</Link>
+                      <Link to="/signin?p=1">登入</Link>
                     </li>
                     <li className="py-1" onClick={handelLogout}>
-                      <Link to="/signin/signup">註冊</Link>
+                      <Link to="/signin?p=2">註冊</Link>
                     </li>
                   </ul>
                 )}
