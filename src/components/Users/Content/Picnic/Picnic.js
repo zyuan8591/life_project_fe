@@ -24,20 +24,17 @@ const Picnic = () => {
     let apiurl = '';
     (async () => {
       switch (display) {
-        case 1:
+        case 1: //私人活動
+          apiurl = `${API_URL}/picnic//group/memberJoin?page=${pageNow}`;
+          break;
+        case 2: //我開的團
           apiurl = `${API_URL}/picnic/official/memberJoin`;
           break;
-        case 2:
-          apiurl = `${API_URL}/picnic/official/memberJoin`;
-          break;
-        case 3:
-          apiurl = `${API_URL}/picnic/official/memberJoin`;
-          break;
-        case 4:
+        case 3: //活動收藏
           apiurl = `${API_URL}/official/memberCollect`;
           break;
-        default:
-          apiurl = `${API_URL}/picnic/official/memberJoin??page=${pageNow}`;
+        default: //0官方活動
+          apiurl = `${API_URL}/picnic/official/memberJoin?page=${pageNow}`;
           break;
       }
       getUser(apiurl);

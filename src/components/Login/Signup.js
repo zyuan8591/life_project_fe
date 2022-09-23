@@ -14,6 +14,10 @@ const Signup = () => {
   });
   const [sign, setSign] = useState(false);
   const [error, setError] = useState(null);
+  const [points, setPoints] = useState({
+    event: '',
+    point: 0,
+  });
 
   if (sign) {
     return <Navigate to="/signin?p=1" />;
