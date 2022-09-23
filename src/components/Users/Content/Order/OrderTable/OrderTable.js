@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Table = ({ data }) => {
+const Table = ({ orders }) => {
+  // console.log(orders);
   const title = [
     '訂單編號',
     '訂單金額',
@@ -23,17 +25,17 @@ const Table = ({ data }) => {
         </thead>
 
         <tbody>
-          {data.map((v, i) => {
+          {orders.map((v, i) => {
             return (
               <tr key={i}>
-                <td>{v.orderNumber}</td>
-                <td>${v.total}</td>
-                <td>{v.orderState}</td>
-                <td>{v.date}</td>
-                <td>{v.payment}</td>
-                <td>{v.method}</td>
+                <td>{v.id}</td>
+                <td>{v.order_total}</td>
+                <td>{v.order_status}</td>
+                <td>{v.create_time}</td>
+                <td>{v.order_payment}</td>
+                <td>{v.order_delivery}</td>
                 <td>
-                  <button>訂單詳情</button>
+                  <Link to={`/orders/${v.id}`}>訂單詳情</Link>
                 </td>
               </tr>
             );
