@@ -74,8 +74,8 @@ function CreditCard({ values, setFieldValue }) {
   return (
     <>
       <div className="cCardLayout">
-        <div className="row align-items-center gap-3 ">
-          <div className="col-6 px-5 py-3 cardInput">
+        <div className="row align-items-center gap-3 flex-direction-reverse">
+          <div className="col-6 px-md-5 py-md-3 cardInput">
             <div className="row mb-3">
               <div className="col">
                 <div className="row gap-2 align-items-baseline">
@@ -241,7 +241,7 @@ function CreditCard({ values, setFieldValue }) {
               </div>
             </div>
           </div>
-          <div className="col px-5 py-3">
+          <div className="col px-md-5 py-md-3 px-2 py-2">
             <div className={`cCard  ${isFlip ? 'active' : ''}`}>
               <div className="cardFront">
                 <div className="cardBackground">

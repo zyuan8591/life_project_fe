@@ -13,7 +13,6 @@ const Order = () => {
   const [currentStatus, setCurrentStatus] = useState(0);
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
-  const [id, setOrderId] = useState(0);
 
   useEffect(() => {
     // getOrders
@@ -39,15 +38,6 @@ const Order = () => {
   // console.log(orders);
   console.log(currentStatus);
 
-  // useEffect(() => {
-  //   // get orderDetail
-  //   (async () => {
-  //     let orderDetailResult = await axios.get(`${API_URL}/orders/${id}`, {
-  //       withCredentials: true,
-  //     });
-  //     console.log(orderDetailResult);
-  //   })();
-  // }, [id]);
   return (
     <>
       <h3>訂單查詢</h3>

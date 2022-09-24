@@ -1,17 +1,22 @@
 import React from 'react';
 import '../../../../styles/Order/orderList.scss';
-import { useProductCart } from '../../../../orderContetxt/useProductCart';
-import { usePicnicCart } from '../../../../orderContetxt/usePicnicCart';
-import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
 
-const OrderDetail = (props) => {
-  const productCart = useProductCart();
-  const picnicCart = usePicnicCart();
-  const campingCart = useCampingCart();
+const CartDetail = ({
+  productItems,
+  productTotal,
+  productCount,
+  picnicItems,
+  picnicTotal,
+  picnicCount,
+  campingItems,
+  campingTotal,
+  campingCount,
+}) => {
+  // console.log('cart',productItems);
   return (
     <>
       <h2 className="h1 ps-2 pb-3">訂單明細</h2>
-      {productCart.state.totalItems > 0 && (
+      {productCount > 0 && (
         <>
           <h3 className="ps-5 pb-2">商品</h3>
           <div className="orderList">
@@ -23,7 +28,7 @@ const OrderDetail = (props) => {
               <div className="col">總價</div>
             </div>
             <div className="orderItemList">
-              {productCart.state.items.map((v, i) => {
+              {productItems.map((v, i) => {
                 if (v.ischecked === true) {
                   return (
                     <div className="row orderItem gap-3" key={v.id}>
@@ -42,18 +47,15 @@ const OrderDetail = (props) => {
 
             <div className="row orderListInfo">
               <div className="col position-relative">
-                共 {productCart.state.totalItems} 項商品
-                <div className="col subTotal">
-                  小計： $ {productCart.state.cartTotal}元
-                </div>
+                共 {productCount} 項商品
+                <div className="col subTotal">小計： $ {productTotal}元</div>
               </div>
             </div>
           </div>
         </>
       )}
 
-      {(picnicCart.state.totalItems > 0 ||
-        campingCart.state.totalItems > 0) && (
+      {(picnicCount > 0 || campingCount > 0) && (
         <>
           <h3 className="ps-5 pb-2">活動</h3>
           <div className="row orderList">
@@ -66,7 +68,7 @@ const OrderDetail = (props) => {
             </div>
 
             <div className="orderItemList">
-              {picnicCart.state.items.map((v, i) => {
+              {picnicItems.map((v, i) => {
                 if (v.ischecked === true) {
                   return (
                     <div className="row orderItem gap-3" key={v.id}>
@@ -84,7 +86,7 @@ const OrderDetail = (props) => {
                   );
                 }
               })}
-              {campingCart.state.items.map((v, i) => {
+              {campingItems.map((v, i) => {
                 if (v.ischecked === true) {
                   return (
                     <div className="row orderItem gap-3" key={v.id}>
@@ -106,11 +108,9 @@ const OrderDetail = (props) => {
 
             <div className="row orderListInfo">
               <div className="col position-relative">
-                共 {picnicCart.state.totalItems + campingCart.state.totalItems}{' '}
-                項商品
+                共 {picnicCount + campingCount} 項商品
                 <div className="col subTotal">
-                  小計： ${' '}
-                  {picnicCart.state.cartTotal + campingCart.state.cartTotal}元
+                  小計： $ {picnicTotal + campingTotal}元
                 </div>
               </div>
             </div>
@@ -121,4 +121,4 @@ const OrderDetail = (props) => {
   );
 };
 
-export default OrderDetail;
+export default CartDetail;

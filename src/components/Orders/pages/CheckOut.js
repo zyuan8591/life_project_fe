@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import OrderDetail from './CheckPage/OrderDetail';
+import CartDetail from './CheckPage/CartDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
 import Payment from './CheckPage/Payment';
 // import CreditCard from './CheckPage/CreditCard';
@@ -68,7 +68,7 @@ const CheckOut = () => {
     memo: '',
     payment: '',
     cardNumber: '',
-    cardName:'',
+    cardName: '',
     cardMonth: '',
     cardYear: '',
     cardCvc: '',
@@ -78,14 +78,27 @@ const CheckOut = () => {
 
   const productItems = productCart.state.items;
   const productTotal = productCart.state.cartTotal;
+  const productCount = productCart.state.totalItems;
   const picnicItems = picnicCart.state.items;
   const picnicTotal = picnicCart.state.cartTotal;
+  const picnicCount = picnicCart.state.totalItems;
   const campingItems = campingCart.state.items;
   const campingTotal = campingCart.state.cartTotal;
+  const campingCount = campingCart.state.totalItems;
 
   return (
     <>
-      <OrderDetail />
+      <CartDetail
+        productItems={productItems}
+        productTotal={productTotal}
+        productCount={productCount}
+        picnicItems={picnicItems}
+        picnicTotal={picnicTotal}
+        picnicCount={picnicCount}
+        campingItems={campingItems}
+        campingTotal={campingTotal}
+        campingCount={campingCount}
+      />
       <Formik
         initialValues={{
           ...initialValues,
@@ -139,6 +152,7 @@ const CheckOut = () => {
             if (response.data) {
               setIsOrder(true);
               setOrderId(response.data);
+              window.localStorage.clear();
             }
           } catch (e) {
             console.error('order', e);
