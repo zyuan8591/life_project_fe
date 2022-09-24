@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const sortOption = [
-  { value: 1, label: '日期 低>高' },
-  { value: 2, label: '日期 高>低' },
+  { value: 1, label: '日期 舊>新' },
+  { value: 2, label: '日期 新>舊' },
   { value: 3, label: '價格 低>高' },
   { value: 4, label: '價格 高>低' },
 ];

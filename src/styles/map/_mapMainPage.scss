@@ -9,7 +9,7 @@
         .leaflet-container{
             height: calc(100vh - $headerHeight) ;
             width: 1500px;
-            z-index: 10;
+            z-index: 2;
             .map{
                 height: 100%;
                 width: 100%;
@@ -23,10 +23,16 @@
         top: 50%;
         transform: translate(-50%, -50%);
         font-size: $text32;
-        color: $mainClrW;
-        background: $focusClrY;
+        color: $focusClrY;
+        background: $mainClrW;
+        border: 6px solid $focusClrY;
         padding: 15px 35px;
-        
+        transition: .4s ease;
+        &:hover{
+            background: $focusClrY;
+            border: 6px solid $mainClrW;
+            color: $mainClrW;
+        }
     }
     &::before{
             content: '';
@@ -36,7 +42,7 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 15;
+            z-index: 5;
             background: rgba(68, 68, 68, 0.597);
             margin: 0 auto;
         }
@@ -48,17 +54,18 @@
         .mapContain{
             .leaflet-container{
                 height: 300px;
-                width: 350px;
+                width: 337.5px;
                 margin-bottom: 40px;
             }
         }
         .linkBtn{
             transform: translate(-50%, -90%);
-            font-size: 18px;
-            padding: 10px 15px;
+            font-size: $contentText;
+            padding: 6px 8px;
+            border: 4px solid $focusClrY;
         }
         &::before{
-                width: 350px;
+                width: 337.5px;
                 height: 300px;
         }
     } 

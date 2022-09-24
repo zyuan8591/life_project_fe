@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from '../../../../styles/moduleCss/camping_detail_page/CampingDetailJoinSlide.module.scss';
-
+import { API_URL_IMG } from '../../../../utils/config';
 function CampingDetailJoinSlide({ joinSlider, v }) {
   return (
     <>
@@ -12,7 +12,7 @@ function CampingDetailJoinSlide({ joinSlider, v }) {
       >
         <div className={classes.joinUser}>
           <div className={classes.userImg}>
-            <img src={`/img/user/user_img/${v.photo}`} alt="/" />
+            <img src={`${API_URL_IMG}/${v.photo}`} alt="/" />
           </div>
           <div className={classes.userName}>{v.name}</div>
           <div className={classes.back}>

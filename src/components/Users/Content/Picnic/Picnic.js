@@ -25,7 +25,7 @@ const Picnic = () => {
     (async () => {
       switch (display) {
         case 1: //私人活動
-          apiurl = `${API_URL}/picnic//group/memberJoin?page=${pageNow}`;
+          apiurl = `${API_URL}/picnic/group/memberJoin?page=${pageNow}`;
           break;
         case 2: //我開的團
           apiurl = `${API_URL}/picnic/official/memberJoin`;

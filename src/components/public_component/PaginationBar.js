@@ -25,6 +25,7 @@ const PaginationBar = ({
   setPageNow,
   setPerPage,
   perPage,
+  moreText = '食譜',
 }) => {
   const [displayPage, setDisplayPage] = useState(10);
   useEffect(() => {
@@ -128,7 +129,7 @@ const PaginationBar = ({
       </ul>
       {setPerPage && (
         <button onClick={() => setPerPage(perPage + 12)} css={loadMore}>
-          查看更多食譜
+          查看更多{moreText}
         </button>
       )}
     </IconContext.Provider>

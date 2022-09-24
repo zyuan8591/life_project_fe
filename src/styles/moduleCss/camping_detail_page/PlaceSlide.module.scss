@@ -6,10 +6,11 @@
     position: relative;
     .placeSlider{
         // left:0;
-        margin-bottom: 50px;
+        margin-bottom: 0px;
         width:5000px;
         align-items: center;
         position: relative;
+        transition: .5s ease;
         // transform: translateX(-275px);
         .placeSliderContainer{
             display: inline-block;
@@ -41,7 +42,7 @@
                 img{
                     width: 100%;
                     object-fit: cover;
-                    background: $mainClrW;
+                    background: rgba(255, 255, 255, 0.882);
                 }
             }
             .addCount{
@@ -73,7 +74,7 @@
                 border: 2px solid $subClrBrown;
                 .addCount{
                     color: $subClrBrown;
-                    background: $mainClrW;
+                    background: rgba(255, 255, 255, 0.924);
                 }
                 .contentBtn{
                     background-color: $focusClrG;
@@ -90,7 +91,7 @@
         // position: relative;
         .placeSlider{
             // left:0;
-            // margin-bottom: 50px;
+            margin-bottom: 0px;
             // width:5000px;
             // align-items: center;
             // position: relative;
