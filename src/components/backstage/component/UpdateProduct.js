@@ -27,12 +27,12 @@ function UpdatePage({ setUpdatePage, productData }) {
   const [loginBtn, setLoginBtn] = useState(false);
   const [detailImg, setDetailImg] = useState([]);
   const [originImages, setOriginImages] = useState({
-    photo1: productData.img1,
+    photo1: productData.img,
     photo2: productData.img2,
     photo3: productData.img3,
     photo4: productData.img4,
   });
-
+  console.log(originImages.photo4);
   const [product, setProduct] = useState({
     name: name,
     cate: category,
@@ -46,10 +46,11 @@ function UpdatePage({ setUpdatePage, productData }) {
     photo1: img,
     photo2: img2,
     photo3: img3,
-    photo4: "",
+    photo4: detailImg.img,
   });
   console.log(product.photo4);
-  
+  console.log(detailImg.img);
+
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
     setProduct(newProduct);
@@ -61,7 +62,7 @@ function UpdatePage({ setUpdatePage, productData }) {
         `${API_URL}/products/${productData.id}/detailImg`
       );
       setDetailImg(result.data[0]);
-      setProduct({...product, photo4: result.data[0].img });
+      setOriginImages({ ...originImages, photo4: result.data[0].img });
     })();
   }, [productData]);
 

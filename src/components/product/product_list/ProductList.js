@@ -25,6 +25,7 @@ const ProductList = () => {
   const [sort, setSort] = useState(0);
   const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
+  const [perPage, setPerPage] = useState(12);
   // like data
   const [item, setItem] = useState([]);
   const [fav, setFav] = useState([]);
@@ -122,6 +123,9 @@ const ProductList = () => {
           lastPage={lastPage}
           pageNow={pageNow}
           setPageNow={setPageNow}
+          perPage={perPage}
+          setPerPage={setPerPage}
+          moreText={'商品'}
         />
         <Tools
           item={item}
