@@ -19,6 +19,7 @@ function Backstage() {
   const [lastPage, setLastPage] = useState(0);
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -33,7 +34,7 @@ function Backstage() {
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
-  }, [pageNow, lastPage, productData]);
+  }, [pageNow, lastPage, productData, loading]);
   // console.log(id);
   const handleDelete = async (id) => {
     let response = await axios.put(
@@ -45,11 +46,21 @@ function Backstage() {
   return (
     <>
       <Header />
-      {addPage ? <AddProduct setAddPage={setAddPage} /> : ''}
+      {addPage ? (
+        <AddProduct
+          setAddPage={setAddPage}
+          loading={loading}
+          setLoading={setLoading}
+        />
+      ) : (
+        ''
+      )}
       {updatePage ? (
         <UpdateProduct
           setUpdatePage={setUpdatePage}
           productData={productData}
+          loading={loading}
+          setLoading={setLoading}
         />
       ) : (
         ''
@@ -99,7 +110,7 @@ function Backstage() {
                 } = v;
                 console.log(id);
                 return (
-                  <tr>
+                  <tr key={id}>
                     <td>
                       <div className="titleImg">
                         <img
@@ -133,6 +144,7 @@ function Backstage() {
                     <td
                       onClick={(e) => {
                         handleDelete(id);
+                        setLoading(!loading);
                       }}
                     >
                       <FaTrashAlt />

@@ -12,7 +12,7 @@ import AddImgProduct4 from './AddImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
-function AddPage({ setAddPage }) {
+function AddPage({ setAddPage, loading, setLoading }) {
   const [errMsg, setErrMsg] = useState(false);
   const [loginBtn, setLoginBtn] = useState(false);
 
@@ -31,16 +31,17 @@ function AddPage({ setAddPage }) {
     photo2: '',
     photo3: '',
   });
-
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
 
     setProduct(newProduct);
-    console.log(newProduct);
+    // console.log(newProduct);
   }
   let brand = 11;
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(!loading);
+    console.log(loading);
     try {
       let formData = new FormData();
       formData.append('name', product.name);
@@ -73,8 +74,8 @@ function AddPage({ setAddPage }) {
           setLoginBtn(false);
         }, 2000);
       }
-      console.log(response.data.message);
-      console.log(formData);
+      // console.log(response.data.message);
+      // console.log(formData);
     } catch (e) {
       console.error('addCamping', e);
     }

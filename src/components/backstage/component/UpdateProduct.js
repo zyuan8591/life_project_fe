@@ -10,7 +10,7 @@ import UpdateImgProduct4 from './UpdateImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
-function UpdatePage({ setUpdatePage, productData }) {
+function UpdatePage({ setUpdatePage, productData, loading, setLoading }) {
   const {
     name,
     price,
@@ -32,7 +32,6 @@ function UpdatePage({ setUpdatePage, productData }) {
     photo3: productData.img3,
     photo4: productData.img4,
   });
-  console.log(originImages.photo4);
   const [product, setProduct] = useState({
     name: name,
     cate: category,
@@ -68,6 +67,7 @@ function UpdatePage({ setUpdatePage, productData }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(!loading);
     try {
       let formData = new FormData();
       formData.append('id', productData.id);
@@ -111,6 +111,7 @@ function UpdatePage({ setUpdatePage, productData }) {
         //   withCredentials: true,
         // }
       );
+      setLoading(!loading);
       if (response.data.message === '此商品已存在') {
         setErrMsg(true);
         setTimeout(() => {
