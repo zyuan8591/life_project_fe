@@ -16,15 +16,15 @@ const IndexRecipeActivity = () => {
             className="objectContain"
           />
         </figure>
-        <div className="fs-2 fw-bold position-relative">
+        <div className={`fs-2 fw-bold position-relative ${classes.title}`}>
           今晚，我想來點．．．
         </div>
-        <div className="fw-bold ms-5 position-relative fs-6">
-          由您的食材來決定今天的晚餐
+        <div
+          className={`fw-bold ms-5 position-relative fs-6 ${classes.subtitle}`}
+        >
+          找尋適合您的料理及家電吧
         </div>
-        <div className="align-self-end position-relative fs-6">
-          點擊立即前往活動頁面
-        </div>
+        <div className="align-self-end position-relative fs-6">　</div>
       </Link>
     </div>
   );
