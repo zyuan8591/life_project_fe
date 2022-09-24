@@ -3,7 +3,7 @@
 .slideContent{
     display: inline-block;
     position: relative;
-    
+    // transition: .1s;
     &:hover .back{
         transform: rotateY(-180deg);
     }
@@ -80,6 +80,8 @@
 
 @media screen and (max-width:375px) {
     .slideContent{
+        transition: .3s;
+
         // display: inline-block;
         // position: relative;
         

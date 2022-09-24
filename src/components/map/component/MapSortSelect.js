@@ -12,7 +12,7 @@ const customStyles = {
   option: (provided, state) => ({
     ...provided,
     height: '32px',
-    width: '150px',
+    width: '120px',
 
     color: state.isSelected ? '#fff' : '#444',
     background: state.isSelected ? '#817161' : '#fff',

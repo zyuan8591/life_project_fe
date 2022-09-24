@@ -40,10 +40,11 @@
 
 @media screen and (max-width:375px) {
     .activityDate{
-        margin-bottom: 5px;
+        margin-bottom: -10px;
         .dateText{
             text-align: center;
             width: 100%;
+            margin-bottom: 10px;
         }
         // input::-webkit-calendar-picker-indicator {
         //     width: 25px;

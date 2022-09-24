@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { MdLocationOn } from 'react-icons/md';
 import classes from '../../../../../styles/moduleCss/camping_detail_page/PlaceSlide.module.scss';
+import { API_URL_IMG } from '../../../../../utils/config';
 
 function PlaceSlide({ placeSlider, mapDataId }) {
   const newAddress = (address) => {
@@ -51,10 +52,7 @@ function PlaceSlide({ placeSlider, mapDataId }) {
                           <div className="d-flex" key={v.id}>
                             <div style={{ marginLeft: '-4px' }}>
                               <div className={classes.contentImg}>
-                                <img
-                                  src={`/img/user/user_img/${v.photo}`}
-                                  alt="/"
-                                />
+                                <img src={`${API_URL_IMG}${v.photo}`} alt="/" />
                               </div>
                             </div>
                           </div>

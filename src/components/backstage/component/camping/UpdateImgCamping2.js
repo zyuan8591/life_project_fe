@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
 
-function AddImgCamping({ camping, setCamping }) {
+function UpdateImgCamping2({ camping, setCamping }) {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
@@ -18,7 +18,7 @@ function AddImgCamping({ camping, setCamping }) {
     }
 
     setFile(file);
-    setCamping({ ...camping, photo3: file });
+    setCamping({ ...camping, photo2: file });
     console.log(camping);
   };
 
@@ -48,29 +48,30 @@ function AddImgCamping({ camping, setCamping }) {
 
   return (
     <>
-      <label className="mb-4" htmlFor="photo3">
+      <label className="mb-4" htmlFor="photo2">
         {fileDataURL ? (
           <figure className="m-0 campingImg me-4">
             <img src={fileDataURL} alt="/" className="objectCover" />
           </figure>
         ) : (
-          <div className="d-flex flex-column align-items-center imgInput me-4">
-            <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-              <AiOutlineCamera />
-            </IconContext.Provider>
-            <span>點擊新增圖片</span>
-          </div>
+          <figure className="m-0 campingImg me-4">
+            <img
+              src={`/img/camping/activity_camping_img/${camping.photo2}`}
+              alt="/"
+              className="objectCover"
+            />
+          </figure>
         )}
       </label>
       <input
         className="input d-none"
-        name="photo3"
+        name="photo2"
         type="file"
-        id="photo3"
+        id="photo2"
         onChange={updateImgHandler}
       />
     </>
   );
 }
 
-export default AddImgCamping;
+export default UpdateImgCamping2;

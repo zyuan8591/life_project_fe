@@ -3,8 +3,8 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import Header from '../public_component/Header';
 import PaginationBar from '../public_component/PaginationBar';
-import AddCamping from './component/AddCamping';
-import UpdateCamping from './component/UpdateCamping';
+import AddCamping from './component/camping/AddCamping';
+import UpdateCamping from './component/camping/UpdateCamping';
 import Contact from '../contact/Contact';
 import '../../styles/backstage/_backstageCamping.scss';
 import { IconContext } from 'react-icons';
@@ -13,7 +13,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
 
 function Backstage() {
-  const [state, setState] = useState('');
+  // const [state, setState] = useState('');
   const [order, setOrder] = useState('');
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
@@ -22,23 +22,33 @@ function Backstage() {
   const [date, setDate] = useState(false);
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
+  const [updateData, setUpdateData] = useState([]);
 
   useEffect(() => {
     let getCampingData = async () => {
       let response = await axios.get(
-        `${API_URL}/camping/backstage?state=${state}&order=${order}&page=${page}`
+        `${API_URL}/camping/backstage?order=${order}&page=${page}`
       );
-      // console.log(response.data.pagination.total);
       setLastPage(response.data.pagination.lastPage);
       setCampingData(response.data.result);
     };
     getCampingData();
   }, [page, order]);
+
+  const handleSubmit = async (campingId) => {
+    console.log(campingId);
+    // let response = await axios.put(`${API_URL}/campingDel/${campingId}`);
+    // console.log('del', response.data);
+  };
   return (
     <>
       <Header />
       {addPage ? <AddCamping setAddPage={setAddPage} /> : ''}
-      {updatePage ? <UpdateCamping setUpdatePage={setUpdatePage} /> : ''}
+      {updatePage ? (
+        <UpdateCamping setUpdatePage={setUpdatePage} updateData={updateData} />
+      ) : (
+        ''
+      )}
 
       <div className="backstageContainer">
         <button
@@ -157,11 +167,16 @@ function Backstage() {
                       <BsPencilSquare
                         onClick={() => {
                           setUpdatePage(true);
+                          setUpdateData(v);
                         }}
                       />
                     </td>
                     <td>
-                      <FaTrashAlt />
+                      <FaTrashAlt
+                        onClick={() => {
+                          handleSubmit(v.id);
+                        }}
+                      />
                     </td>
                   </tr>
                 );
