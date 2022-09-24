@@ -10,6 +10,7 @@ import IndexRecipe from './component/IndexRecipe';
 import IndexRecipeActivity from './component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
+import Slider from './component/Slider';
 
 const Homepage = () => {
   const [recipeData, setRecipeData] = useState([]);
@@ -34,6 +35,7 @@ const Homepage = () => {
       <div className="homepageContainer">
         <div className="homepage">
           {/* NEWS */}
+          <Slider />
           <div className="hPnewsContainer">
             <IndexTitle title="最新資訊" subtitle="News" route="/news" />
             <IndexNews data={newsData} />
