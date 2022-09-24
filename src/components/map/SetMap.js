@@ -39,7 +39,7 @@ function LocationMarker() {
   });
 
   const customIcon = new Icon({
-    iconUrl: '/img/user/user_img/userAvatar/kerp.png',
+    iconUrl: '/img/user/user_img/kerp.png',
     iconSize: [30, 35],
     // iconAnchor: [0, 0],
     // popupAnchor: [-0, -76]
@@ -87,162 +87,218 @@ function SetMap() {
     iconUrl: '/img/camping/activity_camping_img/ba4.png',
     iconSize: [20, 30],
   });
-  // const centerIcon = new Icon({
-  //   iconUrl: '/img/user/user_img/sandy.png',
-  //   iconSize: [30, 30],
-  // });
 
   return (
     <>
       <Header />
-      <div className="mapContainer">
-        <div className="mapContain">
-          <div className="selectContainer">
-            {/* TODO: 區域篩選？ */}
-            <div className="select ">
-              <MapActivitySelect setTypeSelect={setTypeSelect} />
-              <DistanceSelect
-                setDistanceSelect={setDistanceSelect}
-                setRadius={setRadius}
-              />
-              <MapSortSelect setDistanceSort={setDistanceSort} />
-            </div>
-            <div className="inputSearch">
-              <input
-                className="searchInput"
-                placeholder="Search.."
-                type="text"
-                maxLength={15}
-                value={nameSearch}
-                onChange={(e) => {
-                  let textValue = e.target.value.replace(/[, ]/g, '');
-                  setNameSearch(textValue);
-                }}
-              />
-              <div style={{ color: '#817161' }}>
-                目前搜尋到 {mapDataLength} 筆
+      <div className="p-view">
+        <div className="mapContainer">
+          <div className="mapContain">
+            <div className="selectContainer">
+              <div className="select ">
+                <MapActivitySelect setTypeSelect={setTypeSelect} />
+                <DistanceSelect
+                  setDistanceSelect={setDistanceSelect}
+                  setRadius={setRadius}
+                />
+                <MapSortSelect setDistanceSort={setDistanceSort} />
               </div>
-            </div>
-            <IconContext.Provider value={{ color: '#444', size: '1.3em' }}>
-              <div className="mapCardContainer">
-                {mapDataLength > 0 ? (
-                  mapData.map((v) => {
-                    const newDistance = Math.floor(v.distance);
-                    //const newAddress = v.address.substr(0, 6);
-                    //console.log(newDistance);
-                    return (
-                      <div className="mapCard" key={v.id}>
-                        <div className="mapImg">
-                          <img
-                            src={`/img/camping/activity_camping_img/${v.img}`}
-                            alt="/"
-                          />
-                        </div>
-                        <div className="intContainer">
-                          <div className="d-flex justify-content-between">
-                            <div className="intDate">{v.activity_date}</div>
-                            <div className="intDistance">{newDistance} km</div>
+              <div className="inputSearch">
+                <input
+                  className="searchInput"
+                  placeholder="Search.."
+                  type="text"
+                  maxLength={15}
+                  value={nameSearch}
+                  onChange={(e) => {
+                    let textValue = e.target.value.replace(/[, ]/g, '');
+                    setNameSearch(textValue);
+                  }}
+                />
+                <div style={{ color: '#817161' }}>
+                  目前搜尋到 {mapDataLength} 筆
+                </div>
+              </div>
+              <IconContext.Provider value={{ color: '#444', size: '1.3em' }}>
+                <div className="mapCardContainer">
+                  {mapDataLength > 0 ? (
+                    mapData.map((v) => {
+                      const newDistance = Math.floor(v.distance);
+                      //const newAddress = v.address.substr(0, 6);
+                      //console.log(newDistance);
+                      return (
+                        <div className="mapCard" key={v.id}>
+                          <div className="mapImg">
+                            <img
+                              src={`/img/camping/activity_camping_img/${v.img}`}
+                              alt="/"
+                            />
                           </div>
-                          <div className="intTitle">{v.title}</div>
-                          <div className="d-flex justify-content-between">
-                            <div className="d-flex align-items-center">
-                              <MdLocationOn />
+                          <div className="intContainer">
+                            <div className="d-flex justify-content-between">
+                              <div className="intDate">{v.activity_date}</div>
+                              <div className="intDistance">
+                                {newDistance} km
+                              </div>
+                            </div>
+                            <div className="intTitle">{v.title}</div>
+                            <div className="d-flex justify-content-between">
+                              <div className="d-flex align-items-center">
+                                <MdLocationOn />
+                                <div>{v.address}</div>
+                              </div>
+                              <IconContext.Provider
+                                value={{
+                                  color: '#F2AC33',
+                                  size: '1.8em',
+                                }}
+                              >
+                                <div>
+                                  {v.type === 1 ? (
+                                    <Link to={`/activity/camping/${v.id}`}>
+                                      <GiCampingTent />
+                                    </Link>
+                                  ) : (
+                                    <Link to={`/activity/picnic/${v.id}`}>
+                                      <MdOutlineIcecream />
+                                    </Link>
+                                  )}
+                                </div>
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="noDataText">尚無符合的資料</div>
+                  )}
+                </div>
+              </IconContext.Provider>
+            </div>
+            <div className="leaflet-container">
+              <div className="map" id="map">
+                <MapContainer
+                  center={position}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  // icon={centerIcon}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Circle
+                    center={center}
+                    pathOptions={fillBlueOptions}
+                    radius={radius}
+                  />
+                  {mapData.map((v) => {
+                    return (
+                      <div key={v.id}>
+                        <Marker
+                          // key={v.id}
+                          position={[v.lat, v.lng]}
+                          icon={v.type === 1 ? campingIcon : picnicIcon}
+                        >
+                          <Popup>
+                            <div>
+                              {v.type === 1 ? (
+                                <Link
+                                  to={`/activity/camping/${v.id}`}
+                                  style={{ color: '#221E73' }}
+                                >
+                                  {v.place}
+                                </Link>
+                              ) : (
+                                <Link
+                                  to={`/activity/picnic/${v.id}`}
+                                  style={{ color: '#221E73' }}
+                                >
+                                  {v.place}
+                                </Link>
+                              )}
                               <div>{v.address}</div>
                             </div>
-                            <IconContext.Provider
-                              value={{
-                                color: '#F2AC33',
-                                size: '1.8em',
-                              }}
-                            >
-                              <div>
-                                {v.type === 1 ? (
-                                  <Link to={`/activity/camping/${v.id}`}>
-                                    <GiCampingTent />
-                                  </Link>
-                                ) : (
-                                  <Link to={`/activity/picnic/${v.id}`}>
-                                    <MdOutlineIcecream />
-                                  </Link>
-                                )}
-                              </div>
-                            </IconContext.Provider>
-                          </div>
-                        </div>
+                          </Popup>
+                        </Marker>
                       </div>
                     );
-                  })
-                ) : (
-                  <div className="noDataText">尚無符合的資料</div>
-                )}
+                  })}
+                  <LocationMarker />
+                  <Marker
+                    position={[25.10542873699434, 121.52266751703542]}
+                    icon={
+                      new Icon({
+                        iconUrl: '/img/user/user_img/kerp.png',
+                        iconSize: [30, 35],
+                      })
+                    }
+                  >
+                    <Popup>You are here</Popup>
+                  </Marker>
+                </MapContainer>
               </div>
-            </IconContext.Provider>
+            </div>
           </div>
-          <div className="leaflet-container">
-            <div className="map" id="map">
-              <MapContainer
-                center={position}
-                zoom={12}
-                scrollWheelZoom={true}
-                // icon={centerIcon}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Circle
-                  center={center}
-                  pathOptions={fillBlueOptions}
-                  radius={radius}
-                />
-                {mapData.map((v) => {
-                  return (
-                    <div key={v.id}>
-                      <Marker
-                        // key={v.id}
-                        position={[v.lat, v.lng]}
-                        icon={v.type === 1 ? campingIcon : picnicIcon}
-                      >
-                        <Popup>
-                          <div>
-                            {v.type === 1 ? (
-                              <Link
-                                to={`/activity/camping/${v.id}`}
-                                style={{ color: '#221E73' }}
-                              >
-                                {v.place}
-                              </Link>
-                            ) : (
-                              <Link
-                                to={`/activity/picnic/${v.id}`}
-                                style={{ color: '#221E73' }}
-                              >
-                                {v.place}
-                              </Link>
-                            )}
-                            <div>{v.address}</div>
-                          </div>
-                        </Popup>
-                      </Marker>
-                    </div>
-                  );
-                })}
-                <LocationMarker />
-                <Marker
-                  position={[25.10542873699434, 121.52266751703542]}
-                  icon={
-                    new Icon({
-                      iconUrl: '/img/user/user_img/userAvatar/kerp.png',
-                      iconSize: [30, 35],
-                    })
-                  }
+        </div>
+      </div>
+      {/* RWD */}
+      <div className="m-view">
+        <div className="mapContainer">
+          <div className="mapContain">
+            <div className="leaflet-container">
+              <div className="map" id="map">
+                <MapContainer
+                  center={position}
+                  zoom={12}
+                  scrollWheelZoom={true}
+                  // icon={centerIcon}
                 >
-                  <Popup>You are here</Popup>
-                </Marker>
-                {/* group */}
-                {/* <MarkerClusterGroup>
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Circle
+                    center={center}
+                    pathOptions={fillBlueOptions}
+                    radius={radius}
+                  />
+                  {mapData.map((v) => {
+                    return (
+                      <div key={v.id}>
+                        <Marker
+                          // key={v.id}
+                          position={[v.lat, v.lng]}
+                          icon={v.type === 1 ? campingIcon : picnicIcon}
+                        >
+                          <Popup>
+                            <div>
+                              {v.type === 1 ? (
+                                <Link
+                                  to={`/activity/camping/${v.id}`}
+                                  style={{ color: '#221E73' }}
+                                >
+                                  {v.place}
+                                </Link>
+                              ) : (
+                                <Link
+                                  to={`/activity/picnic/${v.id}`}
+                                  style={{ color: '#221E73' }}
+                                >
+                                  {v.place}
+                                </Link>
+                              )}
+                              <div>{v.address}</div>
+                            </div>
+                          </Popup>
+                        </Marker>
+                      </div>
+                    );
+                  })}
+                  <LocationMarker />
                   <Marker
-                    position={[24.546412977948872, 120.84101235560908]}
+                    position={[25.10542873699434, 121.52266751703542]}
                     icon={
                       new Icon({
                         iconUrl: '/img/user/user_img/kerp.png',
@@ -252,31 +308,90 @@ function SetMap() {
                   >
                     <Popup>You are here</Popup>
                   </Marker>
-                  <Marker
-                    position={[24.532100261186716, 120.80548586799523]}
-                    icon={
-                      new Icon({
-                        iconUrl: '/img/user/user_img/kerp.png',
-                        iconSize: [30, 35],
-                      })
-                    }
-                  >
-                    <Popup>You are here</Popup>
-                  </Marker>
-                  <Marker
-                    position={[24.561398171107996, 120.93603096784717]}
-                    icon={
-                      new Icon({
-                        iconUrl: '/img/user/user_img/kerp.png',
-                        iconSize: [30, 35],
-                      })
-                    }
-                  >
-                    <Popup>You are here</Popup>
-                  </Marker>
-                </MarkerClusterGroup> */}
-                {/* ------ */}
-              </MapContainer>
+                </MapContainer>
+              </div>
+            </div>
+            <div className="selectContainer">
+              <div className="select ">
+                <MapActivitySelect setTypeSelect={setTypeSelect} />
+                <DistanceSelect
+                  setDistanceSelect={setDistanceSelect}
+                  setRadius={setRadius}
+                />
+                <MapSortSelect setDistanceSort={setDistanceSort} />
+              </div>
+              <div className="inputSearch">
+                <input
+                  className="searchInput"
+                  placeholder="Search.."
+                  type="text"
+                  maxLength={15}
+                  value={nameSearch}
+                  onChange={(e) => {
+                    let textValue = e.target.value.replace(/[, ]/g, '');
+                    setNameSearch(textValue);
+                  }}
+                />
+                <div style={{ color: '#817161' }}>
+                  目前搜尋到 {mapDataLength} 筆
+                </div>
+              </div>
+              <IconContext.Provider value={{ color: '#444', size: '1.3em' }}>
+                <div className="mapCardContainer">
+                  {mapDataLength > 0 ? (
+                    mapData.map((v) => {
+                      const newDistance = Math.floor(v.distance);
+                      //const newAddress = v.address.substr(0, 6);
+                      //console.log(newDistance);
+                      return (
+                        <div className="mapCard" key={v.id}>
+                          <div className="mapImg">
+                            <img
+                              src={`/img/camping/activity_camping_img/${v.img}`}
+                              alt="/"
+                            />
+                          </div>
+                          <div className="intContainer">
+                            <div className="d-flex justify-content-between">
+                              <div className="intDate">{v.activity_date}</div>
+                              <div className="intDistance">
+                                {newDistance} km
+                              </div>
+                            </div>
+                            <div className="intTitle">{v.title}</div>
+                            <div className="d-flex justify-content-between">
+                              <div className="d-flex align-items-center">
+                                <MdLocationOn />
+                                <div>{v.address}</div>
+                              </div>
+                              <IconContext.Provider
+                                value={{
+                                  color: '#F2AC33',
+                                  size: '1.8em',
+                                }}
+                              >
+                                <div>
+                                  {v.type === 1 ? (
+                                    <Link to={`/activity/camping/${v.id}`}>
+                                      <GiCampingTent />
+                                    </Link>
+                                  ) : (
+                                    <Link to={`/activity/picnic/${v.id}`}>
+                                      <MdOutlineIcecream />
+                                    </Link>
+                                  )}
+                                </div>
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="noDataText">尚無符合的資料</div>
+                  )}
+                </div>
+              </IconContext.Provider>
             </div>
           </div>
         </div>
