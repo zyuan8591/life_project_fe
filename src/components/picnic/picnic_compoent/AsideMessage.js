@@ -33,7 +33,7 @@ function AsideMessageFix({
         return '#817161';
     }
   };
-
+// TODO: scroll有問題 被header擋路
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
@@ -87,7 +87,18 @@ function AsideMessageFix({
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="price">NT${item.price}</div>
-                {item.activity_state === '即將開團' ? (
+                {item.activity_state === '開團已截止' ? (
+                  <button
+                    className="joinInBtn"
+                    style={{
+                      background: '#B9BDC5',
+                      color: '#444',
+                    }}
+                    disabled
+                  >
+                    開團已截止
+                  </button>
+                ) : item.activity_state === '即將開團' ? (
                   <button
                     className="joinInBtn"
                     style={{
@@ -141,6 +152,7 @@ function AsideMessageFix({
                     加入活動
                   </button>
                 )}
+                {}
               </div>
             </div>
           );

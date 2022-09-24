@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../../../styles/picnic/_picnicPrivateDetail.scss';
+import { BsFillPersonPlusFill, BsFillPersonDashFill } from 'react-icons/bs';
+
 import Header from '../../../public_component/Header';
 import BreadCrumb from '../../../public_component/BreadCrumb';
 import Footer from '../../../public_component/Footer';
@@ -14,6 +16,8 @@ import PaicipantCard from './PaicipantCard';
 import Organiser from './Organiser';
 import AsideMessage from './AsideMessage';
 import RecommendActivity from './RecommendActivity';
+import Notification from '../../../activity/Notification';
+import EditForm from './EditForm';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -29,12 +33,16 @@ function IndexPrivateDetail() {
   const [userSlider, setUserSlider] = useState(0);
 
   const { groupId } = useParams();
-  const { user, setUser } = useUserRights();
+  const { user, setUser } = useUserRights(); //登入使用者
   const [userJoin, setUserJoin] = useState([]);
   const [getMap, setGetMap] = useState([]);
   const [getMapUser, setGetMapUser] = useState([]);
-  const { officialId } = useParams();
-  const [isGo, setIsgo] = useState(false);
+  const [isGo, setIsgo] = useState(false); //觸發推薦活動畫面改變
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [joinConfirm, setJoinConfirmm] = useState(false); //自製alert提示框 加入活動
+  const [joinCancel, setJoinCancel] = useState(false); // 自製alert提示框 取消活動
+  const [success, setSuccess] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   // --- 詳細頁 全部資料 ---
   useEffect(() => {
@@ -48,7 +56,7 @@ function IndexPrivateDetail() {
     };
     setIsgo(false);
     getOfficalDetail();
-  }, [isGo]);
+  }, [isGo, groupId, edit]);
 
   // useEffect(() => {
   //   let getMap = async () => {
@@ -87,7 +95,6 @@ function IndexPrivateDetail() {
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
     setUserJoin(nowJoin);
     // console.log('add', response.data);
-    alert('已加入活動');
   };
 
   const handleDeleteJoin = async (groupId) => {
@@ -98,19 +105,65 @@ function IndexPrivateDetail() {
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
     setUserJoin(nowJoin);
     // console.log('delete', response.data);
-    alert('已取消活動');
+    setJoinConfirmm(true);
+    setTimeout(() => {
+      setJoinConfirmm(false);
+    }, 1000);
   };
 
-  //TODO: 加入活動後 要重新整理才能顯示參加者和人數
+  const handleDelActivity = async (groupId) => {
+    let response = await axios.delete(
+      `${API_URL}/picnic/groupCreate/${groupId}`,
+      { withCredentials: true }
+    );
+    // console.log('delete', createUser);
+    setJoinCancel(true);
+    setSuccess(true);
+    setTimeout(() => {
+      setJoinCancel(false);
+    }, 1000);
+  };
+
+  console.log(data);
   return (
     <>
       <Header />
       <main className="picnicPrivateDetailContainer container ">
+        {joinConfirm ? (
+          <Notification contaninText={'已加入活動'} setLoginBtn={setLoginBtn}>
+            <BsFillPersonPlusFill />
+          </Notification>
+        ) : (
+          ''
+        )}
+        {joinCancel ? (
+          <Notification contaninText={'已取消活動'} setLoginBtn={setLoginBtn}>
+            <BsFillPersonDashFill />
+          </Notification>
+        ) : (
+          ''
+        )}
+        {loginBtn ? (
+          <Notification
+            contaninText={'請先登入會員'}
+            linkTo={'/signin/login'}
+            setLoginBtn={setLoginBtn}
+          />
+        ) : (
+          ''
+        )}
         <BreadCrumb />
         <div className="main row">
           <div className="mainWrap col-sm-8 me-5">
             {/* 上方活動資訊和圖片 */}
-            <DetailTitle data={data} />
+            <DetailTitle
+              data={data}
+              handleDelActivity={handleDelActivity}
+              user={user}
+              setSuccess={setSuccess}
+              success={success}
+              setEdit={setEdit}
+            />
             {/* 活動詳細內容 */}
             <PrivateDetailContent data={data} />
             {/* 主辦人 */}
@@ -143,6 +196,7 @@ function IndexPrivateDetail() {
               userJoin={userJoin}
               user={user}
               setIsgo={setIsgo}
+              setLoginBtn={setLoginBtn}
             />
           </div>
           {/* 推薦商品 */}
@@ -156,6 +210,7 @@ function IndexPrivateDetail() {
           <RecommendActivity />
         </div>
       </main>
+      {edit ? <EditForm setEdit={setEdit} data={data} /> : null}
       <Footer />
       <BackToTop />
     </>

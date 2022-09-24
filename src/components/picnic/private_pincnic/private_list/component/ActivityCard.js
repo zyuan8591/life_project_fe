@@ -5,8 +5,8 @@ import { FaHeart } from 'react-icons/fa';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
 import { API_URL_IMG } from '../../../../../utils/config';
+import { Empty } from 'antd';
 
 function ActivityCard({
   data,
@@ -29,7 +29,7 @@ function ActivityCard({
   return (
     <>
       {data.length === 0 ? (
-        <div style={{ fontSize: '16px', color: '#817161' }}>沒有相關資料</div>
+        <div style={{ fontSize: '16px', color: '#817161' }}><Empty /></div>
       ) : (
         data.map((item) => {
           return (
@@ -101,7 +101,7 @@ function ActivityCard({
                     {item.start_date} ~ {item.end_date}
                   </div>
                 </div>
-                <div className={`${classes.progressBar} pc-view`}>
+                <div className={`${classes.progressBar}`}>
                   <div
                     className={classes.bar}
                     style={{ width: progressBar(item) }}

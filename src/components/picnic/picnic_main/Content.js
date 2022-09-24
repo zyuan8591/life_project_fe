@@ -1,14 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 function Content() {
-
-
   return (
     <>
       <section className="section-content">
         {/* ----Official Pincnic---- */}
-        <div className="wrap wrap1">
+        <div
+          className="wrap wrap1"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+        >
           <div className="image contentbn1 d-flex ">
             <img
               src="/img/picnic/activity_picnic_img/picnic_main_content2.webp"
@@ -38,7 +44,19 @@ function Content() {
           </div>
         </div>
         {/* ----Private Pincnic---- */}
-        <div className="wrap wrap2 d-flex">
+        <div
+          className="wrap wrap2 d-flex"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+        >
+          <div className="image contentbn2 d-flex mb-view d-none">
+            <img
+              className=""
+              src="/img/picnic/activity_picnic_img/picnic_main_content1.jpg"
+              alt="picnic"
+            />
+          </div>
           <div className="content-text d-flex flex-column justify-content-center align-items-center">
             <div className="title align-self-start">Private Pincnic</div>
             <div className="text-p">
@@ -56,7 +74,7 @@ function Content() {
               私人活動
             </Link>
           </div>
-          <div className="image contentbn2 d-flex">
+          <div className="image contentbn2 d-flex pc-view">
             <img
               className=""
               src="/img/picnic/activity_picnic_img/picnic_main_content1.jpg"
@@ -65,7 +83,11 @@ function Content() {
           </div>
         </div>
         {/* ----Create Pincnic---- */}
-        <div className="wrap wrap3 d-flex mb-5">
+        <div
+          className="wrap wrap3 d-flex mb-5"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
           <div className="image contentbn3 d-flex ">
             <img
               src="/img/picnic/activity_picnic_img/picnic_main_content3.jpeg"

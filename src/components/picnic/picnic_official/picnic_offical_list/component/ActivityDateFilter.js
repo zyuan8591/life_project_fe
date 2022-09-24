@@ -40,15 +40,19 @@ function ActivityDateFilter({
             }}
           />
         </div>
-        <div className="dateBtn">
-          <div className="mt-auto ms-3" style={{ fontSize: '14px' }}>
+        <div className="dateBtn d-flex justify-content-between align-items-center">
+          <div
+            className="mt-auto ms-3"
+            style={{ fontSize: '14px', color: '#e30202' }}
+          >
             {dateRemind}
           </div>
           <button
             onClick={() => {
               if (minDateValue > maxDateValue) {
-                setDateRemind('開始日期不得大於結束日期');
-              } else if (minDateValue !== '' && maxDateValue !== '') {
+                setDateRemind('開始日期不得大於結束日期'); //TODO: 提醒出現後不會消失
+              }
+              if (minDateValue !== '' && maxDateValue !== '') {
                 setMinDate(minDateValue);
                 setMaxDate(maxDateValue);
                 setPage(1);

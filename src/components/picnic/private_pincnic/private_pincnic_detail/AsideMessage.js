@@ -139,7 +139,7 @@ function AsideMessage({
                     <button
                       className="joinInBtn"
                       onClick={() => {
-                        setLoginBtn(true)
+                        setLoginBtn(true);
                       }}
                     >
                       加入活動

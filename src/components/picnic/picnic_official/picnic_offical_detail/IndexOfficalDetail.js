@@ -149,6 +149,7 @@ function PicnicOfficalDetail() {
         <BreadCrumb />
         <div className="main row">
           <div className="mainWrap col-sm-8 me-5">
+          <div></div>
             {/* 上方活動資訊和圖片 */}
             <DetailTitle data={data} />
             {/* 活動詳細內容 */}

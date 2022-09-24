@@ -6,8 +6,7 @@ import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL_IMG } from '../../../../../utils/config';
-import { Button, message, Space } from 'antd';
-import Notification from '../../../../activity/Notification';
+import { Empty } from 'antd';
 
 function ActivityCard({
   data,
@@ -33,7 +32,9 @@ function ActivityCard({
   return (
     <>
       {data.length === 0 ? (
-        <div style={{ fontSize: '16px', color: '#817161' }}>沒有相關資料</div>
+        <div style={{ fontSize: '16px', color: '#817161' }}>
+          <Empty />
+        </div>
       ) : (
         data.map((item) => {
           return (
@@ -106,8 +107,8 @@ function ActivityCard({
 
                 <div className={`${classes.activityDate} my-2`}>
                   <div className={classes.dateText}>
-                    <span>{item.start_date}</span> ~{' '}
-                    <span>{item.end_date}</span>
+                    <span>{item.start_date}</span>
+                    <span> ~ {item.end_date}</span>
                   </div>
                 </div>
                 <div className={`${classes.progressBar} pc-view`}>
@@ -131,7 +132,7 @@ function ActivityCard({
                 <div className={`${classes.intMore} my-1 `}>
                   {/* RWD */}
                   <div className={`${classes.content2} mb-view`}>
-                    <div className={classes.limit}>
+                    <div className={`${classes.limit}`}>
                       活動名額：{item.join_limit}
                     </div>
                     <div className={classes.price}>${item.price}</div>

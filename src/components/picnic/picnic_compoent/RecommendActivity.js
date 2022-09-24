@@ -8,6 +8,21 @@ import { Link } from 'react-router-dom';
 import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
+const city = [
+  { value: 1, name: '信義區' },
+  { value: 2, name: '中正區' },
+  { value: 3, name: '萬華區' },
+  { value: 4, name: '大同區' },
+  { value: 5, name: '中山區' },
+  { value: 6, name: '松山區' },
+  { value: 7, name: '大安區' },
+  { value: 8, name: '內湖區' },
+  { value: 9, name: '南港區' },
+  { value: 10, name: '士林區' },
+  { value: 11, name: '北投區' },
+  { value: 12, name: '文山區' },
+];
+
 function RecommendActivity({ getMap, data, userJoin, user, handleAddJoin }) {
   const settings = {
     arrows: false,
@@ -32,9 +47,9 @@ function RecommendActivity({ getMap, data, userJoin, user, handleAddJoin }) {
                   <p className="date mb-2">{getMap.place_name}</p>
                   <p className="cardTitle mb-2">{getMap.picnic_title}</p>
                   <p className="location mb-2">
+                    {/* TODO: 地區還未撈出 */}
                     <FaMapMarkerAlt className="mapMarkerIcon" />
                     {getMap.location}
-                    {/* TODO: 地區還未撈出 */}
                   </p>
                   <p className="infoText">{getMap.intr}</p>
                 </div>

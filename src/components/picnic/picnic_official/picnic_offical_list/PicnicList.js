@@ -251,7 +251,7 @@ function PicnicList() {
                   />
                 </div>
                 {/* 右側活動列表 */}
-                <div className="col-sm-9 col-12 pc-view">
+                <div className="col-sm-9 col-12 mb-3 pc-view">
                   <div className="d-flex justify-content-between">
                     <div className="mb-3 ">
                       {/* card 切換 篩選ICON */}
@@ -318,7 +318,7 @@ function PicnicList() {
                 </div>
 
                 {/* RWD */}
-                <div className="col-sm-9 col-12 mb-view">
+                <div className="col-sm-9 col-12 mb-3 mb-view">
                   <div className="iconGroup">
                     <div className="d-flex align-items-center justify-content-center w-100 mb-3">
                       <div className="SearchBar">
@@ -356,10 +356,17 @@ function PicnicList() {
                         <ActivitySelect sort={sort} setSort={setSort} />
                       </div>
                       <FaListUl
-                        className="changeBtn"
+                        className="changeBtn me-2"
                         onClick={() => {
                           setIconChange(false);
                           setHorizontalCardChange(true);
+                        }}
+                      />{' '}
+                      <BsGridFill
+                        className="changeBtn"
+                        onClick={() => {
+                          setCardChange(true);
+                          setHorizontalCardChange(false);
                         }}
                       />
                     </div>

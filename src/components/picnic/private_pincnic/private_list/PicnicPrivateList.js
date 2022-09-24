@@ -226,7 +226,7 @@ function PicnicPrivateList() {
                     setPageNow={setPageNow}
                   />
                   <Link to="/activity/picnic/create">
-                    <button className="createBtn">建立活動</button>
+                    <button className="createBtn mb-5">建立活動</button>
                   </Link>
                 </div>
                 {/* 右側活動列表 */}
