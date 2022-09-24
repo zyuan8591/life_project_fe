@@ -63,10 +63,12 @@ function CampingMain() {
       let response = await axios.get(
         `${API_URL}/camping?state=${state}&maxPrice=${maxPrice}&minPrice=${minPrice}&minDate=${minDate}&maxDate=${maxDate}&search=${search}&order=${order}&page=${page}&maxJoinTtl=${maxJoinTtl}&minJoinTtl=${minJoinTtl}`
       );
-      console.log(response.data.pagination.total);
+      // console.log(response.data.pagination.total);
       setnumberTtl(response.data.pagination.total);
       setLastPage(response.data.pagination.lastPage);
       setCampingData(response.data.result);
+      // setPerPage(response.data.pagination.perPage);
+      // console.log(perPage);
     };
     getCampingData();
 
@@ -93,6 +95,7 @@ function CampingMain() {
     maxJoinTtl,
     minJoinTtl,
     user,
+    perPage,
   ]);
   // console.log(state);
 
@@ -174,14 +177,22 @@ function CampingMain() {
     <>
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         {collectConfirm ? (
-          <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+          <Notification
+            contaninText={'已加入收藏'}
+            setLoginBtn={setLoginBtn}
+            bottom="30"
+          >
             <GiCampingTent />
           </Notification>
         ) : (
           ''
         )}
         {collectCancel ? (
-          <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+          <Notification
+            contaninText={'已取消收藏'}
+            setLoginBtn={setLoginBtn}
+            bottom="30"
+          >
             <GiCampingTent />
           </Notification>
         ) : (
@@ -190,7 +201,7 @@ function CampingMain() {
         {loginBtn ? (
           <Notification
             contaninText={'請先登入會員'}
-            linkTo={'/signin/login'}
+            linkTo={'/signin'}
             setLoginBtn={setLoginBtn}
           />
         ) : (
@@ -413,7 +424,7 @@ function CampingMain() {
                     </div>
                   </IconContext.Provider>
                   {numberTtl !== 0 ? (
-                    <div className="text-center mb-3">
+                    <div className="text-center mb-5">
                       <PaginationBar
                         lastPage={lastPage}
                         pageNow={page}

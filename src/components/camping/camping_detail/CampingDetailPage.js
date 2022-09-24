@@ -338,6 +338,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已加入收藏'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -348,6 +349,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已取消收藏'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -358,6 +360,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已加入活動'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -368,6 +371,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已取消活動'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -377,7 +381,7 @@ function CampingDetailPage() {
             {loginBtn ? (
               <Notification
                 contaninText={'請先登入會員'}
-                linkTo={'/signin/login'}
+                linkTo={'/signin'}
                 setLoginBtn={setLoginBtn}
               />
             ) : (
@@ -842,7 +846,14 @@ function CampingDetailPage() {
                 value={{ color: '#817161', size: '1.2rem' }}
               >
                 {asideDisplay ? (
-                  <div className="asideRWD">
+                  <div
+                    className="asideRWD"
+                    // style={
+                    //   asideDisplay
+                    //     ? "transform: 'translateX(120px)'"
+                    //     : "transform: 'translateX(-120px)'"
+                    // }
+                  >
                     <div>
                       <div className="d-flex align-items-center">
                         <FaPaw className="me-2" />
