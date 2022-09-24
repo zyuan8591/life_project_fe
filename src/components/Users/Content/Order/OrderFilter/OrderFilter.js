@@ -1,23 +1,44 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
-const OrderFilter = ({ list, setList, setDisplay }) => {
-  const item = ['全部', '待付款', '待出貨', '待收貨', '完成', '未完成'];
+const OrderFilter = ({
+  status,
+  setStatus,
+  currentStatus,
+  setCurrentStatus,
+}) => {
+  console.log(status);
 
   return (
     <>
       <ul className="order-filter ">
-        {item.map((v, i) => {
+        <li
+          className="list"
+          onClick={() => {
+            setCurrentStatus(0);
+          }}
+        >
+          <button className={`${currentStatus === 0 ? 'active' : ''}`}>
+            全部
+          </button>
+        </li>
+        {status.map((v, i) => {
+          console.log(v);
           return (
-            <li
-              key={i}
-              className="list"
-              onClick={() => {
-                setList(v);
-                setDisplay(i);
-              }}
-            >
-              <button className={`${list === v ? 'active' : ''}`}> {v}</button>
-            </li>
+            <>
+              <li
+                key={v.id}
+                className="list"
+                onClick={() => {
+                  setCurrentStatus(v.id);
+                  console.log(v.id);
+                }}
+              >
+                <button className={`${currentStatus === v.id ? 'active' : ''}`}>
+                  {v.order_status}
+                </button>
+              </li>
+            </>
           );
         })}
       </ul>
