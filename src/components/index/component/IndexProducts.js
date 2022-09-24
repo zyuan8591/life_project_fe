@@ -14,8 +14,10 @@ const productList = css`
   padding-left: 0.5rem;
   display: flex;
   gap: 1rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   transition: 0.3s;
   @media (max-width: 768px) {
     margin: 1.5rem 0;
