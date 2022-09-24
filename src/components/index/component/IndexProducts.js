@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CardSm from '../../public_component/CardSm';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import axios from 'axios';
@@ -51,6 +51,9 @@ const controller = css`
   justify-content: center;
   margin: 0 auto;
   max-width: 400px;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 const controlDir = css`
   cursor: pointer;
@@ -60,7 +63,7 @@ const IndexProducts = () => {
   const [data, setData] = useState([]);
   const cardClr = ['#f7f3ed', '#f6f2f7', '#fcf3f0', '#f7faf2'];
 
-  // get default data
+  // get default product data
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/index`);
@@ -100,8 +103,8 @@ const IndexProducts = () => {
     setVwState(window.innerWidth);
   };
   useEffect(() => {
-    window.addEventListener('resize', settingState);
     settingState();
+    window.addEventListener('resize', settingState);
     return function cleanUp() {
       window.removeEventListener('resize', settingState);
     };
@@ -114,6 +117,12 @@ const IndexProducts = () => {
   // scroll bar handler
   const controlHandler = (ctrl) => {
     let newState = 0;
+
+    let scrollWidth = productListRef.current.scrollWidth - window.innerWidth;
+    // console.log(productListRef.current.scrollWidth);
+    // console.log(window.innerWidth);
+    // console.log(scrollWidth);
+
     const max = ((progressBarWidth - progressWidth) / progressBarWidth) * 100;
     let productListPercent = (productListWidth - vwState) / productListWidth;
     let progressBarPercent =

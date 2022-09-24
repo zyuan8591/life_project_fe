@@ -6,13 +6,66 @@
   margin: 0 auto;
   background: #fff;
   padding-bottom: 8rem;
+  margin-top: calc($headerHeight + 1rem);
 }
 
 .homepage {
-  padding: 4.5rem 0;
-  @media (max-width: 768px) {
-    padding: 2rem 0;
+  .indexSlider {
+    margin: 1rem 0 5rem;
+    .swiper {
+      .swiper-wrapper {
+        .swiper-slide-prev,
+        .swiper-slide-next {
+          opacity: 0.5;
+        }
+      }
+      // swiper-
+      .swiper-button-prev,
+      .swiper-button-next {
+        height: 100%;
+        top: 0;
+        margin-top: 0;
+        padding-left: 0.5rem;
+        transition: 0.3s;
+        &::after {
+          background: $subClrBrown;
+          padding: 2.8rem 1rem;
+          font-size: 1rem;
+          color: #fff;
+        }
+      }
+      .swiper-button-prev {
+        left: 0;
+        transform: translateX(-150%);
+      }
+      .swiper-button-next {
+        right: 0;
+        margin-right: 0.5rem;
+        transform: translateX(150%);
+      }
+      &:hover {
+        .swiper-button-prev,
+        .swiper-button-next {
+          transform: translateX(0);
+        }
+      }
+      .swiper-pagination {
+        .swiper-pagination-bullet-active {
+          background: $subClrBrown;
+        }
+      }
+      @media (max-width: 500px) {
+        .swiper-button-prev,
+        .swiper-button-next {
+          display: none;
+        }
+      }
+    }
+    @media (max-width: 500px) {
+      margin-bottom: 1.5rem;
+    }
   }
+
   .hPnewsContainer,
   .hPproductContainer,
   .hPrecipeContainer,
@@ -34,17 +87,29 @@
     }
   }
   .recipeCard {
-    margin: 2rem 0;
-    overflow-x: hidden;
-    .slick-slide {
-      opacity: 0.5;
-      transition: 0.3s;
-      &:hover {
+    margin: 1rem 0;
+    .swiper {
+      .swiper-slide {
+        opacity: 0.5;
+        transition: 0.15s;
+      }
+      .swiper-slide-active {
         opacity: 1;
       }
-    }
-    .slick-current {
-      opacity: 1;
+      &:hover {
+        .swiper-button-prev,
+        .swiper-button-next {
+          opacity: 1;
+        }
+      }
+      .swiper-button-prev,
+      .swiper-button-next {
+        transition: 0.3s;
+        opacity: 0;
+        &::after {
+          color: $contentClr;
+        }
+      }
     }
   }
 
