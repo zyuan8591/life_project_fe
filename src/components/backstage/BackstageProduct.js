@@ -11,6 +11,7 @@ import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../utils/config';
 import AddProduct from './component/AddProduct';
 import UpdateProduct from './component/UpdateProduct';
+import Notification from '../activity/Notification';
 
 function Backstage() {
   const [productsData, setProductsData] = useState([]);
@@ -20,6 +21,8 @@ function Backstage() {
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState('');
+  const [loginBtn, setLoginBtn] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -29,18 +32,18 @@ function Backstage() {
           withCredentials: true,
         }
       );
-
-      // console.log(result.data);
+      setTotal(result.data.pagination.total);
+      console.log('pagination', result.data.pagination.total);
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
-  }, [pageNow, lastPage, productData, loading]);
+  }, [pageNow, lastPage, productData, loading, total]);
   // console.log(id);
   const handleDelete = async (id) => {
     let response = await axios.put(
       `${API_URL}/products/deleteProduct?id=${id}`
     );
-    console.log(response);
+    // console.log(response);
   };
 
   return (
@@ -51,6 +54,9 @@ function Backstage() {
           setAddPage={setAddPage}
           loading={loading}
           setLoading={setLoading}
+          lastPage={lastPage}
+          setPageNow={setPageNow}
+          setLoginBtn={setLoginBtn}
         />
       ) : (
         ''
@@ -61,6 +67,27 @@ function Backstage() {
           productData={productData}
           loading={loading}
           setLoading={setLoading}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
+      {loginBtn === 'add' ? (
+        <Notification
+          // linkToText="返回列表頁"
+          // linkTo="/backstage"
+          contaninText="商品新增成功"
+          // setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
+      {loginBtn === 'update' ? (
+        <Notification
+          // linkToText="返回列表頁"
+          // linkTo="/products"
+          contaninText="商品更新成功"
+          // setLoginBtn={setLoginBtn}
         />
       ) : (
         ''
@@ -108,7 +135,9 @@ function Backstage() {
                   valid,
                   color,
                 } = v;
-                console.log(id);
+                {
+                  /* console.log(id); */
+                }
                 return (
                   <tr key={id}>
                     <td>

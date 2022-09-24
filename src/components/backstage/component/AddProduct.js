@@ -12,9 +12,16 @@ import AddImgProduct4 from './AddImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
-function AddPage({ setAddPage, loading, setLoading }) {
+function AddPage({
+  setAddPage,
+  loading,
+  setLoading,
+  lastPage,
+  setPageNow,
+  setLoginBtn,
+}) {
   const [errMsg, setErrMsg] = useState(false);
-  const [loginBtn, setLoginBtn] = useState(false);
+  // const [loginBtn, setLoginBtn] = useState(false);
 
   const [product, setProduct] = useState({
     name: '義大利半自動義式咖啡機',
@@ -40,7 +47,7 @@ function AddPage({ setAddPage, loading, setLoading }) {
   let brand = 11;
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(!loading);
+
     console.log(loading);
     try {
       let formData = new FormData();
@@ -69,10 +76,17 @@ function AddPage({ setAddPage, loading, setLoading }) {
           setErrMsg(false);
         }, 2000);
       } else {
-        setLoginBtn(true);
+        setLoading(!loading);
+        setLoginBtn('add');
         setTimeout(() => {
-          setLoginBtn(false);
+          setPageNow(lastPage);
+        }, 1000);
+        setTimeout(() => {
+          setLoginBtn('');
         }, 2000);
+        setTimeout(() => {
+          setAddPage(false);
+        }, 600);
       }
       // console.log(response.data.message);
       // console.log(formData);
@@ -90,16 +104,7 @@ function AddPage({ setAddPage, loading, setLoading }) {
       ) : (
         ''
       )}
-      {loginBtn ? (
-        <Notification
-          // linkToText="返回列表頁"
-          // linkTo="/backstage"
-          contaninText="新增成功"
-          // setLoginBtn={setLoginBtn}
-        />
-      ) : (
-        ''
-      )}
+
       <div className="backstageAddPage">
         <form className="formContainer">
           <IconContext.Provider

@@ -10,7 +10,13 @@ import UpdateImgProduct4 from './UpdateImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
-function UpdatePage({ setUpdatePage, productData, loading, setLoading }) {
+function UpdatePage({
+  setUpdatePage,
+  productData,
+  loading,
+  setLoading,
+  setLoginBtn,
+}) {
   const {
     name,
     price,
@@ -24,7 +30,7 @@ function UpdatePage({ setUpdatePage, productData, loading, setLoading }) {
     inventory,
   } = productData;
   const [errMsg, setErrMsg] = useState(false);
-  const [loginBtn, setLoginBtn] = useState(false);
+  // const [loginBtn, setLoginBtn] = useState(false);
   const [detailImg, setDetailImg] = useState([]);
   const [originImages, setOriginImages] = useState({
     photo1: productData.img,
@@ -67,7 +73,6 @@ function UpdatePage({ setUpdatePage, productData, loading, setLoading }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(!loading);
     try {
       let formData = new FormData();
       formData.append('id', productData.id);
@@ -111,17 +116,19 @@ function UpdatePage({ setUpdatePage, productData, loading, setLoading }) {
         //   withCredentials: true,
         // }
       );
-      setLoading(!loading);
+
       if (response.data.message === '此商品已存在') {
         setErrMsg(true);
         setTimeout(() => {
           setErrMsg(false);
         }, 2000);
       } else {
-        setLoginBtn(true);
+        setLoading(!loading);
+        setLoginBtn('update');
         setTimeout(() => {
-          setLoginBtn(false);
+          setLoginBtn('');
         }, 2000);
+        setUpdatePage(false);
       }
       console.log(response.data.message);
       console.log(formData);
