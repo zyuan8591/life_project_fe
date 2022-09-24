@@ -32,6 +32,7 @@ import MapAside from '../../map/component/MapAside';
 import { useUserRights } from '../../../usecontext/UserRights';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
 import Notification from '../../activity/Notification';
+import BreadCrumb from '../../public_component/BreadCrumb';
 const stateClassName = (state) => {
   switch (state) {
     case '開團中':
@@ -384,7 +385,9 @@ function CampingDetailPage() {
             )}
             <div className="main">
               {/* breadCrumb */}
-              <p className="breadCrumb py-3">LIFE --- 活動專區 </p>
+              <div className="pt-2">
+                <BreadCrumb last={v.title} />
+              </div>
               <div className="row">
                 {/* 左側 */}
                 <div className="col-12 col-sm-8">
@@ -732,7 +735,6 @@ function CampingDetailPage() {
                   </div>
                 </IconContext.Provider>
               </div>
-
               {/* 商品推薦 */}
               <div className="p-view">
                 <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
@@ -773,7 +775,6 @@ function CampingDetailPage() {
                   </Slide>
                 </IconContext.Provider>
               </div>
-
               {/* RWD product */}
               <div className="m-view flex-column">
                 <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
@@ -795,7 +796,6 @@ function CampingDetailPage() {
                   </Slide>
                 </IconContext.Provider>
               </div>
-
               {/* RWD place */}
               <div className="m-view flex-column">
                 <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
