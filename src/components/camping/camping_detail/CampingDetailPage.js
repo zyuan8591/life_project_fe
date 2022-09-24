@@ -5,6 +5,7 @@ import { API_URL } from '../../../utils/config';
 import { useState, useEffect } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
 import { IconContext } from 'react-icons';
+import { BsPersonFill } from 'react-icons/bs';
 import { GiCampingTent } from 'react-icons/gi';
 import {
   IoIosCafe,
@@ -17,6 +18,7 @@ import {
   MdAddCircle,
   MdRemoveCircle,
 } from 'react-icons/md';
+import { TbArrowBigRightLines, TbArrowBigLeftLines } from 'react-icons/tb';
 
 import '../../../styles/camping/camping_detail/_campingDetailPage.scss';
 import Slide from './component/slider/Slide';
@@ -94,7 +96,7 @@ const products = [
   {
     id: 56,
     name: 'Ball Mason Jar隨鮮瓶果汁機',
-    img: 'OSTER_BLSTMM_BA4_02.jpeg',
+    img: 'OSTER_ BLSTMM_BA3_02.jpeg',
   },
   { id: 169, name: '熱壓吐司鬆餅機', img: 'COOKPOWER_MF1115P_02.jpg' },
   { id: 8, name: '多功能電烤盤-經典款', img: 'BRUNO_BOE026_CGR_02.webp' },
@@ -133,12 +135,23 @@ function CampingDetailPage() {
   const [collectConfirm, setCollectConfirm] = useState(false);
   const [collectCancel, setCollectCancel] = useState(false);
   const [addActConfirm, setAddActConfirm] = useState(false);
-
+  const [asideDisplay, setAsideDisplay] = useState(false);
   const [actCencel, setActCencel] = useState(false);
 
   // const [joinLink, setJoinLink] = useState(false);
 
   // console.log(campingId);
+  const stateBtn = (state) => {
+    if (user) {
+      if (state === '已成團') return '已成團';
+      if (state === '開團中') return '加入活動';
+      return state;
+    } else {
+      if (state === '已成團') return '已成團';
+      if (state === '開團中') return '請先登入會員';
+      return state;
+    }
+  };
 
   useEffect(() => {
     let getCampingDetailData = async () => {
@@ -240,6 +253,10 @@ function CampingDetailPage() {
           const newPrice = price.toString();
           return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
         };
+
+        function joinPep() {
+          return v.join_limit - v.pepcount;
+        }
 
         const handleAddJoin = async (campingId) => {
           // console.log(campingId);
@@ -689,9 +706,9 @@ function CampingDetailPage() {
                 <IconContext.Provider value={{ color: '#444', size: '1.2rem' }}>
                   <div className="col-4 p-view">
                     {detailData.map((v) => {
-                      function joinPep() {
-                        return v.join_limit - v.pepcount;
-                      }
+                      //function joinPep() {
+                      //  return v.join_limit - v.pepcount;
+                      //}
 
                       return (
                         <CampingDetailAside
@@ -758,7 +775,7 @@ function CampingDetailPage() {
               </div>
 
               {/* RWD product */}
-              {/* <div className="m-view flex-column">
+              <div className="m-view flex-column">
                 <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
                   <div className="productTitle">
                     輕鬆享受露營，猜你會需要...
@@ -768,8 +785,8 @@ function CampingDetailPage() {
                     maxWidth={1260}
                     Slider={productSlider}
                     setSlider={setProductSlider}
-                    cardWidth={210}
-                    displayContainer={6}
+                    cardWidth={160}
+                    displayContainer={2}
                   >
                     <ProductSlide
                       product={product}
@@ -777,7 +794,7 @@ function CampingDetailPage() {
                     />
                   </Slide>
                 </IconContext.Provider>
-              </div> */}
+              </div>
 
               {/* RWD place */}
               <div className="m-view flex-column">
@@ -802,6 +819,100 @@ function CampingDetailPage() {
                   </Slide>
                 </IconContext.Provider>
               </div>
+            </div>
+            <div className="m-view">
+              <IconContext.Provider value={{ color: '#fff', size: '1.2rem' }}>
+                <div className={asideDisplay ? 'nowDisplay' : 'asideDisplay'}>
+                  {asideDisplay ? (
+                    <TbArrowBigLeftLines
+                      onClick={() => {
+                        setAsideDisplay(!asideDisplay);
+                      }}
+                    />
+                  ) : (
+                    <TbArrowBigRightLines
+                      onClick={() => {
+                        setAsideDisplay(!asideDisplay);
+                      }}
+                    />
+                  )}
+                </div>
+              </IconContext.Provider>
+              <IconContext.Provider
+                value={{ color: '#817161', size: '1.2rem' }}
+              >
+                {asideDisplay ? (
+                  <div className="asideRWD">
+                    <div>
+                      <div className="d-flex align-items-center">
+                        <FaPaw className="me-2" />
+                        {v.title}
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <BsPersonFill className="me-2" />
+                        尚可參加人數：{joinPep()} 人
+                      </div>
+                    </div>
+                    {/* btn */}
+                    <div>
+                      {user ? (
+                        userJoin.includes(v.id) ? (
+                          <button
+                            className={
+                              v.state !== '開團中'
+                                ? 'disabledBtn'
+                                : 'hadJoinBtn'
+                            }
+                            disabled={v.state !== '開團中' ? true : false}
+                            onClick={() => {
+                              cart.addItem({
+                                id: v.id,
+                                quantity: 1,
+                                name: v.title,
+                                price: v.price,
+                                ischecked: false,
+                              });
+                              handleDelJoin(v.id);
+                              setLoading(true);
+                            }}
+                          >
+                            取消活動
+                          </button>
+                        ) : (
+                          <button
+                            className={
+                              v.state !== '開團中' ? 'disabledBtn' : 'joinBtn'
+                            }
+                            disabled={v.state !== '開團中' ? true : false}
+                            onClick={() => {
+                              handleAddJoin(v.id);
+                              setLoading(true);
+                            }}
+                          >
+                            {stateBtn(v.state)}
+                          </button>
+                        )
+                      ) : (
+                        <button
+                          className={
+                            v.state !== '開團中' ? 'disabledBtn' : 'loginBtn'
+                          }
+                          disabled={v.state !== '開團中' ? true : false}
+                          onClick={() => {
+                            //TODO:
+                            setLoginBtn(true);
+                          }}
+                        >
+                          {stateBtn(v.state)}
+                        </button>
+                      )}
+                    </div>
+                    {/* ------ */}
+                  </div>
+                ) : (
+                  ''
+                )}
+              </IconContext.Provider>
             </div>
           </main>
         );
