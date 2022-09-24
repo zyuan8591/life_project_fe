@@ -7,8 +7,8 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  @media (max-width:420px) {
-  width: 420px;
+  @media (max-width:$rwdWidth) {
+  width: $rwdWidth;
     justify-content: center;
     // gap: 30px;
   }
@@ -20,7 +20,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    @media (max-width:420px) {
+    @media (max-width:$rwdWidth) {
       display: none;
     }
   }
@@ -32,7 +32,7 @@
     left: -3px;
     z-index: 100;
     transition: 0.3s;
-    @media (max-width:420px) {
+    @media (max-width:$rwdWidth) {
       display: none;
     }
     .filterBoard {
@@ -170,8 +170,8 @@
     &:focus {
       outline: transparent;
     }
-    @media (max-width:420px) {
-      margin-right: 60px;
+    @media (max-width:$rwdWidth) {
+      margin-right: 50px;
     }
   }
   .searchbar {
@@ -185,7 +185,7 @@
         opacity: 0;
       }
     }
-    @media (max-width:420px) {
+    @media (max-width:$rwdWidth) {
       display: none;
     }
   }
@@ -193,7 +193,7 @@
     border: 2px solid $subClrBrown;
     border-left: 0;
     width: 45px;
-    @media (max-width:420px) {
+    @media (max-width:$rwdWidth) {
       display: none;
     }
   }

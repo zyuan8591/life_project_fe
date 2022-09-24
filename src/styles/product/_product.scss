@@ -27,9 +27,9 @@ $rwdWidth: 420px;
       transform: translateY(0px);
     }
     @media (max-width: $rwdWidth) {
-      width: 180px;
+      width: 160px;
       border: 1px solid $subClrGY;
-      padding: 10px;
+      padding: 5px 0;
       border-radius: 10px;
       box-shadow: 0 0 6px $subClrGY;
       margin-bottom: 20px;
@@ -68,7 +68,9 @@ $rwdWidth: 420px;
       align-items: center;
       margin-bottom: 1rem;
       @media (max-width: $rwdWidth) {
-        height: 160px;
+        height: 140px;
+        width: 140px;
+        margin: 0 auto;
       }
       &:hover img {
         opacity: 0;
@@ -105,7 +107,7 @@ $rwdWidth: 420px;
       @media (max-width: $rwdWidth) {
       min-height: 45px;
       border-bottom: 0;
-      padding-bottom: 0px;
+      padding: 0px 10px;
       line-height: 1.2rem;
       }
       .color {
@@ -121,8 +123,8 @@ $rwdWidth: 420px;
       margin-top: 10px;
       @media (max-width: $rwdWidth) {
         display: block;
-        font-size: 16px;
-        margin-top: 0;
+        font-size: $text14;
+        margin: 0 10px;
         }
         .brand{
           @media (max-width: $rwdWidth) {
@@ -131,7 +133,7 @@ $rwdWidth: 420px;
             padding: 2px 5px;
             border-radius: 5px;
             color: $mainClrW;
-            margin-bottom: 10px;
+            margin:0 0 5px 0;
             }
         }
     }

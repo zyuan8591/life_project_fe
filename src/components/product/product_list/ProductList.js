@@ -82,6 +82,7 @@ const ProductList = () => {
   ]);
   useEffect(() => {
     setPageNow(1);
+    setPerPage(12);
   }, [productCateNow, search, checked]);
 
   return (
@@ -89,7 +90,7 @@ const ProductList = () => {
       <Header />
       <div className="product">
         <ProductRank />
-        <div className="d-flex mt-5 ">
+        <div className="d-flex mt-sm-5 mt-3 ">
           <ProductCategory setProductCateNow={setProductCateNow} />
           <div>
             <ProductFilter
@@ -119,14 +120,16 @@ const ProductList = () => {
             />
           </div>
         </div>
-        <PaginationBar
-          lastPage={lastPage}
-          pageNow={pageNow}
-          setPageNow={setPageNow}
-          perPage={perPage}
-          setPerPage={setPerPage}
-          moreText={'商品'}
-        />
+        <div className="d-flex justify-content-center">
+          <PaginationBar
+            lastPage={lastPage}
+            pageNow={pageNow}
+            setPageNow={setPageNow}
+            perPage={perPage}
+            setPerPage={setPerPage}
+            moreText={'商品'}
+          />
+        </div>
         <Tools
           item={item}
           setItem={setItem}

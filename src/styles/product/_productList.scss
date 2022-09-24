@@ -28,7 +28,7 @@ $numberSize: 36px;
     .title {
       border-bottom: 2px solid $subClrGY;
       padding-top: 5px;
-      @media (max-width: 420px) {
+      @media (max-width: $rwdWidth) {
         background: #eeeeee;
       }
       h4,
@@ -54,19 +54,19 @@ $numberSize: 36px;
       //   opacity:1;
       //   box-shadow:0 10px 20px 0px rgba(0,0,0,.3);
       // }
-      @media (max-width: 420px) {
-        min-height: 200px;
+      @media (max-width: $rwdWidth) {
+        min-height: 220px;
       }
-      
+
       .rank {
         position: relative;
         height: 300px;
         width: 250px;
         margin-right: 38px;
-        @media (max-width: 420px){
-          height: 130px;
-          width: 130px;
-          margin-right: 10px;
+        @media (max-width: $rwdWidth) {
+          height: 120px;
+          width: 120px;
+          margin-right: 5px;
         }
         .number {
           width: $numberSize;
@@ -74,7 +74,7 @@ $numberSize: 36px;
           background: $other;
           text-align: center;
           line-height: 2.25rem;
-          @media (max-width: 420px){
+          @media (max-width: $rwdWidth) {
             height: 20px;
             width: 20px;
             line-height: 1rem;
@@ -83,7 +83,7 @@ $numberSize: 36px;
             margin: 0;
             font-size: $text24;
             color: $mainClrW;
-            @media (max-width: 420px){
+            @media (max-width: $rwdWidth) {
               font-size: 1rem;
             }
           }
@@ -108,7 +108,7 @@ $numberSize: 36px;
           padding: 0;
           display: flex;
           align-items: center;
-          @media (max-width: 420px){
+          @media (max-width: $rwdWidth) {
             min-width: 100px;
             height: 100px;
             left: 10px;
@@ -121,8 +121,8 @@ $numberSize: 36px;
         }
         p {
           margin: 214px 0 0;
-          @media (max-width: 420px){
-            margin: 120px 0  0;
+          @media (max-width: $rwdWidth) {
+            margin: 120px 0 0;
           }
         }
       }

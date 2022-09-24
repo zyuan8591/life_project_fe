@@ -7,8 +7,11 @@
 $height: 50px;
 .categoryContainer {
   width: 290px;
-  position: relative;
+  // position: relative;
   margin-right: 40px;
+  position: sticky;
+  top: 65px;
+  align-self: flex-start;
   .title {
     min-width: 290;
     height: $height;
@@ -42,7 +45,7 @@ $height: 50px;
     z-index: -1;
     border-radius: 5px;
   }
-  @media (max-width:420px) {
+  @media (max-width:$rwdWidth) {
     display: none;
   }
 }
