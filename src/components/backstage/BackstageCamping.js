@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import Header from '../public_component/Header';
+import Header from '../public_component/BackstageIndex';
 import PaginationBar from '../public_component/PaginationBar';
 import AddCamping from './component/camping/AddCamping';
 import UpdateCamping from './component/camping/UpdateCamping';
 import Contact from '../contact/Contact';
+import Notification from '../activity/Notification';
 import '../../styles/backstage/_backstageCamping.scss';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaTrashAlt } from 'react-icons/fa';
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md';
+import { GiCampingTent } from 'react-icons/gi';
 
 function Backstage() {
   // const [state, setState] = useState('');
@@ -23,6 +25,12 @@ function Backstage() {
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
   const [updateData, setUpdateData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loginBtn, setLoginBtn] = useState('');
+  const [errMsg, setErrMsg] = useState(false);
+
+  const [adding, setAdding] = useState(false);
+  // const [loginBtn, setLoginBtn] = useState(false);
 
   useEffect(() => {
     let getCampingData = async () => {
@@ -31,25 +39,67 @@ function Backstage() {
       );
       setLastPage(response.data.pagination.lastPage);
       setCampingData(response.data.result);
+      if (adding) setPage(response.data.pagination.lastPage);
+      setAdding(false);
     };
     getCampingData();
-  }, [page, order]);
+  }, [page, order, loading]);
 
   const handleSubmit = async (campingId) => {
-    console.log(campingId);
-    // let response = await axios.put(`${API_URL}/campingDel/${campingId}`);
-    // console.log('del', response.data);
+    // console.log(campingId);
+    let response = await axios.put(
+      `${API_URL}/camping/campingDel/${campingId}`
+    );
+    setLoading(!loading);
+    console.log('del', response.data);
   };
   return (
     <>
       <Header />
-      {addPage ? <AddCamping setAddPage={setAddPage} /> : ''}
-      {updatePage ? (
-        <UpdateCamping setUpdatePage={setUpdatePage} updateData={updateData} />
+      {addPage ? (
+        <AddCamping
+          setAddPage={setAddPage}
+          setLoading={setLoading}
+          loading={loading}
+          setErrMsg={setErrMsg}
+          setLoginBtn={setLoginBtn}
+          setAdding={setAdding}
+        />
       ) : (
         ''
       )}
-
+      {updatePage ? (
+        <UpdateCamping
+          setUpdatePage={setUpdatePage}
+          updateData={updateData}
+          setLoading={setLoading}
+          loading={loading}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
+      {loginBtn === 'update' ? (
+        <Notification contaninText="修改成功" bottom="30">
+          <GiCampingTent />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {errMsg ? (
+        <Notification contaninText="活動標題已存在" bottom="30">
+          <GiCampingTent />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {loginBtn === 'add' ? (
+        <Notification contaninText="新增成功" bottom="30">
+          <GiCampingTent />
+        </Notification>
+      ) : (
+        ''
+      )}
       <div className="backstageContainer">
         <button
           className="addBtn"

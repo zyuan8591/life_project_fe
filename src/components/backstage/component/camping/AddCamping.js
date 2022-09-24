@@ -11,7 +11,14 @@ import AddImgCamping from './AddImgCamping';
 import AddImgCamping2 from './AddImgCamping2';
 import AddImgCamping3 from './AddImgCamping3';
 
-function AddPage({ setAddPage }) {
+function AddPage({
+  setAddPage,
+  loading,
+  setLoading,
+  setErrMsg,
+  setLoginBtn,
+  setAdding,
+}) {
   const counties = {
     1: '台北市',
     2: '新北市',
@@ -35,24 +42,21 @@ function AddPage({ setAddPage }) {
   };
   const location = Object.keys(counties);
 
-  const [errMsg, setErrMsg] = useState(false);
-  const [loginBtn, setLoginBtn] = useState(false);
-
   const [camping, setCamping] = useState({
-    title: '',
-    place: '',
-    lat: '',
-    price: '',
-    pepCount: '',
-    lng: '',
-    actStartDate: '',
-    actEndDate: '',
-    startDate: '',
-    endDate: '',
-    county: '',
-    address: '',
-    actInt: '',
-    actLodging: '',
+    title: '露營樂',
+    place: 'camping',
+    lat: '24.9850214803992300',
+    price: '2400',
+    pepCount: '13',
+    lng: '121.46123328452258',
+    actStartDate: '2022-12-12',
+    actEndDate: '2022-12-13',
+    startDate: '2022-11-01',
+    endDate: '2022-11-30',
+    county: '1',
+    address: '仁德區保學一街',
+    actInt: 'rrrrrrrrr',
+    actLodging: 'qqqqqqqqq',
     photo: '',
   });
 
@@ -159,10 +163,12 @@ function AddPage({ setAddPage }) {
           setErrMsg(false);
         }, 2000);
       } else {
-        setLoginBtn(true);
+        setAdding(true);
+        setLoginBtn('add');
         setTimeout(() => {
           setLoginBtn(false);
-        }, 500);
+        }, 2000);
+        setLoading(!loading);
         setTimeout(() => {
           setAddPage(false);
         }, 500);
@@ -175,14 +181,6 @@ function AddPage({ setAddPage }) {
 
   return (
     <>
-      {errMsg ? (
-        <Notification contaninText="活動標題已存在">
-          <GiCampingTent />
-        </Notification>
-      ) : (
-        ''
-      )}
-      {loginBtn ? <Notification contaninText="新增成功" /> : ''}
       <div className="backstageAddPage">
         <form className="formContainer">
           <IconContext.Provider

@@ -182,7 +182,7 @@ function App() {
                     />
                     <Route path="/map" element={<SetMap />} />
                     <Route
-                      path="/backstageCamping/"
+                      path="/backstage/Camping"
                       element={<BackstageCamping />}
                     />
                     {/* user */}
@@ -206,7 +206,6 @@ function App() {
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
                     />
-                    
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>
