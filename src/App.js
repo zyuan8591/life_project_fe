@@ -131,6 +131,10 @@ function App() {
                       />
                     </Route>
                     <Route path="/map" element={<SetMap />} />
+                    <Route
+                      path="/backstageCamping/"
+                      element={<BackstageCamping />}
+                    />
                     {/* recipe */}
                     <Route path="/recipeDetail" element={<RecipeDetail />} />
                     {/* product */}
@@ -167,6 +171,10 @@ function App() {
                       element={<CampingDetailPage />}
                     />
                     <Route path="/map" element={<SetMap />} />
+                    <Route
+                      path="/backstageCamping/"
+                      element={<BackstageCamping />}
+                    />
                     {/* user */}
                     <Route path="/users/" element={<Users />}>
                       <Route path="/users/account" element={<Account />} />
@@ -190,10 +198,7 @@ function App() {
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
                     />
-                    <Route
-                      path="/backstageCamping/:camping"
-                      element={<BackstageCamping />}
-                    />
+                    
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>
