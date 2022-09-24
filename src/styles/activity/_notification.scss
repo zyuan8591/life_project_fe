@@ -21,9 +21,7 @@
   z-index: 100;
   background: rgba(0, 0, 0, 0.5);
   .contain {
-    position: fixed;
-    z-index: 40;
-    transform: translateY(-80%);
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;

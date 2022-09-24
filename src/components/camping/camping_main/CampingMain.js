@@ -50,6 +50,7 @@ function CampingMain() {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [perPage, setPerPage] = useState(12);
   const [numberTtl, setnumberTtl] = useState(0);
   const { user, setUser } = useUserRights();
   const [userCollected, setUserCollected] = useState([]);
@@ -412,11 +413,16 @@ function CampingMain() {
                     </div>
                   </IconContext.Provider>
                   {numberTtl !== 0 ? (
-                    <PaginationBar
-                      lastPage={lastPage}
-                      pageNow={page}
-                      setPageNow={setPage}
-                    />
+                    <div className="text-center mb-3">
+                      <PaginationBar
+                        lastPage={lastPage}
+                        pageNow={page}
+                        setPageNow={setPage}
+                        perPage={perPage}
+                        setPerPage={setPerPage}
+                        moreText="活動"
+                      />
+                    </div>
                   ) : (
                     ''
                   )}

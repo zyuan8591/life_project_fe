@@ -6,10 +6,11 @@
     position: relative;
     .placeSlider{
         // left:0;
-        margin-bottom: 50px;
+        margin-bottom: 0px;
         width:5000px;
         align-items: center;
         position: relative;
+        transition: .5s ease;
         // transform: translateX(-275px);
         .placeSliderContainer{
             display: inline-block;
@@ -90,7 +91,7 @@
         // position: relative;
         .placeSlider{
             // left:0;
-            // margin-bottom: 50px;
+            margin-bottom: 0px;
             // width:5000px;
             // align-items: center;
             // position: relative;

@@ -9,7 +9,7 @@
   
 .productSlide {
   margin: 50px auto;
-  // max-width: 1260px.;
+  // max-width: 1260px;
   position: relative;
   .sliderLeft {
     left: 0;
@@ -30,7 +30,9 @@
       // z-index: 5;
       // position: absolute;
       // top: 0;
-      transform: translate(-30px, -40px);
+      // transform: translate(-30px, -40px);
+      transform: translate(-35px, -50%);
+
       cursor: pointer;
       // left: 0;
     }
@@ -38,7 +40,7 @@
       // z-index: 5;
       // position: absolute;
       // top: 50%;
-      transform: translate(30px, -45px);
+      transform: translate(35px, -50%);
       // cursor: pointer;
       // right: 0;
     }
