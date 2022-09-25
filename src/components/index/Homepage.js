@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import SliderComponent from './component/SliderComponent';
 import '../../styles/_homepage.scss';
 import IndexTitle from './component/IndexTitle';
 import IndexNews from './component/IndexNews';
@@ -10,6 +9,7 @@ import IndexRecipe from './component/IndexRecipe';
 import IndexRecipeActivity from './component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
+import Slider from './component/Slider';
 
 const Homepage = () => {
   const [recipeData, setRecipeData] = useState([]);
@@ -30,12 +30,15 @@ const Homepage = () => {
 
   return (
     <>
-      <SliderComponent />
+      {/* <SliderComponent /> */}
       <div className="homepageContainer">
         <div className="homepage">
+          <div className="indexSlider">
+            <Slider />
+          </div>
           {/* NEWS */}
           <div className="hPnewsContainer">
-            <IndexTitle title="最新資訊" subtitle="News" route="/news" />
+            <IndexTitle title="最新消息" subtitle="News" route="/news" />
             <IndexNews data={newsData} />
           </div>
           <div className="separateLine"></div>

@@ -12,8 +12,8 @@ function PicnicIndex() {
     <>
       <Header />
       <TitleBanner />
-      <BreadCrumb />
       <main className="main ">
+        <BreadCrumb />
         <Content />
       </main>
       <Footer />

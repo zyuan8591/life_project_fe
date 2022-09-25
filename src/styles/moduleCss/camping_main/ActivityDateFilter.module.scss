@@ -46,28 +46,15 @@
             width: 100%;
             margin-bottom: 10px;
         }
-        // input::-webkit-calendar-picker-indicator {
-        //     width: 25px;
-        //     height: 25px;
-        //     color: $subClrBrown;
-        //     border-radius: 2px; 
-        //     cursor: pointer;
-        // }
         .dateRemind{
             margin: 2px 10px 0;
             height: 18.8px;
             font-size: $text12;
             color: $focusClrG;
         }
-        button{        
-            // border: 1px solid $subClrGY;
-            // color: $subClrBrown;
+        button{
             border-radius: 30px;
-            // background-color: $mainClrW;
-            // padding: 0px;
             margin-left: 25px;
-            // transition: .3s;
-            // font-size: $text14;
             &:hover{
                 box-shadow: .2px .2px 6px rgba(0, 0, 0, 0.5);
             }

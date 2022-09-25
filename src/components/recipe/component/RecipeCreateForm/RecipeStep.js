@@ -5,6 +5,7 @@ import { TbTrash, TbMenu2 } from 'react-icons/tb';
 import { AiOutlinePlus, AiOutlineCamera } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import { Draggable } from 'react-beautiful-dnd';
+import { Form, Input } from 'antd';
 
 const container = css`
   display: grid;
@@ -30,13 +31,10 @@ const imgContainer = css`
 `;
 
 const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
-  // console.log(i, data.id);
   const [content, setContent] = useState('');
-  const [length, setLength] = useState(0);
   useEffect(() => {
     if (demo || edit) {
       setContent(data.content);
-      setLength(data.content.length);
     }
   }, []);
 
@@ -55,6 +53,7 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
     }
     setFile(file);
     changeStep(file, i, 'img');
+    if (content && file) changeStep('', i, 'error');
   };
   useEffect(() => {
     let fileReader,
@@ -85,7 +84,6 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
           css={container}
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
         >
           {/* img input */}
           <label
@@ -130,25 +128,31 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
                   <div onClick={() => delStep(i)}>
                     <TbTrash />
                   </div>
-                  <div>
+                  <div {...provided.dragHandleProps}>
                     <TbMenu2 />
                   </div>
                 </IconContext.Provider>
               </div>
             </div>
-            <textarea
-              placeholder="請輸入步驟說明 (最多 150 字)"
-              rows="4"
-              cols="auto"
-              value={content}
-              onChange={(e) => {
-                if (e.target.value.length > 150) return;
-                setLength(e.target.value.length);
-                changeStep(e.target.value, i, 'content');
-                setContent(e.target.value);
-              }}
-            />
-            <span className="align-self-end">{length}/150</span>
+            <Form.Item validateStatus={data.error && 'error'} help={data.error}>
+              <Input.TextArea
+                placeholder="請輸入步驟說明 (最多 150 字)"
+                rows="4"
+                cols="auto"
+                value={content}
+                showCount
+                maxLength={150}
+                onChange={(e) => {
+                  changeStep(e.target.value, i, 'content');
+                  changeStep('', i, 'error');
+                  setContent(e.target.value);
+                }}
+                onBlur={(e) => {
+                  if (!e.target.value.trim() || !file)
+                    changeStep('請輸入食譜步驟說明及上傳圖片', i, 'error');
+                }}
+              />
+            </Form.Item>
           </div>
         </div>
       )}

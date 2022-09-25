@@ -1,10 +1,12 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { FaPaw } from 'react-icons/fa';
 import { API_URL_IMG } from '../../../../utils/config';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
-function DetailTitle({ data }) {
-  // console.log(data);
+function DetailTitle({ data, handleDelActivity, user, success, setEdit }) {
+  // console.log(user);
   return (
     <>
       {data.map((item) => {
@@ -14,7 +16,31 @@ function DetailTitle({ data }) {
         return (
           <div className="detailTitle" key={uuidv4()}>
             <div>
-              <h2 className="title">{item.picnic_title}</h2>
+              <div className="titleGrop d-flex">
+                <h2 className="title">{item.picnic_title}</h2>
+                {user && user.id === item.create_user_id ? (
+                  <div className="btnGrop">
+                    <button
+                      className="editBtn"
+                      onClick={() => {
+                        setEdit(true);
+                      }}
+                    >
+                      修改活動
+                    </button>
+                    <button
+                      className="delBtn"
+                      onClick={() => {
+                        handleDelActivity(item.id);
+                      }}
+                    >
+                      刪除活動
+                    </button>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </div>
               <ul className="titleContent my-4">
                 <li>
                   <FaPaw className="faPawIcon" />
@@ -22,7 +48,7 @@ function DetailTitle({ data }) {
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
-                  地點：{item.location}
+                  地點：{item.address}
                 </li>
                 <li>
                   <FaPaw className="faPawIcon" />
@@ -44,6 +70,7 @@ function DetailTitle({ data }) {
           </div>
         );
       })}
+      {success && <Navigate to="/activity/picnic/group" />}
     </>
   );
 }

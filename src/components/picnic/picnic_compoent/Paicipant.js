@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from '../../../styles/moduleCss/picnic_offical_detail/picnicOfficalDetail.module.scss';
 import { useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
@@ -32,22 +33,22 @@ function Paicipant({
   };
   return (
     <>
-      <div className="paicipantOff">
+      <div className={classes.paicipantOff}>
         {data.length !== 0 && (
           <h4>
             參加者 ({data[0].currentJoin}/{data[0].join_limit})
           </h4>
         )}
         {paicipantData.length > 0 ? (
-          <div className="arrowIconSlider">
+          <div className={classes.arrowIconSlider}>
             <IoIosArrowBack
-              className="arrowIconLeft"
+              className={classes.arrowIconLeft}
               onClick={() => {
                 slideLeft(cardWidth);
               }}
             />
             <IoIosArrowForward
-              className="arrowIconRight "
+              className={classes.arrowIconRight}
               onClick={() => {
                 slideRight(userLength, cardWidth, displayTotal);
               }}

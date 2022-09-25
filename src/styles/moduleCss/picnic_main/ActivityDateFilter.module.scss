@@ -24,6 +24,15 @@
         border-radius: 2px; 
         cursor: pointer;
     }
+    input{
+        max-Width: 120px;
+        margin: 0;
+    }
+    .dateBtn{
+       display: flex;
+       justify-content: space-between;
+       align-items: center; 
+    }
     button{        
         border: 1px solid $subClrGY;
         color: $mainClrW;
@@ -47,10 +56,18 @@
             text-align: center;
         }
         .dateInputGrop{
+            justify-content: center;
+        }
+        input{
+            max-Width: 150px;
+        }
+        .dateBtn{
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
         button{
-            margin-right: 30px;
+            margin-right: 0;
         }
     }
 }

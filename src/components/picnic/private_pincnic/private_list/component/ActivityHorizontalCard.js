@@ -68,7 +68,7 @@ function ActivityHorizontalCard({ data }) {
                   </div>
                   <div className={classes.progressBarText}>
                     <div className={classes.limit}>
-                      目前人數：{item.officialJoin}
+                      目前人數：{item.currentJoin}
                     </div>
                     <div className={classes.limit}>
                       活動名額：{item.join_limit}

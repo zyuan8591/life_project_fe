@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
+import { FaRegTired, FaRegGrinHearts } from 'react-icons/fa';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../../styles/picnic/_picnicPrivateList.scss';
@@ -19,6 +20,7 @@ import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
+import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
 
 import axios from 'axios';
@@ -56,6 +58,9 @@ function PicnicPrivateList() {
   const { groupId } = useParams();
   const { user, setUser } = useUserRights();
   const [userCollect, setUserCollect] = useState([]);
+  const [collectConfirm, setCollectConfirm] = useState(false); //收藏新增
+  const [collectCancel, setCollectCancel] = useState(false); //收藏取消
+  const [loginBtn, setLoginBtn] = useState(false);
 
   const getPrivatelList = async () => {
     let response = await axios.get(
@@ -105,8 +110,11 @@ function PicnicPrivateList() {
     console.log('handleAddJoin', response.data);
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
     setUserCollect(nowJoinCollect);
-    alert('加入收藏');
     // console.log('add', nowJoinCollect);
+    setCollectConfirm(true); //加入收藏
+    setTimeout(() => {
+      setCollectConfirm(false);
+    }, [2000]);
   }
 
   async function handleDelFav(groupId) {
@@ -116,8 +124,11 @@ function PicnicPrivateList() {
     );
     console.log('handleDelFav', response.data);
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
-    setUserCollect(nowJoinCollect);
-    alert('取消收藏');
+    // setUserCollect(nowJoinCollect);
+    setCollectCancel(true); //取消收藏
+    setTimeout(() => {
+      setCollectCancel(false);
+    }, 2000);
   }
 
   // 引入card
@@ -128,6 +139,7 @@ function PicnicPrivateList() {
       handleDelFav={handleDelFav}
       user={user}
       userCollect={userCollect}
+      setLoginBtn={setLoginBtn}
     />
   );
   const horizontalCard = <ActivityHorizontalCard data={data} />;
@@ -137,11 +149,34 @@ function PicnicPrivateList() {
       <Header />
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
+          {collectConfirm ? (
+            <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+              <FaRegGrinHearts />
+            </Notification>
+          ) : (
+            ''
+          )}
+          {collectCancel ? (
+            <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+              <FaRegTired />
+            </Notification>
+          ) : (
+            ''
+          )}
+          {loginBtn ? (
+            <Notification
+              contaninText={'請先登入會員'}
+              linkTo={'/signin/login'}
+              setLoginBtn={setLoginBtn}
+            />
+          ) : (
+            ''
+          )}
           {/* banner */}
           <div className="banner">
             <img
               src="/img/picnic/activity_picnic_img/picnic_detail_banner2.jpeg"
-              alt="camping"
+              alt="picnic"
             />
           </div>
           <div className="main">
@@ -190,6 +225,9 @@ function PicnicPrivateList() {
                     setMinDateValue={setMinDateValue}
                     setPageNow={setPageNow}
                   />
+                  <Link to="/activity/picnic/create">
+                    <button className="createBtn mb-5">建立活動</button>
+                  </Link>
                 </div>
                 {/* 右側活動列表 */}
                 <div className="col-9">
@@ -199,6 +237,9 @@ function PicnicPrivateList() {
                       <ActivitySelect sort={sort} setSort={setSort} />
                     </div>
                     <div className="d-flex align-items-center">
+                      <IconContext.Provider
+                        value={{ color: '#817161', size: '2.35em' }}
+                      ></IconContext.Provider>
                       <FaListUl
                         className="me-3 changeBtn"
                         onClick={() => {
@@ -206,7 +247,6 @@ function PicnicPrivateList() {
                           setHorizontalCardChange(true);
                         }}
                       />
-
                       <BsGridFill
                         className="me-3 changeBtn"
                         onClick={() => {

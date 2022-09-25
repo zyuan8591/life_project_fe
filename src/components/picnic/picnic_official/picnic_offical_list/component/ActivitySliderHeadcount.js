@@ -30,7 +30,7 @@ function ActivitySliderHeadcount({
           // onChange={onChange}
           onAfterChange={onAfterChange}
         />
-        <div className={classes.sliderSearch}>
+        <div className={`${classes.sliderSearch}`}>
           <div className={classes.priceText}>
             {minJoinPeople}人 - {maxJoinPeople}人
           </div>

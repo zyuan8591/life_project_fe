@@ -6,14 +6,18 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
-import Notification from '../../../activity/Notification';
 import UpdateImgCamping from './UpdateImgCamping';
 import UpdateImgCamping2 from './UpdateImgCamping2';
 import UpdateImgCamping3 from './UpdateImgCamping3';
 import { useEffect } from 'react';
 
-function UpdatePage({ setUpdatePage, updateData }) {
-  const [loginBtn, setLoginBtn] = useState(false);
+function UpdatePage({
+  setUpdatePage,
+  updateData,
+  setLoading,
+  loading,
+  setLoginBtn,
+}) {
   //const data = { ...updateData };
 
   // console.log(updateData);
@@ -158,14 +162,14 @@ function UpdatePage({ setUpdatePage, updateData }) {
         //   withCredentials: true,
         // }
       );
-
-      setLoginBtn(true);
+      setLoginBtn('update');
       setTimeout(() => {
         setLoginBtn(false);
-      }, 500);
+      }, 2000);
+      setLoading(!loading);
       setTimeout(() => {
         setUpdatePage(false);
-      }, 500);
+      }, 600);
 
       console.log(response.data.message);
     } catch (e) {
@@ -175,8 +179,6 @@ function UpdatePage({ setUpdatePage, updateData }) {
 
   return (
     <>
-      {loginBtn ? <Notification contaninText="修改成功" /> : ''}
-
       <div className="backstageAddPage">
         <form className="formContainer">
           <IconContext.Provider
@@ -349,7 +351,6 @@ function UpdatePage({ setUpdatePage, updateData }) {
           </div>
 
           {/* int */}
-          {/* <div className="d-flex leftInput"> */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
             <label className="mb-2">活動介紹：</label>
             <textarea
@@ -376,7 +377,6 @@ function UpdatePage({ setUpdatePage, updateData }) {
               onChange={handleChange}
             />
           </div>
-          {/* </div> */}
 
           {/* img */}
           <label className="mb-4 leftInput">活動照片：</label>

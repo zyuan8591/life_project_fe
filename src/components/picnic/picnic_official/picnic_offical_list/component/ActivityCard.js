@@ -6,9 +6,16 @@ import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL_IMG } from '../../../../../utils/config';
-import { Button, message, Space } from 'antd';
+import { Empty } from 'antd';
 
-function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
+function ActivityCard({
+  data,
+  handleAddFav,
+  handleDelFav,
+  user,
+  userCollect,
+  setLoginBtn,
+}) {
   // console.log(data);
 
   const progressBar = (item) => {
@@ -25,7 +32,9 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
   return (
     <>
       {data.length === 0 ? (
-        <div style={{ fontSize: '16px', color: '#817161' }}>沒有相關資料</div>
+        <div style={{ fontSize: '16px', color: '#817161' }}>
+          <Empty />
+        </div>
       ) : (
         data.map((item) => {
           return (
@@ -43,14 +52,7 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                       >
                         <FaHeart
                           onClick={() => {
-                            handleDelFav(item.id);
-                            message.success({
-                              content: '取消收藏',
-                              className: 'custom-class',
-                              style: {
-                                marginTop: '20vh',
-                              },
-                            });
+                            handleDelFav(item.id); //取消
                           }}
                         />
                       </IconContext.Provider>
@@ -61,13 +63,6 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                         <FaHeart
                           onClick={() => {
                             handleAddFav(item.id);
-                            message.success({
-                              content: '加入收藏',
-                              className: 'custom-class',
-                              style: {
-                                marginTop: '20vh',
-                              },
-                            });
                           }}
                         />
                       </IconContext.Provider>
@@ -79,7 +74,7 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                       <FaHeart
                         className={classes.collect}
                         onClick={() => {
-                          message.success('請先登入會員');
+                          setLoginBtn(true);
                         }}
                       />
                     </IconContext.Provider>
@@ -105,25 +100,26 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                       {item.activity_state}
                     </div>
                   </div>
-                  <div className={classes.price}>${item.price}</div>
+                  <div className={`${classes.price}`}>${item.price}</div>
                 </div>
 
                 <div className={`${classes.activityDate} my-2`}>
-                  <div>
-                    {item.start_date} ~ {item.end_date}
+                  <div className={classes.dateText}>
+                    <span>{item.start_date}</span>
+                    <span> ~ {item.end_date}</span>
                   </div>
                 </div>
-                <div className={classes.progressBar}>
+                <div className={`${classes.progressBar}`}>
                   <div
                     className={classes.bar}
                     style={{ width: progressBar(item) }}
                   ></div>
                 </div>
-                <div className={classes.content}>
+                <div className={`${classes.content1}`}>
                   <div className={classes.limit}>
                     目前人數：{item.currentJoin}
                   </div>
-                  <div className={classes.limit}>
+                  <div className={`${classes.limit}`}>
                     活動名額：{item.join_limit}
                   </div>
                 </div>
@@ -131,7 +127,8 @@ function ActivityCard({ data, handleAddFav, handleDelFav, user, userCollect }) {
                   <div className={classes.activityInt}>活動簡介：</div>
                   <div className={classes.intContent}>{item.intr}</div>
                 </div>
-                <div className={`${classes.intMore} my-1`}>
+                <div className={`${classes.intMore} my-1 `}>
+                  {/* RWD */}
                   <IconContext.Provider value={{ className: classes.moreIcon }}>
                     <Link
                       to={`/activity/picnic/official/${item.id}`}
