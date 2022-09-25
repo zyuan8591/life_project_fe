@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import 'antd/dist/antd.css';
 import { IconContext } from 'react-icons';
 import { BsGridFill } from 'react-icons/bs';
+import { FaRegTired, FaRegGrinHearts } from 'react-icons/fa';
 import { FaListUl, FaSearch } from 'react-icons/fa';
 
 import '../../../../styles/picnic/_picnicOffical.scss';
@@ -20,6 +21,7 @@ import ActivityCard from './component/ActivityCard';
 import ActivityHorizontalCard from './component/ActivityHorizontalCard';
 import PaginationBar from '../../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
+import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
 
 import axios from 'axios';
@@ -38,12 +40,14 @@ function PicnicList() {
   const [stateSearch, setStateSearch] = useState(activityState);
   const [cardChange, setCardChange] = useState(true);
   const [horizontalCardChange, setHorizontalCardChange] = useState(false);
+  const [iconChange, setIconChange] = useState(false);
 
   const [searchWords, setSearchWords] = useState('');
   const [searchWord, setSearchWord] = useState('');
   const [sort, setSort] = useState(0);
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [perPage, setPerPage] = useState(12);
   const [filterState, setFilterState] = useState('');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(2500);
@@ -60,11 +64,14 @@ function PicnicList() {
   const { officialId } = useParams();
   const { user, setUser } = useUserRights();
   const [userCollect, setUserCollect] = useState([]);
+  const [collectConfirm, setCollectConfirm] = useState(false); //收藏新增
+  const [collectCancel, setCollectCancel] = useState(false); //收藏取消
+  const [loginBtn, setLoginBtn] = useState(false);
 
   // 列表首頁 搜尋、排序、頁碼
   const getOfficalList = async () => {
     let response = await axios.get(
-      `${API_URL}/picnic/official?searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}&filterState=${filterState}&minPrice=${minPrice}&maxPrice=${maxPrice}&minJoinPeople=${minJoinPeople}&maxJoinPeople=${maxJoinPeople}&minDate=${minDate}&maxDate=${maxDate}`
+      `${API_URL}/picnic/official?perPage=${perPage}&searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}&filterState=${filterState}&minPrice=${minPrice}&maxPrice=${maxPrice}&minJoinPeople=${minJoinPeople}&maxJoinPeople=${maxJoinPeople}&minDate=${minDate}&maxDate=${maxDate}`
     );
     // console.log(response);
     setData(response.data.data);
@@ -83,6 +90,7 @@ function PicnicList() {
     minJoinPeople,
     minDate,
     maxDate,
+    perPage,
   ]);
 
   // 此會員所有收藏
@@ -114,6 +122,10 @@ function PicnicList() {
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
     setUserCollect(nowJoinCollect);
     // console.log('add', nowJoinCollect);
+    setCollectConfirm(true); //加入收藏
+    setTimeout(() => {
+      setCollectConfirm(false);
+    }, [2000]);
   }
 
   async function handleDelFav(officialId) {
@@ -125,6 +137,10 @@ function PicnicList() {
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
     setUserCollect(nowJoinCollect);
     // console.log('del', nowJoinCollect);
+    setCollectCancel(true); //取消收藏
+    setTimeout(() => {
+      setCollectCancel(false);
+    }, 2000);
   }
 
   // 引入card
@@ -135,6 +151,8 @@ function PicnicList() {
       handleDelFav={handleDelFav}
       user={user}
       userCollect={userCollect}
+      setCollectConfirm={setCollectConfirm}
+      setLoginBtn={setLoginBtn}
     />
   );
   const horizontalCard = <ActivityHorizontalCard data={data} />;
@@ -143,6 +161,37 @@ function PicnicList() {
       <Header />
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
+          {collectConfirm ? (
+            <Notification
+              contaninText={'已加入收藏'}
+              setLoginBtn={setLoginBtn}
+              bottom={30}
+            >
+              <FaRegGrinHearts />
+            </Notification>
+          ) : (
+            ''
+          )}
+          {collectCancel ? (
+            <Notification
+              contaninText={'已取消收藏'}
+              setLoginBtn={setLoginBtn}
+              bottom={30}
+            >
+              <FaRegTired />
+            </Notification>
+          ) : (
+            ''
+          )}
+          {loginBtn ? (
+            <Notification
+              contaninText={'請先登入會員'}
+              linkTo={'/signin/login'}
+              setLoginBtn={setLoginBtn}
+            />
+          ) : (
+            ''
+          )}
           {/* banner */}
           <div className="banner">
             <img
@@ -161,7 +210,7 @@ function PicnicList() {
                 <div className="col-sm-3 col-12">
                   {/* state filter */}
                   <div className="activityState ">
-                    <p className="stateText ">活動狀態</p>
+                    <p className="stateText">活動狀態</p>
                     <div className="mb-flex">
                       {stateSearch.map((v, i) => {
                         return (
@@ -212,7 +261,7 @@ function PicnicList() {
                   />
                 </div>
                 {/* 右側活動列表 */}
-                <div className="col-sm-9 col-12">
+                <div className="col-sm-9 col-12 mb-3 pc-view">
                   <div className="d-flex justify-content-between">
                     <div className="mb-3 ">
                       {/* card 切換 篩選ICON */}
@@ -275,6 +324,65 @@ function PicnicList() {
                     lastPage={lastPage}
                     pageNow={pageNow}
                     setPageNow={setPageNow}
+                  />
+                </div>
+
+                {/* RWD */}
+                <div className="col-sm-9 col-12 mb-3 mb-view">
+                  <div className="iconGroup">
+                    <div className="d-flex align-items-center justify-content-center w-100 mb-3">
+                      <div className="SearchBar">
+                        <input
+                          style={{ width: '275px' }}
+                          className="searchInput"
+                          placeholder="Search.."
+                          type="text"
+                          value={searchWord}
+                          onChange={(e) => {
+                            // console.log(e.target.value);
+                            setSearchWord(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <IconContext.Provider
+                          value={{ color: '#817161', size: '1.7em' }}
+                        >
+                          <FaSearch
+                            className="ms-2 mb-1"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                              if (searchWord === '') return setSearchWords('');
+                              setPageNow(1);
+                              setSearchWords(searchWord);
+                            }}
+                          />
+                        </IconContext.Provider>
+                      </div>
+                    </div>
+                    <div className="sortBar">
+                      {/* 篩選ICON */}
+                      <div className="sort">
+                        <ActivitySelect sort={sort} setSort={setSort} />
+                      </div>
+                    </div>
+                  </div>
+                  <IconContext.Provider value={{ color: '#000', size: '1rem' }}>
+                    <div className="row ">
+                      {/* 列表 card */}
+                      {/* 列表 HorizontalStyle */}
+                      {cardChange === true && horizontalCardChange === false
+                        ? card
+                        : horizontalCard}
+                    </div>
+                  </IconContext.Provider>
+                  <PaginationBar
+                    lastPage={lastPage}
+                    pageNow={pageNow}
+                    perPage={perPage}
+                    setPageNow={setPageNow}
+                    setPerPage={setPerPage}
+                    moreText={''}
                   />
                 </div>
               </div>

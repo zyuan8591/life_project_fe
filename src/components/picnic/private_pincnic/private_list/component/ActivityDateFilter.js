@@ -40,7 +40,10 @@ function ActivityDateFilter({
           />
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <div className="mt-auto ms-3" style={{ fontSize:'14px' }}>
+          <div
+            className="mt-auto ms-3"
+            style={{ fontSize: '13px', color: '#red' }}
+          >
             {dateRemind}
           </div>
           <button

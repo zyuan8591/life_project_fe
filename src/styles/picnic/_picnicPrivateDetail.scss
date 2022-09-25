@@ -40,9 +40,47 @@
             }
             // --------- 上方活動資訊和圖片 ---------
             .detailTitle {
-            h2 {
+            .titleGrop{
+                width: 100%;
+                justify-content: space-between;
+                align-items: flex-end;
                 border-bottom: 1px solid $subClrGY;
                 padding: 0 0 1rem;
+                .delBtn{
+                    height: 40px;
+                    font-size: $contentText;
+                    color: $contentClr;
+                    text-decoration: none;
+                    border: 1px solid $subClrGY;
+                    color: $mainClrW;
+                    border-radius: 5px;
+                    background-color: #e40000ea;
+                    padding: 3px 14px;
+                    margin: 20px 0 0 10px;
+                    transition: .5s;
+                    &:hover{
+                        box-shadow: .2px .2px 4px rgba(0, 0, 0, 0.5);
+                    }
+                }
+                .editBtn{
+                    height: 40px;
+                    font-size: $contentText;
+                    color: $contentClr;
+                    text-decoration: none;
+                    border: 1px solid $subClrGY;
+                    color: $mainClrW;
+                    border-radius: 5px;
+                    background-color: #048c06ea;
+                    padding: 3px 14px;
+                    margin: 20px 0 0 10px;
+                    transition: .5s;
+                    &:hover{
+                        box-shadow: .2px .2px 4px rgba(0, 0, 0, 0.5);
+                    }
+                }
+                h2{
+                    margin: 0;
+                }
             }
             .titleContent {
                 li {
@@ -335,9 +373,11 @@
                 margin: auto 40px;
                 position: relative;
                 overflow: hidden;
+                // transition: .5s;
                 .slidewrap{
                     width: 3000px;
                     position: absolute;
+                    transition: .5s;
                     // transform: translateX(-200px);
                     .productCard {
                         max-width: 200px;
@@ -412,7 +452,8 @@
             flex-direction: column;
             margin:5px 0px;
             padding: 20px ;
-            box-shadow: .5px .5px 2px $subClrGY;
+            box-shadow: .5px .5px 5px $subClrGY;
+            border: 1px solid $focusClrY;
             .date {
                 font-size: $text14;
             }
@@ -440,7 +481,7 @@
                 -webkit-line-clamp: 2;
                 overflow: hidden;
                 .userPic {
-                    background: lightcoral;
+                    background: white;
                     width: 35px;
                     height: 35px;
                     border-radius: 50%;

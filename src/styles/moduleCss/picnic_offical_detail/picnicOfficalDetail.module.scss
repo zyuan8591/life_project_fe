@@ -1,5 +1,5 @@
-@import '../variable';
-@import '../picnic/picnicVariable';
+@import '../../variable';
+@import '../../picnic/picnicVariable';
 
 @mixin iconSize {
     font-size: 1.2rem;
@@ -26,6 +26,9 @@
 }
 
 .PicnicOfficalDetailContainer {
+    .mbView{
+        display: none;
+    }
     margin: $headerHeight auto;
     .contentTitle {
         @include contentTitle;  
@@ -221,52 +224,53 @@
                
             }
         }
-         // --------- 側邊資訊欄 ---------
-         .asideMessage {
-        min-width: 280px;
-        width: 330px;
-        position: sticky;
-        top: 0;
-        right: 0;
-        border: 1px solid $subClrBrown;
-        box-shadow: 0 0 3px $subClrGY;
-        padding: 1.5rem;
-        p {
-            font-size: $text20;
-            margin: 0;
-        }
-        .stateBtn {
-            font-size: $text14;
-            background: $focusClrY;
-            border-radius: 2rem;
-            color: $mainClrW;
-            padding: 2px 7px;
-
-        }
-        .calendarIcon, .mapMarkerIcon, .personIcon {
-            font-size: 1rem;
-            margin: -3px 5px 0 0;
-        }
-        .map {
-            width: 280px;
-            height: 100%;
-            border: 1px solid #8b8b8b; 
-        }
-        .price {
-            color: $contentClr;
-            font-weight: $fW600;
-        }
-        .joinInBtn {
-            color: $mainClrW;
-            background: $subClrBrown;
-            border-radius: 4px;
-            padding: 5px 9px;
-            border: none;
-            &:hover {
-                outline: 3px solid #817161b8;
+        // --------- 側邊資訊欄 ---------
+        .asideMessage {
+            min-width: 280px;
+            width: 330px;
+            position: sticky ;
+            top: 0;
+            right: 0;
+            border: 1px solid $subClrBrown;
+            box-shadow: 0 0 3px $subClrGY;
+            padding: 1.5rem;
+            p {
+                font-size: $text20;
+                margin: 0;
             }
-        }
-        }
+            .stateBtn {
+                font-size: $text14;
+                background: $focusClrY;
+                border-radius: 2rem;
+                color: $mainClrW;
+                padding: 2px 7px;
+    
+            }
+            .calendarIcon, .mapMarkerIcon, .personIcon {
+                font-size: 1rem;
+                margin: -3px 5px 0 0;
+            }
+            .map {
+                width: 280px;
+                height: 100%;
+                overflow: hidden;
+                border: 1px solid #8b8b8b; 
+            }
+            .price {
+                color: $contentClr;
+                font-weight: $fW600;
+            }
+            .joinInBtn {
+                color: $mainClrW;
+                background: $subClrBrown;
+                border-radius: 4px;
+                padding: 5px 9px;
+                border: none;
+                &:hover {
+                    outline: 3px solid #817161b8;
+                }
+            }
+            }
     }   
      // --------- 推薦商品 ---------
      .recommendProducts {
@@ -310,7 +314,7 @@
                     position: absolute;
                     // transform: translateX(-200px);
                     .productCard {
-                        max-width: 200px;
+                        width: 200px;
                         height: 200px;
                         margin: 5px;
                         overflow: hidden;
@@ -377,8 +381,8 @@
             color: $subClrBrown;
         }
         .cardItem {
-            max-height: 250px;
-            max-width: 250px;
+            max-height: 249px;
+            max-width: 249px;
             display: flex;
             flex-direction: column;
             margin:5px 1px;
@@ -429,7 +433,7 @@
                 background: $focusClrY;
                 border-radius: 20px;
                 padding: 4px 7px;
-                margin: auto 0;
+                margin: 5px 0;
                 flex-shrink: 0;
                 transition: .5s;
             }   
@@ -449,7 +453,254 @@
             }
         }
     }
-
-
 }
 
+@media screen and (max-width:375px) {
+    .pcView{
+        display: none !important;
+    }
+    .mbView{
+        display: block !important;
+    } 
+    // --------- 上方活動資訊和圖片 ---------
+    .detailTitle {
+        h2 {
+            border-bottom: 1px solid $subClrGY;
+            padding: 1rem 0 !important;
+        }
+        .titleContent {
+            li {
+                font-size: 18px !important;
+                line-height: 2.5rem !important;
+                // .faPawIcon {
+                //     @include iconSize;
+                //     color: $subClrBrown;                
+                // }
+            }
+        }
+        .image {
+            width: 100%;
+            max-height: 250px;
+            img {
+                @include imgWH;
+                object-fit: cover;
+            }
+        }
+        }
+    // --------- 活動內容 ---------
+    .offcialDetailContent {
+        li {
+            font-size:  14px !important;
+        }
+        .contentTitle{
+            font-size: 18px;
+        }
+        .contentWrap1 {
+            padding: 2rem 1.5rem !important;
+            // margin: auto 0;
+            // border-radius: 10px;
+            box-shadow: .8px .8px 5px $subClrGY;
+            .quoteLeftIcon {
+                font-size: 1rem !important;
+                // margin: -1rem 5px 0;
+                // color: $subClrBrown;
+            }
+            .quoteRightIcon {
+                font-size: 1rem !important;
+                // margin: 0 5px -1rem;
+                // color: $subClrBrown;
+            }
+            p {
+                font-size: $contentText !important;
+                // text-align:justify;
+                // margin: 0;
+                // @include lineHeight;
+                // color: $subClrBrown;
+            }    
+        }
+        .noticeItem {
+            // background-color: $hoverClr;
+            // padding: 1rem;
+            .noticeItemTitle{
+                font-size: 18px;
+            }
+            // li {
+            //     text-indent: 1em;
+            //     @include lineHeight;
+            // }
+        }        
+        // li {
+        //     @include lineHeight;
+        //     margin-left: 38px;
+        //     text-indent: -1.9rem;
+        //     .warnIcon {
+        //         @include iconSize;
+        //         color: $focusClrY;
+        //         // margin-left: 10px;
+        //     }
+        //     .checkIcon {
+        //         @include iconSize;
+        //         color: $focusClrG;
+        //     }
+        //     .crossIcon {
+        //         @include iconSize;
+        //         color: $subClrGY;
+
+        //     }
+        // }
+    }
+
+    // --------- 參加者 ---------
+    .paicipantOff {
+        margin: 4rem 0 1.8rem!important;
+        h4 {
+            margin: 1.5rem 0;
+            font-size: 18px !important;
+            padding: 0 5px;
+            margin: 0.7rem 0;
+            border-left: 5px solid #817161;
+        }
+        .arrowIconSlider{
+            width: 375px !important;            
+            .arrowIconRight {
+            right: 15px !important;
+            }
+        }
+        .slider {
+            width: 280px;
+            height: 250px;
+            margin: auto 35px !important;
+        }
+       
+    }
+        // --------- 側邊資訊欄 ---------
+    .asideMessage {
+       width: 350px !important;
+       position: static !important;
+       bottom: 0%;
+       background: white;
+       //border: 1px solid $subClrBrown;
+       box-shadow: 0 0 3px $subClrGY;
+       padding: 1rem !important;
+       margin: auto ;
+       p {
+           font-size: 16px;
+           margin: 0;
+       }
+       .stateBtn {
+           font-size: $text12 !important;
+           background: $focusClrY;
+           border-radius: 2rem;
+           color: $mainClrW;
+           padding: 2px 7px;       
+        }
+       .price {
+           color: $contentClr;
+           font-weight: none;
+       }
+       .joinInBtn {
+           color: $mainClrW;
+           background: $subClrBrown;
+           border-radius: 4px;
+           padding: 4px 7px;
+           font-size: 10px;
+           border: none;
+           &:hover {
+               outline: 3px solid #817161b8;
+           }
+       }
+    }
+    
+    .recommendProducts {
+        margin: 0 0 1.8rem !important;
+        h4 {
+            font-size: 18px !important;
+        }
+        .arrowIconSlider {
+            width: 360px !important;
+            .slider{
+                width: 290px !important;
+                height: 220px;
+                margin: auto 50px !important;
+                position: relative;
+                left: -20px;
+                overflow: hidden;
+                // transition: .5s;
+                .slidewrap{
+                    width: 4000px !important;
+                    position: absolute;
+                    transition: .5s;
+                    // transform: translateX(-200px);
+                    .productCard {
+                        background-color: blue;
+                        width: 280px !important;
+                        height: 200px;
+                        margin: 5px;
+                        overflow: hidden;
+                        position: relative;
+                        .productImg{
+                            width: 100%;
+                            height: 100%;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                        .hoverText{
+                            width: 100%;
+                            height: 200px;
+                            color: $mainClrW;
+                            font-size: $contentText;
+                            background:#444444b7 80%;
+                            text-align: center;
+                            transition: .5s;
+                            display: flex;
+                            align-items: center;
+                            position: absolute;
+                            top: 0;
+                            opacity: 0;
+                        }
+                        a{
+                            width: 100%;
+                        }
+                        span {
+                            width: 100%;
+                            display: inline-block;
+                            text-shadow: .5px .5px 1px $contentClr;
+                            font-size: $contentText;
+                            margin: auto;
+                        }
+                        &:hover {
+                            .hoverText {
+                                cursor: pointer;
+                                transition: .5s;
+                                opacity: 1;
+                            }
+                            span{
+                                color: white;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+                                
+    }
+
+    .recommendActivity {
+        h4 {
+            font-size: 18px !important;
+        }
+        .cardItem {
+            max-height: 280px !important;
+            max-width: 280px !important;
+            // display: flex;
+            // flex-direction: column;
+            margin:5px 38px !important;
+            padding: 20px ;
+            box-shadow: .5px .5px 6px $subClrGY;
+        }  
+    }
+}

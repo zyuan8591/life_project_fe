@@ -19,7 +19,7 @@
         margin: 80px 0 ;
         transition: transform .5s ease-in-out;
         .image {
-            width: 700px;
+            max-width: 720px;
             height: 500px;
             overflow: hidden;
             img {
@@ -37,7 +37,7 @@
             transform: translateY(-20px);
         }
     .content-text{
-        width: 500px;
+        max-width: 500px;
         margin: auto;
         .title{
             font-size: $titleText;
@@ -68,70 +68,123 @@
     }
 }
 
-// ----- main banner 上方 -----
+// ----- main 上方 banner -----
 .section-main{
+    .mb-view{
+        display: none;
+    }
     display: flex;
     margin: 65px 0 0;
     .banner{
         width: 100%;
-        height: 450px;
+        max-height: 450px;
         img{
         width: 100%;
         height: 100%;
         object-fit: cover;
         }
     }
-    .title-text {
-        width: 40%;
-        position: relative;
-        .title-slogan {
-            position: absolute;
-            top: 0;
-            right: 0;
-            span {
-            color: $mainClrW;
-            font-size: 12rem;
-           font-weight: $fW900;
-           -webkit-text-stroke: 4px $subClrGY;
-            
-           &:nth-child(n) {
-            color: $focusClrG;
-            margin: 0 5px;
-           }
-           &:nth-child(2n) {
-            color: $focusClrY;
-           }
-        }
-        }
-        .title-slogan2 {
-            color: $contentClr;
-            font-size: 50px;
-            font-weight: $fW700;
-            
-            .first-child {
-            position: absolute;
-            top: 35rem;
-            right: 30%;
-            }
-            .last-child {
-                position: absolute;
-                top: 43rem;
-                right: 8%;
-                }
-    }
-    
-    }
 }
 .main {
-    width: $maxWidth;
-    margin: auto;
+    max-width: $maxWidth;
+    margin: 0px auto 200px;
     position: relative;
     top: $headerHeight;
-// ----- 活動介紹 ------
+// ----- 活動介紹 下方 banner ------
     .section-content{
         margin: 0 auto 100px; 
             @include contentWrap;
     }
     
+}
+
+@media screen and (max-width:375px)  {
+    .pc-view{
+        display: none !important; 
+    }
+    .mb-view{
+        display: flex !important;
+    }
+    .section-main{
+        .banner{
+            width: 100%;
+            height: 156px;
+            img{
+            width: 100%;
+            height: 156px;
+            object-fit: contain;
+            }
+        }
+    }
+    .main {
+        width: 375px;
+        margin: -35px auto 0;
+        position: relative;
+        // -- 活動介紹 下方 banner --
+        .section-content{
+            margin: -35px auto 150px; 
+            .wrap {
+                max-width: 100%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                border-radius: 0px;
+                box-shadow: none;
+                // margin: 80px 0 ;
+                transition: transform .5s ease-in-out;
+                .image {
+                    width: 100%;
+                    height: 250px;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                        height: 250px;
+                        object-fit: cover;
+                    }
+                }
+                .wrap2{
+                    flex-direction: column-reverse;
+                }
+                .contentbn1, .contentbn2, .contentbn3 {
+                    border-radius: 0;
+                }
+                &:hover{
+                    transform: translateY(-20px);
+                }
+            .content-text{
+                width: 90%;
+                margin: 20px auto;
+                .title{
+                    font-size: 28px;
+                }
+                .text-p{
+                    border-top: 2px solid $focusClrY;
+                    padding-top: 30px;
+                    p {
+                        font-size: 14px;
+                        line-height: 25px;
+                        padding: 0;
+                       }
+                }
+                .btn {
+                    max-width: 100%;
+                    padding: 10px 0;
+                    margin: 18px auto 0 !important;
+                    font-size: 16px;
+                    border: 1px solid $subClrGY;
+                    border-radius: 0%;
+                    box-shadow:.3px .3px 3px $subClrGY;
+                    &:hover, &:active {
+                        background: $focusClrY;
+                        color: $mainClrW;
+                    }
+                }
+                
+            }
+            
+            }
+        }
+        
+    }
 }
 

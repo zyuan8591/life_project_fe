@@ -7,12 +7,15 @@
     width: 80%;
 }
 @mixin buttonHover {
-    box-shadow: .2px .2px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: .2px .2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .activityPage{
     margin: 0 auto $headerHeight;
     color: $contentClr;
+    .mb-view{
+        display: none;
+    }
     .banner{
         top: $headerHeight;
         position: relative;
@@ -40,7 +43,27 @@
                 margin-bottom: 40px;
                 .stateText{
                     @include filterTitle;
+                    width: 80%;
                 }
+            }
+            .createBtn{
+                width: 80%;
+                height: 40px;
+                font-size: $contentText;
+                color: $contentClr;
+                text-decoration: none;
+                border: 1px solid $subClrGY;
+                color: $mainClrW;
+                border-radius: 5px;
+                background-color: $focusClrY;
+                padding: 3px 14px;
+                margin-top: 20px;
+                transition: .5s;
+                &:hover{
+                    @include buttonHover;
+                }
+
+            }
             // 右側列表
             .changeBtn{
                 cursor: pointer;
@@ -56,16 +79,16 @@
                     
                 }
             }
-
         }
 
     }
-}}
+}
 
 @media screen and (max-width:375px) {
     .activityPage{
         .mb-view{
             display: flex;
+            flex-direction: column;
         }
         .pc-view{
             display: none;
@@ -85,7 +108,30 @@
             }
             
         }
-
+        .activityState{
+            margin-bottom: 20px;
+            .stateText{
+                width: 100%;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+        .iconGroup{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sortBar{
+            width: 87.5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin:0 auto 10px;
+            .sort{
+                width: 100%;
+            }
+        }
     }
     
 

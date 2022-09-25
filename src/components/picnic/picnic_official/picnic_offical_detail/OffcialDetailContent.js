@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from '../../../../styles/moduleCss/picnic_offical_detail/picnicOfficalDetail.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import {
   FaExclamationTriangle,
@@ -12,79 +13,79 @@ function OffcialDetailContent({ data }) {
   // console.log(data);
   return (
     <>
-      <div className="offcialDetailContent">
+      <div className={classes.offcialDetailContent}>
         {/* --- 活動內容 --- */}
         {data.map((item) => {
           return (
-            <div className="contentWrap1 mb-5" key={uuidv4()}>
+            <div className={`${classes.contentWrap1} mb-5`} key={uuidv4()}>
               {/* <h4 className="contentTitle">活動內容</h4> */}
               <p>
-                <FaQuoteLeft className="quoteLeftIcon" />
+                <FaQuoteLeft className={classes.quoteLeftIcon} />
                 {item.intr}
-                <FaQuoteRight className="quoteRightIcon" />
+                <FaQuoteRight className={classes.quoteRightIcon} />
               </p>
             </div>
           );
         })}
         {/* --- 購買須知 --- */}
         <div className="mb-5">
-          <h4 className="contentTitle">購買須知</h4>
+          <h4 className={classes.contentTitle}>購買須知</h4>
           <ul>
             <li>
-              <FaExclamationTriangle className="warnIcon" />
+              <FaExclamationTriangle className={classes.warnIcon} />
               若因天氣等不可抗力之因素，或受其他安全考量等因素所迫，而導致活動無法順利進行，活動小組將有權決定取消活動或延期舉行，同時以電話或簡訊主動告知參與者。活動如因上述因素而被迫取消，將全額退費，退費辦法將另行公告。
             </li>
             <li>
-              <FaExclamationTriangle className="warnIcon" />
+              <FaExclamationTriangle className={classes.warnIcon} />
               成團條件：5人(含)以上，上限依每個活動規定人數
             </li>
             <li>
-              <FaExclamationTriangle className="warnIcon" />
+              <FaExclamationTriangle className={classes.warnIcon} />
               如有特殊需求，如：同行人中有幼童、行動不便的長者等等，請來電或來信詢問，勿先行下單
             </li>
             <li>
-              <FaExclamationTriangle className="warnIcon" />
+              <FaExclamationTriangle className={classes.warnIcon} />
               活動不包含交通，請自行前往集合點集合。
             </li>
           </ul>
         </div>
         {/* --- 費用 --- */}
         <div className="mb-5">
-          <h4 className="contentTitle">費用包含/不包含</h4>
-          <div className="d-flex ">
+          <h4 className={classes.contentTitle}>費用包含/不包含</h4>
+          <div className="d-flex">
             <ul>
               <li>
-                <FaCheck className="checkIcon" />
+                <FaCheck className={classes.checkIcon} />
                 餐費
               </li>
               <li>
-                <FaCheck className="checkIcon" />
+                <FaCheck className={classes.checkIcon} />
                 野餐裝備
               </li>
               <li>
-                <FaCheck className="checkIcon" />
+                <FaCheck className={classes.checkIcon} />
                 服務費
               </li>
               <li>
-                <FaCheck className="checkIcon" />
+                <FaCheck className={classes.checkIcon} />
                 保險
               </li>
             </ul>
             <ul className="ms-4">
               <li>
-                <FaTimes className="crossIcon" />
+                <FaTimes className={classes.crossIcon} />
                 個人消費
               </li>
               <li>
-                <FaTimes className="crossIcon" />
+                <FaTimes className={classes.crossIcon} />
                 其他未提及費用
               </li>
             </ul>
           </div>
         </div>
         {/* --- 注意事項 --- */}
-        <div className="mb-5 noticeItem">
-          <h4 className="noticeItemTitle">注意事項</h4>
+        <div className={`mb-5 ${classes.noticeItem}`}>
+          <h4 className={classes.noticeItemTitle}>注意事項</h4>
           <ul>
             <li>
               ・最少出團人數 5

@@ -44,8 +44,9 @@
 }
 @media screen and (max-width:375px) {
     .activitySlider{
-        // margin-bottom: 40px;
-        width: 100%;
+        width: 48%;
+        display: inline-block;
+        margin: 0 2px 30px;
         .sliderText{
             width: 100%;
             text-align: center;
@@ -54,7 +55,10 @@
             margin: 0 auto;
         }
         .priceText{
-            margin-top: 8px;
+            width: 100%;
+            margin: 8px 0 0 ;
+            // display: flex;
+            // justify-content: end;
         }
     }
 }

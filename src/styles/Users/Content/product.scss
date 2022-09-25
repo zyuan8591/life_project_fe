@@ -1,0 +1,36 @@
+@import '../../variable';
+
+.productGroup{  
+  .product_table{  
+        tr{
+      line-height: 3rem;
+      text-align: center;
+      td{
+        vertical-align: middle
+      }
+      
+      &:hover>td{
+        color: $focusClrG;
+      }
+    }
+    
+    button{
+      line-height: 1rem;
+      @include listBtn();
+      @include click();
+    }
+    .icon{
+      font-size: 18px;
+      cursor: pointer;
+      @include click();
+    }   
+    .imgfrme{
+      width: 100px;
+      .img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+     }
+  }
+}

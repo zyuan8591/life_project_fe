@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import classes from '../../../styles/moduleCss/picnic_offical_detail/picnicOfficalDetail.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
@@ -27,36 +28,36 @@ function RecommendProducts({ cardWidth, displayTotal, productsData }) {
   return (
     <>
       {/* 推薦商品 */}
-      <div className="recommendProducts">
-        <h4>推薦商品</h4>
-        <div className="arrowIconSlider">
+      <div className={classes.recommendProducts}>
+        <h4>推薦野餐好幫手...</h4>
+        <div className={classes.arrowIconSlider}>
           <IoIosArrowBack
-            className="arrowIconLeft"
+            className={classes.arrowIconLeft}
             onClick={() => {
               slideLeft(cardWidth);
             }}
           />
           <IoIosArrowForward
-            className="arrowIconRight"
+            className={classes.arrowIconRight}
             onClick={() => {
               slideRight(cardWidth, displayTotal);
             }}
           />
-          <div className="slider d-flex ">
+          <div className={`${classes.slider} d-flex`}>
             <div
-              className="d-flex slidewrap"
+              className={`d-flex ${classes.slidewrap}`}
               style={{ transform: `translateX(${productSlider}px)` }}
             >
               {productsData.map((product) => {
                 return (
-                  <div className="productCard" key={uuidv4()}>
-                    <div className="productImg">
+                  <div className={classes.productCard} key={uuidv4()}>
+                    <div className={classes.productImg}>
                       <img
                         src={`/img/product/product_img/${product.image}`}
-                        alt=""
+                        alt="join us picnic"
                       />
                     </div>
-                    <div className="hoverText">
+                    <div className={classes.hoverText}>
                       <Link to={`/products/${product.product_id}`}>
                         <span>{product.name}</span>
                       </Link>

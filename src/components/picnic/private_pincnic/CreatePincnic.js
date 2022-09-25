@@ -12,7 +12,10 @@ import Header from '../../public_component/Header';
 import BreadCrumb from '../../public_component/BreadCrumb';
 import Footer from '../../public_component/Footer';
 import BackToTop from '../../public_component/BackToTop';
+import Notification from '../../activity/Notification';
+import { useUserRights } from '../../../usecontext/UserRights';
 import { IconContext } from 'react-icons';
+
 import {
   FaPenAlt,
   FaCalendarAlt,
@@ -20,6 +23,7 @@ import {
   FaUserFriends,
   FaCommentAlt,
 } from 'react-icons/fa';
+import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { AiOutlineCamera } from 'react-icons/ai';
 
 const city = [
@@ -39,7 +43,10 @@ const city = [
 
 function CreatePincnic() {
   const [imageSrc, setImageSrc] = useState('');
+  const [loginBtn, setLoginBtn] = useState(false);
   const [location, setLocation] = useState(city);
+  const { user, setUser } = useUserRights(); //登入使用者
+  const [addConfirm, setAddConfirm] = useState(false); //自製alert提示框 加入活動
 
   // Navigate state
   const [success, setSuccess] = useState(false);
@@ -56,10 +63,10 @@ function CreatePincnic() {
 
   // from data
   const [activityContent, setActivityContent] = useState({
-    title: 'test',
+    title: '綠生活野餐日',
     activityDate: '2022-11-15',
-    location: '2',
-    address: 'test',
+    location: '11',
+    address: '崇仰三路2號',
     joinLimit: '10',
     startDate: '2022-11-01',
     endDate: '2022-11-13',
@@ -99,33 +106,56 @@ function CreatePincnic() {
     if (activityContent.endDate > activityContent.activityDate) {
       return setRemindActivityDate('*活動日期不得小於報名日期');
     }
-    try {
-      let formData = new FormData();
-      formData.append('title', activityContent.title);
-      formData.append('activityDate', activityContent.activityDate);
-      formData.append('location', activityContent.location);
-      formData.append('address', activityContent.address);
-      formData.append('joinLimit', activityContent.joinLimit);
-      formData.append('startDate', activityContent.startDate);
-      formData.append('endDate', activityContent.endDate);
-      formData.append('intr', activityContent.intr);
-      formData.append('image', activityContent.image);
+    if (activityContent)
+      try {
+        let formData = new FormData();
+        formData.append('title', activityContent.title);
+        formData.append('activityDate', activityContent.activityDate);
+        formData.append('location', activityContent.location);
+        formData.append('address', activityContent.address);
+        formData.append('joinLimit', activityContent.joinLimit);
+        formData.append('startDate', activityContent.startDate);
+        formData.append('endDate', activityContent.endDate);
+        formData.append('intr', activityContent.intr);
+        formData.append('image', activityContent.image);
 
-      let response = await axios.post(`${API_URL}/picnic/create`, formData, {
-        withCredentials: true,
-      });
-      setSuccess(true);
-
-      console.log(response.data);
-      alert(response.data.Message);
-    } catch (e) {
-      console.log('formData', e);
-    }
+        let response = await axios.post(`${API_URL}/picnic/create`, formData, {
+          withCredentials: true,
+        });
+        console.log(response.data);
+        setAddConfirm(true);
+        setTimeout(() => {
+          setAddConfirm(false);
+          setSuccess(true);
+        }, 1500);
+      } catch (e) {
+        console.log('formData', e);
+      }
   }
   // TODO: 表單重新驗證
   return (
     <>
       <Header />
+      {addConfirm ? (
+        <Notification
+          contaninText={'建立活動成功'}
+          setLoginBtn={setLoginBtn}
+          button={40}
+        >
+          <BsFillHandThumbsUpFill />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin/login'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <main className="createPincnicMain container">
         <BreadCrumb />
         <div>
@@ -181,7 +211,7 @@ function CreatePincnic() {
             <div className="form d-flex flex-column mb-4">
               <label>
                 <FaCalendarAlt className="faIcon" />
-                活動日期{' '}
+                活動日期
                 <span className="remindText">{remindActivityDate}</span>
               </label>
               <input
@@ -338,17 +368,29 @@ function CreatePincnic() {
             </div>
 
             <div className="button d-flex justify-content-center mb-3">
-              <button
-                type="submit"
-                className="btn transition duration-200 ease-in"
-                onClick={handleSubmit}
-              >
-                新增活動
-              </button>
+              {user ? (
+                <button
+                  type="submit"
+                  className="btn transition duration-200 ease-in"
+                  onClick={handleSubmit}
+                >
+                  新增活動
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="btn transition duration-200 ease-in"
+                  onClick={() => {
+                    setLoginBtn(true);
+                  }}
+                >
+                  新增活動
+                </button>
+              )}
             </div>
           </form>
         </div>
-      </main>{' '}
+      </main>
       {/* <Formik
         initialValues={{
           title: '',
