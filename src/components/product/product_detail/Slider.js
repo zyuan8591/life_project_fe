@@ -45,7 +45,7 @@ const Slider = ({
           className="cursor"
         >
           {pattern === 'recommend' ? (
-            <div className={(classes.cursor)}>
+            <div className={classes.recommendArrow}>
               <FaChevronLeft
                 onClick={() => {
                   slideLeft();
@@ -59,7 +59,7 @@ const Slider = ({
             {children}
           </div>
           {pattern === 'recommend' ? (
-            <div className={classes.cursor}>
+            <div className={classes.recommendArrow}>
               <FaChevronRight
                 onClick={() => {
                   slideRight();

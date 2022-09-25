@@ -35,7 +35,7 @@ const ProductRank = () => {
       setItemWidth(250 + 38);
     }
   }, [windowDimenion]);
-  console.log(windowDimenion);
+  // console.log(windowDimenion);
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/rank`);

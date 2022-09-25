@@ -10,6 +10,8 @@ import Footer from '../../public_component/Footer';
 import Product from './Product';
 import PaginationBar from '../../public_component/PaginationBar';
 import Tools from '../Tools';
+import ToolsRwd from '../ToolsRwd';
+import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 const ProductList = () => {
@@ -105,19 +107,23 @@ const ProductList = () => {
               count={count}
               countNow={countNow}
             />
-            <Product
-              productList={productList}
-              item={item}
-              fav={fav}
-              setProductLikeId={setProductLikeId}
-              productLikeId={productLikeId}
-              setCollectConfirm={setCollectConfirm}
-              collectConfirm={collectConfirm}
-              setCollectCancel={setCollectCancel}
-              collectCancel={collectCancel}
-              setCartConfirm={setCartConfirm}
-              cartConfirm={cartConfirm}
-            />
+            {total !== 0 ? (
+              <Product
+                productList={productList}
+                item={item}
+                fav={fav}
+                setProductLikeId={setProductLikeId}
+                productLikeId={productLikeId}
+                setCollectConfirm={setCollectConfirm}
+                collectConfirm={collectConfirm}
+                setCollectCancel={setCollectCancel}
+                collectCancel={collectCancel}
+                setCartConfirm={setCartConfirm}
+                cartConfirm={cartConfirm}
+              />
+            ) : (
+              <NoDataDisplay />
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-center">
@@ -135,6 +141,14 @@ const ProductList = () => {
           setItem={setItem}
           setProductLikeId={setProductLikeId}
           productLikeId={productLikeId}
+        />
+        <ToolsRwd
+          setProductCateNow={setProductCateNow}
+          checked={checked}
+          setChecked={setChecked}
+          setBiggerThan={setBiggerThan}
+          setSmallThan={setSmallThan}
+          total={total}
         />
       </div>
       <Footer />

@@ -4,6 +4,10 @@ $margin: 12.5px;
 .cursor {
   cursor: pointer;
   line-height: 1.1rem;
+}
+.recommendArrow {
+  cursor: pointer;
+  line-height: 1.1rem;
   @media (max-width: $rwdWidth) {
     display: none;
     }

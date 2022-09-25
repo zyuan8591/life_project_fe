@@ -88,8 +88,8 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
       ) : (
         ''
       )}
-      <div className='breadCrumb'>
-        <BreadCrumb />
+      <div className="breadCrumb">
+        <BreadCrumb last={data.name} />
       </div>
       <div className="productInfo">
         <div className="picArea">
