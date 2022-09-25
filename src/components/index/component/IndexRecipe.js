@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
 import CardSm from '../../public_component/CardSm';
 import { API_URL_IMG } from '../../../utils/config';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Autoplay, Pagination, Navigation } from 'swiper';
+
 const IndexRecipe = ({ data = [] }) => {
   const [vw, setVw] = useState(window.innerWidth);
-  const [slidesToShow, setSlideToShow] = useState(5);
-
-  useEffect(() => {
-    if (vw > 1550) setSlideToShow(5);
-    if (vw < 1550) setSlideToShow(4.5);
-    if (vw < 1400) setSlideToShow(4);
-    if (vw < 1250) setSlideToShow(3.5);
-    if (vw < 1100) setSlideToShow(3);
-    if (vw < 950) setSlideToShow(2.5);
-    if (vw < 800) setSlideToShow(2.2);
-    if (vw < 765) setSlideToShow(2.5);
-    if (vw < 700) setSlideToShow(2.2);
-    if (vw < 600) setSlideToShow(1.8);
-    if (vw < 500) setSlideToShow(1.5);
-    if (vw < 430) setSlideToShow(1.07);
-  }, [vw]);
+  const [slidesToShow, setSlideToShow] = useState(6);
 
   const setViewportWidth = () => setVw(window.innerWidth);
   useEffect(() => {
@@ -29,22 +20,33 @@ const IndexRecipe = ({ data = [] }) => {
       window.removeEventListener('resize', setViewportWidth);
     };
   }, []);
-
-  const settings = {
-    infinite: true,
-    slidesToShow,
-    swipeToSlide: true,
-    autoplay: true,
-    autoplaySpeed: 1500,
-    centerMode: true,
-  };
-
+  useEffect(() => {
+    if (vw < 500) return setSlideToShow(2);
+    if (vw < 600) return setSlideToShow(3);
+    if (vw < 900) return setSlideToShow(4);
+    if (vw < 1200) return setSlideToShow(4);
+    if (vw < 1200) return setSlideToShow(5);
+    setSlideToShow(6);
+  }, [vw]);
   return (
     <div className="recipeCard">
-      <Slider {...settings}>
+      <Swiper
+        slidesPerView={slidesToShow}
+        spaceBetween={30}
+        centeredSlides={true}
+        loop={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Navigation]}
+        className="mySwiper"
+      >
         {data.map((d) => {
           return (
-            <div key={d.id}>
+            <SwiperSlide key={d.id}>
               <CardSm
                 img={`${API_URL_IMG}${d.image}`}
                 type={d.recipe_category_name}
@@ -52,10 +54,10 @@ const IndexRecipe = ({ data = [] }) => {
                 link={`/recipeDetail?id=${d.id}`}
                 className="rounded-1"
               />
-            </div>
+            </SwiperSlide>
           );
         })}
-      </Slider>
+      </Swiper>
     </div>
   );
 };
