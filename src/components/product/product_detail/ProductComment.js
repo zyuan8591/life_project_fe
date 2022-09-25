@@ -69,6 +69,7 @@ const ProductComment = () => {
               cols="50"
               rows="8"
               placeholder="寫下評論..."
+              minLength={10}
               value={writeComment}
               onChange={(e) => {
                 setWriteComment(e.target.value);
@@ -85,7 +86,7 @@ const ProductComment = () => {
         return (
           <>
             <div className="commentArea" key={i}>
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between align-items-sm-start align-items-center">
                 <div className="avatar">
                   <figure>
                     <img src={`${API_URL_IMG}${v.photo}`} alt="" />
@@ -94,7 +95,7 @@ const ProductComment = () => {
                 </div>
                 <div className="date">{v.create_time.slice(0, 10)}</div>
               </div>
-              <div className="mt-3 d-flex justify-content-between align-items-end">
+              <div className="mt-3 d-flex justify-content-between align-items-sm-end align-items-start">
                 <div className="comment pe-3">
                   <p>{v.comment}</p>
                 </div>

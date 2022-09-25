@@ -13,6 +13,7 @@ const Slider = ({
   total,
   maxWidth,
   pattern,
+  showArrow,
 }) => {
   // const [now, setNow] = useState(0);
   // const [maxWidth, setMaxWidth] = useState(900);
@@ -44,7 +45,7 @@ const Slider = ({
           className="cursor"
         >
           {pattern === 'recommend' ? (
-            <div className={classes.cursor}>
+            <div className={(classes.cursor)}>
               <FaChevronLeft
                 onClick={() => {
                   slideLeft();
@@ -93,7 +94,7 @@ const Slider = ({
                 }}
               />
             </div>
-            {[...Array(3)].map((v, i) => {
+            {[...Array(total / moveCount)].map((v, i) => {
               return (
                 <div
                   className={

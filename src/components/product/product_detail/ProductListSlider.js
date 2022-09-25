@@ -4,20 +4,20 @@ import { useState, useEffect } from 'react';
 import { API_URL, API_URL_IMG } from '../../../utils/config';
 import { Link } from 'react-router-dom';
 
-const ProductListSlider = ({ now, data }) => {
+const ProductListSlider = ({ now, data, itemWidth, minHeight }) => {
   const [recommendArr, setRecommendArr] = useState([]);
   const { category } = data;
-  console.log(category);
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(
         `${API_URL}/products/recommend?category=${category}`
       );
-      console.log(result.data);
+      // console.log(result.data);
       setRecommendArr(result.data);
     })();
   }, [category]);
-
+  console.log(minHeight);
   return (
     <>
       {recommendArr.map((v, i) => {
@@ -29,26 +29,21 @@ const ProductListSlider = ({ now, data }) => {
                 style={{
                   transform: `translateX(${now}px)`,
                 }}
+                className="recommendCard"
                 key={i}
               >
-                <div
-                  style={{
-                    minHeight: '345px',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
+                <div className="recommendPic">
                   <img
                     src={`${API_URL_IMG}/product/product_img/${img}`}
                     alt=""
                   />
                 </div>
-                <p>
+                <p className="name">
                   <span className="me-2">{brand}</span>
                   {name}
                   <span className="ms-2">({color})</span>
                 </p>
-                <p>
+                <p className="price">
                   NT${' '}
                   {JSON.stringify(price).replace(
                     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,

@@ -10,8 +10,9 @@
     top: 100px;
     left: 150px;
     @media (max-width: $rwdWidth) {
-      top: 10px;
-      left: 20px;
+      top: 0;
+      left: 0;
+      margin: 10px 0 0 20px;
     }
   }
   .productInfo {
@@ -63,10 +64,10 @@
       max-width: 475px;
       margin: 0 50px;
       @media (max-width: $rwdWidth) {
-        min-width: 414px;
-        max-width: 414px;
+        min-width: 375px;
+        max-width: 375px;
         margin: 10px auto;
-        padding: 20px;
+        padding: 10px;
       }
       .brand {
         font-size: $text32;
@@ -133,7 +134,7 @@
           margin: 0 25px;
           background: none;
           @media (max-width: $rwdWidth) {
-          margin: 0 5px;
+            margin: 0 5px;
           }
         }
         .number {
@@ -141,7 +142,7 @@
           text-align: center;
           @media (max-width: $rwdWidth) {
             min-width: 20px;
-            }
+          }
         }
         .inventory {
           font-size: $text14;
@@ -152,8 +153,7 @@
         justify-content: space-around;
         @media (max-width: $rwdWidth) {
           display: block;
-
-          }
+        }
         button {
           padding: 5px 100px;
           background: $mainClrW;
@@ -161,7 +161,7 @@
           @media (max-width: $rwdWidth) {
             width: 100%;
             margin: 15px auto 0;
-            }
+          }
         }
       }
     }

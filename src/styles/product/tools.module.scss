@@ -23,6 +23,9 @@ p {
   &:hover {
     opacity: 1;
   }
+  @media (max-width:$rwdWidth) {
+    display: none;
+  }
 }
 .cartContainer {
   width: 100vw;
