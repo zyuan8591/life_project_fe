@@ -21,7 +21,7 @@ function ProductSlide({ productSlider, product }) {
                   <IconContext.Provider
                     value={{ color: '#F2AC33', size: '1.5rem' }}
                   >
-                    <Link to="/">
+                    <Link to={`/products/${v.id}`}>
                       <IoIosArrowDroprightCircle />
                     </Link>
                   </IconContext.Provider>

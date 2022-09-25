@@ -4,23 +4,21 @@ import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { Link } from 'react-router-dom';
 const Product = () => {
-  const title = ['名稱', '顏色', '查看', '刪除'];
+  const title = ['名稱', '顏色', '價格', '查看', '刪除'];
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
-  const [list, setList] = useState('官方活動');
-  const [data, setData] = useState();
-
+  const [data, setData] = useState([]);
+  console.log(data);
   useEffect(() => {
     try {
       let getdata = async () => {
         let response = await axios.get(
-          `${API_URL}/products//like?page=${pageNow}`,
+          `${API_URL}/products/userlike?page=${pageNow}`,
           {
             withCredentials: true,
           }
         );
-        // console.log(response.data);
-        setData(response.data);
+        setData(response.data.data);
         setLastPage(response.data.pagination.lastPage);
       };
       getdata();
@@ -28,11 +26,25 @@ const Product = () => {
       console.error(e.response.data.msg);
     }
   }, [pageNow]);
+
+  async function demoveLike(product_id) {
+    await axios.delete(`${API_URL}/products/${product_id}/removeLike`, {
+      withCredentials: true,
+    });
+    let response = await axios.get(
+      `${API_URL}/products/userlike?page=${pageNow}`,
+      {
+        withCredentials: true,
+      }
+    );
+    setData(response.data.data);
+  }
+
   return (
     <>
       <h3>商品收藏</h3>
       <div className="productGroup">
-        <table className="table table-sm mt-5 table-hover">
+        <table className="table table-sm mt-5 table-hover product_table">
           <thead>
             <tr>
               <th></th>
@@ -42,28 +54,41 @@ const Product = () => {
             </tr>
           </thead>
 
-          {/* <tbody>
+          <tbody>
             {data.map((v, i) => {
+              let price = v.price
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+
               return (
                 <tr key={v.id}>
-                  <td className="campingImgfrme">
-                    <img src={v.img} alt="" className="campingImg" />
-                    {v.img}
+                  <td className="imgfrme">
+                    <img
+                      src={`/img/product/product_img/${v.img}`}
+                      alt=""
+                      className="img"
+                    />
                   </td>
                   <td>{v.name}</td>
                   <td>{v.color}</td>
+                  <td>{price}</td>
                   <td>
-                    <Link to={`/activity/camping/${v.id}`}>
+                    <Link to={`/products/${v.product_id}`}>
                       <button>活動詳情</button>
                     </Link>
                   </td>
                   <td>
-                    <i className="fa-solid fa-trash icon"></i>
+                    <i
+                      className="fa-solid fa-trash icon"
+                      onClick={() => {
+                        demoveLike(v.product_id);
+                      }}
+                    ></i>
                   </td>
                 </tr>
               );
             })}
-          </tbody> */}
+          </tbody>
         </table>
       </div>
       <PaginationBar
