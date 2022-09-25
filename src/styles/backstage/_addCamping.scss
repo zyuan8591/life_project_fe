@@ -1,5 +1,13 @@
 @import '../variable';
-
+@mixin btnStyle ($marL,$bcg){
+    border: 0;
+    border-radius: 4px;
+    padding: 6px 40px;
+    font-size: $contentText;
+    color: $mainClrW;
+    background: $bcg;
+    margin-left: $marL;
+}
 .backstageAddPage{
     position: absolute;
     top: $headerHeight;
@@ -35,7 +43,6 @@
             p{
                 margin: 0;
             }
-            
         }
         select{
             border-radius: 4px;
@@ -85,9 +92,6 @@
             border: 2px solid $subClrBrown;
             }
         }
-        // .textLodging{
-        //     margin-left: 27px;
-        // }
         .imgInput{
             border-radius: 4px;
             background: $hoverClr;
@@ -100,21 +104,10 @@
             cursor: pointer;
         }
         .addBtn{
-            border: 0;
-            border-radius: 4px;
-            padding: 6px 40px;
-            font-size: $contentText;
-            color: $mainClrW;
-            background: $focusClrY;
+            @include btnStyle(0px,$focusClrY);
         }
         .cancelBtn{
-            border: 0;
-            border-radius: 4px;
-            padding: 6px 40px;
-            font-size: $contentText;
-            color: $mainClrW;
-            background: $focusClrG;
-            margin-left: 80px;
+            @include btnStyle(80px,$focusClrG);
         }
     }
 }

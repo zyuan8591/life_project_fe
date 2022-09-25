@@ -91,11 +91,7 @@
         flex-direction: column;
     }
     .activityPage{
-        // margin: 0 auto $headerHeight;
-        // color: $contentClr;
         .banner{
-            // top: $headerHeight;
-            // position: relative;
             height: 200px;
             img{
                 width: 100%;
@@ -104,9 +100,6 @@
         }
         .main{
             max-width: 375px;
-            // margin: 0 auto ;
-            // position: relative;
-            // top: $headerHeight;
             .breadCrumb{
                 padding: 10px 0;
                 font-size: $contentText;
@@ -116,14 +109,9 @@
                 // 左側篩選
                 .activityState{
                     margin-bottom: 40px;
-                    // display: flex;
                     .stateText{
                         text-align: center;
                         width: 100%;
-                        // font-size: 20px;
-                        // border-bottom: 3px solid $subClrBrown;
-                        // padding-bottom: 7px;
-                        
                     }
                     .rwdFlex{
                         display: flex;
@@ -138,13 +126,6 @@
                 }
                 .searchInput{
                     width: 170px;
-                    // height: 32px;
-                    // padding: 2px;
-                    // border: 2px solid $subClrGY;
-                    // outline: none;
-                    // &:focus{
-                    // border: 2px solid $subClrBrown;
-                    // }
                 }
             }
         }

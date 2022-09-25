@@ -24,25 +24,12 @@
 @media screen and (max-width:375px) {
   .productSlide {
     margin: 35px auto;
-    // max-width: 1260px.;
-    // position: relative;
     .sliderLeft {
-      // z-index: 5;
-      // position: absolute;
-      // top: 0;
-      // transform: translate(-30px, -40px);
       transform: translate(-35px, -50%);
-
       cursor: pointer;
-      // left: 0;
     }
     .sliderRight {
-      // z-index: 5;
-      // position: absolute;
-      // top: 50%;
       transform: translate(35px, -50%);
-      // cursor: pointer;
-      // right: 0;
     }
   }
 }
