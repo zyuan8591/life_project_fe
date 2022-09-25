@@ -9,12 +9,14 @@ import { AiOutlineCreditCard } from 'react-icons/ai';
 import { FaTrashAlt, FaHeartBroken } from 'react-icons/fa';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
+import { useProductCart } from '../../orderContetxt/useProductCart';
+import { Link } from 'react-router-dom';
 
 const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
-
+  const productCart = useProductCart({});
   return (
     <>
       <div
@@ -69,8 +71,9 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
         }}
       >
         <div className={classess.cartTitle}>購物車</div>
-        {item.map((v, i) => {
-          const { id, name, count, price, img } = v;
+        {productCart.state.items.map((v, i) => {
+          const { id, name, quantity, price, img } = v;
+
           return (
             <div className={classess.cartItem} key={i}>
               <figure>
@@ -80,16 +83,13 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
                 <p>{name}</p>
                 <p></p>
                 <p>
-                  {count} x NT${price}
+                  {quantity} x NT${price}
                 </p>
               </div>
               <div
                 className={classess.trash}
                 onClick={(e) => {
-                  let newArr = item.filter((v2, i2) => {
-                    return id !== v2.id;
-                  });
-                  setItem(newArr);
+                  productCart.removeItem(id);
                 }}
               >
                 <IconContext.Provider value={{ color: '#777', size: '1.2rem' }}>
@@ -99,6 +99,9 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
             </div>
           );
         })}
+        <Link to={`/orderstep/cart`} className={classess.checkout}>
+          前往結帳
+        </Link>
       </div>
       {point && (
         <div

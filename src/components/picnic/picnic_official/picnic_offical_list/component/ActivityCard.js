@@ -100,9 +100,7 @@ function ActivityCard({
                       {item.activity_state}
                     </div>
                   </div>
-                  <div className={`${classes.price} pc-view`}>
-                    ${item.price}
-                  </div>
+                  <div className={`${classes.price}`}>${item.price}</div>
                 </div>
 
                 <div className={`${classes.activityDate} my-2`}>
@@ -111,13 +109,13 @@ function ActivityCard({
                     <span> ~ {item.end_date}</span>
                   </div>
                 </div>
-                <div className={`${classes.progressBar} pc-view`}>
+                <div className={`${classes.progressBar}`}>
                   <div
                     className={classes.bar}
                     style={{ width: progressBar(item) }}
                   ></div>
                 </div>
-                <div className={`${classes.content1} pc-view`}>
+                <div className={`${classes.content1}`}>
                   <div className={classes.limit}>
                     目前人數：{item.currentJoin}
                   </div>
@@ -131,12 +129,6 @@ function ActivityCard({
                 </div>
                 <div className={`${classes.intMore} my-1 `}>
                   {/* RWD */}
-                  <div className={`${classes.content2} mb-view`}>
-                    <div className={`${classes.limit}`}>
-                      活動名額：{item.join_limit}
-                    </div>
-                    <div className={classes.price}>${item.price}</div>
-                  </div>
                   <IconContext.Provider value={{ className: classes.moreIcon }}>
                     <Link
                       to={`/activity/picnic/official/${item.id}`}

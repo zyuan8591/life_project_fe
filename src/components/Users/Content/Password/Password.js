@@ -26,7 +26,7 @@ const Password = () => {
       user_name: user.name,
       verification: verificationCode,
     };
-    console.log(templateParams.verification);
+    console.log(templateParams.verification); //TODO:正式將驗證碼拿掉
     emailjs
       .send(
         'service_4dxhhdy',

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/Users/signin.scss';
-import { Outlet, Link, NavLink } from 'react-router-dom';
+import { Outlet, Link, NavLink, useSearchParams } from 'react-router-dom';
+import Login from './Login';
+import Signup from './Signup';
 
 const Signin = () => {
+  const [display, setDisplay] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    setDisplay(parseInt(searchParams.get('p')));
+  }, [searchParams]);
   return (
     <div className="signinPage">
       <div className="frame">
@@ -11,22 +18,22 @@ const Signin = () => {
             <h1 className="logo">LIFE</h1>
           </Link>
           <div className="logn-in">
-            <NavLink
-              className={`long-in_link (nav) => (nav.isActive ? 'active' : '')`}
-              to="/signin/login"
+            <Link
+              className={`long-in_link ${display === 1 ? 'active' : ''}`}
+              to="/signin?p=1"
             >
               LOGIN
-            </NavLink>
+            </Link>
             <p>|</p>
-            <NavLink
-              className={`long-in_link (nav) => (nav.isActive ? 'active' : '')`}
-              to="/signin/signup"
+            <Link
+              className={`long-in_link ${display === 2 ? 'active' : ''}`}
+              to="/signin?p=2"
             >
               SIGNUP
-            </NavLink>
+            </Link>
           </div>
         </div>
-        <Outlet />
+        {display === 1 ? <Login /> : <Signup />}
       </div>
     </div>
   );

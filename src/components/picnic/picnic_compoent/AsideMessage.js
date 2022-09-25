@@ -6,6 +6,7 @@ import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import MapAside from '../../map/component/MapAside';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
+import classes from '../../../styles/moduleCss/picnic_offical_detail/picnicOfficalDetail.module.scss';
 
 function AsideMessageFix({
   data,
@@ -33,7 +34,6 @@ function AsideMessageFix({
         return '#817161';
     }
   };
-// TODO: scroll有問題 被header擋路
   let scrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     let scrollNow = window.scrollY;
@@ -52,44 +52,46 @@ function AsideMessageFix({
   // console.log(data);
   return (
     <>
-      <div className="asideMessage">
+      {/* TODO: sticky無作用 */}
+      <div
+        className={`${classes.asideMessage} ${classes.pcView} transition`}
+        style={{ top: scrollDown ? '3px' : '70px' }}
+      >
         {data.map((item) => {
           return (
-            <div
-              className={scrollDown ? 'sticky-top top-0' : 'sticky'}
-              key={uuidv4()}
-            >
+            <div key={uuidv4()}>
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <p>{item.picnic_title}</p>
                 <div
-                  className="stateBtn"
+                  className={classes.stateBtn}
                   style={{
                     backgroundColor: `${stateColor(item.activity_state)}`,
-                  }}
+                  }} //TODO: 未達最低人數 狀態不會改變回開團中
                 >
                   {item.activity_state}
                 </div>
               </div>
               <div className="mb-2">
-                <FaCalendarAlt className="calendarIcon" />
+                <FaCalendarAlt className={classes.calendarIcon} />
                 {dataReplace(item.activity_date)}
               </div>
               <div className="mb-2">
-                <FaMapMarkerAlt className="mapMarkerIcon" />
+                <FaMapMarkerAlt className={classes.mapMarkerIcon} />
                 台北市{item.location}
               </div>
               <div className="mb-3">
-                <BsPersonFill className="personIcon" />
-                達已成團還差：{lastCount(item.join_limit, item.currentJoin)}人
+                <BsPersonFill className={classes.personIcon} />
+                距離結團上限, 尚可報名：
+                {lastCount(item.join_limit, item.currentJoin)}人
               </div>
-              <div className="map mb-3">
+              <div className={`${classes.map} mb-3`}>
                 <MapAside />
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <div className="price">NT${item.price}</div>
+                <div className={classes.price}>NT${item.price}</div>
                 {item.activity_state === '開團已截止' ? (
                   <button
-                    className="joinInBtn"
+                    className={classes.joinInBtn}
                     style={{
                       background: '#B9BDC5',
                       color: '#444',
@@ -100,7 +102,7 @@ function AsideMessageFix({
                   </button>
                 ) : item.activity_state === '即將開團' ? (
                   <button
-                    className="joinInBtn"
+                    className={classes.joinInBtn}
                     style={{
                       background: '#B9BDC5',
                       color: '#444',
@@ -112,7 +114,7 @@ function AsideMessageFix({
                 ) : user ? (
                   userJoin.includes(item.id) ? (
                     <button
-                      className="joinInBtn"
+                      className={classes.joinInBtn}
                       style={{
                         background: '#B9BDC5',
                         color: '#444',
@@ -133,7 +135,7 @@ function AsideMessageFix({
                     </button>
                   ) : (
                     <button
-                      className="joinInBtn"
+                      className={classes.joinInBtn}
                       onClick={() => {
                         setIsgo(true);
                         handleAddJoin(data[0].id);
@@ -144,7 +146,7 @@ function AsideMessageFix({
                   )
                 ) : (
                   <button
-                    className="joinInBtn"
+                    className={classes.joinInBtn}
                     onClick={() => {
                       setLoginBtn(true);
                     }}
@@ -152,7 +154,100 @@ function AsideMessageFix({
                     加入活動
                   </button>
                 )}
-                {}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* RWD */}
+      <div
+        className={`${classes.asideMessage} ${classes.mbView} transition`}
+        // style={{ top: scrollDown ? '3px' : '70px' }}
+      >
+        {data.map((item) => {
+          return (
+            <div key={uuidv4()}>
+              <div>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <p>{item.picnic_title}</p>
+                  <div
+                    className={classes.stateBtn}
+                    style={{
+                      backgroundColor: `${stateColor(item.activity_state)}`,
+                    }}
+                  >
+                    {item.activity_state}
+                  </div>
+                </div>
+                <div className="d-flex justify-content-between align-items-center ">
+                  <div className={classes.price}>NT${item.price}</div>
+                  {item.activity_state === '開團已截止' ? (
+                    <button
+                      className={classes.joinInBtn}
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      disabled
+                    >
+                      開團已截止
+                    </button>
+                  ) : item.activity_state === '即將開團' ? (
+                    <button
+                      className={classes.joinInBtn}
+                      style={{
+                        background: '#B9BDC5',
+                        color: '#444',
+                      }}
+                      disabled
+                    >
+                      即將開團
+                    </button>
+                  ) : user ? (
+                    userJoin.includes(item.id) ? (
+                      <button
+                        className={classes.joinInBtn}
+                        style={{
+                          background: '#B9BDC5',
+                          color: '#444',
+                        }}
+                        onClick={() => {
+                          setIsgo(true);
+                          handleDeleteJoin(item.id);
+                          picnicCart.addItem({
+                            id: item.id,
+                            quantity: 1,
+                            name: item.picnic_title,
+                            price: item.price,
+                            ischecked: false,
+                          });
+                        }}
+                      >
+                        取消活動
+                      </button>
+                    ) : (
+                      <button
+                        className={classes.joinInBtn}
+                        onClick={() => {
+                          setIsgo(true);
+                          handleAddJoin(data[0].id);
+                        }}
+                      >
+                        加入活動
+                      </button>
+                    )
+                  ) : (
+                    <button
+                      className={classes.joinInBtn}
+                      onClick={() => {
+                        setLoginBtn(true);
+                      }}
+                    >
+                      加入活動
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           );

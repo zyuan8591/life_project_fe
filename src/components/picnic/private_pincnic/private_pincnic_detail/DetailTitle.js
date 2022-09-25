@@ -5,14 +5,7 @@ import { FaPaw } from 'react-icons/fa';
 import { API_URL_IMG } from '../../../../utils/config';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
-function DetailTitle({
-  data,
-  handleDelActivity,
-  user,
-  setSuccess,
-  success,
-  setEdit,
-}) {
+function DetailTitle({ data, handleDelActivity, user, success, setEdit }) {
   // console.log(user);
   return (
     <>
@@ -25,7 +18,7 @@ function DetailTitle({
             <div>
               <div className="titleGrop d-flex">
                 <h2 className="title">{item.picnic_title}</h2>
-                {user.id === item.create_user_id ? (
+                {user && user.id === item.create_user_id ? (
                   <div className="btnGrop">
                     <button
                       className="editBtn"

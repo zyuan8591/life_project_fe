@@ -1,6 +1,6 @@
 import React from 'react';
 
-const List = () => {
+const List = ({ data }) => {
   return (
     <div className="list ">
       <div className="list-title">
@@ -13,31 +13,17 @@ const List = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="row">
-              <td className="col">+ 50點</td>
-              <td className="col">系統回收</td>
-              <td className="col">2022-08-07</td>
-            </tr>
-            <tr className="row">
-              <td className="col">+ 50點</td>
-              <td className="col">系統回收</td>
-              <td className="col">2022-08-07</td>
-            </tr>
-            <tr className="row">
-              <td className="col">+ 50點</td>
-              <td className="col">系統回收</td>
-              <td className="col">2022-08-07</td>
-            </tr>
-            <tr className="row">
-              <td className="col">+ 50點</td>
-              <td className="col">系統回收</td>
-              <td className="col">2022-08-07</td>
-            </tr>
-            <tr className="row">
-              <td className="col">+ 50點</td>
-              <td className="col">系統回收</td>
-              <td className="col">2022-08-07</td>
-            </tr>
+            {data.map((v, i) => {
+              return (
+                <tr className="row" key={i}>
+                  <td className="col">
+                    {v.point > 0 ? `+${v.point}點` : v.point + '點'}
+                  </td>
+                  <td className="col">{v.event}</td>
+                  <td className="col">{v.time}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

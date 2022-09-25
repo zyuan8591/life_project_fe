@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import '../../../../styles/picnic/_picnicOfficalDetail.scss';
+import classes from '../../../../styles/moduleCss/picnic_offical_detail/picnicOfficalDetail.module.scss';
 import { BsFillPersonPlusFill, BsFillPersonDashFill } from 'react-icons/bs';
 
 import Header from '../../../public_component/Header';
@@ -110,28 +110,36 @@ function PicnicOfficalDetail() {
     );
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
     setUserJoin(nowJoin);
-    console.log('delete', response.data);
+    // console.log('delete', response.data);
     setJoinCancel(true);
     setTimeout(() => {
       setJoinCancel(false);
     }, 2000);
   };
 
-  //TODO: 參加者 user資料庫未新增 增加user名單
-
   return (
     <>
       <Header />
-      <main className="PicnicOfficalDetailContainer container ">
+      <main
+        className={`${classes.PicnicOfficalDetailContainer} container mb-2`}
+      >
         {joinConfirm ? (
-          <Notification contaninText={'已加入活動'} setLoginBtn={setLoginBtn}>
+          <Notification
+            contaninText={'已加入活動'}
+            setLoginBtn={setLoginBtn}
+            bottom={40}
+          >
             <BsFillPersonPlusFill />
           </Notification>
         ) : (
           ''
         )}
         {joinCancel ? (
-          <Notification contaninText={'已取消活動'} setLoginBtn={setLoginBtn}>
+          <Notification
+            contaninText={'已取消活動'}
+            setLoginBtn={setLoginBtn}
+            bottom={40}
+          >
             <BsFillPersonDashFill />
           </Notification>
         ) : (
@@ -147,31 +155,49 @@ function PicnicOfficalDetail() {
           ''
         )}
         <BreadCrumb />
-        <div className="main row">
-          <div className="mainWrap col-sm-8 me-5">
-          <div></div>
+        <div className={`${classes.main} row`}>
+          <div className={`${classes.mainWrap} col-sm-8 me-5`}>
             {/* 上方活動資訊和圖片 */}
             <DetailTitle data={data} />
             {/* 活動詳細內容 */}
             <OffcialDetailContent data={data} />
             {/* 參加者 */}
-            <Paicipant
-              userLength={userLength}
-              userSlider={userSlider}
-              setUserSlider={setUserSlider}
-              cardWidth={140}
-              displayTotal={6}
-              data={data}
-              paicipantData={paicipantData}
-            >
-              <PaicipantCard
+            <div className={classes.pcView}>
+              <Paicipant
+                userLength={userLength}
                 userSlider={userSlider}
+                setUserSlider={setUserSlider}
+                cardWidth={140}
+                displayTotal={6}
+                data={data}
                 paicipantData={paicipantData}
-              />
-            </Paicipant>
+              >
+                <PaicipantCard
+                  userSlider={userSlider}
+                  paicipantData={paicipantData}
+                />
+              </Paicipant>
+            </div>
+            {/* 參加者 RWD */}
+            <div className={`${classes.mbView}`}>
+              <Paicipant
+                userLength={userLength}
+                userSlider={userSlider}
+                setUserSlider={setUserSlider}
+                cardWidth={140}
+                displayTotal={2}
+                data={data}
+                paicipantData={paicipantData}
+              >
+                <PaicipantCard
+                  userSlider={userSlider}
+                  paicipantData={paicipantData}
+                />
+              </Paicipant>
+            </div>
           </div>
-          <div className="col-sm-2">
-            {/* 側邊資訊欄 */}
+          {/* 側邊資訊欄 */}
+          <div className={`${classes.pcView} col-12 col-sm-2 ms-sm-5`}>
             <AsideMessage
               data={data}
               handleAddJoin={handleAddJoin}
@@ -183,12 +209,22 @@ function PicnicOfficalDetail() {
             />
           </div>
           {/* 推薦商品 */}
-          <RecommendProducts
-            cardWidth={210}
-            displayTotal={6}
-            productsData={productsData}
-            setProductsData={setProductsData}
-          />
+          <div className={classes.pcView}>
+            <RecommendProducts
+              cardWidth={210}
+              displayTotal={6}
+              productsData={productsData}
+              setProductsData={setProductsData}
+            />
+          </div>
+          <div className={`${classes.mbView} my-0`}>
+            <RecommendProducts
+              cardWidth={290}
+              displayTotal={1}
+              productsData={productsData}
+              setProductsData={setProductsData}
+            />
+          </div>
           {/* 熱門活動 */}
           <RecommendActivity
             getMap={getMap}
@@ -197,7 +233,18 @@ function PicnicOfficalDetail() {
             userJoin={userJoin}
             user={user}
           />
-          ;
+        </div>
+        {/* 側邊資訊欄 */}
+        <div className={`${classes.mbView} col-12 col-sm-2`}>
+          <AsideMessage
+            data={data}
+            handleAddJoin={handleAddJoin}
+            handleDeleteJoin={handleDeleteJoin}
+            userJoin={userJoin}
+            user={user}
+            setIsgo={setIsgo}
+            setLoginBtn={setLoginBtn}
+          />
         </div>
       </main>
       <Footer />

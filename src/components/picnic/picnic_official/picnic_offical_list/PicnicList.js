@@ -47,6 +47,7 @@ function PicnicList() {
   const [sort, setSort] = useState(0);
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [perPage, setPerPage] = useState(12);
   const [filterState, setFilterState] = useState('');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(2500);
@@ -70,7 +71,7 @@ function PicnicList() {
   // 列表首頁 搜尋、排序、頁碼
   const getOfficalList = async () => {
     let response = await axios.get(
-      `${API_URL}/picnic/official?searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}&filterState=${filterState}&minPrice=${minPrice}&maxPrice=${maxPrice}&minJoinPeople=${minJoinPeople}&maxJoinPeople=${maxJoinPeople}&minDate=${minDate}&maxDate=${maxDate}`
+      `${API_URL}/picnic/official?perPage=${perPage}&searchWord=${searchWords}&activitySort=${sort}&page=${pageNow}&filterState=${filterState}&minPrice=${minPrice}&maxPrice=${maxPrice}&minJoinPeople=${minJoinPeople}&maxJoinPeople=${maxJoinPeople}&minDate=${minDate}&maxDate=${maxDate}`
     );
     // console.log(response);
     setData(response.data.data);
@@ -89,6 +90,7 @@ function PicnicList() {
     minJoinPeople,
     minDate,
     maxDate,
+    perPage,
   ]);
 
   // 此會員所有收藏
@@ -160,14 +162,22 @@ function PicnicList() {
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {collectConfirm ? (
-            <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+            <Notification
+              contaninText={'已加入收藏'}
+              setLoginBtn={setLoginBtn}
+              bottom={30}
+            >
               <FaRegGrinHearts />
             </Notification>
           ) : (
             ''
           )}
           {collectCancel ? (
-            <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+            <Notification
+              contaninText={'已取消收藏'}
+              setLoginBtn={setLoginBtn}
+              bottom={30}
+            >
               <FaRegTired />
             </Notification>
           ) : (
@@ -352,23 +362,9 @@ function PicnicList() {
                     </div>
                     <div className="sortBar">
                       {/* 篩選ICON */}
-                      <div className="w-75 me-3">
+                      <div className="sort">
                         <ActivitySelect sort={sort} setSort={setSort} />
                       </div>
-                      <FaListUl
-                        className="changeBtn me-2"
-                        onClick={() => {
-                          setIconChange(false);
-                          setHorizontalCardChange(true);
-                        }}
-                      />{' '}
-                      <BsGridFill
-                        className="changeBtn"
-                        onClick={() => {
-                          setCardChange(true);
-                          setHorizontalCardChange(false);
-                        }}
-                      />
                     </div>
                   </div>
                   <IconContext.Provider value={{ color: '#000', size: '1rem' }}>
@@ -383,7 +379,10 @@ function PicnicList() {
                   <PaginationBar
                     lastPage={lastPage}
                     pageNow={pageNow}
+                    perPage={perPage}
                     setPageNow={setPageNow}
+                    setPerPage={setPerPage}
+                    moreText={''}
                   />
                 </div>
               </div>

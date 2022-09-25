@@ -33,12 +33,11 @@ const city = [
   { value: 12, name: '文山區' },
 ];
 
-function CreateForm({ data, setEdit }) {
+function CreateForm({ data, setEdit, showToast }) {
   const [imageSrc, setImageSrc] = useState('');
   const [loginBtn, setLoginBtn] = useState(false);
   const [location, setLocation] = useState(city);
   const { user, setUser } = useUserRights(); //登入使用者
-  const [delConfirm, setDelConfirmm] = useState(false); //自製alert提示框 加入活動
   const { groupId } = useParams();
 
   // Navigate state
@@ -126,10 +125,7 @@ function CreateForm({ data, setEdit }) {
           }
         );
         console.log(response.data);
-        setDelConfirmm(true); //TODO: 無法顯示彈跳視窗
-        setTimeout(() => {
-          setDelConfirmm(false);
-        }, 1000);
+        showToast();
         setEdit(false);
         setSuccess(true);
       } catch (e) {
@@ -139,13 +135,6 @@ function CreateForm({ data, setEdit }) {
   // TODO: 表單重新驗證
   return (
     <>
-      {delConfirm ? (
-        <Notification contaninText={'修改成功'} setLoginBtn={setLoginBtn}>
-          {/* <BsFillPersonPlusFill /> */}
-        </Notification>
-      ) : (
-        ''
-      )}
       <div className="fromBg">
         <main className="createFormMain container">
           <div>
@@ -191,7 +180,7 @@ function CreateForm({ data, setEdit }) {
                     <span>新增圖片</span>
                     <span className="remindText">{remindImage}</span>
                   </div>
-                  {activityContent.img ? ( //TODO: 圖片無法即時預覽
+                  {activityContent.image ? (
                     <img className="upLoadImg" src={imageSrc} alt="picnic" />
                   ) : (
                     <img

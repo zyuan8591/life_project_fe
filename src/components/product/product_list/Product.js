@@ -6,8 +6,13 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
+import { useProductCart } from '../../../orderContetxt/useProductCart';
 
 const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
+  const productCart = useProductCart({});
+  const cart = productCart.state.items.map((v) => {
+    return v.id;
+  });
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
@@ -67,11 +72,45 @@ const Product = ({ productList, fav, setProductLikeId, productLikeId }) => {
                     )}
                   </div>
                   <div style={{ cursor: 'pointer' }}>
-                    <IoCartOutline
-                      onClick={(e) => {
-                        console.log('c');
-                      }}
-                    />
+                    {cart.includes(id) ? (
+                      <IconContext.Provider
+                        value={{
+                          color: '#F2AC33 ',
+                          size: '2rem',
+                          margin: '5px',
+                        }}
+                      >
+                        <IoCartSharp
+                          onClick={(e) => {
+                            // console.log(id, name)
+                            productCart.addItem({
+                              id: id,
+                              quantity: 1,
+                              name: name,
+                              price: price,
+                              ischecked: false,
+                              img: img,
+                            });
+                            console.log(productCart.state.items);
+                          }}
+                        />
+                      </IconContext.Provider>
+                    ) : (
+                      <IoCartOutline
+                        onClick={(e) => {
+                          // console.log(id, name)
+                          productCart.addItem({
+                            id: id,
+                            quantity: 1,
+                            name: name,
+                            price: price,
+                            ischecked: false,
+                            img: img,
+                          });
+                          console.log(productCart.state.items);
+                        }}
+                      />
+                    )}
                   </div>
                 </IconContext.Provider>
               </div>

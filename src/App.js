@@ -3,6 +3,7 @@ import 'normalize.css';
 import './styles/style.scss';
 // package =======================================================================
 import axios from 'axios';
+// import { DragDropContext } from 'react-beautiful-dnd';
 // react hooks / context =======================================================================
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
@@ -24,6 +25,7 @@ import ScrollToTop from './components/public_component/ScrollToTop';
 // product =======================================================================
 import ProductList from './components/product/product_list/ProductList';
 import ProductDetail from './components/product/product_detail/ProductDetail';
+import Backstage from './components/backstage/BackstageProduct';
 // recipe & news =======================================================================
 import Recipes from './components/recipe/Recipes';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
@@ -32,6 +34,7 @@ import News from './components/news/News';
 // activity =======================================================================
 import ActivityMain from './components/activity/ActivityMain';
 import SetMap from './components/map/SetMap';
+import BackstageCamping from './components/backstage/BackstageCamping';
 // activity picnic =======================================================================
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';
@@ -51,10 +54,11 @@ import Points from './components/Users/Content/Points/Points';
 import MyRecipe from './components/Users/Content/Recipe/MyRecipe';
 import Camping from './components/Users/Content/Camping/Camping';
 import Picnic from './components/Users/Content/Picnic/Picnic';
-// login / signup =======================================================================
-import Login from './components/Login/Login';
+import Product from './components/Users/Content/Product/Product';
+// signin =======================================================================
+
 import Signin from './components/Login/Signin';
-import Signup from './components/Login/Signup';
+
 // cart =======================================================================
 import Cart from './components/Orders/pages/Cart';
 import OrderStep from './components/Orders/OrderStep';
@@ -92,8 +96,16 @@ function App() {
     }
   }, [setUser]);
 
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+    if (!destination) return;
+    if (destination.index === source.index) return;
+    console.log(result);
+  };
+
   return (
     <>
+      {/* <DragDropContext onDragEnd={onDragEnd}> */}
       <UserRights.Provider value={{ user, setUser }}>
         <ScrollToTop>
           <ProductCartProvider>
@@ -127,13 +139,14 @@ function App() {
                         path="/activity/camping/:campingId"
                         element={<CampingDetailPage />}
                       />
-                      <Route path="/map" element={<SetMap />} />
                     </Route>
+                    <Route path="/map" element={<SetMap />} />
                     {/* recipe */}
                     <Route path="/recipeDetail" element={<RecipeDetail />} />
                     {/* product */}
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/products/:id" element={<ProductDetail />} />
+                    <Route path="/products/backstage" element={<Backstage />} />
                     {/* activity picnic */}
                     <Route path="/activity/picnic" element={<PicnicIndex />} />
                     <Route
@@ -173,12 +186,10 @@ function App() {
                       <Route path="/users/picnic" element={<Picnic />} />
                       <Route path="/users/recipe" element={<MyRecipe />} />
                       <Route path="/users/caping" element={<Camping />} />
+                      <Route path="/users/product" element={<Product />} />
                     </Route>
                     {/* login / signup */}
-                    <Route path="/signin/" element={<Signin />}>
-                      <Route path="/signin/login" element={<Login />} />
-                      <Route path="/signin/signup" element={<Signup />} />
-                    </Route>
+                    <Route path="/signin" element={<Signin />} />
                     <Route
                       path="/forgot/password"
                       element={<ForgotPassword />}
@@ -187,6 +198,10 @@ function App() {
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
                     />
+                    <Route
+                      path="/backstageCamping"
+                      element={<BackstageCamping />}
+                    />
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>
@@ -194,6 +209,7 @@ function App() {
           </ProductCartProvider>
         </ScrollToTop>
       </UserRights.Provider>
+      {/* </DragDropContext> */}
     </>
   );
 }

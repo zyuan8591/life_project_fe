@@ -26,7 +26,7 @@ const ProductRank = () => {
         itemWidth={250 + 38}
       >
         <div
-          className="d-flex justify-content-between"
+          className="d-flex justify-content-between test1"
           style={{
             transform: `translateX(${now}px)`,
             transition: '0.4s',

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import OrderDetail from './CheckPage/OrderDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
 import Payment from './CheckPage/Payment';
+// import CreditCard from './CheckPage/CreditCard';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -16,10 +17,14 @@ import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 const CheckOut = () => {
   const { currentStep, setCurrentStep } = useCartStep();
+  const navigate = useNavigate();
 
   const [delivery, setDelivery] = useState([]);
 
   const [payment, setPayment] = useState([]);
+  const [currentPayment, setCurrentPayment] = useState(null);
+
+  const [isOrder, setIsOrder] = useState(false);
 
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
@@ -37,11 +42,18 @@ const CheckOut = () => {
     (async () => {
       let paymentResult = await axios.get(`${API_URL}/orders/payment`);
       let paymentData = paymentResult.data;
-      console.log(paymentData);
+      // console.log(paymentData);
       setPayment(paymentData);
     })();
     setCurrentStep(2);
   }, []);
+
+  useEffect(() => {
+    if (isOrder) {
+      // <Navigate to="/orderstep/ordercheck" />;
+      navigate('/orderstep/ordercheck');
+    }
+  }, [isOrder]);
 
   // post {"orders":[{productCart.state.items.id:1, productCart.state.items.quantity:2, name:aaa, email:aaa@test.com, phone:0900000000, address:XXX, delivery: 2, memo:yyy, payment: lp}]}
 
@@ -55,6 +67,10 @@ const CheckOut = () => {
     address: '',
     memo: '',
     payment: '',
+    cardNumber: '',
+    cCardMonth: '',
+    cCardDate: '',
+    cCardCheck: '',
     // productItems:[{}]
     // productTotal:10000
   };
@@ -93,12 +109,30 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
+          cardNumber: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
+          cCardMonth: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
+          cCardDate: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
+          cCardCheck: yup.string().when('payment', {
+            is: 'payment' === 4,
+            then: yup.string().required,
+          }),
         })}
         onSubmit={async (values) => {
           try {
-            await axios.post(`${API_URL}/orders/order`, values, {
+            let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
+            // console.log(response);
+            if (response.data) return setIsOrder(true);
           } catch (e) {
             console.error('order', e);
           }
@@ -107,16 +141,13 @@ const CheckOut = () => {
       >
         {({ values, setFieldValue }) => (
           <Form>
-            <RecipientInfo
-              values={values}
-              setDelivery={setDelivery}
-              delivery={delivery}
-            />
+            <RecipientInfo values={values} delivery={delivery} />
             <Payment
               values={values}
               payment={payment}
-              setPayment={setPayment}
               setFieldValue={setFieldValue}
+              currentPayment={currentPayment}
+              setCurrentPayment={setCurrentPayment}
             />
 
             <div className="orderStepBtns gap-3">
@@ -127,11 +158,7 @@ const CheckOut = () => {
               >
                 上一步
               </Link>
-              <button
-                className="btn stepBtn nextButton"
-                type="submit"
-                // onClick={() => setCurrentStep(currentStep + 1)}
-              >
+              <button className="btn stepBtn nextButton" type="submit">
                 下一步
               </button>
             </div>

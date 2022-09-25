@@ -14,16 +14,17 @@ import RecipeSlide from './component/RecipeSlide';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
 import Notification from '../activity/Notification';
-import { useUserRights } from '../../usecontext/UserRights';
+import { SiFoodpanda } from 'react-icons/si';
 
 const RecipeDetail = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageRef = useRef(null);
   const [recipeData, setRecipeData] = useState([]);
   const [step, setStep] = useState([]);
+  const [stepNow, setStepNow] = useState(1);
   const [comments, setComments] = useState([]);
   const [loginBtn, setLoginBtn] = useState(false);
-  const { user } = useUserRights();
+  const [toast, setToast] = useState(0);
 
   const id = parseInt(searchParams.get('id'));
 
@@ -54,19 +55,11 @@ const RecipeDetail = () => {
   const [borderLeft, setBorderLeft] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  const sticky = css`
-    top: ${stickyTop}px;
-  `;
   const stepBg = css`
     height: 100vh;
-    left: ${bgLeft};
     z-index: -1;
   `;
-  const stepBorder = css`
-    left: ${borderLeft};
-  `;
   const stepContent = css`
-    left: ${stepContentLeft};
     z-index: 50;
     padding: 0 15rem;
     gap: 5rem;
@@ -109,23 +102,58 @@ const RecipeDetail = () => {
     setBorderLeft(`-${stepBorderPosition}px`);
     let setContent = stepContentPosition < 0 ? 0 : `-${stepContentPosition}px`;
     setStepContentLeft(setContent);
+
+    let stepScrollWidth = (stepContentWidth - window.innerWidth) / step.length;
+    let scrollHeightNow = app.scrollTop - introRef.current.clientHeight;
+    let scrollStep = Math.ceil(scrollHeightNow / stepScrollWidth) + 1;
+    if (scrollStep < 1) scrollStep = 1;
+    if (scrollStep > step.length) scrollStep = step.length;
+    setStepNow(scrollStep);
+  };
+
+  const stepScrollTo = (stepClick) => {
+    const stepContentWidth = stepContentRef.current.offsetWidth;
+    let totalScrollWidth = (stepContentWidth - window.innerWidth) / step.length;
+    pageRef.current.scrollTo({
+      top: window.innerHeight + totalScrollWidth * stepClick,
+      behavior: 'smooth',
+    });
   };
 
   return (
     <>
-      {loginBtn && (
-        <Notification
-          contaninText="請先登入會員"
-          linkTo="/signin/login"
-          linkToText="登入"
-          setLoginBtn={setLoginBtn}
-        />
-      )}
       <div
         className="recipeDetail"
         onScroll={(e) => scrollHandler(e)}
         ref={pageRef}
       >
+        {loginBtn && (
+          <Notification
+            contaninText="請先登入會員"
+            linkTo="/signin?p=1"
+            linkToText="登入"
+            setLoginBtn={setLoginBtn}
+          />
+        )}
+        {!!toast && (
+          <Notification
+            bottom={30}
+            contaninText={
+              toast === 1
+                ? '已加入收藏'
+                : toast === 2
+                ? '已取消收藏'
+                : toast === 3
+                ? '已刪除留言'
+                : toast === 4
+                ? '已更新留言'
+                : '已新增留言'
+            }
+            iconSize={2}
+          >
+            <SiFoodpanda />
+          </Notification>
+        )}
         {/* Intro section */}
         <div ref={introRef}>
           <Header fixed={false} />
@@ -135,21 +163,23 @@ const RecipeDetail = () => {
               id={id}
               setRecipeData={setRecipeData}
               setLoginBtn={setLoginBtn}
+              setToast={setToast}
             />
           </section>
         </div>
-
         {/* Step section */}
         <section
           className="recipeDetailStep position-sticky"
           ref={stepRef}
-          css={sticky}
+          // css={sticky}
+          style={{ top: stickyTop }}
         >
           {/* step */}
           <div
             className="h-100 d-grid align-items-center position-absolute"
             ref={stepContentRef}
             css={stepContent}
+            style={{ left: stepContentLeft }}
           >
             {step.map((s) => {
               return (
@@ -159,19 +189,26 @@ const RecipeDetail = () => {
                   img={s.img}
                   content={s.content}
                   position={s.step % 2}
+                  stepNow={stepNow}
+                  setStepNow={setStepNow}
                 ></RecipeStepItem>
               );
             })}
           </div>
           {/* Step Number */}
           <div className="position-absolute bottom-0 start-50 translate-middle recipeStepNum mb-3">
-            <RecipeStepNumb num={step.length} />
+            <RecipeStepNumb
+              num={step.length}
+              onClick={setStepNow}
+              stepNow={stepNow}
+              stepScrollTo={stepScrollTo}
+            />
           </div>
           {/* border */}
           <div
             className="d-flex position-absolute h-100"
             ref={stepBorderRef}
-            css={stepBorder}
+            style={{ left: borderLeft }}
           >
             <img
               src="/img/recipe/other/step-bg1.png"
@@ -189,6 +226,7 @@ const RecipeDetail = () => {
             className="position-absolute top-0 opacity-50"
             css={stepBg}
             ref={stepBgRef}
+            style={{ left: bgLeft }}
           >
             <img
               src="/img/recipe/other/recipe_step_bg.jpg"
@@ -197,16 +235,16 @@ const RecipeDetail = () => {
             />
           </div>
         </section>
-
+        <section className="vh100"></section>
+        <section className="vh100"></section>
         {/* comment section */}
-        <section className="vh100"></section>
-        <section className="vh100"></section>
         <section className="recipeDetailComment mx-auto py-5">
           <RecipeComments
             data={comments}
             setData={setComments}
             setRecipeData={setRecipeData}
             setLoginBtn={setLoginBtn}
+            setToast={setToast}
           />
         </section>
         {/* recipe slide */}

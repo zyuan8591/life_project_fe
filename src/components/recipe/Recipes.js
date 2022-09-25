@@ -11,6 +11,7 @@ import {
   AiOutlineHeart,
   AiOutlineBars,
   AiOutlineAppstore,
+  AiOutlineDown,
 } from 'react-icons/ai';
 import ProductCategory from '../product/product_list/ProductCategory';
 import RecipeListBlockMode from './component/RecipeListBlockMode';
@@ -24,6 +25,7 @@ import axios from 'axios';
 import { useUserRights } from '../../usecontext/UserRights';
 import Notification from '../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
+import NoDataDisplay from '../public_component/NoDataDisplay';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -66,14 +68,26 @@ const Recipes = () => {
   const [displayMode, setDisplayMode] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useUserRights();
-  const [loginBtn, setLoginBtn] = useState(false);
-  const [addToast, setAddToast] = useState(false);
   const navigate = useNavigate();
 
   // init data
   const [recipeCate, setRecipeCate] = useState([]);
+  const [productCate, setProductCate] = useState([]);
   const [recipeList, setRecipeList] = useState([]);
   const [lastPage, setLastPage] = useState(0);
+  const [vw, setVw] = useState(window.innerWidth);
+  const [perPage, setPerPage] = useState(12);
+
+  const setViewPortWidth = () => setVw(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', setViewPortWidth);
+    return function clean() {
+      window.removeEventListener('resize', setViewPortWidth);
+    };
+  }, []);
+  useEffect(() => {
+    if (vw < 765) setDisplayMode(1);
+  }, [vw]);
 
   // sql query data
   const [pageNow, setPageNow] = useState(1);
@@ -83,13 +97,23 @@ const Recipes = () => {
   const [searchMaterial, setSearchMaterial] = useState('');
   const [selectSortOption, setSelectSortOption] = useState(1);
 
+  // close & open
+  const [loginBtn, setLoginBtn] = useState(false);
+  const [addToast, setAddToast] = useState(false);
+  const [recipeCateCollapse, setRecipeCateCollapse] = useState(false);
+  const [productCateCollapse, setProductCateCollapse] = useState(false);
+  let recipeCollapseStyle = recipeCateCollapse ? { flexWrap: 'wrap' } : {};
+  let productCollapseStyle = productCateCollapse ? { flexWrap: 'wrap' } : {};
+
   useEffect(() => {
-    showToast();
     (async () => {
       // get all recipe cate name
       let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
       let recipeCateData = recipeCateResult.data;
       setRecipeCate([{ id: 0, name: '所有分類' }, ...recipeCateData]);
+      let productCateResult = await axios.get(`${API_URL}/products/category`);
+      let productCateData = productCateResult.data;
+      setProductCate([{ id: 0, name: '所有分類' }, ...productCateData]);
     })();
     searchParams.get('searchName') &&
       setSearchName(searchParams.get('searchName'));
@@ -119,13 +143,14 @@ const Recipes = () => {
   // set page to 1
   useEffect(() => {
     setPageNow(1);
+    setPerPage(12);
   }, [recipeCateNow, searchMaterial, searchName]);
 
   // get recipe list data
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/recipes?perPage=12&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}&productCate=${productCateNow}`
+        `${API_URL}/recipes?perPage=${perPage}&recipeCate=${recipeCateNow}&name=${searchName}&materialName=${searchMaterial}&sort=${selectSortOption}&page=${pageNow}&productCate=${productCateNow}`
       );
       setRecipeList(result.data.data);
       setLastPage(result.data.pagination.lastPage);
@@ -138,6 +163,7 @@ const Recipes = () => {
     pageNow,
     productCateNow,
     searchParams,
+    perPage,
   ]);
 
   const searchNameHandler = (e) => {
@@ -153,7 +179,7 @@ const Recipes = () => {
     setSearchParams(params);
   };
 
-  // handle add recipe
+  // handle add recipe form
   const addRecipeHandler = () => {
     if (!user) return setLoginBtn(true);
     const params = Object.fromEntries([...searchParams]);
@@ -183,13 +209,13 @@ const Recipes = () => {
       {loginBtn && (
         <Notification
           contaninText="請先登入會員"
-          linkTo="/signin/login"
+          linkTo="/signin?p=1"
           linkToText="登入"
           setLoginBtn={setLoginBtn}
         />
       )}
       {addToast && (
-        <Notification contaninText="新增食譜成功" iconSize={2}>
+        <Notification contaninText="新增食譜成功" iconSize={2} bottom={30}>
           <SiFoodpanda />
         </Notification>
       )}
@@ -197,23 +223,72 @@ const Recipes = () => {
         <BreadCrumb />
         <IndexRecipeActivity />
         {/* recipeCategory */}
-        <div className="recipesCateBtnGroup mb-3">
-          {recipeCate.map((d, i) => {
-            return (
-              <div key={d.id}>
+        <div className="cateBtnContainer pb-3 mb-3">
+          <div className={`recipesCateBtnGroup`} style={recipeCollapseStyle}>
+            {recipeCate.map((d, i) => {
+              return (
                 <RecipeCateBtn
+                  key={d.id}
                   cateNum={d.id}
                   content={d.name}
                   active={i === parseInt(recipeCateNow) ? true : false}
-                />
-              </div>
-            );
-          })}
+                  type="recipeCate"
+                ></RecipeCateBtn>
+              );
+            })}
+          </div>
+          <div
+            className="position-absolute top-0 end-0 bg-white h-100 cursorPointer pt-1"
+            onClick={() => setRecipeCateCollapse(!recipeCateCollapse)}
+          >
+            <IconContext.Provider
+              value={{
+                color: '#444',
+                size: '1rem',
+                className: `transition ${recipeCateCollapse && 'rotate180'}`,
+              }}
+            >
+              <AiOutlineDown />
+            </IconContext.Provider>
+          </div>
         </div>
+        {/* productCategory */}
+        {vw < 1000 && (
+          <div className="cateBtnContainer pb-3 mb-3">
+            <div className={`recipesCateBtnGroup`} style={productCollapseStyle}>
+              {productCate.map((d, i) => {
+                return (
+                  <div key={d.id}>
+                    <RecipeCateBtn
+                      cateNum={d.id}
+                      content={d.name}
+                      active={i === parseInt(productCateNow) ? true : false}
+                      type="productCate"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <div
+              className="position-absolute top-0 end-0 bg-white h-100 cursorPointer pt-1"
+              onClick={() => setProductCateCollapse(!productCateCollapse)}
+            >
+              <IconContext.Provider
+                value={{
+                  color: '#444',
+                  size: '1rem',
+                  className: `transition ${productCateCollapse && 'rotate180'}`,
+                }}
+              >
+                <AiOutlineDown />
+              </IconContext.Provider>
+            </div>
+          </div>
+        )}
         <div className="recipeToolBar">
           {/* search Button... */}
           <div className="recipeSearchBar">
-            <span className="searchFor flexCenter">找食譜</span>
+            <span className="searchFor flexCenter text-nowrap">找食譜</span>
             <input
               type="text"
               className="searchForName"
@@ -264,31 +339,37 @@ const Recipes = () => {
         </div>
         {/* Main Section */}
         <div className="recipeListMain">
-          <div className="position-sticky top-0 align-self-start">
-            <ProductCategory setProductCateNow={setProductCateNowFunc} />
-          </div>
+          {vw > 1000 && (
+            <div className="position-sticky top-0 align-self-start">
+              <ProductCategory setProductCateNow={setProductCateNowFunc} />
+            </div>
+          )}
           <div className="recipeList">
             {/* Choose mode and filter */}
             <div className="recipeMainToolBar flexCenter mb-3">
               <IconContext.Provider
                 value={{ size: '2rem', className: 'me-1 recipeModeBtn' }}
               >
-                <div
-                  className={`recipeListMode ${
-                    displayMode === 0 ? 'active' : ''
-                  }`}
-                  onClick={() => setDisplayMode(parseInt(0))}
-                >
-                  <AiOutlineBars />
-                </div>
-                <div
-                  className={`recipeBlockMode ${
-                    displayMode === 1 ? 'active' : ''
-                  }`}
-                  onClick={() => setDisplayMode(parseInt(1))}
-                >
-                  <AiOutlineAppstore />
-                </div>
+                {vw > 765 && (
+                  <>
+                    <div
+                      className={`recipeListMode ${
+                        displayMode === 0 ? 'active' : ''
+                      }`}
+                      onClick={() => setDisplayMode(parseInt(0))}
+                    >
+                      <AiOutlineBars />
+                    </div>
+                    <div
+                      className={`recipeBlockMode ${
+                        displayMode === 1 ? 'active' : ''
+                      }`}
+                      onClick={() => setDisplayMode(parseInt(1))}
+                    >
+                      <AiOutlineAppstore />
+                    </div>
+                  </>
+                )}
               </IconContext.Provider>
               <Select
                 defaultValue={sortOption[0]}
@@ -299,7 +380,13 @@ const Recipes = () => {
               />
             </div>
             {/* Main Content */}
-            {displayMode === 1 ? (
+            {recipeList.length === 0 ? (
+              <NoDataDisplay
+                noDataText="食譜"
+                linkFunc={addRecipeHandler}
+                linkText="立即上傳食譜"
+              />
+            ) : displayMode === 1 ? (
               <div className="recipeBlockModeList">
                 {recipeList.map((d, i) => {
                   return (
@@ -317,11 +404,15 @@ const Recipes = () => {
                 })}
               </div>
             )}
-            <PaginationBar
-              lastPage={lastPage}
-              pageNow={pageNow}
-              setPageNow={setPageNow}
-            />
+            {recipeList.length === 0 || (
+              <PaginationBar
+                lastPage={lastPage}
+                pageNow={pageNow}
+                perPage={perPage}
+                setPageNow={setPageNow}
+                setPerPage={setPerPage}
+              />
+            )}
           </div>
         </div>
         {/* Create Recipe Form */}

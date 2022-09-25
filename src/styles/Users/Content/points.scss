@@ -4,8 +4,8 @@
   justify-content: center;
   justify-items: center;
 }
-.points-group{
-  margin-top: 80px;
+.pointsGroup{.points-group{
+  margin-top: 60px;
   .user-point{
     text-align: center;
     .box{
@@ -37,6 +37,7 @@
 }
 
 .list{  
+  height: 285px;
   .list-title{
     text-align: center;
     table{
@@ -45,8 +46,8 @@
         line-height: 4rem
       }
       tbody{
-        line-height: 2.5rem;
+        line-height: 2.5rem;        
       }
     };
   }
-}
+}}

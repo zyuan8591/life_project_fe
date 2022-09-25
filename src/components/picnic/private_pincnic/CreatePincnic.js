@@ -23,6 +23,7 @@ import {
   FaUserFriends,
   FaCommentAlt,
 } from 'react-icons/fa';
+import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { AiOutlineCamera } from 'react-icons/ai';
 
 const city = [
@@ -45,7 +46,7 @@ function CreatePincnic() {
   const [loginBtn, setLoginBtn] = useState(false);
   const [location, setLocation] = useState(city);
   const { user, setUser } = useUserRights(); //登入使用者
-  const [delConfirm, setDelConfirmm] = useState(false); //自製alert提示框 加入活動
+  const [addConfirm, setAddConfirm] = useState(false); //自製alert提示框 加入活動
 
   // Navigate state
   const [success, setSuccess] = useState(false);
@@ -62,10 +63,10 @@ function CreatePincnic() {
 
   // from data
   const [activityContent, setActivityContent] = useState({
-    title: 'test',
+    title: '綠生活野餐日',
     activityDate: '2022-11-15',
-    location: '2',
-    address: 'test',
+    location: '11',
+    address: '崇仰三路2號',
     joinLimit: '10',
     startDate: '2022-11-01',
     endDate: '2022-11-13',
@@ -122,11 +123,11 @@ function CreatePincnic() {
           withCredentials: true,
         });
         console.log(response.data);
-        setDelConfirmm(true); //TODO: 無法顯示彈跳視窗 會直接跳轉到Navigate指定頁面
+        setAddConfirm(true);
         setTimeout(() => {
-          setDelConfirmm(false);
-        }, 1000);
-        setSuccess(true);
+          setAddConfirm(false);
+          setSuccess(true);
+        }, 1500);
       } catch (e) {
         console.log('formData', e);
       }
@@ -135,9 +136,13 @@ function CreatePincnic() {
   return (
     <>
       <Header />
-      {delConfirm ? (
-        <Notification contaninText={'建立活動成功'} setLoginBtn={setLoginBtn}>
-          {/* <BsFillPersonPlusFill /> */}
+      {addConfirm ? (
+        <Notification
+          contaninText={'建立活動成功'}
+          setLoginBtn={setLoginBtn}
+          button={40}
+        >
+          <BsFillHandThumbsUpFill />
         </Notification>
       ) : (
         ''

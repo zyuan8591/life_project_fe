@@ -57,34 +57,6 @@
                 //     color: $contentClr;
                 // }
             }
-            // .joinBtn{
-            //     display: inline-block;
-            //     margin-right: 20px;
-            //     padding: 4px 8px;
-            //     color: $mainClrW;
-            //     border: 0;
-            //     border-radius: 2px;
-            //     background-color: $focusClrY;
-            //     transition: .3s;
-            //     cursor: pointer;
-            //     &:hover{
-            //         @include buttonHover;
-            //     }
-            // }
-            // .hadJoinBtn{
-            //     display: inline-block;
-            //     margin-right: 20px;
-            //     padding: 4px 8px;
-            //     color: $mainClrW;
-            //     border: 0;
-            //     border-radius: 2px;
-            //     background-color: $subClrBrown;
-            //     transition: .3s;
-            //     cursor: pointer;
-            //     &:hover{
-            //         @include buttonHover;
-            //     }
-            // }
         }
         .titleContainer{
             .titleContent{
@@ -108,7 +80,7 @@
             border: 10px solid;    
             border-color: #fff;
             background-color: #f5f5f5;
-            box-shadow: #666 0 0 5px;
+            box-shadow: rgba(102, 102, 102, 0.945) 0 0 12px;
             &:hover .titleImg {
                 -webkit-animation-play-state: paused;
                         animation-play-state: paused;

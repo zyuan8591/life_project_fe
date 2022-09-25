@@ -130,49 +130,7 @@
         .pc-view{
             display: none;
         }
-        padding: 0;
-        margin: 15px 0px 15px 12px;
-        border-radius: 20px;
-        overflow: hidden;
-        max-width: 170px;
-        .activityImg{
-            img{
-                width: 100%;
-                height: 120px;
-                object-fit: cover;
-            }
-        }
-        .activityTitle{
-            .title{
-                font-size: $text12;
-            }
-        }
-        .labelContent{ 
-            margin: -2px -2px -5px;
-            padding: 0px;
-            .label{
-                font-size: 10px !important;
-            }
-        }
-        .dateText{
-            margin: -5px 0px;
-            span {
-            font-size: 8px;
-            }
-        }
-        .content1{
-            display: none !important;
-        }
-        .intMore{
-            padding: 0 !important;
-            .content2{
-                width: 100%;
-                color: $focusClrY;
-                font-size: $text12;
-                display: flex;
-                justify-content: space-between;
-            }
-        }
+        margin: 10px auto;
           
     }
 }

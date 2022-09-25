@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IconContext } from 'react-icons';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 function OrderCheck(props) {
+  const { setCurrentStep } = useCartStep();
+
+  useEffect(() => {
+    setCurrentStep(3);
+  }, []);
+
   return (
     <>
       <div className="orderCheck gap-2 ">
@@ -25,11 +32,7 @@ function OrderCheck(props) {
           <Link to="/products" className="btn stepBtn prevButton">
             繼續購買
           </Link>
-          <Link
-            to="/users/order"
-            onClick={() => props.updateCurrentStep(props.currentStep + 1)}
-            className="btn stepBtn nextButton"
-          >
+          <Link to="/users/order" className="btn stepBtn nextButton">
             查看訂單
           </Link>
         </div>

@@ -318,7 +318,7 @@ function CampingMain() {
                               placeholder="Search.."
                               type="text"
                               maxLength={15}
-                              value={titleSearch}
+                              // value={titleSearch}
                               onChange={(e) => {
                                 let textValue = e.target.value.replace(
                                   /[, ]/g,

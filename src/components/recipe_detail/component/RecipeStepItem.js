@@ -8,7 +8,8 @@ const container = css`
     filter: invert(46%) sepia(26%) saturate(296%) hue-rotate(349deg)
       brightness(93%) contrast(90%);
   }
-  &:hover {
+  &:hover,
+  &.active {
     .eggIcon {
       filter: invert(77%) sepia(56%) saturate(864%) hue-rotate(333deg)
         brightness(98%) contrast(93%);
@@ -27,6 +28,9 @@ const recipeImgContainer = css`
   max-width: 300px;
   overflow: hidden;
   border: 3px solid transparent;
+  @media (max-width: 1024px) {
+    max-width: 250px;
+  }
 `;
 const eggIcon = css``;
 const textContainer = css`
@@ -39,12 +43,15 @@ const textContent = css`
   border: 2px solid #444;
 `;
 
-const RecipeStepItem = ({ i, img, content, position }) => {
+const RecipeStepItem = ({ i, img, content, position, stepNow, setStepNow }) => {
   let align = ['align-slef-center', 'align-self-start'];
   return (
     <div
-      className={`d-flex flex-column px-3 position-relative flex-shrink-0 ${align[position]}`}
+      className={`d-flex flex-column px-3 position-relative flex-shrink-0 ${
+        align[position]
+      } ${stepNow === i ? 'active' : ''}`}
       css={container}
+      onClick={() => setStepNow(i)}
     >
       <figure className="m-0 position-relative" css={iconContainer}>
         <img
