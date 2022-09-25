@@ -351,7 +351,6 @@ function UpdatePage({
           </div>
 
           {/* int */}
-          {/* <div className="d-flex leftInput"> */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
             <label className="mb-2">活動介紹：</label>
             <textarea
@@ -378,7 +377,6 @@ function UpdatePage({
               onChange={handleChange}
             />
           </div>
-          {/* </div> */}
 
           {/* img */}
           <label className="mb-4 leftInput">活動照片：</label>

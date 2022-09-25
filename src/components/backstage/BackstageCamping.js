@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import Header from '../public_component/BackstageIndex';
+import Header from '../public_component/BackstageHeader';
 import PaginationBar from '../public_component/PaginationBar';
 import AddCamping from './component/camping/AddCamping';
 import UpdateCamping from './component/camping/UpdateCamping';
@@ -45,12 +45,17 @@ function Backstage() {
     getCampingData();
   }, [page, order, loading]);
 
+  // del
   const handleSubmit = async (campingId) => {
     // console.log(campingId);
     let response = await axios.put(
       `${API_URL}/camping/campingDel/${campingId}`
     );
     setLoading(!loading);
+    setLoginBtn('del');
+    setTimeout(() => {
+      setLoginBtn(false);
+    }, 2000);
     console.log('del', response.data);
   };
   return (
@@ -95,6 +100,13 @@ function Backstage() {
       )}
       {loginBtn === 'add' ? (
         <Notification contaninText="新增成功" bottom="30">
+          <GiCampingTent />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {loginBtn === 'del' ? (
+        <Notification contaninText="刪除成功" bottom="30">
           <GiCampingTent />
         </Notification>
       ) : (

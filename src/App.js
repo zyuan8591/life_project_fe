@@ -141,10 +141,6 @@ function App() {
                       />
                     </Route>
                     <Route path="/map" element={<SetMap />} />
-                    <Route
-                      path="/backstageCamping/"
-                      element={<BackstageCamping />}
-                    />
                     {/* recipe */}
                     <Route path="/recipeDetail" element={<RecipeDetail />} />
                     {/* product */}

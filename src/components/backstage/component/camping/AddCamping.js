@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import '../../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { IoCloseSharp } from 'react-icons/io5';
-import { GiCampingTent } from 'react-icons/gi';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
-import Notification from '../../../activity/Notification';
 import AddImgCamping from './AddImgCamping';
 import AddImgCamping2 from './AddImgCamping2';
 import AddImgCamping3 from './AddImgCamping3';
@@ -73,53 +71,6 @@ function AddPage({
     console.log(campingData);
     setCamping(campingData);
   }
-
-  // function handleUpload(e) {
-
-  // }
-
-  // const [file, setFile] = useState(null);
-  // const [fileDataURL, setFileDataURL] = useState(null);
-
-  // const imageMimeType = /image\/(png|jpg|jpeg|webp)/i;
-
-  // recipe img handler
-  // const updateImgHandler = (e) => {
-  //   const file = e.target.files[0];
-
-  //   // check image type
-  //   if (!file.type.match(imageMimeType)) {
-  //     console.error('Image mime type is not valid');
-  //     return;
-  //   }
-
-  //   setFile(file);
-  //   setCamping({ ...camping, photo1: file });
-  // };
-
-  // useEffect(() => {
-  //   let fileReader,
-  //     isCancel = false;
-  //   if (file) {
-  //     fileReader = new FileReader();
-  //     // get image url
-  //     fileReader.onload = (e) => {
-  //       const { result } = e.target;
-  //       if (result && !isCancel) {
-  //         setFileDataURL(result);
-  //       }
-  //     };
-  //     fileReader.readAsDataURL(file);
-  //   }
-
-  //   // unmounting
-  //   return () => {
-  //     isCancel = true;
-  //     if (fileReader && fileReader.readyState === 1) {
-  //       fileReader.abort();
-  //     }
-  //   };
-  // }, [file]);
 
   async function handleSubmit(e) {
     e.preventDefault();
