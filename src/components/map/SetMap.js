@@ -6,7 +6,7 @@ import { API_URL } from '../../utils/config';
 import { IconContext } from 'react-icons';
 import { MdLocationOn, MdOutlineIcecream } from 'react-icons/md';
 import { GiCampingTent } from 'react-icons/gi';
-// import { SiPicnic } from 'react-icons/si';
+// import { RiCake3Line, RiCake3Fill } from 'react-icons/ri';
 // import { IoLocationOutline } from 'react-icons/io5';
 // import { FaCanadianMapleLeaf } from 'react-icons/fa';
 
@@ -84,7 +84,7 @@ function SetMap() {
     iconSize: [20, 30],
   });
   const picnicIcon = new Icon({
-    iconUrl: '/img/camping/activity_camping_img/ba4.png',
+    iconUrl: '/img/camping/activity_camping_img/ba2.png',
     iconSize: [20, 30],
   });
 
@@ -182,7 +182,6 @@ function SetMap() {
                   center={position}
                   zoom={12}
                   scrollWheelZoom={true}
-                  // icon={centerIcon}
                 >
                   <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
