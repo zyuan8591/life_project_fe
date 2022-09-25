@@ -37,10 +37,6 @@ const PaginationBar = ({
     setDisplayPage(display);
   }, []);
 
-  useEffect(() => {
-    console.log('pageNow', pageNow);
-  }, [pageNow]);
-
   // emotion css setting
   const subClrBrown = '#817161';
 
