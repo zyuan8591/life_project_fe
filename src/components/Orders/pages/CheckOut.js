@@ -151,21 +151,23 @@ const CheckOut = () => {
           // }),
         })}
         onSubmit={async (values) => {
-          if (!user.id) return;
+          // if (!user.id) return;
           try {
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
-            await axios.post(
-              `${API_URL}/user/points`,
-              {
-                point: point, //新增/扣除點數
-                event: '購物折扣', //名目
-              },
-              {
-                withCredentials: true,
-              }
-            );
+            if (point) {
+              await axios.post(
+                `${API_URL}/user/points`,
+                {
+                  point: point, //新增/扣除點數
+                  event: '購物折扣', //名目
+                },
+                {
+                  withCredentials: true,
+                }
+              );
+            }
             // console.log(response);
             if (response.data) {
               setIsOrder(true);
