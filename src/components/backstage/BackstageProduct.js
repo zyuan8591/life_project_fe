@@ -35,6 +35,7 @@ function Backstage() {
           withCredentials: true,
         }
       );
+      console.log(result);
       setTotal(result.data.pagination.total);
       console.log('pagination', result.data.pagination.total);
       setProductsData(result.data.data);
@@ -137,6 +138,7 @@ function Backstage() {
                   spec,
                   valid,
                   color,
+                  product_category_name,
                 } = v;
                 return (
                   <tr key={id}>
@@ -149,7 +151,7 @@ function Backstage() {
                       </div>
                     </td>
                     <td>{name}</td>
-                    <td></td>
+                    <td>{product_category_name}</td>
                     <td>{inventory}</td>
                     <td className="text-center">{price}</td>
                     <td>{color}</td>

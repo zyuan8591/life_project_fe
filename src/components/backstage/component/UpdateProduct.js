@@ -32,6 +32,13 @@ function UpdatePage({
   const [errMsg, setErrMsg] = useState(false);
   // const [loginBtn, setLoginBtn] = useState(false);
   const [detailImg, setDetailImg] = useState([]);
+  const [cateArr, setCateArr] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/category`);
+      setCateArr(result.data);
+    })();
+  }, []);
   const [originImages, setOriginImages] = useState({
     photo1: productData.img,
     photo2: productData.img2,
@@ -130,8 +137,8 @@ function UpdatePage({
         }, 2000);
         setUpdatePage(false);
       }
-      console.log(response.data.message);
-      console.log(formData);
+      // console.log(response.data.message);
+      // console.log(formData);
     } catch (e) {
       console.error('addCamping', e);
     }
@@ -171,16 +178,21 @@ function UpdatePage({
               </div>
               <div className="mb-4">
                 <label>商品分類：</label>
-                <input
-                  className="input"
-                  id="cate"
-                  name="cate"
-                  type="text"
-                  maxLength={15}
-                  value={product.cate}
+                <select
+                  className="input m-0"
                   onChange={handleChange}
-                  required
-                />
+                  value={product.cate}
+                  name="cate"
+                >
+                  {cateArr.map((v, i) => {
+                    return (
+                      <option value={v.id} key={v.id}>
+                        {v.name}
+                      </option>
+                    );
+                  })}
+                </select>
+
               </div>
               <div className="mb-4">
                 <label>顏色：</label>
