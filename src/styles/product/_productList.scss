@@ -61,6 +61,7 @@ $numberSize: 36px;
         min-height: 220px;
         display: flex;
         align-items: flex-start;
+
       }
 
       .rank {
@@ -126,7 +127,7 @@ $numberSize: 36px;
           }
         }
         p {
-          margin: 214px 0 0;
+          margin: 200px 0 0;
           @media (max-width: $rwdWidth) {
             margin: 120px 0 0;
           }

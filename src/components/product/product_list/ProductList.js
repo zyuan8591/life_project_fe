@@ -14,6 +14,9 @@ import ToolsRwd from '../ToolsRwd';
 import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
+import Notification from '../../activity/Notification';
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 const ProductList = () => {
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
@@ -37,6 +40,8 @@ const ProductList = () => {
   const [collectConfirm, setCollectConfirm] = useState(false);
   const [collectCancel, setCollectCancel] = useState(false);
   const [cartConfirm, setCartConfirm] = useState(false);
+
+  const [loginBtn, setLoginBtn] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -90,6 +95,48 @@ const ProductList = () => {
 
   return (
     <>
+      {cartConfirm ? (
+        <Notification
+          contaninText={'已加入購物車'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <HiHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {collectConfirm ? (
+        <Notification
+          contaninText={'已加入收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <HiHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {collectCancel ? (
+        <Notification
+          contaninText={'已取消收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <HiOutlineHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin/login'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <Header />
       <div className="product">
         <ProductRank />
@@ -121,6 +168,7 @@ const ProductList = () => {
                 collectCancel={collectCancel}
                 setCartConfirm={setCartConfirm}
                 cartConfirm={cartConfirm}
+                setLoginBtn={setLoginBtn}
               />
             ) : (
               <NoDataDisplay />

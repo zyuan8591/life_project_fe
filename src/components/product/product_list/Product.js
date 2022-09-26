@@ -24,6 +24,7 @@ const Product = ({
   collectConfirm,
   cartConfirm,
   setCartConfirm,
+  setLoginBtn,
 }) => {
   const productCart = useProductCart({});
   const cart = productCart.state.items.map((v) => {
@@ -31,7 +32,6 @@ const Product = ({
   });
   const [changePic, setChangePic] = useState(false);
   const [changePicNumber, setChangePicNumber] = useState('');
-  const [loginBtn, setLoginBtn] = useState(false);
   const { user } = useUserRights();
 
   return (
@@ -50,46 +50,6 @@ const Product = ({
               setChangePic(false);
             }}
           >
-            {cartConfirm ? (
-              <Notification
-                contaninText={'已加入購物車'}
-                setLoginBtn={setLoginBtn}
-              >
-                <HiHeart />
-              </Notification>
-            ) : (
-              ''
-            )}
-            {collectConfirm ? (
-              <Notification
-                contaninText={'已加入收藏'}
-                setLoginBtn={setLoginBtn}
-              >
-                <HiHeart />
-              </Notification>
-            ) : (
-              ''
-            )}
-            {collectCancel ? (
-              <Notification
-                contaninText={'已取消收藏'}
-                setLoginBtn={setLoginBtn}
-              >
-                <HiOutlineHeart />
-              </Notification>
-            ) : (
-              ''
-            )}
-            {loginBtn ? (
-              <Notification
-                contaninText={'請先登入會員'}
-                linkTo={'/signin/login'}
-                setLoginBtn={setLoginBtn}
-              />
-            ) : (
-              ''
-            )}
-
             <div
               className="productHoverContainer"
               onMouseOver={() => {
