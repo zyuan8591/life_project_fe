@@ -5,6 +5,7 @@ import '../../../styles/product/_productComment.scss';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
+import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL_IMG } from '../../../utils/config';
 
 const ProductComment = () => {
@@ -112,6 +113,7 @@ const ProductComment = () => {
           </>
         );
       })}
+      {comment.length === 0 && <NoDataDisplay noDataText={'留言'} />}
     </>
   );
 };

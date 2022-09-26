@@ -43,12 +43,12 @@ $productImgWidth: 250px;
         display: none;
       }
       .productHover {
-        transition: 0.3s ease;
+        transition: 0.4s ease;
         height: 40px;
 
         width: $productImgWidth;
         background: #000;
-        opacity: 0.8;
+        opacity: 0.6;
         transform: translateY(40px);
         display: flex;
         justify-content: end;

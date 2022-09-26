@@ -27,6 +27,12 @@ const PaginationBar = ({
   perPage,
   moreText = '食譜',
 }) => {
+  useEffect(() => {
+    // console.log('lastPage', lastPage);
+    // console.log('pageNow', pageNow);
+    // console.log('perPage', perPage);
+  }, []);
+
   const [displayPage, setDisplayPage] = useState(10);
   useEffect(() => {
     setDisplayPage(10);
@@ -34,6 +40,7 @@ const PaginationBar = ({
   useEffect(() => {
     let display = pageNow;
     if (pageNow < lastPage && pageNow > 10) display = pageNow;
+    if (display < 10) display = 10;
     setDisplayPage(display);
   }, []);
 

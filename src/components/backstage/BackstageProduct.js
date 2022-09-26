@@ -138,9 +138,6 @@ function Backstage() {
                   valid,
                   color,
                 } = v;
-                {
-                  /* console.log(id); */
-                }
                 return (
                   <tr key={id}>
                     <td>

@@ -47,17 +47,25 @@ function PlaceSlide({ placeSlider, mapDataId }) {
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
-                      {joinSlice.map((v) => {
-                        return (
-                          <div className="d-flex" key={v.id}>
-                            <div style={{ marginLeft: '-4px' }}>
-                              <div className={classes.contentImg}>
-                                <img src={`${API_URL_IMG}${v.photo}`} alt="/" />
+                      {allJoinL !== 0 ? (
+                        joinSlice.map((v) => {
+                          return (
+                            <div className="d-flex" key={v.id}>
+                              <div style={{ marginLeft: '-4px' }}>
+                                <div className={classes.contentImg}>
+                                  <img
+                                    src={`${API_URL_IMG}${v.photo}`}
+                                    alt="/"
+                                  />
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })
+                      ) : (
+                        <div className={classes.emptyImg}></div>
+                      )}
+
                       {allJoinL < 4 ? (
                         ''
                       ) : (
