@@ -47,6 +47,17 @@
       display: flex;
       max-width: 600px;
       width: 100vw;
+      .ant-select {
+        border-right: none;
+        @media (max-width: 500px) {
+          width: 200px !important;
+          border-right: 2px solid $subClrBrown;
+        }
+        .ant-select-selector,
+        .ant-select-selector > * {
+          border: none;
+        }
+      }
       * {
         border: 2px solid $subClrBrown;
       }
@@ -78,6 +89,9 @@
         cursor: pointer;
         .RecipeSearchBtnSvg {
           border: none;
+        }
+        @media (max-width: 500px) {
+          display: none;
         }
       }
     }

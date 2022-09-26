@@ -26,6 +26,7 @@ import { useUserRights } from '../../usecontext/UserRights';
 import Notification from '../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
 import NoDataDisplay from '../public_component/NoDataDisplay';
+import { AutoComplete } from 'antd';
 
 // const recipeCate = ['所有分類', '烘焙點心', '飲料冰品'];
 const sortOption = [
@@ -89,6 +90,31 @@ const Recipes = () => {
     if (vw < 765) setDisplayMode(1);
   }, [vw]);
 
+  // search data
+  const [recipeName, setRecipeName] = useState([]);
+  const [mamterialName, setMaterialName] = useState([]);
+  const [nameSearchOption, setNameSearchOption] = useState([]);
+  const [materialSearchOption, setMaterialSearchOption] = useState([]);
+
+  const nameSearch = (searchText) => {
+    if (!searchText.trim()) return setNameSearchOption([]);
+    let data = recipeName
+      .filter((recipe) => recipe.includes(searchText))
+      .map((data) => {
+        return { value: data };
+      });
+    setNameSearchOption(data);
+  };
+  const materialSearch = (searchText) => {
+    if (!searchText.trim()) return setMaterialSearchOption([]);
+    let data = mamterialName
+      .filter((material) => material.includes(searchText))
+      .map((data) => {
+        return { value: data };
+      });
+    setMaterialSearchOption(data);
+  };
+
   // sql query data
   const [pageNow, setPageNow] = useState(1);
   const [recipeCateNow, setRecipeCateNow] = useState(0);
@@ -114,6 +140,10 @@ const Recipes = () => {
       let productCateResult = await axios.get(`${API_URL}/products/category`);
       let productCateData = productCateResult.data;
       setProductCate([{ id: 0, name: '所有分類' }, ...productCateData]);
+      let recipeNameResult = await axios.get(`${API_URL}/recipes/name`);
+      setRecipeName(recipeNameResult.data);
+      let materialNameResult = await axios.get(`${API_URL}/recipes/material`);
+      setMaterialName(materialNameResult.data);
     })();
     searchParams.get('searchName') &&
       setSearchName(searchParams.get('searchName'));
@@ -166,17 +196,19 @@ const Recipes = () => {
     perPage,
   ]);
 
-  const searchNameHandler = (e) => {
-    setSearchName(e.target.value);
+  const searchNameHandler = (data) => {
+    setSearchName(data);
     const params = Object.fromEntries([...searchParams]);
-    params['searchName'] = e.target.value;
+    params['searchName'] = data;
     setSearchParams(params);
+    nameSearch(data);
   };
-  const searchMaterialHandler = (e) => {
-    setSearchMaterial(e.target.value);
+  const searchMaterialHandler = (data) => {
+    setSearchMaterial(data);
     const params = Object.fromEntries([...searchParams]);
-    params['searchMaterial'] = e.target.value;
+    params['searchMaterial'] = data;
     setSearchParams(params);
+    materialSearch(data);
   };
 
   // handle add recipe form
@@ -291,21 +323,29 @@ const Recipes = () => {
           {/* search Button... */}
           <div className="recipeSearchBar">
             <span className="searchFor flexCenter text-nowrap">找食譜</span>
-            <input
-              type="text"
-              className="searchForName"
+            <AutoComplete
+              options={nameSearchOption && nameSearchOption}
+              style={{
+                width: 300,
+              }}
               placeholder="請輸入食譜名稱"
-              value={searchName}
-              onChange={(e) => searchNameHandler(e)}
+              onSearch={nameSearch}
+              onSelect={searchNameHandler}
+              onChange={searchNameHandler}
             />
-            <input
-              type="text"
-              className="searchForMaterial"
-              placeholder="請輸入食材名稱"
-              value={searchMaterial}
-              onChange={(e) => searchMaterialHandler(e)}
-            />
-            <div className="recipesSearchBtn">
+            {vw > 660 && (
+              <AutoComplete
+                options={materialSearchOption}
+                style={{
+                  width: 300,
+                }}
+                placeholder="請輸入食材名稱"
+                onSearch={materialSearch}
+                onSelect={searchMaterialHandler}
+                onChange={searchMaterialHandler}
+              />
+            )}
+            <div className="recipesSearchBtn flexCenter">
               <IconContext.Provider
                 value={{ size: '1.5rem', className: 'RecipeSearchBtnSvg' }}
               >
