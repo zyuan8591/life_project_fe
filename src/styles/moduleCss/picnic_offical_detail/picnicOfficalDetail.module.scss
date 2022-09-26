@@ -25,7 +25,7 @@
     line-height: 1.9rem;
 }
 
-.PicnicOfficalDetailContainer {
+.PicnicOfficalDetailContainer { 
     .mbView{
         display: none;
     }
@@ -373,7 +373,7 @@
     // --------- 推薦熱門活動 ---------
     .recommendActivity {
         // margin: 5rem 0;
-        max-width: 1380px;
+        max-width: 4000px;
         overflow: hidden;
         h4 {
             margin: 1.5rem 0;
@@ -507,47 +507,16 @@
             }
             .quoteRightIcon {
                 font-size: 1rem !important;
-                // margin: 0 5px -1rem;
-                // color: $subClrBrown;
             }
             p {
                 font-size: $contentText !important;
-                // text-align:justify;
-                // margin: 0;
-                // @include lineHeight;
-                // color: $subClrBrown;
             }    
         }
         .noticeItem {
-            // background-color: $hoverClr;
-            // padding: 1rem;
             .noticeItemTitle{
                 font-size: 18px;
             }
-            // li {
-            //     text-indent: 1em;
-            //     @include lineHeight;
-            // }
         }        
-        // li {
-        //     @include lineHeight;
-        //     margin-left: 38px;
-        //     text-indent: -1.9rem;
-        //     .warnIcon {
-        //         @include iconSize;
-        //         color: $focusClrY;
-        //         // margin-left: 10px;
-        //     }
-        //     .checkIcon {
-        //         @include iconSize;
-        //         color: $focusClrG;
-        //     }
-        //     .crossIcon {
-        //         @include iconSize;
-        //         color: $subClrGY;
-
-        //     }
-        // }
     }
 
     // --------- 參加者 ---------

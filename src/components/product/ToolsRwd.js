@@ -138,7 +138,7 @@ const ToolsRwd = ({
             <div className="brandGrid">
               {brandArr.map((v, i) => {
                 return (
-                  <div className="brand">
+                  <div className="brand" key={i}>
                     <label htmlFor={v.name}>{v.name}</label>
                     <input
                       type="checkbox"

@@ -23,7 +23,8 @@ function DetailTitle({ data }) {
                 </li>
                 <li>
                   <FaPaw className={classes.faPawIcon} />
-                  地點：{item.address}
+                  地址：台北市{item.location}
+                  {item.address}
                 </li>
                 <li>
                   <FaPaw className={classes.faPawIcon} />

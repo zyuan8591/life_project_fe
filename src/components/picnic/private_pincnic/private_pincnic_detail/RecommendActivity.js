@@ -1,8 +1,13 @@
 import React from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
-import { Avatar, Divider, Tooltip } from 'antd';
-import Slider from 'react-slick';
+import { Avatar } from 'antd';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import 'antd/dist/antd.css';
 
 const data = [
@@ -57,26 +62,24 @@ const data = [
 ];
 
 function RecommendActivity() {
-  const settings = {
-    arrows: false,
-    dots: false,
-    infinite: true,
-    speed: 2000,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    // centerMode: true,
-    // centerPadding: '60px',
-  };
-
   return (
     <>
       <div className="recommendActivity mb-5">
         <h4 className="">附近熱門活動</h4>
-        <Slider {...settings}>
-          {data.map((v) => {
-            return (
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={5}
+          centeredSlides={true}
+          loop={true}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          modules={[Navigation, Pagination, Autoplay]}
+        >
+          {data.map((v, i) => (
+            <SwiperSlide key={i}>
               <div className="cardItem" key={uuidv4()}>
                 <p className="date mb-2">{v.date}</p>
                 <p className="cardTitle mb-2">{v.title}</p>
@@ -101,12 +104,17 @@ function RecommendActivity() {
                       <Avatar src="https://joeschmoe.io/api/v1/random" />
                     </Avatar.Group>
                   </div>
-                  <div className="joinBtn btn">加入活動</div>
+                  <Link
+                    to={`/activity/picnic/group/${v.id}`}
+                    className="joinBtn btn"
+                  >
+                    加入活動
+                  </Link>
                 </div>
               </div>
-            );
-          })}
-        </Slider>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </>
   );

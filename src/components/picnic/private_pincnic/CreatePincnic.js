@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL } from '../../../utils/config';
 import '../../../styles/picnic/_createPincnic.scss';
@@ -15,7 +13,6 @@ import BackToTop from '../../public_component/BackToTop';
 import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
 import { IconContext } from 'react-icons';
-
 import {
   FaPenAlt,
   FaCalendarAlt,
@@ -25,6 +22,7 @@ import {
 } from 'react-icons/fa';
 import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { AiOutlineCamera } from 'react-icons/ai';
+import { Form, Input } from 'antd';
 
 const city = [
   { value: 1, name: '信義區' },
