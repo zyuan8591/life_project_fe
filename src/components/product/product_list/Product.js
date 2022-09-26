@@ -9,7 +9,6 @@ import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { API_URL_IMG } from '../../../utils/config';
-import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
 
 const Product = ({
@@ -178,7 +177,7 @@ const Product = ({
               <div
                 className="hoverArea "
                 onClick={(e) => {
-                  console.log('h');
+                  // console.log('h');
                 }}
               >
                 <div className="productImg">

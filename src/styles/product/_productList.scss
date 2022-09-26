@@ -68,11 +68,13 @@ $numberSize: 36px;
         position: relative;
         height: 290px;
         width: 250px;
-        margin-right: 38px;
+        // margin-right: 38px;
+        margin: 0 19px;
         padding: 10px;
         @media (max-width: $rwdWidth) {
           height: 120px;
           width: 120px;
+          margin-left: 0px;
           margin-right: 5px;
         }
         .number {
