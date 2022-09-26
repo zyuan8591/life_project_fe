@@ -237,20 +237,22 @@ const Recipes = () => {
               );
             })}
           </div>
-          <div
-            className="position-absolute top-0 end-0 bg-white h-100 cursorPointer pt-1"
-            onClick={() => setRecipeCateCollapse(!recipeCateCollapse)}
-          >
-            <IconContext.Provider
-              value={{
-                color: '#444',
-                size: '1rem',
-                className: `transition ${recipeCateCollapse && 'rotate180'}`,
-              }}
+          {vw < 1000 && (
+            <div
+              className="position-absolute top-0 end-0 bg-white h-100 cursorPointer pt-1"
+              onClick={() => setRecipeCateCollapse(!recipeCateCollapse)}
             >
-              <AiOutlineDown />
-            </IconContext.Provider>
-          </div>
+              <IconContext.Provider
+                value={{
+                  color: '#444',
+                  size: '1rem',
+                  className: `transition ${recipeCateCollapse && 'rotate180'}`,
+                }}
+              >
+                <AiOutlineDown />
+              </IconContext.Provider>
+            </div>
+          )}
         </div>
         {/* productCategory */}
         {vw < 1000 && (
