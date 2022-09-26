@@ -59,12 +59,14 @@
     transform: translate(-50%, -50%);
     transition: 0.3s;
     @media (max-width: 500px) {
-      top: 100%;
+      top: 95%;
       transform: translate(-50%, -100%);
-      width: 100vw;
+      width: 90vw;
+      margin: 0 auto;
       border: none;
-      border-radius: 10px 10px 0 0;
+      border-radius: 10px;
       height: 30vh;
+      border: 1px solid #fff;
     }
   }
 }

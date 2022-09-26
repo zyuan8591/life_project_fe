@@ -275,6 +275,7 @@ function CampingDetailPage() {
             name: v.title,
             price: v.price,
             ischecked: false,
+            img: v.img1,
           });
           //TODO: 改掉alert
           setAddActConfirm(true);
@@ -338,6 +339,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已加入收藏'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -348,6 +350,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已取消收藏'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -358,6 +361,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已加入活動'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -368,6 +372,7 @@ function CampingDetailPage() {
               <Notification
                 contaninText={'已取消活動'}
                 setLoginBtn={setLoginBtn}
+                bottom="30"
               >
                 <GiCampingTent />
               </Notification>
@@ -377,7 +382,7 @@ function CampingDetailPage() {
             {loginBtn ? (
               <Notification
                 contaninText={'請先登入會員'}
-                linkTo={'/signin/login'}
+                linkTo={'/signin'}
                 setLoginBtn={setLoginBtn}
               />
             ) : (
@@ -820,6 +825,8 @@ function CampingDetailPage() {
                 </IconContext.Provider>
               </div>
             </div>
+
+            {/* RWD aside */}
             <div className="m-view">
               <IconContext.Provider value={{ color: '#fff', size: '1.2rem' }}>
                 <div className={asideDisplay ? 'nowDisplay' : 'asideDisplay'}>
@@ -841,77 +848,78 @@ function CampingDetailPage() {
               <IconContext.Provider
                 value={{ color: '#817161', size: '1.2rem' }}
               >
-                {asideDisplay ? (
-                  <div className="asideRWD">
-                    <div>
-                      <div className="d-flex align-items-center">
-                        <FaPaw className="me-2" />
-                        {v.title}
-                      </div>
-                      <div className="d-flex align-items-center">
-                        <BsPersonFill className="me-2" />
-                        尚可參加人數：{joinPep()} 人
-                      </div>
+                <div
+                  className={`asideRWD 
+                    ${asideDisplay ? 'show' : 'hidden'} transition
+                    `}
+                >
+                  <div>
+                    <div className="d-flex align-items-center">
+                      <FaPaw className="me-2" />
+                      {v.title}
                     </div>
-                    {/* btn */}
-                    <div>
-                      {user ? (
-                        userJoin.includes(v.id) ? (
-                          <button
-                            className={
-                              v.state !== '開團中'
-                                ? 'disabledBtn'
-                                : 'hadJoinBtn'
-                            }
-                            disabled={v.state !== '開團中' ? true : false}
-                            onClick={() => {
-                              cart.addItem({
-                                id: v.id,
-                                quantity: 1,
-                                name: v.title,
-                                price: v.price,
-                                ischecked: false,
-                              });
-                              handleDelJoin(v.id);
-                              setLoading(true);
-                            }}
-                          >
-                            取消活動
-                          </button>
-                        ) : (
-                          <button
-                            className={
-                              v.state !== '開團中' ? 'disabledBtn' : 'joinBtn'
-                            }
-                            disabled={v.state !== '開團中' ? true : false}
-                            onClick={() => {
-                              handleAddJoin(v.id);
-                              setLoading(true);
-                            }}
-                          >
-                            {stateBtn(v.state)}
-                          </button>
-                        )
-                      ) : (
+                    <div className="d-flex align-items-center">
+                      <BsPersonFill className="me-2" />
+                      尚可參加人數：{joinPep()} 人
+                    </div>
+                  </div>
+
+                  {/* btn */}
+                  <div>
+                    {user ? (
+                      userJoin.includes(v.id) ? (
                         <button
                           className={
-                            v.state !== '開團中' ? 'disabledBtn' : 'loginBtn'
+                            v.state !== '開團中' ? 'disabledBtn' : 'hadJoinBtn'
                           }
                           disabled={v.state !== '開團中' ? true : false}
                           onClick={() => {
-                            //TODO:
-                            setLoginBtn(true);
+                            console.log(v);
+                            cart.addItem({
+                              id: v.id,
+                              quantity: 1,
+                              name: v.title,
+                              price: v.price,
+                              ischecked: false,
+                              img: v.img1,
+                            });
+                            handleDelJoin(v.id);
+                            setLoading(true);
+                          }}
+                        >
+                          取消活動
+                        </button>
+                      ) : (
+                        <button
+                          className={
+                            v.state !== '開團中' ? 'disabledBtn' : 'joinBtn'
+                          }
+                          disabled={v.state !== '開團中' ? true : false}
+                          onClick={() => {
+                            handleAddJoin(v.id);
+                            setLoading(true);
                           }}
                         >
                           {stateBtn(v.state)}
                         </button>
-                      )}
-                    </div>
-                    {/* ------ */}
+                      )
+                    ) : (
+                      <button
+                        className={
+                          v.state !== '開團中' ? 'disabledBtn' : 'loginBtn'
+                        }
+                        disabled={v.state !== '開團中' ? true : false}
+                        onClick={() => {
+                          //TODO:
+                          setLoginBtn(true);
+                        }}
+                      >
+                        {stateBtn(v.state)}
+                      </button>
+                    )}
                   </div>
-                ) : (
-                  ''
-                )}
+                  {/* ------ */}
+                </div>
               </IconContext.Provider>
             </div>
           </main>

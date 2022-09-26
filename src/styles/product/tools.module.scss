@@ -23,6 +23,9 @@ p {
   &:hover {
     opacity: 1;
   }
+  @media (max-width:$rwdWidth) {
+    display: none;
+  }
 }
 .cartContainer {
   width: 100vw;
@@ -80,6 +83,11 @@ p {
       height: 1.2rem;
     }
   }
+  .nothingInCart {
+    position: absolute;
+    top: calc(50% - 11px);
+    left: calc(50% - 63px);
+  }
   .checkout {
     padding: 5px 107px;
     margin: 0 15px;
@@ -91,7 +99,7 @@ p {
     transition: 0.4s;
     &:hover {
       transform: translateY(-2px);
-      box-shadow:4px 4px $mainClrW, 3px 3px $mainClrW, 2px 2px $mainClrW, 1px 1px $mainClrW;
+      box-shadow:  2px 2px $mainClrW, 1px 1px $mainClrW;
     }
   }
 }

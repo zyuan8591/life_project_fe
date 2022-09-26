@@ -5,6 +5,7 @@ import '../../../styles/product/_productComment.scss';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
+import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL_IMG } from '../../../utils/config';
 
 const ProductComment = () => {
@@ -69,6 +70,7 @@ const ProductComment = () => {
               cols="50"
               rows="8"
               placeholder="寫下評論..."
+              minLength={10}
               value={writeComment}
               onChange={(e) => {
                 setWriteComment(e.target.value);
@@ -81,10 +83,11 @@ const ProductComment = () => {
         </div>
       </div>
       {comment.map((v, i) => {
+        console.log(v.photo);
         return (
           <>
             <div className="commentArea" key={i}>
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between align-items-sm-start align-items-center">
                 <div className="avatar">
                   <figure>
                     <img src={`${API_URL_IMG}${v.photo}`} alt="" />
@@ -93,7 +96,7 @@ const ProductComment = () => {
                 </div>
                 <div className="date">{v.create_time.slice(0, 10)}</div>
               </div>
-              <div className="mt-3 d-flex justify-content-between align-items-end">
+              <div className="mt-3 d-flex justify-content-between align-items-sm-end align-items-start">
                 <div className="comment pe-3">
                   <p>{v.comment}</p>
                 </div>
@@ -110,6 +113,7 @@ const ProductComment = () => {
           </>
         );
       })}
+      {comment.length === 0 && <NoDataDisplay noDataText={'留言'} />}
     </>
   );
 };

@@ -4,7 +4,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 
-function OrderCheck(props) {
+function OrderCheck() {
   const { setCurrentStep, orderId } = useCartStep();
 
   useEffect(() => {

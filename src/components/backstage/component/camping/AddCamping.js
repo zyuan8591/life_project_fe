@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import '../../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { IoCloseSharp } from 'react-icons/io5';
-import { GiCampingTent } from 'react-icons/gi';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
-import Notification from '../../../activity/Notification';
 import AddImgCamping from './AddImgCamping';
 import AddImgCamping2 from './AddImgCamping2';
 import AddImgCamping3 from './AddImgCamping3';
 
-function AddPage({ setAddPage }) {
+function AddPage({
+  setAddPage,
+  loading,
+  setLoading,
+  setErrMsg,
+  setLoginBtn,
+  setAdding,
+}) {
   const counties = {
     1: '台北市',
     2: '新北市',
@@ -35,24 +40,21 @@ function AddPage({ setAddPage }) {
   };
   const location = Object.keys(counties);
 
-  const [errMsg, setErrMsg] = useState(false);
-  const [loginBtn, setLoginBtn] = useState(false);
-
   const [camping, setCamping] = useState({
-    title: '',
-    place: '',
-    lat: '',
-    price: '',
-    pepCount: '',
-    lng: '',
-    actStartDate: '',
-    actEndDate: '',
-    startDate: '',
-    endDate: '',
-    county: '',
-    address: '',
-    actInt: '',
-    actLodging: '',
+    title: '露營樂',
+    place: 'camping',
+    lat: '24.9850214803992300',
+    price: '2400',
+    pepCount: '13',
+    lng: '121.46123328452258',
+    actStartDate: '2022-12-12',
+    actEndDate: '2022-12-13',
+    startDate: '2022-11-01',
+    endDate: '2022-11-30',
+    county: '1',
+    address: '仁德區保學一街',
+    actInt: 'rrrrrrrrr',
+    actLodging: 'qqqqqqqqq',
     photo: '',
   });
 
@@ -69,53 +71,6 @@ function AddPage({ setAddPage }) {
     console.log(campingData);
     setCamping(campingData);
   }
-
-  // function handleUpload(e) {
-
-  // }
-
-  // const [file, setFile] = useState(null);
-  // const [fileDataURL, setFileDataURL] = useState(null);
-
-  // const imageMimeType = /image\/(png|jpg|jpeg|webp)/i;
-
-  // recipe img handler
-  // const updateImgHandler = (e) => {
-  //   const file = e.target.files[0];
-
-  //   // check image type
-  //   if (!file.type.match(imageMimeType)) {
-  //     console.error('Image mime type is not valid');
-  //     return;
-  //   }
-
-  //   setFile(file);
-  //   setCamping({ ...camping, photo1: file });
-  // };
-
-  // useEffect(() => {
-  //   let fileReader,
-  //     isCancel = false;
-  //   if (file) {
-  //     fileReader = new FileReader();
-  //     // get image url
-  //     fileReader.onload = (e) => {
-  //       const { result } = e.target;
-  //       if (result && !isCancel) {
-  //         setFileDataURL(result);
-  //       }
-  //     };
-  //     fileReader.readAsDataURL(file);
-  //   }
-
-  //   // unmounting
-  //   return () => {
-  //     isCancel = true;
-  //     if (fileReader && fileReader.readyState === 1) {
-  //       fileReader.abort();
-  //     }
-  //   };
-  // }, [file]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -159,10 +114,12 @@ function AddPage({ setAddPage }) {
           setErrMsg(false);
         }, 2000);
       } else {
-        setLoginBtn(true);
+        setAdding(true);
+        setLoginBtn('add');
         setTimeout(() => {
           setLoginBtn(false);
-        }, 500);
+        }, 2000);
+        setLoading(!loading);
         setTimeout(() => {
           setAddPage(false);
         }, 500);
@@ -175,14 +132,6 @@ function AddPage({ setAddPage }) {
 
   return (
     <>
-      {errMsg ? (
-        <Notification contaninText="活動標題已存在">
-          <GiCampingTent />
-        </Notification>
-      ) : (
-        ''
-      )}
-      {loginBtn ? <Notification contaninText="新增成功" /> : ''}
       <div className="backstageAddPage">
         <form className="formContainer">
           <IconContext.Provider

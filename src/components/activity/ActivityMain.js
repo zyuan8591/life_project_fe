@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import '../../styles/activity/_activityMain.scss';
 import classes from '../../styles/moduleCss/activity_main/ActivityMain.module.scss';
 import MapMainPage from '../map/component/MapMainPage';
 import { IconContext } from 'react-icons';

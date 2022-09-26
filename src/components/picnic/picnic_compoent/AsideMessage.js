@@ -128,6 +128,7 @@ function AsideMessageFix({
                           name: item.picnic_title,
                           price: item.price,
                           ischecked: false,
+                          img: item.img1,
                         });
                       }}
                     >
@@ -221,6 +222,7 @@ function AsideMessageFix({
                             name: item.picnic_title,
                             price: item.price,
                             ischecked: false,
+                            item: item.img1,
                           });
                         }}
                       >

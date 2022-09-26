@@ -7,11 +7,20 @@
   padding: 0 0.5rem;
   margin-bottom: 2rem;
   box-shadow:0px 0px 5px $subClrGY; 
+  @media (max-width:375px){
+    font-size: $text14;
+  }
   
   .row{    
     --bs-gutter-x:0;
 
-    .col img{
+    .dnone{
+      @media (max-width: 440px) {
+        display: none;
+      }
+    }
+
+    img{
       max-width: 100%;
     }
   }
@@ -19,16 +28,21 @@
   .orderListTitle{
     align-items: center;
     line-height: 2rem;
-    padding: .5rem .5rem;
+    padding: .5rem 0;
     border-bottom: 1px solid $subClrGY;
   }
 
   .orderItemList{
-    padding:0;
+    // padding:0;
+    @media (max-width:375px){
+      font-size: $text12;
+      line-height: 0;
+    }
     
     .orderItem{
       align-items: center;
-      padding: 0.5rem .5rem;
+      padding: 0.5rem 0;
+      line-height: 2rem;
       border-bottom: 1px solid $subClrGY;
       
   
@@ -49,6 +63,7 @@
             width: 1rem;
             height: 1rem;
             border: 1px solid transparent;
+            display: none;
           }
           
         }
@@ -80,18 +95,26 @@
 
     }
   }
-  
 
   .orderListInfo{
-    align-items: center;
+    padding: .5rem 0;
     line-height: 2rem;
-    padding: 0.5rem 0;
+    position: relative;
+    @media (max-width:576px){
+      display: flex;
+      justify-content: space-around;
+    }
+
     .subTotal{
       position: absolute;
-      right:32px;
-      bottom: 0;
+      right:1rem;
+      @media (max-width:576px){
+        position: relative;
+        right:0;
+      } 
     }
-  }
+    
+  }   
 }
 
 
