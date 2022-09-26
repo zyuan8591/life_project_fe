@@ -19,15 +19,14 @@ const Summary = ({
 
   return (
     <>
-      <h2 className="h1 ps-3 text-center">付款摘要</h2>
-      <hr />
-
       <div className="summary">
+        <h2 className="h1 ps-3 text-center">付款摘要</h2>
+        <hr />
         <div>共 {productCount + picnicCount + campingCount} 項目</div>
 
         <div className="row gap-3">
           <div className="col">總計：</div>
-          <div className="col-2">
+          <div className="col-md-2 col-3">
             $ {productTotal + picnicTotal + campingTotal} 元
           </div>
         </div>

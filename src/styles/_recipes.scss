@@ -6,6 +6,7 @@
   padding: 3rem 2rem;
   color: $contentClr;
   position: relative;
+  // recipe category btn
   .cateBtnContainer {
     overflow: hidden;
     position: relative;
@@ -17,9 +18,6 @@
       gap: 1rem;
       transition: 0.5s;
       height: fit-content;
-
-      @media (max-width: 1000px) {
-      }
       @media (max-width: 500px) {
         width: 100%;
         flex-wrap: nowrap;
@@ -144,10 +142,13 @@
         gap: 1.5rem 1rem;
         place-items: center;
       }
-      .recipeBlockModeList,
-      .recipeListModeList {
-        max-width: 1054px;
+      @media (min-width: 1500px) {
+        .recipeBlockModeList,
+        .recipeListModeList {
+          max-width: 1054px;
+        }
       }
+
       @media (max-width: 1000px) {
         padding: 1rem 0 0 0;
       }

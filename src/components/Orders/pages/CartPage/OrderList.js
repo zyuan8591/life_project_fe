@@ -254,15 +254,18 @@ const OrderList = ({
                       />
                     </div>
                     <div className="col dnone">
-                      <img alt="" src={`/img/picnic/picnic_img/${v.img1}`} />
+                      <img
+                        alt=""
+                        src={`/img/picnic/activity_picnic_img/${v.img}`}
+                      />
                     </div>
                     <div className="col-md-2 col-3">{v.name}</div>
-                    <div className="col-md col-2">{v.price}</div>
+                    <div className="col-md col-2">$ {v.price}</div>
                     <div className="col">{v.quantity}</div>
-                    <div className="col-md col-2">{v.price * v.quantity}</div>
+                    <div className="col-md col-2">$ {v.price * v.quantity}</div>
                     <div className="col cursorPointer">
                       <IconContext.Provider
-                        value={{ color: 'black', size: '2rem' }}
+                        value={{ color: 'black', size: '1.5rem' }}
                       >
                         <TbTrash
                           onClick={() => {
@@ -307,7 +310,7 @@ const OrderList = ({
                     <div className="col-md col-2">$ {v.price * v.quantity}</div>
                     <div className="col cursorPointer">
                       <IconContext.Provider
-                        value={{ color: 'black', size: '2rem' }}
+                        value={{ color: 'black', size: '1.5rem' }}
                       >
                         <TbTrash
                           onClick={() => {
