@@ -51,7 +51,7 @@ const OrderList = ({
     <>
       {productItems.length > 0 && (
         <>
-          <h2 className="h1 ps-3">商品</h2>
+          <h2 className="h1 ps-3 title">商品</h2>
 
           <div className="orderList">
             <div className="row orderListTitle gap-md-3 gap-1">

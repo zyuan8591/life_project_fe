@@ -29,6 +29,13 @@
     }
   }
 
+  .title{
+    text-align: left;
+    @media (max-width:440px) {
+      text-align: center;
+    }
+  }
+
   .summary{
     // max-width: 1000px;
     margin: 0 1rem 2rem;
