@@ -73,8 +73,8 @@ const ProductRank = () => {
           {rankData.map((v, i) => {
             let { name, color, img, id } = v;
             return (
-              <Link to={`/products/${id}`} style={{ color: '#444' }}>
-                <div className="rank" key={i}>
+              <Link to={`/products/${id}`} style={{ color: '#444' }} key={id}>
+                <div className="rank">
                   <div
                     className={`${i === 0 ? 'one' : ''} ${
                       i === 1 ? 'two' : ''

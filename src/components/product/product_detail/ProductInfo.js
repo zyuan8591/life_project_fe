@@ -15,6 +15,10 @@ import { API_URL_IMG } from '../../../utils/config';
 import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
 import BreadCrumb from '../../public_component/BreadCrumb';
+import { Col, Row, Statistic } from 'antd';
+const { Countdown } = Statistic;
+const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
+// const deadline = Date.now() ;
 
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
@@ -54,11 +58,12 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     return v.id;
   });
 
-  console.log();
   useEffect(() => {
     setMainPic(pic);
   }, [data]);
-
+  const onFinish = () => {
+    console.log('finished!');
+  };
   return (
     <div className="infoContainer">
       {cartConfirm ? (
@@ -127,7 +132,16 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
         <div className="infoArea">
           <div className="brand">{brand}</div>
           <div className="name">{name}</div>
-          <div className="promotion">宅配滿NT$888免運</div>
+          <div className="promotion">
+            <p>宅配滿NT$888免運</p>
+            <Col span={12}>
+              <Countdown
+                value={deadline}
+                onFinish={onFinish}
+                valueStyle={{ color: 'red', textAlign: 'end' }}
+              />
+            </Col>
+          </div>
           <div>
             <div className="price">
               NT${' '}
@@ -168,7 +182,7 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   <button>
                     <AiFillPlusCircle
                       onClick={() => {
-                        if (quantity < 99) {
+                        if (quantity < inventory) {
                           setQuantity(quantity + 1);
                         }
                       }}

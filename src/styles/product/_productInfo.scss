@@ -90,11 +90,17 @@
         }
       }
       .promotion {
-        font-size: 18px;
-        color: $hoverClr;
-        background: $subClrBrown;
-        padding: 5px;
-        display: inline-block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+          padding: 5px;
+          margin: 0;
+          font-size: 18px;
+          color: $hoverClr;
+          background: $subClrBrown;
+        }
         @media (max-width: $rwdWidth) {
           font-size: 16px;
         }
