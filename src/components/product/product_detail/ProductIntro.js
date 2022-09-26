@@ -2,7 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import axios from 'axios';
-import { API_URL } from '../../../utils/config';
+import { API_URL, API_URL_IMG } from '../../../utils/config';
+
 
 const ProductIntro = () => {
   const [img, setImg] = useState([]);
@@ -19,7 +20,7 @@ const ProductIntro = () => {
       {img.map((v, i) => {
         return (
           <img
-            src={`/img/product/product_detail_img/${v.img}`}
+            src={`${API_URL_IMG}/product/product_detail_img/${v.img}`}
             alt=""
             key={i}
           />

@@ -6,14 +6,31 @@
   display: flex;
   justify-content: center;
   border-bottom: 1px solid $subClrGY;
+  @media (max-width:$rwdWidth) {
+    max-width: $rwdWidth;
+  }
   .frame {
     width: 122px;
     padding: 10px 12px 0;
     border-radius: 5px 5px 0 0;
     background: $mainClrW;
     margin: 0 5px;
+    @media (max-width:$rwdWidth) {
+      width: 70px;
+      height: 35px;
+      padding: 0 !important;
+      background: $mainClrW !important;
+      color: $contentClr;
+      border: 0;
+      margin: 0 auto;
+    }
     &:hover {
       background: $subClrBrown;
+      @media (max-width:$rwdWidth) {
+        border: 0;
+        background: $mainClrW;
+        color: $subClrBrown;
+       }
     }
     &:hover button {
       background: $subClrBrown;
@@ -21,6 +38,11 @@
       border: 1px dashed $focusClrY;
       border-bottom: 0;
       border-radius: 5px 5px 0 0;
+      @media (max-width:$rwdWidth) {
+       border: 0;
+       background: $mainClrW;
+       color: $subClrBrown;
+      }
     }
     button {
       color: $contentClr;
@@ -31,7 +53,11 @@
       font-weight: 600;
       border: 1px solid rgba(0, 0, 0, 0);
       border-radius: 5px 5px 0 0;
-
+      @media (max-width:$rwdWidth) {
+        font-size: 16px;
+        font-weight: 400;
+        padding: 0 !important;
+      }
     }
     .active {
       background: $subClrBrown;
@@ -39,6 +65,11 @@
       border: 1px dashed $focusClrY;
       border-bottom: 0;
       border-radius: 5px 5px 0 0;
+      @media (max-width:$rwdWidth) {
+        background: $mainClrW;
+        color: $subClrBrown;
+        border: 0;
+      }
     }
   }
 }

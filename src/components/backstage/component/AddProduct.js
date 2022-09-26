@@ -3,77 +3,108 @@ import '../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
-import { FiShoppingBag } from "react-icons/fi";
+import { FiShoppingBag } from 'react-icons/fi';
+import AddImgProduct from './AddImgProduct';
+import AddImgProduct2 from './AddImgProduct2';
+import AddImgProduct3 from './AddImgProduct3';
+import AddImgProduct4 from './AddImgProduct4';
 
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
-function AddPage({ setAddPage }) {
+function AddPage({
+  setAddPage,
+  loading,
+  setLoading,
+  lastPage,
+  setPageNow,
+  setLoginBtn,
+}) {
   const [errMsg, setErrMsg] = useState(false);
-  const [loginBtn, setLoginBtn] = useState(false);
+  // const [loginBtn, setLoginBtn] = useState(false);
 
   const [product, setProduct] = useState({
-    name: '享靜靜露營吧！',
-    cate: '享靜靜露營區',
-    color: '15',
+    name: '義大利半自動義式咖啡機',
+    cate: 9,
+    color: '白色',
     inventory: 12,
-    price: '1000',
-    actStartDate: '2022-12-12',
-    actEndDate: '2022-12-13',
-    intro: 'hhhhhhhh',
-    spec: 'cccccccccc',
+    price: 25800,
+    // actStartDate: '2022-09-01',
+    // actEndDate: '2022-09-29',
+    intro:
+      '榮獲Good Design大獎 15Bar氣壓蒸氣高壓萃取技術 不鏽鋼蒸氣奶泡管，完成綿密奶泡 自動停止滴漏設計 1公升分離式透明水箱，加水便利',
+    spec: '類型	半自動咖啡機, 義式咖啡機/品牌	SMEG/型號	ECF01CRUS/顏色	白色系/產地	中國/機身材質	不鏽鋼/機身尺寸(長x寬x高)(mm)	14.9 x 37 x 30 cm/電壓	120V/產品重量	5kg/水箱容量	0.5公升-1公升/保固	1年/消耗功率	1200~1400W/BSMI許可字號	R45336',
+    photo1: '',
+    photo2: '',
+    photo3: '',
   });
+  function handleChange(e) {
+    const newProduct = { ...product, [e.target.name]: e.target.value };
 
-  function handleChange(e) {}
-
+    setProduct(newProduct);
+    // console.log(newProduct);
+  }
+  let brand = 11;
   async function handleSubmit(e) {
     e.preventDefault();
-    // 驗證
 
-    // if (camping[e.target.name] === '') return alert('ok');
+    console.log(loading);
     try {
+      let formData = new FormData();
+      formData.append('name', product.name);
+      formData.append('price', product.price);
+      formData.append('cate', product.cate);
+      formData.append('brand', brand);
+      formData.append('color', product.color);
+      formData.append('intro', product.intro);
+      formData.append('spec', product.spec);
+      formData.append('inventory', product.inventory);
+      formData.append('photo1', product.photo1);
+      formData.append('photo1', product.photo2);
+      formData.append('photo1', product.photo3);
+      formData.append('photo1', product.photo4);
       let response = await axios.post(
         `${API_URL}/products/addProduct`,
-        product
+        formData
+        // {
+        //   withCredentials: true,
+        // }
       );
-      if (response.data.message === '此活動標題已存在') {
+      if (response.data.message === '此商品已存在') {
         setErrMsg(true);
         setTimeout(() => {
           setErrMsg(false);
         }, 2000);
       } else {
-        setLoginBtn(true);
+        setLoading(!loading);
+        setLoginBtn('add');
         setTimeout(() => {
-          setLoginBtn(false);
+          setPageNow(lastPage);
+        }, 1000);
+        setTimeout(() => {
+          setLoginBtn('');
         }, 2000);
+        setTimeout(() => {
+          setAddPage(false);
+        }, 600);
       }
-      console.log(response.data.message);
+      // console.log(response.data.message);
+      // console.log(formData);
     } catch (e) {
       console.error('addCamping', e);
     }
   }
 
-  function handleUpload(e) {}
-
   return (
     <>
       {errMsg ? (
-        <Notification contaninText="活動標題已存在">
+        <Notification contaninText="商品名稱重複">
           <FiShoppingBag />
         </Notification>
       ) : (
         ''
       )}
-      {loginBtn ? (
-        <Notification
-          // linkToText="返回列表頁"
-          // linkTo="/backstageCamping"
-          contaninText="新增成功"
-          // setLoginBtn={setLoginBtn}
-        />
-      ) : (
-        ''
-      )}
+
       <div className="backstageAddPage">
         <form className="formContainer">
           <IconContext.Provider
@@ -87,9 +118,9 @@ function AddPage({ setAddPage }) {
           </IconContext.Provider>
 
           <div className="pageTitle">
-            <p>新增活動</p>
+            <p>新增商品</p>
           </div>
-          <div className="d-flex justify-content-center mt-4">
+          <div className="grid">
             {/* title place lat */}
             <div className="d-flex flex-column align-items-end">
               <div className="mb-4">
@@ -109,8 +140,8 @@ function AddPage({ setAddPage }) {
                 <label>商品分類：</label>
                 <input
                   className="input"
-                  id="category"
-                  name="category"
+                  id="cate"
+                  name="cate"
                   type="text"
                   maxLength={15}
                   value={product.cate}
@@ -131,9 +162,8 @@ function AddPage({ setAddPage }) {
                 />
               </div>
             </div>
-
             {/* price pepCount lng */}
-            <div className="ms-5 d-flex flex-column align-items-end">
+            <div className="">
               <div className="mb-4">
                 <label>庫存：</label>
                 <input
@@ -158,89 +188,38 @@ function AddPage({ setAddPage }) {
                   onChange={handleChange}
                 />
               </div>
-              {/* <div className="mb-4">
-                <label>緯度：</label>
-                <input
-                  className="input"
-                  id="lng"
-                  name="lng"
-                  type="text"
-                  maxLength={20}
-                  value={product.lng}
-                  onChange={handleChange}
-                />
-              </div> */}
             </div>
           </div>
 
           {/* actDate */}
-          <div className="mb-4 leftInput dateInput">
-            <label>折扣日期：</label>
-            <input
-              className="input"
-              id="actStartDate"
-              name="actStartDate"
-              type="date"
-              maxLength={10}
-              value={product.actStartDate}
-              onChange={handleChange}
-            />
-            <span>&emsp;～&emsp;</span>
-            <input
-              className="input"
-              id="actEndDate"
-              name="actEndDate"
-              type="date"
-              maxLength={10}
-              value={product.actEndDate}
-              onChange={handleChange}
-            />
+          <div className="grid2">
+            <div className="d-flex flex-column align-items-end">
+              <div className="mb-4 ">
+                <label>折扣日期：</label>
+                <input
+                  className="input"
+                  id="actStartDate"
+                  name="actStartDate"
+                  type="date"
+                  maxLength={10}
+                  value={product.actStartDate}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <span>&emsp;　&emsp;</span>
+              <input
+                className="input"
+                id="actEndDate"
+                name="actEndDate"
+                type="date"
+                maxLength={10}
+                value={product.actEndDate}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-
-          {/* date */}
-          {/* <div className="mb-4 leftInput dateInput">
-            <label>報名日期：</label>
-            <input
-              className="input "
-              id="startDate"
-              name="startDate"
-              type="date"
-              maxLength={10}
-              value={product.startDate}
-              onChange={handleChange}
-            />
-            <span>&emsp;～&emsp;</span>
-            <input
-              className="input"
-              id="endDate"
-              name="endDate"
-              type="date"
-              maxLength={10}
-              value={product.endDate}
-              onChange={handleChange}
-            />
-          </div> */}
-
-          {/* address */}
-          {/* <div className="mb-4 leftInput">
-            <label>活動地址：</label>
-            <select name="county" id="county">
-              <option value="1">新北市</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
-            </select>
-            <input
-              className="input addressSty"
-              id="address"
-              name="address"
-              type="text"
-              maxLength={25}
-              value={product.address}
-              onChange={handleChange}
-            />
-          </div> */}
-
           {/* int */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
             <label className="mb-2">商品介紹：</label>
@@ -260,12 +239,12 @@ function AddPage({ setAddPage }) {
             <label className="mb-2">商品規格：</label>
             <textarea
               className="textContent"
-              placeholder="限150字"
+              placeholder="限200字"
               id="spec"
               name="spec"
               rows="5"
               cols="68"
-              maxLength={150}
+              maxLength={200}
               value={product.spec}
               onChange={handleChange}
             />
@@ -273,54 +252,19 @@ function AddPage({ setAddPage }) {
 
           {/* img */}
           <div className="mb-4 leftInput">商品圖片：</div>
-          <div className="mb-4 d-flex justify-content-center">
-            {/* 1 */}
-            <label className="mb-4" htmlFor="photo1">
-              <div className="d-flex flex-column align-items-center imgInput me-4">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-            <input
-              className="input d-none"
-              name="Img1"
-              type="file"
-              id="photo1"
-              onChange={handleUpload}
-            />
-            {/* 2 */}
-            <label className="mb-4" htmlFor="photo2">
-              <div className="d-flex flex-column align-items-center imgInput me-4">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-
-            <input
-              className="input d-none"
-              name="Img2"
-              type="file"
-              id="photo2"
-            />
-            {/* 3 */}
-            <label className="mb-4" htmlFor="photo3">
-              <div className="d-flex flex-column align-items-center imgInput">
-                <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                  <AiOutlineCamera />
-                </IconContext.Provider>
-                <span>點擊新增圖片</span>
-              </div>
-            </label>
-            <input
-              className="input d-none"
-              name="Img3"
-              type="file"
-              id="photo3"
-            />
+          <div className="mb-4 d-flex justify-content-center ms-4">
+            <AddImgProduct product={product} setProduct={setProduct} />
+            <AddImgProduct2 product={product} setProduct={setProduct} />
+            <AddImgProduct3 product={product} setProduct={setProduct} />
+            {/* {[...Array(3)].map((v, i) => {
+              return (
+                
+              );
+            })} */}
+          </div>
+          <div className="mb-4 leftInput">商品詳細圖片：</div>
+          <div className="mb-4 d-flex justify-content-center ms-4">
+            <AddImgProduct4 product={product} setProduct={setProduct} />
           </div>
           {/* btn */}
           <div className="mt-5 mb-4 text-center">

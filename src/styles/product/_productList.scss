@@ -19,7 +19,7 @@ $numberSize: 36px;
   color: $contentClr;
 }
 .product {
-  margin: $headerHeight + 10px auto 200px;
+  margin: $headerHeight auto 200px;
   max-width: $maxWidth;
   color: $contentClr;
   .reset {
@@ -27,7 +27,10 @@ $numberSize: 36px;
     margin: 0;
     .title {
       border-bottom: 2px solid $subClrGY;
-
+      padding-top: 5px;
+      @media (max-width: $rwdWidth) {
+        background: #eeeeee;
+      }
       h4,
       p {
         margin: 0;
@@ -37,8 +40,8 @@ $numberSize: 36px;
     .rankTitle {
       margin-top: 5px;
     }
-    .test1 {
-      height: 320px;
+    .rankContainer {
+      min-height: 320px;
       // &:hover .rank{
       //   filter:blur(3px);
       //   opacity:.5;
@@ -51,21 +54,38 @@ $numberSize: 36px;
       //   opacity:1;
       //   box-shadow:0 10px 20px 0px rgba(0,0,0,.3);
       // }
+      @media (max-width: $rwdWidth) {
+        min-height: 220px;
+      }
+
       .rank {
         position: relative;
         height: 300px;
         width: 250px;
         margin-right: 38px;
+        @media (max-width: $rwdWidth) {
+          height: 120px;
+          width: 120px;
+          margin-right: 5px;
+        }
         .number {
           width: $numberSize;
           height: $numberSize;
           background: $other;
           text-align: center;
           line-height: 2.25rem;
+          @media (max-width: $rwdWidth) {
+            height: 20px;
+            width: 20px;
+            line-height: 1rem;
+          }
           p {
             margin: 0;
             font-size: $text24;
             color: $mainClrW;
+            @media (max-width: $rwdWidth) {
+              font-size: 1rem;
+            }
           }
         }
         .one {
@@ -86,6 +106,13 @@ $numberSize: 36px;
           z-index: -1;
           margin: 0;
           padding: 0;
+          display: flex;
+          align-items: center;
+          @media (max-width: $rwdWidth) {
+            min-width: 100px;
+            height: 100px;
+            left: 10px;
+          }
           img {
             width: 100%;
             object-fit: cover;
@@ -94,6 +121,9 @@ $numberSize: 36px;
         }
         p {
           margin: 214px 0 0;
+          @media (max-width: $rwdWidth) {
+            margin: 120px 0 0;
+          }
         }
       }
     }
