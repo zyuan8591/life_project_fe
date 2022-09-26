@@ -50,6 +50,9 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const [cartConfirm, setCartConfirm] = useState(false);
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
+  const cart = productCart.state.items.map((v) => {
+    return v.id;
+  });
 
   console.log();
   useEffect(() => {
@@ -182,25 +185,55 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   size: '1.6rem',
                 }}
               >
-                <button
-                  onClick={() => {
-                    console.log(quantity);
-                    productCart.addItem({
-                      id: id,
-                      quantity: quantity,
-                      name: name,
-                      price: price,
-                      ischecked: false,
-                      img: img,
-                    });
-                    setCartConfirm(true);
-                    setTimeout(() => {
-                      setCartConfirm(false);
-                    }, 1200);
-                  }}
-                >
-                  <IoCartOutline />
-                </button>
+                {cart.includes(id) ? (
+                  <IconContext.Provider
+                    value={{
+                      color: '#F2AC33 ',
+                      size: '1.6rem',
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        console.log(quantity);
+                        productCart.addItem({
+                          id: id,
+                          quantity: quantity,
+                          name: name,
+                          price: price,
+                          ischecked: false,
+                          img: img,
+                        });
+                        setCartConfirm(true);
+                        setTimeout(() => {
+                          setCartConfirm(false);
+                        }, 1200);
+                      }}
+                    >
+                      <IoCartSharp />
+                    </button>
+                  </IconContext.Provider>
+                ) : (
+                  <button
+                    onClick={() => {
+                      console.log(quantity);
+                      productCart.addItem({
+                        id: id,
+                        quantity: quantity,
+                        name: name,
+                        price: price,
+                        ischecked: false,
+                        img: img,
+                      });
+                      setCartConfirm(true);
+                      setTimeout(() => {
+                        setCartConfirm(false);
+                      }, 1200);
+                    }}
+                  >
+                    <IoCartOutline />
+                  </button>
+                )}
+
                 {user ? (
                   <button
                     onClick={async () => {

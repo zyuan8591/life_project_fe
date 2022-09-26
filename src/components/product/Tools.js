@@ -13,6 +13,7 @@ import { useProductCart } from '../../orderContetxt/useProductCart';
 import { Link } from 'react-router-dom';
 import Notification from '../activity/Notification';
 import { useUserRights } from '../../usecontext/UserRights';
+import { Avatar, Badge } from 'antd';
 
 const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
@@ -21,7 +22,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       {loginBtn ? (
@@ -46,11 +47,22 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
               setHeart(!heart);
             }}
           />
-          <IoCartOutline
-            onClick={() => {
-              setCart(true);
-            }}
-          />
+          <Badge
+            count={productCart.state.items.length}
+            // status="processing"
+            color="red"
+            overflowCount="99"
+            offset={[1, 5]}
+            size="small"
+          >
+            <IconContext.Provider value={{ size: '2rem', color: 'white' }}>
+              <IoCartOutline
+                onClick={() => {
+                  setCart(true);
+                }}
+              />
+            </IconContext.Provider>
+          </Badge>
           <AiOutlineCreditCard
             onMouseOver={() => {
               setPoint(true);
