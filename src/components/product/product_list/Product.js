@@ -162,7 +162,7 @@ const Product = ({
                     />
                   )}
 
-                  <div style={{ cursor: 'pointer' }}>
+                  <div style={{ cursor: 'pointer' }} className="me-1">
                     {cart.includes(id) ? (
                       <IconContext.Provider
                         value={{

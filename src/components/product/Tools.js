@@ -21,7 +21,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
-
+  
   return (
     <>
       {loginBtn ? (
@@ -142,7 +142,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
             transform: cart ? 'translateX(-300px)' : 'translateX(0px)',
           }}
         >
-          <p>點數 : 27 </p>
+          <p>點數 : {user.points} </p>
           {/* <p> 一點折一元</p>
           <p>每200元能獲得一點</p> */}
           <div className={classess.triangle}></div>

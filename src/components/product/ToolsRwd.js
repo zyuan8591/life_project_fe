@@ -5,7 +5,7 @@ import { IconContext } from 'react-icons';
 import { IoIosArrowUp, IoMdClose } from 'react-icons/io';
 import { TbAlignJustified } from 'react-icons/tb';
 import { IoCloseOutline } from 'react-icons/io5';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { BsArrowRightCircle } from 'react-icons/bs';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../utils/config';
@@ -56,7 +56,7 @@ const ToolsRwd = ({
           />
         </IconContext.Provider>
         <IconContext.Provider value={{ size: '2.2rem', color: 'white' }}>
-          <IoIosArrowUp />
+          <IoIosArrowUp onClick={() => window.scrollTo({ top: 0 })} />
         </IconContext.Provider>
       </div>
       <div
@@ -80,17 +80,25 @@ const ToolsRwd = ({
           </div>
           <div
             className="cateArea"
-            style={{ height: cateActive ? '' : '317.4px' }}
+            style={{ height: cateActive ? '520px' : '317.4px' }}
           >
             <div
               className="cateTitle"
               onClick={() => {
                 setCateActive(!cateActive);
+                console.log(cateActive);
               }}
             >
               <h5>Category</h5>
               <IconContext.Provider value={{ size: '1.4rem', color: '#444' }}>
-                <AiFillPlusCircle />
+                <div className="cateBtn">
+                  <div className={`${cateActive ? 'rotate' : 'minus'}`}>
+                    <AiFillMinusCircle />
+                  </div>
+                  <div className={`${cateActive ? 'plus' : 'rotate2'}`}>
+                    <AiFillPlusCircle />
+                  </div>
+                </div>
               </IconContext.Provider>
             </div>
             <div className="cateGrid">
@@ -109,10 +117,14 @@ const ToolsRwd = ({
                     }}
                   >
                     <div className="catePic">
-                      {/* <img
-                        src={`${API_URL_IMG}/product/product_icon/${v.img}`}
-                        alt=""
-                      /> */}
+                      {v.id === 0 ? (
+                        <p>All</p>
+                      ) : (
+                        <img
+                          src={`${API_URL_IMG}/product/product_icon/${v.img}`}
+                          alt=""
+                        />
+                      )}
                     </div>
                     <p>{v.name}</p>
                   </div>
@@ -122,7 +134,7 @@ const ToolsRwd = ({
           </div>
           <div
             className="brandArea"
-            style={{ height: brandActive ? '' : '60px' }}
+            style={{ height: brandActive ? '871px' : '60px' }}
           >
             <div
               className="brandTitle"
@@ -132,7 +144,14 @@ const ToolsRwd = ({
             >
               <h5>Brand</h5>
               <IconContext.Provider value={{ size: '1.4rem', color: '#444' }}>
-                <AiFillPlusCircle />
+                <div className="brandBtn">
+                  <div className={`${brandActive ? 'rotate' : 'minus'}`}>
+                    <AiFillMinusCircle />
+                  </div>
+                  <div className={`${brandActive ? 'plus' : 'rotate2'}`}>
+                    <AiFillPlusCircle />
+                  </div>
+                </div>
               </IconContext.Provider>
             </div>
             <div className="brandGrid">
