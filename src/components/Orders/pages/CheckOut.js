@@ -72,6 +72,7 @@ const CheckOut = () => {
     cardMonth: '',
     cardYear: '',
     cardCvc: '',
+    point: '',
     // productItems:[{}]
     // productTotal:10000
   };
@@ -85,6 +86,8 @@ const CheckOut = () => {
   const campingItems = campingCart.state.items;
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
+  const point = localStorage.getItem('usePoint');
+  console.log(point);
 
   return (
     <>
@@ -108,6 +111,7 @@ const CheckOut = () => {
           productTotal,
           picnicTotal,
           campingTotal,
+          point,
         }}
         validationSchema={yup.object({
           name: yup
@@ -148,6 +152,16 @@ const CheckOut = () => {
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
+            await axios.post(
+              `${API_URL}/user/points`,
+              {
+                point: point, //新增/扣除點數
+                event: '購物折扣', //名目
+              },
+              {
+                withCredentials: true,
+              }
+            );
             // console.log(response);
             if (response.data) {
               setIsOrder(true);
@@ -157,6 +171,7 @@ const CheckOut = () => {
           } catch (e) {
             console.error('order', e);
           }
+
           // console.log(values);
         }}
       >

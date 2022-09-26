@@ -3,58 +3,60 @@ import { useProductCart } from '../../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
 
-const Summary = (props) => {
-  const productCart = useProductCart();
-  const picnicCart = usePicnicCart();
-  const campingCart = useCampingCart();
+const Summary = ({
+  point,
+  usePoint = 0,
+  setUsePoint,
+  productCount,
+  picnicCount,
+  campingCount,
+  productTotal = 0,
+  picnicTotal = 0,
+  campingTotal = 0,
+}) => {
+  // console.log(point);
+  // console.log(productTotal, picnicTotal, campingTotal);
+
   return (
     <>
-      <h2 className="h1 ps-3 pb-2 text-center">付款摘要</h2>
+      <h2 className="h1 ps-3 text-center">付款摘要</h2>
       <hr />
 
-      <div className="row summary">
-        <div className="row text-end">
-          <div className="col">
-            共{' '}
-            {productCart.state.totalItems +
-              picnicCart.state.totalItems +
-              campingCart.state.totalItems}{' '}
-            項目
+      <div className="summary">
+        <div>共 {productCount + picnicCount + campingCount} 項目</div>
+
+        <div className="row gap-3">
+          <div className="col">總計：</div>
+          <div className="col-2">
+            $ {productTotal + picnicTotal + campingTotal} 元
           </div>
         </div>
-        <div className="row">
-          <div className="row text-end">
-            <div className="col-10">總計：</div>
-            <div className="col">
-              ${' '}
-              {productCart.state.cartTotal +
-                picnicCart.state.cartTotal +
-                campingCart.state.cartTotal}
-            </div>
+
+        {/* TODO: 點數 */}
+        <div className="row gap-3 align-items-center">
+          <div className="col">LIFE點數(現有:{point})：</div>
+          <div className="col-2">
+            <input
+              type="text"
+              value={usePoint}
+              onChange={(e) => {
+                let value = e.target.value.replace(/[^\d]/, '');
+                console.log('e', value);
+                if (value > point) return;
+                setUsePoint(parseInt(value || 0));
+                localStorage.setItem('usePoint', e.target.value);
+              }}
+            />
           </div>
-          {/* TODO: 點數 */}
-          <div className="row text-end ">
-            <div className="col-10">LIFE點數(現有:265)：</div>
-            <div className="col-2">
-              100
-              {/* <select>
-                <option value={100} />
-              </select> */}
-            </div>
-          </div>
-          <div className="row text-end text-danger ">
-            <div className="col-10">折扣金額：</div>
-            <div className="col">-100</div>
-          </div>
-          <div className="row text-end">
-            <div className="col-10">應付金額：</div>
-            <div className="col">
-              ${' '}
-              {productCart.state.cartTotal +
-                picnicCart.state.cartTotal +
-                campingCart.state.cartTotal -
-                100}
-            </div>
+        </div>
+        <div className="row gap-3 text-danger ">
+          <div className="col">折扣金額：</div>
+          <div className="col-2 px-1"> {-usePoint}</div>
+        </div>
+        <div className="row gap-3 mt-3">
+          <div className="col h5">應付金額：</div>
+          <div className="col-2 h5">
+            $ {productTotal + picnicTotal + campingTotal - usePoint} 元
           </div>
         </div>
       </div>
