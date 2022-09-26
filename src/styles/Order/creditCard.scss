@@ -13,13 +13,9 @@
   // top: 0;
   // border:none;
 
-  @media screen and (max-width: 440px) {
-    .cCard{
-      max-width: 310px;
-      height: 180px;
-      margin-bottom: -100px;
-    }
-    
+  
+  @media (max-width: 576px) {
+    display: none;   
   }
 
   &.active{

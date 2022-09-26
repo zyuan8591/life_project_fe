@@ -31,7 +31,7 @@
 
   .title{
     text-align: left;
-    @media (max-width:440px) {
+    @media (max-width:576px) {
       text-align: center;
     }
   }
@@ -63,7 +63,9 @@
         // border:1px solid $focusClrB;
       }
     }
+    
 
+    
   }
 
   .payment{
@@ -159,6 +161,9 @@
         }
         @media (max-width: 440px) {
           font-size: $text12;
+          select,input{
+            padding: 0;
+          }
       }
       }
       
