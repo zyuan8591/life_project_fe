@@ -28,9 +28,9 @@ const PaginationBar = ({
   moreText = '食譜',
 }) => {
   useEffect(() => {
-    console.log('lastPage', lastPage);
-    console.log('pageNow', pageNow);
-    console.log('perPage', perPage);
+    // console.log('lastPage', lastPage);
+    // console.log('pageNow', pageNow);
+    // console.log('perPage', perPage);
   }, []);
 
   const [displayPage, setDisplayPage] = useState(10);
