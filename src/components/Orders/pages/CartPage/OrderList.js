@@ -298,7 +298,7 @@ const OrderList = ({
                     <div className="col dnone">
                       <img
                         alt=""
-                        src={`img/camping/activity_camping_img/${v.img}`}
+                        src={`/img/camping/activity_camping_img/${v.img}`}
                       />
                     </div>
                     <div className="col-md-2 col-3">{v.name}</div>

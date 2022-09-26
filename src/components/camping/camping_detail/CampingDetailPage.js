@@ -275,6 +275,7 @@ function CampingDetailPage() {
             name: v.title,
             price: v.price,
             ischecked: false,
+            img: v.img1,
           });
           //TODO: 改掉alert
           setAddActConfirm(true);
@@ -873,12 +874,14 @@ function CampingDetailPage() {
                           }
                           disabled={v.state !== '開團中' ? true : false}
                           onClick={() => {
+                            console.log(v);
                             cart.addItem({
                               id: v.id,
                               quantity: 1,
                               name: v.title,
                               price: v.price,
                               ischecked: false,
+                              img: v.img1,
                             });
                             handleDelJoin(v.id);
                             setLoading(true);

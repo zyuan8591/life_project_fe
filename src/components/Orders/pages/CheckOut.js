@@ -5,6 +5,8 @@ import CartDetail from './CheckPage/CartDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
 import Payment from './CheckPage/Payment';
 // import CreditCard from './CheckPage/CreditCard';
+import Notification from '../../activity/Notification';
+import { useUserRights } from '../../../usecontext/UserRights';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -16,6 +18,7 @@ import * as yup from 'yup';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 const CheckOut = () => {
+  const { user } = useUserRights();
   const { currentStep, setCurrentStep, setOrderId } = useCartStep();
   const navigate = useNavigate();
 
@@ -148,6 +151,7 @@ const CheckOut = () => {
           // }),
         })}
         onSubmit={async (values) => {
+          if (!user.id) return;
           try {
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
