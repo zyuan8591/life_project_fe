@@ -61,7 +61,7 @@ function CampingMain() {
   useEffect(() => {
     let getCampingData = async () => {
       let response = await axios.get(
-        `${API_URL}/camping?state=${state}&maxPrice=${maxPrice}&minPrice=${minPrice}&minDate=${minDate}&maxDate=${maxDate}&search=${search}&order=${order}&page=${page}&maxJoinTtl=${maxJoinTtl}&minJoinTtl=${minJoinTtl}`
+        `${API_URL}/camping?state=${state}&maxPrice=${maxPrice}&minPrice=${minPrice}&minDate=${minDate}&maxDate=${maxDate}&search=${search}&order=${order}&page=${page}&maxJoinTtl=${maxJoinTtl}&minJoinTtl=${minJoinTtl}&per=${perPage}`
       );
       // console.log(response.data.pagination.total);
       setnumberTtl(response.data.pagination.total);
