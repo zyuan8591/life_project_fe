@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as yup from 'yup';
+import { Form, Input } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL } from '../../../utils/config';
 import '../../../styles/picnic/_createPincnic.scss';
@@ -150,7 +149,7 @@ function CreatePincnic() {
       {loginBtn ? (
         <Notification
           contaninText={'請先登入會員'}
-          linkTo={'/signin/login'}
+          linkTo={'/signin?p=1'}
           setLoginBtn={setLoginBtn}
         />
       ) : (
@@ -161,6 +160,13 @@ function CreatePincnic() {
         <div>
           <form className="d-flex flex-column">
             <div className="form d-flex flex-column mt-4 mb-2">
+              <Form.Item
+                label="活動標題"
+                validateStatus="error"
+                help={remindTitle}
+              >
+                <Input placeholder="unavailable choice" id="error" />
+              </Form.Item>
               <label>
                 <FaPenAlt className="faIcon" />
                 活動標題 <span className="remindText">{remindTitle}</span>

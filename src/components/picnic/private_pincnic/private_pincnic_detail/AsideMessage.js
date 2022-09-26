@@ -7,6 +7,7 @@ import MapAside from '../../../map/component/MapAside';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
 
 function AsideMessage({
   data,
@@ -18,6 +19,10 @@ function AsideMessage({
   setLoginBtn,
 }) {
   const [scrollDown, setScrollDown] = useState(false);
+
+  useEffect(() => {
+    console.log('userJoin', userJoin);
+  }, [userJoin]);
 
   const stateColor = (state) => {
     switch (state) {
@@ -49,6 +54,7 @@ function AsideMessage({
   // 上可報名人數 = 限制上限 - 加入
   function lastCount(limit, currentJoin) {
     let result = limit - currentJoin;
+    console.log('result', result);
     if (result !== 0) {
       return result;
     } else {

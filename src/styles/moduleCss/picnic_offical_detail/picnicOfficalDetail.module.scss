@@ -703,4 +703,11 @@
             box-shadow: .5px .5px 6px $subClrGY;
         }  
     }
+    a,
+    a:visited,
+    a:hover,
+    a:active {
+      color: $contentClr;
+      text-decoration: none;
+    }
 }

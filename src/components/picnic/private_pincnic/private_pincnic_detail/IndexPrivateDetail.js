@@ -98,8 +98,8 @@ function IndexPrivateDetail() {
       { withCredentials: true }
     );
     // 回傳user所有加入活動
-    // let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
-    // setUserJoin(nowJoin);
+    let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
+    setUserJoin(nowJoin);
     console.log('add', response.data);
     setJoinConfirmm(true);
     setTimeout(() => {
@@ -195,7 +195,7 @@ function IndexPrivateDetail() {
         {loginBtn ? (
           <Notification
             contaninText={'請先登入會員'}
-            linkTo={'/signin/login'}
+            linkTo={'/signin?p=1'}
             setLoginBtn={setLoginBtn}
           />
         ) : (
