@@ -41,7 +41,7 @@ const ProductList = () => {
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products?perPage=12&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`
+        `${API_URL}/products?perPage=${perPage}&page=${pageNow}&productCate=${productCateNow}&productName=${search}&smallThan=${smallThan}&biggerThan=${biggerThan}&sort=${sort}&brand=${checked}`
       );
 
       if (
@@ -81,6 +81,7 @@ const ProductList = () => {
     sort,
     lastPage,
     productLikeId,
+    perPage,
   ]);
   useEffect(() => {
     setPageNow(1);

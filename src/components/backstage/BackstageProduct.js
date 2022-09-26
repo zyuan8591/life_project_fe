@@ -12,6 +12,7 @@ import { API_URL, API_URL_IMG } from '../../utils/config';
 import AddProduct from './component/AddProduct';
 import UpdateProduct from './component/UpdateProduct';
 import Notification from '../activity/Notification';
+import { useUserRights } from '../../usecontext/UserRights';
 
 function Backstage() {
   const [productsData, setProductsData] = useState([]);
@@ -23,6 +24,8 @@ function Backstage() {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState('');
   const [loginBtn, setLoginBtn] = useState('');
+  const { user } = useUserRights();
+  console.log(user);
 
   useEffect(() => {
     (async () => {

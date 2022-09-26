@@ -37,7 +37,7 @@ const Product = ({
   return (
     <div className="productContainer">
       {productList.map((v, i) => {
-        const { id, name, price, brand, img, color, img2 } = v;
+        const { id, name, price, brand, img, color, img2, inventory } = v;
         return (
           <div
             className="products"
@@ -181,6 +181,7 @@ const Product = ({
                               price: price,
                               ischecked: false,
                               img: img,
+                              inventory: inventory,
                             });
                             setCartConfirm(true);
                             setTimeout(() => {
@@ -200,6 +201,7 @@ const Product = ({
                             price: price,
                             ischecked: false,
                             img: img,
+                            inventory: inventory,
                           });
                           setCartConfirm(true);
                           setTimeout(() => {
