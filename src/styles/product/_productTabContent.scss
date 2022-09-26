@@ -7,6 +7,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width:$rwdWidth) {
+    width: $rwdWidth;
+  }
+  img {
+    @media (max-width:$rwdWidth) {
+      width: 100%;
+    }
+  }
 }
 .commentContainer {
   background: #e3e3e3;

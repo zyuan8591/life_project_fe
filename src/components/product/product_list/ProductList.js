@@ -10,6 +10,8 @@ import Footer from '../../public_component/Footer';
 import Product from './Product';
 import PaginationBar from '../../public_component/PaginationBar';
 import Tools from '../Tools';
+import ToolsRwd from '../ToolsRwd';
+import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 const ProductList = () => {
@@ -25,10 +27,16 @@ const ProductList = () => {
   const [sort, setSort] = useState(0);
   const [count, setCount] = useState(0);
   const [countNow, setCountNow] = useState(0);
+  const [perPage, setPerPage] = useState(12);
   // like data
   const [item, setItem] = useState([]);
   const [fav, setFav] = useState([]);
   const [productLikeId, setProductLikeId] = useState(false);
+
+  // toast
+  const [collectConfirm, setCollectConfirm] = useState(false);
+  const [collectCancel, setCollectCancel] = useState(false);
+  const [cartConfirm, setCartConfirm] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -76,6 +84,7 @@ const ProductList = () => {
   ]);
   useEffect(() => {
     setPageNow(1);
+    setPerPage(12);
   }, [productCateNow, search, checked]);
 
   return (
@@ -83,7 +92,7 @@ const ProductList = () => {
       <Header />
       <div className="product">
         <ProductRank />
-        <div className="d-flex mt-5 ">
+        <div className="d-flex mt-sm-5 mt-3 ">
           <ProductCategory setProductCateNow={setProductCateNow} />
           <div>
             <ProductFilter
@@ -98,25 +107,48 @@ const ProductList = () => {
               count={count}
               countNow={countNow}
             />
-            <Product
-              productList={productList}
-              item={item}
-              fav={fav}
-              setProductLikeId={setProductLikeId}
-              productLikeId={productLikeId}
-            />
+            {total !== 0 ? (
+              <Product
+                productList={productList}
+                item={item}
+                fav={fav}
+                setProductLikeId={setProductLikeId}
+                productLikeId={productLikeId}
+                setCollectConfirm={setCollectConfirm}
+                collectConfirm={collectConfirm}
+                setCollectCancel={setCollectCancel}
+                collectCancel={collectCancel}
+                setCartConfirm={setCartConfirm}
+                cartConfirm={cartConfirm}
+              />
+            ) : (
+              <NoDataDisplay />
+            )}
           </div>
         </div>
-        <PaginationBar
-          lastPage={lastPage}
-          pageNow={pageNow}
-          setPageNow={setPageNow}
-        />
+        <div className="d-flex justify-content-center">
+          <PaginationBar
+            lastPage={lastPage}
+            pageNow={pageNow}
+            setPageNow={setPageNow}
+            perPage={perPage}
+            setPerPage={setPerPage}
+            moreText={'商品'}
+          />
+        </div>
         <Tools
           item={item}
           setItem={setItem}
           setProductLikeId={setProductLikeId}
           productLikeId={productLikeId}
+        />
+        <ToolsRwd
+          setProductCateNow={setProductCateNow}
+          checked={checked}
+          setChecked={setChecked}
+          setBiggerThan={setBiggerThan}
+          setSmallThan={setSmallThan}
+          total={total}
         />
       </div>
       <Footer />

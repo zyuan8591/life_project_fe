@@ -5,18 +5,28 @@ $margin: 12.5px;
   cursor: pointer;
   line-height: 1.1rem;
 }
+.recommendArrow {
+  cursor: pointer;
+  line-height: 1.1rem;
+  @media (max-width: $rwdWidth) {
+    display: none;
+    }
+}
+
 .sliderContainer {
   max-width: $maxWidth;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   .item {
     // width: 500px;
     // margin: 50px;
     display: flex;
-    overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     figure {
       min-width: 250px;
       overflow: hidden;
@@ -25,6 +35,11 @@ $margin: 12.5px;
       // border: 1px dashed rgb(143, 55, 202);
       // transform: translateX(12.5px);
       transition: 0.4s;
+      @media (max-width: $rwdWidth) {
+        min-width: 120px;
+        padding: 0 5px;
+        margin: 0 5px;
+      }
       img {
         width: 100%;
         object-fit: cover;
@@ -38,6 +53,9 @@ $margin: 12.5px;
   width: 300px;
   min-height: 3px;
   background: #eee;
+  @media (max-width: $rwdWidth) {
+    display: none;
+    }
   .progress {
     min-height: 3px;
     background: $subClrBrown;

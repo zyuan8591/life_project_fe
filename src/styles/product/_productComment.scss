@@ -25,17 +25,32 @@
 
 .typeArea {
   margin-bottom: 40px;
+  @media (max-width: $rwdWidth) {
+    max-width: $rwdWidth;
+  }
   .avatarArea {
     @include avatar(0 40px);
+    @media (max-width: $rwdWidth) {
+      max-width: $rwdWidth;
+      margin: 0 10px 0 5px;
+    }
     figure {
       @include figure(80px);
+      @media (max-width: $rwdWidth) {
+        width: 60px;
+        height: 60px;
+      }
       img {
         @include img();
         background: #afafaf;
       }
     }
     .star {
-      @include star(1.4rem, #c5c5c5)
+      @include star(1.4rem, $focusClrY);
+      @media (max-width: $rwdWidth) {
+        font-size: 1rem;
+        margin: 0;
+      }
     }
   }
   textarea {
@@ -45,6 +60,12 @@
     padding: 20px;
     border-radius: 20px;
     resize: none;
+    @media (max-width: $rwdWidth) {
+      max-width: 250px;
+      height: 120px;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
     &::-webkit-input-placeholder {
       color: $contentClr;
     }
@@ -69,15 +90,27 @@
   border-radius: 20px;
   margin: 15px auto;
   min-width: 600px;
+  @media (max-width: $rwdWidth) {
+    min-width: 370px;
+    padding: 15px;
+    border: 10px;
+    margin: 10px auto;
+  }
   .avatar {
     @include avatar(0);
     display: flex;
     flex-direction: row;
     figure {
-      @include figure(60px);
+      @include figure(70px);
       margin: 0 10px;
+      @media (max-width: $rwdWidth) {
+        width: 50px;
+        height: 50px;
+      margin: 0 10px 0 0 ;
+      }
       img {
         @include img();
+        background: #afafaf;
       }
     }
     p {
@@ -92,14 +125,29 @@
   .comment {
     margin: 0 10px;
     max-width: 400px;
+    word-wrap: break-word;
+
+    @media (max-width: $rwdWidth) {
+    width: 200px;
+    margin: 0 ;
+    word-wrap: break-word;
+    padding: 0 !important;
+    }
     p {
       margin: 0;
     }
   }
-  .solid{
-    @include star(1.2rem, $focusClrY)
+  .solid {
+    @include star(1.2rem, $focusClrY);
+    @media (max-width: $rwdWidth) {
+      font-size: 1rem;
+    }
   }
   .hollow {
-    @include star(1.2rem, #c5c5c5)
+    @include star(1.2rem, #c5c5c5);
+    @media (max-width: $rwdWidth) {
+      font-size: 1rem;
+
+    }
   }
 }

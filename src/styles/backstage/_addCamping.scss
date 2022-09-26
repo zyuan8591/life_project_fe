@@ -110,5 +110,119 @@
             @include btnStyle(80px,$focusClrG);
         }
     }
-}
+    &::-webkit-scrollbar-thumb {
+      //滾動條的設定
+      background-color: #817161;
+      background-clip: padding-box;
+      border-radius: 5px;
+    }
+    .closeIcon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-10px, 10px);
+      cursor: pointer;
+    }
+    .pageTitle {
+      text-align: center;
+      font-size: 24px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 8px;
+      p {
+        margin: 0;
+      }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr ;
+      grid-column-gap: 40px;
+      grid-auto-rows: (100px, auto);
+      margin-top: 50px;
+    }
+    .grid2 {
+      display: grid;
+      grid-template-columns:1fr 1fr ;
+      grid-column-gap: 40px;
+      grid-auto-rows: (100px, auto);
+    }
+    select {
+      border-radius: 4px;
+      width: 80px;
+      height: 32px;
+      padding: 2px;
+      margin-right: 5px;
+      border: 2px solid $subClrGY;
+      outline: none;
+      &:focus {
+        border: 2px solid $subClrBrown;
+      }
+    }
+    .input {
+      border-radius: 4px;
+      width: 160px;
+      height: 32px;
+      padding: 2px;
+      border: 2px solid $subClrGY;
+      outline: none;
+      &:focus {
+        border: 2px solid $subClrBrown;
+      }
+    }
+    .addressSty {
+      width: 352px;
+    }
+    .leftInput {
+      margin-left: 82px;
+    }
+    .dateInput {
+      input::-webkit-calendar-picker-indicator {
+        width: 20px;
+        height: 20px;
+        color: $subClrBrown;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+    }
+    .textContent {
+      border-radius: 4px;
+      padding: 5px;
+      border: 2px solid $subClrGY;
+      outline: none;
+      resize: none;
+      &:focus {
+        border: 2px solid $subClrBrown;
+      }
+    }
+    // .textLodging{
+    //     margin-left: 27px;
+    // }
+    .imgInput {
+      border-radius: 4px;
+      background: $hoverClr;
+      padding: 35px;
+      cursor: pointer;
+    }
+    .campingImg {
+      width: 154px;
+      height: 132px;
+      cursor: pointer;
+    }
+    .addBtn {
+      border: 0;
+      border-radius: 4px;
+      padding: 6px 40px;
+      font-size: $contentText;
+      color: $mainClrW;
+      background: $focusClrY;
+    }
+    .cancelBtn {
+      border: 0;
+      border-radius: 4px;
+      padding: 6px 40px;
+      font-size: $contentText;
+      color: $mainClrW;
+      background: $focusClrG;
+      margin-left: 80px;
+    }
+  }
 
