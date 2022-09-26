@@ -18,7 +18,7 @@ const Order = () => {
     // getOrders
     (async () => {
       let ordersResult = await axios.get(
-        `${API_URL}/orders?status=${currentStatus}`,
+        `${API_URL}/orders?status=${currentStatus}&page=${pageNow}`,
         {
           withCredentials: true,
         }
@@ -34,7 +34,7 @@ const Order = () => {
       // console.log(statusResult.data);
       setStatus(statusResult.data);
     })();
-  }, [currentStatus]);
+  }, [currentStatus, pageNow]);
   // console.log(orders);
   console.log(currentStatus);
 
