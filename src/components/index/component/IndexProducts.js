@@ -119,9 +119,6 @@ const IndexProducts = () => {
     let newState = 0;
 
     let scrollWidth = productListRef.current.scrollWidth - window.innerWidth;
-    // console.log(productListRef.current.scrollWidth);
-    // console.log(window.innerWidth);
-    // console.log(scrollWidth);
 
     const max = ((progressBarWidth - progressWidth) / progressBarWidth) * 100;
     let productListPercent = (productListWidth - vwState) / productListWidth;
