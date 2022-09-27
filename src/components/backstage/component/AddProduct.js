@@ -73,10 +73,10 @@ function AddPage({
       formData.append('photo1', product.photo4);
       let response = await axios.post(
         `${API_URL}/products/addProduct`,
-        formData
-        // {
-        //   withCredentials: true,
-        // }
+        formData,
+        {
+          withCredentials: true,
+        }
       );
       if (response.data.message === '此商品已存在') {
         setErrMsg(true);
@@ -99,7 +99,7 @@ function AddPage({
       // console.log(response.data.message);
       // console.log(formData);
     } catch (e) {
-      console.error('addCamping', e);
+      console.error('addProduct', e);
     }
   }
 

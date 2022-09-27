@@ -208,22 +208,9 @@ const Product = ({
                   </div>
                   <div className="productImg">
                     <img
-                      style={
-                        {
-                          // opacity: changePic && changePicNumber === id ? 0 : 1,
-                        }
-                      }
                       src={`${API_URL_IMG}/product/product_key_effect/${img}`}
                       alt=""
                     />
-                    {/* <img
-                    className="pic2"
-                    style={{
-                      // opacity: changePic && changePicNumber === id ? 1 : 0,
-                    }}
-                    src={`${API_URL_IMG}/product/product_img/${img2}`}
-                    alt=""
-                  /> */}
                   </div>
                 </div>
               </Link>

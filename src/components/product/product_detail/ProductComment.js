@@ -7,6 +7,7 @@ import { API_URL } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
 import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL_IMG } from '../../../utils/config';
+import Notification from '../../activity/Notification';
 
 const ProductComment = () => {
   const [comment, setComment] = useState([]);
@@ -14,9 +15,9 @@ const ProductComment = () => {
   const [hollow, sethollow] = useState(0);
   const [solid, setsolid] = useState(0);
   const { id } = useParams();
-  const { user, setUser } = useUserRights();
+  const { user } = useUserRights();
   const star = solid + 1;
-  console.log(user.photo);
+  const [loginBtn, setLoginBtn] = useState(false);
   const submit = async () => {
     await axios.post(
       `${API_URL}/products/${id}/comment`,
@@ -35,11 +36,29 @@ const ProductComment = () => {
 
   return (
     <>
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin?p=1'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <div className="typeArea">
         <div className="d-flex">
           <div className="avatarArea">
             <figure>
-              <img src={`${API_URL_IMG}${user.photo}`} alt="" />
+              {user ? (
+                <img src={`${API_URL_IMG}${user.photo}`} alt="" />
+              ) : (
+                <>
+                  <img
+                    src={`${API_URL_IMG}/product/product_avatar/avatar.png`}
+                    alt=""
+                  />
+                </>
+              )}
             </figure>
             <div>
               {[...Array(5)].map((star, i) => {
@@ -79,11 +98,20 @@ const ProductComment = () => {
           </div>
         </div>
         <div className="d-flex justify-content-end me-3 my-2">
-          <button onClick={submit}>送出</button>
+          {user ? (
+            <button onClick={submit}>送出</button>
+          ) : (
+            <button
+              onClick={() => {
+                setLoginBtn(true);
+              }}
+            >
+              送出
+            </button>
+          )}
         </div>
       </div>
       {comment.map((v, i) => {
-        console.log(v.photo);
         return (
           <>
             <div className="commentArea" key={i}>

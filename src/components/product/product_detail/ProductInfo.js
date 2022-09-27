@@ -17,9 +17,8 @@ import { useUserRights } from '../../../usecontext/UserRights';
 import BreadCrumb from '../../public_component/BreadCrumb';
 import { Col, Row, Statistic } from 'antd';
 const { Countdown } = Statistic;
-// const deadline = new Date('2022-09-27T15:01:00').getTime();
 // let deadline = Date.now() + 1000 * 10;
-// let startline = Date.now() + 1000 * 5;
+// let startline = Date.now() + 1000 * 1;
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const {
@@ -39,11 +38,6 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   } = data;
   const deadline = new Date(end_time).getTime();
   const startline = new Date(start_time).getTime();
-  console.log(startline, new Date().getTime());
-  useEffect(() => {
-    // deadline = Date.now() + 1000 * 10;
-    // startline = Date.now() + 1000 * 5;
-  }, []);
 
   let split = '';
   if (intro.includes(',')) {
@@ -69,9 +63,16 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const [discountPrice, setDiscountPrice] = useState('');
   const [finish, setFinish] = useState(true);
   const [start, setStart] = useState(false);
+  const [buyPrice, setBuyPrice] = useState(price);
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
+  useEffect(() => {
+    // deadline = Date.now() + 1000 * 20;
+    // startline = Date.now() + 1000 * 5;
+    setDiscountPrice(parseInt(price * (discount / 100)));
+    setBuyPrice(discountPrice);
+  }, [discountPrice]);
 
   useEffect(() => {
     setMainPic(pic);
@@ -79,8 +80,13 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     if (startline < new Date().getTime()) {
       setStart(true);
       setFinish(false);
+      // setBuyPrice(discountPrice);
     }
-  }, [data]);
+    if (deadline < new Date().getTime()) {
+      setFinish(true);
+      setBuyPrice(price);
+    }
+  }, [data, start, finish]);
   const onFinish = () => {
     console.log('finished!');
     setFinish(true);
@@ -267,12 +273,19 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   >
                     <button
                       onClick={() => {
-                        console.log(quantity);
+                        // console.log('button buyPrice', buyPrice);
+                        // console.log('button discount', discount);
+                        if (
+                          startline < new Date().getTime() &&
+                          deadline > new Date().getTime()
+                        ) {
+                          setBuyPrice(discountPrice);
+                        }
                         productCart.addItem({
                           id: id,
                           quantity: quantity,
                           name: name,
-                          price: price,
+                          price: buyPrice,
                           ischecked: false,
                           img: img,
                         });
@@ -288,12 +301,21 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                 ) : (
                   <button
                     onClick={() => {
-                      console.log(quantity);
+                      // console.log(quantity);
+                      // console.log(discountPrice);
+                      if (
+                        startline < new Date().getTime() &&
+                        deadline > new Date().getTime()
+                      ) {
+                        setBuyPrice(discountPrice);
+                      }
+                      console.log('button buyPrice', buyPrice);
+                      console.log('button discountPrice', discountPrice);
                       productCart.addItem({
                         id: id,
                         quantity: quantity,
                         name: name,
-                        price: price,
+                        price: buyPrice,
                         ischecked: false,
                         img: img,
                       });
