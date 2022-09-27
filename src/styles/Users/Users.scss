@@ -25,6 +25,10 @@
     // background: #ccc;
     padding: 50px 50px 0 50px;
     overflow: scroll;
+      &::-webkit-scrollbar {
+         //滾動條的寬度
+         width: 0px;
+       }
     @media (max-width: 768px) {
       padding: 20px 20px 0 20px;
     }
