@@ -1,8 +1,11 @@
+/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { css } from '@emotion/react';
 import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { Form, Input } from 'antd';
 import { API_URL } from '../../../../utils/config';
 import '../../../../styles/picnic/_createForm.scss';
 import Notification from '../../../activity/Notification';
@@ -15,8 +18,11 @@ import {
   FaMapMarkerAlt,
   FaUserFriends,
   FaCommentAlt,
+  FaCamera,
 } from 'react-icons/fa';
 import { AiOutlineCamera, AiOutlineClose } from 'react-icons/ai';
+import { BsFillHandThumbsUpFill } from 'react-icons/bs';
+import { message } from 'antd';
 
 const city = [
   { value: 1, name: '信義區' },
@@ -33,6 +39,21 @@ const city = [
   { value: 12, name: '文山區' },
 ];
 
+const formItem = css`
+  .ant-row {
+    display: flex;
+    flex-direction: column;
+    .ant-form-item-label {
+      text-align: left;
+      label {
+        &::after {
+          content: '';
+        }
+      }
+    }
+  }
+`;
+
 function CreateForm({ data, setEdit, showToast }) {
   const [imageSrc, setImageSrc] = useState('');
   const [loginBtn, setLoginBtn] = useState(false);
@@ -44,15 +65,14 @@ function CreateForm({ data, setEdit, showToast }) {
   const [success, setSuccess] = useState(false);
 
   // remind text
-  const [remindTitle, setRemindTitle] = useState('');
-  const [remindActivityDate, setRemindActivityDate] = useState('');
-  const [remindAddress, setRemindAddress] = useState('');
-  const [remindJoinLimit, setRemindJoinLimit] = useState('');
-  const [remindStartDate, setRemindStartDate] = useState('');
-  const [remindEndDate, setRemindEndDate] = useState('');
-  const [remindIntr, setRemindIntr] = useState('');
-  const [remindImage, setRemindImage] = useState('');
-  // console.log(data);
+  const [error, setError] = useState({
+    name: '',
+    content: '',
+  });
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   let [fromData] = data;
 
@@ -73,9 +93,15 @@ function CreateForm({ data, setEdit, showToast }) {
 
   function handleChange(e) {
     // console.log('handleChange', e.target.name, e.target.value);
-    let newActivityContent = { ...activityContent };
-    newActivityContent[e.target.name] = e.target.value;
-    setActivityContent(newActivityContent);
+    // let newActivityContent = { ...activityContent };
+    // newActivityContent[e.target.name] = e.target.value;
+    setError({ ...error, [e.target.name]: '' });
+    setActivityContent({ ...activityContent, [e.target.name]: e.target.value });
+  }
+
+  function handleInputBlur(e, text) {
+    let errorText = e.target.value.trim() ? '' : text;
+    setError({ ...error, [e.target.name]: errorText });
   }
 
   function handleUpload(e) {
@@ -96,13 +122,16 @@ function CreateForm({ data, setEdit, showToast }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (activityContent.joinLimit < 5) {
-      return setRemindJoinLimit('最低活動人數5人');
+      return message.error('最低活動人數5人');
     }
     if (activityContent.startDate > activityContent.endDate) {
-      return setRemindStartDate('*開始日期不得大於結束日期');
+      return message.error('開始日期不得大於結束日期');
     }
     if (activityContent.endDate > activityContent.activityDate) {
-      return setRemindActivityDate('*活動日期不得小於報名日期');
+      return message.error('活動日期不得小於報名日期');
+    }
+    if (!e.target.value) {
+      return message.error('請輸入欄位');
     }
     if (activityContent)
       try {
@@ -132,7 +161,6 @@ function CreateForm({ data, setEdit, showToast }) {
         console.log('formData', e);
       }
   }
-  // TODO: 表單重新驗證
   return (
     <>
       <div className="fromBg">
@@ -149,220 +177,233 @@ function CreateForm({ data, setEdit, showToast }) {
                   />
                 </div>
               </IconContext.Provider>
-              <div className="form d-flex flex-column mt-4 mb-2">
-                <label>
-                  <FaPenAlt className="faIcon" />
-                  活動標題 <span className="remindText">{remindTitle}</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="請輸入活動名稱"
-                  value={activityContent.title}
-                  name="title"
-                  onChange={handleChange}
-                  required
-                  onBlur={() => {
-                    if (!activityContent.title) {
-                      setRemindTitle('*請輸入標題');
-                    } else {
-                      setRemindTitle('');
-                    }
-                  }}
-                />
-              </div>
-
-              <div className="form d-flex flex-column mb-4">
-                <label htmlFor="createImg" className="imgLabel cursorPointer">
-                  <IconContext.Provider value={{ color: '#444', size: '4rem' }}>
-                    <AiOutlineCamera />
-                  </IconContext.Provider>
-                  <div className="imgTitleText">
-                    <span>新增圖片</span>
-                    <span className="remindText">{remindImage}</span>
-                  </div>
-                  {activityContent.image ? (
-                    <img className="upLoadImg" src={imageSrc} alt="picnic" />
-                  ) : (
-                    <img
-                      className="upLoadImg"
-                      src={`${API_URL_IMG}/picnic/${fromData.img1}`}
-                      alt="picnic"
-                    />
-                  )}
-                </label>
-                <input
-                  type="file"
-                  className="imageInput"
-                  id="createImg"
-                  onChange={handleUpload}
-                  onBlur={() => {
-                    if (!activityContent.image) {
-                      setRemindImage('*請上傳圖片');
-                    } else {
-                      setRemindImage('');
-                    }
-                  }}
-                />
-              </div>
-
-              <div className="form d-flex flex-column mb-4">
-                <label>
-                  <FaCalendarAlt className="faIcon" />
-                  活動日期{' '}
-                  <span className="remindText">{remindActivityDate}</span>
-                </label>
-                <input
-                  type="date"
-                  value={activityContent.activityDate}
-                  name="activityDate"
-                  onChange={handleChange}
-                  required
-                  onBlur={() => {
-                    if (!activityContent.activityDate) {
-                      setRemindActivityDate('*請輸入活動日期');
-                    } else {
-                      setRemindActivityDate('');
-                    }
-                  }}
-                />
-              </div>
-
-              <div className="form mb-4">
-                <label>
-                  <FaMapMarkerAlt className="faIcon" />
-                  活動地點 <span className="remindText">{remindAddress}</span>
-                </label>
-                <div className="m-auto">
-                  <div className="location mb-2">
-                    <input
-                      type="text"
-                      name="placeName"
-                      value="台北市"
-                      className="inputCity mb-2"
-                      readOnly
-                      disabled
-                    />
-                    <select
-                      className="ms-2"
-                      name="location"
-                      value={activityContent.location}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option>地區</option>
-                      {location.map((city) => {
-                        return (
-                          <option value={city.value} key={city.value}>
-                            {city.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                  <input
+              <div className="form mt-4" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaPenAlt className="faIcon" /> 活動標題
+                    </label>
+                  }
+                  validateStatus={error.title && 'error'}
+                  help={error.title}
+                >
+                  <Input
                     type="text"
-                    className="col-sm-12"
-                    placeholder="請輸入地址"
-                    name="address"
-                    value={activityContent.address}
+                    placeholder="請輸入活動名稱"
+                    value={activityContent.title}
+                    name="title"
                     onChange={handleChange}
                     required
-                    onBlur={() => {
-                      if (!activityContent.address) {
-                        setRemindAddress('*請輸入地址');
-                      } else {
-                        setRemindAddress('');
-                      }
-                    }}
+                    onBlur={(e) => handleInputBlur(e, '請輸入活動名稱')}
                   />
-                </div>
+                </Form.Item>
               </div>
 
-              <div className="form d-flex flex-column mb-4">
-                <label>
-                  <FaUserFriends className="faIcon" />
-                  活動人數上限 (最低人數5人){' '}
-                  <span className="remindText">{remindJoinLimit}</span>
-                </label>
-                <input
-                  type="number"
-                  placeholder="最低人數5人"
-                  name="joinLimit"
-                  value={activityContent.joinLimit}
-                  onChange={handleChange}
-                  required
-                  onBlur={() => {
-                    if (!activityContent.joinLimit) {
-                      setRemindJoinLimit('*請輸入活動人數');
-                    } else {
-                      setRemindJoinLimit('');
-                    }
-                  }}
-                />
-              </div>
-              <div className="form d-flex flex-column mb-4">
-                <label>
-                  <FaCalendarAlt className="faIcon" />
-                  報名起始日
-                  <span className="remindText">{remindStartDate}</span>
-                </label>
-                <input
-                  type="date"
-                  name="startDate"
-                  value={activityContent.startDate}
-                  onChange={handleChange}
-                  required
-                  onBlur={() => {
-                    if (!activityContent.startDate) {
-                      setRemindStartDate('*請輸入開始日期');
-                    } else {
-                      setRemindStartDate('');
-                    }
-                  }}
-                />
+              <div className="form" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaCamera className="faIcon" /> 活動圖片
+                    </label>
+                  }
+                  validateStatus={error.image && 'error'}
+                  help={error.image}
+                >
+                  <label htmlFor="createImg" className="imgLabel cursorPointer">
+                    <IconContext.Provider
+                      value={{ color: '#444', size: '4rem' }}
+                    >
+                      <AiOutlineCamera />
+                    </IconContext.Provider>
+                    <div className="imgTitleText">
+                      <span>新增圖片</span>
+                    </div>
+                    {activityContent.image ? (
+                      <img className="upLoadImg" src={imageSrc} alt="picnic" />
+                    ) : (
+                      <img
+                        className="upLoadImg"
+                        src={`${API_URL_IMG}/picnic/${fromData.img1}`}
+                        alt="picnic"
+                      />
+                    )}
+                  </label>
+                  <Input
+                    type="file"
+                    className="imageInput"
+                    id="createImg"
+                    name="image"
+                    onChange={handleUpload}
+                    onBlur={(e) => handleInputBlur(e, '請上傳圖片')}
+                  />
+                </Form.Item>
               </div>
 
-              <div className="form d-flex flex-column mb-4">
-                <label>
-                  <FaCalendarAlt className="faIcon" />
-                  報名結束日 <span className="remindText">{remindEndDate}</span>
-                </label>
-                <input
-                  type="date"
-                  name="endDate"
-                  onChange={handleChange}
-                  required
-                  onBlur={() => {
-                    if (!activityContent.endDate) {
-                      setRemindEndDate('*請輸入結束日期');
-                    } else {
-                      setRemindEndDate('');
-                    }
-                  }}
-                />
+              <div className="form " css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaCalendarAlt className="faIcon" />
+                      活動日期
+                    </label>
+                  }
+                  validateStatus={error.activityDate && 'error'}
+                  help={error.activityDate}
+                >
+                  <Input
+                    className="w-100"
+                    type="date"
+                    value={activityContent.activityDate}
+                    name="activityDate"
+                    onChange={handleChange}
+                    required
+                    onBlur={(e) => handleInputBlur(e, '請輸入活動日期')}
+                  />
+                </Form.Item>
               </div>
 
-              <div className="form d-flex flex-column mb-4">
-                <label>
-                  <FaCommentAlt className="faIcon" />
-                  活動內容 <span className="remindText">{remindIntr}</span>
-                </label>
-                <textarea
-                  type="text"
-                  placeholder="說請明活動內容"
-                  rows="5"
-                  name="intr"
-                  value={activityContent.intr}
-                  onChange={handleChange}
-                  required
-                  onBlur={() => {
-                    if (!activityContent.intr) {
-                      setRemindIntr('*請輸入內容');
-                    } else {
-                      setRemindIntr('');
-                    }
-                  }}
-                />
+              <div className="form" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaMapMarkerAlt className="faIcon" />
+                      活動地點
+                    </label>
+                  }
+                  validateStatus={error.address && 'error'}
+                  help={error.address}
+                >
+                  <div className="m-auto">
+                    <div className="location mb-2">
+                      <input
+                        type="text"
+                        name="placeName"
+                        value="台北市"
+                        className="inputCity mb-2"
+                        readOnly
+                        disabled
+                      />
+                      <select
+                        className="ms-2"
+                        name="location"
+                        value={activityContent.location}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option>地區</option>
+                        {location.map((city) => {
+                          return (
+                            <option value={city.value} key={city.value}>
+                              {city.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                    <Input
+                      type="text"
+                      className="col-sm-12"
+                      placeholder="請輸入地址"
+                      name="address"
+                      value={activityContent.address}
+                      onChange={handleChange}
+                      required
+                      onBlur={(e) => handleInputBlur(e, '請輸入地址')}
+                    />
+                  </div>
+                </Form.Item>
+              </div>
+
+              <div className="form" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaUserFriends className="faIcon" />
+                      活動人數上限 (最低人數5人)
+                    </label>
+                  }
+                  validateStatus={error.joinLimit && 'error'}
+                  help={error.joinLimit}
+                >
+                  <input
+                    className="w-100"
+                    type="number"
+                    placeholder="最低人數5人"
+                    name="joinLimit"
+                    value={activityContent.joinLimit}
+                    onChange={handleChange}
+                    required
+                    onBlur={(e) => handleInputBlur(e, '請輸入活動人數')}
+                  />
+                </Form.Item>
+              </div>
+              <div className="form" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaCalendarAlt className="faIcon" />
+                      報名起始日
+                    </label>
+                  }
+                  validateStatus={error.startDate && 'error'}
+                  help={error.startDate}
+                >
+                  <input
+                    className="w-100"
+                    type="date"
+                    name="startDate"
+                    value={activityContent.startDate}
+                    onChange={handleChange}
+                    required
+                    onBlur={(e) => handleInputBlur(e, '請輸入開始日期')}
+                  />
+                </Form.Item>
+              </div>
+              <div className="form" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaCalendarAlt className="faIcon" />
+                      報名結束日
+                    </label>
+                  }
+                  validateStatus={error.endDate && 'error'}
+                  help={error.endDate}
+                >
+                  <input
+                    className="w-100"
+                    type="date"
+                    name="endDate"
+                    onChange={handleChange}
+                    required
+                    onBlur={(e) => handleInputBlur(e, '請輸入結束日期')}
+                  />
+                </Form.Item>
+              </div>
+
+              <div className="form" css={formItem}>
+                <Form.Item
+                  label={
+                    <label>
+                      <FaCommentAlt className="faIcon" />
+                      活動內容
+                    </label>
+                  }
+                  validateStatus={error.text && 'error'}
+                  help={error.text}
+                >
+                  <textarea
+                    className="w-100"
+                    type="text"
+                    placeholder="說請明活動內容"
+                    rows="5"
+                    name="intr"
+                    value={activityContent.intr}
+                    onChange={handleChange}
+                    required
+                    onBlur={(e) => handleInputBlur(e, '請輸入結束日期')}
+                  />
+                </Form.Item>
               </div>
 
               <div className="button d-flex justify-content-center mb-3">
