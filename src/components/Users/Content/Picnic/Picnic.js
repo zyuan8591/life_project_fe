@@ -16,7 +16,7 @@ const Picnic = () => {
 
   const getUser = async (apiurl) => {
     let response = await axios.get(apiurl, { withCredentials: true });
-    setData(response.data.joinResult);
+    setData(response.data.result);
     setLastPage(response.data.pagination.lastPage);
   };
   console.log('data', data);
@@ -28,10 +28,10 @@ const Picnic = () => {
           apiurl = `${API_URL}/picnic/group/memberJoin?page=${pageNow}`;
           break;
         case 2: //我開的團
-          apiurl = `${API_URL}/picnic/official/memberJoin`;
+          apiurl = `${API_URL}/picnic/group/member`;
           break;
         case 3: //活動收藏
-          apiurl = `${API_URL}/official/memberCollect`;
+          apiurl = `${API_URL}/picnic/official/memberCollect?page=${pageNow}`;
           break;
         default: //0官方活動
           apiurl = `${API_URL}/picnic/official/memberJoin?page=${pageNow}`;

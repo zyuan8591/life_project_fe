@@ -7,6 +7,11 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  @media (max-width:$rwdWidth) {
+  width: $rwdWidth;
+    justify-content: center;
+    // gap: 30px;
+  }
   .filterBrand {
     width: 370px;
     height: 30px;
@@ -15,6 +20,9 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+    @media (max-width:$rwdWidth) {
+      display: none;
+    }
   }
   .filterDisplay {
     height: 305px;
@@ -24,6 +32,9 @@
     left: -3px;
     z-index: 100;
     transition: 0.3s;
+    @media (max-width:$rwdWidth) {
+      display: none;
+    }
     .filterBoard {
       transform: translateY(-310px);
       transition: 0.3s;
@@ -159,6 +170,9 @@
     &:focus {
       outline: transparent;
     }
+    @media (max-width:$rwdWidth) {
+      margin-right: 50px;
+    }
   }
   .searchbar {
     border: 2px solid $subClrBrown;
@@ -171,11 +185,17 @@
         opacity: 0;
       }
     }
+    @media (max-width:$rwdWidth) {
+      display: none;
+    }
   }
   .searchButton {
     border: 2px solid $subClrBrown;
     border-left: 0;
     width: 45px;
+    @media (max-width:$rwdWidth) {
+      display: none;
+    }
   }
   p {
     margin: 0;

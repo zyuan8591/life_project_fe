@@ -48,15 +48,6 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 0.5rem;
-    gap: 0.5rem;
-    .imgLabel {
-      border: 1px solid $subClrGY;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 200px;
-    }
     .addMaterialBtn {
       border: 2px solid $subClrBrown;
       color: $subClrBrown;
@@ -71,18 +62,6 @@
     }
   }
 
-  .cateSelect {
-    flex: 1 1 auto;
-    padding: 0.25rem;
-    &:hover {
-      // outline: 1px solid $subClrBrown;
-      border-color: $subClrBrown;
-    }
-    &:focus-visible {
-      // border-color: 1px solid $subClrBrown;
-      outline: none;
-    }
-  }
   // html tag css
   label {
     width: 100%;

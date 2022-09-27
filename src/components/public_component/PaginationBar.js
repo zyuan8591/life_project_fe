@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
-import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
 // page on click change display pages
@@ -31,6 +30,12 @@ const PaginationBar = ({
   useEffect(() => {
     setDisplayPage(10);
   }, [lastPage]);
+  useEffect(() => {
+    let display = pageNow;
+    if (pageNow < lastPage && pageNow > 10) display = pageNow;
+    if (display < 10) display = 10;
+    setDisplayPage(display);
+  }, []);
 
   // emotion css setting
   const subClrBrown = '#817161';

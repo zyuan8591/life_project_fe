@@ -50,6 +50,7 @@ import Users from './components/Users';
 import Account from './components/Users/Content/Account/Account';
 import Password from './components/Users/Content/Password/Password';
 import Order from './components/Users/Content/Order/Order';
+import OrderDetail from './components/Users/Content/Order/OrderDetail';
 import Points from './components/Users/Content/Points/Points';
 import MyRecipe from './components/Users/Content/Recipe/MyRecipe';
 import Camping from './components/Users/Content/Camping/Camping';
@@ -177,11 +178,20 @@ function App() {
                       element={<CampingDetailPage />}
                     />
                     <Route path="/map" element={<SetMap />} />
+                    <Route
+                      path="/backstage/camping"
+                      element={<BackstageCamping />}
+                    />
                     {/* user */}
                     <Route path="/users/" element={<Users />}>
                       <Route path="/users/account" element={<Account />} />
                       <Route path="/users/password" element={<Password />} />
-                      <Route path="/users/order" element={<Order />} />
+                      <Route path="/users/order/" element={<Order />} />
+                      <Route
+                        path="/users/order/:orderId"
+                        element={<OrderDetail />}
+                      />
+
                       <Route path="/users/points" element={<Points />} />
                       <Route path="/users/picnic" element={<Picnic />} />
                       <Route path="/users/recipe" element={<MyRecipe />} />
@@ -197,10 +207,6 @@ function App() {
                     <Route
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
-                    />
-                    <Route
-                      path="/backstageCamping"
-                      element={<BackstageCamping />}
                     />
                   </Routes>
                 </CartStepProvider>

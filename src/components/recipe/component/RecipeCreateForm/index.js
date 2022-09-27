@@ -1,15 +1,16 @@
 import React, { useState, useEffect, DragEvent, useRef } from 'react';
 import classes from '../../../../styles/moduleCss/recipes/RecipeCreatingForm.module.scss';
 import RecipeMaterial from './RecipeMaterial';
-import { AiOutlineCamera } from 'react-icons/ai';
-import { IconContext } from 'react-icons';
+
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../../utils/config';
+import RecipeIntro from './RecipeIntro';
 
-// TODO: drag
 import RecipeStep from './RecipeStep';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+
+import { message } from 'antd';
 
 const RecipeCreateForm = ({
   closeCreateRecipe,
@@ -20,15 +21,10 @@ const RecipeCreateForm = ({
   // for demo
   const [demo, setDemo] = useState(false);
 
-  // preview file
-  const [file, setFile] = useState(null);
-  const [fileDataURL, setFileDataURL] = useState(null);
-  const imageMimeType = /image\/(png|jpg|jpeg|webp)/i;
-
   // recipe edit mode
   const [edit, setEdit] = useState(isEdit);
 
-  // form 表單物件
+  // form 表單物件 ===================================================
   const [addForm, setAddForm] = useState({
     name: '',
     content: '',
@@ -40,25 +36,43 @@ const RecipeCreateForm = ({
     { id: uuidv4(), name: '', quantity: '' },
   ]);
   const [step, setStep] = useState([
-    { id: uuidv4(), step: 1, img: null, content: '' },
+    { id: uuidv4(), step: 1, img: null, content: '', error: '' },
   ]);
 
-  const [recipeCate, setRecipeCate] = useState([]);
-  const [productCate, setProductCate] = useState([]);
+  // error msg
+  const [introError, setIntroError] = useState({
+    name: '',
+    content: '',
+    image: '',
+  });
+  const resetError = (obj) => {
+    let newIntroError = { ...obj };
+    for (let prop in newIntroError) {
+      newIntroError[prop] = '';
+    }
+    return newIntroError;
+  };
+  const [materialError, setMaterialError] = useState([
+    {
+      name: '',
+      quantity: '',
+    },
+  ]);
+  const resetMaterialError = (material) => {
+    let newError = material.map((m) => {
+      return {
+        name: m.name.trim() ? '' : '請輸入食材',
+        quantity: m.quantity.trim() ? '' : '請輸入份量',
+      };
+    });
+    return newError;
+  };
+
   const [stepDefault, setStepDefault] = useState(0);
 
-  // get initial data
+  // get initial data ==================================================
   useEffect(() => {
     (async () => {
-      // get all recipe cate name
-      let recipeCateResult = await axios.get(`${API_URL}/recipes/category`);
-      let recipeCateData = recipeCateResult.data;
-      setRecipeCate(recipeCateData);
-      // get all product cate name
-      let productCateResult = await axios.get(`${API_URL}/products/category`);
-      let productCateData = productCateResult.data;
-      setProductCate(productCateData);
-
       // editing default value
       if (isEdit) {
         let id = defaultData;
@@ -87,50 +101,14 @@ const RecipeCreateForm = ({
             step: d.step,
             img: API_URL_IMG + d.img,
             content: d.content,
+            error: '',
           };
         });
         setStep(step);
       }
     })();
   }, []);
-  // Recipe ===========================================================
-  // recipe info handler
-  const inputChangeHandler = (e) => {
-    setAddForm({ ...addForm, [e.target.name]: e.target.value });
-  };
-  // recipe img handler
-  const updateImgHandler = (e) => {
-    const file = e.target.files[0];
-    // check image type
-    if (!file.type.match(imageMimeType)) {
-      console.error('Image mime type is not valid');
-      return;
-    }
-    setFile(file);
-    setAddForm({ ...addForm, image: file });
-  };
-  useEffect(() => {
-    let fileReader,
-      isCancel = false;
-    if (file) {
-      fileReader = new FileReader();
-      // get image url
-      fileReader.onload = (e) => {
-        const { result } = e.target;
-        if (result && !isCancel) {
-          setFileDataURL(result);
-        }
-      };
-      fileReader.readAsDataURL(file);
-    }
-    // unmounting
-    return () => {
-      isCancel = true;
-      if (fileReader && fileReader.readyState === 1) {
-        fileReader.abort();
-      }
-    };
-  }, [file]);
+
   // Material ==========================================================
   // materail input change
   const materialChangerHandler = (val, i, input) => {
@@ -141,6 +119,7 @@ const RecipeCreateForm = ({
   };
   // add material
   const addMaterialBtn = () => {
+    setMaterialError([...materialError, { name: '', quantity: '' }]);
     setMaterial([...material, { id: uuidv4(), name: '', quantity: '' }]);
   };
   // delete material
@@ -149,6 +128,9 @@ const RecipeCreateForm = ({
     newData.splice(i, 1);
     if (newData.length === 0) return;
     setMaterial(newData);
+    let newError = [...materialError];
+    newError.splice(i, 1);
+    setMaterialError(newError);
   };
   // Step ===============================================================
   // step DragEnd
@@ -156,17 +138,12 @@ const RecipeCreateForm = ({
     const { source, destination } = result;
     if (!destination) return;
     if (destination.index === source.index) return;
-    // console.log('result', result);
     let newStep = [...step];
     let add = newStep[source.index];
-    // console.log('add', add);
     newStep.splice(source.index, 1);
-    // console.log('remove : newstep', newStep);
     newStep.splice(destination.index, 0, add);
-    // console.log('add : newstep', newStep);
     setStep(sortStep(newStep));
   };
-
   // step sort
   const sortStep = (data) => {
     return [...data].map((d, i) => {
@@ -178,6 +155,7 @@ const RecipeCreateForm = ({
     let newData = [...step];
     if (input === 'content') newData[i].content = val;
     if (input === 'img') newData[i].img = val;
+    if (input === 'error') newData[i].error = val;
     setStep(sortStep(newData));
   };
   // add step
@@ -195,8 +173,45 @@ const RecipeCreateForm = ({
   };
 
   // submit handler ======================================================
+  const checkFormValid = () => {
+    let formValid = true;
+    let newIntroError = { ...introError };
+    let newMaterialError = resetMaterialError(material);
+    for (let prop in introError) {
+      if (prop === 'image' && !addForm.image) {
+        formValid = false;
+        newIntroError.image = '請上傳圖片';
+      }
+      if (prop === 'name' && !addForm.name) {
+        formValid = false;
+        newIntroError.name = '請輸入食譜名稱';
+      }
+      if (prop === 'content' && !addForm.content) {
+        formValid = false;
+        newIntroError.content = '請輸入食譜說明';
+      }
+    }
+    newMaterialError.forEach((error) => {
+      if (error.name || error.quantity) formValid = false;
+    });
+    let newStep = [...step];
+    newStep = newStep.map((step) => {
+      if (step.error) formValid = false;
+      return {
+        ...step,
+        error: !step.content || !step.img ? '請輸入食譜步驟及上傳圖片' : '',
+      };
+    });
+    setStep(newStep);
+    setMaterialError(newMaterialError);
+    setIntroError(newIntroError);
+    return formValid;
+  };
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (!checkFormValid()) return message.error('請完成食譜後再新增');
+
     try {
       // recipe formdata
       let formData = new FormData();
@@ -206,18 +221,13 @@ const RecipeCreateForm = ({
       // recipe step formdata
       let stepFormData = new FormData();
       let stepData = [];
-      // let imgData = [];
       let contentData = [];
       for (let i = 0; i < step.length; i++) {
         stepData.push(step[i].step);
-        // imgData.push(step[i].img);
         contentData.push(step[i].content);
         stepFormData.append('img', step[i].img);
       }
       stepFormData.append('step', stepData);
-      // for (let i = 0; i < imgData.length; i++) {
-      // stepFormData.append('img', imgData[i]);
-      // }
       stepFormData.append('content', contentData);
 
       // connect to api ===============================================
@@ -331,6 +341,7 @@ const RecipeCreateForm = ({
             <button
               className={`mb-1 bg-warning text-dark ${classes.btn}`}
               onClick={() => {
+                setIntroError(resetError(introError));
                 setAddForm({
                   name: '月亮蝦餅',
                   content:
@@ -338,7 +349,7 @@ const RecipeCreateForm = ({
                   category: 7,
                   product_category: 7,
                 });
-                setMaterial([
+                let demoMaterial = [
                   { id: uuidv4(), name: '白蝦', quantity: '8尾' },
                   { id: uuidv4(), name: '海蝦仁', quantity: '280公克' },
                   { id: uuidv4(), name: '豬油', quantity: '80公克' },
@@ -350,56 +361,67 @@ const RecipeCreateForm = ({
                   { id: uuidv4(), name: '鹽巴', quantity: '1/4小匙' },
                   { id: uuidv4(), name: '香油', quantity: '1小匙' },
                   { id: uuidv4(), name: '春捲皮', quantity: '2片' },
-                ]);
+                ];
+                setMaterialError(resetMaterialError(demoMaterial));
+                setMaterial(demoMaterial);
                 setStep([
                   {
                     id: uuidv4(),
                     step: 1,
                     content: '準備所有食材，白蝦去殼，薑切成薑末，蒜切成蒜末。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 2,
                     content: '白蝦用刀子拍扁，並剁成碎狀。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 3,
                     content:
                       '將花枝、蝦仁、豬油放調理杯中，用電動攪拌棒打成泥狀。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 4,
                     content:
                       '準備一個大容器，放進剁好的白蝦、攪打好的花枝蝦仁泥、雞蛋、薑末、蒜末、白胡椒粉、鹽巴、香油。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 5,
                     content: '用手攪拌均勻，拌到稍微有黏性出來即可。。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 6,
                     content:
                       '拿出1片潤餅皮，粗面朝上，平均放入餡料，再蓋上另外1片潤餅皮，一樣粗面朝內。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 7,
                     content: '將月亮蝦餅放上瀝油不沾烤盤，在表面刷上植物油。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 8,
                     content:
                       '放進氣炸烤箱中層，以200度氣炸13分後，再翻面繼續氣炸5分鐘至上色。',
+                    error: '',
                   },
                   {
                     id: uuidv4(),
                     step: 9,
                     content: '待行程結束即可切開擺盤享用。',
+                    error: '',
                   },
                 ]);
                 setDemo(true);
@@ -412,96 +434,16 @@ const RecipeCreateForm = ({
         {/* create form */}
         <form action="" className={classes.addingForm}>
           {/* recipe info */}
-          <>
-            {/* title */}
-            <div className={classes.formItem}>
-              <label className="fs-4">食譜名稱</label>
-              <input
-                name="name"
-                type="text"
-                placeholder="請輸入食譜名稱"
-                value={addForm.name}
-                onChange={inputChangeHandler}
-              />
-            </div>
-            {/* image */}
-            <div className={classes.formItem}>
-              <label
-                htmlFor="createRecipeImg"
-                className={`${classes.imgLabel} cursorPointer h-auto`}
-              >
-                {fileDataURL || edit ? (
-                  <img
-                    src={fileDataURL || addForm.image}
-                    alt="prev"
-                    className="w-100"
-                  />
-                ) : (
-                  <IconContext.Provider
-                    value={{ color: '#444', size: '4.5rem' }}
-                  >
-                    <AiOutlineCamera />
-                    <span>點此新增圖片</span>
-                  </IconContext.Provider>
-                )}
-              </label>
-              <input
-                name="image"
-                type="file"
-                id="createRecipeImg"
-                className="d-none"
-                onChange={updateImgHandler}
-              />
-            </div>
-            {/* content */}
-            <div className={classes.formItem}>
-              <label className="fs-4">簡介</label>
-              <textarea
-                name="content"
-                type="text"
-                placeholder="請輸入食譜描述 ( 最多200字 )"
-                rows="5"
-                value={addForm.content}
-                onChange={inputChangeHandler}
-              />
-            </div>
-            {/* category */}
-            <div className="d-flex gap-3 mb-2">
-              <select
-                name="category"
-                className={classes.cateSelect}
-                onChange={inputChangeHandler}
-                value={addForm.category}
-              >
-                {recipeCate.map((d) => {
-                  if (d.id === 0) return;
-                  return (
-                    <option value={d.id} key={d.id}>
-                      {d.name}
-                    </option>
-                  );
-                })}
-              </select>
-              <select
-                name="product_category"
-                className={classes.cateSelect}
-                onChange={inputChangeHandler}
-                value={addForm.product_category}
-              >
-                {productCate.map((d) => {
-                  if (d.id === 0) return;
-                  return (
-                    <option value={d.id} key={d.id}>
-                      {d.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </>
+          <RecipeIntro
+            addForm={addForm}
+            setAddForm={setAddForm}
+            edit={edit}
+            error={introError}
+            setError={setIntroError}
+          />
           {/* material */}
           <div className={classes.formItem}>
-            <label className="fs-4">食材</label>
+            <label className="fs-4 mb-2">食材</label>
             {/* TODO: drag */}
             {material.map((d, i) => {
               return (
@@ -513,6 +455,8 @@ const RecipeCreateForm = ({
                   edit={edit}
                   delHandler={deleteMaterailBtn}
                   onchange={materialChangerHandler}
+                  error={materialError}
+                  setError={setMaterialError}
                 ></RecipeMaterial>
               );
             })}

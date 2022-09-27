@@ -2,19 +2,36 @@
 
 $productImgWidth: 250px;
 .productContainer {
-  width: 1200px;
+  max-width: 1200px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 75px;
-  transition: .4s;
+  transition: 0.4s;
+  @media (max-width: $rwdWidth) {
+    // width: 420px;
+    margin-top: 30px;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    margin-left: 20px;
+  }
   .products {
     width: 350px;
     margin: 0 0 40px 0;
     padding: 0;
     position: relative;
-    transition: 2.3s;
     &:hover .productHoverContainer > .productHover {
       transform: translateY(0px);
+    }
+    @media (max-width: $rwdWidth) {
+      width: 160px;
+      border: 1px solid $subClrGY;
+      padding: 5px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 6px $subClrGY;
+      margin-bottom: 20px;
     }
     .productHoverContainer {
       position: absolute;
@@ -22,8 +39,11 @@ $productImgWidth: 250px;
       left: 50px;
       height: 40px;
       overflow: hidden;
+      @media (max-width: $rwdWidth) {
+        display: none;
+      }
       .productHover {
-        transition: .3s ease;
+        transition: 0.4s ease;
         height: 40px;
 
         width: $productImgWidth;
@@ -33,18 +53,27 @@ $productImgWidth: 250px;
         display: flex;
         justify-content: end;
         align-items: center;
+        &:hover img {
+          opacity: 0;
+          z-index: 0;
+        }
       }
     }
-    .link {
-      // position: absolute;
 
-      .hoverArea {
-        height: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 1rem;
-
+    .hoverArea {
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      @media (max-width: $rwdWidth) {
+        height: 140px;
+        width: 140px;
+        margin: 0 auto;
+      }
+      &:hover img {
+        opacity: 0;
+        z-index: 0;
       }
       .productImg {
         position: relative;
@@ -58,21 +87,54 @@ $productImgWidth: 250px;
         img {
           width: 100%;
           object-fit: contain;
+          transition: opacity 0.6s ease-in-out;
+        }
+        .pic2 {
+          position: absolute;
+          opacity: 0;
+          z-index: -1;
         }
       }
     }
+
     .nameArea {
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid $hoverClr;
       font-size: $text14;
       padding-bottom: 10px;
+      @media (max-width: $rwdWidth) {
+      min-height: 45px;
+      border-bottom: 0;
+      padding: 0px 10px;
+      line-height: 1.2rem;
+      }
+      .color {
+        @media (max-width: $rwdWidth) {
+        display: none;
+        }
+      }
     }
     .brandArea {
       display: flex;
       justify-content: space-between;
       font-size: 18px;
       margin-top: 10px;
+      @media (max-width: $rwdWidth) {
+        display: block;
+        font-size: $text14;
+        margin: 0 10px;
+        }
+        .brand{
+          @media (max-width: $rwdWidth) {
+            display: inline-block;
+            background: $focusClrG;
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: $mainClrW;
+            margin:0 0 5px 0;
+            }
+        }
     }
     p {
       margin: 0;

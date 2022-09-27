@@ -1,25 +1,28 @@
 @import '../variable';
 
 .cCard {
-  max-width: 430px;
+  max-width: 400px;
   width: 100%;
   height: 270px;
   margin-bottom: 0;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   transition: transform 0.8s cubic-bezier(0.71, 0.03, 0.56, 0.85);
   transform-style: preserve-3d;
   position: sticky;
-  top: 0;
-  border:none;
-  transform: rotateY(180deg);
+  // top: 0;
+  // border:none;
 
-  @media screen and (max-width: 480px) {
-    max-width: 310px;
-    height: 220px;
+  @media screen and (max-width: 440px) {
+    .cCard{
+      max-width: 310px;
+      height: 180px;
+      margin-bottom: -100px;
+    }
+    
   }
 
-  &--is-flipped {
+  &.active{
     transform: rotateY(180deg);
   }
 
@@ -29,7 +32,7 @@
     width: 100%;
     position: absolute;
     display: flex;
-    align-content: space-between;
+    // align-content: space-between;
     flex-direction: column;
   }
 
@@ -44,9 +47,7 @@
     overflow: hidden;
     z-index: 1;
 
-    @media screen and (max-width: 480px) {
-      box-shadow: 0 10px 30px 0 rgba(14, 42, 90, 0.55);
-    }
+    
 
     img {
       height: 100%;
@@ -66,11 +67,11 @@
 
   .cardFront {
     .cardWrapper {
-      padding: 25px 15px;
+      padding: 2rem 1rem;
       height: 100%;
     }
 
-    .card__top {
+    .cardTop {
       height: 45px;
       margin-bottom: 40px;
       padding: 0 10px;
@@ -83,8 +84,8 @@
       }
     }
 
-    .card__chip-icon,
-    .card__visa-icon {
+    .cardChipIcon,
+    .cardVisaIcon {
       z-index: 2;
       height: 100%;
 
@@ -93,16 +94,27 @@
       }
     }
 
-    .card__card-number {
+    .cardNumber {
+      min-height: 68px;
       color: #fff;
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin-bottom: 35px;
+      margin-bottom: 0rem;
       padding: 10px 15px;
       flex: 1;
       z-index: 3;
-      cursor: pointer;
+      opacity: 0;
+      border: 2px solid transparent;
+      border-radius: 5px;
+      transition: all 0.35s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+
+
+      &.active{
+        border:2px solid #fff;
+        width: 100%;
+        opacity: 1;
+      }
 
       @media screen and (max-width: 480px) {
         margin-bottom: 15px;
@@ -119,12 +131,12 @@
         }
       }
 
-      &--space {
+      .space {
         width: 30px !important;
       }
     }
 
-    .card__content {
+    .cardContent {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -135,18 +147,17 @@
       }
     }
 
-    .card__card-holder {
+    .cardHolder {
       width: 100%;
     }
 
-    .card__card-holder,
-    .card__expires {
+    .cardHolder,
+    .cardExpires {
       color: #fff;
       padding: 10px 15px;
       text-align: left;
-      cursor: pointer;
 
-      &-title {
+      .cardHolderTitle, .cardExpiresTitle {
         opacity: 0.7;
         font-size: 13px;
 
@@ -156,8 +167,8 @@
       }
     }
 
-    .card__card-holder-name,
-    .card__card__expires-date {
+    .cardHolderName,
+    .cardExpiresDate {
       font-size: 18px;
       white-space: nowrap;
       text-transform: uppercase;
@@ -170,32 +181,32 @@
 
   .cardBack {
     transform: rotateY(180deg) translateZ(10px);
-    .card__top,
-    .card__card-cvc,
-    .card__bottom {
+    .cardTop,
+    .cardCvc,
+    .cardBottom {
       z-index: 2;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
 
-    .card__top {
+    .cardTop {
       height: 50px;
       margin-top: 30px;
 
-      .card__black-line {
+      .cardBlackLine {
         background-color: #000;
         height: 100%;
         max-height: 50px;
       }
     }
 
-    .card__card-cvc {
+    .cardCvc {
       height: 40px;
       box-shadow: 0px 10px 20px -7px rgba(32, 56, 117, 0.35);
       margin: 0 20px;
 
-      &-title {
+      .cardCvcTitle {
         color: #fff;
         text-align: right;
         padding-bottom: 8px;
@@ -205,7 +216,7 @@
         }
       }
 
-      &-number {
+      .cardCvcNumber {
         background-color: #fff;
         color: #1a3b5d;
         border-radius: 4px;
@@ -215,8 +226,8 @@
     }
   }
 
-  &__bottom {
-    .card__visa-icon {
+  .cardBottom {
+    .cardVisaIcon {
       height: 45px;
       max-height: 45px;
       text-align: right;
@@ -228,42 +239,5 @@
     }
   }
 
-  .focus-box {
-    position: absolute;
-    border: 2px solid rgba(255, 255, 255, 0.65);
-    border-radius: 5px;
-    z-index: 2;
-    transition: all 0.35s cubic-bezier(0.71, 0.03, 0.56, 0.85);
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-
-    &--active {
-      opacity: 1;
-    }
-  }
-}
-
-.slide-up-enter {
-  opacity: 0;
-  transform: translateY(15px);
-}
-.slide-up-enter-active {
-  opacity: 1;
-  transform: translateY(0px);
-  transition-delay: 0.1s;
-}
-.slide-up-exit {
-  opacity: 1;
-  position: absolute;
-}
-.slide-up-exit-active {
-  opacity: 0;
-  transform: translateY(-15px);
-  pointer-events: none;
-}
-
-.slide-up-enter-active,
-.slide-up-exit-active {
-  transition: all 0.25s ease-in-out;
+  
 }

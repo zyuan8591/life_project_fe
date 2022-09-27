@@ -5,10 +5,12 @@ import classes from '../../../styles/moduleCss/recipeDetail/recipeSlide.module.s
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../utils/config';
+import { useSearchParams } from 'react-router-dom';
 
 const RecipeSlide = () => {
   const slideRef = useRef(null);
   const [slideLeft, setSlideLeft] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // get slide data
   const [data, setData] = useState([]);
@@ -17,7 +19,7 @@ const RecipeSlide = () => {
       let result = await axios.get(`${API_URL}/recipes?random=12`);
       setData(result.data.data);
     })();
-  }, []);
+  }, [searchParams]);
 
   // slide event
   const SlideHandler = (dir) => {

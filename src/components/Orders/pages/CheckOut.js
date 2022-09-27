@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import OrderDetail from './CheckPage/OrderDetail';
+import CartDetail from './CheckPage/CartDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
 import Payment from './CheckPage/Payment';
 // import CreditCard from './CheckPage/CreditCard';
+import Notification from '../../activity/Notification';
+import { useUserRights } from '../../../usecontext/UserRights';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -16,7 +18,8 @@ import * as yup from 'yup';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 const CheckOut = () => {
-  const { currentStep, setCurrentStep } = useCartStep();
+  const { user } = useUserRights();
+  const { currentStep, setCurrentStep, setOrderId } = useCartStep();
   const navigate = useNavigate();
 
   const [delivery, setDelivery] = useState([]);
@@ -68,22 +71,40 @@ const CheckOut = () => {
     memo: '',
     payment: '',
     cardNumber: '',
-    cCardMonth: '',
-    cCardDate: '',
-    cCardCheck: '',
+    cardName: '',
+    cardMonth: '',
+    cardYear: '',
+    cardCvc: '',
+    point: '',
     // productItems:[{}]
     // productTotal:10000
   };
 
   const productItems = productCart.state.items;
   const productTotal = productCart.state.cartTotal;
+  const productCount = productCart.state.totalItems;
   const picnicItems = picnicCart.state.items;
   const picnicTotal = picnicCart.state.cartTotal;
+  const picnicCount = picnicCart.state.totalItems;
   const campingItems = campingCart.state.items;
   const campingTotal = campingCart.state.cartTotal;
+  const campingCount = campingCart.state.totalItems;
+  const point = localStorage.getItem('usePoint');
+  console.log(point);
+
   return (
     <>
-      <OrderDetail />
+      <CartDetail
+        productItems={productItems}
+        productTotal={productTotal}
+        productCount={productCount}
+        picnicItems={picnicItems}
+        picnicTotal={picnicTotal}
+        picnicCount={picnicCount}
+        campingItems={campingItems}
+        campingTotal={campingTotal}
+        campingCount={campingCount}
+      />
       <Formik
         initialValues={{
           ...initialValues,
@@ -93,6 +114,7 @@ const CheckOut = () => {
           productTotal,
           picnicTotal,
           campingTotal,
+          point,
         }}
         validationSchema={yup.object({
           name: yup
@@ -109,33 +131,53 @@ const CheckOut = () => {
           areaName: yup.mixed().required('必須2'),
           address: yup.string().required('必填3'),
           payment: yup.string().required('必須'),
-          cardNumber: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required,
-          }),
-          cCardMonth: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required,
-          }),
-          cCardDate: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required,
-          }),
-          cCardCheck: yup.string().when('payment', {
-            is: 'payment' === 4,
-            then: yup.string().required,
-          }),
+          // cardNumber: yup.string().when('payment', {
+          //   is: 'payment' === 4,
+          //   then: yup.string().required('87'),
+          // }),
+          // cardName:yup.string().required(),
+
+          // cardMonth: yup.string().when('payment', {
+          //   is: 4,
+          //   then: yup.string().required,
+          // }),
+          // cardYear: yup.string().when('payment', {
+          //   is: 4,
+          //   then: yup.string().required('87'),
+          // }),
+          // cardCvc: yup.string().when('payment', {
+          //   is: 'payment' === 4,
+          //   then: yup.string().required('sdfas'),
+          // }),
         })}
         onSubmit={async (values) => {
+          // if (!user.id) return;
           try {
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
+            if (point) {
+              await axios.post(
+                `${API_URL}/user/points`,
+                {
+                  point: point, //新增/扣除點數
+                  event: '購物折扣', //名目
+                },
+                {
+                  withCredentials: true,
+                }
+              );
+            }
             // console.log(response);
-            if (response.data) return setIsOrder(true);
+            if (response.data) {
+              setIsOrder(true);
+              setOrderId(response.data);
+              window.localStorage.clear();
+            }
           } catch (e) {
             console.error('order', e);
           }
+
           // console.log(values);
         }}
       >

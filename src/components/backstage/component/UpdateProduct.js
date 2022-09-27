@@ -1,10 +1,142 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../../styles/backstage/_addCamping.scss';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
+import UpdateImgProduct from './UpdateImgProduct';
+import UpdateImgProduct2 from './UpdateImgProduct2';
+import UpdateImgProduct3 from './UpdateImgProduct3';
+import UpdateImgProduct4 from './UpdateImgProduct4';
+import axios from 'axios';
+import { API_URL } from '../../../utils/config';
+import Notification from '../../activity/Notification';
+function UpdatePage({
+  setUpdatePage,
+  productData,
+  loading,
+  setLoading,
+  setLoginBtn,
+}) {
+  const {
+    name,
+    price,
+    category,
+    color,
+    img,
+    img2,
+    img3,
+    intro,
+    spec,
+    inventory,
+  } = productData;
+  const [errMsg, setErrMsg] = useState(false);
+  // const [loginBtn, setLoginBtn] = useState(false);
+  const [detailImg, setDetailImg] = useState([]);
+  const [originImages, setOriginImages] = useState({
+    photo1: productData.img,
+    photo2: productData.img2,
+    photo3: productData.img3,
+    photo4: productData.img4,
+  });
+  const [product, setProduct] = useState({
+    name: name,
+    cate: category,
+    color: color,
+    inventory: inventory,
+    price: price,
+    // actStartDate: '2022-09-01',
+    // actEndDate: '2022-09-29',
+    intro: intro,
+    spec: spec,
+    photo1: img,
+    photo2: img2,
+    photo3: img3,
+    photo4: detailImg.img,
+  });
+  console.log(product.photo4);
+  console.log(detailImg.img);
 
-function UpdatePage({ setUpdatePage }) {
+  function handleChange(e) {
+    const newProduct = { ...product, [e.target.name]: e.target.value };
+    setProduct(newProduct);
+    console.log(product);
+  }
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(
+        `${API_URL}/products/${productData.id}/detailImg`
+      );
+      setDetailImg(result.data[0]);
+      setOriginImages({ ...originImages, photo4: result.data[0].img });
+    })();
+  }, [productData]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      let formData = new FormData();
+      formData.append('id', productData.id);
+      formData.append('detailId', detailImg.id);
+      formData.append('name', product.name);
+      formData.append('price', product.price);
+      formData.append('cate', product.cate);
+      // formData.append('brand', product.brand);
+      formData.append('color', product.color);
+      formData.append('intro', product.intro);
+      formData.append('spec', product.spec);
+      formData.append('inventory', product.inventory);
+      formData.append('photo1', product.photo1);
+      formData.append('photo1', product.photo2);
+      formData.append('photo1', product.photo3);
+      formData.append('photo1', product.photo4);
+
+      formData.append('photoOrgin1', originImages.photo1);
+      formData.append('photoOrgin2', originImages.photo2);
+      formData.append('photoOrgin3', originImages.photo3);
+      formData.append('photoOrgin4', originImages.photo4);
+
+      formData.append('photoChange1', originImages.photo1 === product.photo1);
+      formData.append('photoChange2', originImages.photo2 === product.photo2);
+      formData.append('photoChange3', originImages.photo3 === product.photo3);
+      formData.append('photoChange4', originImages.photo4 === product.photo4);
+      console.log(
+        'photo1',
+        product.photo4,
+        'photoOrgin2',
+        originImages.photo2,
+        'product',
+        product,
+        'detailImg',
+        detailImg
+      );
+      let response = await axios.put(
+        `${API_URL}/products/updateProduct`,
+        formData
+        // {
+        //   withCredentials: true,
+        // }
+      );
+
+      if (response.data.message === '此商品已存在') {
+        setErrMsg(true);
+        setTimeout(() => {
+          setErrMsg(false);
+        }, 2000);
+      } else {
+        setLoading(!loading);
+        setLoginBtn('update');
+        setTimeout(() => {
+          setLoginBtn('');
+        }, 2000);
+        setUpdatePage(false);
+      }
+      console.log(response.data.message);
+      console.log(formData);
+    } catch (e) {
+      console.error('addCamping', e);
+    }
+  }
+
   return (
     <>
       <div className="backstageAddPage">
@@ -19,180 +151,159 @@ function UpdatePage({ setUpdatePage }) {
             />
           </IconContext.Provider>
           <div className="pageTitle">
-            <p>修改活動</p>
+            <p>編輯商品</p>
           </div>
-          <div className="d-flex justify-content-center mt-4">
+          <div className="grid">
             {/* title place lat */}
             <div className="d-flex flex-column align-items-end">
               <div className="mb-4">
-                <label>活動標題：</label>
+                <label>商品名稱：</label>
                 <input
                   className="input"
-                  id="title"
-                  name="title"
+                  id="name"
+                  name="name"
                   type="text"
                   maxLength={15}
+                  value={product.name}
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="mb-4">
-                <label>活動地點：</label>
+                <label>商品分類：</label>
                 <input
                   className="input"
-                  id="place"
-                  name="place"
+                  id="cate"
+                  name="cate"
                   type="text"
                   maxLength={15}
+                  value={product.cate}
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="mb-4">
-                <label>經度：</label>
+                <label>顏色：</label>
                 <input
                   className="input"
-                  id="lat"
-                  name="lat"
+                  id="color"
+                  name="color"
                   type="text"
-                  maxLength={20}
+                  maxLength={10}
+                  value={product.color}
+                  onChange={handleChange}
                 />
               </div>
             </div>
-
             {/* price pepCount lng */}
-            <div className="ms-5 d-flex flex-column align-items-end">
+            <div className="">
               <div className="mb-4">
-                <label>活動價格：</label>
+                <label>庫存：</label>
                 <input
                   className="input"
+                  id="inventory"
+                  name="inventory"
+                  type="number"
+                  maxLength={10}
+                  value={product.inventory}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label>價格：</label>
+                <input
+                  className="input"
+                  id="price"
                   name="price"
                   type="number"
                   maxLength={10}
-                />
-              </div>
-              <div className="mb-4">
-                <label>活動人數：</label>
-                <input
-                  className="input"
-                  name="pepCount"
-                  type="number"
-                  maxLength={3}
-                />
-              </div>
-              <div className="mb-4">
-                <label>緯度：</label>
-                <input
-                  className="input"
-                  name="lng"
-                  type="text"
-                  maxLength={20}
+                  value={product.price}
+                  onChange={handleChange}
                 />
               </div>
             </div>
           </div>
 
           {/* actDate */}
-          <div className="mb-4 leftInput dateInput">
-            <label>活動日期：</label>
-            <input
-              className="input"
-              name="actStartDate"
-              type="date"
-              maxLength={10}
-            />
-            <span>&emsp;～&emsp;</span>
-            <input
-              className="input"
-              name="actEndDate"
-              type="date"
-              maxLength={10}
-            />
+          <div className="grid2">
+            <div className="d-flex flex-column align-items-end">
+              <div className="mb-4 ">
+                <label>折扣日期：</label>
+                <input
+                  className="input"
+                  id="actStartDate"
+                  name="actStartDate"
+                  type="date"
+                  maxLength={10}
+                  value=""
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <span>&emsp;　&emsp;</span>
+              <input
+                className="input"
+                id="actEndDate"
+                name="actEndDate"
+                type="date"
+                maxLength={10}
+                value=""
+                onChange={handleChange}
+              />
+            </div>
           </div>
-
-          {/* date */}
-          <div className="mb-4 leftInput dateInput">
-            <label>報名日期：</label>
-            <input
-              className="input "
-              name="startDate"
-              type="date"
-              maxLength={10}
-            />
-            <span>&emsp;～&emsp;</span>
-            <input
-              className="input"
-              name="endDate"
-              type="date"
-              maxLength={10}
-            />
-          </div>
-
-          {/* address */}
-          <div className="mb-4 leftInput">
-            <label>活動地址：</label>
-            <input
-              className="input addressSty"
-              name="address"
-              type="text"
-              maxLength={25}
-            />
-          </div>
-
           {/* int */}
-          {/* <div className="d-flex leftInput"> */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
-            <label className="mb-2">活動介紹：</label>
+            <label className="mb-2">商品介紹：</label>
             <textarea
               className="textContent "
               placeholder="限150字"
-              name="actInt"
+              id="intro"
+              name="intro"
               rows="5"
               cols="68"
               maxLength={150}
+              value={product.intro}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
-            <label className="mb-2">注意事項：</label>
+            <label className="mb-2">商品規格：</label>
             <textarea
               className="textContent"
-              placeholder="限150字"
-              name="actLodging"
+              placeholder="限200字"
+              id="spec"
+              name="spec"
               rows="5"
               cols="68"
-              maxLength={150}
+              maxLength={300}
+              value={product.spec}
+              onChange={handleChange}
             />
           </div>
-          {/* </div> */}
 
           {/* img */}
-          <label className="mb-4 leftInput">活動照片：</label>
-          <div className="mb-4 d-flex justify-content-center">
-            {/* 1 */}
-            <div className="d-flex flex-column align-items-center imgInput me-4">
-              <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                <AiOutlineCamera />
-              </IconContext.Provider>
-              <span>點擊新增圖片</span>
-            </div>
-            <input className="input d-none" name="actImg1" type="file" />
-            {/* 2 */}
-            <div className="d-flex flex-column align-items-center imgInput me-4">
-              <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                <AiOutlineCamera />
-              </IconContext.Provider>
-              <span>點擊新增圖片</span>
-            </div>
-            <input className="input d-none" name="actImg2" type="file" />
-            {/* 3 */}
-            <div className="d-flex flex-column align-items-center imgInput">
-              <IconContext.Provider value={{ color: '#444', size: '2.5rem' }}>
-                <AiOutlineCamera />
-              </IconContext.Provider>
-              <span>點擊新增圖片</span>
-            </div>
-            <input className="input d-none" name="actImg3" type="file" />
+          <div className="mb-4 leftInput">商品圖片：</div>
+          <div className="mb-4 d-flex justify-content-center ms-4">
+            <UpdateImgProduct product={product} setProduct={setProduct} />
+            <UpdateImgProduct2 product={product} setProduct={setProduct} />
+            <UpdateImgProduct3 product={product} setProduct={setProduct} />
+          </div>
+          <div className="mb-4 leftInput">商品詳細圖片：</div>
+          <div className="mb-4 d-flex justify-content-center ms-4">
+            <UpdateImgProduct4
+              product={product}
+              setProduct={setProduct}
+              detailImg={detailImg}
+            />
           </div>
 
           {/* btn */}
           <div className="mt-5 mb-4 text-center">
-            <button className="addBtn">新增</button>
+            <button className="addBtn" onClick={handleSubmit}>
+              修改
+            </button>
             <button
               className="cancelBtn"
               onClick={() => {

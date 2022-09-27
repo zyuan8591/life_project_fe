@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { IconContext } from 'react-icons';
 import { AiOutlineCamera } from 'react-icons/ai';
 
-function AddImgCamping({ camping, setCamping }) {
+const AddImgProduct4 = ({ i, product, setProduct }) => {
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
 
   const imageMimeType = /image\/(png|jpg|jpeg|webp)/i;
 
-  const updateImgHandler = (e) => {
+  function handleUpload(e) {
     const file = e.target.files[0];
-
+    console.log(file);
     // check image type
     if (!file.type.match(imageMimeType)) {
       console.error('Image mime type is not valid');
@@ -18,10 +18,9 @@ function AddImgCamping({ camping, setCamping }) {
     }
 
     setFile(file);
-    setCamping({ ...camping, photo3: file });
-    console.log(camping);
-  };
-
+    setProduct({ ...product, photo4: file });
+    console.log(product);
+  }
   useEffect(() => {
     let fileReader,
       isCancel = false;
@@ -45,11 +44,10 @@ function AddImgCamping({ camping, setCamping }) {
       }
     };
   }, [file]);
-
   return (
     <>
-      <label className="mb-4" htmlFor="photo3">
-        {fileDataURL ? (
+      <label className="mb-4" htmlFor="photo4" key={i}>
+      {fileDataURL ? (
           <figure className="m-0 campingImg me-4">
             <img src={fileDataURL} alt="/" className="objectCover" />
           </figure>
@@ -64,13 +62,13 @@ function AddImgCamping({ camping, setCamping }) {
       </label>
       <input
         className="input d-none"
-        name="photo3"
+        name="photo4"
         type="file"
-        id="photo3"
-        onChange={updateImgHandler}
+        id="photo4"
+        onChange={handleUpload}
       />
     </>
   );
-}
+};
 
-export default AddImgCamping;
+export default AddImgProduct4;

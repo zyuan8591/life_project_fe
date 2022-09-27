@@ -4,8 +4,8 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 
-function OrderCheck(props) {
-  const { setCurrentStep } = useCartStep();
+function OrderCheck() {
+  const { setCurrentStep, orderId } = useCartStep();
 
   useEffect(() => {
     setCurrentStep(3);
@@ -26,7 +26,7 @@ function OrderCheck(props) {
             <span>完成訂單</span>
           </div>
         </div>
-        <p className="">您的訂單編號為： 1</p>
+        <p className="">您的訂單編號為： {orderId.order_id}</p>
 
         <div className="orderStepBtns gap-3">
           <Link to="/products" className="btn stepBtn prevButton">

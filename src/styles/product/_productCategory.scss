@@ -4,10 +4,14 @@
   justify-content: start;
   align-items: center;
 }
-$height: 60px;
+$height: 50px;
 .categoryContainer {
   width: 290px;
-  position: relative;
+  // position: relative;
+  margin-right: 40px;
+  position: sticky;
+  top: 65px;
+  align-self: flex-start;
   .title {
     min-width: 290;
     height: $height;
@@ -37,8 +41,11 @@ $height: 60px;
     height: $height;
     background: $subClrBrown;
     cursor: pointer;
-    transition: 0.4s;
+    transition: 0.2s;
     z-index: -1;
     border-radius: 5px;
+  }
+  @media (max-width:$rwdWidth) {
+    display: none;
   }
 }

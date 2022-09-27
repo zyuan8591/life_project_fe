@@ -1,4 +1,7 @@
 @import '../variable';
+.m-view{
+    display: none;
+}
 
 .mapContainer{
     display: flex;
@@ -9,19 +12,15 @@
     position: relative;
     margin: 0 auto;
     color: $contentClr;
-    // background-color: lemonchiffon;
     .mapContain{
         display: flex;
         justify-content: center;
-        // align-items: center;
         .selectContainer{
-            // background-color: aquamarine;
             width: 400px;
             .select{
                 display: flex;
                 justify-content: center;
                 padding: 25px 0px 15px;
-                
             }
             .inputSearch{
                 display: flex;
@@ -43,13 +42,10 @@
             }
             
             .mapCardContainer{
-                // background-color: lightcoral;
                 overflow-y: scroll;
                 height: 810px;
                 .mapCard{
-                    // border: 1px solid $contentClr;
                     box-shadow: 0.4px 0.4px 6px rgba(0, 0, 0, 0.3);
-                    // background: lemonchiffon;
                     max-width: 350px;
                     margin: 0 auto 15px;
                     transition: opacity .3s ease;
@@ -66,7 +62,6 @@
                         }
                     }
                     .intContainer{
-                        // background: lemonchiffon;
                         padding: 10px 10px 8px;
                         .intDate{
                             font-size: $text12;
@@ -91,7 +86,6 @@
         }
         .leaflet-container{
             height: calc(100vh - $headerHeight) ;
-            // height: 600px;
             width: 1500px;
             display: flex;
             z-index: 10;
@@ -101,6 +95,26 @@
             }
         }
     }
-    
-    
+}
+
+@media screen and (max-width:375px) {
+    .m-view{
+        display: flex;
+    }
+    .p-view{
+        display: none;
+    }
+    .mapContainer{
+        max-width: 370px;
+        top: 360px;
+        .mapContain{
+            align-items: center;
+            flex-direction: column;
+            .leaflet-container{
+                position: relative;
+                height: 250px ;
+                width: 365px;
+            }
+        }
+    }
 }

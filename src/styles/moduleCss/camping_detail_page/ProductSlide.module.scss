@@ -56,3 +56,25 @@
         }
     }
 }
+
+@media screen and (max-width:375px){
+    .slide{
+        min-height: 0px;
+        height:150px;
+        width:320px;
+        .slideImg{
+            li{
+                width:150px;
+                height:150px;
+                margin: 5px;
+                &:hover .productLink{
+                    transform: translateY(-45px);
+                }
+                .productLink{
+                    width: 150px;
+                    transition: background-color .9s ease,transform .9s ease;
+                }
+            }
+        }
+    }
+}

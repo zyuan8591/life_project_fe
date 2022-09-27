@@ -11,7 +11,7 @@
 
     
     .circleWrapper{
-      padding: 0px 3rem; //調整step 間距
+      padding: 0px 2rem; //調整step 間距
       position: relative;
       margin-bottom: .5rem;
 
@@ -25,6 +25,8 @@
         border:2px solid $subClrBrown;
         background-color: #fff;
         border-radius: 50%;
+
+        
       }
     }
     

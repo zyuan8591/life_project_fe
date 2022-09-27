@@ -3,7 +3,7 @@ import { IconContext } from 'react-icons';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { BsPersonFill } from 'react-icons/bs';
 import { MdLocationOn } from 'react-icons/md';
-
+import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
 import classes from '../../../../styles/moduleCss/camping_detail_page/CampingDetailAside.module.scss';
 
 function CampingDetailAside({
@@ -20,6 +20,7 @@ function CampingDetailAside({
   setLoginBtn,
   children,
 }) {
+  const cart = useCampingCart({});
   const priceReplace = (price) => {
     const newPrice = price.toString();
     return newPrice.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
@@ -93,6 +94,14 @@ function CampingDetailAside({
                 }
                 disabled={v.state !== '開團中' ? true : false}
                 onClick={() => {
+                  cart.addItem({
+                    id: v.id,
+                    quantity: 1,
+                    name: v.title,
+                    price: v.price,
+                    ischecked: false,
+                    img: v.img1,
+                  });
                   handleDelJoin(v.id);
                   setLoading(true);
                 }}

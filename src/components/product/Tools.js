@@ -8,17 +8,31 @@ import { IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineCreditCard } from 'react-icons/ai';
 import { FaTrashAlt, FaHeartBroken } from 'react-icons/fa';
 import axios from 'axios';
-import { API_URL } from '../../utils/config';
+import { API_URL, API_URL_IMG } from '../../utils/config';
 import { useProductCart } from '../../orderContetxt/useProductCart';
 import { Link } from 'react-router-dom';
+import Notification from '../activity/Notification';
+import { useUserRights } from '../../usecontext/UserRights';
 
 const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
   const productCart = useProductCart({});
+  const { user } = useUserRights();
+  const [loginBtn, setLoginBtn] = useState(false);
+
   return (
     <>
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin/login'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <div
         className={classess.tool}
         style={{
@@ -77,7 +91,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
           return (
             <div className={classess.cartItem} key={i}>
               <figure>
-                <img src={`/img/product/product_img/${img}`} alt="" />
+                <img src={`${API_URL_IMG}/product/product_img/${img}`} alt="" />
               </figure>
               <div className={classess.cartInfo}>
                 <p>{name}</p>
@@ -99,9 +113,27 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
             </div>
           );
         })}
-        <Link to={`/orderstep/cart`} className={classess.checkout}>
-          前往結帳
-        </Link>
+        {productCart.state.items.length > 0 ? (
+          <>
+            {user ? (
+              <Link to={`/orderstep/cart`} className={classess.checkout}>
+                前往結帳
+              </Link>
+            ) : (
+              <Link
+                to={``}
+                className={classess.checkout}
+                onClick={() => {
+                  setLoginBtn(true);
+                }}
+              >
+                前往結帳
+              </Link>
+            )}
+          </>
+        ) : (
+          <div className={classess.nothingInCart}>沒有商品在購物車</div>
+        )}
       </div>
       {point && (
         <div
@@ -141,7 +173,10 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
                 >
                   <>
                     <figure>
-                      <img src={`/img/product/product_img/${img}`} alt="" />
+                      <img
+                        src={`${API_URL_IMG}/product/product_img/${img}`}
+                        alt=""
+                      />
                       <div className={classess.heart}>
                         <IconContext.Provider
                           value={{ color: '#444', size: '2.4rem' }}
