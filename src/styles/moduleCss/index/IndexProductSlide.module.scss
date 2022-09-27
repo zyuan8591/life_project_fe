@@ -1,0 +1,128 @@
+@import '../../variable';
+
+// box container
+.paddingBox {
+  padding: 5rem 0;
+  overflow-x: auto;
+  position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .leftBtn,
+  .rightBtn {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    background: lighten($subClrBrown, 5%);
+    border-radius: 50%;
+    padding: 0.5rem;
+    opacity: 0;
+    transition: 0.15s;
+    cursor: pointer;
+  }
+  .leftBtn {
+    left: 0;
+    transform: translate(50%, -50%);
+  }
+  .rightBtn {
+    right: 0;
+    transform: translate(-50%, -50%);
+  }
+  &:hover {
+    .leftBtn,
+    .rightBtn {
+      opacity: 1;
+    }
+  }
+}
+
+// main container
+.container {
+  width: fit-content;
+  height: 383px;
+  background: $subClrBrown;
+  display: flex;
+  gap: 3px;
+  overflow: visible;
+  padding-top: 3px;
+  position: relative;
+  // transform: translateX(-506px);
+  transition: 0.15s;
+  .card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    .cardImgContain {
+      width: 250px;
+      min-height: 280px;
+      margin: 0;
+      background: lighten($subClrBrown, 15%);
+      position: relative;
+      img {
+        position: relative;
+        z-index: 5;
+        opacity: 0.6;
+      }
+      .imgBgText {
+        text-transform: uppercase;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        font-weight: bold;
+        color: lighten($subClrBrown, 0%);
+      }
+    }
+    .intro {
+      background: lighten($subClrBrown, 5%);
+      color: #fff;
+      flex-grow: 1;
+      padding: 20px 23px 15px;
+      font-weight: bold;
+      min-height: 100px;
+      transition: 0.15s;
+      position: relative;
+      .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .moreInfo {
+        display: none;
+        position: absolute;
+        top: 70px;
+      }
+    }
+    &.active {
+      .cardImgContain {
+        background: lighten($subClrBrown, 10%);
+        width: 310px;
+        transition: 0.15s;
+        img {
+          transition: 0.15s;
+          width: 100%;
+          height: auto;
+          position: absolute;
+          bottom: 0;
+          // transform: scale(1.1);
+          // transform-origin: bottom center;
+        }
+        .imgBgText {
+          color: lighten($subClrBrown, 20%);
+        }
+      }
+      .intro {
+        min-height: 140px;
+        border-radius: 0 0 5px 5px;
+        .moreInfo {
+          display: block;
+        }
+      }
+    }
+  }
+}
