@@ -20,7 +20,7 @@ import Summary from './CartPage/Summary';
 
 const CheckOut = () => {
   const { user } = useUserRights();
-  const { currentStep, setCurrentStep, setOrderId } = useCartStep();
+  const { currentStep, setCurrentStep, orderId, setOrderId } = useCartStep();
   const navigate = useNavigate();
 
   const [delivery, setDelivery] = useState([]);
@@ -91,7 +91,8 @@ const CheckOut = () => {
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
   const point = localStorage.getItem('usePoint');
-  console.log(point);
+  // console.log(point);
+  // console.log(orderId);
 
   return (
     <>
@@ -169,6 +170,27 @@ const CheckOut = () => {
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
+
+            if (response.data) {
+              setOrderId(response.data);
+              // console.log(orderId);
+              console.log(currentPayment);
+              if (currentPayment === 2) {
+                // console.log(orderId);
+                let payResponse = await axios.post(
+                  `${API_URL}/orders/pay`,
+                  orderId,
+                  {
+                    withCredentials: true,
+                  }
+                );
+                console.log('payResponse', payResponse);
+              }
+
+              // setIsOrder(true);
+              // window.localStorage.clear();
+            }
+
             if (point) {
               await axios.post(
                 `${API_URL}/user/points`,
@@ -182,11 +204,6 @@ const CheckOut = () => {
               );
             }
             // console.log(response);
-            if (response.data) {
-              setIsOrder(true);
-              setOrderId(response.data);
-              window.localStorage.clear();
-            }
           } catch (e) {
             console.error('order', e);
           }
