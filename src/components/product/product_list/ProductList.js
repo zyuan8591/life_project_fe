@@ -8,7 +8,6 @@ import '../../../styles/product/_productList.scss';
 import Header from '../../public_component/Header';
 import Footer from '../../public_component/Footer';
 import Product from './Product';
-import PaginationBar from '../../public_component/PaginationBar';
 import Tools from '../Tools';
 import ToolsRwd from '../ToolsRwd';
 import NoDataDisplay from '../../public_component/NoDataDisplay';
@@ -42,7 +41,6 @@ const ProductList = () => {
   const [cartConfirm, setCartConfirm] = useState(false);
 
   const [loginBtn, setLoginBtn] = useState(false);
-
   useEffect(() => {
     (async () => {
       let result = await axios.get(
@@ -131,7 +129,7 @@ const ProductList = () => {
       {loginBtn ? (
         <Notification
           contaninText={'請先登入會員'}
-          linkTo={'/signin/login'}
+          linkTo={'/signin?p=1'}
           setLoginBtn={setLoginBtn}
         />
       ) : (
@@ -142,7 +140,7 @@ const ProductList = () => {
         <ProductRank />
         <div className="d-flex mt-sm-5 mt-3 ">
           <ProductCategory setProductCateNow={setProductCateNow} />
-          <div>
+          <div className="d-flex flex-column justify-content-center align-items-center">
             <ProductFilter
               total={total}
               search={search}
@@ -169,21 +167,16 @@ const ProductList = () => {
                 setCartConfirm={setCartConfirm}
                 cartConfirm={cartConfirm}
                 setLoginBtn={setLoginBtn}
+                lastPage={lastPage}
+                pageNow={pageNow}
+                setPageNow={setPageNow}
+                perPage={perPage}
+                setPerPage={setPerPage}
               />
             ) : (
               <NoDataDisplay />
             )}
           </div>
-        </div>
-        <div className="d-flex justify-content-center">
-          <PaginationBar
-            lastPage={lastPage}
-            pageNow={pageNow}
-            setPageNow={setPageNow}
-            perPage={perPage}
-            setPerPage={setPerPage}
-            moreText={'商品'}
-          />
         </div>
         <Tools
           item={item}

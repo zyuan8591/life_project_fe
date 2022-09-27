@@ -17,9 +17,9 @@ import { useUserRights } from '../../../usecontext/UserRights';
 import BreadCrumb from '../../public_component/BreadCrumb';
 import { Col, Row, Statistic } from 'antd';
 const { Countdown } = Statistic;
-const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
-// const deadline = Date.now() ;
-
+// const deadline = new Date('2022-09-27T15:01:00').getTime();
+const deadline = Date.now() + 1000 * 10;
+const startline = Date.now() + 1000 * 5;
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const {
@@ -32,7 +32,13 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     img3,
     inventory,
     intro = '',
+    discount_name,
+    discount,
+    start_time,
+    end_time,
   } = data;
+  // const deadline = new Date(end_time).getTime();
+  // const startline = new Date(start_time).getTime();
   let split = '';
   if (intro.includes(',')) {
     split = intro.split(',');
@@ -54,16 +60,27 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const [cartConfirm, setCartConfirm] = useState(false);
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
+  const [discountPrice, setDiscountPrice] = useState('');
+  const [finish, setFinish] = useState(true);
+  const [start, setStart] = useState(false);
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
 
   useEffect(() => {
     setMainPic(pic);
+    setDiscountPrice(parseInt(price * (discount / 100)));
   }, [data]);
   const onFinish = () => {
     console.log('finished!');
+    setFinish(true);
   };
+  const onStart = () => {
+    console.log('start!');
+    setStart(true);
+    setFinish(false);
+  };
+  console.log();
   return (
     <div className="infoContainer">
       {cartConfirm ? (
@@ -130,27 +147,69 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
           </div>
         </div>
         <div className="infoArea">
-          <div className="brand">{brand}</div>
-          <div className="name">{name}</div>
-          <div className="promotion">
-            <p>宅配滿NT$888免運</p>
+          <div className="brand">
+            <p>{brand}</p>
+            <div className="d-none">
             <Col span={12}>
               <Countdown
-                value={deadline}
-                onFinish={onFinish}
-                valueStyle={{ color: 'red', textAlign: 'end' }}
+                value={startline}
+                onFinish={onStart}
+                valueStyle={{ color: '#aaa', textAlign: 'end' }}
               />
             </Col>
+            </div>
+            {start ? (
+              <>
+                {' '}
+                {finish ? (
+                  ''
+                ) : (
+                  <Col span={12}>
+                    <Countdown
+                      value={deadline}
+                      onFinish={onFinish}
+                      valueStyle={{ color: '#aaa', textAlign: 'end' }}
+                    />
+                  </Col>
+                )}
+              </>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="name">{name}</div>
+          <div className="promotion" style={{ opacity: finish ? '0' : '1' }}>
+            <p>{discount_name}</p>
           </div>
           <div>
-            <div className="price">
-              NT${' '}
-              {JSON.stringify(price).replace(
-                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-                ','
-              )}
-              {/* {JSON.stringify(price)} */}
-            </div>
+            {finish ? (
+              <div className="price" style={{ color: '#444' }}>
+                NT${' '}
+                {JSON.stringify(price).replace(
+                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                  ','
+                )}
+                {/* {JSON.stringify(price)} */}
+              </div>
+            ) : (
+              <>
+                <div className="price">
+                  <p className="deletePrice">
+                    市售價: ${' '}
+                    {JSON.stringify(price).replace(
+                      /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                      ','
+                    )}
+                  </p>
+                  NT${' '}
+                  {JSON.stringify(discountPrice).replace(
+                    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                    ','
+                  )}
+                </div>
+              </>
+            )}
+
             <div className="mt-5 mb-5 introContainer">
               {split.map((v, i) => {
                 return (
