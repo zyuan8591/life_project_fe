@@ -15,14 +15,27 @@
       max-width: 1200px;
       margin: 65px auto 0px auto;   
       background: #fff;
+      @media (max-width: 768px) {
+        height: auto;
+        padding:0;
+       }
    }  
    .content{
       width: 100%;
       // background: #ccc;
       padding: 50px 50px 0 50px;
+      overflow:scroll;
+      @media (max-width: 768px) {
+         padding:20px 20px 0 20px;
+       }
       h3{
          border-left: 8px solid $subClrBrown;
          padding-left: 10px;
       }
    }    
+}
+.sm-768none{
+   @media (max-width: 768px) {
+      display: none;
+     } 
 }

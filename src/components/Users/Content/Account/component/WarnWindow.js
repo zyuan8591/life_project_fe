@@ -40,6 +40,9 @@ const warnWindow = css`
   top: 0;
   background: rgba(0, 0, 0, 0.363);
   z-index: 99;
+  @media (max-width: 768px) {
+    height: 110vh;
+  }
   .inner {
     background: #fff;
     width: 300px;

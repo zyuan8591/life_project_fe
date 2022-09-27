@@ -10,9 +10,19 @@
   justify-content: center;
   padding: 50px;
   box-shadow: 5px 5px 10px 5px #ccc;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center; 
+    padding:20px;   
+    margin: 30px auto;
+   }
   .userTitle{
     font-weight: bold;
     line-height: 2rem;
+    @media (max-width: 768px) {   
+     line-height: 1.5rem;   
+    }
   }
   .username{
     line-height: 0rem;
@@ -31,10 +41,11 @@
       height: 50px;
       resize: none;
       border: 0;
+      // overflow: hidden;
       &::-webkit-scrollbar {
         //滾動條的寬度
-        width: 5px;
-        height: 3px;
+        width: 0px;
+        height: 1px;
       }
       &::-webkit-scrollbar-thumb {
         //滾動條的設定
@@ -55,7 +66,22 @@
     color: #221e73;
     display: flex;
     padding: 0;
-    cursor: pointer;
+    cursor: pointer; 
+    @media (max-width: 768px) {   
+      width: 60px;
+      top: 425px;
+      left:140px;
+      height: 30px; 
+      border-radius: 10px;
+      background: #817161;
+      i{
+        display: none;
+      }
+      p{
+       margin: auto;;
+       color: #fff;
+      }      
+     }
     
     i{
       position: relative;
@@ -73,7 +99,12 @@
   }
   .avata-group {
     text-align: center;    
-    margin:10px 60px 0 -10px;    
+    margin:10px 60px 0 -10px;  
+    @media (max-width: 768px) {   
+        width: 100%;      
+        width: 100%;
+        margin: 0 0 10px 0;       
+    }  
   }
   .avata {
     width: 150px;
@@ -81,10 +112,15 @@
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    border: 2px solid #817161;
-    
+    border: 2px solid #817161;    
     background: #fff;
     margin-bottom: 20px;
+    @media (max-width: 768px) {   
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 20px auto;
+    }
+    
 
     img {
       width: 100%;
@@ -92,6 +128,7 @@
       object-fit: cover;
       vertical-align: middle;
       border-style: none;
+     
     }
   }}
  
@@ -104,7 +141,18 @@
     border: 3px dashed #817161;
     padding: 20px;
     position: relative;
+    @media (max-width: 768px) {   
+     flex-direction: column;
+     width: 100%;
+     margin: 30px auto;
+     padding: 20px 20px 40px 20px;
     
+    }
+    .dataGroup{
+      @media (max-width: 768px) {   
+        order:2;
+       }
+    }
     p{
       margin: 0;
     }
@@ -131,6 +179,10 @@
       border: 2px solid #817161;
       background: #fff;
       margin-bottom: 20px;
+      @media (max-width: 768px) {
+        width: 100px;
+        height: 100px;  
+       }
       span{
         position: absolute;
         width: 100%;
@@ -173,11 +225,23 @@
       justify-content: center;
       align-items: center;
       margin-left: 100px;
+      @media (max-width: 768px) {   
+       order: 1;
+       width: 100%;
+       margin: 0; 
+      }
      }
    .btnGroup {
     margin-top: 80px;
+    @media (max-width: 768px) {   
+      position: absolute;
+      bottom:8px;
+     }
     .editbtn{
       padding: 5px 10px;
+      @media (max-width: 768px) {   
+        padding: 3px 8px;
+       }
       &:hover {
         transform: scale(1.05);
       }
