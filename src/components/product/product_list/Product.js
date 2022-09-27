@@ -14,16 +14,12 @@ import { useUserRights } from '../../../usecontext/UserRights';
 import PaginationBar from '../../public_component/PaginationBar';
 
 const Product = ({
-  item,
   productList,
   fav,
   setProductLikeId,
   productLikeId,
   setCollectConfirm,
   setCollectCancel,
-  collectCancel,
-  collectConfirm,
-  cartConfirm,
   setCartConfirm,
   setLoginBtn,
   lastPage,
@@ -44,7 +40,7 @@ const Product = ({
     <>
       <div className="productContainer">
         {productList.map((v, i) => {
-          const { id, name, price, brand, img, color, img2, inventory } = v;
+          const { id, name, price, brand, img, color, inventory, discount } = v;
           return (
             <div
               className="products"

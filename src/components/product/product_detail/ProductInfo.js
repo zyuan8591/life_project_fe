@@ -18,8 +18,8 @@ import BreadCrumb from '../../public_component/BreadCrumb';
 import { Col, Row, Statistic } from 'antd';
 const { Countdown } = Statistic;
 // const deadline = new Date('2022-09-27T15:01:00').getTime();
-const deadline = Date.now() + 1000 * 10;
-const startline = Date.now() + 1000 * 5;
+// let deadline = Date.now() + 1000 * 10;
+// let startline = Date.now() + 1000 * 5;
 const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const {
@@ -37,8 +37,14 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     start_time,
     end_time,
   } = data;
-  // const deadline = new Date(end_time).getTime();
-  // const startline = new Date(start_time).getTime();
+  const deadline = new Date(end_time).getTime();
+  const startline = new Date(start_time).getTime();
+  console.log(startline, new Date().getTime());
+  useEffect(() => {
+    // deadline = Date.now() + 1000 * 10;
+    // startline = Date.now() + 1000 * 5;
+  }, []);
+
   let split = '';
   if (intro.includes(',')) {
     split = intro.split(',');
@@ -70,6 +76,10 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   useEffect(() => {
     setMainPic(pic);
     setDiscountPrice(parseInt(price * (discount / 100)));
+    if (startline < new Date().getTime()) {
+      setStart(true);
+      setFinish(false);
+    }
   }, [data]);
   const onFinish = () => {
     console.log('finished!');
@@ -80,7 +90,6 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     setStart(true);
     setFinish(false);
   };
-  console.log();
   return (
     <div className="infoContainer">
       {cartConfirm ? (
@@ -150,31 +159,22 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
           <div className="brand">
             <p>{brand}</p>
             <div className="d-none">
-            <Col span={12}>
-              <Countdown
-                value={startline}
-                onFinish={onStart}
-                valueStyle={{ color: '#aaa', textAlign: 'end' }}
-              />
-            </Col>
+              <Col span={12}>
+                <Countdown
+                  value={startline}
+                  onFinish={onStart}
+                  valueStyle={{ color: '#aaa', textAlign: 'end' }}
+                />
+              </Col>
             </div>
-            {start ? (
-              <>
-                {' '}
-                {finish ? (
-                  ''
-                ) : (
-                  <Col span={12}>
-                    <Countdown
-                      value={deadline}
-                      onFinish={onFinish}
-                      valueStyle={{ color: '#aaa', textAlign: 'end' }}
-                    />
-                  </Col>
-                )}
-              </>
-            ) : (
-              ''
+            {start && !finish && (
+              <Col span={12}>
+                <Countdown
+                  value={deadline}
+                  onFinish={onFinish}
+                  valueStyle={{ color: '#aaa', textAlign: 'end' }}
+                />
+              </Col>
             )}
           </div>
           <div className="name">{name}</div>

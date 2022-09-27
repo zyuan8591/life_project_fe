@@ -34,41 +34,42 @@ const ProductCategory = ({ setProductCateNow }) => {
       ) : (
         ''
       )}
-
-      {productCate.map((v, i) => {
-        const { id, name } = v;
-        return (
-          <div
-            key={id}
-            className="category cursorPointer"
-            style={{
-              background: activeId === id && active ? '#817161' : '',
-              color: activeId === id && active ? 'white' : '',
-              borderRadius: activeId === id && active ? '5px' : '',
-            }}
-            onClick={() => {
-              // const params = Object.fromEntries([...searchParams]);
-              // params['productCate'] = v.id;
-              // setSearchParams(params);
-              setProductCateNow(v.id);
-              setMove((i + 1) * height);
-              setActiveId(id);
-            }}
-            onMouseOver={() => {
-              setMove((i + 1) * height);
-              setHover(true);
-              setActive(false);
-            }}
-            onMouseOut={() => {
-              setMove((i + 1) * height);
-              setHover(false);
-              setActive(true);
-            }}
-          >
-            {name}
-          </div>
-        );
-      })}
+      <div className="mt-2">
+        {productCate.map((v, i) => {
+          const { id, name } = v;
+          return (
+            <div
+              key={id}
+              className="category cursorPointer"
+              style={{
+                background: activeId === id && active ? '#817161' : '',
+                color: activeId === id && active ? 'white' : '',
+                borderRadius: activeId === id && active ? '5px' : '',
+              }}
+              onClick={() => {
+                // const params = Object.fromEntries([...searchParams]);
+                // params['productCate'] = v.id;
+                // setSearchParams(params);
+                setProductCateNow(v.id);
+                setMove((i + 1) * height);
+                setActiveId(id);
+              }}
+              onMouseOver={() => {
+                setMove((i + 1) * height);
+                setHover(true);
+                setActive(false);
+              }}
+              onMouseOut={() => {
+                setMove((i + 1) * height);
+                setHover(false);
+                setActive(true);
+              }}
+            >
+              {name}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
