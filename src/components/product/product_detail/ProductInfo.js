@@ -19,7 +19,15 @@ import { Col, Row, Statistic } from 'antd';
 const { Countdown } = Statistic;
 // let deadline = Date.now() + 1000 * 10;
 // let startline = Date.now() + 1000 * 1;
-const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
+const ProductInfo = ({
+  data,
+  item,
+  fav,
+  setProductLikeId,
+  productLikeId,
+  start,
+  setStart,
+}) => {
   const productCart = useProductCart({});
   const {
     id,
@@ -36,8 +44,6 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     start_time,
     end_time,
   } = data;
-  const deadline = new Date(end_time).getTime();
-  const startline = new Date(start_time).getTime();
 
   let split = '';
   if (intro.includes(',')) {
@@ -62,17 +68,19 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const [loginBtn, setLoginBtn] = useState(false);
   const [discountPrice, setDiscountPrice] = useState('');
   const [finish, setFinish] = useState(true);
-  const [start, setStart] = useState(false);
+  // const [start, setStart] = useState(false);
   const [buyPrice, setBuyPrice] = useState(price);
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
+  const deadline = new Date(end_time).getTime();
+  const startline = new Date(start_time).getTime();
   useEffect(() => {
     // deadline = Date.now() + 1000 * 20;
     // startline = Date.now() + 1000 * 5;
     setDiscountPrice(parseInt(price * (discount / 100)));
     setBuyPrice(discountPrice);
-  }, [discountPrice]);
+  }, [discount]);
 
   useEffect(() => {
     setMainPic(pic);
@@ -273,8 +281,6 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   >
                     <button
                       onClick={() => {
-                        // console.log('button buyPrice', buyPrice);
-                        // console.log('button discount', discount);
                         if (
                           startline < new Date().getTime() &&
                           deadline > new Date().getTime()
@@ -301,16 +307,12 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                 ) : (
                   <button
                     onClick={() => {
-                      // console.log(quantity);
-                      // console.log(discountPrice);
                       if (
                         startline < new Date().getTime() &&
                         deadline > new Date().getTime()
                       ) {
                         setBuyPrice(discountPrice);
                       }
-                      console.log('button buyPrice', buyPrice);
-                      console.log('button discountPrice', discountPrice);
                       productCart.addItem({
                         id: id,
                         quantity: quantity,

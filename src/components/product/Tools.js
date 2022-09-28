@@ -28,7 +28,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
       {loginBtn ? (
         <Notification
           contaninText={'請先登入會員'}
-          linkTo={'/signin/login'}
+          linkTo={'/signin?p=1'}
           setLoginBtn={setLoginBtn}
         />
       ) : (
@@ -154,7 +154,8 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
             transform: cart ? 'translateX(-300px)' : 'translateX(0px)',
           }}
         >
-          <p>點數 : {user.points} </p>
+          {' '}
+          {user ? <p>點數 : {user.points} </p> : <p>尚未登入會員 </p>}
           <div className={classess.triangle}></div>
         </div>
       )}

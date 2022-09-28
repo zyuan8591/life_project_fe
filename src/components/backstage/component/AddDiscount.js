@@ -32,7 +32,7 @@ function AddDiscount({
   });
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
-    
+
     setProduct(newProduct);
     // console.log(newProduct);
   }
@@ -43,16 +43,24 @@ function AddDiscount({
 
     console.log(loading);
     try {
-      let formData = new FormData();
-      formData.append('name', product.name);
-      formData.append('discount', product.discount);
-      formData.append('start_time', startTime);
-      formData.append('end_time', endTime);
-      formData.append('company', brand);
+      // let formData = new FormData();
+      // formData.append('name', product.name);
+      // formData.append('discount', product.discount);
+      // formData.append('start_time', startTime);
+      // formData.append('end_time', endTime);
+      // formData.append('company', brand);
+
+      let data = {
+        name: product.name,
+        discount: product.discount,
+        start_time: startTime,
+        end_time: endTime,
+        company: brand,
+      };
 
       let response = await axios.post(
         `${API_URL}/products/addDiscount`,
-        formData
+        data
         // {
         //   withCredentials: true,
         // }

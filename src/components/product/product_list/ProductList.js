@@ -140,7 +140,7 @@ const ProductList = () => {
         <ProductRank />
         <div className="d-flex mt-sm-5 mt-3 ">
           <ProductCategory setProductCateNow={setProductCateNow} />
-          <div className="d-flex flex-column justify-content-center align-items-center">
+          <div className="">
             <ProductFilter
               total={total}
               search={search}

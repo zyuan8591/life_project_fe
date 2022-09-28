@@ -40,7 +40,20 @@ const Product = ({
     <>
       <div className="productContainer">
         {productList.map((v, i) => {
-          const { id, name, price, brand, img, color, inventory, discount } = v;
+          const {
+            id,
+            name,
+            price,
+            brand,
+            img,
+            color,
+            inventory,
+            discount,
+            start_time,
+            end_time,
+          } = v;
+          const deadline = new Date(end_time).getTime();
+          const startline = new Date(start_time).getTime();
           return (
             <div
               className="products"
@@ -183,32 +196,19 @@ const Product = ({
                 </div>
               </div>
               <Link to={`/products/${id}`} className="link">
-                <div
-                  className="hoverArea "
-                  onClick={(e) => {
-                    // console.log('h');
-                  }}
-                >
-                  <div className="discount">
-                    {/* <IconContext.Provider
-                      value={{
-                        color: '#1F9998 ',
-                        size: '2.4rem',
-                      }}
-                    >
-                      <TbDiscount2 />
-                    </IconContext.Provider> */}
-                    {/* 88折 */}
-                    {/* sale */}
-                    {/* discount */}
-                    <img
-                      src={`${API_URL_IMG}/product/product_icon/sale-tag (1).png`}
-                      alt=""
-                    />
-                  </div>
+                <div className="hoverArea ">
+                  {startline < new Date().getTime() &&
+                  deadline > new Date().getTime() ? (
+                    <div className="discount">
+                      <p>sales</p>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+
                   <div className="productImg">
                     <img
-                      src={`${API_URL_IMG}/product/product_key_effect/${img}`}
+                      src={`${API_URL_IMG}/product/product_img/${img}`}
                       alt=""
                     />
                   </div>
@@ -219,7 +219,10 @@ const Product = ({
                 <p className="color">{color}</p>
               </div>
               <div className="brandArea">
-                <p className="brand">{brand}</p>
+                <div className="d-flex align-items-center">
+                  <p className="brand">{brand}</p>
+                  <p className="discountRwd">{discount}折</p>
+                </div>
                 <p className="price">
                   NT${' '}
                   {price
