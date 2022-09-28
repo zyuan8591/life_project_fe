@@ -38,9 +38,11 @@ const PicnicTable = ({ data, display }) => {
                 <td>{`${v.start_date}~${v.end_date}`}</td>
                 <td>{v.place_name}</td>
                 <td>{v.activity_state}</td>
-                {display === 1 ? <td>{v.creater_id}</td> : null}
+                {display === 1 ? (
+                  <td className="sm-768none">{v.creater_id}</td>
+                ) : null}
 
-                <td>
+                <td className="p-0">
                   {display === 0 || display === 3 ? (
                     <Link to={`/activity/picnic/official/${v.picnic_id}`}>
                       <button>活動詳情</button>
@@ -52,22 +54,22 @@ const PicnicTable = ({ data, display }) => {
                   )}
                 </td>
                 {display === 1 || display === 2 ? (
-                  <td>
+                  <td className="sm-768none">
                     <i className="fa-regular fa-comment-dots icon"></i>
                   </td>
                 ) : null}
                 {display === 2 ? (
-                  <td>
+                  <td className="sm-768none">
                     <i className="fa-solid fa-pen-to-square icon"></i>
                   </td>
                 ) : null}
                 {display === 2 ? (
-                  <td>
+                  <td className="sm-768none">
                     <i className="fa-solid fa-square-check icon"></i>
                   </td>
                 ) : null}
                 {display === 2 ? (
-                  <td>
+                  <td className="sm-768none">
                     <i className="fa-solid fa-trash icon"></i>
                   </td>
                 ) : null}

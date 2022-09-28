@@ -5,6 +5,7 @@ import PicnicFilter from './PicnicFilter/PicnicFilter';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
+import NoDataDisplay from '../../../public_component/NoDataDisplay';
 
 const Picnic = () => {
   const { user } = useUserRights();
@@ -47,6 +48,7 @@ const Picnic = () => {
       <div className="user_activity">
         <PicnicFilter list={list} setList={setList} setDisplay={setDisplay} />
         <PicnicTable data={data} display={display} />
+        {data.length === 0 && <NoDataDisplay noDataText="活動" />}
         <PaginationBar
           lastPage={lastPage}
           pageNow={pageNow}

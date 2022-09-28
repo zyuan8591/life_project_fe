@@ -164,7 +164,8 @@ const Nav = () => {
         className="mask"
         css={mask}
         style={{
-          transform: navSwitch ? 'translateX(0px)' : 'translateX(-500px)',
+          // display: navSwitch ? 'block' : 'none',
+          transform: navSwitch ? 'translateX(0px)' : 'translateX(400px)',
         }}
       ></div>
       {!navSwitch ? (
