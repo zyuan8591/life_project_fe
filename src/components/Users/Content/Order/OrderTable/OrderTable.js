@@ -41,7 +41,9 @@ const Table = ({ orders }) => {
                 <td>{v.order_payment}</td>
                 <td>{v.order_delivery}</td>
                 <td>
-                  <Link to={`/users/order/${v.id}`}>訂單詳情</Link>
+                  <Link to={`/users/order/${v.id}`}>
+                    <button>訂單詳情</button>
+                  </Link>
                 </td>
               </tr>
             );

@@ -8,7 +8,7 @@ import { useUserRights } from '../../../../usecontext/UserRights';
 import jsondata from '../../../../utils/CityCountyData.json';
 import PreviewImage from './component/PreviewImage';
 
-const Account = ({ setEdit }) => {
+const Account = ({ setEdit, showEditOK = () => {} }) => {
   const { user, setUser } = useUserRights();
 
   //彈跳視窗
@@ -51,6 +51,7 @@ const Account = ({ setEdit }) => {
             setUser(response.data);
             setWarn(false);
             setEdit(false);
+            showEditOK();
 
             // setEdit(false);
           } catch (e) {

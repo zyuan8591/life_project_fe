@@ -123,8 +123,8 @@ const Password = () => {
             <Form>
               <Field name="password">
                 {({ field, meta }) => (
-                  <div className="password-group ">
-                    <label htmlFor="passwword">　　　舊密碼：</label>
+                  <div className="password-group pl_1">
+                    <label htmlFor="passwword">舊密碼：</label>
                     <input
                       type={eye.eye1 ? 'text' : 'password'}
                       id="passwword"
@@ -147,8 +147,8 @@ const Password = () => {
 
               <Field name="newPassword">
                 {({ field, meta }) => (
-                  <div className="password-group">
-                    <label htmlFor="newPassword">　　　新密碼：</label>
+                  <div className="password-group pl_1">
+                    <label htmlFor="newPassword">新密碼：</label>
                     <input
                       type={eye.eye2 ? 'text' : 'password'}
                       id="newPassword"
@@ -194,8 +194,8 @@ const Password = () => {
 
               <Field name="authentication" type="text">
                 {({ field, meta }) => (
-                  <div className="d-flex password-group">
-                    <label htmlFor="authentication">　信箱驗證碼：</label>
+                  <div className="d-flex password-group pl_2">
+                    <label htmlFor="authentication">信箱驗證碼：</label>
                     <input id="authentication" maxLength="6" {...field} />
                     <p
                       className={`sendText ${timeStemp ? 'noClick' : ''}`}

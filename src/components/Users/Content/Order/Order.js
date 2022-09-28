@@ -5,6 +5,7 @@ import PaginationBar from '../../../public_component/PaginationBar';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
+import NoDataDisplay from '../../../public_component/NoDataDisplay';
 
 const Order = () => {
   const { user } = useUserRights();
@@ -53,6 +54,7 @@ const Order = () => {
           currentStatus={currentStatus}
           setCurrentStatus={setCurrentStatus}
         />
+        {orders.length === 0 && <NoDataDisplay noDataText="訂單" />}
         <PaginationBar
           lastPage={lastPage}
           pageNow={pageNow}
