@@ -78,13 +78,22 @@ const ProductInfo = ({
   useEffect(() => {
     // deadline = Date.now() + 1000 * 20;
     // startline = Date.now() + 1000 * 5;
-    setDiscountPrice(parseInt(price * (discount / 100)));
+    if (discount < 10) {
+      setDiscountPrice(parseInt(price * (discount / 10)));
+    } else {
+      setDiscountPrice(parseInt(price * (discount / 100)));
+    }
     setBuyPrice(discountPrice);
   }, [discount]);
 
   useEffect(() => {
     setMainPic(pic);
-    setDiscountPrice(parseInt(price * (discount / 100)));
+    // setDiscountPrice(parseInt(price * (discount / 100)));
+    if (discount < 10) {
+      setDiscountPrice(parseInt(price * (discount / 10)));
+    } else {
+      setDiscountPrice(parseInt(price * (discount / 100)));
+    }
     if (startline < new Date().getTime()) {
       setStart(true);
       setFinish(false);

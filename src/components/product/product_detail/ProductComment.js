@@ -141,7 +141,9 @@ const ProductComment = () => {
           </>
         );
       })}
-      {comment.length === 0 && <NoDataDisplay noDataText={'留言'} />}
+      <div style={{ color: '#444' }}>
+        {comment.length === 0 && <NoDataDisplay noDataText={'留言'} />}
+      </div>
     </>
   );
 };

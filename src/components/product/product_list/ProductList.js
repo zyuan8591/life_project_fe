@@ -174,7 +174,9 @@ const ProductList = () => {
                 setPerPage={setPerPage}
               />
             ) : (
-              <NoDataDisplay />
+              <div className="noData">
+                <NoDataDisplay noDataText="商品" />
+              </div>
             )}
           </div>
         </div>
