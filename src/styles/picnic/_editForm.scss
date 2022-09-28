@@ -1,25 +1,27 @@
 @import '../../styles/variable';
 .fromBg{
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-color: #00000077;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 .createFormMain{
     margin: auto ;
     width: 50%;
     height: 80vh;
-    position: absolute;
+    position: fixed;
     top: 54%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
     overflow: scroll;
+    z-index: 10;
         .form {
             line-height: 1.5rem;
             width: 70%;

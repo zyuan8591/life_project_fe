@@ -13,6 +13,7 @@ import { useProductCart } from '../../orderContetxt/useProductCart';
 import { Link } from 'react-router-dom';
 import Notification from '../activity/Notification';
 import { useUserRights } from '../../usecontext/UserRights';
+import { Avatar, Badge } from 'antd';
 
 const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const [cart, setCart] = useState(false);
@@ -21,13 +22,13 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
-
+  // console.log(user);
   return (
     <>
       {loginBtn ? (
         <Notification
           contaninText={'請先登入會員'}
-          linkTo={'/signin/login'}
+          linkTo={'/signin?p=1'}
           setLoginBtn={setLoginBtn}
         />
       ) : (
@@ -46,11 +47,22 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
               setHeart(!heart);
             }}
           />
-          <IoCartOutline
-            onClick={() => {
-              setCart(true);
-            }}
-          />
+          <Badge
+            count={productCart.state.items.length}
+            // status="processing"
+            color="red"
+            overflowCount="99"
+            offset={[1, 5]}
+            size="small"
+          >
+            <IconContext.Provider value={{ size: '2rem', color: 'white' }}>
+              <IoCartOutline
+                onClick={() => {
+                  setCart(true);
+                }}
+              />
+            </IconContext.Provider>
+          </Badge>
           <AiOutlineCreditCard
             onMouseOver={() => {
               setPoint(true);
@@ -142,9 +154,8 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
             transform: cart ? 'translateX(-300px)' : 'translateX(0px)',
           }}
         >
-          <p>點數 : 27 </p>
-          {/* <p> 一點折一元</p>
-          <p>每200元能獲得一點</p> */}
+          {' '}
+          {user ? <p>點數 : {user.points} </p> : <p>尚未登入會員 </p>}
           <div className={classess.triangle}></div>
         </div>
       )}

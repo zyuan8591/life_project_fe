@@ -126,9 +126,9 @@ function CreatePincnic() {
     if (activityContent.endDate > activityContent.activityDate) {
       return message.error('活動日期不得小於報名日期');
     }
-    if (!e.target.value) {
-      return message.error('請輸入欄位');
-    }
+    // if (!e.target.value) {
+    //   return message.error('請輸入欄位');
+    // }
     if (activityContent)
       try {
         let formData = new FormData();

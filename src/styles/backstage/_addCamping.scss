@@ -22,12 +22,24 @@
         padding: 15px;
         background: $mainClrW;
         max-width: 700px;
-        height: 760px;
+        // min-height: 760px;
+        max-height: 760px;
         box-shadow: 0 0 5px #fff;
         position: relative;
         top: 50%;
         transform: translateY(-50%);
-        overflow: scroll;
+        overflow: auto;
+        &::-webkit-scrollbar {
+          //滾動條的寬度         
+          width: 7px;         
+          height: 3px;
+          }
+          &::-webkit-scrollbar-thumb {
+          //滾動條的設定
+          background-color: $subClrGY;
+          background-clip: padding-box;
+          border-radius: 3px;
+          }
         .closeIcon{
             position: absolute;
             top: 0;
@@ -43,7 +55,21 @@
             p{
                 margin: 0;
             }
-        }
+          }
+          .discountInput{
+            border-radius: 4px;
+            width: 250px;
+            height: 32px;
+            padding: 2px;
+            border: 2px solid $subClrGY;
+            outline: none;
+            &:focus{
+            border: 2px solid $subClrBrown;
+            }
+          }
+          .date {
+            width: 250px;
+          }
         select{
             border-radius: 4px;
             width: 80px;
@@ -141,7 +167,7 @@
     }
     .grid2 {
       display: grid;
-      grid-template-columns:1fr 1fr ;
+      grid-template-columns: 1fr 1fr  ;
       grid-column-gap: 40px;
       grid-auto-rows: (100px, auto);
     }

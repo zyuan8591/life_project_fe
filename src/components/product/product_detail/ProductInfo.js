@@ -15,8 +15,19 @@ import { API_URL_IMG } from '../../../utils/config';
 import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
 import BreadCrumb from '../../public_component/BreadCrumb';
-
-const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
+import { Col, Row, Statistic } from 'antd';
+const { Countdown } = Statistic;
+// let deadline = Date.now() + 1000 * 10;
+// let startline = Date.now() + 1000 * 1;
+const ProductInfo = ({
+  data,
+  item,
+  fav,
+  setProductLikeId,
+  productLikeId,
+  start,
+  setStart,
+}) => {
   const productCart = useProductCart({});
   const {
     id,
@@ -28,7 +39,12 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
     img3,
     inventory,
     intro = '',
+    discount_name,
+    discount,
+    start_time,
+    end_time,
   } = data;
+
   let split = '';
   if (intro.includes(',')) {
     split = intro.split(',');
@@ -50,12 +66,53 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
   const [cartConfirm, setCartConfirm] = useState(false);
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
+  const [discountPrice, setDiscountPrice] = useState('');
+  const [finish, setFinish] = useState(true);
+  // const [start, setStart] = useState(false);
+  const [buyPrice, setBuyPrice] = useState(price);
+  const cart = productCart.state.items.map((v) => {
+    return v.id;
+  });
+  const deadline = new Date(end_time).getTime();
+  const startline = new Date(start_time).getTime();
+  useEffect(() => {
+    // deadline = Date.now() + 1000 * 20;
+    // startline = Date.now() + 1000 * 5;
+    if (discount < 10) {
+      setDiscountPrice(parseInt(price * (discount / 10)));
+    } else {
+      setDiscountPrice(parseInt(price * (discount / 100)));
+    }
+    setBuyPrice(discountPrice);
+  }, [discount]);
 
-  console.log();
   useEffect(() => {
     setMainPic(pic);
-  }, [data]);
-
+    // setDiscountPrice(parseInt(price * (discount / 100)));
+    if (discount < 10) {
+      setDiscountPrice(parseInt(price * (discount / 10)));
+    } else {
+      setDiscountPrice(parseInt(price * (discount / 100)));
+    }
+    if (startline < new Date().getTime()) {
+      setStart(true);
+      setFinish(false);
+      // setBuyPrice(discountPrice);
+    }
+    if (deadline < new Date().getTime()) {
+      setFinish(true);
+      setBuyPrice(price);
+    }
+  }, [data, start, finish]);
+  const onFinish = () => {
+    console.log('finished!');
+    setFinish(true);
+  };
+  const onStart = () => {
+    console.log('start!');
+    setStart(true);
+    setFinish(false);
+  };
   return (
     <div className="infoContainer">
       {cartConfirm ? (
@@ -122,18 +179,60 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
           </div>
         </div>
         <div className="infoArea">
-          <div className="brand">{brand}</div>
-          <div className="name">{name}</div>
-          <div className="promotion">宅配滿NT$888免運</div>
-          <div>
-            <div className="price">
-              NT${' '}
-              {JSON.stringify(price).replace(
-                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-                ','
-              )}
-              {/* {JSON.stringify(price)} */}
+          <div className="brand">
+            <p>{brand}</p>
+            <div className="d-none">
+              <Col span={12}>
+                <Countdown
+                  value={startline}
+                  onFinish={onStart}
+                  valueStyle={{ color: '#aaa', textAlign: 'end' }}
+                />
+              </Col>
             </div>
+            {start && !finish && (
+              <Col span={12}>
+                <Countdown
+                  value={deadline}
+                  onFinish={onFinish}
+                  valueStyle={{ color: '#aaa', textAlign: 'end' }}
+                />
+              </Col>
+            )}
+          </div>
+          <div className="name">{name}</div>
+          <div className="promotion" style={{ opacity: finish ? '0' : '1' }}>
+            <p>{discount_name}</p>
+          </div>
+          <div>
+            {finish ? (
+              <div className="price" style={{ color: '#444' }}>
+                NT${' '}
+                {JSON.stringify(price).replace(
+                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                  ','
+                )}
+                {/* {JSON.stringify(price)} */}
+              </div>
+            ) : (
+              <>
+                <div className="price">
+                  <p className="deletePrice">
+                    市售價: ${' '}
+                    {JSON.stringify(price).replace(
+                      /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                      ','
+                    )}
+                  </p>
+                  NT${' '}
+                  {JSON.stringify(discountPrice).replace(
+                    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                    ','
+                  )}
+                </div>
+              </>
+            )}
+
             <div className="mt-5 mb-5 introContainer">
               {split.map((v, i) => {
                 return (
@@ -165,7 +264,7 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   <button>
                     <AiFillPlusCircle
                       onClick={() => {
-                        if (quantity < 99) {
+                        if (quantity < inventory) {
                           setQuantity(quantity + 1);
                         }
                       }}
@@ -182,25 +281,65 @@ const ProductInfo = ({ data, item, fav, setProductLikeId, productLikeId }) => {
                   size: '1.6rem',
                 }}
               >
-                <button
-                  onClick={() => {
-                    console.log(quantity);
-                    productCart.addItem({
-                      id: id,
-                      quantity: quantity,
-                      name: name,
-                      price: price,
-                      ischecked: false,
-                      img: img,
-                    });
-                    setCartConfirm(true);
-                    setTimeout(() => {
-                      setCartConfirm(false);
-                    }, 1200);
-                  }}
-                >
-                  <IoCartOutline />
-                </button>
+                {cart.includes(id) ? (
+                  <IconContext.Provider
+                    value={{
+                      color: '#F2AC33 ',
+                      size: '1.6rem',
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        if (
+                          startline < new Date().getTime() &&
+                          deadline > new Date().getTime()
+                        ) {
+                          setBuyPrice(discountPrice);
+                        }
+                        productCart.addItem({
+                          id: id,
+                          quantity: quantity,
+                          name: name,
+                          price: buyPrice,
+                          ischecked: false,
+                          img: img,
+                        });
+                        setCartConfirm(true);
+                        setTimeout(() => {
+                          setCartConfirm(false);
+                        }, 1200);
+                      }}
+                    >
+                      <IoCartSharp />
+                    </button>
+                  </IconContext.Provider>
+                ) : (
+                  <button
+                    onClick={() => {
+                      if (
+                        startline < new Date().getTime() &&
+                        deadline > new Date().getTime()
+                      ) {
+                        setBuyPrice(discountPrice);
+                      }
+                      productCart.addItem({
+                        id: id,
+                        quantity: quantity,
+                        name: name,
+                        price: buyPrice,
+                        ischecked: false,
+                        img: img,
+                      });
+                      setCartConfirm(true);
+                      setTimeout(() => {
+                        setCartConfirm(false);
+                      }, 1200);
+                    }}
+                  >
+                    <IoCartOutline />
+                  </button>
+                )}
+
                 {user ? (
                   <button
                     onClick={async () => {
