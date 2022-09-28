@@ -7,7 +7,7 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Input } from 'antd';
 import { API_URL } from '../../../../utils/config';
-import '../../../../styles/picnic/_createForm.scss';
+import '../../../../styles/picnic/_editForm.scss';
 import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import { IconContext } from 'react-icons';
