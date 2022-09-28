@@ -1,19 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import '../../../../styles/Order/orderList.scss';
-import { IconContext } from 'react-icons';
-import { TbTrash } from 'react-icons/tb';
+import React, { useState } from 'react';
 import { useProductCart } from '../../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
+import { IconContext } from 'react-icons';
+import { TbTrash } from 'react-icons/tb';
+import '../../../../styles/Order/orderList.scss';
 
-const OrderList = (props) => {
+const OrderList = ({
+  productItems,
+  productTotal,
+  productCount,
+  picnicItems,
+  picnicTotal,
+  picnicCount,
+  campingItems,
+  campingTotal,
+  campingCount,
+}) => {
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
   const campingCart = useCampingCart();
   const [selectAll, setSelectAll] = useState(false);
+  // console.log(productCount);
+
   // console.log(productCart.state);
   // const [count, setCount] = useState({});
-
   // useEffect(() => {
   //   let data = { ...count };
   //   productCart.state.items.map((d, i) => {
@@ -38,34 +49,25 @@ const OrderList = (props) => {
 
   return (
     <>
-      {productCart.state.items.length < 1 &&
-        picnicCart.state.items.length < 1 &&
-        campingCart.state.items.length < 1 && <>滾</>}
-      {productCart.state.items.length > 0 && (
+      {productItems.length > 0 && (
         <>
-          <h2 className="h1 ps-3 pb-2">商品</h2>
+          <h2 className="h1 ps-3 title">商品</h2>
 
           <div className="orderList">
-            <div className="row orderListTitle gap-3">
-              <div className="col">
+            <div className="row orderListTitle gap-sm-2 dnone">
+              <div className="col-1">
                 {/* TODO: checkall */}
                 <input
                   type="checkbox"
                   onChange={() => {
-                    const checkcount = productCart.state.items.filter(
-                      (items) => {
-                        return items.ischecked === true;
-                      }
-                    );
-                    if (checkcount.length !== productCart.state.items.length) {
-                      console.log(
-                        '888',
-                        checkcount,
-                        productCart.state.items.length
-                      );
+                    const checkcount = productItems.filter((items) => {
+                      return items.ischecked === true;
+                    });
+                    if (checkcount.length !== productItems.length) {
+                      // console.log('888', checkcount, productItems.length);
                       setSelectAll(false);
                     }
-                    productCart.state.items.map((v, i) => {
+                    productItems.map((v, i) => {
                       productCart.updateItem({
                         ...v,
                         ischecked: !selectAll,
@@ -76,24 +78,24 @@ const OrderList = (props) => {
                 />
               </div>
               <div className="col">圖片</div>
-              <div className="col">名稱</div>
+              <div className="col-4">名稱</div>
               <div className="col">單價</div>
               <div className="col">數量</div>
               <div className="col">總價</div>
-              <div className="col">移除</div>
+              <div className="col-1">移除</div>
             </div>
 
             <div className="orderItemList">
-              {productCart.state.items.map((v, i) => {
+              {productItems.map((v, i) => {
                 return (
                   <div
-                    className="row orderItem gap-3"
+                    className="row orderItem gap-sm-2 gap-1"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
                   >
-                    <div className="col">
+                    <div className="col-1">
                       <input
                         type="checkbox"
                         checked={v.ischecked}
@@ -108,14 +110,20 @@ const OrderList = (props) => {
                     <div className="col">
                       <img alt="" src={`/img/product/product_img/${v.img}`} />
                     </div>
-                    <div className="col">{v.name}</div>
-                    <div className="col">{v.price}</div>
-                    <div className="col">
+                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col dnone">
                       <div className="counter">
                         <button
                           style={{
                             background: v.ischecked
-                              ? 'rgba(185,189,197,.2)'
+                              ? 'rgba(185,189,197,.05)'
                               : '#fff',
                           }}
                           className="counterButton"
@@ -129,7 +137,7 @@ const OrderList = (props) => {
                           <input
                             style={{
                               background: v.ischecked
-                                ? 'rgba(185,189,197,.2)'
+                                ? 'rgba(185,189,197,.05)'
                                 : '#fff',
                             }}
                             type="text"
@@ -138,9 +146,11 @@ const OrderList = (props) => {
                             onChange={(e) => {
                               // productCart.updateItem(e.target.value);
                               // productCart.plusItemQuantityOnce(v.id, 87);
+                              let value = e.target.value.replace(/[^\d]/, '');
+                              // if(value > v.stock) return;
                               productCart.updateItem({
                                 ...v,
-                                quantity: parseInt(e.target.value) || 1,
+                                quantity: parseInt(value) || 1,
                               });
                             }}
                           />
@@ -149,7 +159,7 @@ const OrderList = (props) => {
                         <button
                           style={{
                             background: v.ischecked
-                              ? 'rgba(185,189,197,.2)'
+                              ? 'rgba(185,189,197,.05)'
                               : '#fff',
                           }}
                           className="counterButton"
@@ -161,10 +171,16 @@ const OrderList = (props) => {
                         </button>
                       </div>
                     </div>
-                    <div className="col">{v.price * v.quantity}</div>
-                    <div className="col cursorPointer">
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price * v.quantity).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col-1 cursorPointer dnone">
                       <IconContext.Provider
-                        value={{ color: 'black', size: '2rem' }}
+                        value={{ color: 'black', size: '1.5rem' }}
                       >
                         <TbTrash
                           onClick={() => {
@@ -173,50 +189,161 @@ const OrderList = (props) => {
                         />
                       </IconContext.Provider>
                     </div>
+
+                    {/* RWD */}
+                    <div className="col-8 d-none dblock">
+                      <div className="row">
+                        <div className="col">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <div className="text-nowrap">{v.name}</div>
+                            <div className="col-3 cursorPointer d-none dblock">
+                              <IconContext.Provider
+                                value={{ color: 'black', size: '1.5rem' }}
+                              >
+                                <TbTrash
+                                  onClick={() => {
+                                    productCart.removeItem(v.id);
+                                  }}
+                                />
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                            <div className="text-nowrap">
+                              ${' '}
+                              {JSON.stringify(v.price * v.quantity).replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}
+                            </div>
+                            <div className="col-3">
+                              <div className="counter">
+                                <button
+                                  style={{
+                                    background: v.ischecked
+                                      ? 'rgba(185,189,197,.05)'
+                                      : '#fff',
+                                  }}
+                                  className="counterButton"
+                                  onClick={() => {
+                                    productCart.minusOne(v.id);
+                                  }}
+                                >
+                                  -
+                                </button>
+                                <div className="counterContent">
+                                  <input
+                                    style={{
+                                      background: v.ischecked
+                                        ? 'rgba(185,189,197,.05)'
+                                        : '#fff',
+                                    }}
+                                    type="text"
+                                    className="counterInput"
+                                    value={v.quantity}
+                                    onChange={(e) => {
+                                      // productCart.updateItem(e.target.value);
+                                      // productCart.plusItemQuantityOnce(v.id, 87);
+                                      productCart.updateItem({
+                                        ...v,
+                                        quantity: parseInt(e.target.value) || 1,
+                                      });
+                                    }}
+                                  />
+                                </div>
+
+                                <button
+                                  style={{
+                                    background: v.ischecked
+                                      ? 'rgba(185,189,197,.05)'
+                                      : '#fff',
+                                  }}
+                                  className="counterButton"
+                                  onClick={() => {
+                                    productCart.plusOne(v.id);
+                                  }}
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            <div className="row orderListInfo">
-              <div className="col position-relative">
-                已選擇 {productCart.state.totalItems} 項商品
-                <div className="col subTotal">
-                  小計：$ {productCart.state.cartTotal} 元
-                </div>
-              </div>
+            <div className="orderListInfo  ">
+              已選擇 {productCount} 項商品
+              <span className="subTotal">
+                小計：${' '}
+                {JSON.stringify(productTotal).replace(
+                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                  ','
+                )}{' '}
+                元
+              </span>
             </div>
           </div>
         </>
       )}
-      {(picnicCart.state.items.length > 0 ||
-        campingCart.state.items.length > 0) && (
+      {(picnicItems.length > 0 || campingItems.length > 0) && (
         <>
-          <h2 className="h1 ps-3 pb-2">活動</h2>
-          <div className="row orderList">
-            <div className="row orderListTitle gap-3">
-              <div className="col">
-                <input type="checkbox" />
+          <h2 className="h1 ps-3 title">活動</h2>
+          <div className="orderList">
+            <div className="row orderListTitle gap-sm-2 dnone">
+              <div className="col-1">
+                {/* TODO: checkall */}
+                <input
+                  type="checkbox"
+                  onChange={() => {
+                    const picnicCheckCount = picnicItems.filter((items) => {
+                      return items.ischecked === true;
+                    });
+                    const campingCheckCount = campingItems.filter((items) => {
+                      return items.ischecked === true;
+                    });
+                    if (
+                      picnicCheckCount.length + campingCheckCount !==
+                      picnicCount + campingCount
+                    ) {
+                      setSelectAll(false);
+                    }
+                    picnicItems.map((v, i) => {
+                      picnicCart.updateItem({
+                        ...v,
+                        ischecked: !selectAll,
+                      });
+                    });
+                    campingItems.map((v, i) => {
+                      campingCart.updateItem({ ...v, ischecked: !selectAll });
+                    });
+                    setSelectAll(!selectAll);
+                  }}
+                />
               </div>
               <div className="col">圖片</div>
-              <div className="col">名稱</div>
+              <div className="col-4">名稱</div>
               <div className="col">單價</div>
               <div className="col">數量</div>
               <div className="col">總價</div>
-              <div className="col">移除</div>
+              <div className="col-1">移除</div>
             </div>
 
             <div className="orderItemList">
-              {picnicCart.state.items.map((v, i) => {
+              {picnicItems.map((v, i) => {
                 return (
                   <div
-                    className="row orderItem gap-3"
+                    className="row orderItem gap-sm-2 gap-1"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
                   >
-                    <div className="col">
+                    <div className="col-1">
                       <input
                         type="checkbox"
                         checked={v.ischecked}
@@ -231,16 +358,28 @@ const OrderList = (props) => {
                     <div className="col">
                       <img
                         alt=""
-                        src="/img/product/product_img/BRUNO_BOE059_BGR_CE_01.webp"
+                        src={`/img/picnic/activity_picnic_img/${v.img}`}
                       />
                     </div>
-                    <div className="col">{v.name}</div>
-                    <div className="col">{v.price}</div>
-                    <div className="col">{v.quantity}</div>
-                    <div className="col">{v.price * v.quantity}</div>
-                    <div className="col cursorPointer">
+                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col dnone">{v.quantity}</div>
+                    <div className="col dnone">
+                      ${' '}
+                      {JSON.stringify(v.price * v.quantity).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col-1 cursorPointer dnone">
                       <IconContext.Provider
-                        value={{ color: 'black', size: '2rem' }}
+                        value={{ color: 'black', size: '1.5rem' }}
                       >
                         <TbTrash
                           onClick={() => {
@@ -249,19 +388,56 @@ const OrderList = (props) => {
                         />
                       </IconContext.Provider>
                     </div>
+                    {/* RWD */}
+                    <div className="col-8 d-none dblock">
+                      <div className="row">
+                        <div className="col">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <div className="text-nowrap">{v.name}</div>
+                            <div className="col-3 cursorPointer d-none dblock">
+                              <IconContext.Provider
+                                value={{ color: 'black', size: '1.5rem' }}
+                              >
+                                <TbTrash
+                                  onClick={() => {
+                                    picnicCart.removeItem(v.id);
+                                  }}
+                                />
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                            <div className="text-nowrap">
+                              ${' '}
+                              {JSON.stringify(v.price * v.quantity).replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}
+                            </div>
+                            <div className="col-3">
+                              <div className="counter">
+                                <div className="counterContent">
+                                  {v.quantity}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
-              {campingCart.state.items.map((v, i) => {
+              {campingItems.map((v, i) => {
                 return (
                   <div
-                    className="row orderItem gap-3"
+                    className="row orderItem gap-sm-2 gap-1"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
                   >
-                    <div className="col">
+                    <div className="col-1">
                       <input
                         type="checkbox"
                         checked={v.ischecked}
@@ -276,16 +452,28 @@ const OrderList = (props) => {
                     <div className="col">
                       <img
                         alt=""
-                        src="/img/product/product_img/BRUNO_BOE059_BGR_CE_01.webp"
+                        src={`/img/camping/activity_camping_img/${v.img}`}
                       />
                     </div>
-                    <div className="col">{v.name}</div>
-                    <div className="col">{v.price}</div>
-                    <div className="col">{v.quantity}</div>
-                    <div className="col">{v.price * v.quantity}</div>
-                    <div className="col cursorPointer">
+                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col dnone">{v.quantity}</div>
+                    <div className="col dnone">
+                      ${' '}
+                      {JSON.stringify(v.price * v.quantity).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col-1 cursorPointer dnone">
                       <IconContext.Provider
-                        value={{ color: 'black', size: '2rem' }}
+                        value={{ color: 'black', size: '1.5rem' }}
                       >
                         <TbTrash
                           onClick={() => {
@@ -294,21 +482,59 @@ const OrderList = (props) => {
                         />
                       </IconContext.Provider>
                     </div>
+
+                    {/* RWD */}
+                    <div className="col-8 d-none dblock">
+                      <div className="row">
+                        <div className="col">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <div className="text-nowrap">{v.name}</div>
+                            <div className="col-3 cursorPointer d-none dblock">
+                              <IconContext.Provider
+                                value={{ color: 'black', size: '1.5rem' }}
+                              >
+                                <TbTrash
+                                  onClick={() => {
+                                    campingCart.removeItem(v.id);
+                                  }}
+                                />
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                            <div className="text-nowrap">
+                              ${' '}
+                              {JSON.stringify(v.price * v.quantity).replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}
+                            </div>
+                            <div className="col-3">
+                              <div className="counter">
+                                <div className="counterContent">
+                                  {v.quantity}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            <div className="row orderListInfo">
-              <div className="col position-relative">
-                已選擇{' '}
-                {picnicCart.state.totalItems + campingCart.state.totalItems}{' '}
-                項商品
-                <div className="col subTotal">
-                  小計： ${' '}
-                  {picnicCart.state.cartTotal + campingCart.state.cartTotal} 元
-                </div>
-              </div>
+            <div className="orderListInfo">
+              已選擇 {picnicCount + campingCount} 項商品
+              <span className="subTotal">
+                小計： ${' '}
+                {JSON.stringify(picnicTotal + campingTotal).replace(
+                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                  ','
+                )}{' '}
+                元
+              </span>
             </div>
           </div>
         </>

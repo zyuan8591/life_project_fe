@@ -148,7 +148,7 @@ function PicnicOfficalDetail() {
         {loginBtn ? (
           <Notification
             contaninText={'請先登入會員'}
-            linkTo={'/signin/login'}
+            linkTo={'/signin?p=1'}
             setLoginBtn={setLoginBtn}
           />
         ) : (

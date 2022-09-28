@@ -90,10 +90,12 @@ const RecipeCreateForm = ({
             image: API_URL_IMG + image,
           };
         });
+        setIntroError(resetError(introError));
         setAddForm(recipe[0]);
         material = material.data.map((d) => {
           return { id: d.id, name: d.name, quantity: d.quantity };
         });
+        setMaterialError(resetMaterialError(material));
         setMaterial(material);
         step = step.data.map((d) => {
           return {
@@ -161,7 +163,13 @@ const RecipeCreateForm = ({
   // add step
   const addStepBtn = (i) => {
     let newData = [...step];
-    newData.splice(i + 1, 0, { id: uuidv4(), step: i, img: null, content: '' });
+    newData.splice(i + 1, 0, {
+      id: uuidv4(),
+      step: i,
+      img: null,
+      content: '',
+      error: '',
+    });
     setStep(sortStep(newData));
   };
   // delete step
@@ -325,7 +333,7 @@ const RecipeCreateForm = ({
         {/* add and cancel and demo button */}
         <div className={`ms-3 ${classes.createController}`}>
           <button
-            className={`mb-1 bg-success ${classes.btn}`}
+            className={`mb-1 ${classes.btn} ${classes.add}`}
             onClick={submitHandler}
           >
             {isEdit ? '修改' : '新增'}
@@ -339,7 +347,7 @@ const RecipeCreateForm = ({
           {/* demo button */}
           {!isEdit && (
             <button
-              className={`mb-1 bg-warning text-dark ${classes.btn}`}
+              className={`mb-1 text-white ${classes.btn} ${classes.demo}`}
               onClick={() => {
                 setIntroError(resetError(introError));
                 setAddForm({
@@ -444,7 +452,6 @@ const RecipeCreateForm = ({
           {/* material */}
           <div className={classes.formItem}>
             <label className="fs-4 mb-2">食材</label>
-            {/* TODO: drag */}
             {material.map((d, i) => {
               return (
                 <RecipeMaterial

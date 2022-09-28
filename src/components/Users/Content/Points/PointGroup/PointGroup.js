@@ -27,16 +27,16 @@ const PointGroup = ({ data }) => {
 
   return (
     <div className="points-group">
-      <div className="user-point row">
-        <div className="col mx-5 box ">
+      <div className="user-point ">
+        <div className="box ">
           <p className="box-title">獲得的點數</p>
           <p>LIFE點數 : {getPoints} 點</p>
         </div>
-        <div className="col mx-5 box">
+        <div className="box">
           <p className="box-title">已使用點數</p>
           <p>LIFE點數 : {spendPoints} 點</p>
         </div>
-        <div className="col mx-5 box">
+        <div className="box">
           <p className="box-title">可用點數</p>
           <p>LIFE點數 : {usablePoints} 點</p>
         </div>

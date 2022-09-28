@@ -7,11 +7,26 @@
   padding: 0 0.5rem;
   margin-bottom: 2rem;
   box-shadow:0px 0px 5px $subClrGY; 
+  @media (max-width:576px){
+    font-size: $text14;
+    padding:0;
+  }
   
+  .dnone{
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+  .dblock{
+    @media (max-width: 576px) {
+      display: block !important;
+    }
+  }
   .row{    
     --bs-gutter-x:0;
+    
 
-    .col img{
+    img{
       max-width: 100%;
     }
   }
@@ -19,22 +34,31 @@
   .orderListTitle{
     align-items: center;
     line-height: 2rem;
-    padding: .5rem .5rem;
+    padding: .5rem 0;
     border-bottom: 1px solid $subClrGY;
+    
   }
 
   .orderItemList{
-    padding:0;
+    // padding:0;
+    @media (max-width:576px){
+      padding:0;
+    }
     
     .orderItem{
       align-items: center;
-      padding: 0.5rem .5rem;
+      padding: 0.5rem 0;
+      line-height: 2rem;
       border-bottom: 1px solid $subClrGY;
+      @media (max-width:440px) {
+        padding: 0;
+      }
       
   
       .counter {
         display: flex;
         // min-width: 80px;
+        align-items: center;
       
         .counterButton {
           align-items: center;
@@ -48,7 +72,6 @@
           @media screen and (max-width:768px){
             width: 1rem;
             height: 1rem;
-            border: 1px solid transparent;
           }
           
         }
@@ -80,18 +103,27 @@
 
     }
   }
-  
 
   .orderListInfo{
-    align-items: center;
+    padding: .5rem 0;
     line-height: 2rem;
-    padding: 0.5rem 0;
+    position: relative;
+    @media (max-width:576px){
+      display: flex;
+      justify-content: space-around;
+      line-height: 1rem;
+    }
+
     .subTotal{
       position: absolute;
-      right:32px;
-      bottom: 0;
+      right:1rem;
+      @media (max-width:576px){
+        position: relative;
+        right:0;
+      } 
     }
-  }
+    
+  }   
 }
 
 

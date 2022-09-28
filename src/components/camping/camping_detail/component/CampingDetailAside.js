@@ -102,6 +102,7 @@ function CampingDetailAside({
                     name: v.title,
                     price: v.price,
                     ischecked: false,
+                    img: v.img1,
                   });
                   handleDelJoin(v.id);
                   setLoading(true);

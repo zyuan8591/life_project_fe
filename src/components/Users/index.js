@@ -7,7 +7,6 @@ import { Navigate } from 'react-router-dom';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const Index = () => {
-  //TODO:排版結束改成跳轉回首頁
   const { user, setUser } = useUserRights();
   if (!user) {
     return <Navigate to="/" />;
