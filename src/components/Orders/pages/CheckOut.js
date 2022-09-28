@@ -53,14 +53,14 @@ const CheckOut = () => {
     setCurrentStep(2);
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (isOrder) {
-        // <Navigate to="/orderstep/ordercheck" />;
-        navigate('/orderstep/ordercheck');
-      }
-    })();
-  }, [isOrder]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (isOrder) {
+  //       // <Navigate to="/orderstep/ordercheck" />;
+  //       navigate('/orderstep/ordercheck');
+  //     }
+  //   })();
+  // }, [isOrder]);
 
   useEffect(() => {
     (async () => {
