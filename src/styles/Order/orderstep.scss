@@ -29,6 +29,13 @@
     }
   }
 
+  .title{
+    text-align: left;
+    @media (max-width:576px) {
+      text-align: center;
+    }
+  }
+
   .summary{
     // max-width: 1000px;
     margin: 0 1rem 2rem;
@@ -56,7 +63,9 @@
         // border:1px solid $focusClrB;
       }
     }
+    
 
+    
   }
 
   .payment{
@@ -152,6 +161,9 @@
         }
         @media (max-width: 440px) {
           font-size: $text12;
+          select,input{
+            padding: 0;
+          }
       }
       }
       

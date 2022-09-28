@@ -78,7 +78,7 @@ const RecipeStep = ({ i, delStep, addStep, changeStep, data, demo, edit }) => {
     };
   }, [file]);
   return (
-    <Draggable draggableId={`step${i}`} index={i}>
+    <Draggable draggableId={`step${data.id}`} index={i}>
       {(provided) => (
         <div
           css={container}

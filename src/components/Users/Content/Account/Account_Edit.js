@@ -62,7 +62,7 @@ const Account = ({ setEdit }) => {
         {({ values, setFieldValue }) => (
           <Form>
             <div className="account_Edit ">
-              <div className="dateGroup">
+              <div className="dataGroup">
                 <Field name="name">
                   {({ field, meta }) => (
                     <>

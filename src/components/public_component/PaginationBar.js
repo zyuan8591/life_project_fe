@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
-import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
 // page on click change display pages
@@ -27,12 +26,6 @@ const PaginationBar = ({
   perPage,
   moreText = '食譜',
 }) => {
-  useEffect(() => {
-    // console.log('lastPage', lastPage);
-    // console.log('pageNow', pageNow);
-    // console.log('perPage', perPage);
-  }, []);
-
   const [displayPage, setDisplayPage] = useState(10);
   useEffect(() => {
     setDisplayPage(10);

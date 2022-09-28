@@ -16,6 +16,7 @@ import { API_URL } from '../../../utils/config';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
+import Summary from './CartPage/Summary';
 
 const CheckOut = () => {
   const { user } = useUserRights();
@@ -104,6 +105,18 @@ const CheckOut = () => {
         campingItems={campingItems}
         campingTotal={campingTotal}
         campingCount={campingCount}
+      />
+      <Summary
+        productItems={productItems}
+        productTotal={productTotal}
+        productCount={productCount}
+        picnicItems={picnicItems}
+        picnicTotal={picnicTotal}
+        picnicCount={picnicCount}
+        campingItems={campingItems}
+        campingTotal={campingTotal}
+        campingCount={campingCount}
+        currentStep
       />
       <Formik
         initialValues={{

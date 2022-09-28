@@ -3,11 +3,12 @@ import { css } from '@emotion/react';
 import React from 'react';
 import { AiOutlineFileSearch } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
+import { Button, Empty } from 'antd';
 
 const NoDataDisplay = ({
   noDataText = '資料',
   fontSize = '2.5rem',
-  iconSize = '4rem',
+  iconSize = '',
   linkFunc = '',
   linkText = '',
 }) => {
@@ -40,28 +41,22 @@ const NoDataDisplay = ({
   `;
   // const
   return (
-    <IconContext.Provider value={{ color: '#444', size: iconSize }}>
-      <div
-        className="d-flex flex-column align-items-center mt-5"
-        css={container}
-      >
-        <div className="flexCenter">
-          <AiOutlineFileSearch />
-          <h2 className="m-0" css={text}>
-            目前無相關{noDataText}
-          </h2>
-        </div>
-        {linkFunc && (
-          <button
-            onClick={() => linkFunc()}
-            css={addNow}
-            className="flexCenter mt-3 transition"
-          >
-            {linkText}
-          </button>
-        )}
-      </div>
-    </IconContext.Provider>
+    <Empty
+      imageStyle={{
+        height: iconSize,
+      }}
+      description={<span className="fs-5">目前無相關{noDataText}</span>}
+    >
+      {linkText && (
+        <button
+          onClick={() => linkFunc()}
+          css={addNow}
+          className="flexCenter mt-3 transition"
+        >
+          {linkText}
+        </button>
+      )}
+    </Empty>
   );
 };
 

@@ -12,7 +12,7 @@ import Summary from './CartPage/Summary';
 
 const Cart = () => {
   const { user } = useUserRights();
-  const { setCurrentStep } = useCartStep();
+  const { currentStep, setCurrentStep } = useCartStep();
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
   const campingCart = useCampingCart();
@@ -63,6 +63,7 @@ const Cart = () => {
         productCount={productCount}
         picnicCount={picnicCount}
         campingCount={campingCount}
+        currentStep={currentStep}
       />
       <div className="orderStepBtns gap-3">
         <Link to="/products" className="btn stepBtn prevButton">

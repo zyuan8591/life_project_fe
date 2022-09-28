@@ -76,7 +76,14 @@ const AccordionItem = (props) => {
   return (
     <li onClick={() => setVisable(index)}>
       {icon[index]}
-      <Link to={item.url}>{item.title}</Link>
+      <Link
+        onClick={() => {
+          props.setNavSwitch(false);
+        }}
+        to={item.url}
+      >
+        {item.title}
+      </Link>
       {item.item.map((v2, i2) => {
         return (
           <ul key={i2}>
@@ -85,7 +92,14 @@ const AccordionItem = (props) => {
               style={{ height: heightItem }}
               id={`item_${index}`}
             >
-              <Link to={v2.url}>{v2.title}</Link>
+              <Link
+                to={v2.url}
+                onClick={() => {
+                  props.setNavSwitch(false);
+                }}
+              >
+                {v2.title}
+              </Link>
             </li>
           </ul>
         );
@@ -112,39 +126,114 @@ const Nav = () => {
   const setVisableChild = (key) => {
     setVisable(visable.map((one, index) => (key == index ? true : false)));
   };
+  const [navSwitch, setNavSwitch] = useState(false);
   return (
-    <div className="nav" css={nav}>
-      <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
-        <ul className="list">
-          {userNav.map((item, index) => {
-            return (
-              <AccordionItem
-                item={item}
-                key={index}
-                index={index}
-                visable={visable[index]}
-                setVisable={setVisableChild}
-              />
-            );
-          })}
-          <li onClick={handelLogout} className="logout">
-            <FiLogOut />
-            登出
-          </li>
-        </ul>
-      </IconContext.Provider>
-    </div>
+    <>
+      <div
+        className="nav"
+        css={nav}
+        style={{
+          transform: navSwitch ? 'translateX(0px)' : 'translateX(-300px)',
+        }}
+      >
+        <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
+          <ul className="list">
+            {userNav.map((item, index) => {
+              return (
+                <AccordionItem
+                  item={item}
+                  key={index}
+                  index={index}
+                  visable={visable[index]}
+                  setVisable={setVisableChild}
+                  setNavSwitch={setNavSwitch}
+                />
+              );
+            })}
+            <li onClick={handelLogout} className="logout">
+              <FiLogOut />
+              登出
+            </li>
+          </ul>
+        </IconContext.Provider>
+      </div>
+      <div
+        onClick={() => {
+          setNavSwitch(false);
+        }}
+        className="mask"
+        css={mask}
+        style={{
+          transform: navSwitch ? 'translateX(0px)' : 'translateX(-500px)',
+        }}
+      ></div>
+      {!navSwitch ? (
+        <button
+          css={navBtn}
+          className="navBtn"
+          onClick={() => {
+            navSwitch ? setNavSwitch(false) : setNavSwitch(true);
+          }}
+        >
+          <i className="fa-solid fa-angle-right"></i>
+        </button>
+      ) : null}
+    </>
   );
 };
 export default Nav;
+const mask = css`
+  display: none;
+  transition: 0.5s;
+  @media (max-width: 768px) {
+    margin-top: -65px;
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 400;
+  }
+`;
+const navBtn = css`
+  display: none;
+  transition: 0.5s;
+  border: 0;
+  width: 15px;
+  height: 30px;
+  @media (max-width: 768px) {
+    background: rgba(129, 113, 97, 0.5);
+    color: #fff;
+    display: block;
+    position: fixed;
+    top: 60%;
+    z-index: 401;
+    margin-top: -65px;
+  }
+`;
 const nav = css`
   font-size: 16px;
   padding-top: 100px;
   width: 250px;
   line-height: 3.5rem;
   border-right: 1px solid #ccc;
+  transition: 0.5s;
+  position: relative;
+  left: 300px;
   @media (max-width: 768px) {
-    display: none;
+    left: 0;
+    border: 1px solid #666;
+    height: 100vh;
+    margin: 0;
+    background: #817161;
+    color: #fff;
+    position: fixed;
+    transform: translateX(-300px);
+    margin-top: -65px;
+    z-index: 999;
+    a {
+      color: #fff;
+    }
   }
 
   .list {

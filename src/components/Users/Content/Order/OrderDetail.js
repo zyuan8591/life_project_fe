@@ -63,6 +63,7 @@ export default function OrderDetail() {
   }, 0);
   // console.log(picnicTotal);
   // console.log(picnicItems, picnicCount, picnicTotal);
+  console.log(picnicTotal, campingTotal);
 
   return (
     <>

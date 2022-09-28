@@ -10,6 +10,7 @@ import IndexRecipeActivity from './component/IndexRecipeActivity';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
 import Slider from './component/Slider';
+import IndexProductSlide from './component/IndexProductSlide';
 
 const Homepage = () => {
   const [recipeData, setRecipeData] = useState([]);
@@ -50,7 +51,8 @@ const Homepage = () => {
               route="/products"
             />
           </div>
-          <IndexProducts />
+          {/* <IndexProducts /> */}
+          <IndexProductSlide />
           <div className="separateLine"></div>
           {/* NEW RECIPES */}
           <div className="hPrecipeContainer">

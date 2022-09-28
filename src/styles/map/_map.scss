@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     height: calc(100vh - $headerHeight) ;
-    top: 80px;
+    top: 65px;
     position: relative;
     margin: 0 auto;
     color: $contentClr;
@@ -43,7 +43,7 @@
             
             .mapCardContainer{
                 overflow-y: scroll;
-                height: 810px;
+                height: 770px;
                 .mapCard{
                     box-shadow: 0.4px 0.4px 6px rgba(0, 0, 0, 0.3);
                     max-width: 350px;
@@ -105,8 +105,8 @@
         display: none;
     }
     .mapContainer{
-        max-width: 370px;
-        top: 360px;
+        max-width: 365px;
+        top: 345px;
         .mapContain{
             align-items: center;
             flex-direction: column;
@@ -115,6 +115,13 @@
                 height: 250px ;
                 width: 365px;
             }
+            .selectContainer{
+                width: 365px;
+                .inputSearch{
+                    margin: 0 5px 15px;
+                }
+            }
         }
     }
+    
 }

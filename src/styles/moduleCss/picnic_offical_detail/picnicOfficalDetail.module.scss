@@ -25,7 +25,7 @@
     line-height: 1.9rem;
 }
 
-.PicnicOfficalDetailContainer {
+.PicnicOfficalDetailContainer { 
     .mbView{
         display: none;
     }
@@ -43,84 +43,130 @@
             }
             // --------- 上方活動資訊和圖片 ---------
             .detailTitle {
-            h2 {
+                h2 {
                 border-bottom: 1px solid $subClrGY;
                 padding: 0 0 1rem;
-            }
-            .titleContent {
-                li {
-                    font-size: $text20;
-                    line-height: 3rem;
-                    .faPawIcon {
-                        @include iconSize;
-                        color: $subClrBrown;                
+                }
+                .titleContent {
+                    li {
+                        font-size: $text20;
+                        line-height: 3rem;
+                        .faPawIcon {
+                            @include iconSize;
+                            color: $subClrBrown;                
+                        }
                     }
                 }
-            }
-            .image {
-                width: 100%;
-                height: 500px;
-                img {
-                    @include imgWH;
-                    object-fit: cover;
+                .image {
+                    width: 100%;
+                    height: 500px;
+                    img {
+                        @include imgWH;
+                        object-fit: cover;
+                    }
                 }
-            }
+                @media screen and (max-width:375px){
+                    h2 {
+                        border-bottom: 1px solid $subClrGY;
+                        padding: 1rem 0 ;
+                    }
+                    .titleContent {
+                        li {
+                            font-size: 18px ;
+                            line-height: 2.5rem ;
+                        }
+                    }
+                    .image {
+                        width: 100%;
+                        max-height: 250px;
+                        img {
+                            @include imgWH;
+                            object-fit: cover;
+                        }
+                    }
+                }
             }
             // --------- 活動內容 ---------
             .offcialDetailContent {
                 li {
                     font-size:  $contentText;
                 }
-            .contentWrap1 {
-                padding: 2rem 3rem;
-                margin: auto 0;
-                border-radius: 10px;
-                box-shadow: .8px .8px 5px $subClrGY;
-                .quoteLeftIcon {
-                    font-size: 1.2rem;
-                    margin: -1rem 5px 0;
-                    // color: $subClrBrown;
+                .contentWrap1 {
+                    padding: 2rem 3rem;
+                    margin: auto 0;
+                    border-radius: 10px;
+                    box-shadow: .8px .8px 5px $subClrGY;
+                    .quoteLeftIcon {
+                        font-size: 1.2rem;
+                        margin: -1rem 5px 0;
+                        // color: $subClrBrown;
+                    }
+                    .quoteRightIcon {
+                        font-size: 1.2rem;
+                        margin: 0 5px -1rem;
+                        // color: $subClrBrown;
+                    }
+                    p {
+                        font-size: $text18;
+                        text-align:justify;
+                        margin: 0;
+                        @include lineHeight;
+                        // color: $subClrBrown;
+                    }    
                 }
-                .quoteRightIcon {
-                    font-size: 1.2rem;
-                    margin: 0 5px -1rem;
-                    // color: $subClrBrown;
-                }
-                p {
-                    font-size: $text18;
-                    text-align:justify;
-                    margin: 0;
-                    @include lineHeight;
-                    // color: $subClrBrown;
-                }    
-            }
-            .noticeItem {
-                background-color: $hoverClr;
-                padding: 1rem;
+                .noticeItem {
+                    background-color: $hoverClr;
+                    padding: 1rem;
+                    li {
+                        text-indent: -1em;
+                        @include lineHeight;
+                    }
+                }        
                 li {
-                    text-indent: -1em;
                     @include lineHeight;
-                }
-            }        
-            li {
-                @include lineHeight;
-                margin-left: 38px;
-                text-indent: -1.9rem;
-                .warnIcon {
-                    @include iconSize;
-                    color: $focusClrY;
-                    // margin-left: 10px;
-                }
-                .checkIcon {
-                    @include iconSize;
-                    color: $focusClrG;
-                }
-                .crossIcon {
-                    @include iconSize;
-                    color: $subClrGY;
+                    margin-left: 38px;
+                    text-indent: -1.9rem;
+                    .warnIcon {
+                        @include iconSize;
+                        color: $focusClrY;
+                        // margin-left: 10px;
+                    }
+                    .checkIcon {
+                        @include iconSize;
+                        color: $focusClrG;
+                    }
+                    .crossIcon {
+                        @include iconSize;
+                        color: $subClrGY;
 
+                    }
                 }
-            }
+                @media screen and (max-width:375px){
+                    li {
+                        font-size:  14px !important;
+                    }
+                    .contentTitle{
+                        font-size: 18px;
+                    }
+                    .contentWrap1 {
+                        padding: 2rem 1.5rem;
+                        box-shadow: .8px .8px 5px $subClrGY;
+                        .quoteLeftIcon {
+                            font-size: 1rem;
+                        }
+                        .quoteRightIcon {
+                            font-size: 1rem;
+                        }
+                        p {
+                            font-size: $contentText;
+                        }    
+                    }
+                    .noticeItem {
+                        .noticeItemTitle{
+                            font-size: 18px;
+                        }
+                    }        
+                }
             }
             // --------- 參加者 ---------
             .paicipantOff {
@@ -189,13 +235,6 @@
                             .userName {
                                 font-size: $contentText;
                             }
-                            // .userIntro1{
-                            //     font-size: 12px;
-                            //     display: -webkit-box;
-                            //     -webkit-box-orient: vertical;
-                            //     -webkit-line-clamp: 2;
-                            //     overflow: hidden;
-                            // }
                             .userIntro {
                                 background: white;
                                 position: absolute;
@@ -221,7 +260,23 @@
 
                     }
                 }
-               
+                @media screen and (max-width:375px){
+                    margin: 4rem 0 1.8rem;
+                    h4 {
+                        font-size: 18px;
+                    }
+                    .arrowIconSlider{
+                        width: 375px;            
+                        .arrowIconRight {
+                        right: 15px;
+                        }
+                    }
+                    .slider {
+                        width: 280px;
+                        height: 250px;
+                        margin: auto 35px;
+                    }
+                }
             }
         }
         // --------- 側邊資訊欄 ---------
@@ -270,10 +325,10 @@
                     outline: 3px solid #817161b8;
                 }
             }
-            }
+        }
     }   
      // --------- 推薦商品 ---------
-     .recommendProducts {
+    .recommendProducts {
         margin:0 0 5rem;
         h4 {
             margin: 1.5rem 0;
@@ -367,13 +422,36 @@
                 }
             }
         }
+        @media screen and (max-width:375px){
+            margin: 0 0 1.8rem;
+        h4 {
+            font-size: 18px;
+        }
+        .arrowIconSlider {
+            width: 360px;
+            .slider{
+                width: 290px;
+                margin: auto 50px;
+                position: relative;
+                left: -20px;
+                overflow: hidden;
+                .slidewrap{
+                    width: 4000px;
+                    transition: .5s;
+                    .productCard {
+                        width: 280px ;
+                    } 
+                }
+            }
+        }
+        }
                     
     }
            
     // --------- 推薦熱門活動 ---------
     .recommendActivity {
         // margin: 5rem 0;
-        max-width: 1380px;
+        max-width: 4000px;
         overflow: hidden;
         h4 {
             margin: 1.5rem 0;
@@ -452,7 +530,20 @@
 
             }
         }
+        @media screen and (max-width:375px){
+            h4 {
+                font-size: 18px;
+            }
+            .cardItem {
+                max-height: 280px;
+                max-width: 280px;
+                margin:5px 38px !important;
+                padding: 20px ;
+                box-shadow: .5px .5px 6px $subClrGY;
+            }  
+        }
     }
+    
 }
 
 @media screen and (max-width:375px) {
@@ -462,117 +553,6 @@
     .mbView{
         display: block !important;
     } 
-    // --------- 上方活動資訊和圖片 ---------
-    .detailTitle {
-        h2 {
-            border-bottom: 1px solid $subClrGY;
-            padding: 1rem 0 !important;
-        }
-        .titleContent {
-            li {
-                font-size: 18px !important;
-                line-height: 2.5rem !important;
-                // .faPawIcon {
-                //     @include iconSize;
-                //     color: $subClrBrown;                
-                // }
-            }
-        }
-        .image {
-            width: 100%;
-            max-height: 250px;
-            img {
-                @include imgWH;
-                object-fit: cover;
-            }
-        }
-        }
-    // --------- 活動內容 ---------
-    .offcialDetailContent {
-        li {
-            font-size:  14px !important;
-        }
-        .contentTitle{
-            font-size: 18px;
-        }
-        .contentWrap1 {
-            padding: 2rem 1.5rem !important;
-            // margin: auto 0;
-            // border-radius: 10px;
-            box-shadow: .8px .8px 5px $subClrGY;
-            .quoteLeftIcon {
-                font-size: 1rem !important;
-                // margin: -1rem 5px 0;
-                // color: $subClrBrown;
-            }
-            .quoteRightIcon {
-                font-size: 1rem !important;
-                // margin: 0 5px -1rem;
-                // color: $subClrBrown;
-            }
-            p {
-                font-size: $contentText !important;
-                // text-align:justify;
-                // margin: 0;
-                // @include lineHeight;
-                // color: $subClrBrown;
-            }    
-        }
-        .noticeItem {
-            // background-color: $hoverClr;
-            // padding: 1rem;
-            .noticeItemTitle{
-                font-size: 18px;
-            }
-            // li {
-            //     text-indent: 1em;
-            //     @include lineHeight;
-            // }
-        }        
-        // li {
-        //     @include lineHeight;
-        //     margin-left: 38px;
-        //     text-indent: -1.9rem;
-        //     .warnIcon {
-        //         @include iconSize;
-        //         color: $focusClrY;
-        //         // margin-left: 10px;
-        //     }
-        //     .checkIcon {
-        //         @include iconSize;
-        //         color: $focusClrG;
-        //     }
-        //     .crossIcon {
-        //         @include iconSize;
-        //         color: $subClrGY;
-
-        //     }
-        // }
-    }
-
-    // --------- 參加者 ---------
-    .paicipantOff {
-        margin: 4rem 0 1.8rem!important;
-        h4 {
-            margin: 1.5rem 0;
-            font-size: 18px !important;
-            padding: 0 5px;
-            margin: 0.7rem 0;
-            border-left: 5px solid #817161;
-        }
-        .arrowIconSlider{
-            width: 375px !important;            
-            .arrowIconRight {
-            right: 15px !important;
-            }
-        }
-        .slider {
-            width: 280px;
-            height: 250px;
-            margin: auto 35px !important;
-        }
-       
-    }
         // --------- 側邊資訊欄 ---------
     .asideMessage {
        width: 350px !important;
@@ -610,97 +590,11 @@
            }
        }
     }
-    
-    .recommendProducts {
-        margin: 0 0 1.8rem !important;
-        h4 {
-            font-size: 18px !important;
-        }
-        .arrowIconSlider {
-            width: 360px !important;
-            .slider{
-                width: 290px !important;
-                height: 220px;
-                margin: auto 50px !important;
-                position: relative;
-                left: -20px;
-                overflow: hidden;
-                // transition: .5s;
-                .slidewrap{
-                    width: 4000px !important;
-                    position: absolute;
-                    transition: .5s;
-                    // transform: translateX(-200px);
-                    .productCard {
-                        background-color: blue;
-                        width: 280px !important;
-                        height: 200px;
-                        margin: 5px;
-                        overflow: hidden;
-                        position: relative;
-                        .productImg{
-                            width: 100%;
-                            height: 100%;
-                            img {
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;
-                            }
-                        }
-                        .hoverText{
-                            width: 100%;
-                            height: 200px;
-                            color: $mainClrW;
-                            font-size: $contentText;
-                            background:#444444b7 80%;
-                            text-align: center;
-                            transition: .5s;
-                            display: flex;
-                            align-items: center;
-                            position: absolute;
-                            top: 0;
-                            opacity: 0;
-                        }
-                        a{
-                            width: 100%;
-                        }
-                        span {
-                            width: 100%;
-                            display: inline-block;
-                            text-shadow: .5px .5px 1px $contentClr;
-                            font-size: $contentText;
-                            margin: auto;
-                        }
-                        &:hover {
-                            .hoverText {
-                                cursor: pointer;
-                                transition: .5s;
-                                opacity: 1;
-                            }
-                            span{
-                                color: white;
-                            }
-                        }
-                    }
-                    
-                }
-            }
-        }
-                                
-    }
-
-    .recommendActivity {
-        h4 {
-            font-size: 18px !important;
-        }
-        .cardItem {
-            max-height: 280px !important;
-            max-width: 280px !important;
-            // display: flex;
-            // flex-direction: column;
-            margin:5px 38px !important;
-            padding: 20px ;
-            box-shadow: .5px .5px 6px $subClrGY;
-        }  
+    a,
+    a:visited,
+    a:hover,
+    a:active {
+      color: $contentClr;
+      text-decoration: none;
     }
 }

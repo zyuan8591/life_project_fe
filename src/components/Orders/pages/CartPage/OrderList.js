@@ -51,11 +51,11 @@ const OrderList = ({
     <>
       {productItems.length > 0 && (
         <>
-          <h2 className="h1 ps-3">商品</h2>
+          <h2 className="h1 ps-3 title">商品</h2>
 
           <div className="orderList">
-            <div className="row orderListTitle gap-md-3 gap-1">
-              <div className="col">
+            <div className="row orderListTitle gap-sm-2 dnone">
+              <div className="col-1">
                 {/* TODO: checkall */}
                 <input
                   type="checkbox"
@@ -77,26 +77,25 @@ const OrderList = ({
                   }}
                 />
               </div>
-              <div className="col dnone">圖片</div>
-              <div className="col-md-2 col-3">名稱</div>
-              <div className="col-md col-2">單價</div>
+              <div className="col">圖片</div>
+              <div className="col-4">名稱</div>
+              <div className="col">單價</div>
               <div className="col">數量</div>
-              <div className="col-md col-2">總價</div>
-              <div className="col">移除</div>
+              <div className="col">總價</div>
+              <div className="col-1">移除</div>
             </div>
 
             <div className="orderItemList">
               {productItems.map((v, i) => {
-                console.log(v);
                 return (
                   <div
-                    className="row orderItem gap-md-3 gap-1"
+                    className="row orderItem gap-sm-2 gap-1"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
                   >
-                    <div className="col">
+                    <div className="col-1">
                       <input
                         type="checkbox"
                         checked={v.ischecked}
@@ -108,12 +107,18 @@ const OrderList = ({
                         }}
                       />
                     </div>
-                    <div className="col dnone">
+                    <div className="col">
                       <img alt="" src={`/img/product/product_img/${v.img}`} />
                     </div>
-                    <div className="col-md-2 col-3">{v.name}</div>
-                    <div className="col-md col-2">$ {v.price}</div>
-                    <div className="col">
+                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col dnone">
                       <div className="counter">
                         <button
                           style={{
@@ -141,9 +146,11 @@ const OrderList = ({
                             onChange={(e) => {
                               // productCart.updateItem(e.target.value);
                               // productCart.plusItemQuantityOnce(v.id, 87);
+                              let value = e.target.value.replace(/[^\d]/, '');
+                              // if(value > v.stock) return;
                               productCart.updateItem({
                                 ...v,
-                                quantity: parseInt(e.target.value) || 1,
+                                quantity: parseInt(value) || 1,
                               });
                             }}
                           />
@@ -164,8 +171,14 @@ const OrderList = ({
                         </button>
                       </div>
                     </div>
-                    <div className="col-md col-2">$ {v.price * v.quantity}</div>
-                    <div className="col cursorPointer">
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price * v.quantity).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col-1 cursorPointer dnone">
                       <IconContext.Provider
                         value={{ color: 'black', size: '1.5rem' }}
                       >
@@ -176,6 +189,88 @@ const OrderList = ({
                         />
                       </IconContext.Provider>
                     </div>
+
+                    {/* RWD */}
+                    <div className="col-8 d-none dblock">
+                      <div className="row">
+                        <div className="col">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <div className="text-nowrap">{v.name}</div>
+                            <div className="col-3 cursorPointer d-none dblock">
+                              <IconContext.Provider
+                                value={{ color: 'black', size: '1.5rem' }}
+                              >
+                                <TbTrash
+                                  onClick={() => {
+                                    productCart.removeItem(v.id);
+                                  }}
+                                />
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                            <div className="text-nowrap">
+                              ${' '}
+                              {JSON.stringify(v.price * v.quantity).replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}
+                            </div>
+                            <div className="col-3">
+                              <div className="counter">
+                                <button
+                                  style={{
+                                    background: v.ischecked
+                                      ? 'rgba(185,189,197,.05)'
+                                      : '#fff',
+                                  }}
+                                  className="counterButton"
+                                  onClick={() => {
+                                    productCart.minusOne(v.id);
+                                  }}
+                                >
+                                  -
+                                </button>
+                                <div className="counterContent">
+                                  <input
+                                    style={{
+                                      background: v.ischecked
+                                        ? 'rgba(185,189,197,.05)'
+                                        : '#fff',
+                                    }}
+                                    type="text"
+                                    className="counterInput"
+                                    value={v.quantity}
+                                    onChange={(e) => {
+                                      // productCart.updateItem(e.target.value);
+                                      // productCart.plusItemQuantityOnce(v.id, 87);
+                                      productCart.updateItem({
+                                        ...v,
+                                        quantity: parseInt(e.target.value) || 1,
+                                      });
+                                    }}
+                                  />
+                                </div>
+
+                                <button
+                                  style={{
+                                    background: v.ischecked
+                                      ? 'rgba(185,189,197,.05)'
+                                      : '#fff',
+                                  }}
+                                  className="counterButton"
+                                  onClick={() => {
+                                    productCart.plusOne(v.id);
+                                  }}
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
@@ -183,17 +278,24 @@ const OrderList = ({
 
             <div className="orderListInfo  ">
               已選擇 {productCount} 項商品
-              <span className="subTotal">小計：$ {productTotal} 元</span>
+              <span className="subTotal">
+                小計：${' '}
+                {JSON.stringify(productTotal).replace(
+                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                  ','
+                )}{' '}
+                元
+              </span>
             </div>
           </div>
         </>
       )}
       {(picnicItems.length > 0 || campingItems.length > 0) && (
         <>
-          <h2 className="h1 ps-3">活動</h2>
+          <h2 className="h1 ps-3 title">活動</h2>
           <div className="orderList">
-            <div className="row orderListTitle gap-md-3 gap-1">
-              <div className="col">
+            <div className="row orderListTitle gap-sm-2 dnone">
+              <div className="col-1">
                 {/* TODO: checkall */}
                 <input
                   type="checkbox"
@@ -223,25 +325,25 @@ const OrderList = ({
                   }}
                 />
               </div>
-              <div className="col dnone">圖片</div>
-              <div className="col-md-2 col-3">名稱</div>
-              <div className="col-md col-2">單價</div>
+              <div className="col">圖片</div>
+              <div className="col-4">名稱</div>
+              <div className="col">單價</div>
               <div className="col">數量</div>
-              <div className="col-md col-2">總價</div>
-              <div className="col">移除</div>
+              <div className="col">總價</div>
+              <div className="col-1">移除</div>
             </div>
 
             <div className="orderItemList">
               {picnicItems.map((v, i) => {
                 return (
                   <div
-                    className="row orderItem gap-md-3 gap-1"
+                    className="row orderItem gap-sm-2 gap-1"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
                   >
-                    <div className="col">
+                    <div className="col-1">
                       <input
                         type="checkbox"
                         checked={v.ischecked}
@@ -253,17 +355,29 @@ const OrderList = ({
                         }}
                       />
                     </div>
-                    <div className="col dnone">
+                    <div className="col">
                       <img
                         alt=""
                         src={`/img/picnic/activity_picnic_img/${v.img}`}
                       />
                     </div>
-                    <div className="col-md-2 col-3">{v.name}</div>
-                    <div className="col-md col-2">$ {v.price}</div>
-                    <div className="col">{v.quantity}</div>
-                    <div className="col-md col-2">$ {v.price * v.quantity}</div>
-                    <div className="col cursorPointer">
+                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col dnone">{v.quantity}</div>
+                    <div className="col dnone">
+                      ${' '}
+                      {JSON.stringify(v.price * v.quantity).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col-1 cursorPointer dnone">
                       <IconContext.Provider
                         value={{ color: 'black', size: '1.5rem' }}
                       >
@@ -274,19 +388,56 @@ const OrderList = ({
                         />
                       </IconContext.Provider>
                     </div>
+                    {/* RWD */}
+                    <div className="col-8 d-none dblock">
+                      <div className="row">
+                        <div className="col">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <div className="text-nowrap">{v.name}</div>
+                            <div className="col-3 cursorPointer d-none dblock">
+                              <IconContext.Provider
+                                value={{ color: 'black', size: '1.5rem' }}
+                              >
+                                <TbTrash
+                                  onClick={() => {
+                                    picnicCart.removeItem(v.id);
+                                  }}
+                                />
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                            <div className="text-nowrap">
+                              ${' '}
+                              {JSON.stringify(v.price * v.quantity).replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}
+                            </div>
+                            <div className="col-3">
+                              <div className="counter">
+                                <div className="counterContent">
+                                  {v.quantity}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
               {campingItems.map((v, i) => {
                 return (
                   <div
-                    className="row orderItem gap-md-3 gap-1"
+                    className="row orderItem gap-sm-2 gap-1"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
                     }}
                   >
-                    <div className="col">
+                    <div className="col-1">
                       <input
                         type="checkbox"
                         checked={v.ischecked}
@@ -298,17 +449,29 @@ const OrderList = ({
                         }}
                       />
                     </div>
-                    <div className="col dnone">
+                    <div className="col">
                       <img
                         alt=""
                         src={`/img/camping/activity_camping_img/${v.img}`}
                       />
                     </div>
-                    <div className="col-md-2 col-3">{v.name}</div>
-                    <div className="col-md col-2">$ {v.price}</div>
-                    <div className="col">{v.quantity}</div>
-                    <div className="col-md col-2">$ {v.price * v.quantity}</div>
-                    <div className="col cursorPointer">
+                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col text-nowrap dnone">
+                      ${' '}
+                      {JSON.stringify(v.price).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col dnone">{v.quantity}</div>
+                    <div className="col dnone">
+                      ${' '}
+                      {JSON.stringify(v.price * v.quantity).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ','
+                      )}
+                    </div>
+                    <div className="col-1 cursorPointer dnone">
                       <IconContext.Provider
                         value={{ color: 'black', size: '1.5rem' }}
                       >
@@ -319,6 +482,44 @@ const OrderList = ({
                         />
                       </IconContext.Provider>
                     </div>
+
+                    {/* RWD */}
+                    <div className="col-8 d-none dblock">
+                      <div className="row">
+                        <div className="col">
+                          <div className="d-flex gap-2 justify-content-between">
+                            <div className="text-nowrap">{v.name}</div>
+                            <div className="col-3 cursorPointer d-none dblock">
+                              <IconContext.Provider
+                                value={{ color: 'black', size: '1.5rem' }}
+                              >
+                                <TbTrash
+                                  onClick={() => {
+                                    campingCart.removeItem(v.id);
+                                  }}
+                                />
+                              </IconContext.Provider>
+                            </div>
+                          </div>
+                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                            <div className="text-nowrap">
+                              ${' '}
+                              {JSON.stringify(v.price * v.quantity).replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}
+                            </div>
+                            <div className="col-3">
+                              <div className="counter">
+                                <div className="counterContent">
+                                  {v.quantity}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
@@ -327,7 +528,12 @@ const OrderList = ({
             <div className="orderListInfo">
               已選擇 {picnicCount + campingCount} 項商品
               <span className="subTotal">
-                小計： $ {picnicTotal + campingTotal} 元
+                小計： ${' '}
+                {JSON.stringify(picnicTotal + campingTotal).replace(
+                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                  ','
+                )}{' '}
+                元
               </span>
             </div>
           </div>
