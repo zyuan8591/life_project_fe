@@ -11,9 +11,13 @@
 
 .activityDate{
     margin-bottom: 40px;
-    text-align: end;
+    text-align: start;
     .dateText{
         @include filterTitle;
+        @media screen and (max-width:375px){
+            width: 100%;
+            text-align: center;
+        }
     }
     input::-webkit-calendar-picker-indicator {
         width: 25px;
@@ -24,14 +28,34 @@
         border-radius: 2px; 
         cursor: pointer;
     }
+    .dateInputGrop{
+        @media screen and (max-width:768px) {
+            display: flex;
+            flex-direction: column;
+        }
+        @media screen and (max-width:375px){
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+    }
     input{
         max-Width: 120px;
         margin: 0;
+        @media screen and (max-width:375px){
+            max-Width: 100%;
+        }
     }
     .dateBtn{
        display: flex;
        justify-content: space-between;
        align-items: center; 
+       @media screen and (max-width:375px){
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
     button{        
         border: 1px solid $subClrGY;
@@ -47,26 +71,7 @@
         &:hover{
             @include buttonHover;
         }
-    }
-}
-@media screen and (max-width:375px){
-    .activityDate{
-        .dateText{
-            width: 100%;
-            text-align: center;
-        }
-        .dateInputGrop{
-            justify-content: center;
-        }
-        input{
-            max-Width: 150px;
-        }
-        .dateBtn{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        button{
+        @media screen and (max-width:375px){
             margin-right: 0;
         }
     }

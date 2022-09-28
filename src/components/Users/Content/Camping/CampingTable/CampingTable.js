@@ -28,10 +28,10 @@ const CampingTable = ({ data }) => {
                   />
                 </td>
                 <td>{v.title}</td>
-                <td>{`${v.activity_start_date}~${v.activity_end_date}`}</td>
+                <td>{`${v.activity_start_date} ~ ${v.activity_end_date}`}</td>
                 <td>{v.place}</td>
                 <td>{v.state}</td>
-                <td>
+                <td className="p-0">
                   <Link to={`/activity/camping/${v.id}`}>
                     <button>活動詳情</button>
                   </Link>

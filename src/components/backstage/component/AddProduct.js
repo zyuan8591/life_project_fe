@@ -12,6 +12,7 @@ import AddImgProduct4 from './AddImgProduct4';
 import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
+import { useEffect } from 'react';
 function AddPage({
   setAddPage,
   loading,
@@ -22,6 +23,7 @@ function AddPage({
 }) {
   const [errMsg, setErrMsg] = useState(false);
   // const [loginBtn, setLoginBtn] = useState(false);
+  const [cateArr, setCateArr] = useState([]);
 
   const [product, setProduct] = useState({
     name: '義大利半自動義式咖啡機',
@@ -38,6 +40,12 @@ function AddPage({
     photo2: '',
     photo3: '',
   });
+  useEffect(() => {
+    (async () => {
+      let result = await axios.get(`${API_URL}/products/category`);
+      setCateArr(result.data);
+    })();
+  }, []);
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
 
@@ -65,10 +73,10 @@ function AddPage({
       formData.append('photo1', product.photo4);
       let response = await axios.post(
         `${API_URL}/products/addProduct`,
-        formData
-        // {
-        //   withCredentials: true,
-        // }
+        formData,
+        {
+          withCredentials: true,
+        }
       );
       if (response.data.message === '此商品已存在') {
         setErrMsg(true);
@@ -91,7 +99,7 @@ function AddPage({
       // console.log(response.data.message);
       // console.log(formData);
     } catch (e) {
-      console.error('addCamping', e);
+      console.error('addProduct', e);
     }
   }
 
@@ -138,16 +146,15 @@ function AddPage({
               </div>
               <div className="mb-4">
                 <label>商品分類：</label>
-                <input
-                  className="input"
-                  id="cate"
-                  name="cate"
-                  type="text"
-                  maxLength={15}
-                  value={product.cate}
-                  onChange={handleChange}
-                  required
-                />
+                <select className="input m-0" onChange={handleChange}>
+                  {cateArr.map((v, i) => {
+                    return (
+                      <option value={v.id} key={v.id}>
+                        {v.name}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
               <div className="mb-4">
                 <label>顏色：</label>

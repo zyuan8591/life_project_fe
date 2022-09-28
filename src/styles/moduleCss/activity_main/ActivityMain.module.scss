@@ -1,134 +1,146 @@
 @import '../../variable';
-.m-view{
-    display: none;
+.m-view {
+  display: none;
 }
-.activityMainPage{
-    max-width: 1600px;
-    margin: 0 auto $headerHeight;
+.activityMainPage {
+  max-width: 1600px;
+  margin: 0 auto $headerHeight;
+  position: relative;
+  top: $headerHeight;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  .activityCamping {
+    color: $mainClrW;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(51, 70, 80, 0.5);
     position: relative;
-    top: $headerHeight;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    .activityCamping{
-        color: $mainClrW;
-        border-radius: 20px;
-        box-shadow: 0 0 20px rgba(51, 70, 80, 0.5);
-        position: relative;
-        overflow: hidden;
-        max-width: 700px;
-        height: 715px;
-        margin: 100px 0;
-        .activityCampingImg{
-            position: relative;
-            width: 100%;
-            height: 100%;
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                transition: transform 2.5s ease;
-            }
-        }
-        .campingTitle{
-            font-size: $titleText;
-            position: absolute;
-            top: 20%;
-            left: 150px;
-            transition: opacity 1s ease;
-        }
-        .campingContainer{
-            color: $mainClrW;
-            position: absolute;
-            width: 700px;
-            height: 505px;
-            top: 715px;
-            padding: 50px;
-            transition: background-color 1.5s ease,transform 1.5s ease;
-            .campingText{
-                font-size: $titleText;
-                color: $focusClrY;
-                text-shadow: 2px 2px 2px $mainClrW;
-            }
-            .campingDetail{
-                margin:30px;
-                font-size: 24px;
-                line-height: 3.2rem;
-            }
-            .linkTo{
-                text-align: end;
-                padding-top: 24px;
-            }
-            .campingBtnText{
-                color: $focusClrG;
-                font-size: 22px;
-                transition: color 1s ease;
-            }
-        }
-        &:hover .campingTitle{
-            opacity: 0;
-        }
-        &:hover .campingContainer{
-            background-color: rgba(0, 0, 0, 0.6);
-            transform: translateY(-505px);
-        }
-        &:hover img{
-            transform: scale(1.2);
-        }
+    overflow: hidden;
+    max-width: 700px;
+    height: 715px;
+    margin: 100px 0;
+    .activityCampingImg {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 2.5s ease;
+      }
     }
+    .campingTitle {
+      font-size: $titleText;
+      position: absolute;
+      top: 20%;
+      left: 150px;
+      transition: opacity 1s ease;
+    }
+    .campingContainer {
+      color: $mainClrW;
+      position: absolute;
+      width: 700px;
+      height: 505px;
+      top: 715px;
+      padding: 50px;
+      transition: background-color 1.5s ease, transform 1.5s ease;
+      .campingText {
+        font-size: $titleText;
+        color: $focusClrY;
+        text-shadow: 2px 2px 2px $mainClrW;
+      }
+      .campingDetail {
+        margin: 30px;
+        font-size: 24px;
+        line-height: 3.2rem;
+      }
+      .linkTo {
+        text-align: end;
+        padding-top: 24px;
+      }
+      .campingBtnText {
+        color: $focusClrG;
+        font-size: 22px;
+        transition: color 1s ease;
+      }
+    }
+    &:hover .campingTitle {
+      opacity: 0;
+    }
+    &:hover .campingContainer {
+      background-color: rgba(0, 0, 0, 0.6);
+      transform: translateY(-505px);
+    }
+    &:hover img {
+      transform: scale(1.2);
+    }
+  }
 }
 
-
-@media screen and (max-width:375px) {
-    .m-view{
-        display: flex;
-    }
-    .p-view{
-        display: none;
-    }
-    .activityMainPage{
-        width: 90%;
-        justify-content: center;
-        flex-direction: column;
-        .activityCamping{
-            width: 100%;
-            height: 350px;
-            margin: 20px 0;
-            .campingTitle{
-                font-size: 20px;
-                left: 0px;
-                transform: translateX(33%);
-            }
-            .campingContainer{
-                width: 400px;
-                height: 350px;
-                top: 400px;
-                padding: 30px 20px;
-                .campingText{
-                    font-size: $contentText;
-                    text-shadow: 0px 0px 0px ;
-                }
-                .campingDetail{
-                    margin:10px;
-                    text-align: justify;
-                    font-size: $text14;
-                    line-height: 2rem;
-                }
-                .linkTo{
-                    padding-top: 2px;
-                    justify-content: end;
-                    align-items: center;
-                }
-                .campingBtnText{
-                    font-size: $text14;
-                    margin-right: 40px;
-                    padding-top: 10px;
-                    margin-right: 60px;
-                }
-            }
-            &:hover .campingContainer{
-                transform: translateY(-300px);
-            } 
+@media screen and (max-width: 375px) {
+  .m-view {
+    display: flex;
+  }
+  .p-view {
+    display: none;
+  }
+  .activityMainPage {
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    .activityCamping {
+      width: 100%;
+      height: 350px;
+      margin: 20px 0;
+      .campingTitle {
+        font-size: 20px;
+        left: 0px;
+        transform: translateX(33%);
+      }
+      .campingContainer {
+        width: 365px;
+        height: 350px;
+        top: 400px;
+        padding: 30px 20px;
+        transform: translateY(-300px);
+        .campingText {
+          font-size: $contentText;
+          text-shadow: 0px 0px 0px;
         }
+        .campingDetail {
+          margin: 10px;
+          text-align: justify;
+          font-size: $text14;
+          line-height: 2rem;
+        }
+        .linkTo {
+          padding-top: 2px;
+          justify-content: end;
+          align-items: center;
+          margin-top: -10%;
+        }
+        .campingBtnText {
+          color: $mainClrW;
+          font-size: 18px;
+          margin-right: 50%;
+          padding-top: 10px;
+          text-shadow: 0 0 0.5px $contentClr;
+        }
+      }
+      // &:hover .campingContainer{
+      //     transform: translateY(-300px);
+      // }
+      &:hover .campingTitle {
+        opacity: 1;
+      }
+      &:hover .campingContainer {
+        background-color: transparent;
+        transform: translateY(-300px);
+      }
+      &:hover img {
+        transform: scale(1);
+      }
     }
+  }
 }

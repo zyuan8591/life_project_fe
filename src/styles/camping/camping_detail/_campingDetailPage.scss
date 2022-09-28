@@ -218,6 +218,13 @@
             color: $focusClrB;
         }
     }
+    a,
+    a:visited,
+    a:hover,
+    a:active {
+        color: $contentClr;
+        text-decoration: none;
+    }
 }
 
 @media screen and (max-width:375px) {

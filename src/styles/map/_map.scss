@@ -1,120 +1,126 @@
 @import '../variable';
-.m-view{
-    display: none;
+.m-view {
+  display: none;
 }
 
-.mapContainer{
+.mapContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - $headerHeight);
+  top: 65px;
+  position: relative;
+  margin: 0 auto;
+  color: $contentClr;
+  .mapContain {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: calc(100vh - $headerHeight) ;
-    top: 80px;
-    position: relative;
-    margin: 0 auto;
-    color: $contentClr;
-    .mapContain{
+    .selectContainer {
+      width: 400px;
+      .select {
         display: flex;
         justify-content: center;
-        .selectContainer{
-            width: 400px;
-            .select{
-                display: flex;
-                justify-content: center;
-                padding: 25px 0px 15px;
-            }
-            .inputSearch{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: 0 23px 15px;
-                padding-bottom: 12px;
-                border-bottom: 1px dashed #aaa;
-                .searchInput{
-                    width: 200px;
-                    height: 32px;
-                    padding: 2px;
-                    border: 2px solid $subClrGY;
-                    outline: none;
-                    &:focus{
-                    border: 2px solid $subClrBrown;
-                    }
-                }
-            }
-            
-            .mapCardContainer{
-                overflow-y: scroll;
-                height: 810px;
-                .mapCard{
-                    box-shadow: 0.4px 0.4px 6px rgba(0, 0, 0, 0.3);
-                    max-width: 350px;
-                    margin: 0 auto 15px;
-                    transition: opacity .3s ease;
-                    &:hover{
-                        opacity: .9;
-                    }
-                    .mapImg{
-                        width: 100%;
-                        height: 140px;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                    }
-                    .intContainer{
-                        padding: 10px 10px 8px;
-                        .intDate{
-                            font-size: $text12;
-                        }
-                        .intDistance{
-                            font-size: $text12;                        
-                        }
-                        .intTitle{
-                            color: $subClrBrown;
-                            font-size: $contentText;
-                            padding: 5px;
-                        }
-                    }
-                }
-                .noDataText{
-                    text-align: center;
-                    margin-top: 20px;
-                    font-size: 20px;
-                    color: $subClrBrown;
-                }
-            }
+        padding: 25px 0px 15px;
+      }
+      .inputSearch {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 23px 15px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #aaa;
+        .searchInput {
+          width: 200px;
+          height: 32px;
+          padding: 2px;
+          border: 2px solid $subClrGY;
+          outline: none;
+          &:focus {
+            border: 2px solid $subClrBrown;
+          }
         }
-        .leaflet-container{
-            height: calc(100vh - $headerHeight) ;
-            width: 1500px;
-            display: flex;
-            z-index: 10;
-            .map{
-                height: 100%;
-                width: 100%;
+      }
+
+      .mapCardContainer {
+        overflow-y: scroll;
+        height: 760px;
+        .mapCard {
+          box-shadow: 0.4px 0.4px 6px rgba(0, 0, 0, 0.3);
+          max-width: 350px;
+          margin: 0 auto 15px;
+          transition: opacity 0.3s ease;
+          &:hover {
+            opacity: 0.9;
+          }
+          .mapImg {
+            width: 100%;
+            height: 140px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
             }
+          }
+          .intContainer {
+            padding: 10px 10px 8px;
+            .intDate {
+              font-size: $text12;
+            }
+            .intDistance {
+              font-size: $text12;
+            }
+            .intTitle {
+              color: $subClrBrown;
+              font-size: $contentText;
+              padding: 5px;
+            }
+          }
         }
+        .noDataText {
+          text-align: center;
+          margin-top: 20px;
+          font-size: 20px;
+          color: $subClrBrown;
+        }
+      }
     }
+    .leaflet-container {
+      height: calc(100vh - $headerHeight);
+      width: 1500px;
+      display: flex;
+      z-index: 10;
+      .map {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
 }
 
-@media screen and (max-width:375px) {
-    .m-view{
-        display: flex;
-    }
-    .p-view{
-        display: none;
-    }
-    .mapContainer{
-        max-width: 370px;
-        top: 360px;
-        .mapContain{
-            align-items: center;
-            flex-direction: column;
-            .leaflet-container{
-                position: relative;
-                height: 250px ;
-                width: 365px;
-            }
+@media screen and (max-width: 375px) {
+  .m-view {
+    display: flex;
+  }
+  .p-view {
+    display: none;
+  }
+  .mapContainer {
+    max-width: 365px;
+    top: 345px;
+    .mapContain {
+      align-items: center;
+      flex-direction: column;
+      .leaflet-container {
+        position: relative;
+        height: 250px;
+        width: 365px;
+      }
+      .selectContainer {
+        width: 365px;
+        .inputSearch {
+          margin: 0 5px 15px;
         }
+      }
     }
+  }
 }

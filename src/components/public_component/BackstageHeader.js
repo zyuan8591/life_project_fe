@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import '../../styles/_header.scss';
+import '../../styles/_backHeader.scss';
 import { IconContext } from 'react-icons';
 import HeaderSearch from './Header/HeaderSearch';
 import {
@@ -58,7 +58,7 @@ const Header = ({ fixed = true }) => {
 
   return (
     <header
-      className={`header position-relative w-100 ${
+      className={`backHeader position-relative w-100 ${
         fixed ? 'position-fixed' : ''
       } ${scrollDown ? 'hidden' : ''}`}
     >

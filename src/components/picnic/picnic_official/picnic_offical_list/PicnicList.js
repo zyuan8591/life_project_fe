@@ -77,6 +77,7 @@ function PicnicList() {
     setData(response.data.data);
     setLastPage(response.data.pagination.lastPage);
   };
+
   useEffect(() => {
     getOfficalList();
   }, [
@@ -186,7 +187,7 @@ function PicnicList() {
           {loginBtn ? (
             <Notification
               contaninText={'請先登入會員'}
-              linkTo={'/signin/login'}
+              linkTo={'/signin?p=1'}
               setLoginBtn={setLoginBtn}
             />
           ) : (
@@ -320,11 +321,15 @@ function PicnicList() {
                         : horizontalCard}
                     </div>
                   </IconContext.Provider>
-                  <PaginationBar
-                    lastPage={lastPage}
-                    pageNow={pageNow}
-                    setPageNow={setPageNow}
-                  />
+                  {data.length === 0 ? (
+                    ''
+                  ) : (
+                    <PaginationBar
+                      lastPage={lastPage}
+                      pageNow={pageNow}
+                      setPageNow={setPageNow}
+                    />
+                  )}
                 </div>
 
                 {/* RWD */}
@@ -376,14 +381,16 @@ function PicnicList() {
                         : horizontalCard}
                     </div>
                   </IconContext.Provider>
-                  <PaginationBar
-                    lastPage={lastPage}
-                    pageNow={pageNow}
-                    perPage={perPage}
-                    setPageNow={setPageNow}
-                    setPerPage={setPerPage}
-                    moreText={''}
-                  />
+                  {data.length !== 0 && (
+                    <PaginationBar
+                      lastPage={lastPage}
+                      pageNow={pageNow}
+                      perPage={perPage}
+                      setPageNow={setPageNow}
+                      setPerPage={setPerPage}
+                      moreText={''}
+                    />
+                  )}
                 </div>
               </div>
             </div>

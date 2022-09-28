@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import BreadCrumb from '../../public_component/BreadCrumb';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../utils/config';
+import { Link } from 'react-router-dom';
 
 const ProductRank = () => {
   const [now, setNow] = useState(0);
@@ -53,91 +54,6 @@ const ProductRank = () => {
       <div className="rankTitle">
         <h5>商品排名</h5>
       </div>
-      {/* {window.innerWidth === 375 ? (
-        <Slider
-          now={now}
-          setNow={setNow}
-          maxWidth={1440}
-          moveCount={moveCount}
-          total={15}
-          pattern={'rank'}
-          itemWidth={itemWidth}
-        >
-          <div
-            className="d-flex justify-content-between rankContainer"
-            style={{
-              transform: `translateX(${now}px)`,
-              transition: '0.4s',
-            }}
-          >
-            {rankData.map((v, i) => {
-              let { name, color, img } = v;
-              return (
-                <div className="rank" key={i}>
-                  <div
-                    className={`${i === 0 ? 'one' : ''} ${
-                      i === 1 ? 'two' : ''
-                    } ${i === 2 ? 'three' : ''} number`}
-                  >
-                    <p>{i + 1}</p>
-                  </div>
-                  <figure>
-                    <img
-                      src={`${API_URL_IMG}/product/product_img/${img}`}
-                      alt=""
-                    />
-                  </figure>
-                  <p>
-                    {name}（{color}）
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </Slider>
-      ) : (
-        <Slider
-          now={now}
-          setNow={setNow}
-          maxWidth={1440}
-          moveCount={moveCount}
-          total={15}
-          pattern={'rank'}
-          itemWidth={itemWidth}
-        >
-          <div
-            className="d-flex justify-content-between rankContainer"
-            style={{
-              transform: `translateX(${now}px)`,
-              transition: '0.4s',
-            }}
-          >
-            {rankData.map((v, i) => {
-              let { name, color, img } = v;
-              return (
-                <div className="rank" key={i}>
-                  <div
-                    className={`${i === 0 ? 'one' : ''} ${
-                      i === 1 ? 'two' : ''
-                    } ${i === 2 ? 'three' : ''} number`}
-                  >
-                    <p>{i + 1}</p>
-                  </div>
-                  <figure>
-                    <img
-                      src={`${API_URL_IMG}/product/product_img/${img}`}
-                      alt=""
-                    />
-                  </figure>
-                  <p>
-                    {name}（{color}）
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </Slider>
-      )} */}
       <Slider
         now={now}
         setNow={setNow}
@@ -155,26 +71,28 @@ const ProductRank = () => {
           }}
         >
           {rankData.map((v, i) => {
-            let { name, color, img } = v;
+            let { name, color, img, id } = v;
             return (
-              <div className="rank" key={i}>
-                <div
-                  className={`${i === 0 ? 'one' : ''} ${i === 1 ? 'two' : ''} ${
-                    i === 2 ? 'three' : ''
-                  } number`}
-                >
-                  <p>{i + 1}</p>
+              <Link to={`/products/${id}`} style={{ color: '#444' }} key={id}>
+                <div className="rank">
+                  <div
+                    className={`${i === 0 ? 'one' : ''} ${
+                      i === 1 ? 'two' : ''
+                    } ${i === 2 ? 'three' : ''} number`}
+                  >
+                    <p>{i + 1}</p>
+                  </div>
+                  <figure>
+                    <img
+                      src={`${API_URL_IMG}/product/product_img/${img}`}
+                      alt=""
+                    />
+                  </figure>
+                  <p>
+                    {name}（{color}）
+                  </p>
                 </div>
-                <figure>
-                  <img
-                    src={`${API_URL_IMG}/product/product_img/${img}`}
-                    alt=""
-                  />
-                </figure>
-                <p>
-                  {name}（{color}）
-                </p>
-              </div>
+              </Link>
             );
           })}
         </div>

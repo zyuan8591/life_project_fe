@@ -150,14 +150,22 @@ function PicnicPrivateList() {
       <IconContext.Provider value={{ color: '#817161', size: '2em' }}>
         <main className="activityPage">
           {collectConfirm ? (
-            <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+            <Notification
+              contaninText={'已加入收藏'}
+              setLoginBtn={setLoginBtn}
+              bottom={30}
+            >
               <FaRegGrinHearts />
             </Notification>
           ) : (
             ''
           )}
           {collectCancel ? (
-            <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+            <Notification
+              contaninText={'已取消收藏'}
+              setLoginBtn={setLoginBtn}
+              bottom={30}
+            >
               <FaRegTired />
             </Notification>
           ) : (
@@ -166,7 +174,7 @@ function PicnicPrivateList() {
           {loginBtn ? (
             <Notification
               contaninText={'請先登入會員'}
-              linkTo={'/signin/login'}
+              linkTo={'/signin?p=1'}
               setLoginBtn={setLoginBtn}
             />
           ) : (
@@ -290,11 +298,15 @@ function PicnicPrivateList() {
                         : horizontalCard}
                     </div>
                   </IconContext.Provider>
-                  <PaginationBar
-                    lastPage={lastPage}
-                    pageNow={pageNow}
-                    setPageNow={setPageNow}
-                  />
+                  {data.length === 0 ? (
+                    ''
+                  ) : (
+                    <PaginationBar
+                      lastPage={lastPage}
+                      pageNow={pageNow}
+                      setPageNow={setPageNow}
+                    />
+                  )}
                 </div>
               </div>
             </div>
