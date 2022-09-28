@@ -159,7 +159,9 @@ function SetMap() {
                                       <GiCampingTent />
                                     </Link>
                                   ) : (
-                                    <Link to={`/activity/picnic/${v.id}`}>
+                                    <Link
+                                      to={`/activity/picnic/official/${v.id}`}
+                                    >
                                       <MdOutlineIcecream />
                                     </Link>
                                   )}
@@ -211,7 +213,7 @@ function SetMap() {
                                 </Link>
                               ) : (
                                 <Link
-                                  to={`/activity/picnic/${v.id}`}
+                                  to={`/activity/picnic/offical/${v.id}`}
                                   style={{ color: '#221E73' }}
                                 >
                                   {v.place}
@@ -282,7 +284,7 @@ function SetMap() {
                                 </Link>
                               ) : (
                                 <Link
-                                  to={`/activity/picnic/${v.id}`}
+                                  to={`/activity/picnic/offical/${v.id}`}
                                   style={{ color: '#221E73' }}
                                 >
                                   {v.place}
@@ -375,7 +377,9 @@ function SetMap() {
                                       <GiCampingTent />
                                     </Link>
                                   ) : (
-                                    <Link to={`/activity/picnic/${v.id}`}>
+                                    <Link
+                                      to={`/activity/picnic/offical/${v.id}`}
+                                    >
                                       <MdOutlineIcecream />
                                     </Link>
                                   )}

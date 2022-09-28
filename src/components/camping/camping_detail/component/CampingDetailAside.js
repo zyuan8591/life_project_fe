@@ -92,7 +92,9 @@ function CampingDetailAside({
                     ? classes.disabledBtn
                     : classes.hadJoinBtn
                 }
-                disabled={v.state !== '開團中' ? true : false}
+                disabled={
+                  v.state !== '開團中' && v.state !== '已成團' ? true : false
+                }
                 onClick={() => {
                   cart.addItem({
                     id: v.id,

@@ -1,0 +1,192 @@
+@import './variable';
+
+@mixin ipad {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
+.backHeader {
+  color: $contentClr;
+  height: $headerHeight;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-bottom: 2px solid $hoverClr;
+  transition: 0.3s;
+  top: 0;
+  left: 0;
+  //flex
+  display: flex;
+
+  align-items: center;
+  z-index: 50;
+  background: $subClrBrown;
+  // justify-content: space-between;
+  .headerMenu {
+    display: none;
+    @include ipad {
+      display: inline-block;
+    }
+  }
+  .headerTitle {
+    max-width: 350px;
+    flex-grow: 1;
+    margin: 0;
+    h1 {
+      color: $mainClrW;
+    }
+  }
+  //navbar
+  nav {
+    flex-grow: 1;
+    @include ipad {
+      position: fixed;
+      top: $headerHeight;
+      left: 0;
+      background: #fff;
+      width: 100vw;
+      height: 0;
+      transition: 0.3s;
+      overflow: hidden;
+      &.active {
+        height: $headerHeight;
+      }
+    }
+    @include mobile {
+      height: auto;
+      height: 0;
+      transition: 0.3s;
+      overflow: hidden;
+      &.active {
+        height: 230px;
+      }
+    }
+  }
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+    li {
+      font-size: 20px;
+      cursor: pointer;
+      a {
+        opacity: 0.6;
+        transition: 0.5s;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 3px;
+          left: 50%;
+          bottom: -5px;
+          transition: 0.5s;
+        }
+        &:hover::after,
+        &.active::after {
+          width: 100%;
+          left: 0;
+          background: $mainClrW;
+          color: $mainClrW;
+        }
+        &.active {
+          color: $mainClrW;
+          opacity: 1;
+        }
+      }
+
+      &:hover a {
+        opacity: 1;
+        color: $mainClrW;
+      }
+    }
+    @include ipad {
+      width: 100%;
+      justify-content: space-evenly;
+    }
+    @include mobile {
+      margin: 1rem 0;
+      flex-direction: column;
+    }
+  }
+  //user
+  .user {
+    max-width: 350px;
+    flex-grow: 1;
+    font-size: 1.25rem;
+    // overflow: hidden;
+    justify-content: flex-end;
+    .userItem {
+      //SHOP
+      .headerShop {
+        border-left: 2px solid $contentClr;
+      }
+      // each icon
+      .headerIcon {
+        &:hover,
+        &:hover svg,
+        &:hover span {
+          color: $mainClrW !important;
+        }
+        .span {
+          transition: 0.5s;
+        }
+      }
+
+      // Login State | Drop down
+      &.headerLoginState {
+        .headerAvator {
+          width: 40px;
+          max-width: 40px;
+          height: 40px;
+          max-height: 40px;
+          border-radius: 50%;
+          border: 1px solid $mainClrW;
+          padding: 0.1rem;
+          overflow: hidden;
+        }
+        .loginAvator {
+          @extend .headerAvator;
+          border-color: #444;
+          &:hover {
+            border-color: $mainClrW;
+          }
+        }
+        .headerUserControl {
+          width: 100px;
+          background: #fff;
+          box-shadow: 0px 0px 1.7px rgb(0 0 0 / 50%);
+          li {
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 1px solid $subClrGY;
+            &:last-child {
+              border-bottom: none;
+            }
+            &:hover {
+              background: $hoverClr;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.hidden {
+    transform: translateY(-$headerHeight);
+    color: rgba(0, 0, 0, 0.363);
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: $contentClr;
+    text-decoration: none;
+  }
+}
