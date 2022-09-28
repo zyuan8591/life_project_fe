@@ -8,7 +8,7 @@ import '../../../styles/product/_productTabContent.scss';
 
 const ProductTabContent = ({ tabNow, spec, data }) => {
   const tabs = [
-    <ProductIntro />,
+    <ProductIntro  />,
     <ProductComment />,
     <ProductSpec spec={spec} />,
     <ProductRecommend data={data} />,

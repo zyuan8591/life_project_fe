@@ -298,11 +298,15 @@ function PicnicPrivateList() {
                         : horizontalCard}
                     </div>
                   </IconContext.Provider>
-                  <PaginationBar
-                    lastPage={lastPage}
-                    pageNow={pageNow}
-                    setPageNow={setPageNow}
-                  />
+                  {data.length === 0 ? (
+                    ''
+                  ) : (
+                    <PaginationBar
+                      lastPage={lastPage}
+                      pageNow={pageNow}
+                      setPageNow={setPageNow}
+                    />
+                  )}
                 </div>
               </div>
             </div>

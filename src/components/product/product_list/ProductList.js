@@ -8,12 +8,14 @@ import '../../../styles/product/_productList.scss';
 import Header from '../../public_component/Header';
 import Footer from '../../public_component/Footer';
 import Product from './Product';
-import PaginationBar from '../../public_component/PaginationBar';
 import Tools from '../Tools';
 import ToolsRwd from '../ToolsRwd';
 import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
+import Notification from '../../activity/Notification';
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
 const ProductList = () => {
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
@@ -38,6 +40,7 @@ const ProductList = () => {
   const [collectCancel, setCollectCancel] = useState(false);
   const [cartConfirm, setCartConfirm] = useState(false);
 
+  const [loginBtn, setLoginBtn] = useState(false);
   useEffect(() => {
     (async () => {
       let result = await axios.get(
@@ -90,12 +93,54 @@ const ProductList = () => {
 
   return (
     <>
+      {cartConfirm ? (
+        <Notification
+          contaninText={'已加入購物車'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <IoCartSharp />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {collectConfirm ? (
+        <Notification
+          contaninText={'已加入收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <HiHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {collectCancel ? (
+        <Notification
+          contaninText={'已取消收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <HiOutlineHeart />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin?p=1'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       <Header />
       <div className="product">
         <ProductRank />
         <div className="d-flex mt-sm-5 mt-3 ">
           <ProductCategory setProductCateNow={setProductCateNow} />
-          <div>
+          <div className="">
             <ProductFilter
               total={total}
               search={search}
@@ -121,21 +166,19 @@ const ProductList = () => {
                 collectCancel={collectCancel}
                 setCartConfirm={setCartConfirm}
                 cartConfirm={cartConfirm}
+                setLoginBtn={setLoginBtn}
+                lastPage={lastPage}
+                pageNow={pageNow}
+                setPageNow={setPageNow}
+                perPage={perPage}
+                setPerPage={setPerPage}
               />
             ) : (
-              <NoDataDisplay />
+              <div className="noData">
+                <NoDataDisplay noDataText="商品" />
+              </div>
             )}
           </div>
-        </div>
-        <div className="d-flex justify-content-center">
-          <PaginationBar
-            lastPage={lastPage}
-            pageNow={pageNow}
-            setPageNow={setPageNow}
-            perPage={perPage}
-            setPerPage={setPerPage}
-            moreText={'商品'}
-          />
         </div>
         <Tools
           item={item}

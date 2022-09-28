@@ -10,8 +10,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../utils/config';
 import AddProduct from './component/AddProduct';
+import AddDiscount from './component/AddDiscount';
 import UpdateProduct from './component/UpdateProduct';
 import Notification from '../activity/Notification';
+import { useUserRights } from '../../usecontext/UserRights';
 
 function Backstage() {
   const [productsData, setProductsData] = useState([]);
@@ -20,9 +22,11 @@ function Backstage() {
   const [lastPage, setLastPage] = useState(0);
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
+  const [dicountPage, setDiscountPage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState('');
   const [loginBtn, setLoginBtn] = useState('');
+  const { user } = useUserRights();
 
   useEffect(() => {
     (async () => {
@@ -32,8 +36,9 @@ function Backstage() {
           withCredentials: true,
         }
       );
+      // console.log(result);
       setTotal(result.data.pagination.total);
-      console.log('pagination', result.data.pagination.total);
+      // console.log('pagination', result.data.pagination.total);
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
@@ -72,12 +77,23 @@ function Backstage() {
       ) : (
         ''
       )}
+      {dicountPage ? (
+        <AddDiscount
+          setDiscountPage={setDiscountPage}
+          productData={productData}
+          loading={loading}
+          setLoading={setLoading}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
       {loginBtn === 'add' ? (
         <Notification
           // linkToText="返回列表頁"
           // linkTo="/backstage"
           contaninText="商品新增成功"
-          // setLoginBtn={setLoginBtn}
+          bottom={20}
         />
       ) : (
         ''
@@ -87,7 +103,17 @@ function Backstage() {
           // linkToText="返回列表頁"
           // linkTo="/products"
           contaninText="商品更新成功"
-          // setLoginBtn={setLoginBtn}
+          bottom={20}
+        />
+      ) : (
+        ''
+      )}
+      {loginBtn === 'delete' ? (
+        <Notification
+          // linkToText="返回列表頁"
+          // linkTo="/products"
+          contaninText="商品刪除成功"
+          bottom={20}
         />
       ) : (
         ''
@@ -101,6 +127,15 @@ function Backstage() {
             onClick={(e) => {
               e.preventDefault();
               setAddPage(true);
+            }}
+          >
+            新增商品
+          </button>
+          <button
+            className="addDiscount"
+            onClick={(e) => {
+              e.preventDefault();
+              setDiscountPage(true);
             }}
           >
             新增商品
@@ -134,6 +169,7 @@ function Backstage() {
                   spec,
                   valid,
                   color,
+                  product_category_name,
                 } = v;
                 return (
                   <tr key={id}>
@@ -146,7 +182,7 @@ function Backstage() {
                       </div>
                     </td>
                     <td>{name}</td>
-                    <td></td>
+                    <td>{product_category_name}</td>
                     <td>{inventory}</td>
                     <td className="text-center">{price}</td>
                     <td>{color}</td>
@@ -171,6 +207,10 @@ function Backstage() {
                       onClick={(e) => {
                         handleDelete(id);
                         setLoading(!loading);
+                        setLoginBtn('delete');
+                        setTimeout(() => {
+                          setLoginBtn('');
+                        }, 2000);
                       }}
                     >
                       <FaTrashAlt />

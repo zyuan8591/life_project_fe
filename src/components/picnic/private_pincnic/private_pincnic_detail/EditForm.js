@@ -3,11 +3,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Form, Input } from 'antd';
 import { API_URL } from '../../../../utils/config';
-import '../../../../styles/picnic/_createForm.scss';
+import '../../../../styles/picnic/_editForm.scss';
 import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import { IconContext } from 'react-icons';
@@ -130,9 +129,9 @@ function CreateForm({ data, setEdit, showToast }) {
     if (activityContent.endDate > activityContent.activityDate) {
       return message.error('活動日期不得小於報名日期');
     }
-    if (!e.target.value) {
-      return message.error('請輸入欄位');
-    }
+    // if (e.target.value === '') {
+    //   return message.error('請輸入欄位');
+    // }
     if (activityContent)
       try {
         let formData = new FormData();

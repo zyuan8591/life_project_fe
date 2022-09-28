@@ -18,7 +18,7 @@ const ProductDetail = () => {
   const [item, setItem] = useState([]);
   const [fav, setFav] = useState([]);
   const [productLikeId, setProductLikeId] = useState(false);
-
+  const [start, setStart] = useState(false);
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/${id}`);
@@ -32,7 +32,7 @@ const ProductDetail = () => {
       let favNumber = result.data.map((v) => v.product_id);
       setFav(favNumber)
     })();
-  }, [id, productLikeId]);
+  }, [id, productLikeId, start]);
   return (
     <>
       <Header />
@@ -42,6 +42,8 @@ const ProductDetail = () => {
         fav={fav}
         setProductLikeId={setProductLikeId}
         productLikeId={productLikeId}
+        start={start}
+        setStart={setStart}
       />
       <ProductTab tabNow={tabNow} setTabNow={setTabNow} />
       <ProductTabContent

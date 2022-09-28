@@ -17,14 +17,13 @@ const ProductListSlider = ({ now, data, itemWidth, minHeight }) => {
       setRecommendArr(result.data);
     })();
   }, [category]);
-  console.log(minHeight);
   return (
     <>
       {recommendArr.map((v, i) => {
         const { id, name, img, color, price, brand } = v;
         return (
           <>
-            <Link to={`/products/${id}`} style={{ color: '#444' }}>
+            <Link to={`/products/${id}`} style={{ color: '#444' }} key={id}>
               <figure
                 style={{
                   transform: `translateX(${now}px)`,

@@ -238,6 +238,8 @@ const ProductFilter = ({
           <option value="0">綜合排序</option>
           <option value="1">熱門程度優先</option>
           <option value="2">最新商品</option>
+          <option value="4">價格 低 - 高</option>
+          <option value="5">價格 高 - 低</option>
         </select>
         <div className="d-flex">
           <input
