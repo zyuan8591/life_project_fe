@@ -101,9 +101,8 @@ function MyRecipe() {
                 <FaArrowDown />
               </span>
             </th>
-            <th></th>
             {display === 1 && <th></th>}
-            <th></th>
+            {display === 2 && <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -137,6 +136,17 @@ function MyRecipe() {
                       setEditData(d.id);
                     }}
                   ></i>
+                  <i
+                    className="fa-solid fa-trash icon cursorPointer"
+                    onClick={() => {
+                      if (display === 2) return delLike(d.id);
+                      delRecipe(d.id);
+                    }}
+                  ></i>
+                </td>
+              )}
+              {display === 2 && (
+                <td>
                   <i
                     className="fa-solid fa-trash icon cursorPointer"
                     onClick={() => {

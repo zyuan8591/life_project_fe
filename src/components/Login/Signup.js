@@ -7,7 +7,7 @@ import { API_URL } from '../../utils/config';
 import ShowPassword from '../Users/user_Component/ShowPassword';
 import { Navigate } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = ({ showSignupOK = () => {} }) => {
   const [eye, setEye] = useState({
     eye1: false,
     eye2: false,
@@ -57,6 +57,7 @@ const Signup = () => {
         try {
           await axios.post(`${API_URL}/signup`, values);
           setSign(true);
+          showSignupOK();
         } catch (e) {
           setError(e.response.data.message);
         }

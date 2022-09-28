@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { API_URL_IMG } from '../../../../../utils/config';
+import axios from 'axios';
+import { API_URL } from '../../../../../utils/config';
 
-const PicnicTable = ({ data, display }) => {
+const PicnicTable = ({ data, display, getUser, pageNow }) => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態'];
-
+  async function handleDelFav(groupId) {
+    let response = await axios.delete(
+      `${API_URL}/picnic/collectGroupDelJoin/${groupId}`,
+      { withCredentials: true }
+    );
+    getUser(`${API_URL}/picnic/group/member?page=${pageNow}`);
+  }
   return (
     <div className="activity-table">
       <table className="table table-sm mt-5 table-hover">
@@ -70,7 +78,15 @@ const PicnicTable = ({ data, display }) => {
                 ) : null}
                 {display === 2 ? (
                   <td className="sm-768none">
-                    <i className="fa-solid fa-trash icon"></i>
+                    <i
+                      className="fa-solid fa-trash icon"
+                      //TODO:刪除活動跟取消收藏分開
+                      //TODO:搬移編輯活動表單
+                      //TODO:刪除審核跟聊天
+                      onClick={() => {
+                        handleDelFav(v.picnic_id);
+                      }}
+                    ></i>
                   </td>
                 ) : null}
               </tr>

@@ -133,7 +133,7 @@ const Nav = () => {
         className="nav"
         css={nav}
         style={{
-          transform: navSwitch ? 'translateX(0px)' : 'translateX(-300px)',
+          transform: navSwitch ? 'translateX(-40px)' : 'translateX(-300px)',
         }}
       >
         <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>

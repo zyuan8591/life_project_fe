@@ -40,7 +40,12 @@ const Camping = () => {
       <h3>露營活動</h3>
       <div className="user_activity">
         <CapmingFilter list={list} setList={setList} setDisplay={setDisplay} />
-        <CampingTable data={data} />
+        <CampingTable
+          data={data}
+          display={display}
+          getUser={getUser}
+          pageNow={pageNow}
+        />
         {data.length === 0 && <NoDataDisplay noDataText="活動" />}
         <PaginationBar
           lastPage={lastPage}
