@@ -35,7 +35,7 @@ const Contact = () => {
   function messageSubmit() {
     // 把訊息送到後端去
     if (message) {
-      socket.emit('life', { id: user.id, msg: message });
+      socket.emit('lifeUser', { id: user.id, msg: message });
       setMessages([
         { id: uuidv4(), role: 'user', content: message },
         ...messages,

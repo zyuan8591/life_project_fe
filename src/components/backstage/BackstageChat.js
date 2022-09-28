@@ -7,57 +7,65 @@ import classes from '../../styles/moduleCss/backstage/backstageChat.module.scss'
 import { Input } from 'antd';
 import { IconContext } from 'react-icons';
 import { AiOutlineSend } from 'react-icons/ai';
+const { TextArea } = Input;
 
 const BackstageChat = () => {
-  const { TextArea } = Input;
+  const [socket, setSocket] = useState(null);
+  const [userData, setUserData] = useState([]);
+
   const [userNow, setUserNow] = useState(0);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      id: '28d745cb-0038-4aba-9881-5fe123bf7598',
-      user_id: 1,
-      content: '你好 1',
-    },
-    {
-      id: 'f3ddea23-e89c-495d-899d-37083997a40c',
-      user_id: 1,
-      content: '你好 2',
-    },
-    {
-      id: 'bee46ffb-1635-4776-a997-209980ffc3fb',
-      user_id: 3,
-      content: '你好 3',
-    },
-    {
-      id: 'bee46ffb-1635-4776-a997-209980ffc3fb',
-      user_id: 0,
-      // target_id: 5,
-      content: '你好 4',
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
+
   const [displayMsg, setDisplayMsg] = useState([]);
+  const [displayUser, setDisplayUser] = useState([]);
+
+  // UPDATE DISPLAY CHATROOM at RIGHT SECTION
   useEffect(() => {
     let msg = messages.filter((msg) => {
-      return msg.user_id === parseInt(userNow) || msg.user_id === 0;
+      return msg.user_id === userNow || msg.target_id === userNow;
     });
     setDisplayMsg(msg);
   }, [userNow, messages]);
 
-  // cosnt[(user, setUser)] = useState(null);
-  const [socket, setSocket] = useState(null);
-  const [userData, setUserData] = useState([]);
-
   useEffect(() => {
-    // 加上是否已經連線的檢查
+    console.log(messages);
+    let tmp = [];
+    let newDisplayUser = [];
+    if (messages) {
+      messages.filter((d) => {
+        if (tmp.includes(d.user_id) || d.user_id === 0) return false;
+        newDisplayUser.push({ ...userData[d.user_id - 1], msg: d.content });
+        tmp.push(d.user_id);
+      });
+      console.log(newDisplayUser);
+      setDisplayUser(newDisplayUser);
+    }
+  }, [messages]);
+
+  const setUser = (id) => {
+    let newUserDisplay = [...displayUser];
+    if (newUserDisplay.length === 0) {
+      newUserDisplay.push(userData[id - 1]);
+      console.log(newUserDisplay);
+      return setDisplayUser(newUserDisplay);
+    }
+    userData.map((user) => {});
+  };
+
+  // connect & get msg from user
+  useEffect(() => {
+    // connect with socket io
     if (!socket) {
       let ws = io('http://localhost:3001');
       setSocket(ws);
+      // listen to life - msg from user
       ws.on('life', (message) => {
         console.log(message);
         let { id, msg } = message;
         setMessages(function (prevState, props) {
           return [
-            { id: uuidv4(), user_id: 'life', content: `${id}:${msg}` },
+            { id: uuidv4(), user_id: id, target_id: 0, content: msg },
             ...prevState,
           ];
         });
@@ -65,18 +73,17 @@ const BackstageChat = () => {
     }
     (async () => {
       let result = await axios.get(`${API_URL}/user/all`);
-      console.log(result.data);
       setUserData(result.data);
     })();
   }, []);
-
+  // send msg to user
   const submitMsg = (e) => {
     e.preventDefault();
     // 把訊息送到後端去
     if (message) {
-      // socket.emit('user1', { id: 0, msg: message });
+      socket.emit('life', { id: userNow, msg: message });
       setMessages([
-        { id: uuidv4(), user_id: 0, content: message },
+        { id: uuidv4(), user_id: 0, target_id: userNow, content: message },
         ...messages,
       ]);
       setMessage('');
@@ -87,8 +94,14 @@ const BackstageChat = () => {
     <div className={classes.container}>
       {/* chatroom list ================================================*/}
       <section className={classes.userList}>
-        {userData.map((user) => (
-          <div className={classes.userMsg} onClick={() => setUserNow(user.id)}>
+        {displayUser.map((user) => (
+          <div
+            key={user.user_id}
+            className={`${classes.userMsg} ${
+              userNow === user.id && classes.active
+            }`}
+            onClick={() => setUserNow(user.id)}
+          >
             {/* user avatar */}
             <figure className={classes.userAvatarContainer}>
               <img
@@ -100,47 +113,59 @@ const BackstageChat = () => {
             {/* userName & userMsg */}
             <div className={classes.msgInfo}>
               <div>{user.name}</div>
-              <div>123456</div>
+              <div>{user.msg}</div>
             </div>
           </div>
         ))}
       </section>
       {/* msg box section ===============================================*/}
       <section className={classes.msgBox}>
-        {/* chatroom title */}
-        <div className={classes.title}>皮卡啾 {userNow}</div>
-        <div>
-          {/* chatroom */}
-          <ul className={`d-flex flex-column-reverse ${classes.msgList}`}>
-            {displayMsg.map((msg) => (
-              <li
-                className={`${
-                  msg.user_id === 0 ? `align-self-end` : classes.bgMsg
-                } `}
-              >
-                {msg.content}
-              </li>
-            ))}
-          </ul>
-          {/* chat msg box */}
-          <div className={classes.msgSendBox}>
-            <TextArea
-              placeholder="輸入訊息"
-              value={message}
-              autoSize={{ minRows: 1, maxRows: 3 }}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-100"
-            />
-            <IconContext.Provider value={{ color: '#444', size: '1.6rem' }}>
-              <button
-                className="flexCenter bg-transparent border-0"
-                onClick={(e) => submitMsg(e)}
-              >
-                <AiOutlineSend />
-              </button>
-            </IconContext.Provider>
-          </div>
-        </div>
+        {!!userNow && (
+          <>
+            {/* chatroom title */}
+            <div className={classes.title}>
+              {!!userNow && userData[userNow - 1].name}
+            </div>
+            {/* <div> */}
+            {/* chatroom */}
+            <ul className={`d-flex flex-column-reverse ${classes.msgList}`}>
+              {displayMsg.map((msg) => (
+                <li
+                  key={msg.id}
+                  className={`${
+                    msg.user_id === 0 ? `align-self-end` : classes.bgMsg
+                  } `}
+                >
+                  {msg.content}
+                </li>
+              ))}
+            </ul>
+            {/* </div> */}
+            {/* chat msg box */}
+            <div className={classes.msgSendBox}>
+              <TextArea
+                placeholder="輸入訊息"
+                value={message}
+                autoSize={{ minRows: 1, maxRows: 3 }}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-100"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    submitMsg(e);
+                  }
+                }}
+              />
+              <IconContext.Provider value={{ color: '#444', size: '1.6rem' }}>
+                <button
+                  className="flexCenter bg-transparent border-0"
+                  onClick={(e) => submitMsg(e)}
+                >
+                  <AiOutlineSend />
+                </button>
+              </IconContext.Provider>
+            </div>
+          </>
+        )}
       </section>
       {/* ))} */}
     </div>

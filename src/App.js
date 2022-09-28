@@ -208,7 +208,7 @@ function App() {
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
                     />
-                    <Route path="/chat" element={<BackstageChat />} />
+                    <Route path="/backstage/chat" element={<BackstageChat />} />
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>

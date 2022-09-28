@@ -6,12 +6,21 @@
   color: $contentClr;
   max-width: 1200px;
   margin: 65px auto 0;
+  border-top: 1px solid $hoverClr;
+  height: calc(100vh - 65px);
+  overflow: hidden;
+  // chat room list ===============================
   .userList {
+    flex: 0 0 300px;
     height: calc(100vh - 65px);
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
   .msgBox {
+    border-left: 1px solid $hoverClr;
     flex: 1 1 auto;
+    justify-content: space-between;
   }
   .userList,
   .msgBox {
@@ -19,7 +28,6 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     &::-webkit-scrollbar-track {
       border-radius: 10px;
       background-color: #f5f5f5;
@@ -39,7 +47,6 @@
 }
 .userMsg {
   // min-width: 300px;
-  border-right: 1px solid $hoverClr;
   width: auto;
   min-width: 300px;
   display: flex;
@@ -47,7 +54,8 @@
   padding: 0.5rem;
   gap: 0.5rem;
 
-  &:hover {
+  &:hover,
+  &.active {
     background: $hoverClr;
   }
 
@@ -64,13 +72,34 @@
   }
 }
 
+// msg box container ==============================
+
 .msgBox {
   padding: 0.5rem 1rem;
+  position: relative;
   .title {
     width: 100%;
     font-size: 1.5rem;
   }
   .msgList {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 0 1rem;
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #555;
+    }
     li {
       background: $hoverClr;
       width: fit-content;
@@ -87,6 +116,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    bottom: 0;
     gap: 0.5rem;
   }
 }
