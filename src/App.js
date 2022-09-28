@@ -30,7 +30,7 @@ import Backstage from './components/backstage/BackstageProduct';
 import Recipes from './components/recipe/Recipes';
 import RecipeDetail from './components/recipe_detail/RecipeDetail';
 import News from './components/news/News';
-
+import BackstageChat from './components/backstage/BackstageChat';
 // activity =======================================================================
 import ActivityMain from './components/activity/ActivityMain';
 import SetMap from './components/map/SetMap';
@@ -208,6 +208,7 @@ function App() {
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
                     />
+                    <Route path="/chat" element={<BackstageChat />} />
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>
