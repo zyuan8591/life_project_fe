@@ -101,9 +101,8 @@ function MyRecipe() {
                 <FaArrowDown />
               </span>
             </th>
-            <th></th>
             {display === 1 && <th></th>}
-            <th></th>
+            {display === 2 && <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -113,7 +112,7 @@ function MyRecipe() {
                 <img
                   src={`${API_URL_IMG}${d.image}`}
                   alt={d.name}
-                  className={`objectContain `}
+                  className="objectContain recipeImg"
                 />
               </td>
               <td className={classes.data}>{d.name}</td>
@@ -122,15 +121,14 @@ function MyRecipe() {
               <td>{d.comments}</td>
               <td>{d.likes}</td>
               <td>{d.create_time.slice(0, 10)}</td>
-              <td>
-                <Link to={`/recipeDetail?id=${d.id}`}>
-                  <IconContext.Provider value={{ size: '1rem' }}>
-                    <FaRegEye />
-                  </IconContext.Provider>
-                </Link>
-              </td>
+
               {display === 1 && (
-                <td>
+                <td className={classes.recipeIcon}>
+                  <Link to={`/recipeDetail?id=${d.id}`}>
+                    <IconContext.Provider value={{ size: '1rem' }}>
+                      <FaRegEye />
+                    </IconContext.Provider>
+                  </Link>
                   <i
                     className="fa-solid fa-pen-to-square icon cursorPointer"
                     onClick={() => {
@@ -138,17 +136,26 @@ function MyRecipe() {
                       setEditData(d.id);
                     }}
                   ></i>
+                  <i
+                    className="fa-solid fa-trash icon cursorPointer"
+                    onClick={() => {
+                      if (display === 2) return delLike(d.id);
+                      delRecipe(d.id);
+                    }}
+                  ></i>
                 </td>
               )}
-              <td>
-                <i
-                  className="fa-solid fa-trash icon cursorPointer"
-                  onClick={() => {
-                    if (display === 2) return delLike(d.id);
-                    delRecipe(d.id);
-                  }}
-                ></i>
-              </td>
+              {display === 2 && (
+                <td>
+                  <i
+                    className="fa-solid fa-trash icon cursorPointer"
+                    onClick={() => {
+                      if (display === 2) return delLike(d.id);
+                      delRecipe(d.id);
+                    }}
+                  ></i>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -5,13 +5,22 @@ import Login from './Login';
 import Signup from './Signup';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
+import Notification from '../activity/Notification';
+import { SiFoodpanda } from 'react-icons/si';
 
 const Signin = () => {
   const [display, setDisplay] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [signupOK, setSignupOK] = useState(false);
   useEffect(() => {
     setDisplay(parseInt(searchParams.get('p')));
   }, [searchParams]);
+  const showSignupOK = () => {
+    setSignupOK(true);
+    setTimeout(() => {
+      setSignupOK(false);
+    }, 2000);
+  };
 
   // async function postPoints() {
   //   await axios.post(
@@ -27,6 +36,11 @@ const Signin = () => {
   // }
   return (
     <div className="signinPage">
+      {signupOK && (
+        <Notification contaninText="註冊成功" iconSize={2} bottom={30}>
+          <SiFoodpanda />
+        </Notification>
+      )}
       {/* <button onClick={postPoints}>測試點數</button> */}
       <div className="frame">
         <div className="title">
@@ -49,7 +63,7 @@ const Signin = () => {
             </Link>
           </div>
         </div>
-        {display === 1 ? <Login /> : <Signup />}
+        {display === 1 ? <Login /> : <Signup showSignupOK={showSignupOK}/>}
       </div>
     </div>
   );

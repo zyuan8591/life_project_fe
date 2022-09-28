@@ -54,7 +54,7 @@ function ActivityMain() {
               >
                 <Link to="/activity/camping" className={classes.campingBtnText}>
                   我也想露營
-                  <IoIosArrowDroprightCircle className="ms-1 mb-1" />
+                  <IoIosArrowDroprightCircle className="ms-1" />
                 </Link>
               </IconContext.Provider>
             </div>
@@ -114,7 +114,7 @@ function ActivityMain() {
               >
                 <Link to="/activity/picnic" className={classes.campingBtnText}>
                   我也想野餐
-                  <IoIosArrowDroprightCircle className="ms-1 mb-1" />
+                  <IoIosArrowDroprightCircle className="ms-1" />
                 </Link>
               </IconContext.Provider>
             </div>

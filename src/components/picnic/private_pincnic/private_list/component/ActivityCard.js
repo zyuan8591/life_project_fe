@@ -6,7 +6,7 @@ import { HiChevronDoubleRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL_IMG } from '../../../../../utils/config';
-import { Empty } from 'antd';
+import NoDataDisplay from '../../../../public_component/NoDataDisplay';
 
 function ActivityCard({
   data,
@@ -29,7 +29,9 @@ function ActivityCard({
   return (
     <>
       {data.length === 0 ? (
-        <div style={{ fontSize: '16px', color: '#817161' }}><Empty /></div>
+        <div style={{ fontSize: '16px', color: '#817161' }}>
+          <NoDataDisplay />
+        </div>
       ) : (
         data.map((item) => {
           return (
