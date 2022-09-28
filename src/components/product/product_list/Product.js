@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
@@ -35,6 +35,29 @@ const Product = ({
   const [changePic, setChangePic] = useState(false);
   const [changePicNumber, setChangePicNumber] = useState('');
   const { user } = useUserRights();
+  const [discountPrice, setDiscountPrice] = useState('');
+  // useEffect(() => {
+  //   setMainPic(pic);
+  //   // setDiscountPrice(parseInt(price * (discount / 100)));
+  //   if (!discount) setDiscountPrice(price);
+  //   if (discount < 10 && discount > 0) {
+  //     setDiscountPrice(parseInt(price * (discount / 10)));
+  //     console.log(discountPrice);
+  //   }
+  //   if (discount > 10 && discount < 100) {
+  //     setDiscountPrice(parseInt(price * (discount / 100)));
+  //     // console.log(discountPrice);
+  //     // console.log(typeof discountPrice);
+  //   }
+  //   if (startline < new Date().getTime()) {
+  //     setStart(true);
+  //     setFinish(false);
+  //     // setBuyPrice(discountPrice);
+  //   }
+  //   if (deadline < new Date().getTime()) {
+  //     setFinish(true);
+  //   }
+  // }, [data, start, finish]);
 
   return (
     <>

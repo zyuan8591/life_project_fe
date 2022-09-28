@@ -95,6 +95,7 @@ const ProductInfo = ({
     }
     if (deadline < new Date().getTime()) {
       setFinish(true);
+      setDiscountPrice(price)
     }
   }, [data, start, finish]);
   const onFinish = () => {
