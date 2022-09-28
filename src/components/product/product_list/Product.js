@@ -35,29 +35,33 @@ const Product = ({
   const [changePic, setChangePic] = useState(false);
   const [changePicNumber, setChangePicNumber] = useState('');
   const { user } = useUserRights();
+  const [discount, setDiscount] = useState();
+  const [discountPriceArr, setDiscountPriceArr] = useState([]);
   const [discountPrice, setDiscountPrice] = useState('');
-  // useEffect(() => {
-  //   setMainPic(pic);
-  //   // setDiscountPrice(parseInt(price * (discount / 100)));
-  //   if (!discount) setDiscountPrice(price);
-  //   if (discount < 10 && discount > 0) {
-  //     setDiscountPrice(parseInt(price * (discount / 10)));
-  //     console.log(discountPrice);
-  //   }
-  //   if (discount > 10 && discount < 100) {
-  //     setDiscountPrice(parseInt(price * (discount / 100)));
-  //     // console.log(discountPrice);
-  //     // console.log(typeof discountPrice);
-  //   }
-  //   if (startline < new Date().getTime()) {
-  //     setStart(true);
-  //     setFinish(false);
-  //     // setBuyPrice(discountPrice);
-  //   }
-  //   if (deadline < new Date().getTime()) {
-  //     setFinish(true);
-  //   }
-  // }, [data, start, finish]);
+  // const [price, setPrice] = useState([]);
+  useEffect(() => {
+    let priceMap = productList.map((v, i) => {
+      setDiscount(v.discount);
+      // setDiscountPrice(parseInt(v.price * (discount / 100)));
+      // if (!discount) setDiscountPrice(v.price);
+      if (!discount) return v.price;
+      if (discount < 10 && discount > 0) {
+        // setDiscountPrice(parseInt(v.price * (discount / 10)));
+        return parseInt(v.price * (discount / 10));
+      }
+      if (discount > 10 && discount < 100) {
+        // setDiscountPrice(parseInt(v.price * (discount / 100)));
+        return parseInt(v.price * (discount / 100));
+        // console.log(discountPrice);
+        // console.log(typeof discountPrice);
+      }
+      // return v.price;
+    });
+
+    setDiscountPriceArr(priceMap);
+    console.log(discountPriceArr);
+    console.log(discountPrice);
+  }, [productList, discount]);
 
   return (
     <>
@@ -176,11 +180,16 @@ const Product = ({
                           <IoCartSharp
                             onClick={(e) => {
                               // console.log(id, name)
+                              if (!discount) {
+                                setDiscountPrice(price);
+                              } else {
+                                setDiscountPrice(discountPriceArr[i]);
+                              }
                               productCart.addItem({
                                 id: id,
                                 quantity: 1,
                                 name: name,
-                                price: price,
+                                price: discountPrice,
                                 ischecked: false,
                                 img: img,
                                 inventory: inventory,
@@ -196,12 +205,16 @@ const Product = ({
                         <div className="heart">
                           <IoCartOutline
                             onClick={(e) => {
-                              // console.log(id, name)
+                              if (!discount) {
+                                setDiscountPrice(price);
+                              } else {
+                                setDiscountPrice(discountPriceArr[i]);
+                              }
                               productCart.addItem({
                                 id: id,
                                 quantity: 1,
                                 name: name,
-                                price: price,
+                                price: discountPrice,
                                 ischecked: false,
                                 img: img,
                                 inventory: inventory,
@@ -246,12 +259,25 @@ const Product = ({
                   <p className="brand">{brand}</p>
                   <p className="discountRwd">{discount}折</p>
                 </div>
-                <p className="price">
-                  NT${' '}
-                  {price
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                </p>
+                {discount &&
+                startline < new Date().getTime() &&
+                deadline > new Date().getTime() ? (
+                  <>
+                    {/* <p>
+                      NT${' '}
+                      {discountPriceArr[i]
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                    </p> */}
+                  </>
+                ) : (
+                  <p className="price">
+                    NT${' '}
+                    {price
+                      .toString()
+                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                  </p>
+                )}
               </div>
             </div>
           );
