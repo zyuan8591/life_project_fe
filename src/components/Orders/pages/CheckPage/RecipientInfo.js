@@ -53,10 +53,7 @@ function RecipientInfo({ values, delivery }) {
                       <option value="">請選擇</option>
                       {jsondata.map((v, i) => {
                         return (
-                          <option
-                            key={Math.random().toString(36).replace('0.', '')}
-                            value={v.CityName}
-                          >
+                          <option key={v.CityEngName} value={v.CityName}>
                             {v.CityName}
                           </option>
                         );

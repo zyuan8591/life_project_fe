@@ -35,7 +35,7 @@ const CartDetail = ({
                       <div className="col-md col-3">
                         <img alt="" src={`/img/product/product_img/${v.img}`} />
                       </div>
-                      <div className="col-md col-3">{v.name}</div>
+                      <div className="col-md col-3 ">{v.name}</div>
                       <div className="col text-nowrap">
                         ${' '}
                         {JSON.stringify(v.price).replace(

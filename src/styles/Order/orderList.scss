@@ -11,6 +11,12 @@
     font-size: $text14;
     padding:0;
   }
+
+  .hide{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   
   .dnone{
     @media (max-width: 576px) {

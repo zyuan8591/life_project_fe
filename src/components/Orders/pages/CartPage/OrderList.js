@@ -89,7 +89,7 @@ const OrderList = ({
               {productItems.map((v, i) => {
                 return (
                   <div
-                    className="row orderItem gap-sm-2 gap-1"
+                    className="row orderItem gap-sm-2"
                     key={v.id}
                     style={{
                       background: v.ischecked ? 'rgba(185,189,197,.3)' : '#fff',
@@ -110,7 +110,7 @@ const OrderList = ({
                     <div className="col">
                       <img alt="" src={`/img/product/product_img/${v.img}`} />
                     </div>
-                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col-4 text-nowrap dnone hide">{v.name}</div>
                     <div className="col text-nowrap dnone">
                       ${' '}
                       {JSON.stringify(v.price).replace(
@@ -194,8 +194,8 @@ const OrderList = ({
                     <div className="col-8 d-none dblock">
                       <div className="row">
                         <div className="col">
-                          <div className="d-flex gap-2 justify-content-between">
-                            <div className="text-nowrap">{v.name}</div>
+                          <div className="d-flex justify-content-between">
+                            <div className="text-nowrap hide">{v.name}</div>
                             <div className="col-3 cursorPointer d-none dblock">
                               <IconContext.Provider
                                 value={{ color: 'black', size: '1.5rem' }}
@@ -208,7 +208,7 @@ const OrderList = ({
                               </IconContext.Provider>
                             </div>
                           </div>
-                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                          <div className="d-flex align-items-center  justify-content-between">
                             <div className="text-nowrap">
                               ${' '}
                               {JSON.stringify(v.price * v.quantity).replace(
@@ -361,7 +361,7 @@ const OrderList = ({
                         src={`/img/picnic/activity_picnic_img/${v.img}`}
                       />
                     </div>
-                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col-4 text-nowrap hide dnone">{v.name}</div>
                     <div className="col text-nowrap dnone">
                       ${' '}
                       {JSON.stringify(v.price).replace(
@@ -392,8 +392,8 @@ const OrderList = ({
                     <div className="col-8 d-none dblock">
                       <div className="row">
                         <div className="col">
-                          <div className="d-flex gap-2 justify-content-between">
-                            <div className="text-nowrap">{v.name}</div>
+                          <div className="d-flex justify-content-between">
+                            <div className="text-nowrap hide">{v.name}</div>
                             <div className="col-3 cursorPointer d-none dblock">
                               <IconContext.Provider
                                 value={{ color: 'black', size: '1.5rem' }}
@@ -406,7 +406,7 @@ const OrderList = ({
                               </IconContext.Provider>
                             </div>
                           </div>
-                          <div className="d-flex align-items-center gap-2 justify-content-between">
+                          <div className="d-flex align-items-center  justify-content-between">
                             <div className="text-nowrap">
                               ${' '}
                               {JSON.stringify(v.price * v.quantity).replace(
@@ -455,7 +455,7 @@ const OrderList = ({
                         src={`/img/camping/activity_camping_img/${v.img}`}
                       />
                     </div>
-                    <div className="col-4 text-nowrap dnone">{v.name}</div>
+                    <div className="col-4 text-nowrap dnone hide">{v.name}</div>
                     <div className="col text-nowrap dnone">
                       ${' '}
                       {JSON.stringify(v.price).replace(
@@ -487,8 +487,8 @@ const OrderList = ({
                     <div className="col-8 d-none dblock">
                       <div className="row">
                         <div className="col">
-                          <div className="d-flex gap-2 justify-content-between">
-                            <div className="text-nowrap">{v.name}</div>
+                          <div className="d-flex justify-content-between">
+                            <div className="text-nowrap hide">{v.name}</div>
                             <div className="col-3 cursorPointer d-none dblock">
                               <IconContext.Provider
                                 value={{ color: 'black', size: '1.5rem' }}
@@ -501,8 +501,8 @@ const OrderList = ({
                               </IconContext.Provider>
                             </div>
                           </div>
-                          <div className="d-flex align-items-center gap-2 justify-content-between">
-                            <div className="text-nowrap">
+                          <div className="d-flex align-items-center  justify-content-between">
+                            <div className="coltext-nowrap">
                               ${' '}
                               {JSON.stringify(v.price * v.quantity).replace(
                                 /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
