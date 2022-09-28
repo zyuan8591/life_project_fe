@@ -5,6 +5,7 @@ import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
 import { IconContext } from 'react-icons';
 import { TbTrash } from 'react-icons/tb';
 import '../../../../styles/Order/orderList.scss';
+import { API_URL_IMG } from '../../../../utils/config';
 
 const OrderList = ({
   productItems,
@@ -108,9 +109,14 @@ const OrderList = ({
                       />
                     </div>
                     <div className="col">
-                      <img alt="" src={`/img/product/product_img/${v.img}`} />
+                      <img
+                        alt=""
+                        src={`${API_URL_IMG}/product/product_img/${v.img}`}
+                      />
                     </div>
-                    <div className="col-4 text-nowrap dnone hide">{v.name}</div>
+                    <div className="col-4 text-nowrap hide dnone ">
+                      {v.name}
+                    </div>
                     <div className="col text-nowrap dnone">
                       ${' '}
                       {JSON.stringify(v.price).replace(

@@ -53,12 +53,14 @@ const CheckOut = () => {
     setCurrentStep(2);
   }, []);
 
-  // useEffect(async () => {
-  //   if (isOrder) {
-  //     // <Navigate to="/orderstep/ordercheck" />;
-  //     navigate('/orderstep/ordercheck');
-  //   }
-  // }, [isOrder]);
+  useEffect(() => {
+    (async () => {
+      if (isOrder) {
+        // <Navigate to="/orderstep/ordercheck" />;
+        navigate('/orderstep/ordercheck');
+      }
+    })();
+  }, [isOrder]);
 
   useEffect(() => {
     (async () => {
@@ -115,7 +117,7 @@ const CheckOut = () => {
   const point = localStorage.getItem('usePoint');
   // console.log(point);
   // console.log(orderId);
-  console.log('orderinfo', orderInfo);
+  // console.log('orderinfo', orderInfo);
 
   return (
     <>
@@ -201,8 +203,8 @@ const CheckOut = () => {
               // console.log('orderInfo', orderInfo);
               // setOrderInfo(orderInfo.data);
               // console.log('orderinfo', orderInfo.data);
-              // setIsOrder(true);
-              // window.localStorage.clear();
+              setIsOrder(true);
+              window.localStorage.clear();
             }
 
             if (point) {
