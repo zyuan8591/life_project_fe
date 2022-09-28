@@ -172,6 +172,7 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
               return (
                 <div
                   className={classess.item}
+                  key={i}
                   onClick={async () => {
                     await axios.delete(
                       `${API_URL}/products/${product_id}/removeLike`,

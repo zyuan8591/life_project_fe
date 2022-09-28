@@ -5,6 +5,7 @@ import PicnicFilter from './PicnicFilter/PicnicFilter';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
+import NoDataDisplay from '../../../public_component/NoDataDisplay';
 
 const Picnic = () => {
   const { user } = useUserRights();
@@ -28,7 +29,7 @@ const Picnic = () => {
           apiurl = `${API_URL}/picnic/group/memberJoin?page=${pageNow}`;
           break;
         case 2: //我開的團
-          apiurl = `${API_URL}/picnic/group/member`;
+          apiurl = `${API_URL}/picnic/group/member?page=${pageNow}`;
           break;
         case 3: //活動收藏
           apiurl = `${API_URL}/picnic/official/memberCollect?page=${pageNow}`;
@@ -46,7 +47,13 @@ const Picnic = () => {
       <h3>野餐活動</h3>
       <div className="user_activity">
         <PicnicFilter list={list} setList={setList} setDisplay={setDisplay} />
-        <PicnicTable data={data} display={display} />
+        <PicnicTable
+          data={data}
+          display={display}
+          getUser={getUser}
+          pageNow={pageNow}
+        />
+        {data.length === 0 && <NoDataDisplay noDataText="活動" />}
         <PaginationBar
           lastPage={lastPage}
           pageNow={pageNow}
