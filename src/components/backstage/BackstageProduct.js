@@ -5,12 +5,14 @@ import '../../styles/backstage/_backstageProduct.scss';
 import Contact from '../contact/Contact';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
+import { TbDiscount2 } from 'react-icons/tb';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../utils/config';
 import AddProduct from './component/AddProduct';
 import AddDiscount from './component/AddDiscount';
+import Discount from './component/Discount';
 import UpdateProduct from './component/UpdateProduct';
 import Notification from '../activity/Notification';
 import { useUserRights } from '../../usecontext/UserRights';
@@ -22,27 +24,34 @@ function Backstage() {
   const [lastPage, setLastPage] = useState(0);
   const [addPage, setAddPage] = useState(false);
   const [updatePage, setUpdatePage] = useState(false);
-  const [dicountPage, setDiscountPage] = useState(false);
+  const [discountPage, setDiscountPage] = useState(false);
+  const [addDiscountPage, setAddDiscountPage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState('');
   const [loginBtn, setLoginBtn] = useState('');
   const { user } = useUserRights();
-
+  const [discountData, setDiscountData] = useState([]);
   useEffect(() => {
     (async () => {
       let result = await axios.get(
-        `${API_URL}/products/backstage?page=${pageNow}&brand=11 `,
+        `${API_URL}/products/backstage?page=${pageNow}&brand=${user.company} `,
         {
           withCredentials: true,
         }
       );
-      // console.log(result);
+      let discountResult = await axios.get(
+        `${API_URL}/products/discount?company=${user.company} `,
+        {
+          // withCredentials: true,
+        }
+      );
+      setDiscountData(discountResult.data);
       setTotal(result.data.pagination.total);
       // console.log('pagination', result.data.pagination.total);
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
-  }, [pageNow, lastPage, productData, loading, total]);
+  }, [pageNow, lastPage, productData, loading, total, user]);
   // console.log(id);
   const handleDelete = async (id) => {
     let response = await axios.put(
@@ -62,6 +71,7 @@ function Backstage() {
           lastPage={lastPage}
           setPageNow={setPageNow}
           setLoginBtn={setLoginBtn}
+          user={user.company}
         />
       ) : (
         ''
@@ -73,17 +83,30 @@ function Backstage() {
           loading={loading}
           setLoading={setLoading}
           setLoginBtn={setLoginBtn}
+          user={user.company}
         />
       ) : (
         ''
       )}
-      {dicountPage ? (
-        <AddDiscount
+      {discountPage ? (
+        <Discount
+          discountData={discountData}
           setDiscountPage={setDiscountPage}
-          productData={productData}
           loading={loading}
           setLoading={setLoading}
           setLoginBtn={setLoginBtn}
+          user={user.company}
+        />
+      ) : (
+        ''
+      )}
+      {addDiscountPage ? (
+        <AddDiscount
+          setAddDiscountPage={setAddDiscountPage}
+          loading={loading}
+          setLoading={setLoading}
+          setLoginBtn={setLoginBtn}
+          user={user.company}
         />
       ) : (
         ''
@@ -118,6 +141,16 @@ function Backstage() {
       ) : (
         ''
       )}
+      {loginBtn === 'deleteDiscount' ? (
+        <Notification
+          // linkToText="返回列表頁"
+          // linkTo="/products"
+          contaninText="商品刪除成功"
+          bottom={20}
+        />
+      ) : (
+        ''
+      )}
       <IconContext.Provider
         value={{ color: '#817161', size: '1.5em', className: 'icons' }}
       >
@@ -131,14 +164,26 @@ function Backstage() {
           >
             新增商品
           </button>
+          <div
+            className="discount"
+            onClick={() => {
+              setDiscountPage(true);
+            }}
+          >
+            <IconContext.Provider
+              value={{ color: '#1F9998', size: '2em', className: 'icons' }}
+            >
+              <TbDiscount2 />
+            </IconContext.Provider>
+          </div>
           <button
             className="addDiscount"
             onClick={(e) => {
               e.preventDefault();
-              setDiscountPage(true);
+              setAddDiscountPage(true);
             }}
           >
-            新增商品
+            新增折扣
           </button>
           <table>
             <thead>

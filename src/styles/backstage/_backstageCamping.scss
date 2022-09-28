@@ -32,6 +32,26 @@
             color: $mainClrW;
         }
     }
+    .discount {
+        position: absolute;
+        top: 15px;
+        right: 120px;
+    }
+    .addDiscount{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-25px,10px);
+        border: 2px solid $focusClrG;
+        padding: 5px 10px;
+        background: $mainClrW;
+        color: $focusClrG;
+        transition: .3s ease;
+        &:hover ,&:active{
+            background: $focusClrG;
+            color: $mainClrW;
+        }
+    }
     table{
         margin: 0 auto;
         thead{

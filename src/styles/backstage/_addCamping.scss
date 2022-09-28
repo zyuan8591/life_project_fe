@@ -1,146 +1,44 @@
 @import '../variable';
-@mixin btnStyle ($marL,$bcg){
-    border: 0;
-    border-radius: 4px;
-    padding: 6px 40px;
-    font-size: $contentText;
-    color: $mainClrW;
-    background: $bcg;
-    margin-left: $marL;
+@mixin btnStyle($marL, $bcg) {
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 40px;
+  font-size: $contentText;
+  color: $mainClrW;
+  background: $bcg;
+  margin-left: $marL;
 }
-.backstageAddPage{
-    position: absolute;
-    top: $headerHeight;
-    height: calc(100vh - $headerHeight) ;
-    width: 100%;
+.backstageAddPage {
+  position: absolute;
+  top: $headerHeight;
+  height: calc(100vh - $headerHeight);
+  width: 100%;
+  margin: 0 auto;
+  color: $contentText;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  .formContainer {
     margin: 0 auto;
-    color: $contentText;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 20;
-    .formContainer{
-        margin: 0 auto;
-        padding: 15px;
-        background: $mainClrW;
-        max-width: 700px;
-        // min-height: 760px;
-        max-height: 760px;
-        box-shadow: 0 0 5px #fff;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        overflow: auto;
-        &::-webkit-scrollbar {
-          //滾動條的寬度         
-          width: 7px;         
-          height: 3px;
-          }
-          &::-webkit-scrollbar-thumb {
-          //滾動條的設定
-          background-color: $subClrGY;
-          background-clip: padding-box;
-          border-radius: 3px;
-          }
-        .closeIcon{
-            position: absolute;
-            top: 0;
-            right: 0;
-            transform: translate(-10px,10px);
-            cursor: pointer;
-        }
-        .pageTitle{
-            text-align: center;
-            font-size: 24px;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 8px;
-            p{
-                margin: 0;
-            }
-          }
-          .discountInput{
-            border-radius: 4px;
-            width: 250px;
-            height: 32px;
-            padding: 2px;
-            border: 2px solid $subClrGY;
-            outline: none;
-            &:focus{
-            border: 2px solid $subClrBrown;
-            }
-          }
-          .date {
-            width: 250px;
-          }
-        select{
-            border-radius: 4px;
-            width: 80px;
-            height: 32px;
-            padding: 2px;
-            margin-right: 5px;
-            border: 2px solid $subClrGY;
-            outline: none;
-            &:focus{
-            border: 2px solid $subClrBrown;
-            }
-        }
-        .input{
-            border-radius: 4px;
-            width: 160px;
-            height: 32px;
-            padding: 2px;
-            border: 2px solid $subClrGY;
-            outline: none;
-            &:focus{
-            border: 2px solid $subClrBrown;
-            }
-        }
-        .addressSty{
-            width: 352px;
-        }
-        .leftInput{
-            margin-left: 82px;
-        }
-        .dateInput{
-            input::-webkit-calendar-picker-indicator {
-                width: 20px;
-                height: 20px;
-                color: $subClrBrown;
-                border-radius: 2px; 
-                cursor: pointer;
-            }
-        }
-        .textContent{
-            border-radius: 4px;
-            padding: 5px;
-            border: 2px solid $subClrGY;
-            outline: none;
-            resize: none;
-            &:focus{
-            border: 2px solid $subClrBrown;
-            }
-        }
-        .imgInput{
-            border-radius: 4px;
-            background: $hoverClr;
-            padding: 35px;
-            cursor: pointer;
-        }
-        .campingImg{
-            width: 154px;
-            height: 132px;
-            cursor: pointer;
-        }
-        .addBtn{
-            @include btnStyle(0px,$focusClrY);
-        }
-        .cancelBtn{
-            @include btnStyle(80px,$focusClrG);
-        }
+    padding: 15px;
+    background: $mainClrW;
+    max-width: 700px;
+    // min-height: 760px;
+    max-height: 760px;
+    box-shadow: 0 0 5px #fff;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: auto;
+    &::-webkit-scrollbar {
+      //滾動條的寬度
+      width: 7px;
+      height: 3px;
     }
     &::-webkit-scrollbar-thumb {
       //滾動條的設定
-      background-color: #817161;
+      background-color: $subClrGY;
       background-clip: padding-box;
-      border-radius: 5px;
+      border-radius: 3px;
     }
     .closeIcon {
       position: absolute;
@@ -158,18 +56,19 @@
         margin: 0;
       }
     }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr ;
-      grid-column-gap: 40px;
-      grid-auto-rows: (100px, auto);
-      margin-top: 50px;
+    .discountInput {
+      border-radius: 4px;
+      width: 250px;
+      height: 32px;
+      padding: 2px;
+      border: 2px solid $subClrGY;
+      outline: none;
+      &:focus {
+        border: 2px solid $subClrBrown;
+      }
     }
-    .grid2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr  ;
-      grid-column-gap: 40px;
-      grid-auto-rows: (100px, auto);
+    .date {
+      width: 250px;
     }
     select {
       border-radius: 4px;
@@ -219,9 +118,6 @@
         border: 2px solid $subClrBrown;
       }
     }
-    // .textLodging{
-    //     margin-left: 27px;
-    // }
     .imgInput {
       border-radius: 4px;
       background: $hoverClr;
@@ -234,21 +130,128 @@
       cursor: pointer;
     }
     .addBtn {
-      border: 0;
-      border-radius: 4px;
-      padding: 6px 40px;
-      font-size: $contentText;
-      color: $mainClrW;
-      background: $focusClrY;
+      @include btnStyle(0px, $focusClrY);
     }
     .cancelBtn {
-      border: 0;
-      border-radius: 4px;
-      padding: 6px 40px;
-      font-size: $contentText;
-      color: $mainClrW;
-      background: $focusClrG;
-      margin-left: 80px;
+      @include btnStyle(80px, $focusClrG);
+    }
+    .discount {
+      position: relative;
+      left: calc(50% - 8px);
     }
   }
-
+  &::-webkit-scrollbar-thumb {
+    //滾動條的設定
+    background-color: #817161;
+    background-clip: padding-box;
+    border-radius: 5px;
+  }
+  .closeIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-10px, 10px);
+    cursor: pointer;
+  }
+  .pageTitle {
+    text-align: center;
+    font-size: 24px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+    p {
+      margin: 0;
+    }
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+    grid-auto-rows: (100px, auto);
+    margin-top: 50px;
+  }
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+    grid-auto-rows: (100px, auto);
+  }
+  select {
+    border-radius: 4px;
+    width: 80px;
+    height: 32px;
+    padding: 2px;
+    margin-right: 5px;
+    border: 2px solid $subClrGY;
+    outline: none;
+    &:focus {
+      border: 2px solid $subClrBrown;
+    }
+  }
+  .input {
+    border-radius: 4px;
+    width: 160px;
+    height: 32px;
+    padding: 2px;
+    border: 2px solid $subClrGY;
+    outline: none;
+    &:focus {
+      border: 2px solid $subClrBrown;
+    }
+  }
+  .addressSty {
+    width: 352px;
+  }
+  .leftInput {
+    margin-left: 82px;
+  }
+  .dateInput {
+    input::-webkit-calendar-picker-indicator {
+      width: 20px;
+      height: 20px;
+      color: $subClrBrown;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+  }
+  .textContent {
+    border-radius: 4px;
+    padding: 5px;
+    border: 2px solid $subClrGY;
+    outline: none;
+    resize: none;
+    &:focus {
+      border: 2px solid $subClrBrown;
+    }
+  }
+  // .textLodging{
+  //     margin-left: 27px;
+  // }
+  .imgInput {
+    border-radius: 4px;
+    background: $hoverClr;
+    padding: 35px;
+    cursor: pointer;
+  }
+  .campingImg {
+    width: 154px;
+    height: 132px;
+    cursor: pointer;
+  }
+  .addBtn {
+    border: 0;
+    border-radius: 4px;
+    padding: 6px 40px;
+    font-size: $contentText;
+    color: $mainClrW;
+    background: $focusClrY;
+  }
+  .cancelBtn {
+    border: 0;
+    border-radius: 4px;
+    padding: 6px 40px;
+    font-size: $contentText;
+    color: $mainClrW;
+    background: $focusClrG;
+    margin-left: 80px;
+  }
+}

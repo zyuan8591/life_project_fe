@@ -14,7 +14,7 @@ import { date } from 'yup';
 import moment from 'moment/moment';
 const { RangePicker } = DatePicker;
 function AddDiscount({
-  setDiscountPage,
+  setAddDiscountPage,
   loading,
   setLoading,
   lastPage,
@@ -43,12 +43,6 @@ function AddDiscount({
 
     console.log(loading);
     try {
-      // let formData = new FormData();
-      // formData.append('name', product.name);
-      // formData.append('discount', product.discount);
-      // formData.append('start_time', startTime);
-      // formData.append('end_time', endTime);
-      // formData.append('company', brand);
 
       let data = {
         name: product.name,
@@ -80,7 +74,7 @@ function AddDiscount({
           setLoginBtn('');
         }, 2000);
         setTimeout(() => {
-          setDiscountPage(false);
+          setAddDiscountPage(false);
         }, 600);
       }
       // console.log(response.data.message);
@@ -107,7 +101,7 @@ function AddDiscount({
           >
             <IoCloseSharp
               onClick={() => {
-                setDiscountPage(false);
+                setAddDiscountPage(false);
               }}
             />
           </IconContext.Provider>
@@ -179,7 +173,7 @@ function AddDiscount({
               type="button"
               onClick={(e) => {
                 e.preventDefault();
-                setDiscountPage(false);
+                setAddDiscountPage(false);
               }}
             >
               取消
