@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL, API_URL_IMG } from '../../utils/config';
 import axios from 'axios';
+import classes from '../../styles/moduleCss/backstage/backstageChat.module.scss';
 
 const BackstageChat = () => {
   const [message, setMessage] = useState('');
@@ -25,6 +26,7 @@ const BackstageChat = () => {
   ]);
   // cosnt[(user, setUser)] = useState(null);
   const [socket, setSocket] = useState(null);
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     // 加上是否已經連線的檢查
@@ -44,7 +46,8 @@ const BackstageChat = () => {
     }
     (async () => {
       let result = await axios.get(`${API_URL}/user/all`);
-      console.log(result);
+      console.log(result.data);
+      setUserData(result.data);
     })();
   }, []);
 
@@ -66,7 +69,23 @@ const BackstageChat = () => {
       {/* {messages.map((msg) => (
         <div key={msg.id}>{msg.content}</div>
       ))} */}
-      <div className="userList"></div>
+      <div className="userList">
+        {userData.map((user) => (
+          <div className={classes.userMsg}>
+            <figure className={classes.userAvatarContainer}>
+              <img
+                src={`${API_URL_IMG}${user.photo}`}
+                alt={user.name}
+                className="objectContain"
+              />
+            </figure>
+            <div className={classes.msgInfo}>
+              <div>{user.name}</div>
+              <div>123456</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
