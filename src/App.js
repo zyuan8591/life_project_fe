@@ -179,7 +179,7 @@ function App() {
                     />
                     <Route path="/map" element={<SetMap />} />
                     <Route
-                      path="/backstage/camping"
+                      path="/camping/backstage"
                       element={<BackstageCamping />}
                     />
                     {/* user */}
