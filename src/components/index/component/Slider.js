@@ -9,8 +9,10 @@ import 'swiper/css/pagination';
 
 const slides = [
   '/img/index/slide/slide1.jpg',
-  '/img/index/slide/slide2.jpg',
+  // '/img/index/slide/slide2.jpg',
   '/img/index/slide/slide3.jpg',
+  '/img/index/slide/slide4.jpg',
+  '/img/index/slide/slide5.jpg',
 ];
 
 const Slider = () => {
