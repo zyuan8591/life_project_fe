@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../public_component/Header';
+import BackstageHeader from "../public_component/BackstageHeader"
 import PaginationBar from '../public_component/PaginationBar';
 import '../../styles/backstage/_backstageProduct.scss';
 import Contact from '../contact/Contact';
@@ -62,7 +62,7 @@ function Backstage() {
 
   return (
     <>
-      <Header />
+      <BackstageHeader />
       {addPage ? (
         <AddProduct
           setAddPage={setAddPage}
