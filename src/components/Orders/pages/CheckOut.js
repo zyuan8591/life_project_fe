@@ -53,14 +53,14 @@ const CheckOut = () => {
     setCurrentStep(2);
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (isOrder) {
-        // <Navigate to="/orderstep/ordercheck" />;
-        navigate('/orderstep/ordercheck');
-      }
-    })();
-  }, [isOrder]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (isOrder) {
+  //       // <Navigate to="/orderstep/ordercheck" />;
+  //       navigate('/orderstep/ordercheck');
+  //     }
+  //   })();
+  // }, [isOrder]);
 
   useEffect(() => {
     if (orderId) {
@@ -85,7 +85,8 @@ const CheckOut = () => {
         let payResponse = await axios.post(`${API_URL}/orders/pay`, orderInfo, {
           withCredentials: true,
         });
-        console.log('payResponse', payResponse);
+        // console.log('payResponse', payResponse.data);
+        window.location.replace(payResponse.data);
       })();
     }
   }, [orderInfo]);
@@ -152,7 +153,7 @@ const CheckOut = () => {
         campingItems={campingItems}
         campingTotal={campingTotal}
         campingCount={campingCount}
-        currentStep
+        currentStep={currentStep}
       />
       <Formik
         initialValues={{

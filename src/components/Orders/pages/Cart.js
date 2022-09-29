@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 import { useUserRights } from '../../../usecontext/UserRights';
@@ -9,6 +9,8 @@ import { useCampingCart } from '../../../orderContetxt/useCampingCart';
 
 import OrderList from './CartPage/OrderList';
 import Summary from './CartPage/Summary';
+import Notification from '../../activity/Notification';
+import { VscError } from 'react-icons/vsc';
 
 const Cart = () => {
   const { user } = useUserRights();
@@ -18,6 +20,9 @@ const Cart = () => {
   const campingCart = useCampingCart();
   const [point, setPoint] = useState(0);
   const [usePoint, setUsePoint] = useState(0);
+  const [addToast, setAddToast] = useState(false);
+  const navigate = useNavigate();
+
   // console.log(user);
 
   useEffect(() => {
@@ -42,8 +47,24 @@ const Cart = () => {
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
 
+  useEffect(() => {
+    (() => {
+      if (addToast === true) {
+        setTimeout(() => {
+          setAddToast(false);
+        }, 2000);
+        console.log('aaa');
+      }
+    })();
+  }, [addToast]);
+
   return (
     <>
+      {addToast && (
+        <Notification contaninText="請選擇一個項目" iconSize={2} bottom={30}>
+          <VscError />
+        </Notification>
+      )}
       <OrderList
         productItems={productItems}
         productTotal={productTotal}
@@ -71,9 +92,17 @@ const Cart = () => {
         <Link to="/products" className="btn stepBtn prevButton">
           繼續購買
         </Link>
-        <Link to="/orderstep/checkout" className="btn stepBtn nextButton">
+        <button
+          onClick={() => {
+            if (productCount > 0 || picnicCount > 0 || campingCount > 0) {
+              navigate('/orderstep/checkout');
+            }
+            return setAddToast(true);
+          }}
+          className="btn stepBtn nextButton"
+        >
           下一步
-        </Link>
+        </button>
       </div>
     </>
   );
