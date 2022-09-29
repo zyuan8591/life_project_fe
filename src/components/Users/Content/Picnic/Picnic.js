@@ -54,11 +54,13 @@ const Picnic = () => {
           pageNow={pageNow}
         />
         {data.length === 0 && <NoDataDisplay noDataText="活動" />}
-        <PaginationBar
-          lastPage={lastPage}
-          pageNow={pageNow}
-          setPageNow={setPageNow}
-        />
+        {data.length !== 0 && (
+          <PaginationBar
+            lastPage={lastPage}
+            pageNow={pageNow}
+            setPageNow={setPageNow}
+          />
+        )}
       </div>
     </>
   );

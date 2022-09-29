@@ -131,31 +131,17 @@ function MyRecipe() {
       <h3 className={classes.title}>
         {display === 1 ? '我的食譜' : '食譜收藏'}
       </h3>
-      <table className={`${classes.racipeTable} table table-hover`}>
+      <table className={`${classes.racipeTable} table table-hover `}>
         <thead>
           <tr>
             <th></th>
-            <th className="d-flex">
-              名稱
-              <span
-                className={`ms-1 d-flex align-items-center transition ${classes.rotate}`}
-              >
-                <FaArrowDown />
-              </span>
-            </th>
+            <th className="d-flex">名稱</th>
             <th>食譜分類</th>
             <th>商品分類</th>
             <th>收藏</th>
             <th>留言</th>
 
-            <th className="d-flex">
-              建立時間
-              <span
-                className={`ms-1 d-flex align-items-center transition ${classes.rotate}`}
-              >
-                <FaArrowDown />
-              </span>
-            </th>
+            <th className="d-flex">建立時間</th>
             {display === 1 && <th></th>}
             {display === 2 && <th></th>}
           </tr>
