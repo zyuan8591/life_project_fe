@@ -126,11 +126,13 @@ const Product = () => {
         </table>
       </div>
       {data.length === 0 && <NoDataDisplay noDataText="商品" />}
-      <PaginationBar
-        lastPage={lastPage}
-        pageNow={pageNow}
-        setPageNow={setPageNow}
-      />
+      {data.length !== 0 && (
+        <PaginationBar
+          lastPage={lastPage}
+          pageNow={pageNow}
+          setPageNow={setPageNow}
+        />
+      )}
     </>
   );
 };

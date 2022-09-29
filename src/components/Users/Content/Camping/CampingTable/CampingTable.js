@@ -69,7 +69,7 @@ const CampingTable = ({ data, display, getUser, pageNow }) => {
                 <td>{`${v.activity_start_date} ~ ${v.activity_end_date}`}</td>
                 <td>{v.place}</td>
                 <td>{v.state}</td>
-                <td className="p-0">
+                <td className="p-0 text-center">
                   <Link to={`/activity/camping/${v.id}`}>
                     <button>活動詳情</button>
                   </Link>

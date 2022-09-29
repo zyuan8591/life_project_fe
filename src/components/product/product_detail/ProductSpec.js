@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ProductSpec = ({ spec }) => {
-  console.log(spec);
+  let specContent = spec.split('/').map((v, i) => {
+    return v;
+  });
+
   return (
     <div>
-      {spec.split('/').map((v, i) => {
+      {specContent.map((v, i) => {
         return (
-          <>
-            <p className="p mb-1 fw-semibold" key={i}>{v.replace(':', '：')}</p>
-          </>
+          <p className="p mb-1 fw-semibold" key={i}>
+            {v}
+          </p>
         );
       })}
     </div>
