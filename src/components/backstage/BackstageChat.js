@@ -41,7 +41,6 @@ const BackstageChat = () => {
     let tmp = [];
     let newDisplayUser = [];
     if (messages) {
-      console.log(messages);
       messages.filter((d) => {
         if (tmp.includes(d.user_id) || tmp.includes(d.target_id)) return false;
         if (d.user_id === 0) {
