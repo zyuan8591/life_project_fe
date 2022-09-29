@@ -1,5 +1,5 @@
 import React from 'react';
-import BackstageHeader from "../public_component/BackstageHeader"
+import BackstageHeader from '../public_component/BackstageHeader';
 import PaginationBar from '../public_component/PaginationBar';
 import '../../styles/backstage/_backstageProduct.scss';
 import Contact from '../contact/Contact';
