@@ -29,7 +29,7 @@ a, a:visited, a:hover, a:active {
   border: 0px ;
 }
 .fc-direction-ltr .fc-daygrid-event .fc-event-time {
-  background: $mainClrW;
+  // background: $mainClrW;
 }
 .fc-daygrid-dot-event .fc-event-title {
   text-align: justify;
@@ -53,18 +53,57 @@ a, a:visited, a:hover, a:active {
 }
 .fc .fc-daygrid-day-frame {
   min-height: 80px;
-// overflow: scroll;
+// overflow-y: scroll;
 }
-.fc .fc-daygrid-event-harness-abs{
-  // border: 0px solid transparent;
-  // background: $subClrBrown;
+.fc-h-event {
+  border: 1px dashed $focusClrY;
+  border: 1px solid $focusClrY;
+  background-color: $focusClrY;
+  background-color: $focusClrY;
 }
 .addCalendarInput{
   display: flex;
-  // flex-direction: column;
   margin: 20px auto;
   align-items: center;
-  
+  justify-content: space-around;
+  .inputContent{
+    border-radius: 8px;
+    border: 2px dotted $focusClrY;
+    padding: 6px 30px;
+    height: 200px;
+    margin-top: 26px;
+    .addTitle{
+      font-size: $contentText;
+      padding-bottom: 4px;
+      border-bottom: 1px solid $subClrGY;
+      color: $subClrBrown;
+      text-align: center;
+    }
+    .postInput{
+      width: 170px;
+      height: 30px;
+      padding: 2px;
+      border: 2px solid $subClrGY;
+      outline: none;
+      &:focus{
+        border: 2px solid $subClrBrown;
+      }
+    }
+    .postBtn{
+      border: 0;
+      border-radius: 4px;
+      padding: 2px 12px;
+      font-size: $contentText;
+      color: $mainClrW;
+      background: $focusClrY;
+      margin-top: 6px;
+    }
+  }
+}
+
+.listTitle{
+  font-size: $text14;
+  margin-bottom: 3px;
 }
 
 .detail{
@@ -72,19 +111,22 @@ a, a:visited, a:hover, a:active {
   align-items: flex-start;
   flex-direction: column;
   border: 2px solid $focusClrY;
-  border-radius: 5px;
-  width: 600px;
+  border-radius: 8px;
+  width: 450px;
   height: 200px;
   overflow-y: auto;
-  padding: 5px;
+  padding: 12px 30px;
   .detailContent{
     display: flex;
     align-items: center;
+    margin: 3px 0;
     .num{
       font-size: 12px;
       background: $focusClrG;
       border-radius: 50%;
-      padding: 0px 5px;
+      width: 18px;
+      height: 18px;
+      text-align: center;
       color: $mainClrW;
       position: relative;
       &::after{
@@ -96,7 +138,14 @@ a, a:visited, a:hover, a:active {
         right: -10px;
         background: $focusClrG;
       }
-  }
+    }
+    .listContent{
+      background-color: $subClrGY;
+      color: $mainClrW;
+      border-radius: 10px;
+      padding: 0 6px;
+      font-size: 12px;
+    }
   }
   
 }

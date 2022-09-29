@@ -36,15 +36,12 @@ const ProductRank = () => {
       setItemWidth(250 + 38);
     }
   }, [windowDimenion]);
-  // console.log(windowDimenion);
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/rank`);
-      // console.log(result.data);
       setRankData(result.data);
     })();
   }, []);
-  // console.log(width);
   return (
     <div className="reset">
       <div className="d-flex align-items-center justify-content-between title">
