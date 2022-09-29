@@ -47,17 +47,14 @@ function Backstage() {
       );
       setDiscountData(discountResult.data);
       setTotal(result.data.pagination.total);
-      // console.log('pagination', result.data.pagination.total);
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
   }, [pageNow, lastPage, productData, loading, total, user]);
-  // console.log(id);
   const handleDelete = async (id) => {
     let response = await axios.put(
       `${API_URL}/products/deleteProduct?id=${id}`
     );
-    // console.log(response);
   };
 
   return (
@@ -141,11 +138,21 @@ function Backstage() {
       ) : (
         ''
       )}
+      {loginBtn === 'addDiscount' ? (
+        <Notification
+          // linkToText="返回列表頁"
+          // linkTo="/backstage"
+          contaninText="折扣新增成功"
+          bottom={20}
+        />
+      ) : (
+        ''
+      )}
       {loginBtn === 'deleteDiscount' ? (
         <Notification
           // linkToText="返回列表頁"
           // linkTo="/products"
-          contaninText="商品刪除成功"
+          contaninText="折扣刪除成功"
           bottom={20}
         />
       ) : (

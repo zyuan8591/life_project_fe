@@ -17,7 +17,6 @@ const UpdateImgProduct2 = ({ product, setProduct }) => {
 
     setFile(file);
     setProduct({ ...product, photo2: file });
-    console.log(product);
   };
 
   useEffect(() => {

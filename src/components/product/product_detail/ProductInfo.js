@@ -81,17 +81,13 @@ const ProductInfo = ({
     if (!discount) setDiscountPrice(price);
     if (discount < 10 && discount > 0) {
       setDiscountPrice(parseInt(price * (discount / 10)));
-      console.log(discountPrice);
     }
     if (discount > 10 && discount < 100) {
       setDiscountPrice(parseInt(price * (discount / 100)));
-      // console.log(discountPrice);
-      // console.log(typeof discountPrice);
     }
     if (startline < new Date().getTime()) {
       setStart(true);
       setFinish(false);
-      // setBuyPrice(discountPrice);
     }
     if (deadline < new Date().getTime()) {
       setFinish(true);
@@ -99,15 +95,12 @@ const ProductInfo = ({
     }
   }, [data, start, finish]);
   const onFinish = () => {
-    console.log('finished!');
     setFinish(true);
   };
   const onStart = () => {
-    console.log('start!');
     setStart(true);
     setFinish(false);
   };
-  // console.log(productCart.state.items[0]);
   const productIdInCart = productCart.state.items.map((v) => {
     return v;
   });
