@@ -62,8 +62,9 @@
     @include click();
   }
   .icon{
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
+    margin: 10px;
     @include click();
   }
  }

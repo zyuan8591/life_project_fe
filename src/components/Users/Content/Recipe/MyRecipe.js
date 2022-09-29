@@ -131,7 +131,7 @@ function MyRecipe() {
       <h3 className={classes.title}>
         {display === 1 ? '我的食譜' : '食譜收藏'}
       </h3>
-      <table className={`${classes.racipeTable} table table-hover`}>
+      <table className={`${classes.racipeTable} table table-hover `}>
         <thead>
           <tr>
             <th></th>
