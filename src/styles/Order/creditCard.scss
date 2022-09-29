@@ -13,11 +13,6 @@
   // top: 0;
   // border:none;
 
-  
-  @media (max-width: 576px) {
-    display: none;   
-  }
-
   &.active{
     transform: rotateY(180deg);
   }

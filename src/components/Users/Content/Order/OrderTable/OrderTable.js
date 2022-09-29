@@ -27,9 +27,15 @@ const Table = ({ orders }) => {
         <tbody>
           {orders.map((v, i) => {
             return (
-              <tr key={i}>
-                <td>{v.id}</td>
-                <td>{v.order_total}</td>
+              <tr key={v.id}>
+                <td>{i + 1}</td>
+                <td>
+                  $
+                  {JSON.stringify(v.order_total).replace(
+                    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                    ','
+                  )}
+                </td>
                 <td>{v.order_status}</td>
                 <td>{v.create_time}</td>
                 <td>{v.order_payment}</td>
