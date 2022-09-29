@@ -42,10 +42,7 @@
   a:hover,
   a:active {
     color: $contentClr;
-    text-decoration: none;
-    @media (max-width: 768px) {
-      color:#fff;
-    }
+    text-decoration: none;  
   }
 }
 .sm-768none {

@@ -54,11 +54,13 @@ const Order = () => {
           setCurrentStatus={setCurrentStatus}
         />
         {orders.length === 0 && <NoDataDisplay noDataText="訂單" />}
-        <PaginationBar
-          lastPage={lastPage}
-          pageNow={pageNow}
-          setPageNow={setPageNow}
-        />
+        {orders.length !== 0 && (
+          <PaginationBar
+            lastPage={lastPage}
+            pageNow={pageNow}
+            setPageNow={setPageNow}
+          />
+        )}
       </div>
     </>
   );

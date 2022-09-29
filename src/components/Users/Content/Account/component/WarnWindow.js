@@ -14,7 +14,7 @@ function WarnWindow({
   return warn ? (
     <div className="warnWindow" css={warnWindow}>
       <div className="inner">
-        <div className="text ">
+        <div className={`text ${text2 === null ? 'active' : ''}`}>
           <p>{text1}</p>
           <p>{text2}</p>
         </div>
@@ -55,10 +55,11 @@ const warnWindow = css`
   }
   .inner {
     background: #fff;
-    width: 300px;
+    width: 250px;
     border: 2px solid rgba(129, 113, 97, 0.9);
     border-radius: 5px;
     overflow: hidden;
+    padding: 0 30px;
   }
   .text {
     padding-top: 10px;
@@ -67,9 +68,12 @@ const warnWindow = css`
     line-height: 1.5rem;
     border-bottom: 1px solid #ccc;
   }
+  .active{
+    line-height: 3rem;
+  }
   .btngroup {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 5px;
   }
   button {
