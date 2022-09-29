@@ -104,7 +104,7 @@ function CampingDetailAside({
                     ischecked: false,
                     img: v.img1,
                   });
-                  handleDelJoin(v.id);
+                  handleDelJoin(v.id, v.title);
                   setLoading(true);
                 }}
               >
@@ -117,7 +117,12 @@ function CampingDetailAside({
                 }
                 disabled={v.state !== '開團中' ? true : false}
                 onClick={() => {
-                  handleAddJoin(v.id);
+                  handleAddJoin(
+                    v.id,
+                    v.activity_start_date,
+                    v.activity_end_date,
+                    v.title
+                  );
                   setLoading(true);
                 }}
               >

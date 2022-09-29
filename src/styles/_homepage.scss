@@ -91,7 +91,10 @@
     .swiper {
       .swiper-slide {
         opacity: 0.5;
-        transition: 0.15s;
+        transition: 0.3s;
+        &:hover {
+          opacity: 1;
+        }
       }
       .swiper-slide-active {
         opacity: 1;
