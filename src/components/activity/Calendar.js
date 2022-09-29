@@ -96,7 +96,6 @@ function Calendar() {
   // };
   return (
     <>
-      {/* {console.log(getDate('YEAR-MONTH-18T12:00:00+00:00'))} */}
       {/* <Header /> */}
       <IconContext.Provider
         value={{
@@ -115,9 +114,6 @@ function Calendar() {
           ''
         )}
       </IconContext.Provider>
-
-      
-
       <div className="calendarContainer">
         <FullCalendar
           events={events}
@@ -170,14 +166,27 @@ function Calendar() {
         <div>
           <div>本月重要記事</div>
           <div className="detail">
-            <div className="detailContent">
-              <div className="num">1</div>
-              <IconContext.Provider value={{ color: '#F2AC33', size: '1.3em' }}>
-                <AiFillStar className="ms-4 me-2" />
-              </IconContext.Provider>
-              <div className="me-2">9/18~9/19</div>
-              <div>camping</div>
-            </div>
+            {events.map((v, i) => {
+              const newStart = (start) => {
+                return start.substr(0, 10);
+              };
+              return (
+                <div className="detailContent" key={v.id}>
+                  <div className="num">{i + 1}</div>
+                  <IconContext.Provider
+                    value={{ color: '#F2AC33', size: '1.3em' }}
+                  >
+                    <AiFillStar className="ms-4 me-2" />
+                  </IconContext.Provider>
+                  <div className="me-2">
+                    {v.end !== undefined
+                      ? `${newStart(v.start)}~${newStart(v.end)}`
+                      : `${newStart(v.start)}`}
+                  </div>
+                  <div>{v.title}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -70,10 +70,12 @@ a, a:visited, a:hover, a:active {
 .detail{
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   border: 2px solid $focusClrY;
   border-radius: 5px;
-  width: 300px;
-  min-height: 100px;
+  width: 600px;
+  height: 200px;
+  overflow-y: auto;
   padding: 5px;
   .detailContent{
     display: flex;
