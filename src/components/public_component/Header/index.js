@@ -131,7 +131,11 @@ const Header = ({ fixed = true }) => {
                 {userSelectActive && (
                   <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
                     <li className="py-1">
-                      <Link to="/users/account">個人檔案</Link>
+                      {user && user.status === 0 ? (
+                        <Link to="/products/backstage">後台管理</Link>
+                      ) : (
+                        <Link to="/users/account">個人檔案</Link>
+                      )}
                     </li>
                     <li className="py-1" onClick={handelLogout}>
                       登出
