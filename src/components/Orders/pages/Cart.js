@@ -23,8 +23,6 @@ const Cart = () => {
   const [addToast, setAddToast] = useState(false);
   const navigate = useNavigate();
 
-  // console.log(user);
-
   useEffect(() => {
     setCurrentStep(1);
   }, []);

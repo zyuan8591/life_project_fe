@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import CartDetail from './CheckPage/CartDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
+import Summary from './CartPage/Summary';
 import Payment from './CheckPage/Payment';
-// import CreditCard from './CheckPage/CreditCard';
-import Notification from '../../activity/Notification';
-import { useUserRights } from '../../../usecontext/UserRights';
+
+import { useCartStep } from '../../../orderContetxt/useCartStep';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -15,25 +15,22 @@ import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { useCartStep } from '../../../orderContetxt/useCartStep';
-import Summary from './CartPage/Summary';
 
 const CheckOut = () => {
-  const { user } = useUserRights();
-  const { currentStep, setCurrentStep, orderId, setOrderId } = useCartStep();
   const navigate = useNavigate();
+  const { currentStep, setCurrentStep } = useCartStep();
+  const productCart = useProductCart();
+  const picnicCart = usePicnicCart();
+  const campingCart = useCampingCart();
 
   const [delivery, setDelivery] = useState([]);
 
   const [payment, setPayment] = useState([]);
   const [currentPayment, setCurrentPayment] = useState(null);
 
-  const [isOrder, setIsOrder] = useState(false);
+  const [orderId, setOrderId] = useState('');
   const [orderInfo, setOrderInfo] = useState([]);
-
-  const productCart = useProductCart();
-  const picnicCart = usePicnicCart();
-  const campingCart = useCampingCart();
+  const [isOrder, setIsOrder] = useState(false);
 
   useEffect(() => {
     // get delivery
@@ -53,15 +50,6 @@ const CheckOut = () => {
     setCurrentStep(2);
   }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (isOrder) {
-  //       // <Navigate to="/orderstep/ordercheck" />;
-  //       navigate('/orderstep/ordercheck');
-  //     }
-  //   })();
-  // }, [isOrder]);
-
   useEffect(() => {
     if (orderId) {
       (async () => {
@@ -76,8 +64,18 @@ const CheckOut = () => {
       })();
     }
 
-    console.log('orderinfo', orderInfo);
+    // console.log('orderinfo', orderInfo);
   }, [orderId]);
+
+  useEffect(() => {
+    if (currentPayment !== 2) {
+      (async () => {
+        if (isOrder) {
+          navigate('/orderstep/ordercheck');
+        }
+      })();
+    }
+  }, [isOrder]);
 
   useEffect(() => {
     if (orderId && currentPayment === 2) {
@@ -201,21 +199,19 @@ const CheckOut = () => {
           // }),
         })}
         onSubmit={async (values) => {
-          // if (!user.id) return;
           try {
             // 建立訂單
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
-            setOrderId(response.data);
 
             if (response.data) {
+              setOrderId(response.data);
+              // console.log(response.data);
+              localStorage.setItem('order_id', response.data.order_id);
               // console.log(orderId);
-              // console.log('orderInfo', orderInfo);
-              // setOrderInfo(orderInfo.data);
-              // console.log('orderinfo', orderInfo.data);
               setIsOrder(true);
-              window.localStorage.clear();
+              // window.localStorage.clear();
             }
 
             if (point) {
@@ -230,7 +226,6 @@ const CheckOut = () => {
                 }
               );
             }
-            // console.log(response);
           } catch (e) {
             console.error('order', e);
           }

@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
 
 function OrderCheck() {
-  const { setCurrentStep, orderId } = useCartStep();
+  const { setCurrentStep } = useCartStep();
 
   useEffect(() => {
     setCurrentStep(3);
   }, []);
+
+  const order_id = localStorage.getItem('order_id');
+  // console.log(order_id);
 
   return (
     <>
@@ -26,13 +29,25 @@ function OrderCheck() {
             <span>完成訂單</span>
           </div>
         </div>
-        <p className="">您的訂單編號為： {orderId.order_id}</p>
+        <p className="">您的訂單編號為： {order_id}</p>
 
         <div className="orderStepBtns gap-3">
-          <Link to="/products" className="btn stepBtn prevButton">
+          <Link
+            to="/products"
+            className="btn stepBtn prevButton"
+            onClick={() => {
+              localStorage.clear();
+            }}
+          >
             繼續購買
           </Link>
-          <Link to="/users/order" className="btn stepBtn nextButton">
+          <Link
+            to="/users/order"
+            className="btn stepBtn nextButton"
+            onClick={() => {
+              localStorage.clear();
+            }}
+          >
             查看訂單
           </Link>
         </div>
