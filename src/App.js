@@ -35,6 +35,7 @@ import News from './components/news/News';
 import ActivityMain from './components/activity/ActivityMain';
 import SetMap from './components/map/SetMap';
 import BackstageCamping from './components/backstage/BackstageCamping';
+import Calendar from './components/activity/Calendar';
 // activity picnic =======================================================================
 import PicnicIndex from './components/picnic/picnic_main/PicnicIndex';
 import PicnicOfficalList from './components/picnic/picnic_official/picnic_offical_list/PicnicList';
@@ -142,6 +143,7 @@ function App() {
                       />
                     </Route>
                     <Route path="/map" element={<SetMap />} />
+                    <Route path="/calendar" element={<Calendar />} />
                     {/* recipe */}
                     <Route path="/recipeDetail" element={<RecipeDetail />} />
                     {/* product */}
