@@ -14,8 +14,8 @@ import { API_URL, API_URL_IMG } from '../../utils/config';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const pages = [
-  { title: '商品一覽', route: '/backstage/Products' },
-  { title: '活動專區', route: '/backstage/Camping' },
+  { title: '商品一覽', route: '/products/backstage' },
+  { title: '活動專區', route: '/camping/backstage' },
 ];
 
 const Header = ({ fixed = true }) => {

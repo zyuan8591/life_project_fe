@@ -259,7 +259,7 @@ function CampingDetailPage() {
           return v.join_limit - v.pepcount;
         }
 
-        const handleAddJoin = async (campingId) => {
+        const handleAddJoin = async (campingId, start, end, title) => {
           // console.log(campingId);
           let response = await axios.post(
             `${API_URL}/camping/campingJoin/${campingId}`,
@@ -268,7 +268,18 @@ function CampingDetailPage() {
           );
           let hadJoin = response.data.getJoin.map((v) => v.activity_id);
           setUserJoin(hadJoin);
+
+          // post calendar
+          const newEnd = end + ' 23:00:00';
+
+          let addCalendar = await axios.post(
+            `${API_URL}/camping/addCalendar?start=${start}&end=${newEnd}&title=${title}`,
+            {},
+            { withCredentials: true }
+          );
           console.log('add', response.data);
+          console.log('addCalendar', addCalendar.data);
+
           cart.addItem({
             id: v.id,
             quantity: 1,
@@ -284,7 +295,7 @@ function CampingDetailPage() {
           }, 2000);
         };
 
-        const handleDelJoin = async (campingId) => {
+        const handleDelJoin = async (campingId, title) => {
           // console.log(campingId);
           let response = await axios.delete(
             `${API_URL}/camping/campingJoin/${campingId}`,
@@ -292,7 +303,16 @@ function CampingDetailPage() {
           );
           let hadJoin = response.data.getJoin.map((v) => v.activity_id);
           setUserJoin(hadJoin);
+
+          // post calendar
+          let delCalendar = await axios.delete(
+            `${API_URL}/camping/delCalendar?title=${title}`,
+            { withCredentials: true }
+          );
+
           console.log('del', response.data);
+          console.log('del calendar', delCalendar.data);
+
           //TODO: 改掉alert
           setActCencel(true);
           setTimeout(() => {
@@ -473,7 +493,12 @@ function CampingDetailPage() {
                           >
                             <MdRemoveCircle
                               onClick={() => {
-                                handleDelJoin(v.id);
+                                handleDelJoin(
+                                  v.id,
+                                  // v.activity_start_date,
+                                  // v.activity_end_date,
+                                  v.title
+                                );
                                 setLoading(true);
                               }}
                             />
@@ -488,7 +513,12 @@ function CampingDetailPage() {
                           >
                             <MdAddCircle
                               onClick={() => {
-                                handleAddJoin(v.id);
+                                handleAddJoin(
+                                  v.id,
+                                  v.activity_start_date,
+                                  v.activity_end_date,
+                                  v.title
+                                );
                                 setLoading(true);
                               }}
                             />
@@ -887,7 +917,7 @@ function CampingDetailPage() {
                               ischecked: false,
                               img: v.img1,
                             });
-                            handleDelJoin(v.id);
+                            handleDelJoin(v.id, v.title);
                             setLoading(true);
                           }}
                         >
@@ -900,7 +930,12 @@ function CampingDetailPage() {
                           }
                           disabled={v.state !== '開團中' ? true : false}
                           onClick={() => {
-                            handleAddJoin(v.id);
+                            handleAddJoin(
+                              v.id,
+                              v.activity_start_date,
+                              v.activity_end_date,
+                              v.title
+                            );
                             setLoading(true);
                           }}
                         >

@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Autoplay, Pagination, Navigation } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 
 const IndexRecipe = ({ data = [] }) => {
   const [vw, setVw] = useState(window.innerWidth);
