@@ -5,7 +5,6 @@ import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
-import { TbDiscount2 } from 'react-icons/tb';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
@@ -38,31 +37,23 @@ const Product = ({
   const [discount, setDiscount] = useState();
   const [discountPriceArr, setDiscountPriceArr] = useState([]);
   const [discountPrice, setDiscountPrice] = useState('');
-  // const [price, setPrice] = useState([]);
+
   useEffect(() => {
     let priceMap = productList.map((v, i) => {
       setDiscount(v.discount);
-      // setDiscountPrice(parseInt(v.price * (discount / 100)));
-      // if (!discount) setDiscountPrice(v.price);
-      if (!discount) return v.price;
+      if (!discount) {
+        return v.price;
+      }
       if (discount < 10 && discount > 0) {
-        // setDiscountPrice(parseInt(v.price * (discount / 10)));
         return parseInt(v.price * (discount / 10));
       }
       if (discount > 10 && discount < 100) {
-        // setDiscountPrice(parseInt(v.price * (discount / 100)));
         return parseInt(v.price * (discount / 100));
-        // console.log(discountPrice);
-        // console.log(typeof discountPrice);
       }
-      // return v.price;
     });
-
     setDiscountPriceArr(priceMap);
-    console.log(discountPriceArr);
-    console.log(discountPrice);
+    console.log('discountPrice', discountPrice);
   }, [productList, discount]);
-
   return (
     <>
       <div className="productContainer">
@@ -81,6 +72,14 @@ const Product = ({
           } = v;
           const deadline = new Date(end_time).getTime();
           const startline = new Date(start_time).getTime();
+          let discountedPrice;
+          if (!discount) discountedPrice = price;
+          if (discount < 10 && discount > 0) {
+            discountedPrice = parseInt(price * (discount / 10));
+          }
+          if (discount > 10 && discount < 100) {
+            discountedPrice = parseInt(price * (discount / 100));
+          }
           return (
             <div
               className="products"
@@ -179,21 +178,32 @@ const Product = ({
                         >
                           <IoCartSharp
                             onClick={(e) => {
-                              // console.log(id, name)
-                              if (!discount) {
-                                setDiscountPrice(price);
+                              if (
+                                discount &&
+                                startline < new Date().getTime() &&
+                                deadline > new Date().getTime()
+                              ) {
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: discountedPrice,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
                               } else {
-                                setDiscountPrice(discountPriceArr[i]);
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: price,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
                               }
-                              productCart.addItem({
-                                id: id,
-                                quantity: 1,
-                                name: name,
-                                price: discountPrice,
-                                ischecked: false,
-                                img: img,
-                                inventory: inventory,
-                              });
+
                               setCartConfirm(true);
                               setTimeout(() => {
                                 setCartConfirm(false);
@@ -205,20 +215,31 @@ const Product = ({
                         <div className="heart">
                           <IoCartOutline
                             onClick={(e) => {
-                              if (!discount) {
-                                setDiscountPrice(price);
+                              if (
+                                discount &&
+                                startline < new Date().getTime() &&
+                                deadline > new Date().getTime()
+                              ) {
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: discountedPrice,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
                               } else {
-                                setDiscountPrice(discountPriceArr[i]);
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: price,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
                               }
-                              productCart.addItem({
-                                id: id,
-                                quantity: 1,
-                                name: name,
-                                price: discountPrice,
-                                ischecked: false,
-                                img: img,
-                                inventory: inventory,
-                              });
                               setCartConfirm(true);
                               setTimeout(() => {
                                 setCartConfirm(false);
@@ -263,12 +284,12 @@ const Product = ({
                 startline < new Date().getTime() &&
                 deadline > new Date().getTime() ? (
                   <>
-                    {/* <p>
+                    <p>
                       NT${' '}
-                      {discountPriceArr[i]
+                      {discountedPrice
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                    </p> */}
+                    </p>
                   </>
                 ) : (
                   <p className="price">
