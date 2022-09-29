@@ -1,79 +1,80 @@
 @import '../variable';
 @mixin iconStyle($x) {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate($x,-50%);
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate($x, -50%);
 }
 
-.icons{
-    cursor: pointer;
+.icons {
+  cursor: pointer;
 }
-.backstageContainer{
-    position: relative;
-    top: $headerHeight;
-    max-width: 1600px;
-    height: calc(100vh - $headerHeight) ;
+.backstageContainer {
+  position: relative;
+  top: $headerHeight;
+  max-width: 1600px;
+  height: calc(100vh - $headerHeight);
+  margin: 0 auto;
+  padding: 50px 0;
+  color: $contentClr;
+  .addBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-25px, 50px);
+    border: 2px solid $focusClrY;
+    padding: 5px 10px;
+    background: $mainClrW;
+    color: $focusClrY;
+    transition: 0.3s ease;
+    &:hover,
+    &:active {
+      background: $focusClrY;
+      color: $mainClrW;
+    }
+  }
+  table {
     margin: 0 auto;
-    padding: 50px 0;
-    color: $contentClr;
-    .addBtn{
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(-25px,50px);
-        border: 2px solid $focusClrY;
-        padding: 5px 10px;
-        background: $mainClrW;
-        color: $focusClrY;
-        transition: .3s ease;
-        &:hover ,&:active{
-            background: $focusClrY;
-            color: $mainClrW;
+    thead {
+      th {
+        padding: 10px 15px;
+        font-size: 18px;
+        border-bottom: 1px solid #ccc;
+        .icon {
+          @include iconStyle(-8px);
         }
-    }
-    table{
-        margin: 0 auto;
-        thead{
-            th{
-                padding: 10px 15px;
-                font-size: 18px;
-                border-bottom: 1px solid #ccc;
-                .icon{
-                    @include iconStyle(-8px);
-                }
-                .priceIcon{
-                    @include iconStyle(8px);
-                }
-            }
+        .priceIcon {
+          @include iconStyle(8px);
         }
-        tbody{
-            tr{
-                transition: .3s ease;
-                &:hover{
-                    color: $focusClrG;
-                    background: $hoverClr;
-                }
-                td{
-                    padding: 15px;
-                    font-size: $contentText;
-                    border-bottom: 1px solid #ccc;
-                    .titleImg{
-                        width: 150px;
-                        height: 100px;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                    }
-                    .icons{
-                        &:hover{
-                            transform: scale(1.1);
-                        }
-                    }
-                } 
-            }
-        }  
+      }
     }
+    tbody {
+      tr {
+        transition: 0.3s ease;
+        &:hover {
+          color: $focusClrG;
+          background: $hoverClr;
+        }
+        td {
+          padding: 15px;
+          font-size: $contentText;
+          border-bottom: 1px solid #ccc;
+          .titleImg {
+            width: 140px;
+            height: 90px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .icons {
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+  }
 }

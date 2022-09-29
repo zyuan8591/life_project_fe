@@ -16,6 +16,7 @@ import { useUserRights } from '../../usecontext/UserRights';
 const pages = [
   { title: '商品一覽', route: '/products/backstage' },
   { title: '活動專區', route: '/camping/backstage' },
+  { title: '客服中心', route: '/chat/backstage' },
 ];
 
 const Header = ({ fixed = true }) => {
