@@ -5,6 +5,7 @@ import CapmingFilter from './CapmingFilter/CapmingFilter';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
+import NoDataDisplay from '../../../public_component/NoDataDisplay';
 
 const Camping = () => {
   const { user } = useUserRights();
@@ -39,7 +40,13 @@ const Camping = () => {
       <h3>露營活動</h3>
       <div className="user_activity">
         <CapmingFilter list={list} setList={setList} setDisplay={setDisplay} />
-        <CampingTable data={data} />
+        <CampingTable
+          data={data}
+          display={display}
+          getUser={getUser}
+          pageNow={pageNow}
+        />
+        {data.length === 0 && <NoDataDisplay noDataText="活動" />}
         <PaginationBar
           lastPage={lastPage}
           pageNow={pageNow}

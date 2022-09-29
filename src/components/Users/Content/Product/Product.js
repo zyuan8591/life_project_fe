@@ -3,6 +3,7 @@ import PaginationBar from '../../../public_component/PaginationBar';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
 import { Link } from 'react-router-dom';
+import NoDataDisplay from '../../../public_component/NoDataDisplay';
 const Product = () => {
   const title = ['名稱', '顏色', '價格', '查看', '刪除'];
   const [pageNow, setPageNow] = useState(1);
@@ -74,7 +75,7 @@ const Product = () => {
                   <td>{price}</td>
                   <td>
                     <Link to={`/products/${v.product_id}`}>
-                      <button>活動詳情</button>
+                      <button>商品詳情</button>
                     </Link>
                   </td>
                   <td>
@@ -91,6 +92,7 @@ const Product = () => {
           </tbody>
         </table>
       </div>
+      {data.length === 0 && <NoDataDisplay noDataText="商品" />}
       <PaginationBar
         lastPage={lastPage}
         pageNow={pageNow}

@@ -16,5 +16,5 @@ export default function Countdown(props) {
     };
   });
 
-  return <p className="noClick">{secs < 10 ? `0${secs}` : secs} s</p>;
+  return <p className="noClick time">{secs < 10 ? `0${secs}` : secs} s</p>;
 }

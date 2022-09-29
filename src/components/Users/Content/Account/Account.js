@@ -2,14 +2,23 @@ import React, { useState } from 'react';
 import { API_URL_IMG } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import AccountEdit from './Account_Edit';
+import Notification from '../../../activity/Notification';
+import { SiFoodpanda } from 'react-icons/si';
 
 const Account = () => {
   const { user } = useUserRights();
   const [edit, setEdit] = useState(false);
+  const [editOK, setEditOK] = useState(false);
 
   function clickEdit() {
     setEdit(true);
   }
+  const showEditOK = () => {
+    setEditOK(true);
+    setTimeout(() => {
+      setEditOK(false);
+    }, 2000);
+  };
 
   return (
     <>
@@ -63,7 +72,13 @@ const Account = () => {
           </div>
         </div>
       ) : (
-        <AccountEdit setEdit={setEdit} />
+        <AccountEdit setEdit={setEdit} showEditOK={showEditOK} />
+      )}
+
+      {editOK && (
+        <Notification contaninText="資料修改成功" iconSize={2} bottom={30}>
+          <SiFoodpanda />
+        </Notification>
       )}
     </>
   );

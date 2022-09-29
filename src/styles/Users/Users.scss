@@ -43,10 +43,13 @@
   a:active {
     color: $contentClr;
     text-decoration: none;
+    @media (max-width: 768px) {
+      color:#fff;
+    }
   }
 }
 .sm-768none {
   @media (max-width: 768px) {
-    display: none;
+    display: none !important;
   }
 }
