@@ -42,7 +42,7 @@ export default function OrderDetail() {
     })();
     // setProductItems();
   }, []);
-  // console.log('orderDetail', orderDetail);
+  console.log('orderDetail', orderDetail);
 
   let productTotal = productItems.reduce((total, item) => {
     // console.log('total', total);
@@ -92,11 +92,17 @@ export default function OrderDetail() {
           campingTotal={campingTotal}
           campingCount={campingCount}
         />
-        <div className="orderData">
-          <h2 className="orderData-title">訂單資訊</h2>
-          <div>收件人：{Detail ? Detail.name : null}</div>
-          <div>電話：{Detail ? Detail.phone : null}</div>
-          <div>Email：{Detail ? Detail.email : null}</div>
+        <h2 className="orderData-title text-center mt-3">訂單資訊</h2>
+        <div className="orderData row py-3 ">
+          <div className="userData col-lg ">
+            <div>收件人：{Detail ? Detail.name : null}</div>
+            <div>電話：{Detail ? Detail.phone : null}</div>
+            <div>Email：{Detail ? Detail.email : null}</div>
+            <div>住址：{Detail ? Detail.address : null}</div>
+          </div>
+          <div className="memo col-lg">
+            <div>備註：{Detail ? Detail.memo : null}</div>
+          </div>
         </div>
       </div>
     </>

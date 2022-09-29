@@ -5,7 +5,9 @@ import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
 import WarnWindow from '../../Account/component/WarnWindow';
 import Notification from '../../../../activity/Notification';
+import EditForm from '../../../../picnic/private_pincnic/private_pincnic_detail/EditForm';
 import { SiFoodpanda } from 'react-icons/si';
+import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 
 const PicnicTable = ({ data, display, getUser, pageNow }) => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態'];
@@ -17,11 +19,24 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
   //   getUser(`${API_URL}/picnic/group/member?page=${pageNow}`);
   // }
   const [warn, setWarn] = useState(false);
+  const [warn1, setWarn1] = useState(false);
   const [delID, setDelID] = useState();
   const [hint, setHint] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [editConfirm, setEditConfirmm] = useState(false);
+  const showToast = () => {
+    setEditConfirmm(true);
+    setTimeout(() => {
+      setEditConfirmm(false);
+    }, 2000);
+  };
   function pop(id) {
     setDelID(id);
     setWarn(true);
+  }
+  function popdel(id) {
+    setDelID(id);
+    setWarn1(true);
   }
   const showHint = () => {
     setHint(true);
@@ -30,17 +45,43 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
     }, 2000);
   };
   const handleDelCollect = async () => {
-    await axios.delete(`${API_URL}/picnic/collectGroupDelJoin/${delID}`, {
+    await axios.delete(`${API_URL}/picnic/collectDelJoin/${delID}`, {
+      withCredentials: true,
+    });
+    getUser(`${API_URL}/picnic/official/memberCollect?page=${pageNow}`);
+    setWarn(false);
+    showHint();
+  };
+  //刪除活動
+  const handleDelActive = async () => {
+    await axios.delete(`${API_URL}/picnic/groupCreate/${delID}`, {
       withCredentials: true,
     });
     getUser(`${API_URL}/picnic/group/member?page=${pageNow}`);
-    setWarn(false);
+    setWarn1(false);
     showHint();
   };
   return (
     <div className="activity-table">
+      {edit ? (
+        <EditForm
+          setEdit={setEdit}
+          data={data}
+          showToast={showToast}
+          activeID={delID}
+        />
+      ) : null}
       {hint && (
-        <Notification contaninText="已取消收藏" iconSize={2} bottom={30}>
+        <Notification
+          contaninText={display === 2 ? '已刪除活動' : '已取消收藏'}
+          iconSize={2}
+          bottom={30}
+        >
+          <SiFoodpanda />
+        </Notification>
+      )}
+      {editConfirm && (
+        <Notification contaninText="活動修改成功" iconSize={2} bottom={30}>
           <SiFoodpanda />
         </Notification>
       )}
@@ -48,7 +89,13 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
         warn={warn}
         setWarn={setWarn}
         clickFunction={handleDelCollect}
-        text1="確定要移除此項活動嗎？"
+        text1="確定取消此項活動收藏？"
+      />
+      <WarnWindow
+        warn={warn1}
+        setWarn={setWarn1}
+        clickFunction={handleDelActive}
+        text1="確定刪除此項活動？"
       />
       <table className="table table-sm mt-5 table-hover">
         <thead>
@@ -61,6 +108,7 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
             <th>查看</th>
             {display === 2 ? <th></th> : null}
             {display === 2 ? <th></th> : null}
+            {display === 3 ? <th></th> : null}
           </tr>
         </thead>
 
@@ -96,7 +144,13 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                 </td>
                 {display === 2 ? (
                   <td className="sm-768none">
-                    <i className="fa-solid fa-pen-to-square icon"></i>
+                    <i
+                      className="fa-solid fa-pen-to-square icon"
+                      onClick={() => {
+                        setEdit(true);
+                        setDelID(v.picnic_id);
+                      }}
+                    ></i>
                   </td>
                 ) : null}
                 {display === 2 ? (
@@ -104,7 +158,17 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                     <i
                       className="fa-solid fa-trash icon"
                       onClick={() => {
-                        pop(v.id);
+                        popdel(v.picnic_id);
+                      }}
+                    ></i>
+                  </td>
+                ) : null}
+                {display === 3 ? (
+                  <td className="sm-768none">
+                    <i
+                      className="fa-solid fa-trash icon"
+                      onClick={() => {
+                        pop(v.picnic_id);
                       }}
                     ></i>
                   </td>
