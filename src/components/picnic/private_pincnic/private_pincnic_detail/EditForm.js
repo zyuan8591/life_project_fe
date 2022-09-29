@@ -53,7 +53,7 @@ const formItem = css`
   }
 `;
 
-function CreateForm({ data, setEdit, showToast }) {
+function CreateForm({ data, setEdit, showToast, activeID = null }) {
   const [imageSrc, setImageSrc] = useState('');
   const [loginBtn, setLoginBtn] = useState(false);
   const [location, setLocation] = useState(city);
@@ -146,7 +146,7 @@ function CreateForm({ data, setEdit, showToast }) {
         formData.append('image', activityContent.image);
 
         let response = await axios.put(
-          `${API_URL}/picnic/createUpdate/${groupId}`,
+          `${API_URL}/picnic/createUpdate/${activeID ? activeID : groupId}`,
           formData,
           {
             withCredentials: true,

@@ -107,19 +107,27 @@
     border-left: 8px solid $subClrBrown;
     padding: 10px 0 0 10px;
     margin-bottom: 20px;   
+   
   }
   h3{
     border:0px !important;
   }
   .summary{
     text-align: right;
+    h2{
+      font-size: 32px;
+      @media (max-width: 768px) {
+        font-size: 26px;
+      }
+    }
   }
   .orderData{
     border-top: 1px solid #ccc;
-    text-align: right;
-    padding: 1.5rem;
-    .orderData-title{
-      text-align: center;
+    text-align: left;
+    padding-left: 50px; 
+    @media (max-width: 768px) {
+      padding-left: 0px;
     }
   }
+  
 }

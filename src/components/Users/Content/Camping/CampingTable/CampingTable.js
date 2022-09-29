@@ -5,9 +5,11 @@ import { API_URL } from '../../../../../utils/config';
 import WarnWindow from '../../Account/component/WarnWindow';
 import Notification from '../../../../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
+import { IconContext } from 'react-icons';
+import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 
 const CampingTable = ({ data, display, getUser, pageNow }) => {
-  const title = ['活動名稱', '活動時間', '活動地點', '活動狀態', '查看'];
+  const title = ['活動名稱', '活動時間', '活動地點', '活動狀態'];
   const [warn, setWarn] = useState(false);
   const [delID, setDelID] = useState();
   const [hint, setHint] = useState(false);
@@ -51,6 +53,7 @@ const CampingTable = ({ data, display, getUser, pageNow }) => {
               return <th key={i}>{v}</th>;
             })}
             {display === 2 ? <th></th> : null}
+            <th></th>
           </tr>
         </thead>
 
@@ -71,19 +74,19 @@ const CampingTable = ({ data, display, getUser, pageNow }) => {
                 <td>{v.state}</td>
                 <td className="p-0 text-center">
                   <Link to={`/activity/camping/${v.id}`}>
-                    <button>活動詳情</button>
+                    <IconContext.Provider value={{ size: '1rem' }}>
+                      <FaRegEye />
+                    </IconContext.Provider>
                   </Link>
-                </td>
-                {display === 2 ? (
-                  <td className="sm-768none">
+                  {display === 2 ? (
                     <i
                       className="fa-solid fa-trash icon"
                       onClick={() => {
                         pop(v.id);
                       }}
                     ></i>
-                  </td>
-                ) : null}
+                  ) : null}
+                </td>
               </tr>
             );
           })}
