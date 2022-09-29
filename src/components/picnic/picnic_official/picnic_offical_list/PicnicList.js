@@ -119,6 +119,7 @@ function PicnicList() {
       {},
       { withCredentials: true }
     );
+
     console.log('handleAddJoin', response.data);
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
     setUserCollect(nowJoinCollect);
