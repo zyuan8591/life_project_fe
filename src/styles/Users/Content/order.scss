@@ -1,8 +1,5 @@
 @import '../../variable';
 @import '../mixin';
-
-
-
 .order{
   .order-filter{
     display: flex;
@@ -42,6 +39,7 @@
      }
     }    
   }
+  
  .order-table{
   tr{
     line-height: 3rem;
@@ -101,4 +99,26 @@
     td:nth-of-type(7):before { content: "訂單詳情："; }
    }
  }
+}
+.orderDetail{
+  .orderDetail-title{
+    font-size: 32px;
+    line-height: 1.5rem;
+    border-left: 8px solid $subClrBrown;
+    padding: 10px 0 0 10px;
+    margin-bottom: 20px;   
+  }
+  h3{
+    border:0px !important;
+  }
+  .summary{
+    text-align: right;
+  }
+  .orderData{
+    border-top: 1px solid #ccc;
+    text-align: right;
+    .orderData-title{
+      text-align: center;
+    }
+  }
 }
