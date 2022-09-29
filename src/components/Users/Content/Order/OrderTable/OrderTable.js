@@ -55,12 +55,6 @@ const Table = ({ orders }) => {
           })}
         </tbody>
       </table>
-      {/* <div className="icons">
-        <p>目前沒有訂單</p>
-        <IconContext.Provider value={{ className: 'order-icon' }}>
-          <TiClipboard />
-        </IconContext.Provider>
-      </div> */}
     </div>
   );
 };

@@ -193,7 +193,6 @@ function App() {
                         path="/users/order/:orderId"
                         element={<OrderDetail />}
                       />
-
                       <Route path="/users/points" element={<Points />} />
                       <Route path="/users/picnic" element={<Picnic />} />
                       <Route path="/users/recipe" element={<MyRecipe />} />
@@ -210,7 +209,7 @@ function App() {
                       path="/forgot/email"
                       element={<ForgotPasswordEmail />}
                     />
-                    <Route path="/backstage/chat" element={<BackstageChat />} />
+                    <Route path="/chat/backstage" element={<BackstageChat />} />
                   </Routes>
                 </CartStepProvider>
               </CampingCartProvider>

@@ -16,7 +16,7 @@ const CartDetail = ({
   // console.log('cart',productItems);
   return (
     <>
-      <h2 className="h1 ps-2 pb-3">訂單明細</h2>
+      <h2 className="h1 ps-2 pb-3 orderDetail-title">訂單明細</h2>
       {productCount > 0 && (
         <>
           <h3 className="h2 ps-3 title">商品</h3>

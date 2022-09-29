@@ -18,6 +18,7 @@ export default function OrderDetail() {
   const [picnicCount, setPicnicCount] = useState(0);
   const [picnicItems, setPicnicItems] = useState([]);
 
+  const [Detail] = orderDetail;
   useEffect(() => {
     // get orderDetail
     (async () => {
@@ -91,12 +92,11 @@ export default function OrderDetail() {
           campingTotal={campingTotal}
           campingCount={campingCount}
         />
-        <div>
-          <h2>訂單資訊</h2>
-          <div>收件人：</div>
-          <div>電話：</div>
-          <div>Email：</div>
-          <div></div>
+        <div className="orderData">
+          <h2 className="orderData-title">訂單資訊</h2>
+          <div>收件人：{Detail ? Detail.name : null}</div>
+          <div>電話：{Detail ? Detail.phone : null}</div>
+          <div>Email：{Detail ? Detail.email : null}</div>
         </div>
       </div>
     </>

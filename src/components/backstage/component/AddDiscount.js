@@ -10,22 +10,22 @@ import { API_URL } from '../../../utils/config';
 import Notification from '../../activity/Notification';
 import { useEffect } from 'react';
 import { DatePicker, Space } from 'antd';
-import { date } from 'yup';
-import moment from 'moment/moment';
+
 const { RangePicker } = DatePicker;
 function AddDiscount({
-  setDiscountPage,
+  setAddDiscountPage,
   loading,
   setLoading,
   lastPage,
   setPageNow,
   setLoginBtn,
+  user,
 }) {
   const [errMsg, setErrMsg] = useState(false);
   // const [loginBtn, setLoginBtn] = useState(false);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-
+  console.log(user);
   const [product, setProduct] = useState({
     name: 'SMEG全館9折起',
     discount: 9,
@@ -36,26 +36,19 @@ function AddDiscount({
     setProduct(newProduct);
     // console.log(newProduct);
   }
-  let brand = 11;
+  let brand = 7;
   console.log(product, startTime, endTime, brand);
   async function handleSubmit(e) {
     e.preventDefault();
 
     console.log(loading);
     try {
-      // let formData = new FormData();
-      // formData.append('name', product.name);
-      // formData.append('discount', product.discount);
-      // formData.append('start_time', startTime);
-      // formData.append('end_time', endTime);
-      // formData.append('company', brand);
-
       let data = {
         name: product.name,
         discount: product.discount,
         start_time: startTime,
         end_time: endTime,
-        company: brand,
+        company: user,
       };
 
       let response = await axios.post(
@@ -65,6 +58,10 @@ function AddDiscount({
         //   withCredentials: true,
         // }
       );
+      let newsResponse = await axios.post(`${API_URL}/news`, {
+        category: 1,
+        content: product.name,
+      });
       if (response.data.message === '此商品已存在') {
         setErrMsg(true);
         setTimeout(() => {
@@ -80,7 +77,7 @@ function AddDiscount({
           setLoginBtn('');
         }, 2000);
         setTimeout(() => {
-          setDiscountPage(false);
+          setAddDiscountPage(false);
         }, 600);
       }
       // console.log(response.data.message);
@@ -107,7 +104,7 @@ function AddDiscount({
           >
             <IoCloseSharp
               onClick={() => {
-                setDiscountPage(false);
+                setAddDiscountPage(false);
               }}
             />
           </IconContext.Provider>
@@ -179,7 +176,7 @@ function AddDiscount({
               type="button"
               onClick={(e) => {
                 e.preventDefault();
-                setDiscountPage(false);
+                setAddDiscountPage(false);
               }}
             >
               取消
