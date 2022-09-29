@@ -43,8 +43,41 @@
         .icon {
           @include iconStyle(-8px);
         }
-        .priceIcon {
-          @include iconStyle(8px);
+    }
+    .discount {
+        position: absolute;
+        top: 15px;
+        right: 120px;
+    }
+    .addDiscount{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-25px,10px);
+        border: 2px solid $focusClrG;
+        padding: 5px 10px;
+        background: $mainClrW;
+        color: $focusClrG;
+        transition: .3s ease;
+        &:hover ,&:active{
+            background: $focusClrG;
+            color: $mainClrW;
+        }
+    }
+    table{
+        margin: 0 auto;
+        thead{
+            th{
+                padding: 10px 15px;
+                font-size: 18px;
+                border-bottom: 1px solid #ccc;
+                .icon{
+                    @include iconStyle(-8px);
+                }
+                .priceIcon{
+                    @include iconStyle(8px);
+                }
+            }
         }
       }
     }

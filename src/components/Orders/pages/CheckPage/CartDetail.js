@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../../styles/Order/orderList.scss';
+import { API_URL_IMG } from '../../../../utils/config';
 
 const CartDetail = ({
   productItems,
@@ -22,7 +23,7 @@ const CartDetail = ({
           <div className="orderList">
             <div className="row orderListTitle gap-sm-2 gap-1">
               <div className="col-md col-3">圖片</div>
-              <div className="col-md col-3">名稱</div>
+              <div className="col-md-4 col-3">名稱</div>
               <div className="col">單價</div>
               <div className="col-1 text-nowrap">數量</div>
               <div className="col">總價</div>
@@ -33,9 +34,14 @@ const CartDetail = ({
                   return (
                     <div className="row orderItem gap-sm-2 gap-1" key={v.id}>
                       <div className="col-md col-3">
-                        <img alt="" src={`/img/product/product_img/${v.img}`} />
+                        <img
+                          alt=""
+                          src={`${API_URL_IMG}/product/product_img/${v.img}`}
+                        />
                       </div>
-                      <div className="col-md col-3">{v.name}</div>
+                      <div className="col-md-4 col-3 text-nowrap hide">
+                        {v.name}
+                      </div>
                       <div className="col text-nowrap">
                         ${' '}
                         {JSON.stringify(v.price).replace(
@@ -78,7 +84,7 @@ const CartDetail = ({
           <div className="orderList">
             <div className="row orderListTitle gap-sm-2 gap-1">
               <div className="col-md col-3">圖片</div>
-              <div className="col-md col-3">名稱</div>
+              <div className="col-md-4 col-3">名稱</div>
               <div className="col">單價</div>
               <div className="col-1 text-nowrap">數量</div>
               <div className="col">總價</div>
@@ -95,7 +101,9 @@ const CartDetail = ({
                           src={`/img/picnic/activity_picnic_img/${v.img}`}
                         />
                       </div>
-                      <div className="col-md col-3">{v.name}</div>
+                      <div className="col-md-4 col-3 text-nowrap hide">
+                        {v.name}
+                      </div>
                       <div className="col">
                         ${' '}
                         {JSON.stringify(v.price).replace(
@@ -125,7 +133,9 @@ const CartDetail = ({
                           src={`/img/camping/activity_camping_img/${v.img}`}
                         />
                       </div>
-                      <div className="col-md col-3">{v.name}</div>
+                      <div className="col-md-4 col-3 text-nowrap hide">
+                        {v.name}
+                      </div>
                       <div className="col">
                         ${' '}
                         {JSON.stringify(v.price).replace(

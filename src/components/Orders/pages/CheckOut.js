@@ -20,7 +20,7 @@ import Summary from './CartPage/Summary';
 
 const CheckOut = () => {
   const { user } = useUserRights();
-  const { currentStep, setCurrentStep, setOrderId } = useCartStep();
+  const { currentStep, setCurrentStep, orderId, setOrderId } = useCartStep();
   const navigate = useNavigate();
 
   const [delivery, setDelivery] = useState([]);
@@ -29,6 +29,7 @@ const CheckOut = () => {
   const [currentPayment, setCurrentPayment] = useState(null);
 
   const [isOrder, setIsOrder] = useState(false);
+  const [orderInfo, setOrderInfo] = useState([]);
 
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
@@ -53,11 +54,34 @@ const CheckOut = () => {
   }, []);
 
   useEffect(() => {
-    if (isOrder) {
-      // <Navigate to="/orderstep/ordercheck" />;
-      navigate('/orderstep/ordercheck');
-    }
+    (async () => {
+      if (isOrder) {
+        // <Navigate to="/orderstep/ordercheck" />;
+        navigate('/orderstep/ordercheck');
+      }
+    })();
   }, [isOrder]);
+
+  useEffect(() => {
+    (async () => {
+      let orderInfo = await axios.post(`${API_URL}/orders/orderinfo`, orderId, {
+        withCredentials: true,
+      });
+      setOrderInfo(orderInfo.data);
+    })();
+    console.log('orderinfo', orderInfo);
+  }, [orderId]);
+
+  useEffect(() => {
+    if (orderId && currentPayment === 2) {
+      (async () => {
+        let payResponse = await axios.post(`${API_URL}/orders/pay`, orderInfo, {
+          withCredentials: true,
+        });
+        console.log('payResponse', payResponse);
+      })();
+    }
+  }, [orderInfo]);
 
   // post {"orders":[{productCart.state.items.id:1, productCart.state.items.quantity:2, name:aaa, email:aaa@test.com, phone:0900000000, address:XXX, delivery: 2, memo:yyy, payment: lp}]}
 
@@ -91,7 +115,9 @@ const CheckOut = () => {
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
   const point = localStorage.getItem('usePoint');
-  console.log(point);
+  // console.log(point);
+  // console.log(orderId);
+  // console.log('orderinfo', orderInfo);
 
   return (
     <>
@@ -166,9 +192,21 @@ const CheckOut = () => {
         onSubmit={async (values) => {
           // if (!user.id) return;
           try {
+            // 建立訂單
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
+            setOrderId(response.data);
+
+            if (response.data) {
+              // console.log(orderId);
+              // console.log('orderInfo', orderInfo);
+              // setOrderInfo(orderInfo.data);
+              // console.log('orderinfo', orderInfo.data);
+              setIsOrder(true);
+              window.localStorage.clear();
+            }
+
             if (point) {
               await axios.post(
                 `${API_URL}/user/points`,
@@ -182,11 +220,6 @@ const CheckOut = () => {
               );
             }
             // console.log(response);
-            if (response.data) {
-              setIsOrder(true);
-              setOrderId(response.data);
-              window.localStorage.clear();
-            }
           } catch (e) {
             console.error('order', e);
           }

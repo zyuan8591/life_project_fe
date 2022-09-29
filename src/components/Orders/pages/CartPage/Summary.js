@@ -56,7 +56,7 @@ const Summary = ({
                 }}
               />
             ) : (
-              <div>{localStorage.getItem('usePoint', usePoint)}</div>
+              <div>{localStorage.getItem('usePoint', usePoint) || 0}</div>
             )}
           </div>
         </div>
@@ -75,7 +75,10 @@ const Summary = ({
           <div className="col-md-2 col h5">
             ${' '}
             {JSON.stringify(
-              productTotal + picnicTotal + campingTotal - usePoint
+              productTotal +
+                picnicTotal +
+                campingTotal -
+                localStorage.getItem('usePoint', usePoint)
             ).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
             元
           </div>

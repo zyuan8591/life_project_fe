@@ -95,6 +95,7 @@ const ProductInfo = ({
     }
     if (deadline < new Date().getTime()) {
       setFinish(true);
+      setDiscountPrice(price);
     }
   }, [data, start, finish]);
   const onFinish = () => {
@@ -117,21 +118,33 @@ const ProductInfo = ({
   return (
     <div className="infoContainer">
       {cartConfirm ? (
-        <Notification contaninText={'已加入購物車'} setLoginBtn={setLoginBtn}>
+        <Notification
+          contaninText={'已加入購物車'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
           <HiHeart />
         </Notification>
       ) : (
         ''
       )}
       {collectConfirm ? (
-        <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+        <Notification
+          contaninText={'已加入收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
           <HiHeart />
         </Notification>
       ) : (
         ''
       )}
       {collectCancel ? (
-        <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+        <Notification
+          contaninText={'已取消收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
           <HiOutlineHeart />
         </Notification>
       ) : (

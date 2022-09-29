@@ -26,6 +26,7 @@ const ProductComment = () => {
     );
     let result = await axios.get(`${API_URL}/products/${id}/productComment`);
     setComment(result.data);
+    setWriteComment('');
   };
   useEffect(() => {
     (async () => {
