@@ -53,22 +53,29 @@ const CheckOut = () => {
     setCurrentStep(2);
   }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (isOrder) {
-  //       // <Navigate to="/orderstep/ordercheck" />;
-  //       navigate('/orderstep/ordercheck');
-  //     }
-  //   })();
-  // }, [isOrder]);
-
   useEffect(() => {
     (async () => {
-      let orderInfo = await axios.post(`${API_URL}/orders/orderinfo`, orderId, {
-        withCredentials: true,
-      });
-      setOrderInfo(orderInfo.data);
+      if (isOrder) {
+        // <Navigate to="/orderstep/ordercheck" />;
+        navigate('/orderstep/ordercheck');
+      }
     })();
+  }, [isOrder]);
+
+  useEffect(() => {
+    if (orderId) {
+      (async () => {
+        let orderInfo = await axios.post(
+          `${API_URL}/orders/orderinfo`,
+          orderId,
+          {
+            withCredentials: true,
+          }
+        );
+        setOrderInfo(orderInfo.data);
+      })();
+    }
+
     console.log('orderinfo', orderInfo);
   }, [orderId]);
 
@@ -114,7 +121,10 @@ const CheckOut = () => {
   const campingItems = campingCart.state.items;
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
-  const point = localStorage.getItem('usePoint');
+  const point = localStorage.getItem('usePoint')
+    ? localStorage.getItem('usePoint')
+    : 0;
+
   // console.log(point);
   // console.log(orderId);
   // console.log('orderinfo', orderInfo);
