@@ -122,7 +122,7 @@ const CheckOut = () => {
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
   const point = localStorage.getItem('usePoint')
-    ? localStorage.getItem('usePoint')
+    ? -localStorage.getItem('usePoint')
     : 0;
 
   // console.log(point);

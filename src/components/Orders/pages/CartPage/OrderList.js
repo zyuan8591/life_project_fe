@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useProductCart } from '../../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
@@ -21,6 +21,7 @@ const OrderList = ({
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
   const campingCart = useCampingCart();
+  const productQuantity = useRef(null);
   const [selectAll, setSelectAll] = useState(false);
   // console.log(productCount);
 
@@ -133,7 +134,7 @@ const OrderList = ({
                               : '#fff',
                           }}
                           className="counterButton"
-                          onClick={() => {
+                          onClick={(e) => {
                             productCart.minusOne(v.id);
                           }}
                         >
@@ -146,14 +147,16 @@ const OrderList = ({
                                 ? 'rgba(185,189,197,.05)'
                                 : '#fff',
                             }}
+                            ref={productQuantity}
                             type="text"
                             className="counterInput"
                             value={v.quantity}
                             onChange={(e) => {
                               // productCart.updateItem(e.target.value);
                               // productCart.plusItemQuantityOnce(v.id, 87);
+
                               let value = e.target.value.replace(/[^\d]/, '');
-                              // if(value > v.stock) return;
+                              if (e.target.value > v.inventory) return;
                               productCart.updateItem({
                                 ...v,
                                 quantity: parseInt(value) || 1,
@@ -169,8 +172,11 @@ const OrderList = ({
                               : '#fff',
                           }}
                           className="counterButton"
-                          onClick={() => {
+                          onClick={(e) => {
+                            if (productQuantity.current.value >= v.inventory)
+                              return;
                             productCart.plusOne(v.id);
+                            console.log(productQuantity.current.value);
                           }}
                         >
                           +

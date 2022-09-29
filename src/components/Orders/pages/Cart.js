@@ -26,10 +26,12 @@ const Cart = () => {
 
   useEffect(() => {
     if (user) {
+      // console.log(user);
       setPoint(user.points);
     }
   }, [user]);
 
+  // console.log(point);
   const productItems = productCart.state.items;
   const productTotal = productCart.state.cartTotal;
   const productCount = productCart.state.totalItems;

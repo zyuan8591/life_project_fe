@@ -28,7 +28,12 @@ const Table = ({ orders }) => {
           {orders.map((v, i) => {
             return (
               <tr key={v.id}>
-                <td>{i + 1}</td>
+                <td>
+                  {`${Math.random()
+                    .toString(32)
+                    .replace('0.', '')
+                    .slice(0, 6)}${v.id}`}
+                </td>
                 <td>
                   $
                   {JSON.stringify(v.order_total).replace(
