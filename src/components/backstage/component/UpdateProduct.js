@@ -16,6 +16,7 @@ function UpdatePage({
   loading,
   setLoading,
   setLoginBtn,
+  user
 }) {
   const {
     name,
@@ -60,13 +61,10 @@ function UpdatePage({
     photo3: img3,
     photo4: detailImg.img,
   });
-  console.log(product.photo4);
-  console.log(detailImg.img);
 
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
     setProduct(newProduct);
-    console.log(product);
   }
   useEffect(() => {
     (async () => {
@@ -106,16 +104,7 @@ function UpdatePage({
       formData.append('photoChange2', originImages.photo2 === product.photo2);
       formData.append('photoChange3', originImages.photo3 === product.photo3);
       formData.append('photoChange4', originImages.photo4 === product.photo4);
-      console.log(
-        'photo1',
-        product.photo4,
-        'photoOrgin2',
-        originImages.photo2,
-        'product',
-        product,
-        'detailImg',
-        detailImg
-      );
+
       let response = await axios.put(
         `${API_URL}/products/updateProduct`,
         formData
@@ -137,8 +126,6 @@ function UpdatePage({
         }, 2000);
         setUpdatePage(false);
       }
-      // console.log(response.data.message);
-      // console.log(formData);
     } catch (e) {
       console.error('addCamping', e);
     }
@@ -236,35 +223,6 @@ function UpdatePage({
             </div>
           </div>
 
-          {/* actDate */}
-          <div className="grid2">
-            <div className="d-flex flex-column align-items-end">
-              <div className="mb-4 ">
-                <label>折扣日期：</label>
-                <input
-                  className="input"
-                  id="actStartDate"
-                  name="actStartDate"
-                  type="date"
-                  maxLength={10}
-                  value=""
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div>
-              <span>&emsp;　&emsp;</span>
-              <input
-                className="input"
-                id="actEndDate"
-                name="actEndDate"
-                type="date"
-                maxLength={10}
-                value=""
-                onChange={handleChange}
-              />
-            </div>
-          </div>
           {/* int */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
             <label className="mb-2">商品介紹：</label>

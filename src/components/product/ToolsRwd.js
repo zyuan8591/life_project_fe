@@ -37,7 +37,6 @@ const ToolsRwd = ({
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=`);
-      //   console.log(result.data);
       setBrandArr(result.data);
     })();
   }, []);
@@ -86,7 +85,6 @@ const ToolsRwd = ({
               className="cateTitle"
               onClick={() => {
                 setCateActive(!cateActive);
-                console.log(cateActive);
               }}
             >
               <h5>Category</h5>
@@ -164,18 +162,14 @@ const ToolsRwd = ({
                       id={v.name}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          // console.log(v.id);
                           setChecked([...checked, v.id]);
-                          // console.log(checked);
                         }
                         if (!e.target.checked) {
                           let newArr = checked.filter((v2) => {
                             return v.id !== v2;
                           });
                           setChecked(newArr);
-                          // console.log(v.id);
                         }
-                        // console.log(checked);
                       }}
                     />
                   </div>

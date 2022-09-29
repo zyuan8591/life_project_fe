@@ -19,7 +19,6 @@ const UpdateImgProduct3 = ({ product, setProduct }) => {
 
     setFile(file);
     setProduct({ ...product, photo3: file });
-    console.log(product);
   };
 
   useEffect(() => {
@@ -36,7 +35,6 @@ const UpdateImgProduct3 = ({ product, setProduct }) => {
       };
       fileReader.readAsDataURL(file);
     }
-    console.log(fileDataURL);
     // unmounting
     return () => {
       isCancel = true;
