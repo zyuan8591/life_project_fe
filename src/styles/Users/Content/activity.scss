@@ -9,7 +9,8 @@
     margin-top: 50px;
    
     @media (max-width: 768px) {
-      flex-wrap: wrap
+      flex-wrap: wrap;
+      margin-top: 30px;
     }     
     
     .list{      
@@ -26,7 +27,10 @@
       &:hover{
         background:$subClrBrown;
         color: #fff; 
-      }           
+      }   
+      @media (max-width: 768px) {
+        margin-top: 10px;
+      }        
       }  
       .active{        
         background:$subClrBrown;
@@ -39,6 +43,10 @@
   tr{
     line-height: 3rem;
     text-align: center;
+    @media (max-width: 768px) {
+      text-align:left;
+    }
+
     td{
       vertical-align: middle
     }
