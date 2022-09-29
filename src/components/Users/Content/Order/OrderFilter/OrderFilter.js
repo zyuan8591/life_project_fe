@@ -7,8 +7,6 @@ const OrderFilter = ({
   currentStatus,
   setCurrentStatus,
 }) => {
-  console.log(status);
-
   return (
     <>
       <ul className="order-filter ">
@@ -23,7 +21,6 @@ const OrderFilter = ({
           </button>
         </li>
         {status.map((v, i) => {
-          console.log(v);
           return (
             <>
               <li
@@ -31,7 +28,6 @@ const OrderFilter = ({
                 className="list"
                 onClick={() => {
                   setCurrentStatus(v.id);
-                  console.log(v.id);
                 }}
               >
                 <button className={`${currentStatus === v.id ? 'active' : ''}`}>

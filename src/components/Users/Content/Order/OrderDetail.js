@@ -5,6 +5,7 @@ import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import CartDetail from '../../../Orders/pages/CheckPage/CartDetail';
 import { useState } from 'react';
+import Summary from '../../../Orders/pages/CartPage/Summary';
 
 export default function OrderDetail() {
   const { user } = useUserRights();
@@ -17,6 +18,7 @@ export default function OrderDetail() {
   const [picnicCount, setPicnicCount] = useState(0);
   const [picnicItems, setPicnicItems] = useState([]);
 
+  const [Detail] = orderDetail;
   useEffect(() => {
     // get orderDetail
     (async () => {
@@ -54,7 +56,7 @@ export default function OrderDetail() {
   // console.log(campingItems);
   let campingTotal = campingItems.reduce((total, item) => {
     // console.log('camping', total, item);
-    // return total + item.price;
+    return total + item.itemTotal;
   }, 0);
 
   let picnicTotal = picnicItems.reduce((total, item) => {
@@ -63,7 +65,7 @@ export default function OrderDetail() {
   }, 0);
   // console.log(picnicTotal);
   // console.log(picnicItems, picnicCount, picnicTotal);
-  console.log(picnicTotal, campingTotal);
+  // console.log(picnicTotal, campingTotal);
 
   return (
     <>
@@ -79,12 +81,22 @@ export default function OrderDetail() {
           campingTotal={campingTotal}
           campingCount={campingCount}
         />
-        <div>
-          <h2>訂單資訊</h2>
-          <div>收件人：</div>
-          <div>電話：</div>
-          <div>Email：</div>
-          <div></div>
+        <Summary
+          productItems={productItems}
+          productTotal={productTotal}
+          productCount={productCount}
+          picnicItems={picnicItems}
+          picnicTotal={picnicTotal}
+          picnicCount={picnicCount}
+          campingItems={campingItems}
+          campingTotal={campingTotal}
+          campingCount={campingCount}
+        />
+        <div className="orderData">
+          <h2 className="orderData-title">訂單資訊</h2>
+          <div>收件人：{Detail ? Detail.name : null}</div>
+          <div>電話：{Detail ? Detail.phone : null}</div>
+          <div>Email：{Detail ? Detail.email : null}</div>
         </div>
       </div>
     </>

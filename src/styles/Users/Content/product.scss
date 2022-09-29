@@ -31,6 +31,45 @@
         height: 100%;
         object-fit: contain;
       }
+      @media (max-width: 768px) {        
+          width:100%;
+          padding:10px;  
+          height: 200px;    
+      }
      }
   }
+  @media (max-width: 768px) {
+    .imgfrme{
+      width:100%;
+      padding: 0;      
+     }
+    table, thead, tbody, th, td, tr {
+      display: block;   
+    }		
+    thead tr {
+     display: none;
+    }
+    tr {
+      margin: 0 0 1rem 0;
+      border:1px solid #ccc; 
+    } 
+    td {			
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left:100px;
+    }
+  
+    td:before {		
+      position: absolute;		
+      top: 5px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }  
+    td:nth-of-type(2):before { content: "商品名稱："; }
+    td:nth-of-type(3):before { content: "顏色："; }
+    td:nth-of-type(4):before { content: "價格："; }
+   }
 }
