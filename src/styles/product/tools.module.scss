@@ -137,6 +137,8 @@ p {
   right: 70px;
   transition: 0.4s;
   // opacity: 0;
+  z-index: 11;
+
   .fav {
     z-index: 105;
     width: 280px;

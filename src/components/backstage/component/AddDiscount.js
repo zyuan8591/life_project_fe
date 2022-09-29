@@ -16,8 +16,6 @@ function AddDiscount({
   setAddDiscountPage,
   loading,
   setLoading,
-  lastPage,
-  setPageNow,
   setLoginBtn,
   user,
 }) {
@@ -66,7 +64,7 @@ function AddDiscount({
         setLoading(!loading);
         setLoginBtn('addDiscount');
         setTimeout(() => {
-          setPageNow(lastPage);
+          // setPageNow(lastPage);
         }, 1000);
         setTimeout(() => {
           setLoginBtn('');
