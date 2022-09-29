@@ -11,12 +11,18 @@
     font-size: $text14;
     padding:0;
   }
-  
-  .dnone{
-    @media (max-width: 576px) {
-      display: none;
-    }
+
+  .hide{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+  
+  // .dnone{
+  //   @media (max-width: 576px) {
+  //     display: none;
+  //   }
+  // }
   .dblock{
     @media (max-width: 576px) {
       display: block !important;

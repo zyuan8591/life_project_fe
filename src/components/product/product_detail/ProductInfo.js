@@ -16,6 +16,7 @@ import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
 import BreadCrumb from '../../public_component/BreadCrumb';
 import { Col, Row, Statistic } from 'antd';
+import { clearConfigCache } from 'prettier';
 const { Countdown } = Statistic;
 // let deadline = Date.now() + 1000 * 10;
 // let startline = Date.now() + 1000 * 1;
@@ -68,69 +69,75 @@ const ProductInfo = ({
   const [loginBtn, setLoginBtn] = useState(false);
   const [discountPrice, setDiscountPrice] = useState('');
   const [finish, setFinish] = useState(true);
-  // const [start, setStart] = useState(false);
-  const [buyPrice, setBuyPrice] = useState(price);
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
   const deadline = new Date(end_time).getTime();
   const startline = new Date(start_time).getTime();
-  useEffect(() => {
-    // deadline = Date.now() + 1000 * 20;
-    // startline = Date.now() + 1000 * 5;
-    if (discount < 10) {
-      setDiscountPrice(parseInt(price * (discount / 10)));
-    } else {
-      setDiscountPrice(parseInt(price * (discount / 100)));
-    }
-    setBuyPrice(discountPrice);
-  }, [discount]);
 
   useEffect(() => {
     setMainPic(pic);
     // setDiscountPrice(parseInt(price * (discount / 100)));
-    if (discount < 10) {
+    if (!discount) setDiscountPrice(price);
+    if (discount < 10 && discount > 0) {
       setDiscountPrice(parseInt(price * (discount / 10)));
-    } else {
+    }
+    if (discount > 10 && discount < 100) {
       setDiscountPrice(parseInt(price * (discount / 100)));
     }
     if (startline < new Date().getTime()) {
       setStart(true);
       setFinish(false);
-      // setBuyPrice(discountPrice);
     }
     if (deadline < new Date().getTime()) {
       setFinish(true);
-      setBuyPrice(price);
+      setDiscountPrice(price);
     }
   }, [data, start, finish]);
   const onFinish = () => {
-    console.log('finished!');
     setFinish(true);
   };
   const onStart = () => {
-    console.log('start!');
     setStart(true);
     setFinish(false);
   };
+  const productIdInCart = productCart.state.items.map((v) => {
+    return v;
+  });
+  const [productInCart] = productIdInCart.filter((v, i) => {
+    return v.id === data.id;
+  });
+
   return (
     <div className="infoContainer">
       {cartConfirm ? (
-        <Notification contaninText={'已加入購物車'} setLoginBtn={setLoginBtn}>
+        <Notification
+          contaninText={'已加入購物車'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
           <HiHeart />
         </Notification>
       ) : (
         ''
       )}
       {collectConfirm ? (
-        <Notification contaninText={'已加入收藏'} setLoginBtn={setLoginBtn}>
+        <Notification
+          contaninText={'已加入收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
           <HiHeart />
         </Notification>
       ) : (
         ''
       )}
       {collectCancel ? (
-        <Notification contaninText={'已取消收藏'} setLoginBtn={setLoginBtn}>
+        <Notification
+          contaninText={'已取消收藏'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
           <HiOutlineHeart />
         </Notification>
       ) : (
@@ -290,24 +297,20 @@ const ProductInfo = ({
                   >
                     <button
                       onClick={() => {
-                        if (
-                          startline < new Date().getTime() &&
-                          deadline > new Date().getTime()
-                        ) {
-                          setBuyPrice(discountPrice);
+                        if (inventory >= productInCart.quantity + quantity) {
+                          productCart.addItem({
+                            id: id,
+                            quantity: quantity,
+                            name: name,
+                            price: discountPrice,
+                            ischecked: false,
+                            img: img,
+                          });
+                          setCartConfirm(true);
+                          setTimeout(() => {
+                            setCartConfirm(false);
+                          }, 1200);
                         }
-                        productCart.addItem({
-                          id: id,
-                          quantity: quantity,
-                          name: name,
-                          price: buyPrice,
-                          ischecked: false,
-                          img: img,
-                        });
-                        setCartConfirm(true);
-                        setTimeout(() => {
-                          setCartConfirm(false);
-                        }, 1200);
                       }}
                     >
                       <IoCartSharp />
@@ -316,17 +319,11 @@ const ProductInfo = ({
                 ) : (
                   <button
                     onClick={() => {
-                      if (
-                        startline < new Date().getTime() &&
-                        deadline > new Date().getTime()
-                      ) {
-                        setBuyPrice(discountPrice);
-                      }
                       productCart.addItem({
                         id: id,
                         quantity: quantity,
                         name: name,
-                        price: buyPrice,
+                        price: discountPrice,
                         ischecked: false,
                         img: img,
                       });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/_backHeader.scss';
 import { IconContext } from 'react-icons';
@@ -16,6 +16,7 @@ import { useUserRights } from '../../usecontext/UserRights';
 const pages = [
   { title: '商品一覽', route: '/products/backstage' },
   { title: '活動專區', route: '/camping/backstage' },
+  { title: '客服中心', route: '/chat/backstage' },
 ];
 
 const Header = ({ fixed = true }) => {
@@ -23,6 +24,7 @@ const Header = ({ fixed = true }) => {
   const { user, setUser } = useUserRights();
   const [scrollDown, setScrollDown] = useState(false);
   const [userSelectActive, setUserSelectActive] = useState(false);
+  const navigate = useNavigate();
 
   const [menu, setMenu] = useState(false);
 
@@ -54,6 +56,7 @@ const Header = ({ fixed = true }) => {
   async function handelLogout() {
     await axios.get(`${API_URL}/logout`, { withCredentials: true });
     setUser(null);
+    navigate('/signin?p=1');
   }
 
   return (
@@ -129,7 +132,7 @@ const Header = ({ fixed = true }) => {
                 {userSelectActive && (
                   <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
                     <li className="py-1">
-                      <Link to="/users/account">個人檔案</Link>
+                      <Link to="/products/backstage">後台管理</Link>
                     </li>
                     <li className="py-1" onClick={handelLogout}>
                       登出

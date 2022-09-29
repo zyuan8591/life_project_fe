@@ -257,6 +257,16 @@ const RecipeCreateForm = ({
         await axios.post(`${API_URL}/recipes/${insertId}/step`, stepFormData, {
           withCredentials: true,
         });
+        await axios.post(
+          `${API_URL}/user/points`,
+          {
+            point: 50, //新增/扣除點數
+            event: '新增食譜', //名目
+          },
+          {
+            withCredentials: true,
+          }
+        );
         showToast();
       } else if (isEdit) {
         let id = defaultData;
@@ -379,59 +389,59 @@ const RecipeCreateForm = ({
                     id: uuidv4(),
                     step: 1,
                     content: '準備所有食材，白蝦去殼，薑切成薑末，蒜切成蒜末。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 2,
                     content: '白蝦用刀子拍扁，並剁成碎狀。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 3,
                     content:
                       '將花枝、蝦仁、豬油放調理杯中，用電動攪拌棒打成泥狀。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 4,
                     content:
                       '準備一個大容器，放進剁好的白蝦、攪打好的花枝蝦仁泥、雞蛋、薑末、蒜末、白胡椒粉、鹽巴、香油。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 5,
                     content: '用手攪拌均勻，拌到稍微有黏性出來即可。。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 6,
                     content:
                       '拿出1片潤餅皮，粗面朝上，平均放入餡料，再蓋上另外1片潤餅皮，一樣粗面朝內。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 7,
                     content: '將月亮蝦餅放上瀝油不沾烤盤，在表面刷上植物油。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 8,
                     content:
                       '放進氣炸烤箱中層，以200度氣炸13分後，再翻面繼續氣炸5分鐘至上色。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                   {
                     id: uuidv4(),
                     step: 9,
                     content: '待行程結束即可切開擺盤享用。',
-                    error: '',
+                    error: '請輸入食譜步驟及上傳圖片',
                   },
                 ]);
                 setDemo(true);

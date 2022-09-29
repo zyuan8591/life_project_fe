@@ -26,6 +26,7 @@ const ProductComment = () => {
     );
     let result = await axios.get(`${API_URL}/products/${id}/productComment`);
     setComment(result.data);
+    setWriteComment('');
   };
   useEffect(() => {
     (async () => {
@@ -63,21 +64,19 @@ const ProductComment = () => {
             <div>
               {[...Array(5)].map((star, i) => {
                 return (
-                  <>
-                    <i
-                      className={`${
-                        i > hollow ? 'fa-regular' : 'fa-solid'
-                      } fa-star star`}
-                      key={i}
-                      onMouseOver={() => sethollow(i)}
-                      onClick={() => {
-                        setsolid(i);
-                      }}
-                      onMouseOut={() => {
-                        sethollow(solid);
-                      }}
-                    ></i>
-                  </>
+                  <i
+                    className={`${
+                      i > hollow ? 'fa-regular' : 'fa-solid'
+                    } fa-star star`}
+                    key={i}
+                    onMouseOver={() => sethollow(i)}
+                    onClick={() => {
+                      setsolid(i);
+                    }}
+                    onMouseOut={() => {
+                      sethollow(solid);
+                    }}
+                  ></i>
                 );
               })}
             </div>
@@ -113,32 +112,30 @@ const ProductComment = () => {
       </div>
       {comment.map((v, i) => {
         return (
-          <>
-            <div className="commentArea" key={i}>
-              <div className="d-flex justify-content-between align-items-sm-start align-items-center">
-                <div className="avatar">
-                  <figure>
-                    <img src={`${API_URL_IMG}${v.photo}`} alt="" />
-                  </figure>
-                  <p>{v.name}</p>
-                </div>
-                <div className="date">{v.create_time.slice(0, 10)}</div>
+          <div className="commentArea" key={i}>
+            <div className="d-flex justify-content-between align-items-sm-start align-items-center">
+              <div className="avatar">
+                <figure>
+                  <img src={`${API_URL_IMG}${v.photo}`} alt="" />
+                </figure>
+                <p>{v.name}</p>
               </div>
-              <div className="mt-3 d-flex justify-content-between align-items-sm-end align-items-start">
-                <div className="comment pe-3">
-                  <p>{v.comment}</p>
-                </div>
-                <div>
-                  {[...Array(v.star)].map((star, i) => {
-                    return <i className="fa-solid fa-star solid"></i>;
-                  })}
-                  {[...Array(5 - v.star)].map((star, i) => {
-                    return <i className="fa-regular fa-star hollow"></i>;
-                  })}
-                </div>
+              <div className="date">{v.create_time.slice(0, 10)}</div>
+            </div>
+            <div className="mt-3 d-flex justify-content-between align-items-sm-end align-items-start">
+              <div className="comment pe-3">
+                <p>{v.comment}</p>
+              </div>
+              <div>
+                {[...Array(v.star)].map((star, i) => {
+                  return <i className="fa-solid fa-star solid" key={i}></i>;
+                })}
+                {[...Array(5 - v.star)].map((star, i) => {
+                  return <i className="fa-regular fa-star hollow" key={i}></i>;
+                })}
               </div>
             </div>
-          </>
+          </div>
         );
       })}
       <div style={{ color: '#444' }}>

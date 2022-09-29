@@ -47,6 +47,7 @@ function PicnicOfficalDetail() {
       let response = await axios.get(
         `${API_URL}/picnic/official/${officialId}`
       );
+      console.log(response.data.data);
       setData(response.data.data);
       setPaicipantData(response.data.paicipantData);
       setProductsData(response.data.productsData);

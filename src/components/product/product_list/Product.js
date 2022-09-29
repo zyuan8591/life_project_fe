@@ -1,11 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/product/_product.scss';
 import { IconContext } from 'react-icons';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { IoCartOutline, IoCartSharp } from 'react-icons/io5';
-import { TbDiscount2 } from 'react-icons/tb';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
@@ -35,7 +34,25 @@ const Product = ({
   const [changePic, setChangePic] = useState(false);
   const [changePicNumber, setChangePicNumber] = useState('');
   const { user } = useUserRights();
+  const [discount, setDiscount] = useState();
+  const [discountPriceArr, setDiscountPriceArr] = useState([]);
+  const [discountPrice, setDiscountPrice] = useState('');
 
+  useEffect(() => {
+    let priceMap = productList.map((v, i) => {
+      setDiscount(v.discount);
+      if (!discount) {
+        return v.price;
+      }
+      if (discount < 10 && discount > 0) {
+        return parseInt(v.price * (discount / 10));
+      }
+      if (discount > 10 && discount < 100) {
+        return parseInt(v.price * (discount / 100));
+      }
+    });
+    setDiscountPriceArr(priceMap);
+  }, [productList, discount]);
   return (
     <>
       <div className="productContainer">
@@ -54,6 +71,14 @@ const Product = ({
           } = v;
           const deadline = new Date(end_time).getTime();
           const startline = new Date(start_time).getTime();
+          let discountedPrice;
+          if (!discount) discountedPrice = price;
+          if (discount < 10 && discount > 0) {
+            discountedPrice = parseInt(price * (discount / 10));
+          }
+          if (discount > 10 && discount < 100) {
+            discountedPrice = parseInt(price * (discount / 100));
+          }
           return (
             <div
               className="products"
@@ -152,16 +177,32 @@ const Product = ({
                         >
                           <IoCartSharp
                             onClick={(e) => {
-                              // console.log(id, name)
-                              productCart.addItem({
-                                id: id,
-                                quantity: 1,
-                                name: name,
-                                price: price,
-                                ischecked: false,
-                                img: img,
-                                inventory: inventory,
-                              });
+                              if (
+                                discount &&
+                                startline < new Date().getTime() &&
+                                deadline > new Date().getTime()
+                              ) {
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: discountedPrice,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
+                              } else {
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: price,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
+                              }
+
                               setCartConfirm(true);
                               setTimeout(() => {
                                 setCartConfirm(false);
@@ -173,16 +214,31 @@ const Product = ({
                         <div className="heart">
                           <IoCartOutline
                             onClick={(e) => {
-                              // console.log(id, name)
-                              productCart.addItem({
-                                id: id,
-                                quantity: 1,
-                                name: name,
-                                price: price,
-                                ischecked: false,
-                                img: img,
-                                inventory: inventory,
-                              });
+                              if (
+                                discount &&
+                                startline < new Date().getTime() &&
+                                deadline > new Date().getTime()
+                              ) {
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: discountedPrice,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
+                              } else {
+                                productCart.addItem({
+                                  id: id,
+                                  quantity: 1,
+                                  name: name,
+                                  price: price,
+                                  ischecked: false,
+                                  img: img,
+                                  inventory: inventory,
+                                });
+                              }
                               setCartConfirm(true);
                               setTimeout(() => {
                                 setCartConfirm(false);
@@ -223,12 +279,25 @@ const Product = ({
                   <p className="brand">{brand}</p>
                   <p className="discountRwd">{discount}折</p>
                 </div>
-                <p className="price">
-                  NT${' '}
-                  {price
-                    .toString()
-                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                </p>
+                {discount &&
+                startline < new Date().getTime() &&
+                deadline > new Date().getTime() ? (
+                  <>
+                    <p>
+                      NT${' '}
+                      {discountedPrice
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                    </p>
+                  </>
+                ) : (
+                  <p className="price">
+                    NT${' '}
+                    {price
+                      .toString()
+                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                  </p>
+                )}
               </div>
             </div>
           );

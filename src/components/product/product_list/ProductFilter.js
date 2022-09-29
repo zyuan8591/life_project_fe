@@ -33,7 +33,6 @@ const ProductFilter = ({
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
-      // console.log(result.data);
       setBrandArr(result.data);
     })();
   }, [brand]);
@@ -107,18 +106,14 @@ const ProductFilter = ({
                           id={i}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              // console.log(v.id);
                               setChecked([...checked, v.id]);
-                              // console.log(checked);
                             }
                             if (!e.target.checked) {
                               let newArr = checked.filter((v2) => {
                                 return v.id !== v2;
                               });
                               setChecked(newArr);
-                              // console.log(v.id);
                             }
-                            // console.log(checked);
                           }}
                         />
                         <label htmlFor={i}>{v.name}</label>
@@ -192,7 +187,6 @@ const ProductFilter = ({
                     onChange={(e) => {
                       setBiggerThan(e.target.value);
                       setBig(e.target);
-                      // console.log(big);
                     }}
                   />
                   <p className="mx-2">-</p>
@@ -204,7 +198,6 @@ const ProductFilter = ({
                     onChange={(e) => {
                       setSmallThan(e.target.value);
                       setSmall(e.target.value);
-                      // console.log(small);
                     }}
                   />
                   <IconContext.Provider
@@ -217,7 +210,6 @@ const ProductFilter = ({
                     <BsFillArrowRightSquareFill
                       className="mx-2 pointer"
                       onClick={(e) => {
-                        // console.log('');
                         setBiggerThan(big);
                         setSmallThan(small);
                       }}
