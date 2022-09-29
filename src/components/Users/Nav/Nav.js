@@ -9,7 +9,7 @@ import {
   BsFillBookmarkHeartFill,
 } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
-import { MdArticle } from 'react-icons/md';
+import { MdArticle, MdDateRange } from 'react-icons/md';
 import { GiBowlOfRice } from 'react-icons/gi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
@@ -23,6 +23,7 @@ const icon = [
   <BsFillTreeFill />,
   <GiBowlOfRice />,
   <BsFillBookmarkHeartFill />,
+  <MdDateRange />,
 ];
 const userNav = [
   {
@@ -59,6 +60,11 @@ const userNav = [
   {
     title: '商品收藏',
     url: '/users/product',
+    item: [{ title: '', url: '' }],
+  },
+  {
+    title: '行事曆',
+    url: '/users/calendar',
     item: [{ title: '', url: '' }],
   },
 ];
@@ -246,6 +252,7 @@ const nav = css`
   }
   .icon {
     margin: 10px;
+    margin-bottom: 12px;
   }
   .expand {
     overflow: hidden;
