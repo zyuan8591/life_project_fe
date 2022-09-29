@@ -22,7 +22,6 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
   const productCart = useProductCart({});
   const { user } = useUserRights();
   const [loginBtn, setLoginBtn] = useState(false);
-  // console.log(user);
   return (
     <>
       {loginBtn ? (
@@ -84,7 +83,6 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
           if (e.keyCode === 27) {
             setCart(false);
           }
-          console.log(e);
         }}
       ></div>
       <div

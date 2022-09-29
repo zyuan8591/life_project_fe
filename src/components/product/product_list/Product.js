@@ -52,7 +52,6 @@ const Product = ({
       }
     });
     setDiscountPriceArr(priceMap);
-    console.log('discountPrice', discountPrice);
   }, [productList, discount]);
   return (
     <>

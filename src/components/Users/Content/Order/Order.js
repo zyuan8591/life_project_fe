@@ -14,7 +14,6 @@ const Order = () => {
   const [currentStatus, setCurrentStatus] = useState(0);
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
-  console.log(orders);
   useEffect(() => {
     // getOrders
     (async () => {
@@ -55,11 +54,13 @@ const Order = () => {
           setCurrentStatus={setCurrentStatus}
         />
         {orders.length === 0 && <NoDataDisplay noDataText="訂單" />}
-        <PaginationBar
-          lastPage={lastPage}
-          pageNow={pageNow}
-          setPageNow={setPageNow}
-        />
+        {orders.length !== 0 && (
+          <PaginationBar
+            lastPage={lastPage}
+            pageNow={pageNow}
+            setPageNow={setPageNow}
+          />
+        )}
       </div>
     </>
   );

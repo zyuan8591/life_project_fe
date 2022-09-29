@@ -1,6 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-function WarnWindow({ warn, setWarn }) {
+function WarnWindow({
+  warn,
+  setWarn,
+  text1 = null,
+  text2 = null,
+  clickFunction = () => {},
+}) {
   function exit(e) {
     e.preventDefault();
     setWarn(false);
@@ -8,13 +14,17 @@ function WarnWindow({ warn, setWarn }) {
   return warn ? (
     <div className="warnWindow" css={warnWindow}>
       <div className="inner">
-        <div className="text ">
-          <p>請再次確認您的資料</p>
-          <p>是否儲存變更</p>
+        <div className={`text ${text2 === null ? 'active' : ''}`}>
+          <p>{text1}</p>
+          <p>{text2}</p>
         </div>
         <div className="btngroup ">
-          <button className="store storeBtn" type="submit">
-            儲存
+          <button
+            className="store storeBtn"
+            type="submit"
+            onClick={clickFunction}
+          >
+            確定
           </button>
           <button onClick={exit} className="exit exitBtn">
             取消
@@ -30,7 +40,7 @@ function WarnWindow({ warn, setWarn }) {
 export default WarnWindow;
 
 const warnWindow = css`
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,10 +55,11 @@ const warnWindow = css`
   }
   .inner {
     background: #fff;
-    width: 300px;
+    width: 250px;
     border: 2px solid rgba(129, 113, 97, 0.9);
     border-radius: 5px;
     overflow: hidden;
+    padding: 0 30px;
   }
   .text {
     padding-top: 10px;
@@ -57,19 +68,22 @@ const warnWindow = css`
     line-height: 1.5rem;
     border-bottom: 1px solid #ccc;
   }
+  .active {
+    line-height: 3rem;
+  }
   .btngroup {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 5px;
   }
   button {
-    padding: 0px 10px;
+    padding: 5px 10px !important;
     border: rgba(129, 113, 97, 0.9) 3px solid;
     border-radius: 5px;
     font-weight: 500;
   }
   .storeBtn {
-    background: rgba(129, 113, 97, 0.9);
+    background: rgba(129, 113, 97, 0.9) !important;
     border: 0;
     color: #fff;
     &:hover {
@@ -81,8 +95,9 @@ const warnWindow = css`
     }
   }
   .exitBtn {
-    background: #fff;
-    color: #000;
+    border: 1px solid rgba(129, 113, 97, 0.9) !important;
+    background: #fff !important;
+    color: #000 !important;
     &:hover {
       transform: scale(1.05);
     }

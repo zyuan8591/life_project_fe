@@ -10,6 +10,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import WarnWindow from '../Account/component/WarnWindow';
 import RecipeCreateForm from '../../../recipe/component/RecipeCreateForm';
 import NoDataDisplay from '../../../public_component/NoDataDisplay';
+import Notification from '../../../activity/Notification';
+import { SiFoodpanda } from 'react-icons/si';
 
 function MyRecipe() {
   const { user, setUser } = useUserRights();
@@ -17,10 +19,55 @@ function MyRecipe() {
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [warn, setWarn] = useState(false);
+  const [warn1, setWarn1] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [display, setDisplay] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [editData, setEditData] = useState([]);
+  const [delID, setDelID] = useState();
+  const [hint, setHint] = useState(false);
+  const [updataHint, setUpdataHint] = useState(false);
+  function pop(id) {
+    setDelID(id);
+    setWarn(true);
+  }
+  const showHint = () => {
+    setHint(true);
+    setTimeout(() => {
+      setHint(false);
+    }, 2000);
+  };
+  const showUpdataHint = () => {
+    setUpdataHint(true);
+    setTimeout(() => {
+      setUpdataHint(false);
+    }, 2000);
+  };
+  // del recipe like
+  const handleDelCollect = async () => {
+    await axios.delete(`${API_URL}/recipes/${delID}/like`, {
+      withCredentials: true,
+    });
+    getDataList(`${API_URL}/recipes?perPage=5&page=${pageNow}&userLike=true`);
+    setWarn(false);
+    showHint();
+  };
+  function delPop(id) {
+    setDelID(id);
+    setWarn1(true);
+  }
+  // set recipe valid = 0
+  const handleDelRecipe = async () => {
+    await axios.put(
+      `${API_URL}/recipes/${delID}?valid=0`,
+      {},
+      { withCredentials: true }
+    );
+    getDataList(`${API_URL}/recipes?user=${user.id}&perPage=5&page=${pageNow}`);
+    getDataList(`${API_URL}/recipes?user=${user.id}&perPage=5&page=${pageNow}`);
+    setWarn1(false);
+    showHint();
+  };
 
   // get data list
   const getDataList = async (apiurl) => {
@@ -30,22 +77,7 @@ function MyRecipe() {
   };
 
   // TRASH BUTTON ====================================================
-  // del recipe like
-  const delLike = async (recipe_id) => {
-    await axios.delete(`${API_URL}/recipes/${recipe_id}/like`, {
-      withCredentials: true,
-    });
-    getDataList(`${API_URL}/recipes?perPage=5&page=${pageNow}&userLike=true`);
-  };
-  // set recipe valid = 0
-  const delRecipe = async (recipe_id) => {
-    await axios.put(
-      `${API_URL}/recipes/${recipe_id}?valid=0`,
-      {},
-      { withCredentials: true }
-    );
-    getDataList(`${API_URL}/recipes?user=${user.id}&perPage=5&page=${pageNow}`);
-  };
+
   // EDIT BUTTON =====================================================
   const closeEditRecipe = () => {
     setIsEdit(false);
@@ -73,6 +105,29 @@ function MyRecipe() {
 
   return (
     <div className={classes.myRecipe}>
+      {hint && (
+        <Notification contaninText="已刪除此食譜" iconSize={2} bottom={30}>
+          <SiFoodpanda />
+        </Notification>
+      )}
+      {updataHint && (
+        <Notification contaninText="食譜修改成功" iconSize={2} bottom={30}>
+          <SiFoodpanda />
+        </Notification>
+      )}
+      <WarnWindow
+        warn={warn}
+        setWarn={setWarn}
+        clickFunction={handleDelCollect}
+        text1="確定要移除此項活動嗎？"
+      />
+      <WarnWindow
+        warn={warn1}
+        setWarn={setWarn1}
+        clickFunction={handleDelRecipe}
+        text1="確定要移除此項活動嗎？"
+      />
+
       <h3 className={classes.title}>
         {display === 1 ? '我的食譜' : '食譜收藏'}
       </h3>
@@ -80,27 +135,12 @@ function MyRecipe() {
         <thead>
           <tr>
             <th></th>
-            <th className="d-flex">
-              名稱
-              <span
-                className={`ms-1 d-flex align-items-center transition ${classes.rotate}`}
-              >
-                <FaArrowDown />
-              </span>
-            </th>
+            <th>名稱</th>
             <th>食譜分類</th>
             <th>商品分類</th>
             <th>收藏</th>
             <th>留言</th>
-
-            <th className="d-flex">
-              建立時間
-              <span
-                className={`ms-1 d-flex align-items-center transition ${classes.rotate}`}
-              >
-                <FaArrowDown />
-              </span>
-            </th>
+            <th>建立時間</th>
             {display === 1 && <th></th>}
             {display === 2 && <th></th>}
           </tr>
@@ -139,19 +179,24 @@ function MyRecipe() {
                   <i
                     className="fa-solid fa-trash icon cursorPointer"
                     onClick={() => {
-                      if (display === 2) return delLike(d.id);
-                      delRecipe(d.id);
+                      if (display === 2) return pop(d.id);
+                      delPop(d.id);
                     }}
                   ></i>
                 </td>
               )}
               {display === 2 && (
-                <td>
+                <td className={`${classes.recipeIcon} p-0`}>
+                  <Link to={`/recipeDetail?id=${d.id}`}>
+                    <IconContext.Provider value={{ size: '1rem' }}>
+                      <FaRegEye />
+                    </IconContext.Provider>
+                  </Link>
                   <i
-                    className="fa-solid fa-trash icon cursorPointer"
+                    className="fa-solid fa-trash icon cursorPointer ms-3"
                     onClick={() => {
-                      if (display === 2) return delLike(d.id);
-                      delRecipe(d.id);
+                      if (display === 2) return pop(d.id);
+                      delPop(d.id);
                     }}
                   ></i>
                 </td>
@@ -168,13 +213,14 @@ function MyRecipe() {
           setPageNow={setPageNow}
         />
       )}
-      <WarnWindow warn={warn} setWarn={setWarn} />
+
       {isEdit && (
         <section className={`${classes.creatingRecipe} flexCenter`}>
           <RecipeCreateForm
             closeCreateRecipe={closeEditRecipe}
             isEdit={isEdit}
             defaultData={editData}
+            showUpdataHint={showUpdataHint}
           />
         </section>
       )}

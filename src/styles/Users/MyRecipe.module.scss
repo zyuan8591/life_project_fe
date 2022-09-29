@@ -9,6 +9,12 @@
     .recipeImgContainer {
       max-width: 80px;
     }
+    tr{
+      line-height: 1.5rem;
+      text-align: center;
+      @media (max-width: 768px) {
+        text-align: left;}
+    }
 
     td {
       vertical-align: middle;
@@ -24,6 +30,8 @@
     z-index: 500;
   }
   .recipeIcon{
+    @media (max-width: 768px) {padding: 0;
+      text-align: center;}
     a{
       margin: 0 10px; 
       color: #000 !important;    

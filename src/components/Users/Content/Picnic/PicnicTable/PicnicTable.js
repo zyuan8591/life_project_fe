@@ -3,18 +3,53 @@ import { Link } from 'react-router-dom';
 import { API_URL_IMG } from '../../../../../utils/config';
 import axios from 'axios';
 import { API_URL } from '../../../../../utils/config';
+import WarnWindow from '../../Account/component/WarnWindow';
+import Notification from '../../../../activity/Notification';
+import { SiFoodpanda } from 'react-icons/si';
 
 const PicnicTable = ({ data, display, getUser, pageNow }) => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態'];
-  async function handleDelFav(groupId) {
-    let response = await axios.delete(
-      `${API_URL}/picnic/collectGroupDelJoin/${groupId}`,
-      { withCredentials: true }
-    );
-    getUser(`${API_URL}/picnic/group/member?page=${pageNow}`);
+  // async function handleDelFav(groupId) {
+  //   let response = await axios.delete(
+  //     `${API_URL}/picnic/collectGroupDelJoin/${groupId}`,
+  //     { withCredentials: true }
+  //   );
+  //   getUser(`${API_URL}/picnic/group/member?page=${pageNow}`);
+  // }
+  const [warn, setWarn] = useState(false);
+  const [delID, setDelID] = useState();
+  const [hint, setHint] = useState(false);
+  function pop(id) {
+    setDelID(id);
+    setWarn(true);
   }
+  const showHint = () => {
+    setHint(true);
+    setTimeout(() => {
+      setHint(false);
+    }, 2000);
+  };
+  const handleDelCollect = async () => {
+    await axios.delete(`${API_URL}/picnic/collectGroupDelJoin/${delID}`, {
+      withCredentials: true,
+    });
+    getUser(`${API_URL}/picnic/group/member?page=${pageNow}`);
+    setWarn(false);
+    showHint();
+  };
   return (
     <div className="activity-table">
+      {hint && (
+        <Notification contaninText="已取消收藏" iconSize={2} bottom={30}>
+          <SiFoodpanda />
+        </Notification>
+      )}
+      <WarnWindow
+        warn={warn}
+        setWarn={setWarn}
+        clickFunction={handleDelCollect}
+        text1="確定要移除此項活動嗎？"
+      />
       <table className="table table-sm mt-5 table-hover">
         <thead>
           <tr>
@@ -24,10 +59,8 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
             })}
             {display === 1 ? <th>主辦人</th> : null}
             <th>查看</th>
-            {display === 1 || display === 2 ? <th>聊天</th> : null}
-            {display === 2 ? <th>編輯</th> : null}
-            {display === 2 ? <th>審核</th> : null}
-            {display === 2 ? <th>刪除</th> : null}
+            {display === 2 ? <th></th> : null}
+            {display === 2 ? <th></th> : null}
           </tr>
         </thead>
 
@@ -50,7 +83,7 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                   <td className="sm-768none">{v.creater_id}</td>
                 ) : null}
 
-                <td className="p-0">
+                <td className="p-0 text-center">
                   {display === 0 || display === 3 ? (
                     <Link to={`/activity/picnic/official/${v.picnic_id}`}>
                       <button>活動詳情</button>
@@ -61,11 +94,6 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                     </Link>
                   )}
                 </td>
-                {display === 1 || display === 2 ? (
-                  <td className="sm-768none">
-                    <i className="fa-regular fa-comment-dots icon"></i>
-                  </td>
-                ) : null}
                 {display === 2 ? (
                   <td className="sm-768none">
                     <i className="fa-solid fa-pen-to-square icon"></i>
@@ -73,18 +101,10 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                 ) : null}
                 {display === 2 ? (
                   <td className="sm-768none">
-                    <i className="fa-solid fa-square-check icon"></i>
-                  </td>
-                ) : null}
-                {display === 2 ? (
-                  <td className="sm-768none">
                     <i
                       className="fa-solid fa-trash icon"
-                      //TODO:刪除活動跟取消收藏分開
-                      //TODO:搬移編輯活動表單
-                      //TODO:刪除審核跟聊天
                       onClick={() => {
-                        handleDelFav(v.picnic_id);
+                        pop(v.id);
                       }}
                     ></i>
                   </td>

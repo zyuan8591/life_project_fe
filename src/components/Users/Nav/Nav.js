@@ -9,7 +9,7 @@ import {
   BsFillBookmarkHeartFill,
 } from 'react-icons/bs';
 import { FiLogOut } from 'react-icons/fi';
-import { MdArticle } from 'react-icons/md';
+import { MdArticle, MdDateRange } from 'react-icons/md';
 import { GiBowlOfRice } from 'react-icons/gi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
@@ -23,6 +23,7 @@ const icon = [
   <BsFillTreeFill />,
   <GiBowlOfRice />,
   <BsFillBookmarkHeartFill />,
+  <MdDateRange />,
 ];
 const userNav = [
   {
@@ -61,6 +62,11 @@ const userNav = [
     url: '/users/product',
     item: [{ title: '', url: '' }],
   },
+  {
+    title: '行事曆',
+    url: '/users/calendar',
+    item: [{ title: '', url: '' }],
+  },
 ];
 
 const AccordionItem = (props) => {
@@ -81,6 +87,7 @@ const AccordionItem = (props) => {
           props.setNavSwitch(false);
         }}
         to={item.url}
+        className="link"
       >
         {item.title}
       </Link>
@@ -94,6 +101,7 @@ const AccordionItem = (props) => {
             >
               <Link
                 to={v2.url}
+                className="link"
                 onClick={() => {
                   props.setNavSwitch(false);
                 }}
@@ -136,7 +144,7 @@ const Nav = () => {
           transform: navSwitch ? 'translateX(-40px)' : 'translateX(-300px)',
         }}
       >
-        <IconContext.Provider value={{ color: 'balck', className: 'icon' }}>
+        <IconContext.Provider value={{ className: 'icon' }}>
           <ul className="list">
             {userNav.map((item, index) => {
               return (
@@ -232,9 +240,6 @@ const nav = css`
     transform: translateX(-300px);
     margin-top: -65px;
     z-index: 999;
-    a {
-      color: #fff;
-    }
   }
 
   .list {
@@ -246,6 +251,11 @@ const nav = css`
   }
   .icon {
     margin: 10px;
+    margin-bottom: 12px;
+    color: #1f9998;
+    @media (max-width: 768px) {
+      color: #f2ac33;
+    }
   }
   .expand {
     overflow: hidden;
@@ -254,5 +264,10 @@ const nav = css`
   }
   .logout {
     cursor: pointer;
+  }
+  .link {
+    @media (max-width: 768px) {
+      color: #fff !important;
+    }
   }
 `;

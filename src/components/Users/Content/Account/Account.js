@@ -22,6 +22,7 @@ const Account = () => {
 
   return (
     <>
+    
       <h3>個人檔案</h3>
       {!edit ? (
         <div className="account">

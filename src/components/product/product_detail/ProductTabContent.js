@@ -8,7 +8,7 @@ import '../../../styles/product/_productTabContent.scss';
 
 const ProductTabContent = ({ tabNow, spec, data }) => {
   const tabs = [
-    <ProductIntro  />,
+    <ProductIntro />,
     <ProductComment />,
     <ProductSpec spec={spec} />,
     <ProductRecommend data={data} />,
@@ -16,9 +16,7 @@ const ProductTabContent = ({ tabNow, spec, data }) => {
   ];
   return (
     <div className={tabNow === 2 ? 'commentContainer' : 'tabsContainer'}>
-      {tabs.filter((v, i) => {
-        return tabNow === i + 1;
-      })}
+      {tabs[tabNow - 1]}
     </div>
   );
 };

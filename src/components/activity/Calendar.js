@@ -11,6 +11,7 @@ import Notification from './Notification';
 import { IconContext } from 'react-icons';
 import { AiFillStar } from 'react-icons/ai';
 import { RiStarSmileLine } from 'react-icons/ri';
+import { FaPaw } from 'react-icons/fa';
 
 const initEvents = [
   { title: 'All Day Event', start: getDate('YEAR-MONTH-01') },
@@ -45,6 +46,18 @@ const initEvents = [
   { title: 'Happy Hour', start: getDate('YEAR-MONTH-18T17:30:00+00:00') },
   { title: 'Dinner', start: getDate('YEAR-MONTH-18T20:00:00+00:00') },
 ];
+
+// const type = '';
+// switch (type) {
+//   case '1':
+//     <AiFillStar className="ms-4 me-2" />;
+//     break;
+//   case '2':
+//     <FaPaw className="ms-4 me-2" />;
+//     break;
+//   default:
+//     <AiFillStar className="ms-4 me-2" />;
+// }
 
 function getDate(dayString) {
   const today = new Date();
@@ -85,7 +98,9 @@ function Calendar() {
       { withCredentials: true }
     );
     console.log('add', response.data);
-
+    setTitle('');
+    setStart('');
+    setEnd('');
     //TODO:
     setLoading(!loading);
     setAddActConfirm(true);
@@ -123,67 +138,114 @@ function Calendar() {
       </div>
       <div className="addCalendarInput">
         {/* input */}
-        <div>
+        <div className="inputContent">
           <div className="addTitle">add schedule</div>
-          <div>
-            <label>start</label>
-            <input
-              type="datetime-local"
-              name="start"
-              value={start}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setStart(e.target.value);
-              }}
-            />
+          <div className="text-left">
+            <div className="text-end">
+              <div>
+                <label className="me-3 my-2">Start</label>
+                <input
+                  className="postInput"
+                  type="datetime-local"
+                  name="start"
+                  value={start}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setStart(e.target.value);
+                  }}
+                />
+              </div>
+              <div>
+                <label className="me-3 my-2">End</label>
+                <input
+                  className="postInput"
+                  type="datetime-local"
+                  name="end"
+                  value={end}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setEnd(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="text-end">
+              <label className="me-3 my-2">Title </label>
+              <input
+                className="postInput"
+                type="text"
+                name="title"
+                value={title}
+                onChange={(e) => {
+                  console.log(getDate(e.target.value));
+                  setTitle(e.target.value);
+                }}
+              />
+            </div>
           </div>
-          <div>
-            <label>end</label>
-            <input
-              type="datetime-local"
-              name="end"
-              value={end}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setEnd(e.target.value);
-              }}
-            />
+          <div className="text-center">
+            <button className="postBtn" onClick={handleAdd}>
+              add
+            </button>
           </div>
-          <div>
-            <label>title</label>
-            <input
-              type="text"
-              name="title"
-              value={title}
-              onChange={(e) => {
-                console.log(getDate(e.target.value));
-                setTitle(e.target.value);
-              }}
-            />
-          </div>
-          <button onClick={handleAdd}>add</button>
         </div>
+        {/* list */}
         <div>
-          <div>本月重要記事</div>
+          <div className="d-flex listTitle">
+            <IconContext.Provider value={{ color: '#F2AC33', size: '1.3em' }}>
+              <div className="d-flex align-items-center me-3">
+                <AiFillStar className="me-1" />
+                個人記事
+              </div>
+            </IconContext.Provider>
+            <IconContext.Provider value={{ color: '#817161', size: '1.2em' }}>
+              <div className="d-flex align-items-center">
+                <FaPaw className="me-1" />
+                LIFE 活動
+              </div>
+            </IconContext.Provider>
+          </div>
+
           <div className="detail">
             {events.map((v, i) => {
               const newStart = (start) => {
                 return start.substr(0, 10);
               };
+
+              const typeIcon = (type) => {
+                if (type === 1)
+                  return (
+                    <IconContext.Provider
+                      value={{ color: '#F2AC33', size: '1.3em' }}
+                    >
+                      <AiFillStar className="ms-4 me-2" />
+                    </IconContext.Provider>
+                  );
+                if (type === 2)
+                  return (
+                    <IconContext.Provider
+                      value={{ color: '#817161', size: '1.3em' }}
+                    >
+                      <FaPaw className="ms-4 me-2" />
+                    </IconContext.Provider>
+                  );
+              };
+
               return (
                 <div className="detailContent" key={v.id}>
                   <div className="num">{i + 1}</div>
                   <IconContext.Provider
                     value={{ color: '#F2AC33', size: '1.3em' }}
                   >
-                    <AiFillStar className="ms-4 me-2" />
+                    {typeIcon(v.type)}
                   </IconContext.Provider>
                   <div className="me-2">
                     {v.end !== undefined
                       ? `${newStart(v.start)}~${newStart(v.end)}`
                       : `${newStart(v.start)}`}
                   </div>
-                  <div>{v.title}</div>
+                  <div className="listContent">{v.title}</div>
                 </div>
               );
             })}
