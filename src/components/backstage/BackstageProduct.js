@@ -2,7 +2,6 @@ import React from 'react';
 import BackstageHeader from '../public_component/BackstageHeader';
 import PaginationBar from '../public_component/PaginationBar';
 import '../../styles/backstage/_backstageProduct.scss';
-import Contact from '../contact/Contact';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
 import { TbDiscount2 } from 'react-icons/tb';
@@ -270,7 +269,6 @@ function Backstage() {
             pageNow={pageNow}
             setPageNow={setPageNow}
           />
-          <Contact />
         </div>
       </IconContext.Provider>
     </>

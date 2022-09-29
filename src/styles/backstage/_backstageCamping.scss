@@ -43,41 +43,45 @@
         .icon {
           @include iconStyle(-8px);
         }
-    }
-    .discount {
+      }
+      .discount {
         position: absolute;
         top: 15px;
         right: 120px;
-    }
-    .addDiscount{
+      }
+      .addDiscount {
         position: absolute;
         top: 0;
         right: 0;
-        transform: translate(-25px,10px);
+        transform: translate(-25px, 10px);
         border: 2px solid $focusClrG;
         padding: 5px 10px;
         background: $mainClrW;
         color: $focusClrG;
-        transition: .3s ease;
-        &:hover ,&:active{
-            background: $focusClrG;
-            color: $mainClrW;
+        transition: 0.3s ease;
+        &:hover,
+        &:active {
+          background: $focusClrG;
+          color: $mainClrW;
         }
-    }
-    table{
+      }
+      table {
         margin: 0 auto;
-        thead{
-            th{
-                padding: 10px 15px;
-                font-size: 18px;
-                border-bottom: 1px solid #ccc;
-                .icon{
-                    @include iconStyle(-8px);
-                }
-                .priceIcon{
-                    @include iconStyle(8px);
-                }
+        thead {
+          th {
+            padding: 10px 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            .icon {
+              @include iconStyle(-8px);
             }
+            .priceIcon {
+              position: absolute;
+              top: 0;
+              right: 0;
+              // transform: translate($x, -50%);
+            }
+          }
         }
       }
     }
@@ -109,5 +113,14 @@
         }
       }
     }
+  }
+}
+.priceW {
+  width: 80px;
+  .priceIcon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
   }
 }
