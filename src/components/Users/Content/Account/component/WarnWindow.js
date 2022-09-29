@@ -68,7 +68,7 @@ const warnWindow = css`
     line-height: 1.5rem;
     border-bottom: 1px solid #ccc;
   }
-  .active{
+  .active {
     line-height: 3rem;
   }
   .btngroup {

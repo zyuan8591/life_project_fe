@@ -83,7 +83,7 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                   <td className="sm-768none">{v.creater_id}</td>
                 ) : null}
 
-                <td className="p-0">
+                <td className="p-0 text-center">
                   {display === 0 || display === 3 ? (
                     <Link to={`/activity/picnic/official/${v.picnic_id}`}>
                       <button>活動詳情</button>
