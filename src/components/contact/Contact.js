@@ -10,19 +10,23 @@ import { AiOutlineComment } from 'react-icons/ai';
 const Contact = () => {
   // check is chat or not
   const [chat, setChat] = useState(false);
-  // const { user, setUser } = useUserRights();
+  const { user } = useUserRights();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     // 加上是否已經連線的檢查
-    if (!socket) {
+    if (!socket && user) {
       let ws = io('http://localhost:3001');
       setSocket(ws);
-      ws.on('chat', (msg) => {
+      ws.on(`user${user.id}`, (msg) => {
+        console.log(msg);
         setMessages(function (prevState, props) {
-          return [{ id: uuidv4(), role: 'life', content: msg }, ...prevState];
+          return [
+            { id: uuidv4(), role: 'life', content: msg.msg },
+            ...prevState,
+          ];
         });
       });
     }
@@ -31,7 +35,7 @@ const Contact = () => {
   function messageSubmit() {
     // 把訊息送到後端去
     if (message) {
-      socket.emit('life', message);
+      socket.emit('lifeUser', { id: user.id, msg: message });
       setMessages([
         { id: uuidv4(), role: 'user', content: message },
         ...messages,
