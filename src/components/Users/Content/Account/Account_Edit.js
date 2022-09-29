@@ -209,7 +209,12 @@ const Account = ({ setEdit, showEditOK = () => {} }) => {
               </div>
             </div>
 
-            <WarnWindow warn={warn} setWarn={setWarn} />
+            <WarnWindow
+              warn={warn}
+              setWarn={setWarn}
+              text1="請再次確認您的資料"
+              text2="是否儲存變更"
+            />
           </Form>
         )}
       </Formik>

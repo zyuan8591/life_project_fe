@@ -17,6 +17,7 @@ const RecipeCreateForm = ({
   isEdit = false,
   defaultData = [],
   showToast = () => {},
+  showUpdataHint = () => {},
 }) => {
   // for demo
   const [demo, setDemo] = useState(false);
@@ -266,6 +267,7 @@ const RecipeCreateForm = ({
         await axios.put(`${API_URL}/recipes/${id}`, recipeData, {
           withCredentials: true,
         });
+        showUpdataHint();
         // del origin material
         await axios.delete(`${API_URL}/recipes/${id}/material`, {
           withCredentials: true,

@@ -5,6 +5,7 @@ import { API_URL } from '../../../../utils/config';
 import { useUserRights } from '../../../../usecontext/UserRights';
 import CartDetail from '../../../Orders/pages/CheckPage/CartDetail';
 import { useState } from 'react';
+import Summary from '../../../Orders/pages/CartPage/Summary';
 
 export default function OrderDetail() {
   const { user } = useUserRights();
@@ -54,7 +55,7 @@ export default function OrderDetail() {
   // console.log(campingItems);
   let campingTotal = campingItems.reduce((total, item) => {
     // console.log('camping', total, item);
-    // return total + item.price;
+    return total + item.itemTotal;
   }, 0);
 
   let picnicTotal = picnicItems.reduce((total, item) => {
@@ -63,12 +64,23 @@ export default function OrderDetail() {
   }, 0);
   // console.log(picnicTotal);
   // console.log(picnicItems, picnicCount, picnicTotal);
-  console.log(picnicTotal, campingTotal);
+  // console.log(picnicTotal, campingTotal);
 
   return (
     <>
       <div className="orderDetail">
         <CartDetail
+          productItems={productItems}
+          productTotal={productTotal}
+          productCount={productCount}
+          picnicItems={picnicItems}
+          picnicTotal={picnicTotal}
+          picnicCount={picnicCount}
+          campingItems={campingItems}
+          campingTotal={campingTotal}
+          campingCount={campingCount}
+        />
+        <Summary
           productItems={productItems}
           productTotal={productTotal}
           productCount={productCount}
