@@ -6,13 +6,28 @@ import { Link } from 'react-router-dom';
 import NoDataDisplay from '../../../public_component/NoDataDisplay';
 import { IconContext } from 'react-icons';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
+import { SiFoodpanda } from 'react-icons/si';
+import Notification from '../../../activity/Notification';
+import WarnWindow from '../Account/component/WarnWindow';
 const Product = () => {
   const title = ['名稱', '顏色', '價格', '查看', '刪除'];
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(0);
   const [data, setData] = useState([]);
-  const [quantity, setQuantity] = useState(1);
-  console.log(data);
+  const [warn, setWarn] = useState(false);
+  const [delID, setDelID] = useState();
+  const [hint, setHint] = useState(false);
+  function pop(id) {
+    setDelID(id);
+    setWarn(true);
+  }
+  const showHint = () => {
+    setHint(true);
+    setTimeout(() => {
+      setHint(false);
+    }, 2000);
+  };
+
   useEffect(() => {
     try {
       let getdata = async () => {
@@ -31,8 +46,8 @@ const Product = () => {
     }
   }, [pageNow]);
 
-  async function demoveLike(product_id) {
-    await axios.delete(`${API_URL}/products/${product_id}/removeLike`, {
+  async function demoveLike() {
+    await axios.delete(`${API_URL}/products/${delID}/removeLike`, {
       withCredentials: true,
     });
     let response = await axios.get(
@@ -42,10 +57,23 @@ const Product = () => {
       }
     );
     setData(response.data.data);
+    setWarn(false);
+    showHint();
   }
 
   return (
     <>
+      {hint && (
+        <Notification contaninText="已取消收藏" iconSize={2} bottom={30}>
+          <SiFoodpanda />
+        </Notification>
+      )}
+      <WarnWindow
+        warn={warn}
+        setWarn={setWarn}
+        clickFunction={demoveLike}
+        text1="確定要取消此收藏嗎？"
+      />
       <h3>商品收藏</h3>
       <div className="productGroup">
         <table className="table table-sm mt-5 table-hover product_table">
@@ -69,7 +97,7 @@ const Product = () => {
                   <i
                     class="fa-regular fa-circle-xmark xmark"
                     onClick={() => {
-                      demoveLike(v.product_id);
+                      pop(v.product_id);
                     }}
                   ></i>
                   <td className="imgfrme">
@@ -87,11 +115,11 @@ const Product = () => {
                       <button>商品詳情</button>
                     </Link>
                   </td>
-                  <td>
+                  <td className="sm-768none">
                     <i
-                      className="fa-solid fa-trash icon sm-768none"
+                      className="fa-solid fa-trash icon "
                       onClick={() => {
-                        demoveLike(v.product_id);
+                        pop(v.product_id);
                       }}
                     ></i>
                   </td>
