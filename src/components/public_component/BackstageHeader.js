@@ -78,7 +78,7 @@ const Header = ({ fixed = true }) => {
           className={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
           onClick={() => setMenu(!menu)}
         ></i>
-        <Link to="/products/backstage" className="headerTitle">
+        <Link to="/" className="headerTitle">
           <h1 className="m-0 header-item">LIFE</h1>
         </Link>
         {/* NAV BAR */}
