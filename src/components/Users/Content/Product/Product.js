@@ -65,7 +65,13 @@ const Product = () => {
                 .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
               return (
-                <tr key={v.id}>
+                <tr key={v.id} className="RWDcard">
+                  <i
+                    class="fa-regular fa-circle-xmark xmark"
+                    onClick={() => {
+                      demoveLike(v.product_id);
+                    }}
+                  ></i>
                   <td className="imgfrme">
                     <img
                       src={`${API_URL_IMG}/product/product_img/${v.img}`}
@@ -76,44 +82,14 @@ const Product = () => {
                   <td>{v.name}</td>
                   <td>{v.color}</td>
                   <td>{price}</td>
-                  {/* <td>
-                    <div className="quantity">
-                      <div className="d-flex ">
-                        <IconContext.Provider
-                          value={{
-                            color: '#444',
-                            size: '1.8rem',
-                          }}
-                        >
-                          <button>
-                            <AiFillMinusCircle
-                              onClick={() => {
-                                if (quantity > 1) {
-                                  setQuantity(quantity - 1);
-                                }
-                              }}
-                            />
-                          </button>
-                          <div className="number">{quantity}</div>
-                          <button>
-                            <AiFillPlusCircle
-                              onClick={() => {
-                                setQuantity(quantity + 1);
-                              }}
-                            />
-                          </button>
-                        </IconContext.Provider>
-                      </div>
-                    </div>
-                  </td> */}
-                  <td>
+                  <td className="p-0">
                     <Link to={`/products/${v.product_id}`}>
                       <button>商品詳情</button>
                     </Link>
                   </td>
                   <td>
                     <i
-                      className="fa-solid fa-trash icon"
+                      className="fa-solid fa-trash icon sm-768none"
                       onClick={() => {
                         demoveLike(v.product_id);
                       }}
