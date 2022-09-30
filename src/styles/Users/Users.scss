@@ -35,6 +35,7 @@
     h3 {
       border-left: 8px solid $subClrBrown;
       padding-left: 10px;
+      justify-content: space-evenly;
     }
   }
   a,
@@ -42,10 +43,7 @@
   a:hover,
   a:active {
     color: $contentClr;
-    text-decoration: none;
-    @media (max-width: 768px) {
-      color:#fff;
-    }
+    text-decoration: none;  
   }
 }
 .sm-768none {

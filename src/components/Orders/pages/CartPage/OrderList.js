@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useProductCart } from '../../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../../orderContetxt/useCampingCart';
@@ -21,8 +21,11 @@ const OrderList = ({
   const productCart = useProductCart();
   const picnicCart = usePicnicCart();
   const campingCart = useCampingCart();
+  const productQuantity = useRef(null);
   const [selectAll, setSelectAll] = useState(false);
   // console.log(productCount);
+  // console.log(productItems);
+  // console.log(selectAll);
 
   // console.log(productCart.state);
   // const [count, setCount] = useState({});
@@ -60,21 +63,46 @@ const OrderList = ({
                 {/* TODO: checkall */}
                 <input
                   type="checkbox"
-                  onChange={() => {
+                  checked={selectAll}
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                    e.target.checked === true
+                      ? productItems.map((v, i) => {
+                          productCart.updateItem({
+                            ...v,
+                            ischecked: true,
+                          });
+                        })
+                      : productItems.map((v, i) => {
+                          productCart.updateItem({
+                            ...v,
+                            ischecked: false,
+                          });
+                        });
                     const checkcount = productItems.filter((items) => {
                       return items.ischecked === true;
                     });
+                    // console.log(checkcount, productItems);
                     if (checkcount.length !== productItems.length) {
-                      // console.log('888', checkcount, productItems.length);
+                      console.log('888', checkcount, productItems);
                       setSelectAll(false);
                     }
-                    productItems.map((v, i) => {
-                      productCart.updateItem({
-                        ...v,
-                        ischecked: !selectAll,
-                      });
-                    });
-                    setSelectAll(!selectAll);
+                    return setSelectAll(!selectAll);
+                    //   const checkcount = productItems.filter((items) => {
+                    //     return items.ischecked === true;
+                    //   });
+                    //   if (checkcount.length !== productItems.length) {
+                    //     // console.log('888', checkcount, productItems.length);
+                    //     setSelectAll(false);
+                    //   }
+                    //   productItems.map((v, i) => {
+                    //     productCart.updateItem({
+                    //       ...v,
+                    //       ischecked: !selectAll,
+                    //     });
+                    //   });
+                    //   setSelectAll(!selectAll);
+                    // }}
                   }}
                 />
               </div>
@@ -133,7 +161,7 @@ const OrderList = ({
                               : '#fff',
                           }}
                           className="counterButton"
-                          onClick={() => {
+                          onClick={(e) => {
                             productCart.minusOne(v.id);
                           }}
                         >
@@ -146,14 +174,16 @@ const OrderList = ({
                                 ? 'rgba(185,189,197,.05)'
                                 : '#fff',
                             }}
+                            ref={productQuantity}
                             type="text"
                             className="counterInput"
                             value={v.quantity}
                             onChange={(e) => {
                               // productCart.updateItem(e.target.value);
                               // productCart.plusItemQuantityOnce(v.id, 87);
+
                               let value = e.target.value.replace(/[^\d]/, '');
-                              // if(value > v.stock) return;
+                              if (e.target.value > v.inventory) return;
                               productCart.updateItem({
                                 ...v,
                                 quantity: parseInt(value) || 1,
@@ -169,8 +199,11 @@ const OrderList = ({
                               : '#fff',
                           }}
                           className="counterButton"
-                          onClick={() => {
+                          onClick={(e) => {
+                            if (productQuantity.current.value >= v.inventory)
+                              return;
                             productCart.plusOne(v.id);
+                            console.log(productQuantity.current.value);
                           }}
                         >
                           +

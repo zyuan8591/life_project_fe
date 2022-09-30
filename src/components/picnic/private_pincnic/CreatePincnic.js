@@ -126,9 +126,6 @@ function CreatePincnic() {
     if (activityContent.endDate > activityContent.activityDate) {
       return message.error('活動日期不得小於報名日期');
     }
-    // if (!e.target.value) {
-    //   return message.error('請輸入欄位');
-    // }
     if (activityContent)
       try {
         let formData = new FormData();
@@ -154,6 +151,16 @@ function CreatePincnic() {
       } catch (e) {
         console.log('formData', e);
       }
+    await axios.post(
+      `${API_URL}/user/points`,
+      {
+        point: 50, //新增/扣除點數
+        event: '新增揪團', //名目
+      },
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   return (

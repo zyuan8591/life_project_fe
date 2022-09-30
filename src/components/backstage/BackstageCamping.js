@@ -5,7 +5,6 @@ import Header from '../public_component/BackstageHeader';
 import PaginationBar from '../public_component/PaginationBar';
 import AddCamping from './component/camping/AddCamping';
 import UpdateCamping from './component/camping/UpdateCamping';
-import Contact from '../contact/Contact';
 import Notification from '../activity/Notification';
 import '../../styles/backstage/_backstageCamping.scss';
 import { IconContext } from 'react-icons';
@@ -132,12 +131,12 @@ function Backstage() {
                 <th>標題</th>
                 <th>地點</th>
                 <th>地址</th>
-                <th className="position-relative">
-                  費用
-                  <div>
+                <th className="position-relative priceW">
+                  <span>費用</span>
+                  <div className="priceIcon">
                     {price ? (
                       <MdArrowDropDown
-                        className="priceIcon"
+                        // className=""
                         onClick={() => {
                           setPrice(false);
                           setOrder(3);
@@ -145,7 +144,7 @@ function Backstage() {
                       />
                     ) : (
                       <MdArrowDropUp
-                        className="priceIcon"
+                        // className="priceIcon"
                         onClick={() => {
                           setPrice(true);
                           setOrder(4);
@@ -154,7 +153,7 @@ function Backstage() {
                     )}
                   </div>
                 </th>
-                <th className="position-relative">
+                <th className="position-relative  priceW">
                   活動日期
                   <div>
                     {date ? (
@@ -251,7 +250,6 @@ function Backstage() {
           pageNow={page}
           setPageNow={setPage}
         />
-        <Contact />
       </div>
     </>
   );

@@ -52,7 +52,7 @@ function AddDiscount({
         // }
       );
       let newsResponse = await axios.post(`${API_URL}/news`, {
-        category: 1,
+        category: 2,
         content: product.name,
       });
       if (response.data.message === '此商品已存在') {
@@ -73,7 +73,6 @@ function AddDiscount({
           setAddDiscountPage(false);
         }, 600);
       }
-
     } catch (e) {
       console.error('addProduct', e);
     }

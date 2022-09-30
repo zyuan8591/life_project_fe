@@ -4,12 +4,10 @@ const CartStepContext = createContext(1);
 
 export const CartStepProvider = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [orderId, setOrderId] = useState(0);
+  // const [orderId, setOrderId] = useState(0);
 
   return (
-    <CartStepContext.Provider
-      value={{ currentStep, setCurrentStep, orderId, setOrderId }}
-    >
+    <CartStepContext.Provider value={{ currentStep, setCurrentStep }}>
       {children}
     </CartStepContext.Provider>
   );

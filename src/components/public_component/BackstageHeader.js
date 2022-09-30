@@ -32,7 +32,13 @@ const Header = ({ fixed = true }) => {
   const [vw, setVw] = useState(window.innerWidth);
   const windowResize = () => setVw(window.innerWidth);
   useEffect(() => {
+    if (user && user.status === 1) {
+      return navigate('/');
+    }
     window.addEventListener('resize', windowResize);
+    return function clean() {
+      window.removeEventListener('resize', windowResize);
+    };
   }, []);
   useEffect(() => {
     if (vw > 768) setMenu(false);
