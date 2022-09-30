@@ -123,6 +123,10 @@ const CheckOut = () => {
   const point = localStorage.getItem('usePoint')
     ? -localStorage.getItem('usePoint')
     : 0;
+  const addPoint = parseInt(
+    (productTotal + picnicTotal + campingTotal - point) * 0.01
+  );
+  console.log(addPoint);
 
   // console.log(point);
   // console.log(orderId);
@@ -208,7 +212,9 @@ const CheckOut = () => {
             if (response.data) {
               setOrderId(response.data);
               // console.log(response.data);
+              // setTime(response.data.create_time);
               localStorage.setItem('order_id', response.data.order_id);
+              // localStorage.setItem('time', response.data.create_time);
               // console.log(orderId);
               setIsOrder(true);
               // window.localStorage.clear();
@@ -226,6 +232,16 @@ const CheckOut = () => {
                 }
               );
             }
+            await axios.post(
+              `${API_URL}/user/points`,
+              {
+                point: addPoint, //新增/扣除點數
+                event: '購物折扣', //名目
+              },
+              {
+                withCredentials: true,
+              }
+            );
           } catch (e) {
             console.error('order', e);
           }

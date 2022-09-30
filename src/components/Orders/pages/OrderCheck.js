@@ -1,17 +1,47 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useCartStep } from '../../../orderContetxt/useCartStep';
+import { useProductCart } from '../../../orderContetxt/useProductCart';
+import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
+import { useCampingCart } from '../../../orderContetxt/useCampingCart';
+import moment from 'moment';
 
 function OrderCheck() {
   const { setCurrentStep } = useCartStep();
+  const [orderId, setOrderId] = useState('');
+  const productCart = useProductCart();
+  const picnicCart = usePicnicCart();
+  const campingCart = useCampingCart();
 
   useEffect(() => {
     setCurrentStep(3);
+    setOrderId(localStorage.getItem('order_id'));
+
+    return function clean() {
+      productCart.clearCart();
+      picnicCart.clearCart();
+      campingCart.clearCart();
+      localStorage.clear();
+    };
   }, []);
 
-  const order_id = localStorage.getItem('order_id');
+  useEffect(() => {
+    if (!orderId) {
+      // productCart.clearCart();
+    }
+  }, [orderId]);
+  const time = moment().format('YYYYMMDD');
+  const toOrderId = (time, id) => {
+    let timeString = time.replaceAll('-', '');
+    let orderTime = timeString.replace('20', '');
+    let orderId = id.toString().padStart(3, '0');
+    return orderTime + orderId;
+  };
+  // console.log(time);
+  // setOrderId(order_id);
   // console.log(order_id);
 
   return (
@@ -29,7 +59,7 @@ function OrderCheck() {
             <span>完成訂單</span>
           </div>
         </div>
-        <p className="">您的訂單編號為： {order_id}</p>
+        <p className="">您的訂單編號為： {toOrderId(time, orderId)}</p>
 
         <div className="orderStepBtns gap-3">
           <Link

@@ -25,7 +25,7 @@ const OrderList = ({
   const [selectAll, setSelectAll] = useState(false);
   // console.log(productCount);
   // console.log(productItems);
-  console.log(selectAll);
+  // console.log(selectAll);
 
   // console.log(productCart.state);
   // const [count, setCount] = useState({});

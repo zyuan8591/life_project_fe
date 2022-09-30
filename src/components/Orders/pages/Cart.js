@@ -6,11 +6,13 @@ import { useUserRights } from '../../../usecontext/UserRights';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
+import { API_URL } from '../../../utils/config';
 
 import OrderList from './CartPage/OrderList';
 import Summary from './CartPage/Summary';
 import Notification from '../../activity/Notification';
 import { VscError } from 'react-icons/vsc';
+import axios from 'axios';
 
 const Cart = () => {
   const { user } = useUserRights();
@@ -25,16 +27,20 @@ const Cart = () => {
 
   useEffect(() => {
     setCurrentStep(1);
+    // console.log(user);
+    (async () => {
+      if (user) {
+        // console.log(user);
+        let res = await axios.get(`${API_URL}/user`, {
+          withCredentials: true,
+        });
+        setPoint(res.data.points);
+        // console.log(res);
+      }
+    })();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      // console.log(user);
-      setPoint(user.points);
-    }
-  }, [user]);
-
-  // console.log(point);
+  console.log(point);
   const productItems = productCart.state.items;
   const productTotal = productCart.state.cartTotal;
   const productCount = productCart.state.totalItems;
