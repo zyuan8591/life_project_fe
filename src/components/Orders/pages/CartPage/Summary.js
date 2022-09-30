@@ -30,7 +30,6 @@ const Summary = ({
               /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
               ','
             )}{' '}
-            元
           </div>
         </div>
 
@@ -56,7 +55,9 @@ const Summary = ({
                 }}
               />
             ) : (
-              <div>{localStorage.getItem('usePoint', usePoint) || 0}</div>
+              <div>
+                {localStorage.getItem('usePoint', usePoint) || 0 || usePoint}
+              </div>
             )}
           </div>
         </div>
@@ -78,9 +79,8 @@ const Summary = ({
               productTotal +
                 picnicTotal +
                 campingTotal -
-                localStorage.getItem('usePoint', usePoint)
+                (localStorage.getItem('usePoint', usePoint) || -usePoint)
             ).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
-            元
           </div>
         </div>
       </div>

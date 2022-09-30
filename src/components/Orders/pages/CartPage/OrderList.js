@@ -23,6 +23,7 @@ const OrderList = ({
   const campingCart = useCampingCart();
   const productQuantity = useRef(null);
   const [selectAll, setSelectAll] = useState(false);
+  const [selectAllAct, setSelectAllAct] = useState(false);
   // console.log(productCount);
   // console.log(productItems);
   // console.log(selectAll);
@@ -338,29 +339,50 @@ const OrderList = ({
                 {/* TODO: checkall */}
                 <input
                   type="checkbox"
-                  onChange={() => {
+                  checked={selectAllAct}
+                  onChange={(e) => {
                     const picnicCheckCount = picnicItems.filter((items) => {
                       return items.ischecked === true;
                     });
                     const campingCheckCount = campingItems.filter((items) => {
                       return items.ischecked === true;
                     });
-                    if (
-                      picnicCheckCount.length + campingCheckCount !==
-                      picnicCount + campingCount
-                    ) {
-                      setSelectAll(false);
-                    }
-                    picnicItems.map((v, i) => {
-                      picnicCart.updateItem({
-                        ...v,
-                        ischecked: !selectAll,
+                    if (e.target.checked) {
+                      picnicItems.map((v, i) => {
+                        picnicCart.updateItem({ ...v, ischecked: false });
                       });
-                    });
-                    campingItems.map((v, i) => {
-                      campingCart.updateItem({ ...v, ischecked: !selectAll });
-                    });
-                    setSelectAll(!selectAll);
+                      campingItems.map((v, i) => {
+                        campingCart.updateItem({ ...v, ischecked: false });
+                      });
+                      setSelectAllAct(!selectAllAct);
+                    } else {
+                      picnicItems.map((v, i) => {
+                        picnicCart.updateItem({ ...v, ischecked: true });
+                      });
+                      campingItems.map((v, i) => {
+                        campingCart.updateItem({ ...v, ischecked: true });
+                      });
+                      setSelectAllAct(!selectAllAct);
+                    }
+                    // if (
+                    //   picnicCheckCount.length + campingCheckCount !==
+                    //   picnicCount + campingCount
+                    // ) {
+                    //   setSelectAllAct(false);
+                    // }
+                    // picnicItems.map((v, i) => {
+                    //   picnicCart.updateItem({
+                    //     ...v,
+                    //     ischecked: !e.target.checked,
+                    //   });
+                    // });
+                    // campingItems.map((v, i) => {
+                    //   campingCart.updateItem({
+                    //     ...v,
+                    //     ischecked: !e.target.checked,
+                    //   });
+                    // });
+                    // setSelectAll(!selectAllAct);
                   }}
                 />
               </div>
