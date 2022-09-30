@@ -22,6 +22,7 @@ const OrderList = ({
   const picnicCart = usePicnicCart();
   const campingCart = useCampingCart();
   const [selectAll, setSelectAll] = useState(false);
+  const [activitySelectAll, setActivitySelectAll] = useState(false);
   // console.log(productCount);
 
   // console.log(productCart.state);
@@ -321,13 +322,16 @@ const OrderList = ({
                     picnicItems.map((v, i) => {
                       picnicCart.updateItem({
                         ...v,
-                        ischecked: !selectAll,
+                        ischecked: !activitySelectAll,
                       });
                     });
                     campingItems.map((v, i) => {
-                      campingCart.updateItem({ ...v, ischecked: !selectAll });
+                      campingCart.updateItem({
+                        ...v,
+                        ischecked: !activitySelectAll,
+                      });
                     });
-                    setSelectAll(!selectAll);
+                    setActivitySelectAll(!activitySelectAll);
                   }}
                 />
               </div>
