@@ -32,7 +32,13 @@ const Header = ({ fixed = true }) => {
   const [vw, setVw] = useState(window.innerWidth);
   const windowResize = () => setVw(window.innerWidth);
   useEffect(() => {
+    if (user && user.status === 1) {
+      return navigate('/');
+    }
     window.addEventListener('resize', windowResize);
+    return function clean() {
+      window.removeEventListener('resize', windowResize);
+    };
   }, []);
   useEffect(() => {
     if (vw > 768) setMenu(false);
@@ -72,7 +78,7 @@ const Header = ({ fixed = true }) => {
           className={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
           onClick={() => setMenu(!menu)}
         ></i>
-        <Link to="/" className="headerTitle">
+        <Link to="/products/backstage" className="headerTitle">
           <h1 className="m-0 header-item">LIFE</h1>
         </Link>
         {/* NAV BAR */}

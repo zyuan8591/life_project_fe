@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 import { useUserRights } from '../../usecontext/UserRights';
 import { v4 as uuidv4 } from 'uuid';
 import { AiOutlineComment } from 'react-icons/ai';
+import moment from 'moment';
 
 const Contact = () => {
   // check is chat or not
@@ -21,10 +22,9 @@ const Contact = () => {
       let ws = io('http://localhost:3001');
       setSocket(ws);
       ws.on(`user${user.id}`, (msg) => {
-        console.log(msg);
         setMessages(function (prevState, props) {
           return [
-            { id: uuidv4(), role: 'life', content: msg.msg },
+            { id: uuidv4(), role: 'life', content: msg.msg, time: msg.time },
             ...prevState,
           ];
         });
@@ -34,10 +34,20 @@ const Contact = () => {
 
   function messageSubmit() {
     // 把訊息送到後端去
+    let time = moment().format('HH:mm');
     if (message) {
-      socket.emit('lifeUser', { id: user.id, msg: message });
+      socket.emit('lifeUser', {
+        id: user.id,
+        msg: message,
+        time,
+      });
       setMessages([
-        { id: uuidv4(), role: 'user', content: message },
+        {
+          id: uuidv4(),
+          role: 'user',
+          content: message,
+          time,
+        },
         ...messages,
       ]);
       setMessage('');
@@ -54,14 +64,21 @@ const Contact = () => {
     }
   }
 
-  const Message = ({ role, msg }) => {
+  const Message = ({ role, msg, time }) => {
     return (
       <div
-        className={`px-3 py-1 mb-2 rounded-pill ${
+        className={`px-3 py-1 mb-2 rounded-pill position-relative ${
           role === 'user' ? `align-self-end` : ''
         } bg-white ${classes.myMsg} ${classes.msg}`}
       >
         {msg}
+        <span
+          className={`position-absolute bottom-0 opacity-75 ${
+            role === 'user' ? 'end-100 me-2' : 'start-100 ms-2'
+          }`}
+        >
+          {time}
+        </span>
       </div>
     );
   };
@@ -109,7 +126,12 @@ const Contact = () => {
           >
             {messages.map((m) => {
               return (
-                <Message key={m.id} role={m.role} msg={m.content}></Message>
+                <Message
+                  key={m.id}
+                  role={m.role}
+                  msg={m.content}
+                  time={m.time}
+                ></Message>
               );
             })}
           </div>
