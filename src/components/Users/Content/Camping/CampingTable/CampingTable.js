@@ -9,7 +9,7 @@ import { IconContext } from 'react-icons';
 import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 
 const CampingTable = ({ data, display, getUser, pageNow }) => {
-  const title = ['活動名稱', '活動時間', '活動地點', '活動狀態'];
+  const title = ['活動名稱', '活動時間', '活動地點', '活動狀態', '查看'];
   const [warn, setWarn] = useState(false);
   const [delID, setDelID] = useState();
   const [hint, setHint] = useState(false);
@@ -52,15 +52,22 @@ const CampingTable = ({ data, display, getUser, pageNow }) => {
             {title.map((v, i) => {
               return <th key={i}>{v}</th>;
             })}
-            {display === 2 ? <th></th> : null}
-            <th></th>
+            {display === 2 ? <th>刪除</th> : null}
           </tr>
         </thead>
 
         <tbody>
           {data.map((v, i) => {
             return (
-              <tr key={i}>
+              <tr key={i} className="RWDcard">
+                {display === 2 ? (
+                  <i
+                    class="fa-regular fa-circle-xmark xmark"
+                    onClick={() => {
+                      pop(v.id);
+                    }}
+                  ></i>
+                ) : null}
                 <td className="campingImgfrme">
                   <img
                     src={`/img/camping/activity_camping_img/${v.img1}`}
@@ -74,19 +81,19 @@ const CampingTable = ({ data, display, getUser, pageNow }) => {
                 <td>{v.state}</td>
                 <td className="p-0 text-center">
                   <Link to={`/activity/camping/${v.id}`}>
-                    <IconContext.Provider value={{ size: '1rem' }}>
-                      <FaRegEye />
-                    </IconContext.Provider>
+                    <button>活動詳情</button>
                   </Link>
-                  {display === 2 ? (
+                </td>
+                {display === 2 ? (
+                  <td className="sm-768none">
                     <i
                       className="fa-solid fa-trash icon"
                       onClick={() => {
                         pop(v.id);
                       }}
                     ></i>
-                  ) : null}
-                </td>
+                  </td>
+                ) : null}
               </tr>
             );
           })}

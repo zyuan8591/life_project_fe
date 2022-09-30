@@ -41,19 +41,15 @@
   }
  .activity-table{
   tr{
-    line-height: 3rem;
+    line-height: 2.5rem;
     text-align: center;
-    @media (max-width: 768px) {
-      text-align:left;
-    }
+    // @media (max-width: 768px) {
+    //   text-align:left;
+    // }
 
     td{
       vertical-align: middle
-    }
-    
-    &:hover>td{
-      color: $focusClrG;
-    }
+    }    
   }
   
   button{
@@ -62,10 +58,30 @@
     @include click();
   }
   .icon{
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
-    margin: 10px;
-    @include click();
+    &:hover {
+      transform: scale(1.15);
+    }
+    &:active {
+      transform: scale(1);    
+    }
+  }
+  .RWDcard{
+    position: relative;
+  }
+  .xmark{
+    position: absolute;
+    right:0px;
+    top: -0px;
+    z-index: 99;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: none;
+    color:#fff;
+    @media (max-width: 768px) {
+      display: block;
+    }        
   }
  }
  .campingImgfrme{

@@ -106,16 +106,24 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
             })}
             {display === 1 ? <th>主辦人</th> : null}
             <th>查看</th>
-            {display === 2 ? <th></th> : null}
-            {display === 2 ? <th></th> : null}
-            {display === 3 ? <th></th> : null}
+            {display === 2 ? <th>編輯</th> : null}
+            {display === 2 ? <th>刪除</th> : null}
+            {display === 3 ? <th>刪除</th> : null}
           </tr>
         </thead>
 
         <tbody>
           {data.map((v, i) => {
             return (
-              <tr key={i}>
+              <tr key={i} className="RWDcard">
+                {display === 2 ? (
+                  <i
+                    class="fa-regular fa-circle-xmark xmark"
+                    onClick={() => {
+                      pop(v.id);
+                    }}
+                  ></i>
+                ) : null}
                 <td className="campingImgfrme">
                   <img
                     src={`${API_URL_IMG}/picnic/${v.img1}`}
@@ -131,7 +139,7 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                   <td className="sm-768none">{v.creater_id}</td>
                 ) : null}
 
-                <td className="p-0 text-center">
+                <td className="p-0 text-center ">
                   {display === 0 || display === 3 ? (
                     <Link to={`/activity/picnic/official/${v.picnic_id}`}>
                       <button>活動詳情</button>
@@ -145,7 +153,7 @@ const PicnicTable = ({ data, display, getUser, pageNow }) => {
                 {display === 2 ? (
                   <td className="sm-768none">
                     <i
-                      className="fa-solid fa-pen-to-square icon"
+                      className="fa-solid fa-pen-to-square icon edit"
                       onClick={() => {
                         setEdit(true);
                         setDelID(v.picnic_id);

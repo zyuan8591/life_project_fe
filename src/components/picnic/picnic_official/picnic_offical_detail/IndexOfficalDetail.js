@@ -111,7 +111,7 @@ function PicnicOfficalDetail() {
     );
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
     setUserJoin(nowJoin);
-    // console.log('delete', response.data);
+    console.log('delete', response.data);
     setJoinCancel(true);
     setTimeout(() => {
       setJoinCancel(false);
