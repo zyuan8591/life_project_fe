@@ -13,6 +13,13 @@ const Table = ({ orders }) => {
     '訂單詳情',
   ];
 
+  const toOrderId = (time, id) => {
+    let timeString = time.replaceAll('-', '');
+    let orderTime = timeString.replace('20', '');
+    let orderId = id.toString().padStart(3, '0');
+    return orderTime + orderId;
+  };
+
   return (
     <div className="order-table">
       <table className="table table-sm mt-5">
@@ -28,7 +35,13 @@ const Table = ({ orders }) => {
           {orders.map((v, i) => {
             return (
               <tr key={v.id}>
-                <td>{i + 1}</td>
+                <td>
+                  {/* {`${Math.random()
+                    .toString(32)
+                    .replace('0.', '')
+                    .slice(0, 6)}${v.id}`} */}
+                  {toOrderId(v.create_time, v.id)}
+                </td>
                 <td>
                   $
                   {JSON.stringify(v.order_total).replace(

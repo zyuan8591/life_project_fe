@@ -12,6 +12,7 @@ import {
 import axios from 'axios';
 import { API_URL, API_URL_IMG } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
+import Notification from '../../activity/Notification';
 
 const pages = [
   { title: '商品一覽', route: '/products' },
@@ -27,6 +28,7 @@ const Header = ({ fixed = true }) => {
   const [userSelectActive, setUserSelectActive] = useState(false);
 
   const [menu, setMenu] = useState(false);
+  const [loginBtn, setLoginBtn] = useState(false);
 
   // viewportWidth state for RWD design
   const [vw, setVw] = useState(window.innerWidth);
@@ -59,117 +61,146 @@ const Header = ({ fixed = true }) => {
   }
 
   return (
-    <header
-      className={`header position-relative w-100 ${
-        fixed ? 'position-fixed' : ''
-      } ${scrollDown ? 'hidden' : ''}`}
-    >
-      <IconContext.Provider
-        value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
+    <>
+      {loginBtn ? (
+        <Notification
+          contaninText={'請先登入會員'}
+          linkTo={'/signin?p=1'}
+          setLoginBtn={setLoginBtn}
+        />
+      ) : (
+        ''
+      )}
+      <header
+        className={`header position-relative w-100 ${
+          fixed ? 'position-fixed' : ''
+        } ${scrollDown ? 'hidden' : ''}`}
       >
-        <i
-          className={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
-          onClick={() => setMenu(!menu)}
-        ></i>
-        <Link to="/" className="headerTitle">
-          <h1 className="m-0 header-item">LIFE</h1>
-        </Link>
-        {/* NAV BAR */}
-        <nav
-          className={`flexCenter header-item ${menu ? 'active shadow-sm' : ''}`}
+        <IconContext.Provider
+          value={{ color: '#444', size: '2rem', className: 'headerIcon' }}
         >
-          <ul className="nav list-unstyled flexCenter">
-            {pages.map((p) => {
-              return (
-                <li key={uuidv4()}>
-                  <NavLink
-                    to={p.route}
-                    className={(nav) => (nav.isActive ? 'active' : '')}
+          <i
+            className={`fa-solid fa-bars fs-4 headerMenu me-2 cursorPointer`}
+            onClick={() => setMenu(!menu)}
+          ></i>
+          <Link to="/" className="headerTitle">
+            <h1 className="m-0 header-item">LIFE</h1>
+          </Link>
+          {/* NAV BAR */}
+          <nav
+            className={`flexCenter header-item ${
+              menu ? 'active shadow-sm' : ''
+            }`}
+          >
+            <ul className="nav list-unstyled flexCenter">
+              {pages.map((p) => {
+                return (
+                  <li key={uuidv4()}>
+                    <NavLink
+                      to={p.route}
+                      className={(nav) => (nav.isActive ? 'active' : '')}
+                    >
+                      {p.title}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <div className="user flexCenter header-item">
+            <ul className="list-unstyled flexCenter mb-0">
+              {/* search */}
+              <li
+                className="me-3 userItem active"
+                onClick={() => {
+                  setSearch(true);
+                }}
+              >
+                <button className="flexCenter border-0 bg-white">
+                  <AiOutlineSearch />
+                </button>
+              </li>
+              {/* OrderStep */}
+              <li className="me-3 userItem">
+                {user ? (
+                  <Link to={`/orderstep/cart`} className="flexCenter">
+                    <AiOutlineShoppingCart />
+                  </Link>
+                ) : (
+                  <Link
+                    to=""
+                    className="flexCenter"
+                    onClick={() => {
+                      setLoginBtn(true);
+                    }}
                   >
-                    {p.title}
-                  </NavLink>
+                    <AiOutlineShoppingCart />
+                  </Link>
+                )}
+                {/* <Link to="/orderstep/cart" className="flexCenter">
+                  <AiOutlineShoppingCart />
+                </Link> */}
+              </li>
+
+              {/* Login state display User avator */}
+
+              {user ? (
+                // IS LOGIN
+                <li className="userItem position-relative headerLoginState">
+                  <figure
+                    className="headerAvator m-0 flexCenter cursorPointer"
+                    onClick={() => userAvatorClickHandler()}
+                  >
+                    <img
+                      src={`${API_URL_IMG}${user.photo}`}
+                      alt="userAvatar"
+                      className="objectContain"
+                    />
+                  </figure>
+                  {userSelectActive && (
+                    <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
+                      <li className="py-1">
+                        {user && user.status === 0 ? (
+                          <Link to="/products/backstage">後台管理</Link>
+                        ) : (
+                          <Link to="/users/account">個人檔案</Link>
+                        )}
+                      </li>
+                      <li className="py-1" onClick={handelLogout}>
+                        登出
+                      </li>
+                    </ul>
+                  )}
                 </li>
-              );
-            })}
-          </ul>
-        </nav>
-        <div className="user flexCenter header-item">
-          <ul className="list-unstyled flexCenter mb-0">
-            {/* search */}
-            <li
-              className="me-3 userItem active"
-              onClick={() => {
-                setSearch(true);
-              }}
-            >
-              <button className="flexCenter border-0 bg-white">
-                <AiOutlineSearch />
-              </button>
-            </li>
-            {/* OrderStep */}
-            <li className="me-3 userItem">
-              <Link to="/orderstep/cart" className="flexCenter">
-                <AiOutlineShoppingCart />
-              </Link>
-            </li>
-
-            {/* Login state display User avator */}
-
-            {user ? (
-              // IS LOGIN
-              <li className="userItem position-relative headerLoginState">
-                <figure
-                  className="headerAvator m-0 flexCenter cursorPointer"
-                  onClick={() => userAvatorClickHandler()}
-                >
-                  <img
-                    src={`${API_URL_IMG}${user.photo}`}
-                    alt="userAvatar"
-                    className="objectContain"
-                  />
-                </figure>
-                {userSelectActive && (
-                  <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
-                    <li className="py-1">
-                      {user && user.status === 0 ? (
-                        <Link to="/products/backstage">後台管理</Link>
-                      ) : (
-                        <Link to="/users/account">個人檔案</Link>
-                      )}
-                    </li>
-                    <li className="py-1" onClick={handelLogout}>
-                      登出
-                    </li>
-                  </ul>
-                )}
-              </li>
-            ) : (
-              // NOT LOGIN YET
-              <li className="userItem position-relative headerLoginState cursorPointer">
-                <div
-                  className="flexCenter loginAvator"
-                  onClick={() => userAvatorClickHandler()}
-                >
-                  <AiOutlineUser />
-                </div>
-                {userSelectActive && (
-                  <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
-                    <li className="py-1">
-                      <Link to="/signin?p=1">登入</Link>
-                    </li>
-                    <li className="py-1" onClick={handelLogout}>
-                      <Link to="/signin?p=2">註冊</Link>
-                    </li>
-                  </ul>
-                )}
-              </li>
-            )}
-          </ul>
-        </div>
-      </IconContext.Provider>
-      {/* Search Section */}
-      {search && <HeaderSearch setSearch={setSearch} />}
-    </header>
+              ) : (
+                // NOT LOGIN YET
+                <li className="userItem position-relative headerLoginState cursorPointer">
+                  <div
+                    className="flexCenter loginAvator"
+                    onClick={() => userAvatorClickHandler()}
+                  >
+                    <AiOutlineUser />
+                  </div>
+                  {userSelectActive && (
+                    <ul className="headerUserControl position-absolute top-100 end-0 mt-3 d-flex flex-column align-items-center fs-6 px-0 py-1">
+                      <li className="py-1">
+                        {/* test */}
+                        <Link to="/signin?p=1">登入</Link>
+                      </li>
+                      <li className="py-1" onClick={handelLogout}>
+                        <Link to="/signin?p=2">註冊</Link>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              )}
+            </ul>
+          </div>
+        </IconContext.Provider>
+        {/* Search Section */}
+        {search && <HeaderSearch setSearch={setSearch} />}
+      </header>
+    </>
   );
 };
 

@@ -5,6 +5,8 @@ import { API_URL } from '../../../../../utils/config';
 import WarnWindow from '../../Account/component/WarnWindow';
 import Notification from '../../../../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
+import { IconContext } from 'react-icons';
+import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 
 const CampingTable = ({ data, display, getUser, pageNow }) => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態', '查看'];
@@ -50,14 +52,22 @@ const CampingTable = ({ data, display, getUser, pageNow }) => {
             {title.map((v, i) => {
               return <th key={i}>{v}</th>;
             })}
-            {display === 2 ? <th></th> : null}
+            {display === 2 ? <th>刪除</th> : null}
           </tr>
         </thead>
 
         <tbody>
           {data.map((v, i) => {
             return (
-              <tr key={i}>
+              <tr key={i} className="RWDcard">
+                {display === 2 ? (
+                  <i
+                    class="fa-regular fa-circle-xmark xmark"
+                    onClick={() => {
+                      pop(v.id);
+                    }}
+                  ></i>
+                ) : null}
                 <td className="campingImgfrme">
                   <img
                     src={`/img/camping/activity_camping_img/${v.img1}`}

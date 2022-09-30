@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import CartDetail from './CheckPage/CartDetail';
 import RecipientInfo from './CheckPage/RecipientInfo';
+import Summary from './CartPage/Summary';
 import Payment from './CheckPage/Payment';
-// import CreditCard from './CheckPage/CreditCard';
-import Notification from '../../activity/Notification';
-import { useUserRights } from '../../../usecontext/UserRights';
+
+import { useCartStep } from '../../../orderContetxt/useCartStep';
 import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { usePicnicCart } from '../../../orderContetxt/usePicnicCart';
 import { useCampingCart } from '../../../orderContetxt/useCampingCart';
@@ -15,25 +15,22 @@ import axios from 'axios';
 import { API_URL } from '../../../utils/config';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { useCartStep } from '../../../orderContetxt/useCartStep';
-import Summary from './CartPage/Summary';
 
 const CheckOut = () => {
-  const { user } = useUserRights();
-  const { currentStep, setCurrentStep, orderId, setOrderId } = useCartStep();
   const navigate = useNavigate();
+  const { currentStep, setCurrentStep } = useCartStep();
+  const productCart = useProductCart();
+  const picnicCart = usePicnicCart();
+  const campingCart = useCampingCart();
 
   const [delivery, setDelivery] = useState([]);
 
   const [payment, setPayment] = useState([]);
   const [currentPayment, setCurrentPayment] = useState(null);
 
-  const [isOrder, setIsOrder] = useState(false);
+  const [orderId, setOrderId] = useState('');
   const [orderInfo, setOrderInfo] = useState([]);
-
-  const productCart = useProductCart();
-  const picnicCart = usePicnicCart();
-  const campingCart = useCampingCart();
+  const [isOrder, setIsOrder] = useState(false);
 
   useEffect(() => {
     // get delivery
@@ -54,23 +51,31 @@ const CheckOut = () => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      if (isOrder) {
-        // <Navigate to="/orderstep/ordercheck" />;
-        navigate('/orderstep/ordercheck');
-      }
-    })();
-  }, [isOrder]);
+    if (orderId) {
+      (async () => {
+        let orderInfo = await axios.post(
+          `${API_URL}/orders/orderinfo`,
+          orderId,
+          {
+            withCredentials: true,
+          }
+        );
+        setOrderInfo(orderInfo.data);
+      })();
+    }
+
+    // console.log('orderinfo', orderInfo);
+  }, [orderId]);
 
   useEffect(() => {
-    (async () => {
-      let orderInfo = await axios.post(`${API_URL}/orders/orderinfo`, orderId, {
-        withCredentials: true,
-      });
-      setOrderInfo(orderInfo.data);
-    })();
-    console.log('orderinfo', orderInfo);
-  }, [orderId]);
+    if (currentPayment !== 2) {
+      (async () => {
+        if (isOrder) {
+          navigate('/orderstep/ordercheck');
+        }
+      })();
+    }
+  }, [isOrder]);
 
   useEffect(() => {
     if (orderId && currentPayment === 2) {
@@ -78,7 +83,8 @@ const CheckOut = () => {
         let payResponse = await axios.post(`${API_URL}/orders/pay`, orderInfo, {
           withCredentials: true,
         });
-        console.log('payResponse', payResponse);
+        // console.log('payResponse', payResponse.data);
+        window.location.replace(payResponse.data);
       })();
     }
   }, [orderInfo]);
@@ -114,7 +120,14 @@ const CheckOut = () => {
   const campingItems = campingCart.state.items;
   const campingTotal = campingCart.state.cartTotal;
   const campingCount = campingCart.state.totalItems;
-  const point = localStorage.getItem('usePoint');
+  const point = localStorage.getItem('usePoint')
+    ? -localStorage.getItem('usePoint')
+    : 0;
+  const addPoint = parseInt(
+    (productTotal + picnicTotal + campingTotal - point) * 0.01
+  );
+  console.log(addPoint);
+
   // console.log(point);
   // console.log(orderId);
   // console.log('orderinfo', orderInfo);
@@ -142,7 +155,7 @@ const CheckOut = () => {
         campingItems={campingItems}
         campingTotal={campingTotal}
         campingCount={campingCount}
-        currentStep
+        currentStep={currentStep}
       />
       <Formik
         initialValues={{
@@ -190,21 +203,21 @@ const CheckOut = () => {
           // }),
         })}
         onSubmit={async (values) => {
-          // if (!user.id) return;
           try {
             // 建立訂單
             let response = await axios.post(`${API_URL}/orders/order`, values, {
               withCredentials: true,
             });
-            setOrderId(response.data);
 
             if (response.data) {
+              setOrderId(response.data);
+              // console.log(response.data);
+              // setTime(response.data.create_time);
+              localStorage.setItem('order_id', response.data.order_id);
+              // localStorage.setItem('time', response.data.create_time);
               // console.log(orderId);
-              // console.log('orderInfo', orderInfo);
-              // setOrderInfo(orderInfo.data);
-              // console.log('orderinfo', orderInfo.data);
               setIsOrder(true);
-              window.localStorage.clear();
+              // window.localStorage.clear();
             }
 
             if (point) {
@@ -219,7 +232,16 @@ const CheckOut = () => {
                 }
               );
             }
-            // console.log(response);
+            await axios.post(
+              `${API_URL}/user/points`,
+              {
+                point: addPoint, //新增/扣除點數
+                event: '購物折扣', //名目
+              },
+              {
+                withCredentials: true,
+              }
+            );
           } catch (e) {
             console.error('order', e);
           }
