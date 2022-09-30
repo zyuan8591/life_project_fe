@@ -23,10 +23,7 @@ function AddDiscount({
   // const [loginBtn, setLoginBtn] = useState(false);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [product, setProduct] = useState({
-    name: 'SMEG全館9折起',
-    discount: 9,
-  });
+  const [product, setProduct] = useState({});
   function handleChange(e) {
     const newProduct = { ...product, [e.target.name]: e.target.value };
 
@@ -101,7 +98,16 @@ function AddDiscount({
           </IconContext.Provider>
 
           <div className="pageTitle">
-            <p>新增折扣</p>
+            <p
+              onClick={() => {
+                setProduct({
+                  name: 'Bruno 舉行國慶限時搶購優惠',
+                  discount: 66,
+                });
+              }}
+            >
+              新增折扣
+            </p>
           </div>
           <div className="my-5">
             {/* title place lat */}
@@ -113,7 +119,7 @@ function AddDiscount({
                   id="name"
                   name="name"
                   type="text"
-                  maxLength={15}
+                  maxLength={50}
                   value={product.name}
                   onChange={handleChange}
                   required
