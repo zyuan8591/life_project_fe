@@ -40,7 +40,7 @@ const Cart = () => {
     })();
   }, []);
 
-  console.log(point);
+  // console.log(point);
   const productItems = productCart.state.items;
   const productTotal = productCart.state.cartTotal;
   const productCount = productCart.state.totalItems;

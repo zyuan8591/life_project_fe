@@ -126,7 +126,7 @@ const CheckOut = () => {
   const addPoint = parseInt(
     (productTotal + picnicTotal + campingTotal - point) * 0.01
   );
-  console.log(addPoint);
+  // console.log(addPoint);
 
   // console.log(point);
   // console.log(orderId);

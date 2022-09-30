@@ -21,7 +21,7 @@ export default function OrderDetail() {
 
   const [Detail] = orderDetail;
   // console.log(orderDetail[0].discount);
-  console.log(usePoint);
+  // console.log(usePoint);
   useEffect(() => {
     // get orderDetail
     (async () => {
@@ -43,11 +43,12 @@ export default function OrderDetail() {
       setPicnicItems(picnic);
       setPicnicCount(picnic.length);
 
-      setUsePoint(orderDetail[0].discount);
+      setUsePoint(-orderDetailData[0].discount);
     })();
     // setProductItems();
   }, []);
   console.log('orderDetail', orderDetail);
+  console.log(usePoint);
 
   let productTotal = productItems.reduce((total, item) => {
     // console.log('total', total);
