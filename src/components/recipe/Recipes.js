@@ -383,7 +383,10 @@ const Recipes = () => {
         <div className="recipeListMain">
           {vw > 1000 && (
             <div className="position-sticky top-0 align-self-start">
-              <ProductCategory setProductCateNow={setProductCateNowFunc} />
+              <ProductCategory
+                setProductCateNow={setProductCateNowFunc}
+                productCateNow={productCateNow}
+              />
             </div>
           )}
           <div className="recipeList">
