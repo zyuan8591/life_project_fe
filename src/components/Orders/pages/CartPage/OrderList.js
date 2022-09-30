@@ -24,6 +24,8 @@ const OrderList = ({
   const productQuantity = useRef(null);
   const [selectAll, setSelectAll] = useState(false);
   // console.log(productCount);
+  // console.log(productItems);
+  console.log(selectAll);
 
   // console.log(productCart.state);
   // const [count, setCount] = useState({});
@@ -61,21 +63,46 @@ const OrderList = ({
                 {/* TODO: checkall */}
                 <input
                   type="checkbox"
-                  onChange={() => {
+                  checked={selectAll}
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                    e.target.checked === true
+                      ? productItems.map((v, i) => {
+                          productCart.updateItem({
+                            ...v,
+                            ischecked: true,
+                          });
+                        })
+                      : productItems.map((v, i) => {
+                          productCart.updateItem({
+                            ...v,
+                            ischecked: false,
+                          });
+                        });
                     const checkcount = productItems.filter((items) => {
                       return items.ischecked === true;
                     });
+                    // console.log(checkcount, productItems);
                     if (checkcount.length !== productItems.length) {
-                      // console.log('888', checkcount, productItems.length);
+                      console.log('888', checkcount, productItems);
                       setSelectAll(false);
                     }
-                    productItems.map((v, i) => {
-                      productCart.updateItem({
-                        ...v,
-                        ischecked: !selectAll,
-                      });
-                    });
-                    setSelectAll(!selectAll);
+                    return setSelectAll(!selectAll);
+                    //   const checkcount = productItems.filter((items) => {
+                    //     return items.ischecked === true;
+                    //   });
+                    //   if (checkcount.length !== productItems.length) {
+                    //     // console.log('888', checkcount, productItems.length);
+                    //     setSelectAll(false);
+                    //   }
+                    //   productItems.map((v, i) => {
+                    //     productCart.updateItem({
+                    //       ...v,
+                    //       ischecked: !selectAll,
+                    //     });
+                    //   });
+                    //   setSelectAll(!selectAll);
+                    // }}
                   }}
                 />
               </div>
