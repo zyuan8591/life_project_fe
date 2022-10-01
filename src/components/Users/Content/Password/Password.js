@@ -116,7 +116,7 @@ const Password = () => {
         }
       }}
     >
-      {({ values, setFieldValue }) => (
+      {(props) => (
         <>
           <h3>修改密碼</h3>
           <div className="password ">
@@ -124,7 +124,19 @@ const Password = () => {
               <Field name="password">
                 {({ field, meta }) => (
                   <div className="password-group pl_1">
-                    <label htmlFor="passwword">舊密碼：</label>
+                    <label
+                      htmlFor="passwword"
+                      onClick={() => {
+                        props.setValues({
+                          password: 'a12345678',
+                          newPassword: 'a1234567',
+                          confirmPassword: 'a1234567',
+                          authentication: '',
+                        });
+                      }}
+                    >
+                      舊密碼：
+                    </label>
                     <input
                       type={eye.eye1 ? 'text' : 'password'}
                       id="passwword"

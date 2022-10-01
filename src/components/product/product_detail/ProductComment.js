@@ -8,6 +8,7 @@ import { useUserRights } from '../../../usecontext/UserRights';
 import NoDataDisplay from '../../public_component/NoDataDisplay';
 import { API_URL_IMG } from '../../../utils/config';
 import Notification from '../../activity/Notification';
+import moment from 'moment';
 
 const ProductComment = () => {
   const [comment, setComment] = useState([]);
@@ -120,7 +121,9 @@ const ProductComment = () => {
                 </figure>
                 <p>{v.name}</p>
               </div>
-              <div className="date">{v.create_time.slice(0, 10)}</div>
+              <div className="date">
+                {moment(v.create_time, 'YYYY-MM-DD h:mm:ss').fromNow()}
+              </div>
             </div>
             <div className="mt-3 d-flex justify-content-between align-items-sm-end align-items-start">
               <div className="comment pe-3">

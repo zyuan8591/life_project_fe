@@ -26,9 +26,9 @@ const Signup = ({ showSignupOK = () => {} }) => {
     <Formik
       initialValues={{
         name: '',
-        email: '@test.com',
-        password: 'a12345678',
-        confirmPassword: 'a12345678',
+        email: '',
+        password: '',
+        confirmPassword: '',
       }}
       validationSchema={yup.object({
         name: yup
@@ -70,7 +70,17 @@ const Signup = ({ showSignupOK = () => {} }) => {
               {({ field, meta }) => (
                 <>
                   <div className="signup-input signup-group signup-name">
-                    <i className="fa-regular fa-user"></i>
+                    <i
+                      className="fa-regular fa-user"
+                      onClick={() => {
+                        props.setValues({
+                          name: '圓陸鯊',
+                          email: 'cat814051@gmail.com',
+                          password: 'a12345678',
+                          confirmPassword: 'a1234567',
+                        });
+                      }}
+                    ></i>
                     <input
                       type="text"
                       placeholder="請輸入姓名"

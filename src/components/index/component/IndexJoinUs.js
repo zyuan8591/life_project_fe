@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // emotion css
@@ -72,8 +72,47 @@ const joinUsLink = css`
 `;
 
 const IndexJoinUs = () => {
+  const [rotate, setRotate] = useState(90);
+  const [opacity, setOpacity] = useState(0.25);
+  const cardRef = useRef(null);
+
+  const scrollHandler = () => {
+    let scrollY = window.scrollY;
+    let cardHeight = cardRef.current.offsetHeight;
+    let transitionPoint = 2200;
+    if (window.innerWidth < 1000) {
+      setRotate(0);
+      setOpacity(1);
+    }
+    if (scrollY > transitionPoint && window.innerWidth > 1000) {
+      let process = scrollY - transitionPoint;
+      let newRotate = ((cardHeight - process) / cardHeight) * 90;
+      if (newRotate < 0) newRotate = 0;
+      if (newRotate > 90) newRotate = 90;
+      let newOpacity = 1 - (cardHeight - process) / cardHeight;
+      if (newOpacity < 0) newOpacity = 0;
+      if (newOpacity > 1) newOpacity = 1;
+      setRotate(newRotate);
+      setOpacity(newOpacity);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return function clear() {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
   return (
-    <div css={container}>
+    <div
+      ref={cardRef}
+      css={container}
+      style={{
+        transform: `perspective(2000px) rotateY(${rotate}deg)`,
+        opacity,
+      }}
+    >
       <img src="/img/index/joinUs.jpg" className="objectCover" alt="joinUs" />
       <div css={joinUs}>
         <span css={joinUsTitle}>JOIN OUR LIFE</span>

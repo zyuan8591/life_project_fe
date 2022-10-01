@@ -41,20 +41,20 @@ function AddPage({
   const location = Object.keys(counties);
 
   const [camping, setCamping] = useState({
-    title: '露營樂',
-    place: 'camping',
-    lat: '24.9850214803992300',
-    price: '2400',
-    pepCount: '13',
-    lng: '121.46123328452258',
-    actStartDate: '2022-12-12',
-    actEndDate: '2022-12-13',
-    startDate: '2022-11-01',
-    endDate: '2022-11-30',
-    county: '1',
-    address: '仁德區保學一街',
-    actInt: 'rrrrrrrrr',
-    actLodging: 'qqqqqqqqq',
+    title: '',
+    place: '',
+    lat: '',
+    price: '',
+    pepCount: '',
+    lng: '',
+    actStartDate: '',
+    actEndDate: '',
+    startDate: '',
+    endDate: '',
+    county: '',
+    address: '',
+    actInt: '',
+    actLodging: '',
     photo: '',
   });
 
@@ -70,6 +70,27 @@ function AddPage({
 
     console.log(campingData);
     setCamping(campingData);
+  }
+
+  function handleAddData() {
+    setCamping({
+      title: '來見斑比',
+      place: '斑比跳跳',
+      lat: '24.6450591118119400',
+      price: '2400',
+      pepCount: '13',
+      lng: '120.96588392684627',
+      actStartDate: '2022-12-30',
+      actEndDate: '2022-12-31',
+      startDate: '2022-11-15',
+      endDate: '2022-12-15',
+      county: '8',
+      address: '三灣鄉小北埔27號',
+      actInt:
+        '用心打造出南洋風情，一秒來到國外。踩踩草皮、點杯飲料、曬曬太陽、吹吹風，忘記一切煩惱吧。黃昏、夜晚時刻，池畔慢慢安靜、氣氛越來越浪漫。30年來的維護自然生態，各式水鳥都把這兒當成是棲息地。',
+      actLodging: '實名制入場請攜帶證件。山區午後易有短暫陣雨請攜帶雨具備用。',
+      photo: '',
+    });
   }
 
   async function handleSubmit(e) {
@@ -143,6 +164,8 @@ function AddPage({
               }}
             />
           </IconContext.Provider>
+
+          <div className="addData" onClick={handleAddData}></div>
 
           <div className="pageTitle">
             <p>新增活動</p>

@@ -48,6 +48,9 @@
   position: relative;
   // transform: translateX(-506px);
   transition: 0.15s;
+  @media (max-width: 500px) {
+    height: fit-content;
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -109,8 +112,30 @@
           height: auto;
           position: absolute;
           bottom: 0;
-          // transform: scale(1.1);
-          // transform-origin: bottom center;
+        }
+        .imgBgText {
+          color: lighten($subClrBrown, 20%);
+        }
+      }
+      .intro {
+        min-height: 140px;
+        border-radius: 0 0 5px 5px;
+        .moreInfo {
+          display: block;
+        }
+      }
+    }
+    @media (max-width: 500px) {
+      .cardImgContain {
+        background: lighten($subClrBrown, 10%);
+        width: 310px;
+        transition: 0.15s;
+        img {
+          transition: 0.15s;
+          width: 100%;
+          height: auto;
+          position: absolute;
+          bottom: 0;
         }
         .imgBgText {
           color: lighten($subClrBrown, 20%);
