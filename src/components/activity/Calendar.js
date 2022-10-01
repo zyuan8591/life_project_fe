@@ -47,18 +47,6 @@ const initEvents = [
   { title: 'Dinner', start: getDate('YEAR-MONTH-18T20:00:00+00:00') },
 ];
 
-// const type = '';
-// switch (type) {
-//   case '1':
-//     <AiFillStar className="ms-4 me-2" />;
-//     break;
-//   case '2':
-//     <FaPaw className="ms-4 me-2" />;
-//     break;
-//   default:
-//     <AiFillStar className="ms-4 me-2" />;
-// }
-
 function getDate(dayString) {
   const today = new Date();
   const year = today.getFullYear().toString();
