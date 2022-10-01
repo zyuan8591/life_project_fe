@@ -12,6 +12,7 @@ import '../../../../styles/picnic/camping_main/_campingMain.scss';
 import Header from '../../../public_component/Header';
 import BreadCrumb from '../../../public_component/BreadCrumb';
 import Footer from '../../../public_component/Footer';
+import Contact from '../../../contact/Contact';
 import BackToTop from '../../../public_component/BackToTop';
 import ActivityStateFilter from './component/ActivityStateFilter';
 import ActivitySliderHeadcount from './component/ActivitySliderHeadcount';
@@ -317,6 +318,7 @@ function PicnicPrivateList() {
         </main>
       </IconContext.Provider>
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );

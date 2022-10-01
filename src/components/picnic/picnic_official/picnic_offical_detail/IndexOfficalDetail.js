@@ -16,6 +16,7 @@ import PaicipantCard from '../../picnic_compoent/PaicipantCard';
 import AsideMessage from '../../picnic_compoent/AsideMessage';
 import RecommendActivity from '../../picnic_compoent/RecommendActivity';
 import Notification from '../../../activity/Notification';
+import Contact from '../../../contact/Contact';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -87,6 +88,7 @@ function PicnicOfficalDetail() {
   }, [user]);
 
   // /api/1.0/picnic/officialJoin/1
+  // 加入活動
   const handleAddJoin = async (officialId) => {
     // console.log(officialId);
     let response = await axios.post(
@@ -95,7 +97,7 @@ function PicnicOfficalDetail() {
       { withCredentials: true }
     );
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
-    setUserJoin(nowJoin);
+    setUserJoin(nowJoin); // 此活動目前加入的使用者
     console.log('add', response.data);
     setJoinConfirmm(true);
     setTimeout(() => {
@@ -129,6 +131,17 @@ function PicnicOfficalDetail() {
             contaninText={'已加入活動'}
             setLoginBtn={setLoginBtn}
             bottom={40}
+          >
+            <BsFillPersonPlusFill />
+          </Notification>
+        ) : (
+          ''
+        )}
+        {joinConfirm ? (
+          <Notification
+            contaninText={'已加入購物車'}
+            setLoginBtn={setLoginBtn}
+            bottom={130}
           >
             <BsFillPersonPlusFill />
           </Notification>
@@ -249,6 +262,7 @@ function PicnicOfficalDetail() {
         </div>
       </main>
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );

@@ -52,7 +52,6 @@ function AsideMessageFix({
   // console.log(data);
   return (
     <>
-      {/* TODO: sticky無作用 */}
       <div
         className={`${classes.asideMessage} ${classes.pcView} transition`}
         style={{ top: scrollDown ? '3px' : '70px' }}
@@ -66,7 +65,7 @@ function AsideMessageFix({
                   className={classes.stateBtn}
                   style={{
                     backgroundColor: `${stateColor(item.activity_state)}`,
-                  }} //TODO: 未達最低人數 狀態不會改變回開團中
+                  }}
                 >
                   {item.activity_state}
                 </div>
@@ -122,6 +121,7 @@ function AsideMessageFix({
                       onClick={() => {
                         setIsgo(true);
                         handleDeleteJoin(item.id);
+                        picnicCart.removeItem(item.id);
                       }}
                     >
                       取消活動
@@ -216,6 +216,7 @@ function AsideMessageFix({
                         onClick={() => {
                           setIsgo(true);
                           handleDeleteJoin(item.id);
+                          picnicCart.removeItem(item.id);
                         }}
                       >
                         取消活動

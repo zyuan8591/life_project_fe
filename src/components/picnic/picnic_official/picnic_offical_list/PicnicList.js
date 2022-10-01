@@ -23,6 +23,7 @@ import PaginationBar from '../../../public_component/PaginationBar';
 import ActivitySelect from './component/ActivitySelect';
 import Notification from '../../../activity/Notification';
 import { useUserRights } from '../../../../usecontext/UserRights';
+import Contact from '../../../contact/Contact';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -399,6 +400,7 @@ function PicnicList() {
         </main>
       </IconContext.Provider>
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );
