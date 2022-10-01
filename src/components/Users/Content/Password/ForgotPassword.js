@@ -33,8 +33,8 @@ const ForgotPassword = () => {
     eye2: false,
     eye3: false,
   });
-
-  if (!member) {
+  console.log(member)
+  if (!member && member !== '123') {
     return <Navigate to="/" />;
   }
 
