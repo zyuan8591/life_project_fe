@@ -139,7 +139,7 @@ function Calendar() {
       <div className="addCalendarInput">
         {/* input */}
         <div className="inputContent">
-          <div className="addTitle">add schedule</div>
+          <div className="addTitle">新增行程</div>
           <div className="text-left">
             <div className="text-end">
               <div>
@@ -163,7 +163,7 @@ function Calendar() {
                   name="end"
                   value={end}
                   onChange={(e) => {
-                    console.log(e.target.value);
+                    // console.log(e.target.value);
                     setEnd(e.target.value);
                   }}
                 />
@@ -178,7 +178,7 @@ function Calendar() {
                 name="title"
                 value={title}
                 onChange={(e) => {
-                  console.log(getDate(e.target.value));
+                  // console.log(getDate(e.target.value));
                   setTitle(e.target.value);
                 }}
               />
@@ -240,7 +240,7 @@ function Calendar() {
                   >
                     {typeIcon(v.type)}
                   </IconContext.Provider>
-                  <div className="me-2">
+                  <div className="me-2 detailText">
                     {v.end !== undefined
                       ? `${newStart(v.start)}~${newStart(v.end)}`
                       : `${newStart(v.start)}`}
