@@ -71,8 +71,8 @@ const Discount = ({
                 })}
               </>
             ) : (
-              <div className='discount'>
-              <NoDataDisplay />
+              <div className="discount">
+                <NoDataDisplay />
               </div>
             )}
           </tbody>
