@@ -47,6 +47,17 @@
       transform: translate(-10px, 10px);
       cursor: pointer;
     }
+    .addData{
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(75px, 96px);
+      cursor: pointer;
+      width: 12px;
+      height: 12px;
+      background-color: $subClrGY;
+      border-radius: 50%;
+    }
     .pageTitle {
       text-align: center;
       font-size: 24px;

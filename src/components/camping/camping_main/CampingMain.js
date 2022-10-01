@@ -201,7 +201,7 @@ function CampingMain() {
         {loginBtn ? (
           <Notification
             contaninText={'請先登入會員'}
-            linkTo={'/signin'}
+            linkTo={'/signin?p=1'}
             setLoginBtn={setLoginBtn}
           />
         ) : (

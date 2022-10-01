@@ -50,6 +50,7 @@ function PicnicPrivateList() {
   const [maxDate, setMaxDate] = useState('');
   const [maxDateValue, setMaxDateValue] = useState('');
   const [minDateValue, setMinDateValue] = useState('');
+  const [dateRemind, setDateRemind] = useState('');
   const [pageNow, setPageNow] = useState(1);
   const [lastPage, setLastPage] = useState(1);
 
@@ -124,7 +125,7 @@ function PicnicPrivateList() {
     );
     console.log('handleDelFav', response.data);
     let nowJoinCollect = response.data.getCollect.map((data) => data.picnic_id);
-    // setUserCollect(nowJoinCollect);
+    setUserCollect(nowJoinCollect);
     setCollectCancel(true); //取消收藏
     setTimeout(() => {
       setCollectCancel(false);
@@ -232,6 +233,8 @@ function PicnicPrivateList() {
                     minDateValue={minDateValue}
                     setMinDateValue={setMinDateValue}
                     setPageNow={setPageNow}
+                    setDateRemind={setDateRemind}
+                    dateRemind={dateRemind}
                   />
                   <Link to="/activity/picnic/create">
                     <button className="createBtn mb-5">建立活動</button>
