@@ -277,7 +277,13 @@ const Product = ({
               <div className="brandArea">
                 <div className="d-flex align-items-center">
                   <p className="brand">{brand}</p>
-                  <p className="discountRwd">{discount}折</p>
+                  {discount &&
+                  startline < new Date().getTime() &&
+                  deadline > new Date().getTime() ? (
+                    <p className="discountRwd">{discount}折</p>
+                  ) : (
+                    ''
+                  )}
                 </div>
                 {discount &&
                 startline < new Date().getTime() &&
