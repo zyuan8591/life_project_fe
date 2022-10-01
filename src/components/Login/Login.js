@@ -65,7 +65,7 @@ const Login = () => {
   //TODO:一鍵填寫
   function easy() {
     setLoginUser({
-      email: 'Ace@test.com',
+      email: 'a12345@gmail.com',
       password: 'a12345678',
     });
   }

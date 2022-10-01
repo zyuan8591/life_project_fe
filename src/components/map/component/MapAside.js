@@ -74,7 +74,7 @@ function MapAside() {
     iconSize: [20, 30],
   });
   const picnicIcon = new Icon({
-    iconUrl: '/img/camping/activity_camping_img/ba4.png',
+    iconUrl: '/img/camping/activity_camping_img/ba2.png',
     iconSize: [20, 30],
   });
 

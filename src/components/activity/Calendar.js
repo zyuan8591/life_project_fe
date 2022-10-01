@@ -47,18 +47,6 @@ const initEvents = [
   { title: 'Dinner', start: getDate('YEAR-MONTH-18T20:00:00+00:00') },
 ];
 
-// const type = '';
-// switch (type) {
-//   case '1':
-//     <AiFillStar className="ms-4 me-2" />;
-//     break;
-//   case '2':
-//     <FaPaw className="ms-4 me-2" />;
-//     break;
-//   default:
-//     <AiFillStar className="ms-4 me-2" />;
-// }
-
 function getDate(dayString) {
   const today = new Date();
   const year = today.getFullYear().toString();
@@ -139,7 +127,7 @@ function Calendar() {
       <div className="addCalendarInput">
         {/* input */}
         <div className="inputContent">
-          <div className="addTitle">add schedule</div>
+          <div className="addTitle">新增行程</div>
           <div className="text-left">
             <div className="text-end">
               <div>
@@ -163,7 +151,7 @@ function Calendar() {
                   name="end"
                   value={end}
                   onChange={(e) => {
-                    console.log(e.target.value);
+                    // console.log(e.target.value);
                     setEnd(e.target.value);
                   }}
                 />
@@ -178,7 +166,7 @@ function Calendar() {
                 name="title"
                 value={title}
                 onChange={(e) => {
-                  console.log(getDate(e.target.value));
+                  // console.log(getDate(e.target.value));
                   setTitle(e.target.value);
                 }}
               />
@@ -240,7 +228,7 @@ function Calendar() {
                   >
                     {typeIcon(v.type)}
                   </IconContext.Provider>
-                  <div className="me-2">
+                  <div className="me-2 detailText">
                     {v.end !== undefined
                       ? `${newStart(v.start)}~${newStart(v.end)}`
                       : `${newStart(v.start)}`}

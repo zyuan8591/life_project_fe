@@ -138,8 +138,8 @@ function MyRecipe() {
             <th>名稱</th>
             <th>食譜分類</th>
             <th>商品分類</th>
-            <th>收藏</th>
             <th>留言</th>
+            <th>收藏</th>
             <th>建立時間</th>
             {display === 1 && <th></th>}
             {display === 2 && <th></th>}
