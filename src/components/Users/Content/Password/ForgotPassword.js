@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ShowPassword from '../../user_Component/ShowPassword';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
+import { Navigate } from 'react-router-dom';
 
 import PopWindow from './PopWindow';
 import '../../../../styles/Users/ForgotPassword/ForgotPassword.scss';
 
 const ForgotPassword = () => {
+  const [member, setMember] = useState('123');
+  useEffect(() => {
+    try {
+      let getUser = async () => {
+        let response = await axios.get(`${API_URL}/user/forgotmember`, {
+          withCredentials: true,
+        });
+        setMember(response.data);
+      };
+      getUser();
+    } catch (e) {
+      console.error(e.response.data.msg);
+    }
+  }, []);
   //彈跳視窗
   const [popWindow, setPopWindow] = useState(false);
 
@@ -18,6 +33,10 @@ const ForgotPassword = () => {
     eye2: false,
     eye3: false,
   });
+
+  if (!member) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Formik
@@ -117,7 +136,7 @@ const ForgotPassword = () => {
             <PopWindow
               popWindow={popWindow}
               setPopWindow={setPopWindow}
-              linkTo="/signin/login"
+              linkTo="/signin?p=1"
             />
           </div>
         </>
