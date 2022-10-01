@@ -11,6 +11,7 @@ import {
 import Header from '../../../public_component/Header';
 import BreadCrumb from '../../../public_component/BreadCrumb';
 import Footer from '../../../public_component/Footer';
+import Contact from '../../../contact/Contact';
 import BackToTop from '../../../public_component/BackToTop';
 import DetailTitle from './DetailTitle';
 import PrivateDetailContent from './PrivateDetailContent';
@@ -263,6 +264,7 @@ function IndexPrivateDetail() {
         <EditForm setEdit={setEdit} data={data} showToast={showToast} />
       ) : null}
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );

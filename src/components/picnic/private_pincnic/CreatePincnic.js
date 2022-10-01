@@ -10,6 +10,7 @@ import '../../../styles/picnic/_createPincnic.scss';
 import Header from '../../public_component/Header';
 import BreadCrumb from '../../public_component/BreadCrumb';
 import Footer from '../../public_component/Footer';
+import Contact from '../../contact/Contact';
 import BackToTop from '../../public_component/BackToTop';
 import Notification from '../../activity/Notification';
 import { useUserRights } from '../../../usecontext/UserRights';
@@ -434,6 +435,7 @@ function CreatePincnic() {
         </div>
       </main>
       <Footer />
+      <Contact />
       <BackToTop />
       {success && <Navigate to="/activity/picnic/group" />}
     </>

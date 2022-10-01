@@ -8,7 +8,7 @@ function TitleBanner() {
         <div className="banner">
           <img
             src="../../../img/picnic/activity_picnic_img/picnic_detail_banner2.jpeg"
-            alt=""
+            alt="picnic"
           />
         </div>
       </section>

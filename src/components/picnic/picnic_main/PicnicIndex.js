@@ -6,6 +6,7 @@ import Footer from '../../public_component/Footer';
 import BackToTop from '../../public_component/BackToTop';
 import TitleBanner from './TitleBanner';
 import Content from './Content';
+import Contact from '../../contact/Contact';
 
 function PicnicIndex() {
   return (
@@ -17,6 +18,7 @@ function PicnicIndex() {
         <Content />
       </main>
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );

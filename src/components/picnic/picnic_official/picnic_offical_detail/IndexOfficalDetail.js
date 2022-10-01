@@ -16,6 +16,7 @@ import PaicipantCard from '../../picnic_compoent/PaicipantCard';
 import AsideMessage from '../../picnic_compoent/AsideMessage';
 import RecommendActivity from '../../picnic_compoent/RecommendActivity';
 import Notification from '../../../activity/Notification';
+import Contact from '../../../contact/Contact';
 
 import axios from 'axios';
 import { API_URL } from '../../../../utils/config';
@@ -261,6 +262,7 @@ function PicnicOfficalDetail() {
         </div>
       </main>
       <Footer />
+      <Contact />
       <BackToTop />
     </>
   );
