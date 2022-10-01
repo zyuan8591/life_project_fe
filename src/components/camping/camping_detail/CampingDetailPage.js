@@ -273,7 +273,7 @@ function CampingDetailPage() {
           const newEnd = end + ' 23:00:00';
 
           let addCalendar = await axios.post(
-            `${API_URL}/camping/addCalendar?start=${start}&end=${newEnd}&title=${title}`,
+            `${API_URL}/camping/postCalendar?start=${start}&end=${newEnd}&title=${title}`,
             {},
             { withCredentials: true }
           );
