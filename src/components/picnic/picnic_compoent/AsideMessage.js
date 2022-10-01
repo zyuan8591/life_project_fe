@@ -122,14 +122,6 @@ function AsideMessageFix({
                       onClick={() => {
                         setIsgo(true);
                         handleDeleteJoin(item.id);
-                        picnicCart.addItem({
-                          id: item.id,
-                          quantity: 1,
-                          name: item.picnic_title,
-                          price: item.price,
-                          ischecked: false,
-                          img: item.img1,
-                        });
                       }}
                     >
                       取消活動
@@ -140,6 +132,14 @@ function AsideMessageFix({
                       onClick={() => {
                         setIsgo(true);
                         handleAddJoin(data[0].id);
+                        picnicCart.addItem({
+                          id: item.id,
+                          quantity: 1,
+                          name: item.picnic_title,
+                          price: item.price,
+                          ischecked: false,
+                          img: item.img1,
+                        });
                       }}
                     >
                       加入活動
@@ -216,14 +216,6 @@ function AsideMessageFix({
                         onClick={() => {
                           setIsgo(true);
                           handleDeleteJoin(item.id);
-                          picnicCart.addItem({
-                            id: item.id,
-                            quantity: 1,
-                            name: item.picnic_title,
-                            price: item.price,
-                            ischecked: false,
-                            item: item.img1,
-                          });
                         }}
                       >
                         取消活動
@@ -234,6 +226,14 @@ function AsideMessageFix({
                         onClick={() => {
                           setIsgo(true);
                           handleAddJoin(data[0].id);
+                          picnicCart.addItem({
+                            id: item.id,
+                            quantity: 1,
+                            name: item.picnic_title,
+                            price: item.price,
+                            ischecked: false,
+                            item: item.img1,
+                          });
                         }}
                       >
                         加入活動

@@ -37,6 +37,21 @@
           height: 200px;    
       }
      }
+     .RWDcard{
+      position: relative;
+    }
+     .xmark{
+      position: absolute;
+      right:0px;
+      top: -0px;
+      z-index: 99;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: none;
+      @media (max-width: 768px) {
+        display: block;
+      }
+    }     
   }
   @media (max-width: 768px) {
     .imgfrme{

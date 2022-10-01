@@ -25,7 +25,6 @@ function AddDiscount({
   // const [loginBtn, setLoginBtn] = useState(false);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  console.log(user);
   const [product, setProduct] = useState({
     name: 'SMEG全館9折起',
     discount: 9,
@@ -34,14 +33,10 @@ function AddDiscount({
     const newProduct = { ...product, [e.target.name]: e.target.value };
 
     setProduct(newProduct);
-    // console.log(newProduct);
   }
-  let brand = 7;
-  console.log(product, startTime, endTime, brand);
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(loading);
     try {
       let data = {
         name: product.name,
@@ -59,7 +54,7 @@ function AddDiscount({
         // }
       );
       let newsResponse = await axios.post(`${API_URL}/news`, {
-        category: 1,
+        category: 2,
         content: product.name,
       });
       if (response.data.message === '此商品已存在') {
@@ -69,7 +64,7 @@ function AddDiscount({
         }, 2000);
       } else {
         setLoading(!loading);
-        setLoginBtn('add');
+        setLoginBtn('addDiscount');
         setTimeout(() => {
           setPageNow(lastPage);
         }, 1000);
@@ -80,8 +75,6 @@ function AddDiscount({
           setAddDiscountPage(false);
         }, 600);
       }
-      // console.log(response.data.message);
-      // console.log(formData);
     } catch (e) {
       console.error('addProduct', e);
     }
@@ -150,7 +143,6 @@ function AddDiscount({
                       showTime
                       format=""
                       onCalendarChange={(info, dateStrings) => {
-                        console.log(dateStrings[1]);
                         setStartTime(dateStrings[0]);
                         setEndTime(dateStrings[1]);
                       }}

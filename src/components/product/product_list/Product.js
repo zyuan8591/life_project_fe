@@ -28,6 +28,7 @@ const Product = ({
   setPerPage,
 }) => {
   const productCart = useProductCart({});
+  console.log(productCart);
   const cart = productCart.state.items.map((v) => {
     return v.id;
   });
@@ -52,7 +53,6 @@ const Product = ({
       }
     });
     setDiscountPriceArr(priceMap);
-    console.log('discountPrice', discountPrice);
   }, [productList, discount]);
   return (
     <>

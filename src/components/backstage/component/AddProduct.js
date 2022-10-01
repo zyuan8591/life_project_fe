@@ -20,6 +20,7 @@ function AddPage({
   lastPage,
   setPageNow,
   setLoginBtn,
+  user
 }) {
   const [errMsg, setErrMsg] = useState(false);
   // const [loginBtn, setLoginBtn] = useState(false);
@@ -50,19 +51,17 @@ function AddPage({
     const newProduct = { ...product, [e.target.name]: e.target.value };
 
     setProduct(newProduct);
-    // console.log(newProduct);
   }
-  let brand = 11;
+  // let brand = 11;
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(loading);
     try {
       let formData = new FormData();
       formData.append('name', product.name);
       formData.append('price', product.price);
       formData.append('cate', product.cate);
-      formData.append('brand', brand);
+      formData.append('brand', user);
       formData.append('color', product.color);
       formData.append('intro', product.intro);
       formData.append('spec', product.spec);
@@ -96,8 +95,6 @@ function AddPage({
           setAddPage(false);
         }, 600);
       }
-      // console.log(response.data.message);
-      // console.log(formData);
     } catch (e) {
       console.error('addProduct', e);
     }
@@ -198,35 +195,6 @@ function AddPage({
             </div>
           </div>
 
-          {/* actDate */}
-          <div className="grid2">
-            <div className="d-flex flex-column align-items-end">
-              <div className="mb-4 ">
-                <label>折扣日期：</label>
-                <input
-                  className="input"
-                  id="actStartDate"
-                  name="actStartDate"
-                  type="date"
-                  maxLength={10}
-                  value={product.actStartDate}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div>
-              <span>&emsp;　&emsp;</span>
-              <input
-                className="input"
-                id="actEndDate"
-                name="actEndDate"
-                type="date"
-                maxLength={10}
-                value={product.actEndDate}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
           {/* int */}
           <div className="mb-4 d-flex flex-column align-items-start leftInput">
             <label className="mb-2">商品介紹：</label>

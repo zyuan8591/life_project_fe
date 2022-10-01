@@ -6,8 +6,9 @@ import axios from 'axios';
 import classes from '../../styles/moduleCss/backstage/backstageChat.module.scss';
 import { Input } from 'antd';
 import { IconContext } from 'react-icons';
-import { AiOutlineSend } from 'react-icons/ai';
+import { AiOutlineSend, AiOutlineClose } from 'react-icons/ai';
 import BackstageHeader from '../public_component/BackstageHeader';
+import moment from 'moment';
 const { TextArea } = Input;
 
 const BackstageChat = () => {
@@ -37,6 +38,7 @@ const BackstageChat = () => {
     setDisplayMsg(msg);
   }, [userNow, messages]);
 
+  // SET DISPLAY USER & MESSAGE
   useEffect(() => {
     let tmp = [];
     let newDisplayUser = [];
@@ -44,11 +46,19 @@ const BackstageChat = () => {
       messages.filter((d) => {
         if (tmp.includes(d.user_id) || tmp.includes(d.target_id)) return false;
         if (d.user_id === 0) {
-          newDisplayUser.push({ ...userData[d.target_id - 1], msg: d.content });
+          newDisplayUser.push({
+            ...userData[d.target_id - 1],
+            msg: d.content,
+            time: d.time,
+          });
           tmp.push(d.target_id);
         }
         if (d.target_id === 0) {
-          newDisplayUser.push({ ...userData[d.user_id - 1], msg: d.content });
+          newDisplayUser.push({
+            ...userData[d.user_id - 1],
+            msg: d.content,
+            time: d.time,
+          });
           tmp.push(d.user_id);
         }
       });
@@ -59,18 +69,17 @@ const BackstageChat = () => {
     }
   }, [messages]);
 
-  // connect & get msg from user
+  // CONNECT & GET MSG FROM USER
   useEffect(() => {
-    // connect with socket io
     if (!socket) {
       let ws = io('http://localhost:3001');
       setSocket(ws);
       // listen to life - msg from user
       ws.on('life', (message) => {
-        let { id, msg } = message;
+        let { id, msg, time } = message;
         setMessages(function (prevState, props) {
           return [
-            { id: uuidv4(), user_id: id, target_id: 0, content: msg },
+            { id: uuidv4(), user_id: id, target_id: 0, content: msg, time },
             ...prevState,
           ];
         });
@@ -81,32 +90,41 @@ const BackstageChat = () => {
       setUserData(result.data);
     })();
   }, []);
-  // send msg to user
+
+  // SEND MSG TO USER
   const submitMsg = (e) => {
     e.preventDefault();
-    // 把訊息送到後端去
+    let time = moment().format('HH:mm');
     if (message) {
-      socket.emit('life', { id: userNow, msg: message });
+      socket.emit('life', { id: userNow, msg: message, time });
       setMessages([
-        { id: uuidv4(), user_id: 0, target_id: userNow, content: message },
+        {
+          id: uuidv4(),
+          user_id: 0,
+          target_id: userNow,
+          content: message,
+          time,
+        },
         ...messages,
       ]);
       setMessage('');
     }
   };
 
+  // Broadcast Msg to Every User
   const broadcastSubmit = (e) => {
     e.preventDefault();
-    // 把訊息送到後端去
     let newMessages = [...messages];
+    let time = moment().format('HH:mm');
     if (message) {
       for (let i = 1; i < userData.length; i++) {
-        socket.emit('life', { id: i, msg: message });
+        socket.emit('life', { id: i, msg: message, time });
         newMessages.unshift({
           id: uuidv4(),
           user_id: 0,
           target_id: i,
           content: message,
+          time,
         });
       }
     }
@@ -128,6 +146,7 @@ const BackstageChat = () => {
               }`}
               onClick={() => setUserNow(user.id)}
             >
+              {console.log(user)}
               {/* user avatar */}
               <figure
                 className={`${classes.userAvatarContainer}
@@ -135,7 +154,6 @@ const BackstageChat = () => {
                 `}
               >
                 <img
-                  // src={`${API_URL_IMG}${user.photo}`}
                   src={
                     parseInt(user.id) === 0
                       ? user.photo
@@ -148,7 +166,8 @@ const BackstageChat = () => {
               {/* userName & userMsg */}
               <div className={classes.msgInfo}>
                 <div>{user.name}</div>
-                <div>{user.msg}</div>
+                <div className={classes.msg}>{user.msg}</div>
+                <div className={classes.msgInfoTime}>{user.time}</div>
               </div>
             </div>
           ))}
@@ -169,7 +188,16 @@ const BackstageChat = () => {
                     msg.user_id === 0 ? `align-self-end` : classes.bgMsg
                   } `}
                 >
-                  {msg.content}
+                  <span>{msg.content}</span>
+                  <span
+                    className={`${
+                      msg.user_id === 0
+                        ? classes.msgListTimeAdmin
+                        : classes.msgListTime
+                    }`}
+                  >
+                    {msg.time}
+                  </span>
                 </li>
               ))}
             </ul>

@@ -47,6 +47,7 @@ function PicnicOfficalDetail() {
       let response = await axios.get(
         `${API_URL}/picnic/official/${officialId}`
       );
+      console.log(response.data.data);
       setData(response.data.data);
       setPaicipantData(response.data.paicipantData);
       setProductsData(response.data.productsData);
@@ -110,7 +111,7 @@ function PicnicOfficalDetail() {
     );
     let nowJoin = response.data.getJoin.map((data) => data.picnic_id);
     setUserJoin(nowJoin);
-    // console.log('delete', response.data);
+    console.log('delete', response.data);
     setJoinCancel(true);
     setTimeout(() => {
       setJoinCancel(false);

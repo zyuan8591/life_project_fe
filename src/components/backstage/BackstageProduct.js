@@ -2,7 +2,6 @@ import React from 'react';
 import BackstageHeader from '../public_component/BackstageHeader';
 import PaginationBar from '../public_component/PaginationBar';
 import '../../styles/backstage/_backstageProduct.scss';
-import Contact from '../contact/Contact';
 import { IconContext } from 'react-icons';
 import { BsPencilSquare } from 'react-icons/bs';
 import { TbDiscount2 } from 'react-icons/tb';
@@ -47,17 +46,14 @@ function Backstage() {
       );
       setDiscountData(discountResult.data);
       setTotal(result.data.pagination.total);
-      // console.log('pagination', result.data.pagination.total);
       setProductsData(result.data.data);
       setLastPage(result.data.pagination.lastPage);
     })();
   }, [pageNow, lastPage, productData, loading, total, user]);
-  // console.log(id);
   const handleDelete = async (id) => {
     let response = await axios.put(
       `${API_URL}/products/deleteProduct?id=${id}`
     );
-    // console.log(response);
   };
 
   return (
@@ -141,11 +137,21 @@ function Backstage() {
       ) : (
         ''
       )}
+      {loginBtn === 'addDiscount' ? (
+        <Notification
+          // linkToText="返回列表頁"
+          // linkTo="/backstage"
+          contaninText="折扣新增成功"
+          bottom={20}
+        />
+      ) : (
+        ''
+      )}
       {loginBtn === 'deleteDiscount' ? (
         <Notification
           // linkToText="返回列表頁"
           // linkTo="/products"
-          contaninText="商品刪除成功"
+          contaninText="折扣刪除成功"
           bottom={20}
         />
       ) : (
@@ -270,7 +276,6 @@ function Backstage() {
             pageNow={pageNow}
             setPageNow={setPageNow}
           />
-          <Contact />
         </div>
       </IconContext.Provider>
     </>

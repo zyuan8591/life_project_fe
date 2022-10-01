@@ -10,7 +10,6 @@ const AddImgProduct = ({ i, product, setProduct }) => {
 
   function handleUpload(e) {
     const file = e.target.files[0];
-    console.log(file);
     // check image type
     if (!file.type.match(imageMimeType)) {
       console.error('Image mime type is not valid');
@@ -19,7 +18,6 @@ const AddImgProduct = ({ i, product, setProduct }) => {
 
     setFile(file);
     setProduct({ ...product, photo1: file });
-    console.log(product);
   }
   useEffect(() => {
     let fileReader,

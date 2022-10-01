@@ -8,6 +8,7 @@ import { API_URL_IMG } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
 import { AiOutlineEllipsis } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
+import moment from 'moment';
 
 const subClrBrown = '#817161';
 const title = css`
@@ -256,7 +257,10 @@ const RecipeComments = ({
                   className="d-flex justify-content-between"
                 >
                   <span>{d.name}</span>
-                  <span>{d.create_time.replace(/-/g, '.')}</span>
+                  <span>
+                    {moment(d.create_time, 'YYYY-MM-DD  :mm:ss').fromNow()}
+                    {}
+                  </span>
                 </div>
                 {/* user comment */}
                 <div className="position-relative">
