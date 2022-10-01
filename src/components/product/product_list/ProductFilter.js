@@ -26,16 +26,16 @@ const ProductFilter = ({
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
-  if (brand.length > 1) {
-    setSort(3);
-  }
 
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
       setBrandArr(result.data);
     })();
-  }, [brand]);
+    if (checked.length === 0) {
+      setSort(0);
+    }
+  }, [brand, setSort, checked.length]);
   return (
     <IconContext.Provider
       value={{ color: '#444', size: '1.6rem', className: '' }}
@@ -105,6 +105,8 @@ const ProductFilter = ({
                           className="checkbox"
                           id={i}
                           onChange={(e) => {
+                            setSort(3);
+
                             if (e.target.checked) {
                               setChecked([...checked, v.id]);
                             }
