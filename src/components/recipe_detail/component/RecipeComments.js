@@ -258,7 +258,7 @@ const RecipeComments = ({
                 >
                   <span>{d.name}</span>
                   <span>
-                    {moment(d.create_time, 'YYYY-MM-DD  :mm:ss').fromNow()}
+                    {moment(d.create_time, 'YYYY-MM-DD  HH:mm:ss').fromNow()}
                     {}
                   </span>
                 </div>
