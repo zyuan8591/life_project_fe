@@ -388,8 +388,8 @@ function CreateForm({ data, setEdit, showToast, activeID = null }) {
                       活動內容
                     </label>
                   }
-                  validateStatus={error.text && 'error'}
-                  help={error.text}
+                  validateStatus={error.intr && 'error'}
+                  help={error.intr}
                 >
                   <textarea
                     className="w-100"
@@ -400,7 +400,7 @@ function CreateForm({ data, setEdit, showToast, activeID = null }) {
                     value={activityContent.intr}
                     onChange={handleChange}
                     required
-                    onBlur={(e) => handleInputBlur(e, '請輸入結束日期')}
+                    onBlur={(e) => handleInputBlur(e, '說輸入活動內容')}
                   />
                 </Form.Item>
               </div>
