@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# LIFE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 前端 github： https://github.com/zyuan8591/life_project_fe
+> 後端 github： https://github.com/zyuan8591/life_project_be
 
-## Available Scripts
+## 網站頁面及功能
 
-In the project directory, you can run:
+### 首頁：熱門商品及食譜 slider 、活動頁面連結以及快速註冊按鈕
 
-### `npm start`
+### 商品：商品銷售排行、快速篩選及排序、商品收藏及加入購物車
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 食譜：
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 使用技術
 
-### `npm test`
+前端技術：React、Sass、Bootstrap
+後端技術：Node.js、Express、MySQL
+設計工具：Figma、PhotoShop
+其他技術：npm、Git、Github、Restful API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 使用套件
 
-### `npm run build`
+### 前端使用套件：
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- antd：網頁 UI 元件
+- axios：串接 API
+- email.js：會員驗證信件
+- emotion：CSS-in-JS
+- formik、yup：表單驗證
+- fullcalendar：使用者行事曆
+- leaflet：活動地圖
+- LinePay：訂單付款支付方式
+- react-beautiful-dnd：對表單項目重新排序
+- react-icons：icons
+- swiper：輪播牆
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 後端使用套件：
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- argon2：密碼加密
+- cors：跨來源資源共享
+- express：api router
+- express-session：session 儲存資料
+- express-validator：資料驗證
+- line-pay-merchant：串接 LinePay 金流
+- mysql2：連接資料庫
+- multer：上傳圖片
 
-### `npm run eject`
+### 前後端使用套件：
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- dotenv：讀取 .env 檔案
+- moment：日期格式
+- socket.io：前後台及時聊天室
