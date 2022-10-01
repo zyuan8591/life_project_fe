@@ -17,8 +17,11 @@ export default function OrderDetail() {
   const [campingItems, setCampingItems] = useState([]);
   const [picnicCount, setPicnicCount] = useState(0);
   const [picnicItems, setPicnicItems] = useState([]);
+  const [usePoint, setUsePoint] = useState(0);
 
   const [Detail] = orderDetail;
+  // console.log(orderDetail[0].discount);
+  // console.log(usePoint);
   useEffect(() => {
     // get orderDetail
     (async () => {
@@ -39,10 +42,13 @@ export default function OrderDetail() {
       let picnic = orderDetailData[0].picnic.filter((v) => v.id !== 0);
       setPicnicItems(picnic);
       setPicnicCount(picnic.length);
+
+      setUsePoint(-orderDetailData[0].discount);
     })();
     // setProductItems();
   }, []);
   console.log('orderDetail', orderDetail);
+  console.log(usePoint);
 
   let productTotal = productItems.reduce((total, item) => {
     // console.log('total', total);
@@ -82,6 +88,7 @@ export default function OrderDetail() {
           campingCount={campingCount}
         />
         <Summary
+          usePoint={usePoint}
           productItems={productItems}
           productTotal={productTotal}
           productCount={productCount}

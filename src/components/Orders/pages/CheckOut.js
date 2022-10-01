@@ -126,7 +126,7 @@ const CheckOut = () => {
   const addPoint = parseInt(
     (productTotal + picnicTotal + campingTotal - point) * 0.01
   );
-  console.log(addPoint);
+  // console.log(addPoint);
 
   // console.log(point);
   // console.log(orderId);
@@ -179,9 +179,9 @@ const CheckOut = () => {
             .email('請輸入正確 Email 格式')
             .required('必填項目未輸入。'),
           delivery: yup.string().required('必須'),
-          cityName: yup.mixed().required('必須1'),
-          areaName: yup.mixed().required('必須2'),
-          address: yup.string().required('必填3'),
+          cityName: yup.mixed().required('必須'),
+          areaName: yup.mixed().required('必須'),
+          address: yup.string().required('必填'),
           payment: yup.string().required('必須'),
           // cardNumber: yup.string().when('payment', {
           //   is: 'payment' === 4,
@@ -236,7 +236,7 @@ const CheckOut = () => {
               `${API_URL}/user/points`,
               {
                 point: addPoint, //新增/扣除點數
-                event: '購物折扣', //名目
+                event: '購物回饋', //名目
               },
               {
                 withCredentials: true,
