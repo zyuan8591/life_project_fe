@@ -14,6 +14,7 @@ const Summary = ({
 }) => {
   // console.log(point);
   // console.log(productTotal, picnicTotal, campingTotal);
+  console.log(usePoint);
 
   return (
     <>
@@ -30,7 +31,6 @@ const Summary = ({
               /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
               ','
             )}{' '}
-            元
           </div>
         </div>
 
@@ -46,7 +46,11 @@ const Summary = ({
             {currentStep === 1 ? (
               <input
                 type="text"
-                value={usePoint}
+                value={
+                  localStorage.getItem('usePoint')
+                    ? localStorage.getItem('usePoint')
+                    : usePoint
+                }
                 onChange={(e) => {
                   let value = e.target.value.replace(/[^\d]/, '');
                   console.log('e', value);
@@ -56,17 +60,24 @@ const Summary = ({
                 }}
               />
             ) : (
-              <div>{localStorage.getItem('usePoint', usePoint) || 0}</div>
+              <div>
+                {localStorage.getItem('usePoint', usePoint) || 0 || usePoint}
+              </div>
             )}
           </div>
         </div>
         <div className="row gap-3 text-danger ">
           <div className="col">折扣金額：</div>
           {currentStep === 1 ? (
-            <div className="col-md-2 col "> {-usePoint}</div>
+            <div className="col-md-2 col ">
+              {' '}
+              {localStorage.getItem('usePoint')
+                ? -localStorage.getItem('usePoint')
+                : -usePoint}
+            </div>
           ) : (
             <div className="col-md-2 col">
-              {-localStorage.getItem('usePoint', usePoint)}
+              {-localStorage.getItem('usePoint', usePoint) || -usePoint}
             </div>
           )}
         </div>
@@ -74,13 +85,31 @@ const Summary = ({
           <div className="col h5">應付金額：</div>
           <div className="col-md-2 col h5">
             ${' '}
-            {JSON.stringify(
+            {currentStep === 1
+              ? JSON.stringify(
+                  productTotal +
+                    picnicTotal +
+                    campingTotal +
+                    (localStorage.getItem('usePoint')
+                      ? -localStorage.getItem('usePoint')
+                      : -usePoint)
+                ).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+              : JSON.stringify(
+                  productTotal +
+                    picnicTotal +
+                    campingTotal -
+                    (localStorage.getItem('usePoint')
+                      ? localStorage.getItem('usePoint')
+                      : usePoint)
+                ).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+            {/* {JSON.stringify(
               productTotal +
                 picnicTotal +
                 campingTotal -
-                localStorage.getItem('usePoint', usePoint)
-            ).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
-            元
+                (localStorage.getItem('usePoint', usePoint)
+                  ? localStorage.getItem('usePoint', usePoint)
+                  : usePoint)
+            ).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '} */}
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { API_URL } from '../../../utils/config';
 import axios from 'axios';
 
-const ProductCategory = ({ setProductCateNow }) => {
+const ProductCategory = ({ setProductCateNow, productCateNow }) => {
   const [productCate, setProductCate] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const height = 50;
@@ -21,6 +21,9 @@ const ProductCategory = ({ setProductCateNow }) => {
       setProductCate([{ id: 0, name: '所有分類' }, ...productCateData]);
     })();
   }, []);
+  useEffect(() => {
+    if (productCateNow) setActiveId(parseInt(productCateNow));
+  }, [productCateNow]);
   return (
     <div className="categoryContainer">
       <div className="title">

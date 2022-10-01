@@ -20,27 +20,13 @@ function AddPage({
   lastPage,
   setPageNow,
   setLoginBtn,
-  user
+  user,
 }) {
   const [errMsg, setErrMsg] = useState(false);
   // const [loginBtn, setLoginBtn] = useState(false);
   const [cateArr, setCateArr] = useState([]);
 
-  const [product, setProduct] = useState({
-    name: '義大利半自動義式咖啡機',
-    cate: 9,
-    color: '白色',
-    inventory: 12,
-    price: 25800,
-    // actStartDate: '2022-09-01',
-    // actEndDate: '2022-09-29',
-    intro:
-      '榮獲Good Design大獎 15Bar氣壓蒸氣高壓萃取技術 不鏽鋼蒸氣奶泡管，完成綿密奶泡 自動停止滴漏設計 1公升分離式透明水箱，加水便利',
-    spec: '類型	半自動咖啡機, 義式咖啡機/品牌	SMEG/型號	ECF01CRUS/顏色	白色系/產地	中國/機身材質	不鏽鋼/機身尺寸(長x寬x高)(mm)	14.9 x 37 x 30 cm/電壓	120V/產品重量	5kg/水箱容量	0.5公升-1公升/保固	1年/消耗功率	1200~1400W/BSMI許可字號	R45336',
-    photo1: '',
-    photo2: '',
-    photo3: '',
-  });
+  const [product, setProduct] = useState({});
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/category`);
@@ -123,7 +109,27 @@ function AddPage({
           </IconContext.Provider>
 
           <div className="pageTitle">
-            <p>新增商品</p>
+            <p
+              onClick={(e) => {
+                e.preventDefault();
+                setProduct({
+                  name: '蒸氣烘焙烤箱1',
+                  cate: 8,
+                  color: '冰河藍',
+                  inventory: 20,
+                  price: 4980,
+                  intro:
+                    '外型時尚簡約,內斂的大地色系深度26cm,可容納四枚吐司4根石英管,導熱快速均勻三種模式:蒸氣/旋風/一般可自由調節溫度及烘烤時間',
+                  spec: '產品尺寸：W35 x D37 x H22.5 cm/機內尺寸：W28 x D26 x H8 cm/重量：4.8kg/電壓：110V／60Hz/電流：AC 交流電/材質：機身- 鋼 隔熱玻璃 不銹鋼 ； 烤網 盤-不銹鋼/內容物：主機、烤盤、加水杯、矽膠杯(水箱內)、烤架、烤盤用烤架、集屑盤(主機底部)',
+                  photo1: '',
+                  photo2: '',
+                  photo3: '',
+                });
+              }}
+            >
+              新增商品
+            </p>
+            {/* <button className="hideBtn"></button> */}
           </div>
           <div className="grid">
             {/* title place lat */}

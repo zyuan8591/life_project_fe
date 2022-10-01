@@ -273,7 +273,7 @@ function CampingDetailPage() {
           const newEnd = end + ' 23:00:00';
 
           let addCalendar = await axios.post(
-            `${API_URL}/camping/addCalendar?start=${start}&end=${newEnd}&title=${title}`,
+            `${API_URL}/camping/postCalendar?start=${start}&end=${newEnd}&title=${title}`,
             {},
             { withCredentials: true }
           );
@@ -402,7 +402,7 @@ function CampingDetailPage() {
             {loginBtn ? (
               <Notification
                 contaninText={'請先登入會員'}
-                linkTo={'/signin'}
+                linkTo={'/signin?p=1'}
                 setLoginBtn={setLoginBtn}
               />
             ) : (

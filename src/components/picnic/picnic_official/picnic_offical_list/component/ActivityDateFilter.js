@@ -11,7 +11,7 @@ function ActivityDateFilter({
   setMaxDateValue,
   minDateValue,
   setMinDateValue,
-  setPage,
+  setPageNow,
   setDateRemind,
   dateRemind,
 }) {
@@ -25,6 +25,7 @@ function ActivityDateFilter({
           <input
             type="date"
             onChange={(e) => {
+              setDateRemind('');
               let newDate = e.target.value;
               setMinDateValue(newDate);
               // console.log(newDate);
@@ -34,6 +35,7 @@ function ActivityDateFilter({
           <input
             type="date"
             onChange={(e) => {
+              setDateRemind('');
               let newDate = e.target.value;
               setMaxDateValue(newDate);
               // console.log(newDate);
@@ -50,17 +52,19 @@ function ActivityDateFilter({
           <button
             onClick={() => {
               if (minDateValue > maxDateValue) {
-                setDateRemind('開始日期不得大於結束日期'); //TODO: 提醒出現後不會消失
+                setMinDate('');
+                setMaxDate('');
+                setDateRemind('開始日期不得大於結束日期');
               }
               if (minDateValue !== '' && maxDateValue !== '') {
                 setMinDate(minDateValue);
                 setMaxDate(maxDateValue);
-                setPage(1);
+                setPageNow(1);
                 setDateRemind('');
               } else {
                 setMinDate('');
                 setMaxDate('');
-                setPage(1);
+                setPageNow(1);
                 setDateRemind('');
               }
             }}

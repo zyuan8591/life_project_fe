@@ -39,9 +39,10 @@ const ProductList = () => {
   const [collectConfirm, setCollectConfirm] = useState(false);
   const [collectCancel, setCollectCancel] = useState(false);
   const [cartConfirm, setCartConfirm] = useState(false);
+  const [cartCancel, setCartCancel] = useState(false);
 
   const [loginBtn, setLoginBtn] = useState(false);
-  
+
   useEffect(() => {
     (async () => {
       let result = await axios.get(
@@ -101,6 +102,17 @@ const ProductList = () => {
           bottom={10}
         >
           <IoCartSharp />
+        </Notification>
+      ) : (
+        ''
+      )}
+      {cartCancel ? (
+        <Notification
+          contaninText={'已從購物車移除'}
+          setLoginBtn={setLoginBtn}
+          bottom={10}
+        >
+          <IoCartOutline />
         </Notification>
       ) : (
         ''
@@ -186,6 +198,8 @@ const ProductList = () => {
           setItem={setItem}
           setProductLikeId={setProductLikeId}
           productLikeId={productLikeId}
+          setCollectCancel={setCollectCancel}
+          setCartCancel={setCartCancel}
         />
         <ToolsRwd
           setProductCateNow={setProductCateNow}

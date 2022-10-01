@@ -10,7 +10,7 @@ function ActivityDateFilter({
   setMaxDateValue,
   minDateValue,
   setMinDateValue,
-  setPage,
+  setPageNow,
   setDateRemind,
   dateRemind,
 }) {
@@ -23,6 +23,7 @@ function ActivityDateFilter({
             type="date"
             style={{ maxWidth: '115px' }}
             onChange={(e) => {
+              setDateRemind('');
               let newDate = e.target.value;
               setMinDateValue(newDate);
               // console.log(newDate);
@@ -33,6 +34,7 @@ function ActivityDateFilter({
             type="date"
             style={{ maxWidth: '115px' }}
             onChange={(e) => {
+              setDateRemind('');
               let newDate = e.target.value;
               setMaxDateValue(newDate);
               // console.log(newDate);
@@ -42,23 +44,26 @@ function ActivityDateFilter({
         <div className="d-flex justify-content-between align-items-center">
           <div
             className="mt-auto ms-3"
-            style={{ fontSize: '13px', color: '#red' }}
+            style={{ fontSize: '14px', color: '#e30202' }}
           >
             {dateRemind}
           </div>
           <button
             onClick={() => {
               if (minDateValue > maxDateValue) {
+                setMinDate('');
+                setMaxDate('');
                 setDateRemind('開始日期不得大於結束日期');
-              } else if (minDateValue !== '' && maxDateValue !== '') {
+              }
+              if (minDateValue !== '' && maxDateValue !== '') {
                 setMinDate(minDateValue);
                 setMaxDate(maxDateValue);
-                setPage(1);
+                setPageNow(1);
                 setDateRemind('');
               } else {
                 setMinDate('');
                 setMaxDate('');
-                setPage(1);
+                setPageNow(1);
                 setDateRemind('');
               }
             }}
