@@ -15,7 +15,14 @@ import Notification from '../activity/Notification';
 import { useUserRights } from '../../usecontext/UserRights';
 import { Avatar, Badge } from 'antd';
 
-const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
+const Tools = ({
+  item,
+  setItem,
+  setProductLikeId,
+  productLikeId,
+  setCollectCancel,
+  setCartCancel,
+}) => {
   const [cart, setCart] = useState(false);
   const [point, setPoint] = useState(false);
   const [heart, setHeart] = useState(false);
@@ -114,6 +121,10 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
                 className={classess.trash}
                 onClick={(e) => {
                   productCart.removeItem(id);
+                  setCartCancel(true);
+                  setTimeout(() => {
+                    setCartCancel(false);
+                    }, 1200);
                 }}
               >
                 <IconContext.Provider value={{ color: '#777', size: '1.2rem' }}>
@@ -179,6 +190,10 @@ const Tools = ({ item, setItem, setProductLikeId, productLikeId }) => {
                       }
                     );
                     setProductLikeId(!productLikeId);
+                    setCollectCancel(true);
+                    setTimeout(() => {
+                      setCollectCancel(false);
+                    }, 1200);
                   }}
                 >
                   <>
