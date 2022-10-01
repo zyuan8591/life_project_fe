@@ -122,6 +122,7 @@ function AsideMessageFix({
                       onClick={() => {
                         setIsgo(true);
                         handleDeleteJoin(item.id);
+                        picnicCart.removeItem(item.id);
                       }}
                     >
                       取消活動
@@ -216,6 +217,7 @@ function AsideMessageFix({
                         onClick={() => {
                           setIsgo(true);
                           handleDeleteJoin(item.id);
+                          picnicCart.removeItem(item.id);
                         }}
                       >
                         取消活動
