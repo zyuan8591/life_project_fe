@@ -63,8 +63,11 @@
 ## 使用技術
 
 前端技術：React、Sass、Bootstrap
+
 後端技術：Node.js、Express、MySQL
+
 設計工具：Figma、PhotoShop
+
 其他技術：npm、Git、Github、Restful API
 
 ## 使用套件
@@ -98,4 +101,4 @@
 
 - dotenv：讀取 .env 檔案
 - moment：日期格式
-- socket.io：前後台及時聊天室
+- socket.io：前後台即時聊天室
