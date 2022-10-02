@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# LIFE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 前端 github： https://github.com/zyuan8591/life_project_fe
 
-## Available Scripts
+> 後端 github： https://github.com/zyuan8591/life_project_be
 
-In the project directory, you can run:
+## 網站頁面及功能
 
-### `npm start`
+### 頁首
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+快速連結網站頁面、關鍵字全站搜尋 ( 商品、食譜、活動 )
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 首頁
 
-### `npm test`
+熱門商品及食譜 slider 、活動頁面連結以及快速註冊按鈕、與後台客服中心建立一對一聊天室
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 會員中心
 
-### `npm run build`
+註冊及登入、修改個人資料、重設密碼、刪除收藏、修改刪除新增過的食譜及活動、查看訂單
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 商品
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+商品銷售排行、快速篩選及排序、商品收藏及加入購物車、商品評論、商品限時優惠
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 食譜
 
-### `npm run eject`
+類別篩選、食譜名稱及食材搜尋、新增食譜、收藏及評論食譜
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 活動專區
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+野餐及露營活動地圖一覽、地圖快速篩選及搜尋
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 野餐
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+官方活動及揪團活動、使用者新增揪團、快速搜尋及排序篩選、收藏及加入/退出活動
 
-## Learn More
+#### 露營
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+快速搜尋及排序篩選、收藏及加入/退出活動、當日天氣 API
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 購物車
 
-### Code Splitting
+選取指定項目結帳、使用會員點數折扣、LinePay 支付、信用卡支付
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 最新消息
 
-### Analyzing the Bundle Size
+一頁式列表陳列消息、快速篩選消息類別
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 網站後台
 
-### Making a Progressive Web App
+#### 商品專區
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+上下架商品、編輯商品資訊、新增限時優惠折扣
 
-### Advanced Configuration
+#### 活動專區
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+上下架活動、編輯活動資訊、排序
 
-### Deployment
+#### 客服中心
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+向前台使用者發送公告訊息、與前台使用者建立一對一聊天室
 
-### `npm run build` fails to minify
+## 使用技術
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+前端技術：React、Sass、Bootstrap
+
+後端技術：Node.js、Express、MySQL
+
+設計工具：Figma、PhotoShop
+
+其他技術：npm、Git、Github、Restful API
+
+## 使用套件
+
+### 前端使用套件：
+
+- antd：網頁 UI 元件
+- axios：串接 API
+- email.js：會員驗證信件
+- emotion：CSS-in-JS
+- formik、yup：表單驗證
+- fullcalendar：使用者行事曆
+- leaflet：活動地圖
+- LinePay：訂單付款支付方式
+- react-beautiful-dnd：對表單項目重新排序
+- react-icons：icons
+- swiper：輪播牆
+
+### 後端使用套件：
+
+- argon2：密碼加密
+- cors：跨來源資源共享
+- express：api router
+- express-session：session 儲存資料
+- express-validator：資料驗證
+- line-pay-merchant：串接 LinePay 金流
+- mysql2：連接資料庫
+- multer：上傳圖片
+
+### 前後端使用套件：
+
+- dotenv：讀取 .env 檔案
+- moment：日期格式
+- socket.io：前後台即時聊天室
