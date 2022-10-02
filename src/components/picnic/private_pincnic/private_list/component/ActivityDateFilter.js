@@ -55,15 +55,15 @@ function ActivityDateFilter({
                 setMaxDate('');
                 setDateRemind('開始日期不得大於結束日期');
               } else if (minDateValue !== '' || maxDateValue !== '') {
-                setMinDate('');
-                setMaxDate('');
+                setMinDate(minDateValue);
+                setMaxDate(maxDateValue);
                 setPageNow(1);
-                setDateRemind('請選擇正確時間格式');
+                setDateRemind('');
               } else {
                 setMinDate('');
                 setMaxDate('');
                 setPageNow(1);
-                setDateRemind('');
+                setDateRemind('請選擇正確時間格式');
               }
             }}
           >
