@@ -26,7 +26,6 @@ const ProductFilter = ({
   const [brand, setBrand] = useState('');
   const [big, setBig] = useState('');
   const [small, setSmall] = useState('');
-
   useEffect(() => {
     (async () => {
       let result = await axios.get(`${API_URL}/products/brand?brand=${brand}`);
@@ -100,24 +99,48 @@ const ProductFilter = ({
                   {brandArr.map((v, i) => {
                     return (
                       <div className="brand" key={i}>
-                        <input
-                          type="checkbox"
-                          className="checkbox"
-                          id={i}
-                          onChange={(e) => {
-                            setSort(3);
+                        {checked.includes(v.id) ? (
+                          <input
+                            type="checkbox"
+                            className="checkbox"
+                            id={i}
+                            onChange={(e) => {
+                              setSort(3);
 
-                            if (e.target.checked) {
-                              setChecked([...checked, v.id]);
-                            }
-                            if (!e.target.checked) {
-                              let newArr = checked.filter((v2) => {
-                                return v.id !== v2;
-                              });
-                              setChecked(newArr);
-                            }
-                          }}
-                        />
+                              if (e.target.checked) {
+                                setChecked([...checked, v.id]);
+                              }
+                              if (!e.target.checked) {
+                                let newArr = checked.filter((v2) => {
+                                  return v.id !== v2;
+                                });
+                                setChecked(newArr);
+                              }
+                            }}
+                            checked={true}
+                          />
+                        ) : (
+                          <input
+                            type="checkbox"
+                            className="checkbox"
+                            id={i}
+                            onChange={(e) => {
+                              setSort(3);
+
+                              if (e.target.checked) {
+                                setChecked([...checked, v.id]);
+                              }
+                              if (!e.target.checked) {
+                                let newArr = checked.filter((v2) => {
+                                  return v.id !== v2;
+                                });
+                                setChecked(newArr);
+                              }
+                            }}
+                            checked={false}
+                          />
+                        )}
+
                         <label htmlFor={i}>{v.name}</label>
                       </div>
                     );
@@ -189,6 +212,7 @@ const ProductFilter = ({
                     onChange={(e) => {
                       setBiggerThan(e.target.value);
                       setBig(e.target);
+                      setPrice('所有');
                     }}
                   />
                   <p className="mx-2">-</p>
@@ -200,6 +224,7 @@ const ProductFilter = ({
                     onChange={(e) => {
                       setSmallThan(e.target.value);
                       setSmall(e.target.value);
+                      setPrice('所有');
                     }}
                   />
                   <IconContext.Provider
