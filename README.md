@@ -4,6 +4,19 @@
 
 > 後端 github： https://github.com/zyuan8591/life_project_be
 
+> demo： https://youtu.be/4gVpL5FxvYs
+
+## 團隊分工
+
+|       |  負責部分 |  聯絡方式  |
+|-------|----------|----------|
+| 林靖宜 | 活動專區(野餐) | clyn8877@gmail.com |
+| 張定暉 | 商品、網站後台(商品專區) | s33165309000@gmail.com |
+| 林鈺珊 | 活動專區(露營)、網站後台(活動專區) | a0919613087@gmail.com |
+| 余梓源 | 頁首、首頁、食譜、最新消息、網站後台(客服中心) | kaven22314567@gmail.com |
+| 嚴振銓 | 會員中心 | cat814051@gmail.com |
+| 高偉倫 | 購物車 | rcvr1024@gmail.com |
+
 ## 網站頁面及功能
 
 ### 頁首
