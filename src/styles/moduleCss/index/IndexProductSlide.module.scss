@@ -75,7 +75,8 @@
         transform: translate(-50%, -50%);
         font-size: 2rem;
         font-weight: bold;
-        color: lighten($subClrBrown, 0%);
+        // color: lighten($subClrBrown, 0%);
+        color: #666;
       }
     }
     .intro {
@@ -114,7 +115,8 @@
           bottom: 0;
         }
         .imgBgText {
-          color: lighten($subClrBrown, 20%);
+          // color: lighten($subClrBrown, 40%);
+          color: #ccc;
         }
       }
       .intro {

@@ -16,7 +16,6 @@ const HeaderSearch = ({ setSearch }) => {
 
   // search bar key handler
   useEffect(() => {
-    console.log(searchKey);
     if (!searchKey || searchKey === '') {
       setProductSearchData([]);
       setRecipeSearchData([]);

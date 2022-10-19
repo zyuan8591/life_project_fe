@@ -71,10 +71,12 @@ const IndexProductSlide = () => {
         to={`/products/${d.id}`}
         className={`${classes.card} ${i === slideNow && classes.active}`}
         key={d.id}
+        style={{ background: '#eee' }}
       >
         <figure
           className={classes.cardImgContain}
           // style={{ background: cardClr[i % 4] }}
+          style={{ background: '#999' }}
         >
           <img
             src={`/img/product/product_img/${d.image}`}
@@ -84,7 +86,10 @@ const IndexProductSlide = () => {
           <span className={classes.imgBgText}>{d.brand}</span>
         </figure>
         {/* card intro */}
-        <div className={classes.intro}>
+        <div
+          className={classes.intro}
+          style={{ color: '#eee', background: '#666' }}
+        >
           <div className={classes.name}>{d.name}</div>
           <div className={classes.moreInfo}>
             <div className="row ">
@@ -115,7 +120,10 @@ const IndexProductSlide = () => {
       <div
         ref={slideRef}
         className={classes.container}
-        style={{ transform: `translateX(${slidePosition}px)` }}
+        style={{
+          transform: `translateX(${slidePosition}px)`,
+          background: '#444',
+        }}
       >
         {cardArr()}
       </div>
