@@ -11,6 +11,7 @@ import { useProductCart } from '../../../orderContetxt/useProductCart';
 import { API_URL_IMG } from '../../../utils/config';
 import { useUserRights } from '../../../usecontext/UserRights';
 import PaginationBar from '../../public_component/PaginationBar';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Product = ({
   productList,
@@ -263,10 +264,15 @@ const Product = ({
                   )}
 
                   <div className="productImg">
-                    <img
+                    <LazyLoadImage
+                      alt=""
+                      effect="opacity"
+                      src={`${API_URL_IMG}/product/product_img/${img}`}
+                    />
+                    {/* <img
                       src={`${API_URL_IMG}/product/product_img/${img}`}
                       alt=""
-                    />
+                    /> */}
                   </div>
                 </div>
               </Link>

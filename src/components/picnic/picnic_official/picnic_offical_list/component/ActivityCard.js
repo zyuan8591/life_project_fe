@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { API_URL_IMG } from '../../../../../utils/config';
 import NoDataDisplay from '../../../../public_component/NoDataDisplay';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function ActivityCard({
   data,
@@ -40,7 +42,14 @@ function ActivityCard({
           return (
             <div className={classes.activityCardStyle} key={uuidv4()}>
               <div className={classes.activityImg}>
-                <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" />
+                <LazyLoadImage
+                  alt=""
+                  // height={image.height}
+                  effect="blur"
+                  src={`${API_URL_IMG}/picnic/${item.img1}`} // use normal <img> attributes as props
+                  width={250}
+                />
+                {/* <img src={`${API_URL_IMG}/picnic/${item.img1}`} alt="/" /> */}
               </div>
               <div className={classes.activityInfo}>
                 <div className={`${classes.activityTitle} my-2`}>
