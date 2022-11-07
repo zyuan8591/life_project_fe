@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import ShowPassword from '../Users/user_Component/ShowPassword';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useUserRights } from '../../usecontext/UserRights';
 
 const Login = () => {
   const { user, setUser } = useUserRights();
   const navigate = useNavigate();
-  const [remember, setRemember] = useState(false);
-  const [firstRemember, setFirstRemember] = useState(false);
-
+  const [remember, setRemember] = useState(false); //記住帳號密碼狀態
   const [loginUser, setLoginUser] = useState({
     email: '',
     password: '',
@@ -24,7 +22,6 @@ const Login = () => {
   }
   useEffect(() => {
     setRemember(JSON.parse(localStorage.getItem('remember')));
-    setFirstRemember(true);
   }, []);
   useEffect(() => {
     if (localStorage.getItem('account') === null) {
@@ -35,7 +32,7 @@ const Login = () => {
       return;
     }
     setLoginUser({ ...loginUser, ...account });
-  }, [firstRemember]);
+  }, [remember]);
   useEffect(() => {
     localStorage.setItem('remember', JSON.stringify(remember));
   }, [remember]);
@@ -62,7 +59,7 @@ const Login = () => {
     }
   }
 
-  //TODO:一鍵填寫
+  //一鍵填寫
   function easy() {
     setLoginUser({
       email: 'a12345@gmail.com',
@@ -82,6 +79,7 @@ const Login = () => {
     });
   }
 
+  //登入後判斷使用者狀態是否等於0(廠商)，是的話跳轉至後台，不是的話跳轉回前一頁
   if (user && user.status === 0) {
     return navigate('/products/backstage'); //後台
   }

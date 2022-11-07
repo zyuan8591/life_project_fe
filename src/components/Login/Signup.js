@@ -14,11 +14,8 @@ const Signup = ({ showSignupOK = () => {} }) => {
   });
   const [sign, setSign] = useState(false);
   const [error, setError] = useState(null);
-  const [points, setPoints] = useState({
-    event: '',
-    point: 0,
-  });
 
+  //註冊成功後跳轉至登入畫面
   if (sign) {
     return <Navigate to="/signin?p=1" />;
   }
@@ -199,5 +196,3 @@ const Signup = ({ showSignupOK = () => {} }) => {
 };
 
 export default Signup;
-// Xmark
-// <i class="fa-solid fa-circle-xmark"></i>

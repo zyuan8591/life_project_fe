@@ -5,14 +5,12 @@ import { API_URL } from '../../../../../utils/config';
 import WarnWindow from '../../Account/component/WarnWindow';
 import Notification from '../../../../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
-import { IconContext } from 'react-icons';
-import { FaArrowDown, FaRegEye } from 'react-icons/fa';
 
 const CampingTable = ({ data, display, getUser, pageNow }) => {
   const title = ['活動名稱', '活動時間', '活動地點', '活動狀態', '查看'];
   const [warn, setWarn] = useState(false);
   const [delID, setDelID] = useState();
-  const [hint, setHint] = useState(false);
+  const [hint, setHint] = useState(false); //取消收藏提示
   function pop(id) {
     setDelID(id);
     setWarn(true);

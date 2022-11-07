@@ -9,9 +9,9 @@ import Notification from '../activity/Notification';
 import { SiFoodpanda } from 'react-icons/si';
 
 const Signin = () => {
-  const [display, setDisplay] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [signupOK, setSignupOK] = useState(false);
+  const [display, setDisplay] = useState(1); //判斷是登入還是註冊
+  const [searchParams, setSearchParams] = useSearchParams(); //抓取網址參數
+  const [signupOK, setSignupOK] = useState(false); //左下角註冊成功提示訊息
   useEffect(() => {
     setDisplay(parseInt(searchParams.get('p')));
   }, [searchParams]);
@@ -63,7 +63,7 @@ const Signin = () => {
             </Link>
           </div>
         </div>
-        {display === 1 ? <Login /> : <Signup showSignupOK={showSignupOK}/>}
+        {display === 1 ? <Login /> : <Signup showSignupOK={showSignupOK} />}
       </div>
     </div>
   );
